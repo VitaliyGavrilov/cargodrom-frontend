@@ -1,6 +1,6 @@
+import { CountryService } from './../../services/country.service';
 import { environment } from './../../../../environments/environment';
 import { Country } from './../../../api/custom_models/country';
-import { DirectionService } from './../../../api/services/direction.service';
 import { FormBuilder, FormGroup } from '@angular/forms';
 import { ContractorFilter } from './../../../api/custom_models/contractor-filter';
 import { Component, OnInit, Output, EventEmitter } from '@angular/core';
@@ -19,7 +19,7 @@ export class ContractorFilterComponent implements OnInit {
 
   constructor(
     private fb: FormBuilder,
-    private directionService: DirectionService,
+    private countryService: CountryService,
   ) {
     this.filterForm = fb.group({
       allow_trade: [undefined],
@@ -51,7 +51,7 @@ export class ContractorFilterComponent implements OnInit {
   }
 
   private getCountries() {
-    this.directionService.directionCountryList()
+    this.countryService.getCountries()
       .subscribe(countries => this.countries = countries);
   }
   
