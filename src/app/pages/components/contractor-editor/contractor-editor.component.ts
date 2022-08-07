@@ -1,7 +1,7 @@
+import { CountryService } from './../../services/country.service';
 import { environment } from './../../../../environments/environment';
 import { tap } from 'rxjs';
 import { City } from './../../../api/custom_models/city';
-import { DirectionService } from './../../../api/services/direction.service';
 import { Association } from './../../../api/custom_models/association';
 import { Country } from './../../../api/custom_models/country';
 import { FormArray, FormBuilder, FormGroup, Validators } from '@angular/forms';
@@ -11,6 +11,7 @@ import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Location } from '@angular/common';
 import { MatSnackBar, MatSnackBarConfig } from '@angular/material/snack-bar';
+import { CityService } from '../../services/city.service';
 
 @Component({
   selector: 'app-contractor-editor',
@@ -34,7 +35,8 @@ export class ContractorEditorComponent implements OnInit {
   constructor(
     private route: ActivatedRoute,
     private contractorService: ContractorService,
-    private directionService: DirectionService,
+    private countryService: CountryService,
+    private cityService: CityService,
     private location: Location,
     private fb: FormBuilder,
     private snackBar: MatSnackBar,
@@ -171,7 +173,7 @@ export class ContractorEditorComponent implements OnInit {
   }
 
   private getCountries() {
-    this.directionService.directionCountryList()
+    this.countryService.getCountries()
       .subscribe(countries => this.countries = countries);
   }
 
@@ -182,8 +184,7 @@ export class ContractorEditorComponent implements OnInit {
   }
 
   private getCities(countryId: number) {
-    this.directionService.directionCityList({ country_id: countryId })
-      .pipe(tap(console.table))
+    this.cityService.getCities(countryId)
       .subscribe(cities => this.cities = cities);
   }
 
