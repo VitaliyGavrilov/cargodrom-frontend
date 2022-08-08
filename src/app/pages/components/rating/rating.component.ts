@@ -20,6 +20,7 @@ export class RatingComponent implements OnInit, ControlValueAccessor {
   score: number = 0;
   stars = new Array<boolean>(this.total).fill(false);
   isDisabled = false;
+  private touched = false;
 
   onChange = (value: number) => {};
   onTouched = () => {};
@@ -57,6 +58,10 @@ export class RatingComponent implements OnInit, ControlValueAccessor {
     this.score = score;
     this.fillStars();
     this.onChange(this.score);
+    if (!this.touched) {
+      this.touched = true;
+      this.onTouched();
+    }
   }
   
   fillStars(): void {

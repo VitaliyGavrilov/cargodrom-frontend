@@ -213,6 +213,9 @@
   <div class="user-item">
     <div class="form-block-title">Контактное лицо №{{contacts.length + 1}}<span class="btn v add" (click)=addContact()>Добавить</span></div>
   </div>
+  <mat-error *ngIf="contacts.errors?.['required'] && (contractorForm.touched || contractorForm.dirty)">
+    Требуется хотя бы одно контактное лицо.
+  </mat-error>
   </div>
 
   <div class="hdr ftr">

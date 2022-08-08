@@ -53,7 +53,7 @@ export class ContractorEditorComponent implements OnInit {
       web: ['', []],
       rating_nps: [0, []],
       user_rating_nps: [0, []],
-      contacts: fb.array([]),
+      contacts: fb.array([], [Validators.required]),
       association_id: [[]],
       tax_id: [undefined, [Validators.required]],
       type_id: [undefined, [Validators.required]],
@@ -91,12 +91,14 @@ export class ContractorEditorComponent implements OnInit {
 
   removeContact(i: number): void {
     this.contacts.removeAt(i);
+    this.contractorForm.markAsTouched();
   }
 
   addContact() {
     this.contacts.push(this.fb.control({
       contractor_id: this.contractor.id
-    }))
+    }));
+    this.contractorForm.markAsTouched();
   }
 
   get contacts() {
