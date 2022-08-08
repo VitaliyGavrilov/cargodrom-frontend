@@ -41,33 +41,18 @@ export class UserService extends BaseService {
    * This method sends `application/json` and handles request body of type `application/json`.
    */
   userCreate$Response(params?: {
-    body?: {
+    body?: Array<{
 
 /**
- * Название компании
+ * ID
  */
-'company': string;
+'id'?: number;
 
 /**
- * Ответственное лицо
+ * Наименование
  */
-'fio': string;
-
-/**
- * Номер телефона:
- */
-'phone': string;
-
-/**
- * ИНН
- */
-'inn': string;
-
-/**
- * E-mail
- */
-'email': string;
-}
+'name'?: string;
+}>
   }): Observable<StrictHttpResponse<{
 
 /**
@@ -119,33 +104,18 @@ export class UserService extends BaseService {
    * This method sends `application/json` and handles request body of type `application/json`.
    */
   userCreate(params?: {
-    body?: {
+    body?: Array<{
 
 /**
- * Название компании
+ * ID
  */
-'company': string;
+'id'?: number;
 
 /**
- * Ответственное лицо
+ * Наименование
  */
-'fio': string;
-
-/**
- * Номер телефона:
- */
-'phone': string;
-
-/**
- * ИНН
- */
-'inn': string;
-
-/**
- * E-mail
- */
-'email': string;
-}
+'name'?: string;
+}>
   }): Observable<{
 
 /**
@@ -523,7 +493,7 @@ export class UserService extends BaseService {
 /**
  * Статус выполнения
  */
-'result': 'success';
+'result': string;
 }>> {
 
     const rb = new RequestBuilder(this.rootUrl, UserService.UserLogoutPath, 'post');
@@ -542,7 +512,7 @@ export class UserService extends BaseService {
         /**
          * Статус выполнения
          */
-        'result': 'success';
+        'result': string;
         }>;
       })
     );
@@ -576,7 +546,7 @@ export class UserService extends BaseService {
 /**
  * Статус выполнения
  */
-'result': 'success';
+'result': string;
 }> {
 
     return this.userLogout$Response(params).pipe(
@@ -585,13 +555,13 @@ export class UserService extends BaseService {
 /**
  * Статус выполнения
  */
-'result': 'success';
+'result': string;
 }>) => r.body as {
 
 /**
  * Статус выполнения
  */
-'result': 'success';
+'result': string;
 })
     );
   }
