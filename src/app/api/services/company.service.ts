@@ -2526,7 +2526,7 @@ export class CompanyService extends BaseService {
 /**
  * Статус выполнения
  */
-'result': 'success';
+'result': string;
 }>> {
 
     const rb = new RequestBuilder(this.rootUrl, CompanyService.CompanyCreatePath, 'post');
@@ -2550,7 +2550,7 @@ export class CompanyService extends BaseService {
         /**
          * Статус выполнения
          */
-        'result': 'success';
+        'result': string;
         }>;
       })
     );
@@ -2779,7 +2779,7 @@ export class CompanyService extends BaseService {
 /**
  * Статус выполнения
  */
-'result': 'success';
+'result': string;
 }> {
 
     return this.companyCreate$Response(params).pipe(
@@ -2793,7 +2793,7 @@ export class CompanyService extends BaseService {
 /**
  * Статус выполнения
  */
-'result': 'success';
+'result': string;
 }>) => r.body as {
 
 /**
@@ -2804,7 +2804,7 @@ export class CompanyService extends BaseService {
 /**
  * Статус выполнения
  */
-'result': 'success';
+'result': string;
 })
     );
   }
@@ -3037,7 +3037,7 @@ export class CompanyService extends BaseService {
 /**
  * Статус выполнения
  */
-'result': 'success';
+'result': string;
 }>> {
 
     const rb = new RequestBuilder(this.rootUrl, CompanyService.CompanyUpdatePath, 'post');
@@ -3056,7 +3056,7 @@ export class CompanyService extends BaseService {
         /**
          * Статус выполнения
          */
-        'result': 'success';
+        'result': string;
         }>;
       })
     );
@@ -3285,7 +3285,7 @@ export class CompanyService extends BaseService {
 /**
  * Статус выполнения
  */
-'result': 'success';
+'result': string;
 }> {
 
     return this.companyUpdate$Response(params).pipe(
@@ -3294,13 +3294,13 @@ export class CompanyService extends BaseService {
 /**
  * Статус выполнения
  */
-'result': 'success';
+'result': string;
 }>) => r.body as {
 
 /**
  * Статус выполнения
  */
-'result': 'success';
+'result': string;
 })
     );
   }
@@ -3333,7 +3333,7 @@ export class CompanyService extends BaseService {
 /**
  * Статус выполнения
  */
-'result': 'success';
+'result': string;
 }>> {
 
     const rb = new RequestBuilder(this.rootUrl, CompanyService.CompanyDeletePath, 'post');
@@ -3352,7 +3352,7 @@ export class CompanyService extends BaseService {
         /**
          * Статус выполнения
          */
-        'result': 'success';
+        'result': string;
         }>;
       })
     );
@@ -3381,7 +3381,7 @@ export class CompanyService extends BaseService {
 /**
  * Статус выполнения
  */
-'result': 'success';
+'result': string;
 }> {
 
     return this.companyDelete$Response(params).pipe(
@@ -3390,13 +3390,13 @@ export class CompanyService extends BaseService {
 /**
  * Статус выполнения
  */
-'result': 'success';
+'result': string;
 }>) => r.body as {
 
 /**
  * Статус выполнения
  */
-'result': 'success';
+'result': string;
 })
     );
   }
@@ -3670,7 +3670,7 @@ export class CompanyService extends BaseService {
 /**
  * Статус выполнения
  */
-'result': 'success';
+'result': string;
 }>> {
 
     const rb = new RequestBuilder(this.rootUrl, CompanyService.CompanyDepartmentCreatePath, 'post');
@@ -3694,7 +3694,7 @@ export class CompanyService extends BaseService {
         /**
          * Статус выполнения
          */
-        'result': 'success';
+        'result': string;
         }>;
       })
     );
@@ -3733,7 +3733,7 @@ export class CompanyService extends BaseService {
 /**
  * Статус выполнения
  */
-'result': 'success';
+'result': string;
 }> {
 
     return this.companyDepartmentCreate$Response(params).pipe(
@@ -3747,7 +3747,7 @@ export class CompanyService extends BaseService {
 /**
  * Статус выполнения
  */
-'result': 'success';
+'result': string;
 }>) => r.body as {
 
 /**
@@ -3758,7 +3758,7 @@ export class CompanyService extends BaseService {
 /**
  * Статус выполнения
  */
-'result': 'success';
+'result': string;
 })
     );
   }
@@ -3801,7 +3801,7 @@ export class CompanyService extends BaseService {
 /**
  * Статус выполнения
  */
-'result': 'success';
+'result': string;
 }>> {
 
     const rb = new RequestBuilder(this.rootUrl, CompanyService.CompanyDepartmentUpdatePath, 'post');
@@ -3820,7 +3820,7 @@ export class CompanyService extends BaseService {
         /**
          * Статус выполнения
          */
-        'result': 'success';
+        'result': string;
         }>;
       })
     );
@@ -3859,7 +3859,7 @@ export class CompanyService extends BaseService {
 /**
  * Статус выполнения
  */
-'result': 'success';
+'result': string;
 }> {
 
     return this.companyDepartmentUpdate$Response(params).pipe(
@@ -3868,13 +3868,13 @@ export class CompanyService extends BaseService {
 /**
  * Статус выполнения
  */
-'result': 'success';
+'result': string;
 }>) => r.body as {
 
 /**
  * Статус выполнения
  */
-'result': 'success';
+'result': string;
 })
     );
   }
@@ -3917,7 +3917,7 @@ export class CompanyService extends BaseService {
 /**
  * Статус выполнения
  */
-'result': 'success';
+'result': string;
 }>> {
 
     const rb = new RequestBuilder(this.rootUrl, CompanyService.CompanyDepartmentDeletePath, 'post');
@@ -3936,7 +3936,7 @@ export class CompanyService extends BaseService {
         /**
          * Статус выполнения
          */
-        'result': 'success';
+        'result': string;
         }>;
       })
     );
@@ -3975,7 +3975,7 @@ export class CompanyService extends BaseService {
 /**
  * Статус выполнения
  */
-'result': 'success';
+'result': string;
 }> {
 
     return this.companyDepartmentDelete$Response(params).pipe(
@@ -3984,13 +3984,13 @@ export class CompanyService extends BaseService {
 /**
  * Статус выполнения
  */
-'result': 'success';
+'result': string;
 }>) => r.body as {
 
 /**
  * Статус выполнения
  */
-'result': 'success';
+'result': string;
 })
     );
   }
@@ -4472,7 +4472,7 @@ export class CompanyService extends BaseService {
 /**
  * Статус выполнения
  */
-'result': 'success';
+'result': string;
 }>> {
 
     const rb = new RequestBuilder(this.rootUrl, CompanyService.CompanyPositionCreatePath, 'post');
@@ -4496,7 +4496,7 @@ export class CompanyService extends BaseService {
         /**
          * Статус выполнения
          */
-        'result': 'success';
+        'result': string;
         }>;
       })
     );
@@ -4541,7 +4541,7 @@ export class CompanyService extends BaseService {
 /**
  * Статус выполнения
  */
-'result': 'success';
+'result': string;
 }> {
 
     return this.companyPositionCreate$Response(params).pipe(
@@ -4555,7 +4555,7 @@ export class CompanyService extends BaseService {
 /**
  * Статус выполнения
  */
-'result': 'success';
+'result': string;
 }>) => r.body as {
 
 /**
@@ -4566,7 +4566,7 @@ export class CompanyService extends BaseService {
 /**
  * Статус выполнения
  */
-'result': 'success';
+'result': string;
 })
     );
   }
@@ -4615,7 +4615,7 @@ export class CompanyService extends BaseService {
 /**
  * Статус выполнения
  */
-'result': 'success';
+'result': string;
 }>> {
 
     const rb = new RequestBuilder(this.rootUrl, CompanyService.CompanyPositionUpdatePath, 'post');
@@ -4634,7 +4634,7 @@ export class CompanyService extends BaseService {
         /**
          * Статус выполнения
          */
-        'result': 'success';
+        'result': string;
         }>;
       })
     );
@@ -4679,7 +4679,7 @@ export class CompanyService extends BaseService {
 /**
  * Статус выполнения
  */
-'result': 'success';
+'result': string;
 }> {
 
     return this.companyPositionUpdate$Response(params).pipe(
@@ -4688,13 +4688,13 @@ export class CompanyService extends BaseService {
 /**
  * Статус выполнения
  */
-'result': 'success';
+'result': string;
 }>) => r.body as {
 
 /**
  * Статус выполнения
  */
-'result': 'success';
+'result': string;
 })
     );
   }
@@ -4732,7 +4732,7 @@ export class CompanyService extends BaseService {
 /**
  * Статус выполнения
  */
-'result': 'success';
+'result': string;
 }>> {
 
     const rb = new RequestBuilder(this.rootUrl, CompanyService.CompanyPositionDeletePath, 'post');
@@ -4751,7 +4751,7 @@ export class CompanyService extends BaseService {
         /**
          * Статус выполнения
          */
-        'result': 'success';
+        'result': string;
         }>;
       })
     );
@@ -4785,7 +4785,7 @@ export class CompanyService extends BaseService {
 /**
  * Статус выполнения
  */
-'result': 'success';
+'result': string;
 }> {
 
     return this.companyPositionDelete$Response(params).pipe(
@@ -4794,13 +4794,13 @@ export class CompanyService extends BaseService {
 /**
  * Статус выполнения
  */
-'result': 'success';
+'result': string;
 }>) => r.body as {
 
 /**
  * Статус выполнения
  */
-'result': 'success';
+'result': string;
 })
     );
   }
@@ -5975,7 +5975,7 @@ export class CompanyService extends BaseService {
 /**
  * Статус выполнения
  */
-'result': 'success';
+'result': string;
 }>> {
 
     const rb = new RequestBuilder(this.rootUrl, CompanyService.CompanyEmployeeCreatePath, 'post');
@@ -5999,7 +5999,7 @@ export class CompanyService extends BaseService {
         /**
          * Статус выполнения
          */
-        'result': 'success';
+        'result': string;
         }>;
       })
     );
@@ -6103,7 +6103,7 @@ export class CompanyService extends BaseService {
 /**
  * Статус выполнения
  */
-'result': 'success';
+'result': string;
 }> {
 
     return this.companyEmployeeCreate$Response(params).pipe(
@@ -6117,7 +6117,7 @@ export class CompanyService extends BaseService {
 /**
  * Статус выполнения
  */
-'result': 'success';
+'result': string;
 }>) => r.body as {
 
 /**
@@ -6128,7 +6128,7 @@ export class CompanyService extends BaseService {
 /**
  * Статус выполнения
  */
-'result': 'success';
+'result': string;
 })
     );
   }
@@ -6236,7 +6236,7 @@ export class CompanyService extends BaseService {
 /**
  * Статус выполнения
  */
-'result': 'success';
+'result': string;
 }>> {
 
     const rb = new RequestBuilder(this.rootUrl, CompanyService.CompanyEmployeeUpdatePath, 'post');
@@ -6255,7 +6255,7 @@ export class CompanyService extends BaseService {
         /**
          * Статус выполнения
          */
-        'result': 'success';
+        'result': string;
         }>;
       })
     );
@@ -6359,7 +6359,7 @@ export class CompanyService extends BaseService {
 /**
  * Статус выполнения
  */
-'result': 'success';
+'result': string;
 }> {
 
     return this.companyEmployeeUpdate$Response(params).pipe(
@@ -6368,13 +6368,13 @@ export class CompanyService extends BaseService {
 /**
  * Статус выполнения
  */
-'result': 'success';
+'result': string;
 }>) => r.body as {
 
 /**
  * Статус выполнения
  */
-'result': 'success';
+'result': string;
 })
     );
   }
@@ -6407,7 +6407,7 @@ export class CompanyService extends BaseService {
 /**
  * Статус выполнения
  */
-'result': 'success';
+'result': string;
 }>> {
 
     const rb = new RequestBuilder(this.rootUrl, CompanyService.CompanyEmployeeDeletePath, 'post');
@@ -6426,7 +6426,7 @@ export class CompanyService extends BaseService {
         /**
          * Статус выполнения
          */
-        'result': 'success';
+        'result': string;
         }>;
       })
     );
@@ -6455,7 +6455,7 @@ export class CompanyService extends BaseService {
 /**
  * Статус выполнения
  */
-'result': 'success';
+'result': string;
 }> {
 
     return this.companyEmployeeDelete$Response(params).pipe(
@@ -6464,13 +6464,13 @@ export class CompanyService extends BaseService {
 /**
  * Статус выполнения
  */
-'result': 'success';
+'result': string;
 }>) => r.body as {
 
 /**
  * Статус выполнения
  */
-'result': 'success';
+'result': string;
 })
     );
   }

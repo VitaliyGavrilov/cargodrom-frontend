@@ -1149,7 +1149,7 @@ export class SettingsService extends BaseService {
 /**
  * Статус выполнения
  */
-'result': 'success';
+'result': string;
 }>> {
 
     const rb = new RequestBuilder(this.rootUrl, SettingsService.SettingsUpdatePath, 'post');
@@ -1168,7 +1168,7 @@ export class SettingsService extends BaseService {
         /**
          * Статус выполнения
          */
-        'result': 'success';
+        'result': string;
         }>;
       })
     );
@@ -1282,7 +1282,7 @@ export class SettingsService extends BaseService {
 /**
  * Статус выполнения
  */
-'result': 'success';
+'result': string;
 }> {
 
     return this.settingsUpdate$Response(params).pipe(
@@ -1291,13 +1291,13 @@ export class SettingsService extends BaseService {
 /**
  * Статус выполнения
  */
-'result': 'success';
+'result': string;
 }>) => r.body as {
 
 /**
  * Статус выполнения
  */
-'result': 'success';
+'result': string;
 })
     );
   }
