@@ -158,6 +158,9 @@
         <i></i>
         <span>{{ format.name }}</span>
       </label>
+      <mat-error *ngIf="contractorForm.controls['request_format_id'].hasError('required') && (contractorForm.dirty || contractorForm.touched)">
+        Это поле обязательно
+      </mat-error>
     </div>
   </div>
 
@@ -241,6 +244,11 @@
 <p *ngFor="let kv of contractorForm.controls | keyvalue">
   <ng-container *ngIf="kv.value.errors">
     {{ kv.key | json}} : {{ kv.value.errors | json }}
+  </ng-container>
+</p>
+<p *ngFor="let contact of contacts.controls">
+  <ng-container *ngIf="contact.errors">
+    {{ contact.errors | json }}
   </ng-container>
 </p>
 

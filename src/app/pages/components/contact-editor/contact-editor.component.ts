@@ -57,7 +57,6 @@ export class ContactEditorComponent implements OnInit, OnDestroy, ControlValueAc
   }
 
   writeValue(contact: Partial<Contact>): void {
-    console.log(`writeValue`, contact);
     this.contactForm.patchValue(contact);
   }
 
