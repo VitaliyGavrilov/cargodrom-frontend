@@ -1,7 +1,8 @@
 <h1 mat-dialog-title>{{ data.title }}</h1>
+<span class="close" mat-dialog-close></span>
 <div mat-dialog-content>
   <p *ngFor="let error of data.errors">{{ error }}</p>
 </div>
 <div mat-dialog-actions>
-  <button mat-button mat-dialog-close>OK</button>
+  <span class="mat-button" mat-button mat-dialog-close>Закрыть</span>
 </div>
