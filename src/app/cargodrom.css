@@ -415,7 +415,7 @@ input, textarea, a:focus{outline-width:0;outline:none;}
 .form-block .sep2 label:first-child { margin-left: 0; }
 
 .form-block select { width: 100%; }
-.form-block .ui-select { display: inline-block; vertical-align: middle; width: auto; position: relative; margin-bottom: 0; text-align: left; font-size: 15px; line-height: 14px; border: none; box-sizing: border-box; }
+.form-block .ui-select { display: inline-block; vertical-align: middle; width: 100%; position: relative; margin-bottom: 0; text-align: left; font-size: 15px; line-height: 14px; border: none; box-sizing: border-box; }
 .form-block .ui-select-input { display: block; color: #2C3640; border: 1px solid #E0E5EB; background: #F7F9FC; padding: 13px 50px 11px 15px; box-sizing: border-box; overflow: hidden; white-space: nowrap; cursor: pointer; border-radius: 6px; }
 .form-block .ui-select-input-open { border-radius: 6px 6px 0 0; }
 .form-block .ui-select-button { display: flex; position: absolute; top: 0; right: 0; width: 40px; bottom: 0; cursor: pointer; font-size: 0; }
@@ -836,3 +836,21 @@ th.clp { width: 20px; background: #606A74; }
 .form-tab .tab-body-placer { margin-top: 24px; }
 .form-tab .form-tab-body { display: none; }
 .form-tab .form-tab-body.sel { display: block; }
+
+
+.mat-select-panel { background: #f00; }
+
+
+mat-form-field .mat-form-field-infix { border: none; }
+mat-form-field.mat-form-field-appearance-outline .mat-form-field-wrapper { margin: 0; padding: 0; }
+mat-form-field.mat-form-field-appearance-outline .mat-form-field-flex { margin-top: 0; padding: 0 13px 0 13px; }
+mat-form-field.mat-form-field-appearance-outline .mat-form-field-outline { top: 0; }
+mat-form-field.mat-form-field-appearance-outline .mat-form-field-outline > * { background: #F7F9FC; }
+mat-form-field.mat-form-field-appearance-outline .mat-form-field-outline-thick { color: rgba(0, 0, 0, 0.3); }
+mat-form-field.mat-form-field-appearance-outline .mat-form-field-outline-thick > * { border-width: 1px !important; }
+mat-form-field.mat-form-field-appearance-outline .mat-form-field-infix { padding: 11px 0 12px; }
+mat-form-field.mat-form-field-appearance-outline .mat-select-arrow-wrapper { transform: none; }
+mat-form-field.mat-form-field-appearance-outline .mat-select-arrow { width: 10px; height: 6px; border: none; margin: 0; background: url('/assets/pic-select-arrow.svg') no-repeat; }
+
+
+

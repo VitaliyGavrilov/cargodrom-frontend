@@ -34,7 +34,14 @@ export class LoginComponent implements OnInit {
   }
 
   doLogin() {
+    console.log(this.loginForm.valid)
     if (!this.loginForm.valid) {
+      let err = {
+        'error': {
+          'error_message': 'Не заполнены обязательные поля'
+        }
+      }
+      this.processLoginError(err)
       return;
     }
     this.loading = true;

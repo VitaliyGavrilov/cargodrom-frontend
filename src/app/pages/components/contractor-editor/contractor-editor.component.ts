@@ -7,7 +7,7 @@ import { Country } from './../../../api/custom_models/country';
 import { FormArray, FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Contractor, ContractorRequestFormat, ContractorType } from './../../../api/custom_models/contractor';
 import { ContractorService } from './../../../api/services/contractor.service';
-import { Component, OnInit } from '@angular/core';
+import {Component, OnInit, ViewEncapsulation} from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Location } from '@angular/common';
 import { MatSnackBar, MatSnackBarConfig } from '@angular/material/snack-bar';
@@ -17,6 +17,7 @@ import { CityService } from '../../services/city.service';
   selector: 'app-contractor-editor',
   templateUrl: './contractor-editor.component.html',
   styleUrls: ['./contractor-editor.component.scss'],
+  encapsulation: ViewEncapsulation.None
 })
 export class ContractorEditorComponent implements OnInit {
 
@@ -79,11 +80,11 @@ export class ContractorEditorComponent implements OnInit {
   goBack(): void {
     this.location.back();
   }
-  
+
   goToContractors(): void {
     this.router.navigate(['/pages/contractor']);
   }
-  
+
   goToContractor(id: number): void {
     this.router.navigate(['/pages/contractor/edit', id]);
   }
@@ -110,7 +111,7 @@ export class ContractorEditorComponent implements OnInit {
       this.createContractor(body);
     }
   }
-  
+
   remove(): void {
     this.snackBar.open("Удаление подрядчика...", "Отменить", this.snackBarWithLongDuration)
       .afterDismissed().subscribe(res => {
@@ -129,7 +130,7 @@ export class ContractorEditorComponent implements OnInit {
     this.contractorForm.controls['city_id'].reset(undefined);
     this.getCities(countryId);
   }
-  
+
   canSave(): boolean {
     return this.contractorForm.valid && this.contractorForm.dirty;
   }
@@ -150,7 +151,7 @@ export class ContractorEditorComponent implements OnInit {
       error: (err) => this.snackBar.open(`Ошибка создания подрядчика: ` + err.error.error_message, undefined, this.snackBarWithShortDuration)
     });
   }
-  
+
   private removeContractor() {
     const body = { id: this.contractor.id! };
     this.contractorService.contractorDelete({ body }).subscribe({

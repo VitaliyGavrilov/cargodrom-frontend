@@ -24,20 +24,24 @@
     </div>
     <div class="form-row">
       <input type="hidden" formControlName="id">
+
       <div class="form-item-layout">
-        <div class="form-item">
-          <div class="form-label">Наименование подрядчика: <span class="req">•</span></div>
-          <div class="form-data"><input type="text" name="name" formControlName="name" placeholder="—"></div>
-        </div>
-        <div class="form-item">
-          <div class="form-label">Идентификатор (ИНН, Rec № и пр.):</div>
-          <div class="form-data"><input type="text" name="ind" formControlName="ind" placeholder="—"></div>
-        </div>
-        <!-- <div class="form-item"> -->
-          <!-- <div class="form-label">Страна нахождения: <span class="req">•</span></div> -->
-          <!-- <div class="form-data"> -->
-            <mat-form-field appearance="outline" class="ui-select form-item">
-              <mat-label class="form-label">страна нахождения</mat-label>
+
+          <div class="form-item">
+            <div class="form-label">Наименование подрядчика: <span class="req">•</span></div>
+            <div class="form-data"><input type="text" name="name" formControlName="name" placeholder="—"></div>
+          </div>
+
+          <div class="form-item">
+            <div class="form-label">Идентификатор (ИНН, Rec № и пр.):</div>
+            <div class="form-data"><input type="text" name="ind" formControlName="ind" placeholder="—"></div>
+          </div>
+
+         <div class="form-item">
+           <div class="form-label">Страна нахождения: <span class="req">•</span></div>
+           <div class="form-data">
+             <mat-form-field appearance="outline" class="ui-select">
+              <!--<mat-label class="form-label">страна нахождения</mat-label>-->
               <mat-select formControlName="country_id" (valueChange)="onCountryChange($event)">
                 <mat-option *ngFor="let country of countries;" [value]="country.id">{{ country.name }}</mat-option>
               </mat-select>
@@ -45,22 +49,26 @@
                 Это поле обязательно
               </mat-error>
             </mat-form-field>
-          <!-- </div> -->
-        <!-- </div> -->
-        <!-- <div class="form-item">
+           </div>
+         </div>
+
+         <div class="form-item">
           <div class="form-label">город: <span class="req">•</span></div>
-          <div class="form-data"><input type="text" name="city_name" formControlName="city_name" placeholder="—"></div>
-        </div> -->
-        <mat-form-field appearance="outline" class="ui-select form-item">
-          <mat-label class="form-label">город</mat-label>
-          <mat-select formControlName="city_id">
-            <mat-option *ngFor="let city of cities;" [value]="city.id">{{ city.name }}</mat-option>
-          </mat-select>
-          <mat-error *ngIf="contractorForm.controls['city_id'].hasError('required')">
-            Это поле обязательно
-          </mat-error>
-        </mat-form-field>
+          <!--<div class="form-data"><input type="text" name="city_name" formControlName="city_name" placeholder="—"></div>-->
+           <mat-form-field appearance="outline" class="ui-select">
+             <!--<mat-label class="form-label">город</mat-label>-->
+             <mat-select formControlName="city_id">
+               <mat-option *ngFor="let city of cities;" [value]="city.id">{{ city.name }}</mat-option>
+             </mat-select>
+             <mat-error *ngIf="contractorForm.controls['city_id'].hasError('required')">
+               Это поле обязательно
+             </mat-error>
+           </mat-form-field>
+         </div>
+
       </div>
+
+
 
       <div class="form-item-layout">
         <div class="form-item w50">
@@ -79,12 +87,12 @@
       </div>
 
       <div class="form-item-layout">
-        <!-- <div class="form-item"> -->
-          <!-- <div class="form-label">язык общения: <span class="req">•</span></div> -->
-          <!-- <div class="form-data"> -->
-            <mat-form-field appearance="outline" class="ui-select form-item">
-              <mat-label class="form-label">язык общения</mat-label>
-              <mat-select formControlName="language_id">
+        <div class="form-item">
+           <div class="form-label">язык общения: <span class="req">•</span></div>
+           <div class="form-data">
+            <mat-form-field appearance="outline" class="ui-select">
+              <!--<mat-label class="form-label">язык общения</mat-label>-->
+              <mat-select formControlName="language_id" panelClass="panel-class-name">
                 <mat-option value="en">Английский</mat-option>
                 <mat-option value="ru">Русский</mat-option>
               </mat-select>
@@ -92,13 +100,13 @@
                 Это поле обязательно
               </mat-error>
             </mat-form-field>
-          <!-- </div> -->
-        <!-- </div> -->
-        <!-- <div class="form-item"> -->
-          <!-- <div class="form-label">вид подрядчика: <span class="req">•</span></div> -->
-          <!-- <div class="form-data"> -->
-            <mat-form-field appearance="outline" class="ui-select form-item">
-              <mat-label class="form-label">вид подрядчика</mat-label>
+           </div>
+         </div>
+         <div class="form-item">
+           <div class="form-label">вид подрядчика: <span class="req">•</span></div>
+           <div class="form-data">
+            <mat-form-field appearance="outline" class="ui-select">
+              <!--<mat-label class="form-label">вид подрядчика</mat-label>-->
               <mat-select formControlName="type_id">
                 <mat-option *ngFor="let type of contractorTypes; let i=index" [value]="i+1">{{ type.name }}</mat-option>
               </mat-select>
@@ -106,13 +114,13 @@
                 Это поле обязательно
               </mat-error>
             </mat-form-field>
-          <!-- </div> -->
-        <!-- </div> -->
-        <!-- <div class="form-item"> -->
-          <!-- <div class="form-label">членство в ассоциациях:</div> -->
-          <!-- <div class="form-data"> -->
-            <mat-form-field appearance="outline" class="ui-select form-item">
-              <mat-label class="form-label">членство в ассоциациях</mat-label>
+           </div>
+         </div>
+         <div class="form-item">
+           <div class="form-label">членство в ассоциациях:</div>
+           <div class="form-data">
+            <mat-form-field appearance="outline" class="ui-select">
+              <!--<mat-label class="form-label">членство в ассоциациях</mat-label>-->
               <mat-select formControlName="association_id" multiple>
                 <mat-select-trigger>
                   {{ assocAsText }}
@@ -120,13 +128,13 @@
                 <mat-option *ngFor="let assoc of associations" [value]="assoc.id">{{assoc.name}}</mat-option>
               </mat-select>
             </mat-form-field>
-          <!-- </div> -->
-        <!-- </div> -->
-        <!-- <div class="form-item"> -->
-          <!-- <div class="form-label">система налогообложения: <span class="req">•</span></div> -->
-          <!-- <div class="form-data"> -->
-            <mat-form-field appearance="outline" class="ui-select form-item">
-              <mat-label class="form-label">система налогообложения</mat-label>
+           </div>
+         </div>
+         <div class="form-item">
+           <div class="form-label">система налогообложения: <span class="req">•</span></div>
+           <div class="form-data">
+            <mat-form-field appearance="outline" class="ui-select">
+              <!--<mat-label class="form-label">система налогообложения</mat-label>-->
               <mat-select formControlName="tax_id">
                 <mat-option [value]="1">ОСНО - общая система налогообложения</mat-option>
                 <mat-option [value]="2">УСН – упрощённая система налогообложения</mat-option>
@@ -138,9 +146,9 @@
                 Это поле обязательно
               </mat-error>
             </mat-form-field>
-          <!-- </div> -->
+           </div>
         </div>
-      <!-- </div> -->
+       </div>
 
     </div>
     <div class="form-row sep">

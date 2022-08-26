@@ -1,0 +1,54 @@
+.mat-dialog-container {
+  padding: 0;
+  background: #fff;
+  min-width: 500px;
+  line-height: 1.3em;
+  position: relative;
+}
+.mat-dialog-title {
+  font-size: 24px;
+  padding: 32px 32px;
+  margin: 0;
+  font-weight: 700;
+}
+.close {
+  position: absolute;
+  top: 15px;
+  right: 15px;
+  width: 20px;
+  height: 20px;
+  background: url('/assets/pic-close.svg') no-repeat center center;
+  cursor: pointer;
+}
+.close:hover {
+  opacity: 0.6;
+}
+.mat-dialog-content {
+  margin: 0;
+  font-size: 15px;
+  padding: 32px;
+  background: #F7F9FC;
+  border-top: 1px solid #E0E5EB;
+  border-bottom: 1px solid #E0E5EB;
+}
+.mat-dialog-content > :first-child {
+  margin-top: 0
+}
+.mat-dialog-content > :last-child {
+  margin-bottom: 0
+}
+.mat-dialog-actions {
+  padding: 32px;
+  margin: 0;
+}
+.mat-dialog-actions .mat-button {
+  cursor: pointer;
+  font-size: 15px;
+  color: #FFFFFF;
+  background: #DB563B;
+  box-shadow: 0px 2px 8px rgba(44, 54, 64, 0.13);
+  border-radius: 6px;
+  padding: 13px 16px;
+  border: none;
+}
+
