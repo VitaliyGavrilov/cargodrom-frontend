@@ -307,12 +307,12 @@ export class DirectionService extends BaseService {
     /**
      * ID страны (ID берем из запроса - direction_country_list)
      */
-    country_id: any;
+    country_id: number;
 
     /**
      * Поисковая строка
      */
-    search?: any;
+    search?: string;
   }): Observable<StrictHttpResponse<Array<{
 
 /**
@@ -389,12 +389,12 @@ export class DirectionService extends BaseService {
     /**
      * ID страны (ID берем из запроса - direction_country_list)
      */
-    country_id: any;
+    country_id: number;
 
     /**
      * Поисковая строка
      */
-    search?: any;
+    search?: string;
   }): Observable<Array<{
 
 /**
@@ -485,17 +485,17 @@ export class DirectionService extends BaseService {
     /**
      * ID города (ID берем из запроса - direction_city_list)
      */
-    city_id: any;
+    city_id: number;
 
     /**
      * ID способа доставки (ID берем из запроса - transport_kind_id)
      */
-    transport_kind_id: any;
+    transport_kind_id: string;
 
     /**
      * Поисковая строка
      */
-    search?: any;
+    search?: string;
   }): Observable<StrictHttpResponse<Array<{
 
 /**
@@ -603,17 +603,17 @@ export class DirectionService extends BaseService {
     /**
      * ID города (ID берем из запроса - direction_city_list)
      */
-    city_id: any;
+    city_id: number;
 
     /**
      * ID способа доставки (ID берем из запроса - transport_kind_id)
      */
-    transport_kind_id: any;
+    transport_kind_id: string;
 
     /**
      * Поисковая строка
      */
-    search?: any;
+    search?: string;
   }): Observable<Array<{
 
 /**
@@ -749,12 +749,12 @@ export class DirectionService extends BaseService {
     /**
      * ID страны (ID берем из запроса - direction_country_list)
      */
-    country_id: any;
+    country_id: number;
 
     /**
      * Поисковая строка
      */
-    search?: any;
+    search?: string;
   }): Observable<StrictHttpResponse<Array<{
 
 /**
@@ -811,12 +811,12 @@ export class DirectionService extends BaseService {
     /**
      * ID страны (ID берем из запроса - direction_country_list)
      */
-    country_id: any;
+    country_id: number;
 
     /**
      * Поисковая строка
      */
-    search?: any;
+    search?: string;
   }): Observable<Array<{
 
 /**

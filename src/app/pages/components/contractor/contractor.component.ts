@@ -1,7 +1,7 @@
+import { ContractorFilter } from './../../../api/custom_models/contractor-filter';
 import { ContractorService } from './../../../api/services/contractor.service';
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { Contractor } from '../../../api/custom_models';
-import { generateMockupContractors } from './contractor.mockup';
 
 @Component({
   selector: 'app-contractor',
@@ -15,8 +15,9 @@ export class ContractorComponent implements OnInit {
   start = 0;
   limits = [10, 15, 25, 50, 100];
   count = this.limits[0];
-
-  @Input() generateContractors = true;
+  
+  trackById = (index: number, contractor: Contractor) => contractor.id!;
+  filter: ContractorFilter = {};
 
   constructor(
     private contractorService: ContractorService
@@ -36,22 +37,19 @@ export class ContractorComponent implements OnInit {
     this.updateTable(0, count);
   }
   
+  onFilterChange(filter: ContractorFilter): void {
+    this.filter = filter;
+    this.updateTable(0, this.count);
+  }
+
   private updateTable(start: number, count: number): void {
-    const desiredStart = 0;
-    const params = { start: desiredStart, count };
+    const params = { start, count, ...this.filter || {} };
     this.contractorService.contractorList(params).subscribe(
       ({ items, total }) => {
         this.start = start;
         this.count = count;
-        if (this.generateContractors) {
-          const firstContractor = (items && Array.isArray(items) && items.length > 0) ? items[0] : undefined;
-          const mockup = generateMockupContractors(firstContractor, this.count, this.start, 1432);
-          this.contractors = mockup.items;
-          this.total = mockup.total;
-        } else {
-          this.contractors = items || [];
-          this.total = total || 0;
-        }
+        this.contractors = items || [];
+        this.total = total || 0;
       }
     );
   }

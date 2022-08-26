@@ -282,7 +282,7 @@ export class TransportService extends BaseService {
     /**
      * Вид перевозки
      */
-    kind_id: any;
+    kind_id: string;
   }): Observable<StrictHttpResponse<Array<{
 
 /**
@@ -338,7 +338,7 @@ export class TransportService extends BaseService {
     /**
      * Вид перевозки
      */
-    kind_id: any;
+    kind_id: string;
   }): Observable<Array<{
 
 /**
@@ -399,7 +399,7 @@ export class TransportService extends BaseService {
     /**
      * Вид перевозки
      */
-    kind_id: any;
+    kind_id: string;
   }): Observable<StrictHttpResponse<Array<{
 
 /**
@@ -455,7 +455,7 @@ export class TransportService extends BaseService {
     /**
      * Вид перевозки
      */
-    kind_id: any;
+    kind_id: string;
   }): Observable<Array<{
 
 /**
@@ -516,7 +516,7 @@ export class TransportService extends BaseService {
     /**
      * Вид перевозки
      */
-    kind_id: any;
+    kind_id: string;
   }): Observable<StrictHttpResponse<Array<{
 
 /**
@@ -572,7 +572,7 @@ export class TransportService extends BaseService {
     /**
      * Вид перевозки
      */
-    kind_id: any;
+    kind_id: string;
   }): Observable<Array<{
 
 /**

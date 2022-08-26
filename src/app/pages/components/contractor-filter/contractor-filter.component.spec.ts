@@ -1,6 +1,11 @@
+import { MaterialModule } from './../../../material/material.module';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { ContractorFilterComponent } from './contractor-filter.component';
+import { NoopAnimationsModule } from '@angular/platform-browser/animations';
+import { DirectionService } from '../../../api/services/direction.service';
+import { of } from 'rxjs';
 
 describe('ContractorFilterComponent', () => {
   let component: ContractorFilterComponent;
@@ -8,16 +13,30 @@ describe('ContractorFilterComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ ContractorFilterComponent ]
+      imports: [
+        FormsModule,
+        ReactiveFormsModule,
+        MaterialModule,
+        NoopAnimationsModule
+      ],
+      providers: [
+        {
+        provide: DirectionService,
+        useValue: {
+          directionCountryList: () => of([])
+        }
+      }
+    ],
+    declarations: [ContractorFilterComponent]
     })
-    .compileComponents();
+  .compileComponents();
 
-    fixture = TestBed.createComponent(ContractorFilterComponent);
-    component = fixture.componentInstance;
-    fixture.detectChanges();
+fixture = TestBed.createComponent(ContractorFilterComponent);
+component = fixture.componentInstance;
+fixture.detectChanges();
   });
 
-  it('should create', () => {
-    expect(component).toBeTruthy();
-  });
+it('should create', () => {
+  expect(component).toBeTruthy();
+});
 });

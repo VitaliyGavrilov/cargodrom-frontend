@@ -361,6 +361,31 @@ export class ContractorService extends BaseService {
   contractorList$Response(params?: {
 
     /**
+     * Специализация (ID берем из запроса - transport_kind)
+     */
+    specialization?: Array<string>;
+
+    /**
+     * Минимальный рейтинг
+     */
+    rating?: number;
+
+    /**
+     * Доступ к торгам
+     */
+    allow_trade?: boolean;
+
+    /**
+     * Направление откуда (ID берем из запроса - direction_country)
+     */
+    country_departure?: number;
+
+    /**
+     * Направление куда (ID берем из запроса - direction_country)
+     */
+    country_arrival?: number;
+
+    /**
      * Начальная позиция
      */
     start?: number;
@@ -379,7 +404,7 @@ export class ContractorService extends BaseService {
 /**
  * ID
  */
-'id'?: number;
+'id': number;
 
 /**
  * Наименование подрядчика
@@ -454,7 +479,7 @@ export class ContractorService extends BaseService {
 /**
  * Членство в ассоциациях (ID берем из запроса - contractor_association)
  */
-'association_id'?: Array<any>;
+'association_id'?: Array<string>;
 
 /**
  * Система налогообложения
@@ -537,9 +562,106 @@ export class ContractorService extends BaseService {
 'contact_count'?: number;
 
 /**
- * Контактные лица (Формат как в запросе - contractor_contact_list)
+ * Контактные лица
  */
-'contacts'?: Array<any>;
+'contacts'?: Array<{
+
+/**
+ * ID
+ */
+'id': number;
+
+/**
+ * Фамилия
+ */
+'name_f'?: string;
+
+/**
+ * Имя
+ */
+'name_i'?: string;
+
+/**
+ * Отчество
+ */
+'name_o'?: string;
+
+/**
+ * ФИО
+ */
+'name'?: string;
+
+/**
+ * Должность
+ */
+'position'?: string;
+
+/**
+ * Местонахождение офиса
+ */
+'city_name'?: string;
+
+/**
+ * Местонахождение офиса (ID берем из запроса - direction_city)
+ */
+'city_id'?: number;
+
+/**
+ * Офисный телефон
+ */
+'phone'?: string;
+
+/**
+ * Мобильный телефон
+ */
+'mobile_phone'?: string;
+
+/**
+ * E-mail
+ */
+'email'?: string;
+
+/**
+ * Skype
+ */
+'skype'?: string;
+
+/**
+ * Telegram
+ */
+'telegram'?: string;
+
+/**
+ * Whatsapp
+ */
+'whatsapp'?: string;
+
+/**
+ * WeChat
+ */
+'wechat'?: string;
+
+/**
+ * Ответственный за направления (ID берем из запроса - direction_type)
+ */
+'responsible_direction'?: Array<number>;
+
+/**
+ * Ответственный за направления (distination_country_id: {departure_country_id: [array of transport_sub_kind]}, ...)
+ */
+'responsible_param'?: {
+};
+
+/**
+ * Время создания
+ */
+'time_add'?: string;
+
+/**
+ * Время изменения
+ */
+'time_edit'?: string;
+}>;
 
 /**
  * Контактные лица
@@ -554,7 +676,7 @@ export class ContractorService extends BaseService {
 /**
  * Время создания
  */
-'time_add'?: string;
+'time'?: string;
 
 /**
  * Время изменения
@@ -570,6 +692,11 @@ export class ContractorService extends BaseService {
 
     const rb = new RequestBuilder(this.rootUrl, ContractorService.ContractorListPath, 'get');
     if (params) {
+      rb.query('specialization', params.specialization, {"style":"form","explode":false});
+      rb.query('rating', params.rating, {});
+      rb.query('allow_trade', params.allow_trade, {});
+      rb.query('country_departure', params.country_departure, {});
+      rb.query('country_arrival', params.country_arrival, {});
       rb.query('start', params.start, {});
       rb.query('count', params.count, {});
     }
@@ -590,7 +717,7 @@ export class ContractorService extends BaseService {
         /**
          * ID
          */
-        'id'?: number;
+        'id': number;
         
         /**
          * Наименование подрядчика
@@ -665,7 +792,7 @@ export class ContractorService extends BaseService {
         /**
          * Членство в ассоциациях (ID берем из запроса - contractor_association)
          */
-        'association_id'?: Array<any>;
+        'association_id'?: Array<string>;
         
         /**
          * Система налогообложения
@@ -748,9 +875,106 @@ export class ContractorService extends BaseService {
         'contact_count'?: number;
         
         /**
-         * Контактные лица (Формат как в запросе - contractor_contact_list)
+         * Контактные лица
          */
-        'contacts'?: Array<any>;
+        'contacts'?: Array<{
+        
+        /**
+         * ID
+         */
+        'id': number;
+        
+        /**
+         * Фамилия
+         */
+        'name_f'?: string;
+        
+        /**
+         * Имя
+         */
+        'name_i'?: string;
+        
+        /**
+         * Отчество
+         */
+        'name_o'?: string;
+        
+        /**
+         * ФИО
+         */
+        'name'?: string;
+        
+        /**
+         * Должность
+         */
+        'position'?: string;
+        
+        /**
+         * Местонахождение офиса
+         */
+        'city_name'?: string;
+        
+        /**
+         * Местонахождение офиса (ID берем из запроса - direction_city)
+         */
+        'city_id'?: number;
+        
+        /**
+         * Офисный телефон
+         */
+        'phone'?: string;
+        
+        /**
+         * Мобильный телефон
+         */
+        'mobile_phone'?: string;
+        
+        /**
+         * E-mail
+         */
+        'email'?: string;
+        
+        /**
+         * Skype
+         */
+        'skype'?: string;
+        
+        /**
+         * Telegram
+         */
+        'telegram'?: string;
+        
+        /**
+         * Whatsapp
+         */
+        'whatsapp'?: string;
+        
+        /**
+         * WeChat
+         */
+        'wechat'?: string;
+        
+        /**
+         * Ответственный за направления (ID берем из запроса - direction_type)
+         */
+        'responsible_direction'?: Array<number>;
+        
+        /**
+         * Ответственный за направления (distination_country_id: {departure_country_id: [array of transport_sub_kind]}, ...)
+         */
+        'responsible_param'?: {
+        };
+        
+        /**
+         * Время создания
+         */
+        'time_add'?: string;
+        
+        /**
+         * Время изменения
+         */
+        'time_edit'?: string;
+        }>;
         
         /**
          * Контактные лица
@@ -765,7 +989,7 @@ export class ContractorService extends BaseService {
         /**
          * Время создания
          */
-        'time_add'?: string;
+        'time'?: string;
         
         /**
          * Время изменения
@@ -795,14 +1019,39 @@ export class ContractorService extends BaseService {
   contractorList(params?: {
 
     /**
+     * Специализация (ID берем из запроса - transport_kind)
+     */
+    specialization?: Array<string>;
+
+    /**
+     * Минимальный рейтинг
+     */
+    rating?: number;
+
+    /**
+     * Доступ к торгам
+     */
+    allow_trade?: boolean;
+
+    /**
+     * Направление откуда (ID берем из запроса - direction_country)
+     */
+    country_departure?: number;
+
+    /**
+     * Направление куда (ID берем из запроса - direction_country)
+     */
+    country_arrival?: number;
+
+    /**
      * Начальная позиция
      */
-    start?: any;
+    start?: number;
 
     /**
      * Лимит позиций на страницу
      */
-    count?: any;
+    count?: number;
   }): Observable<{
 
 /**
@@ -813,7 +1062,7 @@ export class ContractorService extends BaseService {
 /**
  * ID
  */
-'id'?: number;
+'id': number;
 
 /**
  * Наименование подрядчика
@@ -888,7 +1137,7 @@ export class ContractorService extends BaseService {
 /**
  * Членство в ассоциациях (ID берем из запроса - contractor_association)
  */
-'association_id'?: Array<any>;
+'association_id'?: Array<string>;
 
 /**
  * Система налогообложения
@@ -971,9 +1220,106 @@ export class ContractorService extends BaseService {
 'contact_count'?: number;
 
 /**
- * Контактные лица (Формат как в запросе - contractor_contact_list)
+ * Контактные лица
  */
-'contacts'?: Array<any>;
+'contacts'?: Array<{
+
+/**
+ * ID
+ */
+'id': number;
+
+/**
+ * Фамилия
+ */
+'name_f'?: string;
+
+/**
+ * Имя
+ */
+'name_i'?: string;
+
+/**
+ * Отчество
+ */
+'name_o'?: string;
+
+/**
+ * ФИО
+ */
+'name'?: string;
+
+/**
+ * Должность
+ */
+'position'?: string;
+
+/**
+ * Местонахождение офиса
+ */
+'city_name'?: string;
+
+/**
+ * Местонахождение офиса (ID берем из запроса - direction_city)
+ */
+'city_id'?: number;
+
+/**
+ * Офисный телефон
+ */
+'phone'?: string;
+
+/**
+ * Мобильный телефон
+ */
+'mobile_phone'?: string;
+
+/**
+ * E-mail
+ */
+'email'?: string;
+
+/**
+ * Skype
+ */
+'skype'?: string;
+
+/**
+ * Telegram
+ */
+'telegram'?: string;
+
+/**
+ * Whatsapp
+ */
+'whatsapp'?: string;
+
+/**
+ * WeChat
+ */
+'wechat'?: string;
+
+/**
+ * Ответственный за направления (ID берем из запроса - direction_type)
+ */
+'responsible_direction'?: Array<number>;
+
+/**
+ * Ответственный за направления (distination_country_id: {departure_country_id: [array of transport_sub_kind]}, ...)
+ */
+'responsible_param'?: {
+};
+
+/**
+ * Время создания
+ */
+'time_add'?: string;
+
+/**
+ * Время изменения
+ */
+'time_edit'?: string;
+}>;
 
 /**
  * Контактные лица
@@ -988,7 +1334,7 @@ export class ContractorService extends BaseService {
 /**
  * Время создания
  */
-'time_add'?: string;
+'time'?: string;
 
 /**
  * Время изменения
@@ -1013,7 +1359,7 @@ export class ContractorService extends BaseService {
 /**
  * ID
  */
-'id'?: number;
+'id': number;
 
 /**
  * Наименование подрядчика
@@ -1088,7 +1434,7 @@ export class ContractorService extends BaseService {
 /**
  * Членство в ассоциациях (ID берем из запроса - contractor_association)
  */
-'association_id'?: Array<any>;
+'association_id'?: Array<string>;
 
 /**
  * Система налогообложения
@@ -1171,9 +1517,106 @@ export class ContractorService extends BaseService {
 'contact_count'?: number;
 
 /**
- * Контактные лица (Формат как в запросе - contractor_contact_list)
+ * Контактные лица
  */
-'contacts'?: Array<any>;
+'contacts'?: Array<{
+
+/**
+ * ID
+ */
+'id': number;
+
+/**
+ * Фамилия
+ */
+'name_f'?: string;
+
+/**
+ * Имя
+ */
+'name_i'?: string;
+
+/**
+ * Отчество
+ */
+'name_o'?: string;
+
+/**
+ * ФИО
+ */
+'name'?: string;
+
+/**
+ * Должность
+ */
+'position'?: string;
+
+/**
+ * Местонахождение офиса
+ */
+'city_name'?: string;
+
+/**
+ * Местонахождение офиса (ID берем из запроса - direction_city)
+ */
+'city_id'?: number;
+
+/**
+ * Офисный телефон
+ */
+'phone'?: string;
+
+/**
+ * Мобильный телефон
+ */
+'mobile_phone'?: string;
+
+/**
+ * E-mail
+ */
+'email'?: string;
+
+/**
+ * Skype
+ */
+'skype'?: string;
+
+/**
+ * Telegram
+ */
+'telegram'?: string;
+
+/**
+ * Whatsapp
+ */
+'whatsapp'?: string;
+
+/**
+ * WeChat
+ */
+'wechat'?: string;
+
+/**
+ * Ответственный за направления (ID берем из запроса - direction_type)
+ */
+'responsible_direction'?: Array<number>;
+
+/**
+ * Ответственный за направления (distination_country_id: {departure_country_id: [array of transport_sub_kind]}, ...)
+ */
+'responsible_param'?: {
+};
+
+/**
+ * Время создания
+ */
+'time_add'?: string;
+
+/**
+ * Время изменения
+ */
+'time_edit'?: string;
+}>;
 
 /**
  * Контактные лица
@@ -1188,7 +1631,7 @@ export class ContractorService extends BaseService {
 /**
  * Время создания
  */
-'time_add'?: string;
+'time'?: string;
 
 /**
  * Время изменения
@@ -1210,7 +1653,7 @@ export class ContractorService extends BaseService {
 /**
  * ID
  */
-'id'?: number;
+'id': number;
 
 /**
  * Наименование подрядчика
@@ -1285,7 +1728,7 @@ export class ContractorService extends BaseService {
 /**
  * Членство в ассоциациях (ID берем из запроса - contractor_association)
  */
-'association_id'?: Array<any>;
+'association_id'?: Array<string>;
 
 /**
  * Система налогообложения
@@ -1368,9 +1811,106 @@ export class ContractorService extends BaseService {
 'contact_count'?: number;
 
 /**
- * Контактные лица (Формат как в запросе - contractor_contact_list)
+ * Контактные лица
  */
-'contacts'?: Array<any>;
+'contacts'?: Array<{
+
+/**
+ * ID
+ */
+'id': number;
+
+/**
+ * Фамилия
+ */
+'name_f'?: string;
+
+/**
+ * Имя
+ */
+'name_i'?: string;
+
+/**
+ * Отчество
+ */
+'name_o'?: string;
+
+/**
+ * ФИО
+ */
+'name'?: string;
+
+/**
+ * Должность
+ */
+'position'?: string;
+
+/**
+ * Местонахождение офиса
+ */
+'city_name'?: string;
+
+/**
+ * Местонахождение офиса (ID берем из запроса - direction_city)
+ */
+'city_id'?: number;
+
+/**
+ * Офисный телефон
+ */
+'phone'?: string;
+
+/**
+ * Мобильный телефон
+ */
+'mobile_phone'?: string;
+
+/**
+ * E-mail
+ */
+'email'?: string;
+
+/**
+ * Skype
+ */
+'skype'?: string;
+
+/**
+ * Telegram
+ */
+'telegram'?: string;
+
+/**
+ * Whatsapp
+ */
+'whatsapp'?: string;
+
+/**
+ * WeChat
+ */
+'wechat'?: string;
+
+/**
+ * Ответственный за направления (ID берем из запроса - direction_type)
+ */
+'responsible_direction'?: Array<number>;
+
+/**
+ * Ответственный за направления (distination_country_id: {departure_country_id: [array of transport_sub_kind]}, ...)
+ */
+'responsible_param'?: {
+};
+
+/**
+ * Время создания
+ */
+'time_add'?: string;
+
+/**
+ * Время изменения
+ */
+'time_edit'?: string;
+}>;
 
 /**
  * Контактные лица
@@ -1385,7 +1925,7 @@ export class ContractorService extends BaseService {
 /**
  * Время создания
  */
-'time_add'?: string;
+'time'?: string;
 
 /**
  * Время изменения
@@ -1421,7 +1961,7 @@ export class ContractorService extends BaseService {
     /**
      * ID контрагента
      */
-    id: any;
+    id: number;
   }): Observable<StrictHttpResponse<{
 
 /**
@@ -1502,7 +2042,7 @@ export class ContractorService extends BaseService {
 /**
  * Членство в ассоциациях (ID берем из запроса - contractor_association)
  */
-'association_id'?: Array<any>;
+'association_id'?: Array<string>;
 
 /**
  * Система налогообложения
@@ -1585,14 +2125,14 @@ export class ContractorService extends BaseService {
 'contact_count'?: number;
 
 /**
- * Контактные лица (Формат как в запросе - contractor_contact_list)
+ * Контактные лица
  */
 'contacts'?: Array<{
 
 /**
  * ID
  */
-'id'?: number;
+'id': number;
 
 /**
  * Фамилия
@@ -1667,7 +2207,7 @@ export class ContractorService extends BaseService {
 /**
  * Ответственный за направления (ID берем из запроса - direction_type)
  */
-'responsible_direction'?: Array<any>;
+'responsible_direction'?: Array<number>;
 
 /**
  * Ответственный за направления (distination_country_id: {departure_country_id: [array of transport_sub_kind]}, ...)
@@ -1798,7 +2338,7 @@ export class ContractorService extends BaseService {
         /**
          * Членство в ассоциациях (ID берем из запроса - contractor_association)
          */
-        'association_id'?: Array<any>;
+        'association_id'?: Array<string>;
         
         /**
          * Система налогообложения
@@ -1881,14 +2421,14 @@ export class ContractorService extends BaseService {
         'contact_count'?: number;
         
         /**
-         * Контактные лица (Формат как в запросе - contractor_contact_list)
+         * Контактные лица
          */
         'contacts'?: Array<{
         
         /**
          * ID
          */
-        'id'?: number;
+        'id': number;
         
         /**
          * Фамилия
@@ -1963,7 +2503,7 @@ export class ContractorService extends BaseService {
         /**
          * Ответственный за направления (ID берем из запроса - direction_type)
          */
-        'responsible_direction'?: Array<any>;
+        'responsible_direction'?: Array<number>;
         
         /**
          * Ответственный за направления (distination_country_id: {departure_country_id: [array of transport_sub_kind]}, ...)
@@ -2021,7 +2561,7 @@ export class ContractorService extends BaseService {
     /**
      * ID контрагента
      */
-    id: any;
+    id: number;
   }): Observable<{
 
 /**
@@ -2102,7 +2642,7 @@ export class ContractorService extends BaseService {
 /**
  * Членство в ассоциациях (ID берем из запроса - contractor_association)
  */
-'association_id'?: Array<any>;
+'association_id'?: Array<string>;
 
 /**
  * Система налогообложения
@@ -2185,14 +2725,14 @@ export class ContractorService extends BaseService {
 'contact_count'?: number;
 
 /**
- * Контактные лица (Формат как в запросе - contractor_contact_list)
+ * Контактные лица
  */
 'contacts'?: Array<{
 
 /**
  * ID
  */
-'id'?: number;
+'id': number;
 
 /**
  * Фамилия
@@ -2267,7 +2807,7 @@ export class ContractorService extends BaseService {
 /**
  * Ответственный за направления (ID берем из запроса - direction_type)
  */
-'responsible_direction'?: Array<any>;
+'responsible_direction'?: Array<number>;
 
 /**
  * Ответственный за направления (distination_country_id: {departure_country_id: [array of transport_sub_kind]}, ...)
@@ -2388,7 +2928,7 @@ export class ContractorService extends BaseService {
 /**
  * Членство в ассоциациях (ID берем из запроса - contractor_association)
  */
-'association_id'?: Array<any>;
+'association_id'?: Array<string>;
 
 /**
  * Система налогообложения
@@ -2471,14 +3011,14 @@ export class ContractorService extends BaseService {
 'contact_count'?: number;
 
 /**
- * Контактные лица (Формат как в запросе - contractor_contact_list)
+ * Контактные лица
  */
 'contacts'?: Array<{
 
 /**
  * ID
  */
-'id'?: number;
+'id': number;
 
 /**
  * Фамилия
@@ -2553,7 +3093,7 @@ export class ContractorService extends BaseService {
 /**
  * Ответственный за направления (ID берем из запроса - direction_type)
  */
-'responsible_direction'?: Array<any>;
+'responsible_direction'?: Array<number>;
 
 /**
  * Ответственный за направления (distination_country_id: {departure_country_id: [array of transport_sub_kind]}, ...)
@@ -2671,7 +3211,7 @@ export class ContractorService extends BaseService {
 /**
  * Членство в ассоциациях (ID берем из запроса - contractor_association)
  */
-'association_id'?: Array<any>;
+'association_id'?: Array<string>;
 
 /**
  * Система налогообложения
@@ -2754,14 +3294,14 @@ export class ContractorService extends BaseService {
 'contact_count'?: number;
 
 /**
- * Контактные лица (Формат как в запросе - contractor_contact_list)
+ * Контактные лица
  */
 'contacts'?: Array<{
 
 /**
  * ID
  */
-'id'?: number;
+'id': number;
 
 /**
  * Фамилия
@@ -2836,7 +3376,7 @@ export class ContractorService extends BaseService {
 /**
  * Ответственный за направления (ID берем из запроса - direction_type)
  */
-'responsible_direction'?: Array<any>;
+'responsible_direction'?: Array<number>;
 
 /**
  * Ответственный за направления (distination_country_id: {departure_country_id: [array of transport_sub_kind]}, ...)
@@ -2960,6 +3500,83 @@ export class ContractorService extends BaseService {
  * Исключить Подрядчика из торгов
  */
 'exclude_from_trade'?: boolean;
+
+/**
+ * Контактные лица
+ */
+'contacts'?: Array<{
+
+/**
+ * Фамилия
+ */
+'name_f'?: string;
+
+/**
+ * Имя
+ */
+'name_i'?: string;
+
+/**
+ * Отчество
+ */
+'name_o'?: string;
+
+/**
+ * Должность
+ */
+'position'?: string;
+
+/**
+ * Местонахождение офиса (ID берем из запроса - direction_city)
+ */
+'city_id'?: number;
+
+/**
+ * Офисный телефон
+ */
+'phone'?: string;
+
+/**
+ * Мобильный телефон
+ */
+'mobile_phone'?: string;
+
+/**
+ * E-mail
+ */
+'email'?: string;
+
+/**
+ * Skype
+ */
+'skype'?: string;
+
+/**
+ * Telegram
+ */
+'telegram'?: string;
+
+/**
+ * Whatsapp
+ */
+'whatsapp'?: string;
+
+/**
+ * WeChat
+ */
+'wechat'?: string;
+
+/**
+ * Ответственный за направления (ID берем из запроса - direction_type)
+ */
+'responsible_direction'?: Array<number>;
+
+/**
+ * Ответственный за направления (distination_country_id: {departure_country_id: [array of transport_sub_kind]}, ...)
+ */
+'responsible_param'?: {
+};
+}>;
 }
   }): Observable<StrictHttpResponse<{
 
@@ -2971,7 +3588,7 @@ export class ContractorService extends BaseService {
 /**
  * Статус выполнения
  */
-'result': 'success';
+'result': string;
 }>> {
 
     const rb = new RequestBuilder(this.rootUrl, ContractorService.ContractorCreatePath, 'post');
@@ -2995,7 +3612,7 @@ export class ContractorService extends BaseService {
         /**
          * Статус выполнения
          */
-        'result': 'success';
+        'result': string;
         }>;
       })
     );
@@ -3078,6 +3695,83 @@ export class ContractorService extends BaseService {
  * Исключить Подрядчика из торгов
  */
 'exclude_from_trade'?: boolean;
+
+/**
+ * Контактные лица
+ */
+'contacts'?: Array<{
+
+/**
+ * Фамилия
+ */
+'name_f'?: string;
+
+/**
+ * Имя
+ */
+'name_i'?: string;
+
+/**
+ * Отчество
+ */
+'name_o'?: string;
+
+/**
+ * Должность
+ */
+'position'?: string;
+
+/**
+ * Местонахождение офиса (ID берем из запроса - direction_city)
+ */
+'city_id'?: number;
+
+/**
+ * Офисный телефон
+ */
+'phone'?: string;
+
+/**
+ * Мобильный телефон
+ */
+'mobile_phone'?: string;
+
+/**
+ * E-mail
+ */
+'email'?: string;
+
+/**
+ * Skype
+ */
+'skype'?: string;
+
+/**
+ * Telegram
+ */
+'telegram'?: string;
+
+/**
+ * Whatsapp
+ */
+'whatsapp'?: string;
+
+/**
+ * WeChat
+ */
+'wechat'?: string;
+
+/**
+ * Ответственный за направления (ID берем из запроса - direction_type)
+ */
+'responsible_direction'?: Array<number>;
+
+/**
+ * Ответственный за направления (distination_country_id: {departure_country_id: [array of transport_sub_kind]}, ...)
+ */
+'responsible_param'?: {
+};
+}>;
 }
   }): Observable<{
 
@@ -3089,7 +3783,7 @@ export class ContractorService extends BaseService {
 /**
  * Статус выполнения
  */
-'result': 'success';
+'result': string;
 }> {
 
     return this.contractorCreate$Response(params).pipe(
@@ -3103,7 +3797,7 @@ export class ContractorService extends BaseService {
 /**
  * Статус выполнения
  */
-'result': 'success';
+'result': string;
 }>) => r.body as {
 
 /**
@@ -3114,7 +3808,7 @@ export class ContractorService extends BaseService {
 /**
  * Статус выполнения
  */
-'result': 'success';
+'result': string;
 })
     );
   }
@@ -3206,13 +3900,95 @@ export class ContractorService extends BaseService {
  * Исключить Подрядчика из торгов
  */
 'exclude_from_trade'?: boolean;
+
+/**
+ * Контактные лица
+ */
+'contacts'?: Array<{
+
+/**
+ * ID
+ */
+'id'?: number;
+
+/**
+ * Фамилия
+ */
+'name_f'?: string;
+
+/**
+ * Имя
+ */
+'name_i'?: string;
+
+/**
+ * Отчество
+ */
+'name_o'?: string;
+
+/**
+ * Должность
+ */
+'position'?: string;
+
+/**
+ * Местонахождение офиса (ID берем из запроса - direction_city)
+ */
+'city_id'?: number;
+
+/**
+ * Офисный телефон
+ */
+'phone'?: string;
+
+/**
+ * Мобильный телефон
+ */
+'mobile_phone'?: string;
+
+/**
+ * E-mail
+ */
+'email'?: string;
+
+/**
+ * Skype
+ */
+'skype'?: string;
+
+/**
+ * Telegram
+ */
+'telegram'?: string;
+
+/**
+ * Whatsapp
+ */
+'whatsapp'?: string;
+
+/**
+ * WeChat
+ */
+'wechat'?: string;
+
+/**
+ * Ответственный за направления (ID берем из запроса - direction_type)
+ */
+'responsible_direction'?: Array<number>;
+
+/**
+ * Ответственный за направления (distination_country_id: {departure_country_id: [array of transport_sub_kind]}, ...)
+ */
+'responsible_param'?: {
+};
+}>;
 }
   }): Observable<StrictHttpResponse<{
 
 /**
  * Статус выполнения
  */
-'result': 'success';
+'result': string;
 }>> {
 
     const rb = new RequestBuilder(this.rootUrl, ContractorService.ContractorUpdatePath, 'post');
@@ -3231,7 +4007,7 @@ export class ContractorService extends BaseService {
         /**
          * Статус выполнения
          */
-        'result': 'success';
+        'result': string;
         }>;
       })
     );
@@ -3319,13 +4095,95 @@ export class ContractorService extends BaseService {
  * Исключить Подрядчика из торгов
  */
 'exclude_from_trade'?: boolean;
+
+/**
+ * Контактные лица
+ */
+'contacts'?: Array<{
+
+/**
+ * ID
+ */
+'id'?: number;
+
+/**
+ * Фамилия
+ */
+'name_f'?: string;
+
+/**
+ * Имя
+ */
+'name_i'?: string;
+
+/**
+ * Отчество
+ */
+'name_o'?: string;
+
+/**
+ * Должность
+ */
+'position'?: string;
+
+/**
+ * Местонахождение офиса (ID берем из запроса - direction_city)
+ */
+'city_id'?: number;
+
+/**
+ * Офисный телефон
+ */
+'phone'?: string;
+
+/**
+ * Мобильный телефон
+ */
+'mobile_phone'?: string;
+
+/**
+ * E-mail
+ */
+'email'?: string;
+
+/**
+ * Skype
+ */
+'skype'?: string;
+
+/**
+ * Telegram
+ */
+'telegram'?: string;
+
+/**
+ * Whatsapp
+ */
+'whatsapp'?: string;
+
+/**
+ * WeChat
+ */
+'wechat'?: string;
+
+/**
+ * Ответственный за направления (ID берем из запроса - direction_type)
+ */
+'responsible_direction'?: Array<number>;
+
+/**
+ * Ответственный за направления (distination_country_id: {departure_country_id: [array of transport_sub_kind]}, ...)
+ */
+'responsible_param'?: {
+};
+}>;
 }
   }): Observable<{
 
 /**
  * Статус выполнения
  */
-'result': 'success';
+'result': string;
 }> {
 
     return this.contractorUpdate$Response(params).pipe(
@@ -3334,13 +4192,13 @@ export class ContractorService extends BaseService {
 /**
  * Статус выполнения
  */
-'result': 'success';
+'result': string;
 }>) => r.body as {
 
 /**
  * Статус выполнения
  */
-'result': 'success';
+'result': string;
 })
     );
   }
@@ -3373,7 +4231,7 @@ export class ContractorService extends BaseService {
 /**
  * Статус выполнения
  */
-'result': 'success';
+'result': string;
 }>> {
 
     const rb = new RequestBuilder(this.rootUrl, ContractorService.ContractorDeletePath, 'post');
@@ -3392,7 +4250,7 @@ export class ContractorService extends BaseService {
         /**
          * Статус выполнения
          */
-        'result': 'success';
+        'result': string;
         }>;
       })
     );
@@ -3421,7 +4279,7 @@ export class ContractorService extends BaseService {
 /**
  * Статус выполнения
  */
-'result': 'success';
+'result': string;
 }> {
 
     return this.contractorDelete$Response(params).pipe(
@@ -3430,13 +4288,13 @@ export class ContractorService extends BaseService {
 /**
  * Статус выполнения
  */
-'result': 'success';
+'result': string;
 }>) => r.body as {
 
 /**
  * Статус выполнения
  */
-'result': 'success';
+'result': string;
 })
     );
   }
@@ -3461,7 +4319,7 @@ export class ContractorService extends BaseService {
     /**
      * ID контрагента
      */
-    id: any;
+    id: number;
   }): Observable<StrictHttpResponse<Array<{
 
 /**
@@ -3542,7 +4400,7 @@ export class ContractorService extends BaseService {
 /**
  * Ответственный за направления (ID берем из запроса - direction_type)
  */
-'responsible_direction'?: Array<any>;
+'responsible_direction'?: Array<number>;
 
 /**
  * Ответственный за направления (distination_country_id: {departure_country_id: [array of transport_sub_kind]}, ...)
@@ -3652,7 +4510,7 @@ export class ContractorService extends BaseService {
         /**
          * Ответственный за направления (ID берем из запроса - direction_type)
          */
-        'responsible_direction'?: Array<any>;
+        'responsible_direction'?: Array<number>;
         
         /**
          * Ответственный за направления (distination_country_id: {departure_country_id: [array of transport_sub_kind]}, ...)
@@ -3689,7 +4547,7 @@ export class ContractorService extends BaseService {
     /**
      * ID контрагента
      */
-    id: any;
+    id: number;
   }): Observable<Array<{
 
 /**
@@ -3770,7 +4628,7 @@ export class ContractorService extends BaseService {
 /**
  * Ответственный за направления (ID берем из запроса - direction_type)
  */
-'responsible_direction'?: Array<any>;
+'responsible_direction'?: Array<number>;
 
 /**
  * Ответственный за направления (distination_country_id: {departure_country_id: [array of transport_sub_kind]}, ...)
@@ -3870,7 +4728,7 @@ export class ContractorService extends BaseService {
 /**
  * Ответственный за направления (ID берем из запроса - direction_type)
  */
-'responsible_direction'?: Array<any>;
+'responsible_direction'?: Array<number>;
 
 /**
  * Ответственный за направления (distination_country_id: {departure_country_id: [array of transport_sub_kind]}, ...)
@@ -3967,7 +4825,7 @@ export class ContractorService extends BaseService {
 /**
  * Ответственный за направления (ID берем из запроса - direction_type)
  */
-'responsible_direction'?: Array<any>;
+'responsible_direction'?: Array<number>;
 
 /**
  * Ответственный за направления (distination_country_id: {departure_country_id: [array of transport_sub_kind]}, ...)
@@ -4008,7 +4866,7 @@ export class ContractorService extends BaseService {
     /**
      * ID контакта
      */
-    id: any;
+    id: number;
   }): Observable<StrictHttpResponse<{
 
 /**
@@ -4089,7 +4947,7 @@ export class ContractorService extends BaseService {
 /**
  * Ответственный за направления (ID берем из запроса - direction_type)
  */
-'responsible_direction'?: Array<any>;
+'responsible_direction'?: Array<number>;
 
 /**
  * Ответственный за направления (distination_country_id: {departure_country_id: [array of transport_sub_kind]}, ...)
@@ -4199,7 +5057,7 @@ export class ContractorService extends BaseService {
         /**
          * Ответственный за направления (ID берем из запроса - direction_type)
          */
-        'responsible_direction'?: Array<any>;
+        'responsible_direction'?: Array<number>;
         
         /**
          * Ответственный за направления (distination_country_id: {departure_country_id: [array of transport_sub_kind]}, ...)
@@ -4236,7 +5094,7 @@ export class ContractorService extends BaseService {
     /**
      * ID контакта
      */
-    id: any;
+    id: number;
   }): Observable<{
 
 /**
@@ -4317,7 +5175,7 @@ export class ContractorService extends BaseService {
 /**
  * Ответственный за направления (ID берем из запроса - direction_type)
  */
-'responsible_direction'?: Array<any>;
+'responsible_direction'?: Array<number>;
 
 /**
  * Ответственный за направления (distination_country_id: {departure_country_id: [array of transport_sub_kind]}, ...)
@@ -4417,7 +5275,7 @@ export class ContractorService extends BaseService {
 /**
  * Ответственный за направления (ID берем из запроса - direction_type)
  */
-'responsible_direction'?: Array<any>;
+'responsible_direction'?: Array<number>;
 
 /**
  * Ответственный за направления (distination_country_id: {departure_country_id: [array of transport_sub_kind]}, ...)
@@ -4514,7 +5372,7 @@ export class ContractorService extends BaseService {
 /**
  * Ответственный за направления (ID берем из запроса - direction_type)
  */
-'responsible_direction'?: Array<any>;
+'responsible_direction'?: Array<number>;
 
 /**
  * Ответственный за направления (distination_country_id: {departure_country_id: [array of transport_sub_kind]}, ...)
@@ -4621,7 +5479,7 @@ export class ContractorService extends BaseService {
 /**
  * Ответственный за направления (ID берем из запроса - direction_type)
  */
-'responsible_direction'?: Array<string>;
+'responsible_direction'?: Array<number>;
 
 /**
  * Ответственный за направления (distination_country_id: {departure_country_id: [array of transport_sub_kind]}, ...)
@@ -4639,7 +5497,7 @@ export class ContractorService extends BaseService {
 /**
  * Статус выполнения
  */
-'result': 'success';
+'result': string;
 }>> {
 
     const rb = new RequestBuilder(this.rootUrl, ContractorService.ContractorContactCreatePath, 'post');
@@ -4663,7 +5521,7 @@ export class ContractorService extends BaseService {
         /**
          * Статус выполнения
          */
-        'result': 'success';
+        'result': string;
         }>;
       })
     );
@@ -4750,7 +5608,7 @@ export class ContractorService extends BaseService {
 /**
  * Ответственный за направления (ID берем из запроса - direction_type)
  */
-'responsible_direction'?: Array<string>;
+'responsible_direction'?: Array<number>;
 
 /**
  * Ответственный за направления (distination_country_id: {departure_country_id: [array of transport_sub_kind]}, ...)
@@ -4768,7 +5626,7 @@ export class ContractorService extends BaseService {
 /**
  * Статус выполнения
  */
-'result': 'success';
+'result': string;
 }> {
 
     return this.contractorContactCreate$Response(params).pipe(
@@ -4782,7 +5640,7 @@ export class ContractorService extends BaseService {
 /**
  * Статус выполнения
  */
-'result': 'success';
+'result': string;
 }>) => r.body as {
 
 /**
@@ -4793,7 +5651,7 @@ export class ContractorService extends BaseService {
 /**
  * Статус выполнения
  */
-'result': 'success';
+'result': string;
 })
     );
   }
@@ -4889,7 +5747,7 @@ export class ContractorService extends BaseService {
 /**
  * Ответственный за направления (ID берем из запроса - direction_type)
  */
-'responsible_direction'?: Array<string>;
+'responsible_direction'?: Array<number>;
 
 /**
  * Ответственный за направления (distination_country_id: {departure_country_id: [array of transport_sub_kind]}, ...)
@@ -4902,7 +5760,7 @@ export class ContractorService extends BaseService {
 /**
  * Статус выполнения
  */
-'result': 'success';
+'result': string;
 }>> {
 
     const rb = new RequestBuilder(this.rootUrl, ContractorService.ContractorContactUpdatePath, 'post');
@@ -4921,7 +5779,7 @@ export class ContractorService extends BaseService {
         /**
          * Статус выполнения
          */
-        'result': 'success';
+        'result': string;
         }>;
       })
     );
@@ -5013,7 +5871,7 @@ export class ContractorService extends BaseService {
 /**
  * Ответственный за направления (ID берем из запроса - direction_type)
  */
-'responsible_direction'?: Array<string>;
+'responsible_direction'?: Array<number>;
 
 /**
  * Ответственный за направления (distination_country_id: {departure_country_id: [array of transport_sub_kind]}, ...)
@@ -5026,7 +5884,7 @@ export class ContractorService extends BaseService {
 /**
  * Статус выполнения
  */
-'result': 'success';
+'result': string;
 }> {
 
     return this.contractorContactUpdate$Response(params).pipe(
@@ -5035,13 +5893,13 @@ export class ContractorService extends BaseService {
 /**
  * Статус выполнения
  */
-'result': 'success';
+'result': string;
 }>) => r.body as {
 
 /**
  * Статус выполнения
  */
-'result': 'success';
+'result': string;
 })
     );
   }
@@ -5074,7 +5932,7 @@ export class ContractorService extends BaseService {
 /**
  * Статус выполнения
  */
-'result': 'success';
+'result': string;
 }>> {
 
     const rb = new RequestBuilder(this.rootUrl, ContractorService.ContractorContactDeletePath, 'post');
@@ -5093,7 +5951,7 @@ export class ContractorService extends BaseService {
         /**
          * Статус выполнения
          */
-        'result': 'success';
+        'result': string;
         }>;
       })
     );
@@ -5122,7 +5980,7 @@ export class ContractorService extends BaseService {
 /**
  * Статус выполнения
  */
-'result': 'success';
+'result': string;
 }> {
 
     return this.contractorContactDelete$Response(params).pipe(
@@ -5131,13 +5989,13 @@ export class ContractorService extends BaseService {
 /**
  * Статус выполнения
  */
-'result': 'success';
+'result': string;
 }>) => r.body as {
 
 /**
  * Статус выполнения
  */
-'result': 'success';
+'result': string;
 })
     );
   }

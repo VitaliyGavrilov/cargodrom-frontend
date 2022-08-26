@@ -45,12 +45,12 @@ export class CustomerService extends BaseService {
     /**
      * Страница
      */
-    page?: any;
+    page?: number;
 
     /**
      * Лимит позиций на страницу
      */
-    limit?: any;
+    limit?: number;
   }): Observable<StrictHttpResponse<Array<{
 
 /**
@@ -167,12 +167,12 @@ export class CustomerService extends BaseService {
     /**
      * Страница
      */
-    page?: any;
+    page?: number;
 
     /**
      * Лимит позиций на страницу
      */
-    limit?: any;
+    limit?: number;
   }): Observable<Array<{
 
 /**
@@ -323,7 +323,7 @@ export class CustomerService extends BaseService {
     /**
      * ID клиента
      */
-    id: any;
+    id: number;
   }): Observable<StrictHttpResponse<{
 
 /**
@@ -439,7 +439,7 @@ export class CustomerService extends BaseService {
     /**
      * ID клиента
      */
-    id: any;
+    id: number;
   }): Observable<{
 
 /**
@@ -623,7 +623,7 @@ export class CustomerService extends BaseService {
 /**
  * Статус выполнения
  */
-'result': 'success';
+'result': string;
 }>> {
 
     const rb = new RequestBuilder(this.rootUrl, CustomerService.CustomerCreatePath, 'post');
@@ -647,7 +647,7 @@ export class CustomerService extends BaseService {
         /**
          * Статус выполнения
          */
-        'result': 'success';
+        'result': string;
         }>;
       })
     );
@@ -701,7 +701,7 @@ export class CustomerService extends BaseService {
 /**
  * Статус выполнения
  */
-'result': 'success';
+'result': string;
 }> {
 
     return this.customerCreate$Response(params).pipe(
@@ -715,7 +715,7 @@ export class CustomerService extends BaseService {
 /**
  * Статус выполнения
  */
-'result': 'success';
+'result': string;
 }>) => r.body as {
 
 /**
@@ -726,7 +726,7 @@ export class CustomerService extends BaseService {
 /**
  * Статус выполнения
  */
-'result': 'success';
+'result': string;
 })
     );
   }
@@ -784,7 +784,7 @@ export class CustomerService extends BaseService {
 /**
  * Статус выполнения
  */
-'result': 'success';
+'result': string;
 }>> {
 
     const rb = new RequestBuilder(this.rootUrl, CustomerService.CustomerUpdatePath, 'post');
@@ -803,7 +803,7 @@ export class CustomerService extends BaseService {
         /**
          * Статус выполнения
          */
-        'result': 'success';
+        'result': string;
         }>;
       })
     );
@@ -857,7 +857,7 @@ export class CustomerService extends BaseService {
 /**
  * Статус выполнения
  */
-'result': 'success';
+'result': string;
 }> {
 
     return this.customerUpdate$Response(params).pipe(
@@ -866,13 +866,13 @@ export class CustomerService extends BaseService {
 /**
  * Статус выполнения
  */
-'result': 'success';
+'result': string;
 }>) => r.body as {
 
 /**
  * Статус выполнения
  */
-'result': 'success';
+'result': string;
 })
     );
   }
@@ -905,7 +905,7 @@ export class CustomerService extends BaseService {
 /**
  * Статус выполнения
  */
-'result': 'success';
+'result': string;
 }>> {
 
     const rb = new RequestBuilder(this.rootUrl, CustomerService.CustomerDeletePath, 'post');
@@ -924,7 +924,7 @@ export class CustomerService extends BaseService {
         /**
          * Статус выполнения
          */
-        'result': 'success';
+        'result': string;
         }>;
       })
     );
@@ -953,7 +953,7 @@ export class CustomerService extends BaseService {
 /**
  * Статус выполнения
  */
-'result': 'success';
+'result': string;
 }> {
 
     return this.customerDelete$Response(params).pipe(
@@ -962,13 +962,13 @@ export class CustomerService extends BaseService {
 /**
  * Статус выполнения
  */
-'result': 'success';
+'result': string;
 }>) => r.body as {
 
 /**
  * Статус выполнения
  */
-'result': 'success';
+'result': string;
 })
     );
   }

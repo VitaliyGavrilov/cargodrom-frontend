@@ -1,123 +1,82 @@
-<div class="filter extend">
+<form class="filter extend" [formGroup]="filterForm">
   <div class="base">
     <div class="item">
       <div>
         <div class="title">Специализация:</div>
-        <div class="data checkbox"><label><input type="checkbox" name="filter[spec][]"
-              value="avia"><span>Авиа</span></label><label><input type="checkbox" name="filter[spec][]"
-              value="avto"><span>Авто</span></label><label><input type="checkbox" name="filter[spec][]"
-              value="sea"><span>Море</span></label><label><input type="checkbox" name="filter[spec][]"
-              value="rail"><span>Ж/д</span></label></div>
+        <div class="data checkbox" formGroupName="specialization">
+          <label>
+            <input type="checkbox" formControlName="avia" value="avia"><span>Авиа</span>
+          </label>
+          <label>
+            <input type="checkbox" formControlName="avto" value="avto"><span>Авто</span>
+          </label>
+          <label>
+            <input type="checkbox" formControlName="sea" value="sea"><span>Море</span>
+          </label>
+          <label>
+            <input type="checkbox" formControlName="rail" value="rail"><span>Ж/д</span>
+          </label>
+        </div>
       </div>
     </div>
     <div class="item">
       <div>
-        <div class="title">Рейтинг:</div>
-        <div class="data select"><span class="ui-select" contenteditable="false"
-            style="margin-bottom: 0px; margin-top: 0px; margin-right: 0px; width: 100%;"><span class="ui-select-width"
-              style="padding-left: 0px; font-size: 13px; font-family: regular, arial, &quot;sans-serif&quot;; display: block; overflow: hidden; height: 0px; line-height: 0; visibility: hidden; position: relative;">1/10
-              NPS</span><select name="filter[rating]" class="init" style="display: none;">
-              <option value="1">1/10 NPS</option>
-              <option value="2">2/10 NPS</option>
-              <option value="3">3/10 NPS</option>
-              <option value="4">4/10 NPS</option>
-            </select><span class="ui-select-input">1/10 NPS</span><span class="ui-select-button">&nbsp;</span><span
-              class="ui-select-fader">&nbsp;</span><span class="ui-select-layer"
-              style="height: auto; visibility: visible; overflow: hidden; display: none;" data-baron-v-id="1"><span
-                class="ui-select-list-scroller"
-                style="overflow-y: auto; box-sizing: border-box; margin: 0px; border: 0px; width: 67px; min-width: 67px; max-width: 67px;"><span
-                  class="ui-select-list"><span class="ui-select-item selected">1/10 NPS</span><span
-                    class="ui-select-item odd">2/10 NPS</span><span class="ui-select-item">3/10 NPS</span><span
-                    class="ui-select-item odd">4/10 NPS</span></span></span>
-              <div class="scrollbar-track">
-                <div class="scrollbar-track-btn scrollbar-up"></div>
-                <div class="scrollbar-track-free">
-                  <div class="scrollbar-bar" style="height: 0px; top: 0px;"></div>
-                </div>
-                <div class="scrollbar-track-btn scrollbar-down"></div>
-              </div>
-            </span></span></div>
+        <!-- <div class="title">Рейтинг:</div> -->
+        <mat-form-field appearance="outline" class="ui-select form-item">
+          <mat-label class="form-label">Рейтинг</mat-label>
+          <mat-select formControlName="rating">
+            <mat-option *ngFor="let val of ratings; index as i" [value]="i">{{i}}/10 NPS</mat-option>
+          </mat-select>
+        </mat-form-field>
       </div>
     </div>
     <div class="item">
       <div>
-        <div class="title">Доступ к торгам:</div>
-        <div class="data select"><span class="ui-select" contenteditable="false"
-            style="margin-bottom: 0px; margin-top: 0px; margin-right: 0px; width: 100%;"><span class="ui-select-width"
-              style="padding-left: 0px; font-size: 13px; font-family: regular, arial, &quot;sans-serif&quot;; display: block; overflow: hidden; height: 0px; line-height: 0; visibility: hidden; position: relative;">Есть</span><select
-              name="filter[access]" class="init" style="display: none;">
-              <option value="1">Есть</option>
-              <option value="0">Нет</option>
-            </select><span class="ui-select-input">Нет</span><span class="ui-select-button">&nbsp;</span><span
-              class="ui-select-fader">&nbsp;</span><span class="ui-select-layer"
-              style="height: auto; visibility: visible; overflow: hidden; display: none;" data-baron-v-id="0"><span
-                class="ui-select-list-scroller"
-                style="overflow-y: auto; box-sizing: border-box; margin: 0px; border: 0px; width: 112px; min-width: 112px; max-width: 112px;"><span
-                  class="ui-select-list"><span class="ui-select-item">Есть</span><span
-                    class="ui-select-item odd selected">Нет</span></span></span>
-              <div class="scrollbar-track">
-                <div class="scrollbar-track-btn scrollbar-up"></div>
-                <div class="scrollbar-track-free">
-                  <div class="scrollbar-bar" style="height: 0px; top: 0px;"></div>
-                </div>
-                <div class="scrollbar-track-btn scrollbar-down"></div>
-              </div>
-            </span></span></div>
+        <!-- <div class="title">Доступ к торгам:</div> -->
+        <mat-form-field appearance="outline" class="ui-select form-item">
+          <mat-label class="form-label">Доступ к торгам</mat-label>
+          <mat-select formControlName="allow_trade">
+            <mat-option [value]="true">Да</mat-option>
+            <mat-option [value]="false">Нет</mat-option>
+            <mat-option [value]="">Не важно</mat-option>
+          </mat-select>
+        </mat-form-field>
       </div>
     </div>
     <div class="item">
       <div>
-        <div class="title">Направление откуда:</div>
-        <div class="data select"><span class="ui-select" contenteditable="false"
-            style="margin-bottom: 0px; margin-top: 0px; margin-right: 0px; width: 100%;"><span class="ui-select-width"
-              style="padding-left: 0px; font-size: 13px; font-family: regular, arial, &quot;sans-serif&quot;; display: block; overflow: hidden; height: 0px; line-height: 0; visibility: hidden; position: relative;">Все
-              направления</span><select name="filter[from]" class="init" style="display: none;">
-              <option value="">Все направления</option>
-            </select><span class="ui-select-input ui-select-input-def">Все направления</span><span
-              class="ui-select-button ui-select-button-def">&nbsp;</span><span
-              class="ui-select-fader">&nbsp;</span><span class="ui-select-layer"
-              style="height: auto; visibility: visible; overflow: hidden; display: none;" data-baron-v-id="2"><span
-                class="ui-select-list-scroller"
-                style="overflow-y: auto; box-sizing: border-box; margin: 0px; border: 0px; width: 137px; min-width: 137px; max-width: 137px;"><span
-                  class="ui-select-list"><span class="ui-select-item selected">Все направления</span></span></span>
-              <div class="scrollbar-track">
-                <div class="scrollbar-track-btn scrollbar-up"></div>
-                <div class="scrollbar-track-free">
-                  <div class="scrollbar-bar" style="height: 0px; top: 0px;"></div>
-                </div>
-                <div class="scrollbar-track-btn scrollbar-down"></div>
-              </div>
-            </span></span></div>
+        <!-- <div class="title">Направление откуда:</div> -->
+        <mat-form-field appearance="outline" class="ui-select form-item">
+          <mat-label class="form-label">Направление откуда</mat-label>
+          <mat-select formControlName="country_departure">
+            <mat-option [value]="">Все направления</mat-option>
+            <mat-option *ngFor="let country of countries;" [value]="country.id">{{ country.name }}</mat-option>
+          </mat-select>
+        </mat-form-field>
       </div>
     </div>
     <div class="item">
       <div>
-        <div class="title">Направление куда:</div>
-        <div class="data select"><span class="ui-select" contenteditable="false"
-            style="margin-bottom: 0px; margin-top: 0px; margin-right: 0px; width: 100%;"><span class="ui-select-width"
-              style="padding-left: 0px; font-size: 13px; font-family: regular, arial, &quot;sans-serif&quot;; display: block; overflow: hidden; height: 0px; line-height: 0; visibility: hidden; position: relative;">Танзания</span><select
-              name="filter[to]" class="init" style="display: none;">
-              <option value="1">Танзания</option>
-            </select><span class="ui-select-input">Танзания</span><span class="ui-select-button">&nbsp;</span><span
-              class="ui-select-fader">&nbsp;</span><span class="ui-select-layer"
-              style="height: auto; visibility: visible; overflow: hidden; display: none;" data-baron-v-id="3"><span
-                class="ui-select-list-scroller"
-                style="overflow-y: auto; box-sizing: border-box; margin: 0px; border: 0px; width: 124px; min-width: 124px; max-width: 124px;"><span
-                  class="ui-select-list"><span class="ui-select-item selected">Танзания</span></span></span>
-              <div class="scrollbar-track">
-                <div class="scrollbar-track-btn scrollbar-up"></div>
-                <div class="scrollbar-track-free">
-                  <div class="scrollbar-bar" style="height: 0px; top: 0px;"></div>
-                </div>
-                <div class="scrollbar-track-btn scrollbar-down"></div>
-              </div>
-            </span></span></div>
+        <!-- <div class="title">Направление куда:</div> -->
+        <mat-form-field appearance="outline" class="ui-select form-item">
+          <mat-label class="form-label">Направление куда</mat-label>
+          <mat-select formControlName="country_arrival">
+            <mat-option [value]="">Все направления</mat-option>
+            <mat-option *ngFor="let country of countries;" [value]="country.id">{{ country.name }}</mat-option>
+          </mat-select>
+        </mat-form-field>
       </div>
     </div>
     <div class="item func">
       <div>
-        <span class="btn apply"><span>Применить</span></span> <span class="btn reset"><span></span></span>
+        <span class="btn apply" (click)="apply()"><span>Применить</span></span>
+        <span class="btn reset" (click)="reset()"><span></span></span>
       </div>
     </div>
   </div>
-</div>
+</form>
+<!-- 
+<pre>
+  {{ filterForm.value | json }}
+</pre> 
+-->

@@ -1,5 +1,6 @@
+import { environment } from './../../../../environments/environment';
 import { Contact } from './../../../api/custom_models/contact';
-import { FormBuilder, FormGroup, Validators, ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
+import { FormBuilder, FormGroup, Validators, ControlValueAccessor, NG_VALUE_ACCESSOR, AbstractControl, ValidationErrors, Validator, NG_VALIDATORS } from '@angular/forms';
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { Subject } from 'rxjs';
 import { takeUntil } from 'rxjs/operators';
@@ -13,13 +14,19 @@ import { takeUntil } from 'rxjs/operators';
       provide: NG_VALUE_ACCESSOR,
       multi: true,
       useExisting: ContactEditorComponent
-    }
+    },
+    {
+      provide: NG_VALIDATORS,
+      useExisting: ContactEditorComponent,
+      multi: true,
+    },
   ]
 })
-export class ContactEditorComponent implements OnInit, OnDestroy, ControlValueAccessor {
+export class ContactEditorComponent implements OnInit, OnDestroy, ControlValueAccessor, Validator {
 
   contactForm: FormGroup;
   showResponsibilities = false;
+  production = environment.production;
 
   onChange = (value: Partial<Contact>) => { };
   onTouched = () => { };
@@ -42,7 +49,8 @@ export class ContactEditorComponent implements OnInit, OnDestroy, ControlValueAc
       whatsapp: ['', []],
       telegram: ['', []],
       wechat: ['', []],
-      responsible_direction: [{}]
+      responsible_direction: [{}],
+      place: [''],
     });
   }
 
@@ -70,4 +78,7 @@ export class ContactEditorComponent implements OnInit, OnDestroy, ControlValueAc
     this.destroy$.complete();
   }
 
+  validate(control: AbstractControl): ValidationErrors | null {
+    return control.value && this.contactForm.valid ? null : { contact: true };
+  }
 }

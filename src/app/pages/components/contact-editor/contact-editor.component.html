@@ -22,7 +22,7 @@
   <div class="form-item-layout">
     <div class="form-item">
       <div class="form-label">местонахождение офиса:</div>
-      <div class="form-data"><input type="text" name="user[1][place]" value="" placeholder="—"></div>
+      <div class="form-data"><input type="text" name="place" formControlName="place" placeholder="—"></div>
     </div>
     <div class="form-item">
       <div class="form-label">офисный телефон: <span class="req">•</span></div>
@@ -373,3 +373,10 @@
     </div>
   </div>
 </form>
+<pre *ngIf="!production">
+  {{ contactForm.value | json }}
+  valid: {{ contactForm.valid | json }}
+  touched: {{ contactForm.touched | json }}
+  dirty: {{ contactForm.dirty | json }}
+  pristine: {{ contactForm.pristine | json }}
+</pre>

@@ -22,7 +22,7 @@
     </div>
   </div>
 </div>
-<app-contractor-filter></app-contractor-filter>
+<app-contractor-filter (filterChange)="onFilterChange($event)"></app-contractor-filter>
 <div class="table">
   <table>
     <tbody>
@@ -40,7 +40,7 @@
         <th class="l">Контактные лица</th>
         <th>Связь</th>
       </tr>
-      <tr *ngFor="let contractor of contractors; index as i" [ngClass]="{'odd': i % 2 == 1}">
+      <tr *ngFor="let contractor of contractors; index as i; trackBy:trackById" [ngClass]="{'odd': i % 2 == 1}">
         <td>{{ start + i + 1 }}</td>
         <td><a class="link" [routerLink]="['./edit', contractor.id]">{{ contractor.name }}</a></td>
         <td>{{ contractor.country_name }} </td>
@@ -60,8 +60,8 @@
           </span>
         </td>
         <td>
-          <span *ngIf="contractor.access" class="success b">Есть</span>
-          <span *ngIf="!contractor.access" class="fail b">Нет</span>
+          <span *ngIf="!contractor.exclude_from_trade" class="success b">Есть</span>
+          <span *ngIf="contractor.exclude_from_trade" class="fail b">Нет</span>
         </td>
         <td>{{ contractor.avg_answer_time | number}} мин.</td>
         <td></td>
