@@ -32,6 +32,8 @@ export class ContactEditorComponent implements OnInit, OnDestroy, ControlValueAc
   onTouched = () => { };
   destroy$ = new Subject<void>();
 
+  private touched = false;
+
   constructor(
     private fb: FormBuilder,
   ) {
@@ -55,7 +57,6 @@ export class ContactEditorComponent implements OnInit, OnDestroy, ControlValueAc
   }
 
   writeValue(contact: Partial<Contact>): void {
-    console.log(`writeValue`, contact);
     this.contactForm.patchValue(contact);
   }
 
@@ -71,6 +72,15 @@ export class ContactEditorComponent implements OnInit, OnDestroy, ControlValueAc
     this.contactForm.valueChanges
       .pipe(takeUntil(this.destroy$))
       .subscribe(value => this.onChange(value));
+
+    this.contactForm.statusChanges
+      .pipe(takeUntil(this.destroy$))
+      .subscribe(() => {
+        if (!this.touched) {
+          this.onTouched();
+          this.touched = true;
+        }
+      });
   }
 
   ngOnDestroy(): void {
