@@ -1,8 +1,10 @@
+import { MatSelectModule } from '@angular/material/select';
 import { FormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { PaginatorComponent } from './paginator.component';
+import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 
 describe('PaginatorComponent', () => {
   let component: PaginatorComponent;
@@ -13,6 +15,8 @@ describe('PaginatorComponent', () => {
       imports: [
         CommonModule,
         FormsModule,
+        MatSelectModule,
+        NoopAnimationsModule
       ],
       declarations: [ PaginatorComponent ]
     })
