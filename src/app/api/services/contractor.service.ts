@@ -492,6 +492,16 @@ export class ContractorService extends BaseService {
 'tax_id'?: number;
 
 /**
+ * Формат отправки запроса (ID берем из запроса - contractor_request_format)
+ */
+'request_format_id'?: string;
+
+/**
+ * Исключить Подрядчика из торгов
+ */
+'exclude_from_trade'?: boolean;
+
+/**
  * Рейтинг в системе (NPS)
  */
 'rating_nps_text'?: string;
@@ -803,6 +813,16 @@ export class ContractorService extends BaseService {
          * Система налогообложения (ID берем из запроса - settings_get из поля tax)
          */
         'tax_id'?: number;
+        
+        /**
+         * Формат отправки запроса (ID берем из запроса - contractor_request_format)
+         */
+        'request_format_id'?: string;
+        
+        /**
+         * Исключить Подрядчика из торгов
+         */
+        'exclude_from_trade'?: boolean;
         
         /**
          * Рейтинг в системе (NPS)
@@ -1150,6 +1170,16 @@ export class ContractorService extends BaseService {
 'tax_id'?: number;
 
 /**
+ * Формат отправки запроса (ID берем из запроса - contractor_request_format)
+ */
+'request_format_id'?: string;
+
+/**
+ * Исключить Подрядчика из торгов
+ */
+'exclude_from_trade'?: boolean;
+
+/**
  * Рейтинг в системе (NPS)
  */
 'rating_nps_text'?: string;
@@ -1447,6 +1477,16 @@ export class ContractorService extends BaseService {
 'tax_id'?: number;
 
 /**
+ * Формат отправки запроса (ID берем из запроса - contractor_request_format)
+ */
+'request_format_id'?: string;
+
+/**
+ * Исключить Подрядчика из торгов
+ */
+'exclude_from_trade'?: boolean;
+
+/**
  * Рейтинг в системе (NPS)
  */
 'rating_nps_text'?: string;
@@ -1739,6 +1779,16 @@ export class ContractorService extends BaseService {
  * Система налогообложения (ID берем из запроса - settings_get из поля tax)
  */
 'tax_id'?: number;
+
+/**
+ * Формат отправки запроса (ID берем из запроса - contractor_request_format)
+ */
+'request_format_id'?: string;
+
+/**
+ * Исключить Подрядчика из торгов
+ */
+'exclude_from_trade'?: boolean;
 
 /**
  * Рейтинг в системе (NPS)
@@ -2055,6 +2105,16 @@ export class ContractorService extends BaseService {
 'tax_id'?: number;
 
 /**
+ * Формат отправки запроса (ID берем из запроса - contractor_request_format)
+ */
+'request_format_id'?: string;
+
+/**
+ * Исключить Подрядчика из торгов
+ */
+'exclude_from_trade'?: boolean;
+
+/**
  * Рейтинг в системе (NPS)
  */
 'rating_nps_text'?: string;
@@ -2349,6 +2409,16 @@ export class ContractorService extends BaseService {
          * Система налогообложения (ID берем из запроса - settings_get из поля tax)
          */
         'tax_id'?: number;
+        
+        /**
+         * Формат отправки запроса (ID берем из запроса - contractor_request_format)
+         */
+        'request_format_id'?: string;
+        
+        /**
+         * Исключить Подрядчика из торгов
+         */
+        'exclude_from_trade'?: boolean;
         
         /**
          * Рейтинг в системе (NPS)
@@ -2655,6 +2725,16 @@ export class ContractorService extends BaseService {
 'tax_id'?: number;
 
 /**
+ * Формат отправки запроса (ID берем из запроса - contractor_request_format)
+ */
+'request_format_id'?: string;
+
+/**
+ * Исключить Подрядчика из торгов
+ */
+'exclude_from_trade'?: boolean;
+
+/**
  * Рейтинг в системе (NPS)
  */
 'rating_nps_text'?: string;
@@ -2941,6 +3021,16 @@ export class ContractorService extends BaseService {
 'tax_id'?: number;
 
 /**
+ * Формат отправки запроса (ID берем из запроса - contractor_request_format)
+ */
+'request_format_id'?: string;
+
+/**
+ * Исключить Подрядчика из торгов
+ */
+'exclude_from_trade'?: boolean;
+
+/**
  * Рейтинг в системе (NPS)
  */
 'rating_nps_text'?: string;
@@ -3222,6 +3312,16 @@ export class ContractorService extends BaseService {
  * Система налогообложения (ID берем из запроса - settings_get из поля tax)
  */
 'tax_id'?: number;
+
+/**
+ * Формат отправки запроса (ID берем из запроса - contractor_request_format)
+ */
+'request_format_id'?: string;
+
+/**
+ * Исключить Подрядчика из торгов
+ */
+'exclude_from_trade'?: boolean;
 
 /**
  * Рейтинг в системе (NPS)
