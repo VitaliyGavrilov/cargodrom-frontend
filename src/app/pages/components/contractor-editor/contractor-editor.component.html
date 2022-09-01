@@ -8,7 +8,7 @@
     <div class="fn">
       <button class="btn v save" (click)="save()" [disabled]="!canSave()"><span>сохранить</span></button>
       <button class="btn v del" *ngIf="isEditMode" (click)="remove()"><span>Удалить</span></button>
-      <button class="btn v cancel" (click)="goBack()"><span>отмена</span></button>
+      <button class="btn v cancel" (click)="goToContractors()"><span>отмена</span></button>
     </div>
   </div>
 
@@ -54,9 +54,7 @@
 
          <div class="form-item">
           <div class="form-label">город: <span class="req">•</span></div>
-          <!--<div class="form-data"><input type="text" name="city_name" formControlName="city_name" placeholder="—"></div>-->
            <mat-form-field appearance="outline" class="ui-select">
-             <!--<mat-label class="form-label">город</mat-label>-->
              <mat-select formControlName="city_id">
                <mat-option *ngFor="let city of cities;" [value]="city.id">{{ city.name }}</mat-option>
              </mat-select>
@@ -193,7 +191,7 @@
     </div>
     <div class="form-row-sm">
       <div class="title">Всего выполнено перевозок:</div>
-      <div class="data">80</div>
+      <div class="data">{{contractor.order_count}}</div>
       <div class="link"><a href="#">Подробнее</a></div>
     </div>
     <div class="form-row-sm">
@@ -210,7 +208,7 @@
   <div formArrayName="contacts">
   <div class="user-item" *ngFor="let contact of contacts.controls; let i=index">
     <div class="form-block-title">Контактное лицо №{{i + 1}}<span class="btn v del" (click)="removeContact(i)">Удалить</span></div>
-    <app-contact-editor [formControlName]="i"></app-contact-editor>
+    <app-contact-editor [homeCountryId]="contractorForm.controls['country_id'].value" [countries]="countries" [formControlName]="i"></app-contact-editor>
   </div>
 
   <div class="user-item">
@@ -227,13 +225,13 @@
     <div class="fn">
       <button class="btn v save" (click)="save()" [disabled]="!canSave()"><span>сохранить</span></button>
       <button class="btn v del" *ngIf="isEditMode" (click)="remove()"><span>Удалить</span></button>
-      <button class="btn v cancel" (click)="goBack()"><span>отмена</span></button>
+      <button class="btn v cancel" (click)="goToContractors()"><span>отмена</span></button>
     </div>
   </div>
 
 </form>
 
-<pre *ngIf="!production">
+<!-- <pre *ngIf="!production">
   {{ contractorForm.value | json }}
   valid: {{  contractorForm.valid | json }}
   touched: {{  contractorForm.touched | json }}
@@ -250,5 +248,5 @@
   <ng-container *ngIf="contact.errors">
     {{ contact.errors | json }}
   </ng-container>
-</p>
+</p> -->
 

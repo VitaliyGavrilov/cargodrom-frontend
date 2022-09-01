@@ -1,3 +1,4 @@
+import { TransportSubKind } from './transport';
 export interface Contact {
   id: number;
   owner_id: number;
@@ -17,10 +18,11 @@ export interface Contact {
   whatsapp: string;
   wechat: string;
   responsible_direction: number[];
-  responsible_param: any;
+  responsible_param: Responsibilities;
   time_add: string;
   time_edit: string;
   city_name: string;
 }
 
+export type Responsibilities = { [toCountryId: string]: TransportSubKind[] }
 
