@@ -18,7 +18,7 @@ export class TradeDirectionComponent implements OnInit, ControlValueAccessor {
     { value: 'all', label: 'Все', checked: false },
     { value: 'import', label: 'Импорт', checked: false },
     { value: 'export', label: 'Экспорт', checked: false },
-    { value: 'local', label: 'Внутрироссийские перевозки', checked: false },
+    { value: 'local', label: 'Перевозки внутри страны', checked: false },
   ];
 
   onChangeFn = (value: string[]) => { };
