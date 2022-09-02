@@ -4,7 +4,7 @@
   <tbody>
     <tr>
       <th class="name">
-        <div>Отправление из {{homeCountry.name}}
+        <div>Отправление из {{homeCountry.name_from}}
           <span [ngPlural]="destCountries.length">
             <ng-template ngPluralCase="=0"></ng-template>
             <ng-template ngPluralCase="=1">в одну страну</ng-template>
@@ -65,7 +65,7 @@
   <tbody>
     <tr>
       <th class="name">
-        <div>Перевозки внутри страны:</div>
+        <div>Перевозки внутри {{homeCountry.name_from}}:</div>
       </th>
       <th class="all bg s e">
         <div class="l">Все виды</div>

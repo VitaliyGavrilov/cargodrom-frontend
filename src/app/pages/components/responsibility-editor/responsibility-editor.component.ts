@@ -78,6 +78,7 @@ export class ResponsibilityEditorComponent implements OnInit, OnChanges, Control
     this.destCountries = Object.keys(responsibilityParam)
       .filter(countryId => Number(countryId) !== this.homeCountryId)
       .map(countryId => this.getCountryById(countryId)!)
+      .sort(byName);
     if (this.homeCountryId && !Array.isArray(this.responsibilities[this.homeCountryId])) {
       this.responsibilities[this.homeCountryId] = [];
     }
@@ -108,6 +109,7 @@ export class ResponsibilityEditorComponent implements OnInit, OnChanges, Control
 
   addCountry(): void {
     this.destCountries.push(this.country!);
+    this.destCountries.sort(byName);
     this.responsibilities[this.country!.id] = [];
     this.country = undefined;
     this.valueChanged();
@@ -213,4 +215,6 @@ export class ResponsibilityEditorComponent implements OnInit, OnChanges, Control
   }
 
 }
+
+const byName = (a: Country, b: Country) => a.name!.localeCompare(b.name!);
 

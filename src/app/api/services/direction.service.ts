@@ -160,6 +160,11 @@ export class DirectionService extends BaseService {
 'name'?: string;
 
 /**
+ * Наименование, откуда
+ */
+'name_from'?: string;
+
+/**
  * Время создания
  */
 'time_add'?: string;
@@ -191,6 +196,11 @@ export class DirectionService extends BaseService {
          * Наименование
          */
         'name'?: string;
+        
+        /**
+         * Наименование, откуда
+         */
+        'name_from'?: string;
         
         /**
          * Время создания
@@ -230,6 +240,11 @@ export class DirectionService extends BaseService {
 'name'?: string;
 
 /**
+ * Наименование, откуда
+ */
+'name_from'?: string;
+
+/**
  * Время создания
  */
 'time_add'?: string;
@@ -254,6 +269,11 @@ export class DirectionService extends BaseService {
 'name'?: string;
 
 /**
+ * Наименование, откуда
+ */
+'name_from'?: string;
+
+/**
  * Время создания
  */
 'time_add'?: string;
@@ -273,6 +293,11 @@ export class DirectionService extends BaseService {
  * Наименование
  */
 'name'?: string;
+
+/**
+ * Наименование, откуда
+ */
+'name_from'?: string;
 
 /**
  * Время создания
