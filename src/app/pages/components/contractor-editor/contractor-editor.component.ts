@@ -9,7 +9,6 @@ import { Contractor, ContractorRequestFormat, ContractorType } from './../../../
 import { ContractorService } from './../../../api/services/contractor.service';
 import { Component, OnInit, ViewEncapsulation } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
-import { Location } from '@angular/common';
 import { MatSnackBar, MatSnackBarConfig } from '@angular/material/snack-bar';
 import { CityService } from '../../services/city.service';
 
@@ -38,7 +37,6 @@ export class ContractorEditorComponent implements OnInit {
     private contractorService: ContractorService,
     private countryService: CountryService,
     private cityService: CityService,
-    private location: Location,
     private fb: FormBuilder,
     private snackBar: MatSnackBar,
     private router: Router,
