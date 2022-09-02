@@ -181,8 +181,7 @@ export class ContractorEditorComponent implements OnInit {
 
   private getRequestFormats(): void {
     this.contractorService.contractorRequestFormat()
-      .pipe(tap(console.table))
-      .subscribe(formats => this.requestFormats = formats);
+      .subscribe(formats => this.requestFormats = formats as unknown as ContractorRequestFormat[]);
   }
 
   private getCities(countryId: number) {
@@ -202,7 +201,6 @@ export class ContractorEditorComponent implements OnInit {
       }))
       .subscribe({
         next: contractor => {
-          console.table(contractor);
           this.contractor = contractor as Contractor;
           const contactsControls = this.contacts;
           this.contractor.contacts?.forEach(contact => contact.contractor_id = contractor.id);
