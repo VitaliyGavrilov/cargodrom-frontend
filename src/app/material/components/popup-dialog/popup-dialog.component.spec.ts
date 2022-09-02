@@ -1,11 +1,11 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { MAT_DIALOG_DATA } from '@angular/material/dialog';
 
-import { ErrorDialogComponent } from './error-dialog.component';
+import { PopupDialogComponent } from './popup-dialog.component';
 
 describe('ErrorDialogComponent', () => {
-  let component: ErrorDialogComponent;
-  let fixture: ComponentFixture<ErrorDialogComponent>;
+  let component: PopupDialogComponent;
+  let fixture: ComponentFixture<PopupDialogComponent>;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
@@ -15,11 +15,11 @@ describe('ErrorDialogComponent', () => {
           useValue: {},
         }
       ],
-      declarations: [ErrorDialogComponent]
+      declarations: [PopupDialogComponent]
     })
       .compileComponents();
 
-    fixture = TestBed.createComponent(ErrorDialogComponent);
+    fixture = TestBed.createComponent(PopupDialogComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

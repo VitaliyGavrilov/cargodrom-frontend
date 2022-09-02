@@ -6,30 +6,30 @@
         <div class="hdr">
           <span class="logo"></span>
           <span class="sep"></span>
-          <span class="back" onclick="return showAuthForm(this, 'auth')">Регистрация</span>
+          <span class="back" [routerLink]="['/auth']">Регистрация</span>
         </div>
         <div class="fm-body">
           <form [formGroup]="registerForm" (ngSubmit)="doRegister()">
             <div class="form-row sp">
               <div class="form-item">
                 <div class="form-label">Название компании::</div>
-                <div class="form-input"><input type="text" (keypress)="clearError()" name="company" value="" placeholder="—"></div>
+                <div class="form-input"><input type="text" name="company" value="" placeholder="—"></div>
               </div>
             </div>
             <div class="form-row inline sp">
               <div class="form-item">
                 <div class="form-label">Ответственное лицо:</div>
-                <div class="form-input"><input type="text" (keypress)="clearError()" name="fio" value="" placeholder="—"></div>
+                <div class="form-input"><input type="text" name="fio" value="" placeholder="—"></div>
               </div>
               <div class="form-item">
                 <div class="form-label">Номер телефона:</div>
-                <div class="form-input"><input type="text" (keypress)="clearError()" name="phone" value="" placeholder="—"></div>
+                <div class="form-input"><input type="text" name="phone" value="" placeholder="—"></div>
               </div>
             </div>
             <div class="form-row inline sp">
               <div class="form-item">
                 <div class="form-label">ИНН:</div>
-                <div class="form-input"><input type="text" (keypress)="clearError()" name="inn" value="" placeholder="—"></div>
+                <div class="form-input"><input type="text" name="inn" value="" placeholder="—"></div>
               </div>
               <div class="form-item">
                 <div class="form-label">E-mail:</div>
@@ -47,13 +47,6 @@
               </div>
             </div>
 
-            <div class="form-row form-error" *ngIf="errorMessage">
-              {{ errorMessage }}
-            </div>
-
-            <div class="form-row form-error" *ngIf="_email?.errors?.['email']">
-              E-mail введен не верно
-            </div>
 
           </form>
         </div>
@@ -61,18 +54,5 @@
 
     </div>
 
-  </div>
-</div>
-
-
-<div class="popup-place" *ngIf="errorMessage">
-  <div class="popup-window">
-    <div class="popup-window-title">
-      Сообщение системы
-    </div>
-    <div class="popup-window-alert">
-      {{ errorMessage }}
-    </div>
-    <div class="popup-window-close" (click)="clearError()"></div>
   </div>
 </div>

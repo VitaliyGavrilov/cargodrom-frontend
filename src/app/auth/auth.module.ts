@@ -9,8 +9,6 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { LogoutComponent } from './components/logout/logout.component';
 import { CheckCodeComponent } from './components/check-code/check-code.component';
 
-
-
 @NgModule({
   declarations: [
     LoginComponent,

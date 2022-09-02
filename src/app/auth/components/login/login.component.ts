@@ -1,5 +1,3 @@
-import { ErrorDialogComponent } from './../../../material/components/error-dialog/error-dialog.component';
-import { ErrorDialogData } from './../../../material/components/error-dialog/error-dialog-data';
 import { Router } from '@angular/router';
 import { AuthService } from './../../services/auth.service';
 import { UserService } from './../../../api/services/user.service';
@@ -7,6 +5,8 @@ import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { finalize } from 'rxjs';
 import { MatDialog } from '@angular/material/dialog';
+import {PopupService} from "../../../material/services/popup.service";
+
 
 @Component({
   selector: 'app-login',
@@ -22,6 +22,7 @@ export class LoginComponent implements OnInit {
     private fb: FormBuilder,
     private auth: AuthService,
     private router: Router,
+    public popup: PopupService,
     public dialog: MatDialog
   ) {
     this.loginForm = this.fb.group({
@@ -41,7 +42,7 @@ export class LoginComponent implements OnInit {
           'error_message': 'Не заполнены обязательные поля'
         }
       }
-      this.processLoginError(err)
+      this.popup.error(err);
       return;
     }
     this.loading = true;
@@ -53,16 +54,8 @@ export class LoginComponent implements OnInit {
         finalize(() => this.loading = false)
       ).subscribe({
         next: () => this.processLogin(),
-        error: err => this.processLoginError(err)
+        error: err => this.popup.error(err)
       });
-  }
-
-  processLoginError(err: any): void {
-    const data: ErrorDialogData = {
-      title: 'Что-то пошло не так',
-      errors: [err.error.error_message]
-    }
-    this.dialog.open(ErrorDialogComponent, {data});
   }
 
   processLogin(): void {
