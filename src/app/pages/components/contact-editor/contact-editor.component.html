@@ -4,19 +4,19 @@
   <div class="form-item-layout">
     <div class="form-item">
       <div class="form-label">фамилия: <span class="req">•</span></div>
-      <div class="form-data"><input type="text" name="name_f" formControlName="name_f" placeholder="—"></div>
+      <div class="form-data"><input type="text" name="name_f" formControlName="name_f" placeholder="—" required></div>
     </div>
     <div class="form-item">
       <div class="form-label">имя:</div>
-      <div class="form-data"><input type="text"  name="name_i" formControlName="name_i" placeholder="—"></div>
+      <div class="form-data"><input type="text"  name="name_i" formControlName="name_i" placeholder="—" required></div>
     </div>
     <div class="form-item">
       <div class="form-label">отчество: <span class="req">•</span></div>
-      <div class="form-data"><input type="text"  name="name_o" formControlName="name_o" placeholder="—"></div>
+      <div class="form-data"><input type="text"  name="name_o" formControlName="name_o" placeholder="—" required></div>
     </div>
     <div class="form-item">
       <div class="form-label">должность: <span class="req">•</span></div>
-      <div class="form-data"><input type="text" name="position" formControlName="position" placeholder="—"></div>
+      <div class="form-data"><input type="text" name="position" formControlName="position" placeholder="—" required></div>
     </div>
   </div>
   <div class="form-item-layout">
@@ -26,7 +26,7 @@
     </div>
     <div class="form-item">
       <div class="form-label">офисный телефон: <span class="req">•</span></div>
-      <div class="form-data"><input type="text" name="phone" formControlName="phone" placeholder="—"></div>
+      <div class="form-data"><input type="text" name="phone" formControlName="phone" placeholder="—" required></div>
     </div>
     <div class="form-item">
       <div class="form-label">мобильный телефон:</div>
@@ -34,7 +34,7 @@
     </div>
     <div class="form-item">
       <div class="form-label">e-mail: <span class="req">•</span></div>
-      <div class="form-data"><input type="text" name="email" formControlName="email" placeholder="—"></div>
+      <div class="form-data"><input type="text" name="email" formControlName="email" placeholder="—" required></div>
     </div>
   </div>
   <div class="form-item-layout">
@@ -64,319 +64,14 @@
       </div>
     </div>
     <div class="lnk-data" [ngStyle]="{'display': showResponsibilities ? 'block' : 'none' }">
-
-
-
-      <table class="t1">
-        <tbody>
-          <tr>
-            <th class="name">
-              <div>Отправление в Китай из 4 стран:</div>
-              <input type="text" name="" value="" placeholder="Добавить страну или регион...">
-            </th>
-            <th class="all bg s e">
-              <div class="l">Все виды</div>
-              <label><input type="checkbox" class="show-all"><i></i></label>
-            </th>
-            <th class=" s">
-              <div class="l"><span class="ico air"></span><span>LCL</span></div>
-              <label><input type="checkbox" class="show-all-col"><i></i></label>
-            </th>
-            <th class=" e">
-              <div class="l"><span class="ico air"></span><span>FCL</span></div>
-              <label><input type="checkbox" class="show-all-col"><i></i></label>
-            </th>
-            <th class=" bg s">
-              <div class="l"><span class="ico road"></span><span>LCL</span></div>
-              <label><input type="checkbox" class="show-all-col"><i></i></label>
-            </th>
-            <th class=" bg">
-              <div class="l"><span class="ico road"></span><span>FCL</span></div>
-              <label><input type="checkbox" class="show-all-col"><i></i></label>
-            </th>
-            <th class=" bg">
-              <div class="l"><span class="ico road"></span><span>ADR</span></div>
-              <label><input type="checkbox" class="show-all-col"><i></i></label>
-            </th>
-            <th class=" bg e">
-              <div class="l"><span class="ico road"></span><span>REF</span></div>
-              <label><input type="checkbox" class="show-all-col"><i></i></label>
-            </th>
-            <th class=" s">
-              <div class="l"><span class="ico sea"></span><span>TEUS</span></div>
-              <label><input type="checkbox" class="show-all-col"><i></i></label>
-            </th>
-            <th class="">
-              <div class="l"><span class="ico sea"></span><span>LCL</span></div>
-              <label><input type="checkbox" class="show-all-col"><i></i></label>
-            </th>
-            <th class=" e">
-              <div class="l"><span class="ico sea"></span><span>СП</span></div>
-              <label><input type="checkbox" class="show-all-col"><i></i></label>
-            </th>
-            <th class=" bg s">
-              <div class="l"><span class="ico rail"></span><span>TEUS</span></div>
-              <label><input type="checkbox" class="show-all-col"><i></i></label>
-            </th>
-            <th class=" bg">
-              <div class="l"><span class="ico rail"></span><span>LCL</span></div>
-              <label><input type="checkbox" class="show-all-col"><i></i></label>
-            </th>
-            <th class=" bg e">
-              <div class="l"><span class="ico rail"></span><span>СП</span></div>
-              <label><input type="checkbox" class="show-all-col"><i></i></label>
-            </th>
-          </tr>
-
-          <tr class="row">
-            <td class="name">
-              <div><span>Албания</span><span class="del"></span></div>
-            </td>
-            <td class="bg s e">
-              <label><input type="checkbox" class="show-all-row"><i></i></label>
-            </td>
-            <td class=" s">
-              <label><input type="checkbox" class="show-all-col"><i></i></label>
-            </td>
-            <td class=" e">
-              <label><input type="checkbox" class="show-all-col"><i></i></label>
-            </td>
-            <td class=" bg s">
-              <label><input type="checkbox" class="show-all-col"><i></i></label>
-            </td>
-            <td class=" bg">
-              <label><input type="checkbox" class="show-all-col"><i></i></label>
-            </td>
-            <td class=" bg">
-              <label><input type="checkbox" class="show-all-col"><i></i></label>
-            </td>
-            <td class=" bg e">
-              <label><input type="checkbox" class="show-all-col"><i></i></label>
-            </td>
-            <td class=" s">
-              <label><input type="checkbox" class="show-all-col"><i></i></label>
-            </td>
-            <td class="">
-              <label><input type="checkbox" class="show-all-col"><i></i></label>
-            </td>
-            <td class=" e">
-              <label><input type="checkbox" class="show-all-col"><i></i></label>
-            </td>
-            <td class=" bg s">
-              <label><input type="checkbox" class="show-all-col"><i></i></label>
-            </td>
-            <td class=" bg">
-              <label><input type="checkbox" class="show-all-col"><i></i></label>
-            </td>
-            <td class=" bg e">
-              <label><input type="checkbox" class="show-all-col"><i></i></label>
-            </td>
-          </tr>
-          <tr class="row">
-            <td class="name">
-              <div><span>Россия</span><span class="del"></span></div>
-            </td>
-            <td class="bg s e">
-              <label><input type="checkbox" class="show-all-row"><i></i></label>
-            </td>
-            <td class=" s">
-              <label><input type="checkbox" class="show-all-col"><i></i></label>
-            </td>
-            <td class=" e">
-              <label><input type="checkbox" class="show-all-col"><i></i></label>
-            </td>
-            <td class=" bg s">
-              <label><input type="checkbox" class="show-all-col"><i></i></label>
-            </td>
-            <td class=" bg">
-              <label><input type="checkbox" class="show-all-col"><i></i></label>
-            </td>
-            <td class=" bg">
-              <label><input type="checkbox" class="show-all-col"><i></i></label>
-            </td>
-            <td class=" bg e">
-              <label><input type="checkbox" class="show-all-col"><i></i></label>
-            </td>
-            <td class=" s">
-              <label><input type="checkbox" class="show-all-col"><i></i></label>
-            </td>
-            <td class="">
-              <label><input type="checkbox" class="show-all-col"><i></i></label>
-            </td>
-            <td class=" e">
-              <label><input type="checkbox" class="show-all-col"><i></i></label>
-            </td>
-            <td class=" bg s">
-              <label><input type="checkbox" class="show-all-col"><i></i></label>
-            </td>
-            <td class=" bg">
-              <label><input type="checkbox" class="show-all-col"><i></i></label>
-            </td>
-            <td class=" bg e">
-              <label><input type="checkbox" class="show-all-col"><i></i></label>
-            </td>
-          </tr>
-          <tr class="row">
-            <td class="name">
-              <div><span>Южные Сандвичевы Острова</span><span class="del"></span></div>
-            </td>
-            <td class="bg s e">
-              <label><input type="checkbox" class="show-all-row"><i></i></label>
-            </td>
-            <td class=" s">
-              <label><input type="checkbox" class="show-all-col"><i></i></label>
-            </td>
-            <td class=" e">
-              <label><input type="checkbox" class="show-all-col"><i></i></label>
-            </td>
-            <td class=" bg s">
-              <label><input type="checkbox" class="show-all-col"><i></i></label>
-            </td>
-            <td class=" bg">
-              <label><input type="checkbox" class="show-all-col"><i></i></label>
-            </td>
-            <td class=" bg">
-              <label><input type="checkbox" class="show-all-col"><i></i></label>
-            </td>
-            <td class=" bg e">
-              <label><input type="checkbox" class="show-all-col"><i></i></label>
-            </td>
-            <td class=" s">
-              <label><input type="checkbox" class="show-all-col"><i></i></label>
-            </td>
-            <td class="">
-              <label><input type="checkbox" class="show-all-col"><i></i></label>
-            </td>
-            <td class=" e">
-              <label><input type="checkbox" class="show-all-col"><i></i></label>
-            </td>
-            <td class=" bg s">
-              <label><input type="checkbox" class="show-all-col"><i></i></label>
-            </td>
-            <td class=" bg">
-              <label><input type="checkbox" class="show-all-col"><i></i></label>
-            </td>
-            <td class=" bg e">
-              <label><input type="checkbox" class="show-all-col"><i></i></label>
-            </td>
-          </tr>
-          <tr class="row">
-            <td class="name">
-              <div><span>Япония</span><span class="del"></span></div>
-            </td>
-            <td class="bg s e">
-              <label><input type="checkbox" class="show-all-row"><i></i></label>
-            </td>
-            <td class=" s">
-              <label><input type="checkbox" class="show-all-col"><i></i></label>
-            </td>
-            <td class=" e">
-              <label><input type="checkbox" class="show-all-col"><i></i></label>
-            </td>
-            <td class=" bg s">
-              <label><input type="checkbox" class="show-all-col"><i></i></label>
-            </td>
-            <td class=" bg">
-              <label><input type="checkbox" class="show-all-col"><i></i></label>
-            </td>
-            <td class=" bg">
-              <label><input type="checkbox" class="show-all-col"><i></i></label>
-            </td>
-            <td class=" bg e">
-              <label><input type="checkbox" class="show-all-col"><i></i></label>
-            </td>
-            <td class=" s">
-              <label><input type="checkbox" class="show-all-col"><i></i></label>
-            </td>
-            <td class="">
-              <label><input type="checkbox" class="show-all-col"><i></i></label>
-            </td>
-            <td class=" e">
-              <label><input type="checkbox" class="show-all-col"><i></i></label>
-            </td>
-            <td class=" bg s">
-              <label><input type="checkbox" class="show-all-col"><i></i></label>
-            </td>
-            <td class=" bg">
-              <label><input type="checkbox" class="show-all-col"><i></i></label>
-            </td>
-            <td class=" bg e">
-              <label><input type="checkbox" class="show-all-col"><i></i></label>
-            </td>
-          </tr>
-        </tbody>
-      </table>
-
-      <table class="t1">
-        <tbody>
-          <tr>
-            <th class="name">
-              <div>Внутрироссийские<br>
-                перевозки:</div>
-            </th>
-            <th class="all bg s e">
-              <div class="l">Все виды</div>
-              <label><input type="checkbox" class="show-all"><i></i></label>
-            </th>
-            <th class=" s">
-              <div class="l"><span class="ico air"></span><span>LCL</span></div>
-              <label><input type="checkbox" class="show-all-col"><i></i></label>
-            </th>
-            <th class=" e">
-              <div class="l"><span class="ico air"></span><span>FCL</span></div>
-              <label><input type="checkbox" class="show-all-col"><i></i></label>
-            </th>
-            <th class=" bg s">
-              <div class="l"><span class="ico road"></span><span>LCL</span></div>
-              <label><input type="checkbox" class="show-all-col"><i></i></label>
-            </th>
-            <th class=" bg">
-              <div class="l"><span class="ico road"></span><span>FCL</span></div>
-              <label><input type="checkbox" class="show-all-col"><i></i></label>
-            </th>
-            <th class=" bg">
-              <div class="l"><span class="ico road"></span><span>ADR</span></div>
-              <label><input type="checkbox" class="show-all-col"><i></i></label>
-            </th>
-            <th class=" bg e">
-              <div class="l"><span class="ico road"></span><span>REF</span></div>
-              <label><input type="checkbox" class="show-all-col"><i></i></label>
-            </th>
-            <th class=" s">
-              <div class="l"><span class="ico sea"></span><span>TEUS</span></div>
-              <label><input type="checkbox" class="show-all-col"><i></i></label>
-            </th>
-            <th class="">
-              <div class="l"><span class="ico sea"></span><span>LCL</span></div>
-              <label><input type="checkbox" class="show-all-col"><i></i></label>
-            </th>
-            <th class=" e">
-              <div class="l"><span class="ico sea"></span><span>СП</span></div>
-              <label><input type="checkbox" class="show-all-col"><i></i></label>
-            </th>
-            <th class=" bg s">
-              <div class="l"><span class="ico rail"></span><span>TEUS</span></div>
-              <label><input type="checkbox" class="show-all-col"><i></i></label>
-            </th>
-            <th class=" bg">
-              <div class="l"><span class="ico rail"></span><span>LCL</span></div>
-              <label><input type="checkbox" class="show-all-col"><i></i></label>
-            </th>
-            <th class=" bg e">
-              <div class="l"><span class="ico rail"></span><span>СП</span></div>
-              <label><input type="checkbox" class="show-all-col"><i></i></label>
-            </th>
-          </tr>
-        </tbody>
-      </table>
-
+      <app-responsibility-editor [homeCountryId]="homeCountryId" [countries]="countries" formControlName="responsible_param"></app-responsibility-editor>
     </div>
   </div>
 </form>
-<pre *ngIf="!production">
+<!-- <pre *ngIf="!production">
   {{ contactForm.value | json }}
   valid: {{ contactForm.valid | json }}
   touched: {{ contactForm.touched | json }}
   dirty: {{ contactForm.dirty | json }}
   pristine: {{ contactForm.pristine | json }}
-</pre>
+</pre> -->

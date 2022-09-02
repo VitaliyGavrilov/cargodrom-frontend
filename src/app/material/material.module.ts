@@ -6,6 +6,12 @@ import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatOptionModule } from '@angular/material/core';
 import { MatSnackBarModule } from '@angular/material/snack-bar';
 import { PopupDialogComponent } from './components/popup-dialog/popup-dialog.component';
+import { MatAutocompleteModule } from '@angular/material/autocomplete';
+import { MatInputModule } from '@angular/material/input';
+import { MatCheckboxModule } from '@angular/material/checkbox';
+
+
+import { ErrorDialogComponent } from './components/error-dialog/error-dialog.component';
 
 @NgModule({
   declarations: [
@@ -18,6 +24,8 @@ import { PopupDialogComponent } from './components/popup-dialog/popup-dialog.com
     MatSelectModule,
     MatOptionModule,
     MatSnackBarModule,
+    MatAutocompleteModule,
+    MatCheckboxModule,
   ],
   exports: [
     MatDialogModule,
@@ -25,6 +33,9 @@ import { PopupDialogComponent } from './components/popup-dialog/popup-dialog.com
     MatSelectModule,
     MatOptionModule,
     MatSnackBarModule,
+    MatAutocompleteModule,
+    MatInputModule,
+    MatCheckboxModule,
   ]
 })
 export class MaterialModule { }

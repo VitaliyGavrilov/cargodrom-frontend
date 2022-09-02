@@ -48,12 +48,11 @@ export class ContractorEditorComponent implements OnInit {
       address: ['', []],
       name: ['', [Validators.required]],
       ind: ['', [Validators.required]],
-      city_name: ['', [Validators.required]],
       phone: ['', []],
       web: ['', []],
-      rating_nps: [0, []],
-      user_rating_nps: [0, []],
-      contacts: fb.array([]),
+      rating_nps: [{ value: 0, disabled: true }, []],
+      user_rating_nps: [{ value: 0, disabled: true }, []],
+      contacts: fb.array([], [Validators.required]),
       association_id: [[]],
       tax_id: [undefined, [Validators.required]],
       type_id: [undefined, [Validators.required]],
@@ -77,10 +76,6 @@ export class ContractorEditorComponent implements OnInit {
     this.getRequestFormats();
   }
 
-  goBack(): void {
-    this.location.back();
-  }
-
   goToContractors(): void {
     this.router.navigate(['/pages/contractor']);
   }
@@ -91,12 +86,14 @@ export class ContractorEditorComponent implements OnInit {
 
   removeContact(i: number): void {
     this.contacts.removeAt(i);
+    this.contractorForm.markAsTouched();
   }
 
   addContact() {
     this.contacts.push(this.fb.control({
       contractor_id: this.contractor.id
-    }))
+    }));
+    this.contractorForm.markAsTouched();
   }
 
   get contacts() {
@@ -132,7 +129,7 @@ export class ContractorEditorComponent implements OnInit {
   }
 
   canSave(): boolean {
-    return this.contractorForm.valid && this.contractorForm.dirty;
+    return this.contractorForm.valid;
   }
 
   private updateContractor(body: any) {

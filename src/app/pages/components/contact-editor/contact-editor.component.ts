@@ -1,7 +1,8 @@
+import { Country } from './../../../api/custom_models/country';
 import { environment } from './../../../../environments/environment';
 import { Contact } from './../../../api/custom_models/contact';
 import { FormBuilder, FormGroup, Validators, ControlValueAccessor, NG_VALUE_ACCESSOR, AbstractControl, ValidationErrors, Validator, NG_VALIDATORS } from '@angular/forms';
-import { Component, OnDestroy, OnInit } from '@angular/core';
+import { Component, Input, OnDestroy, OnInit } from '@angular/core';
 import { Subject } from 'rxjs';
 import { takeUntil } from 'rxjs/operators';
 
@@ -24,6 +25,8 @@ import { takeUntil } from 'rxjs/operators';
 })
 export class ContactEditorComponent implements OnInit, OnDestroy, ControlValueAccessor, Validator {
 
+  @Input() countries: Country[] = [];
+  @Input() homeCountryId?: number;
   contactForm: FormGroup;
   showResponsibilities = false;
   production = environment.production;
@@ -31,6 +34,8 @@ export class ContactEditorComponent implements OnInit, OnDestroy, ControlValueAc
   onChange = (value: Partial<Contact>) => { };
   onTouched = () => { };
   destroy$ = new Subject<void>();
+
+  private touched = false;
 
   constructor(
     private fb: FormBuilder,
@@ -50,12 +55,12 @@ export class ContactEditorComponent implements OnInit, OnDestroy, ControlValueAc
       telegram: ['', []],
       wechat: ['', []],
       responsible_direction: [{}],
+      responsible_param: [{}],
       place: [''],
     });
   }
 
   writeValue(contact: Partial<Contact>): void {
-    console.log(`writeValue`, contact);
     this.contactForm.patchValue(contact);
   }
 
@@ -71,6 +76,15 @@ export class ContactEditorComponent implements OnInit, OnDestroy, ControlValueAc
     this.contactForm.valueChanges
       .pipe(takeUntil(this.destroy$))
       .subscribe(value => this.onChange(value));
+
+    this.contactForm.statusChanges
+      .pipe(takeUntil(this.destroy$))
+      .subscribe(() => {
+        if (!this.touched) {
+          this.onTouched();
+          this.touched = true;
+        }
+      });
   }
 
   ngOnDestroy(): void {
