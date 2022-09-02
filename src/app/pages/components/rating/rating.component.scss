@@ -1,7 +1,8 @@
 :host {
   flex-grow: 1;
+  user-select: none;
 }
 
-.stars > span {
+.stars:not(.disabled) > span {
   cursor: pointer;
 }
