@@ -7,9 +7,8 @@ import { Country } from './../../../api/custom_models/country';
 import { FormArray, FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Contractor, ContractorRequestFormat, ContractorType } from './../../../api/custom_models/contractor';
 import { ContractorService } from './../../../api/services/contractor.service';
-import {Component, OnInit, ViewEncapsulation} from '@angular/core';
+import { Component, OnInit, ViewEncapsulation } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
-import { Location } from '@angular/common';
 import { MatSnackBar, MatSnackBarConfig } from '@angular/material/snack-bar';
 import { CityService } from '../../services/city.service';
 
@@ -38,7 +37,6 @@ export class ContractorEditorComponent implements OnInit {
     private contractorService: ContractorService,
     private countryService: CountryService,
     private cityService: CityService,
-    private location: Location,
     private fb: FormBuilder,
     private snackBar: MatSnackBar,
     private router: Router,
@@ -101,6 +99,10 @@ export class ContractorEditorComponent implements OnInit {
   }
 
   save(): void {
+    if (!this.contractorForm.valid) {
+      this.snackBar.open('Не все поля заполнены корректно', undefined, this.snackBarWithLongDuration);
+      return;
+    }
     const body = this.contractorForm.value;
     if (typeof this.contractor.id === 'number') {
       this.updateContractor(body);
@@ -141,7 +143,7 @@ export class ContractorEditorComponent implements OnInit {
 
   private createContractor(body: any) {
     this.contractorService.contractorCreate({ body }).pipe().subscribe({
-      next: ({id}) => {
+      next: ({ id }) => {
         this.goToContractor(id);
         this.snackBar.open(`Подрядчик создан`, undefined, this.snackBarWithShortDuration)
       },
@@ -177,8 +179,7 @@ export class ContractorEditorComponent implements OnInit {
 
   private getRequestFormats(): void {
     this.contractorService.contractorRequestFormat()
-      .pipe(tap(console.table))
-      .subscribe(formats => this.requestFormats = formats);
+      .subscribe(formats => this.requestFormats = formats as unknown as ContractorRequestFormat[]);
   }
 
   private getCities(countryId: number) {
@@ -193,12 +194,11 @@ export class ContractorEditorComponent implements OnInit {
         // currently, when contactor doesn't exist the service returns HTTP 200 with empty response body instead of HTTP 404
         // therefore we have to handle that case manually
         if (!contractor) {
-          throw ({error: {error_message: `подрядчик не существует`}});
+          throw ({ error: { error_message: `подрядчик не существует` } });
         }
       }))
       .subscribe({
         next: contractor => {
-          console.table(contractor);
           this.contractor = contractor as Contractor;
           const contactsControls = this.contacts;
           this.contractor.contacts?.forEach(contact => contact.contractor_id = contractor.id);
