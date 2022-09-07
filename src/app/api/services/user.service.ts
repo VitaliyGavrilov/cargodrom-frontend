@@ -56,14 +56,9 @@ export class UserService extends BaseService {
   }): Observable<StrictHttpResponse<{
 
 /**
- * Логин
+ * Идентификатор регистрации
  */
-'login': string;
-
-/**
- * Пароль
- */
-'password': string;
+'uid': string;
 }>> {
 
     const rb = new RequestBuilder(this.rootUrl, UserService.UserCreatePath, 'post');
@@ -80,14 +75,9 @@ export class UserService extends BaseService {
         return r as StrictHttpResponse<{
         
         /**
-         * Логин
+         * Идентификатор регистрации
          */
-        'login': string;
-        
-        /**
-         * Пароль
-         */
-        'password': string;
+        'uid': string;
         }>;
       })
     );
@@ -119,75 +109,67 @@ export class UserService extends BaseService {
   }): Observable<{
 
 /**
- * Логин
+ * Идентификатор регистрации
  */
-'login': string;
-
-/**
- * Пароль
- */
-'password': string;
+'uid': string;
 }> {
 
     return this.userCreate$Response(params).pipe(
       map((r: StrictHttpResponse<{
 
 /**
- * Логин
+ * Идентификатор регистрации
  */
-'login': string;
-
-/**
- * Пароль
- */
-'password': string;
+'uid': string;
 }>) => r.body as {
 
 /**
- * Логин
+ * Идентификатор регистрации
  */
-'login': string;
-
-/**
- * Пароль
- */
-'password': string;
+'uid': string;
 })
     );
   }
 
   /**
-   * Path part for operation userCheckCode
+   * Path part for operation userConfirm
    */
-  static readonly UserCheckCodePath = '/user_check__code';
+  static readonly UserConfirmPath = '/user_confirm';
 
   /**
-   * This method provides access to the full `HttpResponse`, allowing access to response headers.
-   * To access only the response body, use `userCheckCode()` instead.
+   * Подтверждение регистрация пользователя.
    *
-   * This method doesn't expect any request body.
+   *
+   *
+   * This method provides access to the full `HttpResponse`, allowing access to response headers.
+   * To access only the response body, use `userConfirm()` instead.
+   *
+   * This method sends `application/json` and handles request body of type `application/json`.
    */
-  userCheckCode$Response(params?: {
+  userConfirm$Response(params?: {
+    body?: {
+
+/**
+ * Идентификатор регистрации
+ */
+'uid': string;
+
+/**
+ * Код подтверждения
+ */
+'code': string;
+}
   }): Observable<StrictHttpResponse<{
 
 /**
- * Код ошибки
+ * ID
  */
-'error_code'?: number;
-
-/**
- * Тект ошибки
- */
-'error_message'?: string;
-
-/**
- * Подробное описание ошибки
- */
-'error_message_description'?: string;
+'id'?: number;
 }>> {
 
-    const rb = new RequestBuilder(this.rootUrl, UserService.UserCheckCodePath, 'get');
+    const rb = new RequestBuilder(this.rootUrl, UserService.UserConfirmPath, 'post');
     if (params) {
+      rb.body(params.body, 'application/json');
     }
 
     return this.http.request(rb.build({
@@ -199,82 +181,58 @@ export class UserService extends BaseService {
         return r as StrictHttpResponse<{
         
         /**
-         * Код ошибки
+         * ID
          */
-        'error_code'?: number;
-        
-        /**
-         * Тект ошибки
-         */
-        'error_message'?: string;
-        
-        /**
-         * Подробное описание ошибки
-         */
-        'error_message_description'?: string;
+        'id'?: number;
         }>;
       })
     );
   }
 
   /**
-   * This method provides access to only to the response body.
-   * To access the full response (for headers, for example), `userCheckCode$Response()` instead.
+   * Подтверждение регистрация пользователя.
    *
-   * This method doesn't expect any request body.
+   *
+   *
+   * This method provides access to only to the response body.
+   * To access the full response (for headers, for example), `userConfirm$Response()` instead.
+   *
+   * This method sends `application/json` and handles request body of type `application/json`.
    */
-  userCheckCode(params?: {
+  userConfirm(params?: {
+    body?: {
+
+/**
+ * Идентификатор регистрации
+ */
+'uid': string;
+
+/**
+ * Код подтверждения
+ */
+'code': string;
+}
   }): Observable<{
 
 /**
- * Код ошибки
+ * ID
  */
-'error_code'?: number;
-
-/**
- * Тект ошибки
- */
-'error_message'?: string;
-
-/**
- * Подробное описание ошибки
- */
-'error_message_description'?: string;
+'id'?: number;
 }> {
 
-    return this.userCheckCode$Response(params).pipe(
+    return this.userConfirm$Response(params).pipe(
       map((r: StrictHttpResponse<{
 
 /**
- * Код ошибки
+ * ID
  */
-'error_code'?: number;
-
-/**
- * Тект ошибки
- */
-'error_message'?: string;
-
-/**
- * Подробное описание ошибки
- */
-'error_message_description'?: string;
+'id'?: number;
 }>) => r.body as {
 
 /**
- * Код ошибки
+ * ID
  */
-'error_code'?: number;
-
-/**
- * Тект ошибки
- */
-'error_message'?: string;
-
-/**
- * Подробное описание ошибки
- */
-'error_message_description'?: string;
+'id'?: number;
 })
     );
   }
