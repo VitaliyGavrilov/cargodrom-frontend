@@ -6,7 +6,7 @@
       <div class="req-fields">Обязательные поля: <span class="req">•</span></div>
     </div>
     <div class="fn">
-      <button class="btn v save" (click)="save()" [disabled]="!canSave()"><span>сохранить</span></button>
+      <button class="btn v save" (click)="save()"><span>сохранить</span></button>
       <button class="btn v del" *ngIf="isEditMode" (click)="remove()"><span>Удалить</span></button>
       <button class="btn v cancel" (click)="goToContractors()"><span>отмена</span></button>
     </div>
@@ -223,7 +223,7 @@
     <div class="title">
     </div>
     <div class="fn">
-      <button class="btn v save" (click)="save()" [disabled]="!canSave()"><span>сохранить</span></button>
+      <button class="btn v save" (click)="save()"><span>сохранить</span></button>
       <button class="btn v del" *ngIf="isEditMode" (click)="remove()"><span>Удалить</span></button>
       <button class="btn v cancel" (click)="goToContractors()"><span>отмена</span></button>
     </div>
