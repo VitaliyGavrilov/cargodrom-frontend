@@ -32,13 +32,22 @@ export class RegisterComponent implements OnInit {
       company: ['', [Validators.required] ],
       fio: ['', [Validators.required] ],
       phone: ['', [Validators.required] ],
-      inn: ['', [Validators.required,
-        Validators.pattern('/([0-9]{10,12})/') ] ],
+      inn: ['', [Validators.required, Validators.pattern('/([0-9]{10,12})/') ] ],
       email: ['', [Validators.required, Validators.email] ],
+      password: ['', [Validators.required] ],
+      password_confirm: ['', [Validators.required] ],
     });
+
+
+
   }
 
   ngOnInit(): void {
+
+    if( this.auth.isAuthenticated() ){
+      this.router.navigate(['/pages']);
+    }
+
   }
 
   get _email() {
@@ -52,10 +61,24 @@ export class RegisterComponent implements OnInit {
 
     //console.log( this.registerForm.value );
 
+    if (this.registerForm.valid) {
+      let err = {
+        'error': {
+          'error_message': 'Все поля обязательны к заполнению'
+        }
+      }
+      this.popup.error(err);
+      return;
+    }
+
     let error_message = [];
-    error_message.push('ИНН введен не верно');
-    error_message.push('E-mail  <b>введен</b> не верно');
-    error_message.push('Просто проверка');
+
+    if ( this._email?.errors?.['email'] ) {
+      error_message.push('E-mail введен не верно');
+    }
+    if ( this._inn?.errors?.['pattern'] ) {
+      error_message.push('ИНН введен не верно');
+    }
 
     if( error_message.length > 0 ){
       let err = {
@@ -68,25 +91,7 @@ export class RegisterComponent implements OnInit {
     }
 
 
-    if ( this._email?.errors?.['email'] ) {
-      let err = {
-        'error': {
-          'error_message': 'E-mail введен не верно'
-        }
-      }
-      this.popup.error(err);
-      return;
-    }
 
-    if (!this.registerForm.valid) {
-      let err = {
-        'error': {
-          'error_message': 'Все поля обязательны к заполнению'
-        }
-      }
-      this.popup.error(err);
-      return;
-    }
 
     this.register.userId = 1000;
 

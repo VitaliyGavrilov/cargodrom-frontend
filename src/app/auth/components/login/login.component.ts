@@ -16,7 +16,6 @@ import {PopupService} from "../../../material/services/popup.service";
 export class LoginComponent implements OnInit {
   loginForm: FormGroup;
   loading = false;
-  errorMessage?: string;
 
   constructor(
     private fb: FormBuilder,
@@ -46,7 +45,6 @@ export class LoginComponent implements OnInit {
       return;
     }
     this.loading = true;
-    this.errorMessage = undefined;
     const login = this.loginForm.controls['login'].value;
     const password = this.loginForm.controls['password'].value;
     this.auth.login(login, password)

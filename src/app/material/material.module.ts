@@ -10,9 +10,6 @@ import { MatAutocompleteModule } from '@angular/material/autocomplete';
 import { MatInputModule } from '@angular/material/input';
 import { MatCheckboxModule } from '@angular/material/checkbox';
 
-
-import { ErrorDialogComponent } from './components/error-dialog/error-dialog.component';
-
 @NgModule({
   declarations: [
     PopupDialogComponent
