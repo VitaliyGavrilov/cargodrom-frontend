@@ -7,14 +7,14 @@ import { LoginComponent } from './components/login/login.component';
 import { RegisterComponent } from './components/register/register.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { LogoutComponent } from './components/logout/logout.component';
-import { CheckCodeComponent } from './components/check-code/check-code.component';
+import { ConfirmComponent } from './components/confirm/confirm.component';
 
 @NgModule({
   declarations: [
     LoginComponent,
     RegisterComponent,
     LogoutComponent,
-    CheckCodeComponent
+    ConfirmComponent
   ],
   imports: [
     CommonModule,

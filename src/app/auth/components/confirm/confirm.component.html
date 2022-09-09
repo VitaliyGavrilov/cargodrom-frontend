@@ -14,15 +14,20 @@
             <div class="form-row inline sp">
               <div class="form-item">
                 <div class="form-label">Введите проверочный код:</div>
-                <div class="form-input"><input type="text" name="num" value="" placeholder="—"></div>
+                <div class="form-input"><input type="text" name="code" value="" placeholder="—"></div>
               </div>
               <div class="form-item">
                 <div class="form-label">ХЭШ:</div>
-                <div class="form-input"><input type="text" name="code" value="" placeholder="—"></div>
+                <div class="form-input"><input type="text" name="uid" value="{{ uid }}" placeholder="—"></div>
               </div>
             </div>
 
             <div class="form-row inline">
+
+              <div class="form-item">
+                <span class="desc">Если у вас еще нет доступа к системе,<br> пройдите быструю регистрацию:</span>
+              </div>
+
               <div class="form-item">
                 <input type="submit" style="display: none">
                 <span class="btn alt" (click)="doCheck()">Подвердить</span>

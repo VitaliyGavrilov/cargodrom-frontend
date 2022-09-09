@@ -1,12 +1,12 @@
 import { Component, OnInit } from '@angular/core';
 import {FormBuilder, FormGroup, Validators} from "@angular/forms";
-import {AuthService} from "../../services/auth.service";
 import {Router} from "@angular/router";
 import {RegisterService} from "../../services/register.service";
 import {PopupDialogData} from "../../../material/components/popup-dialog/popup-dialog-data";
 import {PopupDialogComponent} from "../../../material/components/popup-dialog/popup-dialog.component";
 import {MatDialog} from "@angular/material/dialog";
 import {PopupService} from "../../../material/services/popup.service";
+import {finalize} from "rxjs";
 
 @Component({
   selector: 'app-register',
@@ -19,10 +19,10 @@ export class RegisterComponent implements OnInit {
   registerForm: FormGroup;
   loading = false;
   errorMessage?: string;
+  uid?: string;
 
   constructor(
     private fb: FormBuilder,
-    private auth: AuthService,
     private router: Router,
     private register: RegisterService,
     public popup: PopupService,
@@ -38,16 +38,9 @@ export class RegisterComponent implements OnInit {
       password_confirm: ['', [Validators.required] ],
     });
 
-
-
   }
 
   ngOnInit(): void {
-
-    if( this.auth.isAuthenticated() ){
-      this.router.navigate(['/pages']);
-    }
-
   }
 
   get _email() {
@@ -58,8 +51,6 @@ export class RegisterComponent implements OnInit {
   }
 
   doRegister() {
-
-    //console.log( this.registerForm.value );
 
     if (this.registerForm.valid) {
       let err = {
@@ -90,11 +81,26 @@ export class RegisterComponent implements OnInit {
       return;
     }
 
+    this.loading = true;
+    const company = this.registerForm.controls['company'].value;
+    const fio = this.registerForm.controls['fio'].value;
+    const phone = this.registerForm.controls['phone'].value;
+    const inn = this.registerForm.controls['inn'].value;
+    const email = this.registerForm.controls['email'].value;
+    const password = this.registerForm.controls['password'].value;
+    const password_confirm = this.registerForm.controls['password_confirm'].value;
 
+    this.register.save( { company, fio, phone, inn, email, password, password_confirm } )
+      .pipe(
+        finalize(() => this.loading = false)
+      ).subscribe({
+      next: ({ uid }) => this.processConfirm(uid),
+      error: err => this.popup.error(err)
+    });
+  }
 
-
-    this.register.userId = 1000;
-
+  processConfirm( uid:string ): void {
+    this.router.navigate(['/confirm/'+uid]);
   }
 
 

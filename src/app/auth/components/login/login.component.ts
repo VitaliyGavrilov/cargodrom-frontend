@@ -6,6 +6,7 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { finalize } from 'rxjs';
 import { MatDialog } from '@angular/material/dialog';
 import {PopupService} from "../../../material/services/popup.service";
+import {Contractor} from "../../../api/custom_models/contractor";
 
 
 @Component({
@@ -14,6 +15,7 @@ import {PopupService} from "../../../material/services/popup.service";
   styleUrls: ['./login.component.scss']
 })
 export class LoginComponent implements OnInit {
+
   loginForm: FormGroup;
   loading = false;
 
