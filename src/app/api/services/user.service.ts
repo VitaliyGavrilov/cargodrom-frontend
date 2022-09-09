@@ -41,18 +41,43 @@ export class UserService extends BaseService {
    * This method sends `application/json` and handles request body of type `application/json`.
    */
   userCreate$Response(params?: {
-    body?: Array<{
+    body?: {
 
 /**
- * ID
+ * Название компании
  */
-'id'?: number;
+'company': string;
 
 /**
- * Наименование
+ * Ответственное лицо
  */
-'name'?: string;
-}>
+'fio': string;
+
+/**
+ * Номер телефона:
+ */
+'phone': string;
+
+/**
+ * ИНН
+ */
+'inn': string;
+
+/**
+ * E-mail
+ */
+'email': string;
+
+/**
+ * Пароль
+ */
+'password': string;
+
+/**
+ * Подтверждение пароля
+ */
+'password_confirm': string;
+}
   }): Observable<StrictHttpResponse<{
 
 /**
@@ -94,18 +119,43 @@ export class UserService extends BaseService {
    * This method sends `application/json` and handles request body of type `application/json`.
    */
   userCreate(params?: {
-    body?: Array<{
+    body?: {
 
 /**
- * ID
+ * Название компании
  */
-'id'?: number;
+'company': string;
 
 /**
- * Наименование
+ * Ответственное лицо
  */
-'name'?: string;
-}>
+'fio': string;
+
+/**
+ * Номер телефона:
+ */
+'phone': string;
+
+/**
+ * ИНН
+ */
+'inn': string;
+
+/**
+ * E-mail
+ */
+'email': string;
+
+/**
+ * Пароль
+ */
+'password': string;
+
+/**
+ * Подтверждение пароля
+ */
+'password_confirm': string;
+}
   }): Observable<{
 
 /**
