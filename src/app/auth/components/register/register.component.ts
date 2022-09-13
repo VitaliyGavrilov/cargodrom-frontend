@@ -32,7 +32,7 @@ export class RegisterComponent implements OnInit {
       company: ['', [Validators.required] ],
       fio: ['', [Validators.required] ],
       phone: ['', [Validators.required] ],
-      inn: ['', [Validators.required, Validators.pattern('/([0-9]{10,12})/') ] ],
+      inn: ['', [Validators.required, Validators.pattern(/^([0-9]{10,12})$/ ) ] ],
       email: ['', [Validators.required, Validators.email] ],
       password: ['', [Validators.required] ],
       password_confirm: ['', [Validators.required] ],
@@ -52,7 +52,7 @@ export class RegisterComponent implements OnInit {
 
   doRegister() {
 
-    if (this.registerForm.valid) {
+    if ( !this.registerForm.valid ) {
       let err = {
         'error': {
           'error_message': 'Все поля обязательны к заполнению'
@@ -62,12 +62,13 @@ export class RegisterComponent implements OnInit {
       return;
     }
 
-    let error_message = [];
+    let error_message: string[] = [];
 
     if ( this._email?.errors?.['email'] ) {
       error_message.push('E-mail введен не верно');
     }
-    if ( this._inn?.errors?.['pattern'] ) {
+
+    if ( this._inn?.errors?.['pattern']  ) {
       error_message.push('ИНН введен не верно');
     }
 
@@ -94,7 +95,7 @@ export class RegisterComponent implements OnInit {
       .pipe(
         finalize(() => this.loading = false)
       ).subscribe({
-      next: ({ uid }) => this.processConfirm(uid),
+      next: ( uid ) => this.processConfirm(uid),
       error: err => this.popup.error(err)
     });
   }
@@ -102,6 +103,5 @@ export class RegisterComponent implements OnInit {
   processConfirm( uid:string ): void {
     this.router.navigate(['/confirm/'+uid]);
   }
-
 
 }

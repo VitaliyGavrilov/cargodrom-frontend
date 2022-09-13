@@ -13,13 +13,18 @@ export class RegisterService {
     private userService: UserService
   ) { }
 
-  save( body: { password: string; password_confirm: string; phone: string; inn: string; company: string; fio: string; email: string  }): Observable<void> {
-    return this.userService.userCreate( body )
+  save( body: { password: string; password_confirm: string; phone: string; inn: string; company: string; fio: string; email: string  }): Observable<string> {
+    return this.userService.userCreate( { body } )
       .pipe(
-        tap(res => res),
-        map(() => undefined)
+        map(res => res.uid)
       );
   }
 
+  confirm( body: { uid: string; code: string; }): Observable<number> {
+    return this.userService.userConfirm( { body } )
+      .pipe(
+        map(res => res.id!)
+      );
+  }
 
 }
