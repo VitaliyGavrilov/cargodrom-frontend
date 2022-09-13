@@ -1,9 +1,10 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { MAT_DIALOG_DATA } from '@angular/material/dialog';
+import { PopupDialogData } from './popup-dialog-data';
 
 import { PopupDialogComponent } from './popup-dialog.component';
 
-describe('ErrorDialogComponent', () => {
+describe('PopupDialogComponent', () => {
   let component: PopupDialogComponent;
   let fixture: ComponentFixture<PopupDialogComponent>;
 
@@ -12,8 +13,9 @@ describe('ErrorDialogComponent', () => {
       providers: [
         {
           provide: MAT_DIALOG_DATA,
-          useValue: {},
-        }
+          useValue: {messages: [], title: 'Title'} as PopupDialogData,
+        },
+
       ],
       declarations: [PopupDialogComponent]
     })
