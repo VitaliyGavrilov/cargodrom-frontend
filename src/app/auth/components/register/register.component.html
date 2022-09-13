@@ -1,1 +1,70 @@
-<p>register works!</p>
+<div class="content">
+  <div class="user-module">
+    <div class="auth-bg">
+
+      <div class="auth-form">
+        <div class="hdr">
+          <span class="logo"></span>
+          <span class="sep"></span>
+          <span class="back" [routerLink]="['/auth']">Регистрация</span>
+        </div>
+        <div class="fm-body">
+          <form [formGroup]="registerForm" (ngSubmit)="doRegister()">
+            <div class="form-row sp">
+              <div class="form-item">
+                <div class="form-label">Название компании::</div>
+                <div class="form-input"><input type="text" formControlName="company" value="" placeholder="—"></div>
+              </div>
+            </div>
+            <div class="form-row inline sp">
+              <div class="form-item">
+                <div class="form-label">Ответственное лицо:</div>
+                <div class="form-input"><input type="text" formControlName="fio" value="" placeholder="—"></div>
+              </div>
+              <div class="form-item">
+                <div class="form-label">Номер телефона:</div>
+                <div class="form-input"><input type="text" formControlName="phone" value="" placeholder="—"></div>
+              </div>
+            </div>
+
+            <div class="form-row inline sp">
+              <div class="form-item">
+                <div class="form-label">ИНН:</div>
+                <div class="form-input"><input type="text" formControlName="inn" value="" placeholder="—"></div>
+              </div>
+              <div class="form-item">
+                <div class="form-label">E-mail:</div>
+                <div class="form-input"><input type="text" formControlName="email" value="" placeholder="—"></div>
+              </div>
+            </div>
+
+            <div class="form-row inline sp">
+              <div class="form-item">
+                <div class="form-label">Введите пароль:</div>
+                <div class="form-input"><input type="password" formControlName="password" value="" placeholder=""></div>
+              </div>
+              <div class="form-item">
+                <div class="form-label">Подтвердите пароль:</div>
+                <div class="form-input"><input type="password" formControlName="password_confirm" value="" placeholder=""></div>
+              </div>
+            </div>
+
+            <div class="form-row inline">
+              <div class="form-item">
+
+              </div>
+              <div class="form-item">
+                <input type="submit" style="display: none">
+                <span class="btn alt" (click)="doRegister()">Зарегистрироваться</span>
+              </div>
+            </div>
+
+
+          </form>
+        </div>
+      </div>
+
+    </div>
+
+  </div>
+</div>

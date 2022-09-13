@@ -32,7 +32,7 @@ input, textarea, a:focus{outline-width:0;outline:none;}
 .auth-form .logo { display: inline-block; background: url('../assets/logo1.svg') no-repeat 0 0; width: 168px; height: 44px; }
 .auth-form .sep { flex-grow: 1; }
 .auth-form .fm-body { padding: 32px 0 15px; }
-.auth-form .form-row { padding: 0 32px 16px; display: flex; align-items: center; font-size: 13px; line-height: 17px;  }
+.auth-form .form-row { padding: 0 32px 16px; display: flex; align-items: flex-end;  font-size: 13px; line-height: 17px;  }
 .auth-form .form-row.sp { padding-bottom: 24px; }
 .auth-form .form-row > * { width: 100%; }
 .auth-form .form-row.inline > * { width: 50%; }

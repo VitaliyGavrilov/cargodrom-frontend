@@ -19,7 +19,6 @@ export class AuthService {
     this.loadTokenFromStorage();
   }
 
-
   login(login: string, password: string): Observable<void> {
     return this.userService.userLogin({ body: { login, password } })
       .pipe(

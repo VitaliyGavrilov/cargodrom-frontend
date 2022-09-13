@@ -1,5 +1,3 @@
-import { ErrorDialogComponent } from './../../../material/components/error-dialog/error-dialog.component';
-import { ErrorDialogData } from './../../../material/components/error-dialog/error-dialog-data';
 import { Router } from '@angular/router';
 import { AuthService } from './../../services/auth.service';
 import { UserService } from './../../../api/services/user.service';
@@ -7,6 +5,9 @@ import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { finalize } from 'rxjs';
 import { MatDialog } from '@angular/material/dialog';
+import {PopupService} from "../../../material/services/popup.service";
+import {Contractor} from "../../../api/custom_models/contractor";
+
 
 @Component({
   selector: 'app-login',
@@ -14,14 +15,15 @@ import { MatDialog } from '@angular/material/dialog';
   styleUrls: ['./login.component.scss']
 })
 export class LoginComponent implements OnInit {
+
   loginForm: FormGroup;
   loading = false;
-  errorMessage?: string;
 
   constructor(
     private fb: FormBuilder,
     private auth: AuthService,
     private router: Router,
+    public popup: PopupService,
     public dialog: MatDialog
   ) {
     this.loginForm = this.fb.group({
@@ -41,11 +43,10 @@ export class LoginComponent implements OnInit {
           'error_message': 'Не заполнены обязательные поля'
         }
       }
-      this.processLoginError(err)
+      this.popup.error(err);
       return;
     }
     this.loading = true;
-    this.errorMessage = undefined;
     const login = this.loginForm.controls['login'].value;
     const password = this.loginForm.controls['password'].value;
     this.auth.login(login, password)
@@ -53,16 +54,8 @@ export class LoginComponent implements OnInit {
         finalize(() => this.loading = false)
       ).subscribe({
         next: () => this.processLogin(),
-        error: err => this.processLoginError(err)
+        error: err => this.popup.error(err)
       });
-  }
-
-  processLoginError(err: any): void {
-    const data: ErrorDialogData = {
-      title: 'Что-то пошло не так',
-      errors: [err.error.error_message]
-    }
-    this.dialog.open(ErrorDialogComponent, {data});
   }
 
   processLogin(): void {

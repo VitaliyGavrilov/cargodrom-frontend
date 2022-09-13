@@ -1,3 +1,4 @@
+import { MatFormFieldModule } from '@angular/material/form-field';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 import { MatAutocompleteModule } from '@angular/material/autocomplete';
 import { CommonModule } from '@angular/common';
@@ -19,11 +20,12 @@ describe('ResponsibilityEditorComponent', () => {
         ReactiveFormsModule,
         MatAutocompleteModule,
         MatCheckboxModule,
+        MatFormFieldModule,
         NoopAnimationsModule,
       ],
-      declarations: [ ResponsibilityEditorComponent ]
+      declarations: [ResponsibilityEditorComponent]
     })
-    .compileComponents();
+      .compileComponents();
 
     fixture = TestBed.createComponent(ResponsibilityEditorComponent);
     component = fixture.componentInstance;

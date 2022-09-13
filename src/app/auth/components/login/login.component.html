@@ -22,7 +22,7 @@
             <div class="form-row inline">
               <div class="form-item">
                 <span class="forgot">
-                  <span class="helper">i<span class="add">Test dsd sdsd</span> </span>
+                  <span class="helper" (click)="popup.note('Test')">i</span>
                   <span [routerLink]="['/remind']">Напомнить логин или пароль</span>
                 </span>
               </div>
@@ -38,9 +38,6 @@
               <div class="form-item">
                 <span class="btn alt" [routerLink]="['/register']">Регистрация в системе</span>
               </div>
-            </div>
-            <div class="form-row" *ngIf="errorMessage">
-              {{ errorMessage }}
             </div>
           </form>
         </div>
