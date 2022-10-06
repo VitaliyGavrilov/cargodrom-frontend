@@ -11,6 +11,7 @@ import { ReportComponent } from './components/report/report.component';
 import { ClientComponent } from './components/client/client.component';
 import { GuideComponent } from './components/guide/guide.component';
 import { ContractorEditorComponent } from './components/contractor-editor/contractor-editor.component';
+import { SettingsComponent } from './components/settings/settings.component';
 
 
 const routes: Routes = [
@@ -75,6 +76,11 @@ const routes: Routes = [
       {
         path: 'guide',
         component: GuideComponent,
+        pathMatch: 'full',
+      },
+      {
+        path: 'settings',
+        component: SettingsComponent,
         pathMatch: 'full',
       },
     ]

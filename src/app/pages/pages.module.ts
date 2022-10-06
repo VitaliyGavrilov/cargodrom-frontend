@@ -22,6 +22,7 @@ import { RatingComponent } from './components/rating/rating.component';
 import { ContactEditorComponent } from './components/contact-editor/contact-editor.component';
 import { TradeDirectionComponent } from './components/trade-direction/trade-direction.component';
 import { ResponsibilityEditorComponent } from './components/responsibility-editor/responsibility-editor.component';
+import { SettingsComponent } from './components/settings/settings.component';
 
 
 
@@ -45,7 +46,8 @@ import { ResponsibilityEditorComponent } from './components/responsibility-edito
     RatingComponent,
     ContactEditorComponent,
     TradeDirectionComponent,
-    ResponsibilityEditorComponent
+    ResponsibilityEditorComponent,
+    SettingsComponent
   ],
   imports: [
     CommonModule,
