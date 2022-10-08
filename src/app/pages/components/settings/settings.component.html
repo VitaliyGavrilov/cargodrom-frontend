@@ -37,8 +37,9 @@
               fill="#B4C3EB"></path>
           </svg></span><span class="name">Структура организации</span><span class="chevron"></span></div>
       <div class="group-items">
-        <a class="menu-item open" href="department">Подразделения</a><a class="menu-item"
-          href="position">Должности</a><a class="menu-item" href="employee">Сотрудники</a>
+        <a class="menu-item" routerLinkActive="open" [routerLink]="['./department']">Подразделения</a>
+        <a class="menu-item" routerLinkActive="open" [routerLink]="['./position']">Должности</a>
+        <a class="menu-item" routerLinkActive="open" [routerLink]="['./employee']">Сотрудники</a>
       </div>
 
     </div>

@@ -1,3 +1,6 @@
+import { PositionComponent } from './components/position/position.component';
+import { EmployeeComponent } from './components/employee/employee.component';
+import { DepartmentComponent } from './components/department/department.component';
 import { ContractorComponent } from './components/contractor/contractor.component';
 import { RequestComponent } from './components/request/request.component';
 import { PagesComponent } from './pages.component';
@@ -16,7 +19,8 @@ import { SettingsComponent } from './components/settings/settings.component';
 
 const routes: Routes = [
   {
-    path: '', component: PagesComponent,
+    path: '',
+    component: PagesComponent,
     children: [
       {
         path: '',
@@ -81,7 +85,28 @@ const routes: Routes = [
       {
         path: 'settings',
         component: SettingsComponent,
-        pathMatch: 'full',
+        children: [
+          {
+            path: '',
+            redirectTo: 'department',
+            pathMatch: 'full',
+          },
+          {
+            path: 'department',
+            component: DepartmentComponent,
+            pathMatch: 'full',
+          },
+          {
+            path: 'position',
+            component: PositionComponent,
+            pathMatch: 'full',
+          },
+          {
+            path: 'employee',
+            component: EmployeeComponent,
+            pathMatch: 'full',
+          }
+        ]
       },
     ]
   },

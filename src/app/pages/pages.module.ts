@@ -23,6 +23,9 @@ import { ContactEditorComponent } from './components/contact-editor/contact-edit
 import { TradeDirectionComponent } from './components/trade-direction/trade-direction.component';
 import { ResponsibilityEditorComponent } from './components/responsibility-editor/responsibility-editor.component';
 import { SettingsComponent } from './components/settings/settings.component';
+import { DepartmentComponent } from './components/department/department.component';
+import { PositionComponent } from './components/position/position.component';
+import { EmployeeComponent } from './components/employee/employee.component';
 
 
 
@@ -47,7 +50,10 @@ import { SettingsComponent } from './components/settings/settings.component';
     ContactEditorComponent,
     TradeDirectionComponent,
     ResponsibilityEditorComponent,
-    SettingsComponent
+    SettingsComponent,
+    DepartmentComponent,
+    PositionComponent,
+    EmployeeComponent
   ],
   imports: [
     CommonModule,
