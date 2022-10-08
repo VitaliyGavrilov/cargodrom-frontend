@@ -1,6 +1,8 @@
+import { CompanyService } from './../../../../../api/services/company.service';
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { DepartmentComponent } from './department.component';
+import { of } from 'rxjs';
 
 describe('DepartmentComponent', () => {
   let component: DepartmentComponent;
@@ -8,9 +10,17 @@ describe('DepartmentComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ DepartmentComponent ]
+      declarations: [DepartmentComponent],
+      providers: [
+        {
+          provide: CompanyService,
+          useValue: {
+            companyDepartmentList: () => of({})
+          }
+        }
+      ]
     })
-    .compileComponents();
+      .compileComponents();
 
     fixture = TestBed.createComponent(DepartmentComponent);
     component = fixture.componentInstance;
