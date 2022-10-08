@@ -1,1 +1,47 @@
-<p>department works!</p>
+<table class="main-table fix-head table-065dcf359d0addbf0d3ed4570559e2c1">
+  <thead>
+    <tr>
+      <th class="col column-sortable"
+        data-href="/erp/settings/department?sort_field=name&amp;sort_order=asc&amp;ajax_load=table%2Ctable_function"
+        title="сортировать по убыванию">
+        <span>Название подразделения<span class="sorting-indicator"></span></span>
+      </th>
+      <th class="column-sortable"
+        data-href="/erp/settings/department?sort_field=count_position&amp;sort_order=asc&amp;ajax_load=table%2Ctable_function"
+        title="сортировать по убыванию">
+        <span>Должностей<span class="sorting-indicator"></span></span>
+      </th>
+      <th class="column-sortable"
+        data-href="/erp/settings/department?sort_field=count_user&amp;sort_order=asc&amp;ajax_load=table%2Ctable_function"
+        title="сортировать по убыванию">
+        <span>Сотрудников<span class="sorting-indicator"></span></span>
+      </th>
+      <th class="column-sortable"
+        data-href="/erp/settings/department?sort_field=director&amp;sort_order=asc&amp;ajax_load=table%2Ctable_function"
+        title="сортировать по убыванию">
+        <span>Руководитель подразделения<span class="sorting-indicator"></span></span>
+      </th>
+      <th style="width: 134px;">
+        <span></span>
+      </th>
+      <th class="right" style="width: 80px;">
+        <span></span>
+      </th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr *ngFor="let department of departments; odd as isOdd" [ngClass]="{'odd': isOdd}">
+      <td class="col">{{ department.name }}</td>
+      <td>{{ department.count_position }}</td>
+      <td>{{ department.count_user }}</td>
+      <td><a class="link-view" href="?id=1">Полина Зайцева</a></td>
+      <td><a class="btn add-item-text" href="?act=add&amp;id=1"><span>Добавить сотрудника</span></a></td>
+      <td class="col min right"><span class="link-pic ajax notext fn-link link-hide"
+          data-href="/erp/settings/department?id=1&amp;act=switch_show&amp;show=1" title="Показывать">Нет</span><a
+          class="link-pic link-edit ico ico-pencil fn-link" href="/erp/settings/department?id=1&amp;act=edit"
+          title="Редактировать"></a><span class="link-pic link-del ico ico-cross2 fn-link"
+          data-href="/erp/settings/department?id=1&amp;act=del" onclick="return delConfirm(this, 'Удалить?');"
+          title="Удалить"></span></td>
+    </tr>
+  </tbody>
+</table>

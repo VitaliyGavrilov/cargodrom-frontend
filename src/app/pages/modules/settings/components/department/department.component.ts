@@ -1,3 +1,5 @@
+import { Department } from './../../../../../api/custom_models/department';
+import { CompanyService } from './../../../../../api/services/company.service';
 import { Component, OnInit } from '@angular/core';
 
 @Component({
@@ -6,10 +8,22 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./department.component.scss']
 })
 export class DepartmentComponent implements OnInit {
+  // departments: Department[] = [];
+  departments: Department[] = [];
 
-  constructor() { }
+  constructor(
+    private companyService: CompanyService
+  ) { }
 
   ngOnInit(): void {
+    this.loadDepartments();
+  }
+
+  loadDepartments(): void {
+    this.companyService.companyDepartmentList().subscribe(departments => {
+      this.departments = Object.values(departments) as unknown as Department[];
+      console.log(this.departments);
+    });
   }
 
 }

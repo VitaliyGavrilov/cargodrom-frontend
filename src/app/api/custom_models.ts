@@ -5,3 +5,4 @@ export * from './custom_models/contact';
 export * from './custom_models/token-info';
 export * from './custom_models/city';
 export * from './custom_models/contractor-filter';
+export * from './custom_models/department';
