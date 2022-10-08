@@ -1,6 +1,3 @@
-import { PositionComponent } from './components/position/position.component';
-import { EmployeeComponent } from './components/employee/employee.component';
-import { DepartmentComponent } from './components/department/department.component';
 import { ContractorComponent } from './components/contractor/contractor.component';
 import { RequestComponent } from './components/request/request.component';
 import { PagesComponent } from './pages.component';
@@ -14,7 +11,6 @@ import { ReportComponent } from './components/report/report.component';
 import { ClientComponent } from './components/client/client.component';
 import { GuideComponent } from './components/guide/guide.component';
 import { ContractorEditorComponent } from './components/contractor-editor/contractor-editor.component';
-import { SettingsComponent } from './components/settings/settings.component';
 
 
 const routes: Routes = [
@@ -82,33 +78,11 @@ const routes: Routes = [
         component: GuideComponent,
         pathMatch: 'full',
       },
-      {
-        path: 'settings',
-        component: SettingsComponent,
-        children: [
-          {
-            path: '',
-            redirectTo: 'department',
-            pathMatch: 'full',
-          },
-          {
-            path: 'department',
-            component: DepartmentComponent,
-            pathMatch: 'full',
-          },
-          {
-            path: 'position',
-            component: PositionComponent,
-            pathMatch: 'full',
-          },
-          {
-            path: 'employee',
-            component: EmployeeComponent,
-            pathMatch: 'full',
-          }
-        ]
-      },
     ]
+  },
+  {
+    path: 'settings',
+    loadChildren: () => import('./modules/settings/settings.module').then(m => m.SettingsModule)
   },
 
 ];
