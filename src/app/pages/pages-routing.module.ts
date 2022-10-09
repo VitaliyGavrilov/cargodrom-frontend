@@ -1,16 +1,16 @@
-import { ContractorComponent } from './components/contractor/contractor.component';
-import { RequestComponent } from './components/request/request.component';
-import { PagesComponent } from './pages.component';
-import { DashboardComponent } from './components/dashboard/dashboard.component';
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
-import { OrderComponent } from './components/order/order.component';
 import { BitComponent } from './components/bit/bit.component';
-import { TariffComponent } from './components/tariff/tariff.component';
-import { ReportComponent } from './components/report/report.component';
 import { ClientComponent } from './components/client/client.component';
-import { GuideComponent } from './components/guide/guide.component';
 import { ContractorEditorComponent } from './components/contractor-editor/contractor-editor.component';
+import { ContractorComponent } from './components/contractor/contractor.component';
+import { DashboardComponent } from './components/dashboard/dashboard.component';
+import { GuideComponent } from './components/guide/guide.component';
+import { OrderComponent } from './components/order/order.component';
+import { ReportComponent } from './components/report/report.component';
+import { RequestComponent } from './components/request/request.component';
+import { TariffComponent } from './components/tariff/tariff.component';
+import { PagesComponent } from './pages.component';
 
 
 const routes: Routes = [
@@ -78,12 +78,13 @@ const routes: Routes = [
         component: GuideComponent,
         pathMatch: 'full',
       },
+      {
+        path: 'settings',
+        loadChildren: () => import('./modules/settings/settings.module').then(m => m.SettingsModule)
+      },
     ]
   },
-  {
-    path: 'settings',
-    loadChildren: () => import('./modules/settings/settings.module').then(m => m.SettingsModule)
-  },
+
 
 ];
 
