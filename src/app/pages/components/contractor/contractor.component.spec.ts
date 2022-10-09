@@ -7,9 +7,8 @@ import { CommonModule } from '@angular/common';
 import { HttpClientTestingModule } from '@angular/common/http/testing';
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-import { PaginatorComponent } from '../paginator/paginator.component';
-
 import { ContractorComponent } from './contractor.component';
+import { PaginatorComponent } from '@cargodrom/material/components/paginator/paginator.component';
 
 describe('ContractorComponent', () => {
   let component: ContractorComponent;
