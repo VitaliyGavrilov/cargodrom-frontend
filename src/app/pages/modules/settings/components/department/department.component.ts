@@ -1,11 +1,12 @@
 import { Department } from './../../../../../api/custom_models/department';
 import { CompanyService } from './../../../../../api/services/company.service';
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewEncapsulation } from '@angular/core';
 
 @Component({
   selector: 'app-department',
   templateUrl: './department.component.html',
-  styleUrls: ['./department.component.scss']
+  styleUrls: ['./department.component.scss'],
+  encapsulation: ViewEncapsulation.None,
 })
 export class DepartmentComponent implements OnInit {
   departments: Department[] = [];

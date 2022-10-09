@@ -34,14 +34,13 @@
       <td class="col">{{ department.name }}</td>
       <td>{{ department.count_position }}</td>
       <td>{{ department.count_user }}</td>
-      <td><a class="link-view" href="?id=1">Полина Зайцева</a></td>
+      <td><a class="link-view" [routerLink]="['../employee', department.id]">Полина Зайцева</a></td>
       <td><a class="btn add-item-text" href="?act=add&amp;id=1"><span>Добавить сотрудника</span></a></td>
-      <td class="col min right"><span class="link-pic ajax notext fn-link link-hide"
-          data-href="/erp/settings/department?id=1&amp;act=switch_show&amp;show=1" title="Показывать">Нет</span><a
-          class="link-pic link-edit ico ico-pencil fn-link" href="/erp/settings/department?id=1&amp;act=edit"
-          title="Редактировать"></a><span class="link-pic link-del ico ico-cross2 fn-link"
-          data-href="/erp/settings/department?id=1&amp;act=del" onclick="return delConfirm(this, 'Удалить?');"
-          title="Удалить"></span></td>
+      <td class="col min right">
+        <span class="link-pic ajax notext fn-link link-hide" [routerLink]="['./department?id=1&amp;act=switch_show&amp;show=1']" title="Показывать">Нет</span>
+        <a class="link-pic link-edit ico ico-pencil fn-link" [routerLink]="['./department?id=1&amp;act=edit']" title="Редактировать"></a>
+        <span class="link-pic link-del ico ico-cross2 fn-link" [routerLink]="['./department?id=1&amp;act=del']" title="Удалить"></span>
+      </td>
     </tr>
   </tbody>
 </table>

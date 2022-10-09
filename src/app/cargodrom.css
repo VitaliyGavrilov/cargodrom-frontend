@@ -518,6 +518,8 @@ input, textarea, a:focus{outline-width:0;outline:none;}
 
 .btn.add-file { display: inline-block; color: #fff; padding: 13px 31px 10px 48px; cursor: pointer; background: #83909E url('../assets/pic-btn-plus.svg') no-repeat 31px 50%; }
 .btn.add-item { display: inline-block; color: #fff; padding: 13px 31px 10px 48px; cursor: pointer; background: #83909E url('../assets/pic-btn-plus.svg') no-repeat 31px 50%; }
+.btn.add-item-text { display: inline-block; color: #fff; text-decoration: none; white-space: nowrap; padding: 12px 13px 11px; cursor: pointer; background: #83909E ; }
+.btn.add-item-text:before { background: url('../assets/pic-btn-plus.svg') no-repeat center; }
 
 .form-block .check-item { margin-top: 40px; }
 .form-block .check-item + .check-item { margin-top: 25px; }
