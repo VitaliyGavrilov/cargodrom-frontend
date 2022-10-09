@@ -1,3 +1,4 @@
+import { RouterTestingModule } from '@angular/router/testing';
 import { CompanyService } from './../../../../../api/services/company.service';
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
@@ -22,6 +23,7 @@ describe('DepartmentComponent', () => {
         }
       ],
       imports: [
+        RouterTestingModule,
         MaterialModule,
         NoopAnimationsModule,
       ]
