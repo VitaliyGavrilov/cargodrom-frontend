@@ -43,6 +43,16 @@
   display: flex;
   justify-content: center;
   align-items: center;
+  background-repeat: no-repeat;
+  background-position: center;
+}
+
+.settings-common {
+  background-image: url('../../../../assets/pic-settings-common.svg');
+}
+
+.settings-company-structure {
+  background-image: url('../../../../assets/pic-settings-company-structure.svg');
 }
 
 .side-menu .group-name .name {
