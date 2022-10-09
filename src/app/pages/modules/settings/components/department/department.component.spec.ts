@@ -3,6 +3,8 @@ import { ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { DepartmentComponent } from './department.component';
 import { of } from 'rxjs';
+import { MaterialModule } from '@cargodrom/material/material.module';
+import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 
 describe('DepartmentComponent', () => {
   let component: DepartmentComponent;
@@ -18,6 +20,10 @@ describe('DepartmentComponent', () => {
             companyDepartmentList: () => of({})
           }
         }
+      ],
+      imports: [
+        MaterialModule,
+        NoopAnimationsModule,
       ]
     })
       .compileComponents();

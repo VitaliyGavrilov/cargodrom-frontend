@@ -1,3 +1,4 @@
+import { MaterialModule } from '@cargodrom/material/material.module';
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 
@@ -17,6 +18,7 @@ import { DepartmentComponent } from './components/department/department.componen
   ],
   imports: [
     CommonModule,
+    MaterialModule,
     SettingsRoutingModule
   ]
 })

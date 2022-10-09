@@ -45,3 +45,5 @@
     </tr>
   </tbody>
 </table>
+<app-paginator [total]="total" [count]="count" [start]="start" [limits]="limits" (startChange)="onStartChange($event)"
+  (countChange)="onCountChange($event)"></app-paginator>

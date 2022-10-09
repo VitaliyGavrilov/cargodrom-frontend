@@ -8,8 +8,11 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./department.component.scss']
 })
 export class DepartmentComponent implements OnInit {
-  // departments: Department[] = [];
   departments: Department[] = [];
+  total = 0;
+  start = 0;
+  limits = [25, 50, 100];
+  count = this.limits[0];
 
   constructor(
     private companyService: CompanyService
@@ -22,9 +25,16 @@ export class DepartmentComponent implements OnInit {
   loadDepartments(): void {
     this.companyService.companyDepartmentList().subscribe(departments => {
       this.departments = Object.values(departments) as unknown as Department[];
-      console.log(JSON.stringify(departments, null, 2));
-      console.log(JSON.stringify(this.departments, null, 2));
+      this.total = this.departments.length;
     });
+  }
+  
+  onStartChange(newStart: number): void {
+    this.loadDepartments();
+  }
+  
+  onCountChange(newCount: number): void {
+    this.loadDepartments();
   }
 
 }
