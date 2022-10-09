@@ -1,1 +1,34 @@
-<p>position works!</p>
+<table class="main-table fix-head table-4e6cc9770d169fc6e17fab7fb0968f9b">
+  <thead>
+    <tr>
+      <th class="col column-sortable"
+        data-href="/erp/settings/position?sort_field=name&amp;sort_order=asc&amp;ajax_load=table%2Ctable_function"
+        title="сортировать по убыванию">
+        <span>Название<span class="sorting-indicator"></span></span>
+      </th>
+      <th style="width: 40px;">
+        <span></span>
+      </th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr *ngFor="let position of positions; odd as isOdd" [ngClass]="{'odd': isOdd}">
+      <td class="col">Главарь</td>
+      <td class="col min"><a class="link-pic link-edit ico ico-pencil fn-link"
+          href="/erp/settings/position?id=1&amp;act=edit" title="Редактировать"></a><span
+          class="link-pic link-del ico ico-cross2 fn-link" data-href="/erp/settings/position?id=1&amp;act=del"
+          onclick="return delConfirm(this, 'Удалить?');" title="Удалить"></span></td>
+    </tr>
+    <tr class="odd">
+      <td class="col">Бухгалтер</td>
+      <td class="col min">
+        <a class="link-pic link-edit ico ico-pencil fn-link" href="/erp/settings/position?id=2&amp;act=edit"
+          title="Редактировать"></a>
+        <span class="link-pic link-del ico ico-cross2 fn-link" data-href="/erp/settings/position?id=2&amp;act=del"
+          onclick="return delConfirm(this, 'Удалить?');" title="Удалить"></span>
+      </td>
+    </tr>
+  </tbody>
+</table>
+<app-paginator [total]="total" [count]="count" [start]="start" [limits]="limits" (startChange)="onStartChange($event)"
+  (countChange)="onCountChange($event)"></app-paginator>

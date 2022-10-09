@@ -5,7 +5,10 @@ import { Component, OnInit, ViewEncapsulation } from '@angular/core';
 @Component({
   selector: 'app-department',
   templateUrl: './department.component.html',
-  styleUrls: ['./department.component.scss'],
+  styleUrls: [
+    './department.component.scss',
+    '../../main-table.scss'
+  ],
   encapsulation: ViewEncapsulation.None,
 })
 export class DepartmentComponent implements OnInit {
@@ -29,11 +32,11 @@ export class DepartmentComponent implements OnInit {
       this.total = this.departments.length;
     });
   }
-  
+
   onStartChange(newStart: number): void {
     this.loadDepartments();
   }
-  
+
   onCountChange(newCount: number): void {
     this.loadDepartments();
   }
