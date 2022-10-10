@@ -1,3 +1,4 @@
+import { Department, Employee, Position } from './../../../../../api/custom_models';
 import { CompanyService } from './../../../../../api/services/company.service';
 import { Component, OnInit, ViewEncapsulation } from '@angular/core';
 
@@ -11,7 +12,10 @@ import { Component, OnInit, ViewEncapsulation } from '@angular/core';
   encapsulation: ViewEncapsulation.None,
 })
 export class EmployeeComponent implements OnInit {
-  employees: any;
+  employees: Employee[] = [];
+  departments: Department[] = [];
+  positions: Position[] = [];
+  companies: any[] = [];
   total = 0;
   start = 0;
   limits = [25, 50, 100];
@@ -23,18 +27,49 @@ export class EmployeeComponent implements OnInit {
 
   ngOnInit(): void {
     this.loadEmployees();
+    this.loadPositions();
+    this.loadDepartments();
+    this.loadCompanies();
   }
 
   loadEmployees(): void {
     this.companyService.companyEmployeeList().subscribe(employees => {
-      console.log(employees);
-      this.employees = employees ? Object.values(employees) : [];
+      this.employees = employees ? employees as Employee[] : [];
       this.total = this.employees.length;
-      console.log(JSON.stringify(employees, null, 2));
-      console.log(JSON.stringify(this.employees, null, 2));
+      console.table(this.employees);
+    });
+  }
+  
+  loadDepartments(): void {
+    this.companyService.companyDepartmentList().subscribe(departments => {
+      this.departments = departments ? departments as Department[] : [];
+    });
+  }
+  
+  loadPositions(): void {
+    this.companyService.companyPositionList().subscribe(positions => {
+      this.positions = positions ? positions as Position[] : [];
     });
   }
 
+  loadCompanies(): void {
+    this.companyService.companyList().subscribe(companies => {
+      this.companies = companies ? companies as any[] : [];
+    });
+  }
+  
+  getPositionById(id: number): string | undefined {
+    return this.positions.find(position => position.id === id)?.name;
+  }
+  
+  getDepartmentById(id: number): string | undefined {
+    return this.departments.find(department => department.id === id)?.name;
+  }
+  
+  getCompanyById(id: number): string | undefined {
+    return this.companies.find(company => company.id === id)?.name;
+  }
+  
   onStartChange(newStart: number): void {
     this.loadEmployees();
   }

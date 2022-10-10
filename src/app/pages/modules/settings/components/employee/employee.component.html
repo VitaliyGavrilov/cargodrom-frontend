@@ -42,124 +42,19 @@
     </tr>
   </thead>
   <tbody>
-    <tr>
-      <td class="col">Программист</td>
-      <td></td>
-      <td>Административное</td>
-      <td></td>
-      <td></td>
-      <td></td>
-      <td></td>
+    <tr *ngFor="let employee of employees; odd as isOdd" [ngClass]="{'odd': isOdd}">
+      <td class="col">{{ employee.name_f }} {{ employee.name_i }} {{ employee.name_o }}</td>
+      <td>{{ getCompanyById(employee.company_id) }}</td>
+      <td>{{ getDepartmentById(employee.department_id) }}</td>
+      <td>{{ getPositionById(employee.position_id) }}</td>
+      <td>{{ employee.phone }}</td>
+      <td>{{ employee.email }}</td>
+      <td>{{ employee.birth_date }}</td>
       <td class="col min right"><span class="link-pic ajax notext fn-link link-hide"
           data-href="/erp/settings/employee?id=1&amp;act=switch_show&amp;show=1" title="Показывать">Нет</span><a
           class="link-pic link-edit ico ico-pencil fn-link" href="/erp/settings/employee?id=1&amp;act=edit"
           title="Редактировать"></a><span class="link-pic link-del ico ico-cross2 fn-link"
           data-href="/erp/settings/employee?id=1&amp;act=del" onclick="return delConfirm(this, 'Удалить?');"
-          title="Удалить"></span></td>
-    </tr>
-    <tr class="odd">
-      <td class="col">string string string</td>
-      <td></td>
-      <td>Общий</td>
-      <td>tester1555</td>
-      <td>string</td>
-      <td></td>
-      <td></td>
-      <td class="col min right"><span class="link-pic ajax notext fn-link link-hide"
-          data-href="/erp/settings/employee?id=324&amp;act=switch_show&amp;show=1" title="Показывать">Нет</span><a
-          class="link-pic link-edit ico ico-pencil fn-link" href="/erp/settings/employee?id=324&amp;act=edit"
-          title="Редактировать"></a><span class="link-pic link-del ico ico-cross2 fn-link"
-          data-href="/erp/settings/employee?id=324&amp;act=del" onclick="return delConfirm(this, 'Удалить?');"
-          title="Удалить"></span></td>
-    </tr>
-    <tr>
-      <td class="col">Фамилия Имя Отчество</td>
-      <td></td>
-      <td>Общий</td>
-      <td>tester1555</td>
-      <td>string</td>
-      <td></td>
-      <td>2000-01-02</td>
-      <td class="col min right"><span class="link-pic ajax notext fn-link link-hide"
-          data-href="/erp/settings/employee?id=325&amp;act=switch_show&amp;show=1" title="Показывать">Нет</span><a
-          class="link-pic link-edit ico ico-pencil fn-link" href="/erp/settings/employee?id=325&amp;act=edit"
-          title="Редактировать"></a><span class="link-pic link-del ico ico-cross2 fn-link"
-          data-href="/erp/settings/employee?id=325&amp;act=del" onclick="return delConfirm(this, 'Удалить?');"
-          title="Удалить"></span></td>
-    </tr>
-    <tr class="odd">
-      <td class="col">Ф И О</td>
-      <td></td>
-      <td>Общий</td>
-      <td>tester1555</td>
-      <td>1112233</td>
-      <td></td>
-      <td>2022-05-25</td>
-      <td class="col min right"><span class="link-pic ajax notext fn-link link-hide"
-          data-href="/erp/settings/employee?id=326&amp;act=switch_show&amp;show=1" title="Показывать">Нет</span><a
-          class="link-pic link-edit ico ico-pencil fn-link" href="/erp/settings/employee?id=326&amp;act=edit"
-          title="Редактировать"></a><span class="link-pic link-del ico ico-cross2 fn-link"
-          data-href="/erp/settings/employee?id=326&amp;act=del" onclick="return delConfirm(this, 'Удалить?');"
-          title="Удалить"></span></td>
-    </tr>
-    <tr>
-      <td class="col">Андропов Евгений</td>
-      <td></td>
-      <td>Административное</td>
-      <td></td>
-      <td></td>
-      <td></td>
-      <td></td>
-      <td class="col min right"><span class="link-pic ajax notext fn-link link-hide"
-          data-href="/erp/settings/employee?id=334&amp;act=switch_show&amp;show=1" title="Показывать">Нет</span><a
-          class="link-pic link-edit ico ico-pencil fn-link" href="/erp/settings/employee?id=334&amp;act=edit"
-          title="Редактировать"></a><span class="link-pic link-del ico ico-cross2 fn-link"
-          data-href="/erp/settings/employee?id=334&amp;act=del" onclick="return delConfirm(this, 'Удалить?');"
-          title="Удалить"></span></td>
-    </tr>
-    <tr class="odd">
-      <td class="col">Программист1</td>
-      <td></td>
-      <td>Административное</td>
-      <td></td>
-      <td></td>
-      <td></td>
-      <td></td>
-      <td class="col min right"><span class="link-pic ajax notext fn-link link-hide"
-          data-href="/erp/settings/employee?id=335&amp;act=switch_show&amp;show=1" title="Показывать">Нет</span><a
-          class="link-pic link-edit ico ico-pencil fn-link" href="/erp/settings/employee?id=335&amp;act=edit"
-          title="Редактировать"></a><span class="link-pic link-del ico ico-cross2 fn-link"
-          data-href="/erp/settings/employee?id=335&amp;act=del" onclick="return delConfirm(this, 'Удалить?');"
-          title="Удалить"></span></td>
-    </tr>
-    <tr>
-      <td class="col">Программист1</td>
-      <td></td>
-      <td>Административное</td>
-      <td></td>
-      <td></td>
-      <td></td>
-      <td></td>
-      <td class="col min right"><span class="link-pic ajax notext fn-link link-hide"
-          data-href="/erp/settings/employee?id=336&amp;act=switch_show&amp;show=1" title="Показывать">Нет</span><a
-          class="link-pic link-edit ico ico-pencil fn-link" href="/erp/settings/employee?id=336&amp;act=edit"
-          title="Редактировать"></a><span class="link-pic link-del ico ico-cross2 fn-link"
-          data-href="/erp/settings/employee?id=336&amp;act=del" onclick="return delConfirm(this, 'Удалить?');"
-          title="Удалить"></span></td>
-    </tr>
-    <tr class="odd">
-      <td class="col">asdas</td>
-      <td></td>
-      <td>Административное</td>
-      <td></td>
-      <td></td>
-      <td></td>
-      <td></td>
-      <td class="col min right"><span class="link-pic ajax notext fn-link link-hide"
-          data-href="/erp/settings/employee?id=337&amp;act=switch_show&amp;show=1" title="Показывать">Нет</span><a
-          class="link-pic link-edit ico ico-pencil fn-link" href="/erp/settings/employee?id=337&amp;act=edit"
-          title="Редактировать"></a><span class="link-pic link-del ico ico-cross2 fn-link"
-          data-href="/erp/settings/employee?id=337&amp;act=del" onclick="return delConfirm(this, 'Удалить?');"
           title="Удалить"></span></td>
     </tr>
   </tbody>

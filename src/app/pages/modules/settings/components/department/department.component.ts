@@ -28,7 +28,7 @@ export class DepartmentComponent implements OnInit {
 
   loadDepartments(): void {
     this.companyService.companyDepartmentList().subscribe(departments => {
-      this.departments = Object.values(departments) as unknown as Department[];
+      this.departments = departments ? departments as Department[] : [];
       this.total = this.departments.length;
     });
   }

@@ -1,8 +1,7 @@
-export interface Department {
+export interface Position {
   id: number;
   name: string;
-  count_position: number;
-  count_user: number;
+  permission: any;
   num: number;
   time_add: string;
   time_edit: string;

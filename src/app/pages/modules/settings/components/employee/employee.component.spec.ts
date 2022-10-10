@@ -22,7 +22,10 @@ describe('EmployeeComponent', () => {
       providers: [
         {
           provide: CompanyService, useValue: {
-            companyEmployeeList: () => of([])
+            companyEmployeeList: () => of([]),
+            companyPositionList: () => of([]),
+            companyDepartmentList: () => of([]),
+            companyList: () => of([]),
           }
         },
       ]

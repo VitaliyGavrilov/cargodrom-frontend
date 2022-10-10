@@ -184,6 +184,11 @@ export class CompanyService extends BaseService {
 'noresident_website'?: string;
 
 /**
+ * Skype
+ */
+'noresident_skype'?: string;
+
+/**
  * Full name
  */
 'noresident_signatory_fio'?: string;
@@ -410,6 +415,11 @@ export class CompanyService extends BaseService {
          * Website
          */
         'noresident_website'?: string;
+        
+        /**
+         * Skype
+         */
+        'noresident_skype'?: string;
         
         /**
          * Full name
@@ -644,6 +654,11 @@ export class CompanyService extends BaseService {
 'noresident_website'?: string;
 
 /**
+ * Skype
+ */
+'noresident_skype'?: string;
+
+/**
  * Full name
  */
 'noresident_signatory_fio'?: string;
@@ -863,6 +878,11 @@ export class CompanyService extends BaseService {
 'noresident_website'?: string;
 
 /**
+ * Skype
+ */
+'noresident_skype'?: string;
+
+/**
  * Full name
  */
 'noresident_signatory_fio'?: string;
@@ -1077,6 +1097,11 @@ export class CompanyService extends BaseService {
  * Website
  */
 'noresident_website'?: string;
+
+/**
+ * Skype
+ */
+'noresident_skype'?: string;
 
 /**
  * Full name
@@ -1320,6 +1345,11 @@ export class CompanyService extends BaseService {
 'noresident_website'?: string;
 
 /**
+ * Skype
+ */
+'noresident_skype'?: string;
+
+/**
  * Full name
  */
 'noresident_signatory_fio'?: string;
@@ -1547,6 +1577,11 @@ export class CompanyService extends BaseService {
          * Website
          */
         'noresident_website'?: string;
+        
+        /**
+         * Skype
+         */
+        'noresident_skype'?: string;
         
         /**
          * Full name
@@ -1786,6 +1821,11 @@ export class CompanyService extends BaseService {
 'noresident_website'?: string;
 
 /**
+ * Skype
+ */
+'noresident_skype'?: string;
+
+/**
  * Full name
  */
 'noresident_signatory_fio'?: string;
@@ -2005,6 +2045,11 @@ export class CompanyService extends BaseService {
 'noresident_website'?: string;
 
 /**
+ * Skype
+ */
+'noresident_skype'?: string;
+
+/**
  * Full name
  */
 'noresident_signatory_fio'?: string;
@@ -2219,6 +2264,11 @@ export class CompanyService extends BaseService {
  * Website
  */
 'noresident_website'?: string;
+
+/**
+ * Skype
+ */
+'noresident_skype'?: string;
 
 /**
  * Full name
@@ -2450,6 +2500,11 @@ export class CompanyService extends BaseService {
  * Website
  */
 'noresident_website': string;
+
+/**
+ * Skype
+ */
+'noresident_skype': string;
 
 /**
  * Full name
@@ -2703,6 +2758,11 @@ export class CompanyService extends BaseService {
  * Website
  */
 'noresident_website': string;
+
+/**
+ * Skype
+ */
+'noresident_skype': string;
 
 /**
  * Full name
@@ -2968,6 +3028,11 @@ export class CompanyService extends BaseService {
 'noresident_website'?: string;
 
 /**
+ * Skype
+ */
+'noresident_skype'?: string;
+
+/**
  * Full name
  */
 'noresident_signatory_fio'?: string;
@@ -3216,6 +3281,11 @@ export class CompanyService extends BaseService {
 'noresident_website'?: string;
 
 /**
+ * Skype
+ */
+'noresident_skype'?: string;
+
+/**
  * Full name
  */
 'noresident_signatory_fio'?: string;
@@ -3417,7 +3487,107 @@ export class CompanyService extends BaseService {
    * This method doesn't expect any request body.
    */
   companyDepartmentList$Response(params?: {
-  }): Observable<StrictHttpResponse<{
+  }): Observable<StrictHttpResponse<Array<{
+
+/**
+ * ID
+ */
+'id'?: number;
+
+/**
+ * Наименование
+ */
+'name'?: string;
+
+/**
+ * Количество должностей
+ */
+'count_position'?: number;
+
+/**
+ * Количество сотрудников
+ */
+'count_user'?: number;
+
+/**
+ * Порядок (меньше - выше)
+ */
+'num'?: number;
+
+/**
+ * Время создания
+ */
+'time_add'?: string;
+
+/**
+ * Время изменения
+ */
+'time_edit'?: string;
+}>>> {
+
+    const rb = new RequestBuilder(this.rootUrl, CompanyService.CompanyDepartmentListPath, 'get');
+    if (params) {
+    }
+
+    return this.http.request(rb.build({
+      responseType: 'json',
+      accept: 'application/json'
+    })).pipe(
+      filter((r: any) => r instanceof HttpResponse),
+      map((r: HttpResponse<any>) => {
+        return r as StrictHttpResponse<Array<{
+        
+        /**
+         * ID
+         */
+        'id'?: number;
+        
+        /**
+         * Наименование
+         */
+        'name'?: string;
+        
+        /**
+         * Количество должностей
+         */
+        'count_position'?: number;
+        
+        /**
+         * Количество сотрудников
+         */
+        'count_user'?: number;
+        
+        /**
+         * Порядок (меньше - выше)
+         */
+        'num'?: number;
+        
+        /**
+         * Время создания
+         */
+        'time_add'?: string;
+        
+        /**
+         * Время изменения
+         */
+        'time_edit'?: string;
+        }>>;
+      })
+    );
+  }
+
+  /**
+   * Подразделения: список.
+   *
+   *
+   *
+   * This method provides access to only to the response body.
+   * To access the full response (for headers, for example), `companyDepartmentList$Response()` instead.
+   *
+   * This method doesn't expect any request body.
+   */
+  companyDepartmentList(params?: {
+  }): Observable<Array<{
 
 /**
  * ID
@@ -3455,108 +3625,8 @@ export class CompanyService extends BaseService {
 'time_edit'?: string;
 }>> {
 
-    const rb = new RequestBuilder(this.rootUrl, CompanyService.CompanyDepartmentListPath, 'get');
-    if (params) {
-    }
-
-    return this.http.request(rb.build({
-      responseType: 'json',
-      accept: 'application/json'
-    })).pipe(
-      filter((r: any) => r instanceof HttpResponse),
-      map((r: HttpResponse<any>) => {
-        return r as StrictHttpResponse<{
-        
-        /**
-         * ID
-         */
-        'id'?: number;
-        
-        /**
-         * Наименование
-         */
-        'name'?: string;
-        
-        /**
-         * Количество должностей
-         */
-        'count_position'?: number;
-        
-        /**
-         * Количество сотрудников
-         */
-        'count_user'?: number;
-        
-        /**
-         * Порядок (меньше - выше)
-         */
-        'num'?: number;
-        
-        /**
-         * Время создания
-         */
-        'time_add'?: string;
-        
-        /**
-         * Время изменения
-         */
-        'time_edit'?: string;
-        }>;
-      })
-    );
-  }
-
-  /**
-   * Подразделения: список.
-   *
-   *
-   *
-   * This method provides access to only to the response body.
-   * To access the full response (for headers, for example), `companyDepartmentList$Response()` instead.
-   *
-   * This method doesn't expect any request body.
-   */
-  companyDepartmentList(params?: {
-  }): Observable<{
-
-/**
- * ID
- */
-'id'?: number;
-
-/**
- * Наименование
- */
-'name'?: string;
-
-/**
- * Количество должностей
- */
-'count_position'?: number;
-
-/**
- * Количество сотрудников
- */
-'count_user'?: number;
-
-/**
- * Порядок (меньше - выше)
- */
-'num'?: number;
-
-/**
- * Время создания
- */
-'time_add'?: string;
-
-/**
- * Время изменения
- */
-'time_edit'?: string;
-}> {
-
     return this.companyDepartmentList$Response(params).pipe(
-      map((r: StrictHttpResponse<{
+      map((r: StrictHttpResponse<Array<{
 
 /**
  * ID
@@ -3592,7 +3662,7 @@ export class CompanyService extends BaseService {
  * Время изменения
  */
 'time_edit'?: string;
-}>) => r.body as {
+}>>) => r.body as Array<{
 
 /**
  * ID
@@ -3628,7 +3698,7 @@ export class CompanyService extends BaseService {
  * Время изменения
  */
 'time_edit'?: string;
-})
+}>)
     );
   }
 
@@ -4841,7 +4911,7 @@ export class CompanyService extends BaseService {
      * Лимит позиций на страницу
      */
     limit?: number;
-  }): Observable<StrictHttpResponse<{
+  }): Observable<StrictHttpResponse<Array<{
 
 /**
  * ID
@@ -4904,6 +4974,11 @@ export class CompanyService extends BaseService {
 'dismissal_date'?: string;
 
 /**
+ * ID компании
+ */
+'company_id'?: number;
+
+/**
  * ID подразделения
  */
 'department_id'?: number;
@@ -4932,7 +5007,7 @@ export class CompanyService extends BaseService {
  * Время изменения
  */
 'time_edit'?: string;
-}>> {
+}>>> {
 
     const rb = new RequestBuilder(this.rootUrl, CompanyService.CompanyEmployeeListPath, 'get');
     if (params) {
@@ -4948,7 +5023,7 @@ export class CompanyService extends BaseService {
     })).pipe(
       filter((r: any) => r instanceof HttpResponse),
       map((r: HttpResponse<any>) => {
-        return r as StrictHttpResponse<{
+        return r as StrictHttpResponse<Array<{
         
         /**
          * ID
@@ -5011,6 +5086,11 @@ export class CompanyService extends BaseService {
         'dismissal_date'?: string;
         
         /**
+         * ID компании
+         */
+        'company_id'?: number;
+        
+        /**
          * ID подразделения
          */
         'department_id'?: number;
@@ -5039,7 +5119,7 @@ export class CompanyService extends BaseService {
          * Время изменения
          */
         'time_edit'?: string;
-        }>;
+        }>>;
       })
     );
   }
@@ -5075,7 +5155,7 @@ export class CompanyService extends BaseService {
      * Лимит позиций на страницу
      */
     limit?: number;
-  }): Observable<{
+  }): Observable<Array<{
 
 /**
  * ID
@@ -5138,6 +5218,11 @@ export class CompanyService extends BaseService {
 'dismissal_date'?: string;
 
 /**
+ * ID компании
+ */
+'company_id'?: number;
+
+/**
  * ID подразделения
  */
 'department_id'?: number;
@@ -5166,10 +5251,10 @@ export class CompanyService extends BaseService {
  * Время изменения
  */
 'time_edit'?: string;
-}> {
+}>> {
 
     return this.companyEmployeeList$Response(params).pipe(
-      map((r: StrictHttpResponse<{
+      map((r: StrictHttpResponse<Array<{
 
 /**
  * ID
@@ -5232,6 +5317,11 @@ export class CompanyService extends BaseService {
 'dismissal_date'?: string;
 
 /**
+ * ID компании
+ */
+'company_id'?: number;
+
+/**
  * ID подразделения
  */
 'department_id'?: number;
@@ -5260,7 +5350,7 @@ export class CompanyService extends BaseService {
  * Время изменения
  */
 'time_edit'?: string;
-}>) => r.body as {
+}>>) => r.body as Array<{
 
 /**
  * ID
@@ -5323,6 +5413,11 @@ export class CompanyService extends BaseService {
 'dismissal_date'?: string;
 
 /**
+ * ID компании
+ */
+'company_id'?: number;
+
+/**
  * ID подразделения
  */
 'department_id'?: number;
@@ -5351,7 +5446,7 @@ export class CompanyService extends BaseService {
  * Время изменения
  */
 'time_edit'?: string;
-})
+}>)
     );
   }
 
@@ -5437,6 +5532,11 @@ export class CompanyService extends BaseService {
  * Дата увольнения
  */
 'dismissal_date'?: string;
+
+/**
+ * ID компании
+ */
+'company_id'?: number;
 
 /**
  * ID подразделения
@@ -5541,6 +5641,11 @@ export class CompanyService extends BaseService {
          * Дата увольнения
          */
         'dismissal_date'?: string;
+        
+        /**
+         * ID компании
+         */
+        'company_id'?: number;
         
         /**
          * ID подразделения
@@ -5655,6 +5760,11 @@ export class CompanyService extends BaseService {
 'dismissal_date'?: string;
 
 /**
+ * ID компании
+ */
+'company_id'?: number;
+
+/**
  * ID подразделения
  */
 'department_id'?: number;
@@ -5749,6 +5859,11 @@ export class CompanyService extends BaseService {
 'dismissal_date'?: string;
 
 /**
+ * ID компании
+ */
+'company_id'?: number;
+
+/**
  * ID подразделения
  */
 'department_id'?: number;
@@ -5838,6 +5953,11 @@ export class CompanyService extends BaseService {
  * Дата увольнения
  */
 'dismissal_date'?: string;
+
+/**
+ * ID компании
+ */
+'company_id'?: number;
 
 /**
  * ID подразделения
@@ -5944,6 +6064,11 @@ export class CompanyService extends BaseService {
  * Дата увольнения
  */
 'dismissal_date'?: string;
+
+/**
+ * ID компании
+ */
+'company_id': number;
 
 /**
  * ID подразделения
@@ -6072,6 +6197,11 @@ export class CompanyService extends BaseService {
  * Дата увольнения
  */
 'dismissal_date'?: string;
+
+/**
+ * ID компании
+ */
+'company_id': number;
 
 /**
  * ID подразделения
@@ -6212,6 +6342,11 @@ export class CompanyService extends BaseService {
 'dismissal_date'?: string;
 
 /**
+ * ID компании
+ */
+'company_id'?: number;
+
+/**
  * ID подразделения
  */
 'department_id'?: number;
@@ -6333,6 +6468,11 @@ export class CompanyService extends BaseService {
  * Дата увольнения
  */
 'dismissal_date'?: string;
+
+/**
+ * ID компании
+ */
+'company_id'?: number;
 
 /**
  * ID подразделения

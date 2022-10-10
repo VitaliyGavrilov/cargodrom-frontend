@@ -1,3 +1,4 @@
+import { Position } from './../../../../../api/custom_models/position';
 import { CompanyService } from './../../../../../api/services/company.service';
 import { Component, OnInit } from '@angular/core';
 
@@ -10,8 +11,8 @@ import { Component, OnInit } from '@angular/core';
   ]
 })
 export class PositionComponent implements OnInit {
-  
-  positions: any;
+
+  positions: Position[] = [];
   total = 0;
   start = 0;
   limits = [25, 50, 100];
@@ -24,18 +25,15 @@ export class PositionComponent implements OnInit {
   ngOnInit(): void {
     this.loadPositions();
   }
-  
+
   loadPositions(): void {
     this.companyService.companyPositionList().subscribe(positions => {
-      console.log(positions);
-      this.positions = positions ? Object.values(positions) : [];
+      this.positions = positions ? positions as Position[] : [];
       this.total = this.positions.length;
-      console.log(JSON.stringify(positions, null, 2));
-      console.log(JSON.stringify(this.positions, null, 2));
-    });  
+    });
   }
-  
-  
+
+
   onStartChange(newStart: number): void {
     this.loadPositions();
   }

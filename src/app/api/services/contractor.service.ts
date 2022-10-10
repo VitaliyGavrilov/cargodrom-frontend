@@ -65,12 +65,12 @@ export class ContractorService extends BaseService {
       filter((r: any) => r instanceof HttpResponse),
       map((r: HttpResponse<any>) => {
         return r as StrictHttpResponse<Array<{
-
+        
         /**
          * ID
          */
         'id'?: number;
-
+        
         /**
          * Наименование
          */
@@ -171,12 +171,12 @@ export class ContractorService extends BaseService {
       filter((r: any) => r instanceof HttpResponse),
       map((r: HttpResponse<any>) => {
         return r as StrictHttpResponse<Array<{
-
+        
         /**
          * ID
          */
         'id'?: number;
-
+        
         /**
          * Наименование
          */
@@ -277,12 +277,12 @@ export class ContractorService extends BaseService {
       filter((r: any) => r instanceof HttpResponse),
       map((r: HttpResponse<any>) => {
         return r as StrictHttpResponse<Array<{
-
+        
         /**
          * ID
          */
         'id'?: number;
-
+        
         /**
          * Наименование
          */
@@ -490,6 +490,16 @@ export class ContractorService extends BaseService {
  * Система налогообложения (ID берем из запроса - settings_get из поля tax)
  */
 'tax_id'?: number;
+
+/**
+ * Формат отправки запроса (ID берем из запроса - contractor_request_format)
+ */
+'request_format_id'?: string;
+
+/**
+ * Исключить Подрядчика из торгов
+ */
+'exclude_from_trade'?: boolean;
 
 /**
  * Рейтинг в системе (NPS)
@@ -708,305 +718,305 @@ export class ContractorService extends BaseService {
       filter((r: any) => r instanceof HttpResponse),
       map((r: HttpResponse<any>) => {
         return r as StrictHttpResponse<{
-
+        
         /**
          * Позиции
          */
         'items'?: Array<{
-
+        
         /**
          * ID
          */
         'id': number;
-
+        
         /**
          * Наименование подрядчика
          */
         'name'?: string;
-
+        
         /**
          * Идентификатор (ИНН, Rec № и пр.)
          */
         'ind'?: string;
-
+        
         /**
          * Страна нахождения
          */
         'country_name'?: string;
-
+        
         /**
          * Страна нахождения (ID берем из запроса - direction_country)
          */
         'country_id'?: number;
-
+        
         /**
          * Город
          */
         'city_name'?: string;
-
+        
         /**
          * Город (ID берем из запроса - direction_city)
          */
         'city_id'?: number;
-
+        
         /**
          * Адрес
          */
         'address'?: string;
-
+        
         /**
          * Общий телефон
          */
         'phone'?: string;
-
+        
         /**
          * Сайт компании
          */
         'web'?: string;
-
+        
         /**
          * Язык общения
          */
         'language_name'?: string;
-
+        
         /**
          * Язык общения (ID берем из запроса - settings_get из поля language)
          */
         'language_id'?: string;
-
+        
         /**
          * Вид подрядчика
          */
         'type_name'?: string;
-
+        
         /**
          * Вид подрядчика (ID берем из запроса - contractor_type)
          */
         'type_id'?: number;
-
+        
         /**
          * Членство в ассоциациях
          */
         'association_name'?: string;
-
+        
         /**
          * Членство в ассоциациях (ID берем из запроса - contractor_association)
          */
         'association_id'?: Array<string>;
-
+        
         /**
          * Система налогообложения
          */
         'tax_name'?: string;
-
+        
         /**
          * Система налогообложения (ID берем из запроса - settings_get из поля tax)
          */
         'tax_id'?: number;
-
+        
         /**
          * Формат отправки запроса (ID берем из запроса - contractor_request_format)
          */
         'request_format_id'?: string;
-
+        
         /**
          * Исключить Подрядчика из торгов
          */
         'exclude_from_trade'?: boolean;
-
+        
         /**
          * Рейтинг в системе (NPS)
          */
         'rating_nps_text'?: string;
-
+        
         /**
          * Рейтинг в системе (NPS)
          */
         'rating_nps'?: number;
-
+        
         /**
          * Моя оценка подрядчика (NPS)
          */
         'user_rating_nps_text'?: string;
-
+        
         /**
          * Моя оценка подрядчика (NPS)
          */
         'user_rating_nps'?: number;
-
+        
         /**
          * Отзывы по работе с подрядчиком (всего)
          */
         'review_count'?: number;
-
+        
         /**
          * Отзывы по работе с подрядчиком (позитивные)
          */
         'review_positive_count'?: number;
-
+        
         /**
          * Отзывы по работе с подрядчиком (негативные)
          */
         'review_negative_count'?: number;
-
+        
         /**
          * Отзывы по работе с подрядчиком (нейтральные)
          */
         'review_neutral_count'?: number;
-
+        
         /**
          * Всего выполнено перевозок
          */
         'order_count'?: number;
-
+        
         /**
          * % успешных торгов
          */
         'trade_percent'?: number;
-
+        
         /**
          * Участие в торгах (общее количество)
          */
         'trade_count'?: number;
-
+        
         /**
          * Количество выигранных торгов
          */
         'trade_success_count'?: number;
-
+        
         /**
          * Количество проигранных торгов
          */
         'trade_fail_count'?: number;
-
+        
         /**
          * Количество контактных лиц
          */
         'contact_count'?: number;
-
+        
         /**
          * Контактные лица
          */
         'contacts'?: Array<{
-
+        
         /**
          * ID
          */
         'id': number;
-
+        
         /**
          * Фамилия
          */
         'name_f'?: string;
-
+        
         /**
          * Имя
          */
         'name_i'?: string;
-
+        
         /**
          * Отчество
          */
         'name_o'?: string;
-
+        
         /**
          * ФИО
          */
         'name'?: string;
-
+        
         /**
          * Должность
          */
         'position'?: string;
-
+        
         /**
          * Местонахождение офиса
          */
         'city_name'?: string;
-
+        
         /**
          * Местонахождение офиса (ID берем из запроса - direction_city)
          */
         'city_id'?: number;
-
+        
         /**
          * Офисный телефон
          */
         'phone'?: string;
-
+        
         /**
          * Мобильный телефон
          */
         'mobile_phone'?: string;
-
+        
         /**
          * E-mail
          */
         'email'?: string;
-
+        
         /**
          * Skype
          */
         'skype'?: string;
-
+        
         /**
          * Telegram
          */
         'telegram'?: string;
-
+        
         /**
          * Whatsapp
          */
         'whatsapp'?: string;
-
+        
         /**
          * WeChat
          */
         'wechat'?: string;
-
+        
         /**
          * Ответственный за направления (ID берем из запроса - direction_type)
          */
         'responsible_direction'?: Array<number>;
-
+        
         /**
          * Ответственный за направления (distination_country_id: {departure_country_id: [array of transport_sub_kind]}, ...)
          */
         'responsible_param'?: {
         };
-
+        
         /**
          * Время создания
          */
         'time_add'?: string;
-
+        
         /**
          * Время изменения
          */
         'time_edit'?: string;
         }>;
-
+        
         /**
          * Контактные лица
          */
         'contact_name'?: string;
-
+        
         /**
          * Контактнря информация
          */
         'contact_info'?: string;
-
+        
         /**
          * Время создания
          */
         'time'?: string;
-
+        
         /**
          * Время изменения
          */
         'time_edit'?: string;
         }>;
-
+        
         /**
          * Всего позиций
          */
@@ -2309,294 +2319,294 @@ export class ContractorService extends BaseService {
       filter((r: any) => r instanceof HttpResponse),
       map((r: HttpResponse<any>) => {
         return r as StrictHttpResponse<{
-
+        
         /**
          * ID
          */
         'id': number;
-
+        
         /**
          * Наименование подрядчика
          */
         'name'?: string;
-
+        
         /**
          * Идентификатор (ИНН, Rec № и пр.)
          */
         'ind'?: string;
-
+        
         /**
          * Страна нахождения
          */
         'country_name'?: string;
-
+        
         /**
          * Страна нахождения (ID берем из запроса - direction_country)
          */
         'country_id'?: number;
-
+        
         /**
          * Город
          */
         'city_name'?: string;
-
+        
         /**
          * Город (ID берем из запроса - direction_city)
          */
         'city_id'?: number;
-
+        
         /**
          * Адрес
          */
         'address'?: string;
-
+        
         /**
          * Общий телефон
          */
         'phone'?: string;
-
+        
         /**
          * Сайт компании
          */
         'web'?: string;
-
+        
         /**
          * Язык общения
          */
         'language_name'?: string;
-
+        
         /**
          * Язык общения (ID берем из запроса - settings_get из поля language)
          */
         'language_id'?: string;
-
+        
         /**
          * Вид подрядчика
          */
         'type_name'?: string;
-
+        
         /**
          * Вид подрядчика (ID берем из запроса - contractor_type)
          */
         'type_id'?: number;
-
+        
         /**
          * Членство в ассоциациях
          */
         'association_name'?: string;
-
+        
         /**
          * Членство в ассоциациях (ID берем из запроса - contractor_association)
          */
         'association_id'?: Array<string>;
-
+        
         /**
          * Система налогообложения
          */
         'tax_name'?: string;
-
+        
         /**
          * Система налогообложения (ID берем из запроса - settings_get из поля tax)
          */
         'tax_id'?: number;
-
+        
         /**
          * Формат отправки запроса (ID берем из запроса - contractor_request_format)
          */
         'request_format_id'?: string;
-
+        
         /**
          * Исключить Подрядчика из торгов
          */
         'exclude_from_trade'?: boolean;
-
+        
         /**
          * Рейтинг в системе (NPS)
          */
         'rating_nps_text'?: string;
-
+        
         /**
          * Рейтинг в системе (NPS)
          */
         'rating_nps'?: number;
-
+        
         /**
          * Моя оценка подрядчика (NPS)
          */
         'user_rating_nps_text'?: string;
-
+        
         /**
          * Моя оценка подрядчика (NPS)
          */
         'user_rating_nps'?: number;
-
+        
         /**
          * Отзывы по работе с подрядчиком (всего)
          */
         'review_count'?: number;
-
+        
         /**
          * Отзывы по работе с подрядчиком (позитивные)
          */
         'review_positive_count'?: number;
-
+        
         /**
          * Отзывы по работе с подрядчиком (негативные)
          */
         'review_negative_count'?: number;
-
+        
         /**
          * Отзывы по работе с подрядчиком (нейтральные)
          */
         'review_neutral_count'?: number;
-
+        
         /**
          * Всего выполнено перевозок
          */
         'order_count'?: number;
-
+        
         /**
          * % успешных торгов
          */
         'trade_percent'?: number;
-
+        
         /**
          * Участие в торгах (общее количество)
          */
         'trade_count'?: number;
-
+        
         /**
          * Количество выигранных торгов
          */
         'trade_success_count'?: number;
-
+        
         /**
          * Количество проигранных торгов
          */
         'trade_fail_count'?: number;
-
+        
         /**
          * Количество контактных лиц
          */
         'contact_count'?: number;
-
+        
         /**
          * Контактные лица
          */
         'contacts'?: Array<{
-
+        
         /**
          * ID
          */
         'id': number;
-
+        
         /**
          * Фамилия
          */
         'name_f'?: string;
-
+        
         /**
          * Имя
          */
         'name_i'?: string;
-
+        
         /**
          * Отчество
          */
         'name_o'?: string;
-
+        
         /**
          * ФИО
          */
         'name'?: string;
-
+        
         /**
          * Должность
          */
         'position'?: string;
-
+        
         /**
          * Местонахождение офиса
          */
         'city_name'?: string;
-
+        
         /**
          * Местонахождение офиса (ID берем из запроса - direction_city)
          */
         'city_id'?: number;
-
+        
         /**
          * Офисный телефон
          */
         'phone'?: string;
-
+        
         /**
          * Мобильный телефон
          */
         'mobile_phone'?: string;
-
+        
         /**
          * E-mail
          */
         'email'?: string;
-
+        
         /**
          * Skype
          */
         'skype'?: string;
-
+        
         /**
          * Telegram
          */
         'telegram'?: string;
-
+        
         /**
          * Whatsapp
          */
         'whatsapp'?: string;
-
+        
         /**
          * WeChat
          */
         'wechat'?: string;
-
+        
         /**
          * Ответственный за направления (ID берем из запроса - direction_type)
          */
         'responsible_direction'?: Array<number>;
-
+        
         /**
          * Ответственный за направления (distination_country_id: {departure_country_id: [array of transport_sub_kind]}, ...)
          */
         'responsible_param'?: {
         };
-
+        
         /**
          * Время создания
          */
         'time_add'?: string;
-
+        
         /**
          * Время изменения
          */
         'time_edit'?: string;
         }>;
-
+        
         /**
          * Контактные лица
          */
         'contact_name'?: string;
-
+        
         /**
          * Контактнря информация
          */
         'contact_info'?: string;
-
+        
         /**
          * Время создания
          */
         'time'?: string;
-
+        
         /**
          * Время изменения
          */
@@ -3693,12 +3703,12 @@ export class ContractorService extends BaseService {
       filter((r: any) => r instanceof HttpResponse),
       map((r: HttpResponse<any>) => {
         return r as StrictHttpResponse<{
-
+        
         /**
          * ID созданной записи
          */
         'id': number;
-
+        
         /**
          * Статус выполнения
          */
@@ -4093,7 +4103,7 @@ export class ContractorService extends BaseService {
       filter((r: any) => r instanceof HttpResponse),
       map((r: HttpResponse<any>) => {
         return r as StrictHttpResponse<{
-
+        
         /**
          * Статус выполнения
          */
@@ -4336,7 +4346,7 @@ export class ContractorService extends BaseService {
       filter((r: any) => r instanceof HttpResponse),
       map((r: HttpResponse<any>) => {
         return r as StrictHttpResponse<{
-
+        
         /**
          * Статус выполнения
          */
@@ -4521,98 +4531,98 @@ export class ContractorService extends BaseService {
       filter((r: any) => r instanceof HttpResponse),
       map((r: HttpResponse<any>) => {
         return r as StrictHttpResponse<Array<{
-
+        
         /**
          * ID
          */
         'id': number;
-
+        
         /**
          * Фамилия
          */
         'name_f'?: string;
-
+        
         /**
          * Имя
          */
         'name_i'?: string;
-
+        
         /**
          * Отчество
          */
         'name_o'?: string;
-
+        
         /**
          * ФИО
          */
         'name'?: string;
-
+        
         /**
          * Должность
          */
         'position'?: string;
-
+        
         /**
          * Местонахождение офиса
          */
         'city_name'?: string;
-
+        
         /**
          * Местонахождение офиса (ID берем из запроса - direction_city)
          */
         'city_id'?: number;
-
+        
         /**
          * Офисный телефон
          */
         'phone'?: string;
-
+        
         /**
          * Мобильный телефон
          */
         'mobile_phone'?: string;
-
+        
         /**
          * E-mail
          */
         'email'?: string;
-
+        
         /**
          * Skype
          */
         'skype'?: string;
-
+        
         /**
          * Telegram
          */
         'telegram'?: string;
-
+        
         /**
          * Whatsapp
          */
         'whatsapp'?: string;
-
+        
         /**
          * WeChat
          */
         'wechat'?: string;
-
+        
         /**
          * Ответственный за направления (ID берем из запроса - direction_type)
          */
         'responsible_direction'?: Array<number>;
-
+        
         /**
          * Ответственный за направления (distination_country_id: {departure_country_id: [array of transport_sub_kind]}, ...)
          */
         'responsible_param'?: {
         };
-
+        
         /**
          * Время создания
          */
         'time_add'?: string;
-
+        
         /**
          * Время изменения
          */
@@ -5068,98 +5078,98 @@ export class ContractorService extends BaseService {
       filter((r: any) => r instanceof HttpResponse),
       map((r: HttpResponse<any>) => {
         return r as StrictHttpResponse<{
-
+        
         /**
          * ID
          */
         'id': number;
-
+        
         /**
          * Фамилия
          */
         'name_f'?: string;
-
+        
         /**
          * Имя
          */
         'name_i'?: string;
-
+        
         /**
          * Отчество
          */
         'name_o'?: string;
-
+        
         /**
          * ФИО
          */
         'name'?: string;
-
+        
         /**
          * Должность
          */
         'position'?: string;
-
+        
         /**
          * Местонахождение офиса
          */
         'city_name'?: string;
-
+        
         /**
          * Местонахождение офиса (ID берем из запроса - direction_city)
          */
         'city_id'?: number;
-
+        
         /**
          * Офисный телефон
          */
         'phone'?: string;
-
+        
         /**
          * Мобильный телефон
          */
         'mobile_phone'?: string;
-
+        
         /**
          * E-mail
          */
         'email'?: string;
-
+        
         /**
          * Skype
          */
         'skype'?: string;
-
+        
         /**
          * Telegram
          */
         'telegram'?: string;
-
+        
         /**
          * Whatsapp
          */
         'whatsapp'?: string;
-
+        
         /**
          * WeChat
          */
         'wechat'?: string;
-
+        
         /**
          * Ответственный за направления (ID берем из запроса - direction_type)
          */
         'responsible_direction'?: Array<number>;
-
+        
         /**
          * Ответственный за направления (distination_country_id: {departure_country_id: [array of transport_sub_kind]}, ...)
          */
         'responsible_param'?: {
         };
-
+        
         /**
          * Время создания
          */
         'time_add'?: string;
-
+        
         /**
          * Время изменения
          */
@@ -5602,12 +5612,12 @@ export class ContractorService extends BaseService {
       filter((r: any) => r instanceof HttpResponse),
       map((r: HttpResponse<any>) => {
         return r as StrictHttpResponse<{
-
+        
         /**
          * ID созданной записи
          */
         'id': number;
-
+        
         /**
          * Статус выполнения
          */
@@ -5865,7 +5875,7 @@ export class ContractorService extends BaseService {
       filter((r: any) => r instanceof HttpResponse),
       map((r: HttpResponse<any>) => {
         return r as StrictHttpResponse<{
-
+        
         /**
          * Статус выполнения
          */
@@ -6037,7 +6047,7 @@ export class ContractorService extends BaseService {
       filter((r: any) => r instanceof HttpResponse),
       map((r: HttpResponse<any>) => {
         return r as StrictHttpResponse<{
-
+        
         /**
          * Статус выполнения
          */

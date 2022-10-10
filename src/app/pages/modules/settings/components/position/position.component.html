@@ -13,20 +13,11 @@
   </thead>
   <tbody>
     <tr *ngFor="let position of positions; odd as isOdd" [ngClass]="{'odd': isOdd}">
-      <td class="col">Главарь</td>
+      <td class="col">{{ position.name }}</td>
       <td class="col min"><a class="link-pic link-edit ico ico-pencil fn-link"
           href="/erp/settings/position?id=1&amp;act=edit" title="Редактировать"></a><span
           class="link-pic link-del ico ico-cross2 fn-link" data-href="/erp/settings/position?id=1&amp;act=del"
           onclick="return delConfirm(this, 'Удалить?');" title="Удалить"></span></td>
-    </tr>
-    <tr class="odd">
-      <td class="col">Бухгалтер</td>
-      <td class="col min">
-        <a class="link-pic link-edit ico ico-pencil fn-link" href="/erp/settings/position?id=2&amp;act=edit"
-          title="Редактировать"></a>
-        <span class="link-pic link-del ico ico-cross2 fn-link" data-href="/erp/settings/position?id=2&amp;act=del"
-          onclick="return delConfirm(this, 'Удалить?');" title="Удалить"></span>
-      </td>
     </tr>
   </tbody>
 </table>
