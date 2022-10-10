@@ -1,3 +1,4 @@
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { MaterialModule } from '@cargodrom/material/material.module';
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
@@ -21,6 +22,8 @@ import { PositionEditorComponent } from './components/position-editor/position-e
   imports: [
     CommonModule,
     MaterialModule,
+    FormsModule,
+    ReactiveFormsModule,
     SettingsRoutingModule
   ]
 })

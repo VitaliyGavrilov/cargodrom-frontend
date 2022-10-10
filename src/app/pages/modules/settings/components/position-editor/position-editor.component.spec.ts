@@ -1,3 +1,4 @@
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { CompanyService } from 'src/app/api/services/company.service';
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
@@ -16,6 +17,8 @@ describe('PositionEditorComponent', () => {
       declarations: [ PositionEditorComponent ],
       imports: [
         MaterialModule,
+        FormsModule,
+        ReactiveFormsModule,
         RouterTestingModule,
         NoopAnimationsModule,
       ],

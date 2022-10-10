@@ -1,3 +1,4 @@
+import { RouterModule } from '@angular/router';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
@@ -11,14 +12,17 @@ import { MatAutocompleteModule } from '@angular/material/autocomplete';
 import { MatInputModule } from '@angular/material/input';
 import { MatCheckboxModule } from '@angular/material/checkbox';
 import { PaginatorComponent } from './components/paginator/paginator.component';
+import { EditorHeaderComponent } from './components/editor-header/editor-header.component';
 
 @NgModule({
   declarations: [
     PopupDialogComponent,
     PaginatorComponent,
+    EditorHeaderComponent,
   ],
   imports: [
     CommonModule,
+    RouterModule,
     FormsModule,
     ReactiveFormsModule,
     MatDialogModule,
@@ -40,6 +44,7 @@ import { PaginatorComponent } from './components/paginator/paginator.component';
     MatCheckboxModule,
     PopupDialogComponent,
     PaginatorComponent,
+    EditorHeaderComponent,
   ]
 })
 export class MaterialModule { }
