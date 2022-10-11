@@ -1,0 +1,437 @@
+<app-editor-header [title]="title" (save)="save()" [backLink]="['/pages/settings/department']" (remove)="remove()"
+  [isEditMode]="isEditMode"></app-editor-header>
+
+<div class="edit-form">
+  <form class="form" [formGroup]="form">
+    <div class="form-placer">
+      <div class="form-items">
+        <div class="form-group">
+          <div class="form-group-title">Общая информация</div>
+          <div>
+            <input type="hidden" formControlName="id">
+            <div class="form-item form-inline-group">
+              <div class="form-title">
+              </div>
+              <div class="form-data">
+                <div class="form-group-row">
+                  <div class="form-item">
+                    <div class="form-title">
+                      <div>Название подразделения:<span class="req">*</span></div>
+                    </div>
+                    <div class="form-data">
+                      <div>
+                        <div class="form-input">
+                          <input class="text-control" type="text" formControlName="name" required>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="form-group">
+          <div class="form-group-title">Сотрудники подразделения</div>
+        </div>
+        <table class="main-table fixed" cellspacing="0" style="display: none; width: 1144px; top: 0px;">
+          <tbody>
+            <tr>
+              <th class="column-sortable" style="width: 57.775px;"
+                data-href="/erp/settings/department?act=new&amp;sort_field=nums&amp;sort_order=asc&amp;ajax_load=table%2Ctable_function"
+                title="сортировать по убыванию">
+                <span><span class="sorting-indicator"></span></span>
+              </th>
+              <th class="column-sortable" style="width: 299px;"
+                data-href="/erp/settings/department?act=new&amp;sort_field=name&amp;sort_order=asc&amp;ajax_load=table%2Ctable_function"
+                title="сортировать по убыванию">
+                <span>Ф.И.О.<span class="sorting-indicator"></span></span>
+              </th>
+              <th class="column-sortable"
+                data-href="/erp/settings/department?act=new&amp;sort_field=position_id&amp;sort_order=asc&amp;ajax_load=table%2Ctable_function"
+                title="сортировать по убыванию" style="width: 323.725px;">
+                <span>Должность<span class="sorting-indicator"></span></span>
+              </th>
+              <th style="width: 349px;">
+                <span></span>
+              </th>
+              <th style="width: 114px;">
+                <span>Ред.</span>
+              </th>
+            </tr>
+          </tbody>
+        </table>
+        <table class="main-table fix-head table-61c20c0f4c8ddffee3f3624545fe9ea4">
+          <thead>
+            <tr>
+              <th class="column-sortable" style="width: 1px;"
+                data-href="/erp/settings/department?act=new&amp;sort_field=nums&amp;sort_order=asc&amp;ajax_load=table%2Ctable_function"
+                title="сортировать по убыванию">
+                <span><span class="sorting-indicator"></span></span>
+              </th>
+              <th class="column-sortable" style="width: 250px;"
+                data-href="/erp/settings/department?act=new&amp;sort_field=name&amp;sort_order=asc&amp;ajax_load=table%2Ctable_function"
+                title="сортировать по убыванию">
+                <span>Ф.И.О.<span class="sorting-indicator"></span></span>
+              </th>
+              <th class="column-sortable"
+                data-href="/erp/settings/department?act=new&amp;sort_field=position_id&amp;sort_order=asc&amp;ajax_load=table%2Ctable_function"
+                title="сортировать по убыванию">
+                <span>Должность<span class="sorting-indicator"></span></span>
+              </th>
+              <th style="width: 300px;">
+                <span></span>
+              </th>
+              <th style="width: 65px;">
+                <span>Ред.</span>
+              </th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>1</td>
+              <td>Программист</td>
+              <td></td>
+              <td>
+                <div class="form-placer">
+                  <div class="form-items">
+                    <div class="form-item" data-id="main">
+                      <div class="form-title">
+                      </div>
+                      <div class="form-data">
+                        <div>
+                          <div class="form-input"> <label class="switch  outer">
+                              <input type="hidden" name="main" value="1">
+                              <input type="checkbox"
+                                onchange="$(this).prev().val($(this).is(':checked') ? '1' : '0').trigger('change')"
+                                checked="">
+                              <div class="switcher">
+                                <span class="bg" data-on="Руководитель подразделения"
+                                  data-off="Сделать руководителем"></span>
+                                <span class="thumb"></span>
+                              </div>
+                              <span class="switch-title" data-on="Руководитель подразделения"
+                                data-off="Сделать руководителем"></span>
+                            </label>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div><input type="hidden" name="validator"
+                  value="{&quot;hash&quot;:&quot;fd9f0dee0fafc63b93de4dfba833a423&quot;}">
+              </td>
+              <td class="col min"><a class="link-pic link-edit ico ico-pencil fn-link"
+                  href="/erp/settings/department?act=edit&amp;id=1" title="Редактировать"></a><span
+                  class="link-pic link-del ico ico-cross2 fn-link" data-href="/erp/settings/department?act=del&amp;id=1"
+                  onclick="return delConfirm(this, 'Удалить?');" title="Удалить"></span></td>
+            </tr>
+            <tr class="odd">
+              <td>2</td>
+              <td>string string string</td>
+              <td>Главарь</td>
+              <td>
+                <form class="form" id="form" method="post" onsubmit="return ajaxFormPost(this);"
+                  action="/erp/settings/department">
+                  <div class="form-placer">
+                    <div class="form-items">
+                      <div class="form-item" data-id="main">
+                        <div class="form-title">
+                        </div>
+                        <div class="form-data">
+                          <div>
+                            <div class="form-input"> <label class="switch  outer">
+                                <input type="hidden" name="main" value="1">
+                                <input type="checkbox"
+                                  onchange="$(this).prev().val($(this).is(':checked') ? '1' : '0').trigger('change')"
+                                  checked="">
+                                <div class="switcher">
+                                  <span class="bg" data-on="Руководитель подразделения"
+                                    data-off="Сделать руководителем"></span>
+                                  <span class="thumb"></span>
+                                </div>
+                                <span class="switch-title" data-on="Руководитель подразделения"
+                                  data-off="Сделать руководителем"></span>
+                              </label>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div><input type="hidden" name="validator"
+                    value="{&quot;hash&quot;:&quot;fd9f0dee0fafc63b93de4dfba833a423&quot;}">
+                </form>
+              </td>
+              <td class="col min"><a class="link-pic link-edit ico ico-pencil fn-link"
+                  href="/erp/settings/department?act=edit&amp;id=324" title="Редактировать"></a><span
+                  class="link-pic link-del ico ico-cross2 fn-link"
+                  data-href="/erp/settings/department?act=del&amp;id=324" onclick="return delConfirm(this, 'Удалить?');"
+                  title="Удалить"></span></td>
+            </tr>
+            <tr>
+              <td>3</td>
+              <td>Фамилия Имя Отчество</td>
+              <td>Главарь</td>
+              <td>
+                <form class="form" id="form" method="post" onsubmit="return ajaxFormPost(this);"
+                  action="/erp/settings/department">
+                  <div class="form-placer">
+                    <div class="form-items">
+                      <div class="form-item" data-id="main">
+                        <div class="form-title">
+                        </div>
+                        <div class="form-data">
+                          <div>
+                            <div class="form-input"> <label class="switch  outer">
+                                <input type="hidden" name="main" value="1">
+                                <input type="checkbox"
+                                  onchange="$(this).prev().val($(this).is(':checked') ? '1' : '0').trigger('change')"
+                                  checked="">
+                                <div class="switcher">
+                                  <span class="bg" data-on="Руководитель подразделения"
+                                    data-off="Сделать руководителем"></span>
+                                  <span class="thumb"></span>
+                                </div>
+                                <span class="switch-title" data-on="Руководитель подразделения"
+                                  data-off="Сделать руководителем"></span>
+                              </label>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div><input type="hidden" name="validator"
+                    value="{&quot;hash&quot;:&quot;fd9f0dee0fafc63b93de4dfba833a423&quot;}">
+                </form>
+              </td>
+              <td class="col min"><a class="link-pic link-edit ico ico-pencil fn-link"
+                  href="/erp/settings/department?act=edit&amp;id=325" title="Редактировать"></a><span
+                  class="link-pic link-del ico ico-cross2 fn-link"
+                  data-href="/erp/settings/department?act=del&amp;id=325" onclick="return delConfirm(this, 'Удалить?');"
+                  title="Удалить"></span></td>
+            </tr>
+            <tr class="odd">
+              <td>4</td>
+              <td>Ф И О</td>
+              <td>Бухгалтер</td>
+              <td>
+                <form class="form" id="form" method="post" onsubmit="return ajaxFormPost(this);"
+                  action="/erp/settings/department">
+                  <div class="form-placer">
+                    <div class="form-items">
+                      <div class="form-item" data-id="main">
+                        <div class="form-title">
+                        </div>
+                        <div class="form-data">
+                          <div>
+                            <div class="form-input"> <label class="switch  outer">
+                                <input type="hidden" name="main" value="1">
+                                <input type="checkbox"
+                                  onchange="$(this).prev().val($(this).is(':checked') ? '1' : '0').trigger('change')"
+                                  checked="">
+                                <div class="switcher">
+                                  <span class="bg" data-on="Руководитель подразделения"
+                                    data-off="Сделать руководителем"></span>
+                                  <span class="thumb"></span>
+                                </div>
+                                <span class="switch-title" data-on="Руководитель подразделения"
+                                  data-off="Сделать руководителем"></span>
+                              </label>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div><input type="hidden" name="validator"
+                    value="{&quot;hash&quot;:&quot;fd9f0dee0fafc63b93de4dfba833a423&quot;}">
+                </form>
+              </td>
+              <td class="col min"><a class="link-pic link-edit ico ico-pencil fn-link"
+                  href="/erp/settings/department?act=edit&amp;id=326" title="Редактировать"></a><span
+                  class="link-pic link-del ico ico-cross2 fn-link"
+                  data-href="/erp/settings/department?act=del&amp;id=326" onclick="return delConfirm(this, 'Удалить?');"
+                  title="Удалить"></span></td>
+            </tr>
+            <tr>
+              <td>5</td>
+              <td>Андропов Евгений</td>
+              <td></td>
+              <td>
+                <form class="form" id="form" method="post" onsubmit="return ajaxFormPost(this);"
+                  action="/erp/settings/department">
+                  <div class="form-placer">
+                    <div class="form-items">
+                      <div class="form-item" data-id="main">
+                        <div class="form-title">
+                        </div>
+                        <div class="form-data">
+                          <div>
+                            <div class="form-input"> <label class="switch  outer">
+                                <input type="hidden" name="main" value="1">
+                                <input type="checkbox"
+                                  onchange="$(this).prev().val($(this).is(':checked') ? '1' : '0').trigger('change')"
+                                  checked="">
+                                <div class="switcher">
+                                  <span class="bg" data-on="Руководитель подразделения"
+                                    data-off="Сделать руководителем"></span>
+                                  <span class="thumb"></span>
+                                </div>
+                                <span class="switch-title" data-on="Руководитель подразделения"
+                                  data-off="Сделать руководителем"></span>
+                              </label>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div><input type="hidden" name="validator"
+                    value="{&quot;hash&quot;:&quot;fd9f0dee0fafc63b93de4dfba833a423&quot;}">
+                </form>
+              </td>
+              <td class="col min"><a class="link-pic link-edit ico ico-pencil fn-link"
+                  href="/erp/settings/department?act=edit&amp;id=334" title="Редактировать"></a><span
+                  class="link-pic link-del ico ico-cross2 fn-link"
+                  data-href="/erp/settings/department?act=del&amp;id=334" onclick="return delConfirm(this, 'Удалить?');"
+                  title="Удалить"></span></td>
+            </tr>
+            <tr class="odd">
+              <td>6</td>
+              <td>Программист1</td>
+              <td></td>
+              <td>
+                <form class="form" id="form" method="post" onsubmit="return ajaxFormPost(this);"
+                  action="/erp/settings/department">
+                  <div class="form-placer">
+                    <div class="form-items">
+                      <div class="form-item" data-id="main">
+                        <div class="form-title">
+                        </div>
+                        <div class="form-data">
+                          <div>
+                            <div class="form-input"> <label class="switch  outer">
+                                <input type="hidden" name="main" value="1">
+                                <input type="checkbox"
+                                  onchange="$(this).prev().val($(this).is(':checked') ? '1' : '0').trigger('change')"
+                                  checked="">
+                                <div class="switcher">
+                                  <span class="bg" data-on="Руководитель подразделения"
+                                    data-off="Сделать руководителем"></span>
+                                  <span class="thumb"></span>
+                                </div>
+                                <span class="switch-title" data-on="Руководитель подразделения"
+                                  data-off="Сделать руководителем"></span>
+                              </label>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div><input type="hidden" name="validator"
+                    value="{&quot;hash&quot;:&quot;fd9f0dee0fafc63b93de4dfba833a423&quot;}">
+                </form>
+              </td>
+              <td class="col min"><a class="link-pic link-edit ico ico-pencil fn-link"
+                  href="/erp/settings/department?act=edit&amp;id=335" title="Редактировать"></a><span
+                  class="link-pic link-del ico ico-cross2 fn-link"
+                  data-href="/erp/settings/department?act=del&amp;id=335" onclick="return delConfirm(this, 'Удалить?');"
+                  title="Удалить"></span></td>
+            </tr>
+            <tr>
+              <td>7</td>
+              <td>Программист1</td>
+              <td></td>
+              <td>
+                <form class="form" id="form" method="post" onsubmit="return ajaxFormPost(this);"
+                  action="/erp/settings/department">
+                  <div class="form-placer">
+                    <div class="form-items">
+                      <div class="form-item" data-id="main">
+                        <div class="form-title">
+                        </div>
+                        <div class="form-data">
+                          <div>
+                            <div class="form-input"> <label class="switch  outer">
+                                <input type="hidden" name="main" value="1">
+                                <input type="checkbox"
+                                  onchange="$(this).prev().val($(this).is(':checked') ? '1' : '0').trigger('change')"
+                                  checked="">
+                                <div class="switcher">
+                                  <span class="bg" data-on="Руководитель подразделения"
+                                    data-off="Сделать руководителем"></span>
+                                  <span class="thumb"></span>
+                                </div>
+                                <span class="switch-title" data-on="Руководитель подразделения"
+                                  data-off="Сделать руководителем"></span>
+                              </label>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div><input type="hidden" name="validator"
+                    value="{&quot;hash&quot;:&quot;fd9f0dee0fafc63b93de4dfba833a423&quot;}">
+                </form>
+              </td>
+              <td class="col min"><a class="link-pic link-edit ico ico-pencil fn-link"
+                  href="/erp/settings/department?act=edit&amp;id=336" title="Редактировать"></a><span
+                  class="link-pic link-del ico ico-cross2 fn-link"
+                  data-href="/erp/settings/department?act=del&amp;id=336" onclick="return delConfirm(this, 'Удалить?');"
+                  title="Удалить"></span></td>
+            </tr>
+            <tr class="odd">
+              <td>8</td>
+              <td>asdas</td>
+              <td></td>
+              <td>
+                <form class="form" id="form" method="post" onsubmit="return ajaxFormPost(this);"
+                  action="/erp/settings/department">
+                  <div class="form-placer">
+                    <div class="form-items">
+                      <div class="form-item" data-id="main">
+                        <div class="form-title">
+                        </div>
+                        <div class="form-data">
+                          <div>
+                            <div class="form-input"> <label class="switch  outer">
+                                <input type="hidden" name="main" value="1">
+                                <input type="checkbox"
+                                  onchange="$(this).prev().val($(this).is(':checked') ? '1' : '0').trigger('change')"
+                                  checked="">
+                                <div class="switcher">
+                                  <span class="bg" data-on="Руководитель подразделения"
+                                    data-off="Сделать руководителем"></span>
+                                  <span class="thumb"></span>
+                                </div>
+                                <span class="switch-title" data-on="Руководитель подразделения"
+                                  data-off="Сделать руководителем"></span>
+                              </label>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div><input type="hidden" name="validator"
+                    value="{&quot;hash&quot;:&quot;fd9f0dee0fafc63b93de4dfba833a423&quot;}">
+                </form>
+              </td>
+              <td class="col min"><a class="link-pic link-edit ico ico-pencil fn-link"
+                  href="/erp/settings/department?act=edit&amp;id=337" title="Редактировать"></a><span
+                  class="link-pic link-del ico ico-cross2 fn-link"
+                  data-href="/erp/settings/department?act=del&amp;id=337" onclick="return delConfirm(this, 'Удалить?');"
+                  title="Удалить"></span></td>
+            </tr>
+            <tr>
+              <td colspan="5"><a class="btn add-item-text" href="?act=add&amp;id=1"><span>Добавить сотрудника</span></a>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+      <div class="form-button-placer">
+        <span class="btn v save button ico ico-floppy-disk2"><span>Сохранить</span></span>
+        <span class="btn v del button"><span>Удалить</span></span>
+        <span class="btn v cancel button gray"><span>Отмена</span></span>
+      </div>
+    </div>
+  </form>
+</div>
