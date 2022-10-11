@@ -66,11 +66,6 @@ export class PositionEditorComponent implements OnInit {
   goToPositions(): void {
     this.router.navigate(['/pages/settings/position']);
   }
-
-  goToPosition(id: number): void {
-    this.router.navigate(['/pages/settings/position/edit/', id]);
-  }
-
   save(): void {
     if (!this.form.valid) {
       this.snackBar.open('Не все поля заполнены корректно', undefined, this.snackBarWithLongDuration);
@@ -87,7 +82,7 @@ export class PositionEditorComponent implements OnInit {
   private createPosition(body: any) {
     this.companyService.companyPositionCreate({ body }).pipe().subscribe({
       next: ({ id }) => {
-        this.goToPosition(id);
+        this.goToPositions();
         this.snackBar.open(`Должность создана`, undefined, this.snackBarWithShortDuration)
       },
       error: (err) => this.snackBar.open(`Ошибка создания должности: ` + err.error.error_message, undefined, this.snackBarWithShortDuration)

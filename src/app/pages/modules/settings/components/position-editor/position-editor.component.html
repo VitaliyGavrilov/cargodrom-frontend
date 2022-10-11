@@ -1,4 +1,4 @@
-<app-editor-header [title]="title" (save)="save()" [backLink]="['/pages/settings/position']" (remove)="remove()"></app-editor-header>
+<app-editor-header [title]="title" (save)="save()" [backLink]="['/pages/settings/position']" (remove)="remove()" [isEditMode]="isEditMode"></app-editor-header>
 
 <div class="edit-form">
   <form class="form" [formGroup]="form">
@@ -35,10 +35,10 @@
         <span class="btn v save button ico ico-floppy-disk2" (click)="save()">
           <span>Сохранить</span>
         </span>
-        <span class="btn v del button" (click)="remove()">
+        <span class="btn v del button" *ngIf="isEditMode" (click)="remove()">
           <span>Удалить</span>
         </span>
-        <span class="btn v cancel button gray"><span>Отмена</span>
+        <span class="btn v cancel button gray" [routerLink]="['/pages/settings/position']"><span>Отмена</span>
         </span>
       </div>
     </div>

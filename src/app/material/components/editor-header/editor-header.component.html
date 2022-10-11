@@ -7,7 +7,7 @@
     <div class="div"></div>
     <div class="fn">
       <span class="btn v save" (click)="onSave()"><span>сохранить</span></span>
-      <span class="btn v del" (click)="onRemove()"><span>Удалить</span></span>
+      <span class="btn v del" *ngIf="isEditMode" (click)="onRemove()"><span>Удалить</span></span>
       <span class="btn v cancel" [routerLink]="backLink"><span>отмена</span></span>
     </div>
   </div>

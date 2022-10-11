@@ -9,6 +9,7 @@ export class EditorHeaderComponent implements OnInit {
 
   @Input() backLink: string[] = [];
   @Input() title: string = '';
+  @Input() isEditMode = false;
   @Output() save = new EventEmitter<void>();
   @Output() remove = new EventEmitter<void>();
   
