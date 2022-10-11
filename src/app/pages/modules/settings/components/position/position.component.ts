@@ -1,3 +1,4 @@
+import { byName } from './../../../../../constants/sort-predicate';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { MatDialog } from '@angular/material/dialog';
 import { Position } from './../../../../../api/custom_models/position';
@@ -13,11 +14,10 @@ import { Component, OnInit, TemplateRef, ViewChild } from '@angular/core';
   ]
 })
 export class PositionComponent implements OnInit {
-
   positions: Position[] = [];
   total = 0;
   start = 0;
-  limits = [25, 50, 100];
+  limits = [10, 25, 50, 100];
   count = this.limits[0];
   @ViewChild('removeDialogRef') removeDialogRef!: TemplateRef<Position>;
 
@@ -33,17 +33,22 @@ export class PositionComponent implements OnInit {
 
   loadPositions(): void {
     this.companyService.companyPositionList().subscribe(positions => {
-      this.positions = positions ? positions as Position[] : [];
-      this.total = this.positions.length;
+      const allPositions = positions ? positions as Position[] : [];
+      allPositions.sort(byName('asc'));
+      this.total = allPositions.length;
+      this.positions = allPositions.slice(this.start, this.start + this.count);
     });
   }
 
 
   onStartChange(newStart: number): void {
+    this.start = newStart;
     this.loadPositions();
   }
 
   onCountChange(newCount: number): void {
+    this.start = 0;
+    this.count = newCount;
     this.loadPositions();
   }
 

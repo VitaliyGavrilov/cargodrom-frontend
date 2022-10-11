@@ -91,7 +91,10 @@ export class PositionEditorComponent implements OnInit {
 
   updatePosition(body: any) {
     this.companyService.companyPositionUpdate({ body }).pipe().subscribe({
-      next: () => this.snackBar.open(`Должность сохранена`, undefined, this.snackBarWithShortDuration),
+      next: () => {
+        this.snackBar.open(`Должность сохранена`, undefined, this.snackBarWithShortDuration);
+        this.goToPositions();
+      },
       error: (err) => this.snackBar.open(`Ошибка сохранения должности: ` + err.error.error_message, undefined, this.snackBarWithShortDuration)
     });
   }
