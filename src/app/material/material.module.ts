@@ -13,6 +13,7 @@ import { MatInputModule } from '@angular/material/input';
 import { MatCheckboxModule } from '@angular/material/checkbox';
 import { PaginatorComponent } from './components/paginator/paginator.component';
 import { EditorHeaderComponent } from './components/editor-header/editor-header.component';
+import { MatButtonModule } from '@angular/material/button';
 
 @NgModule({
   declarations: [
@@ -32,6 +33,7 @@ import { EditorHeaderComponent } from './components/editor-header/editor-header.
     MatSnackBarModule,
     MatAutocompleteModule,
     MatCheckboxModule,
+    MatButtonModule,
   ],
   exports: [
     MatDialogModule,
@@ -45,6 +47,7 @@ import { EditorHeaderComponent } from './components/editor-header/editor-header.
     PopupDialogComponent,
     PaginatorComponent,
     EditorHeaderComponent,
+    MatButtonModule,
   ]
 })
 export class MaterialModule { }

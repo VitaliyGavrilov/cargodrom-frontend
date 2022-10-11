@@ -100,5 +100,17 @@ export class PositionEditorComponent implements OnInit {
       error: (err) => this.snackBar.open(`Ошибка сохранения должности: ` + err.error.error_message, undefined, this.snackBarWithShortDuration)
     });
   }
+  
+  remove(): void {
+    const body = { id: this.position.id! };
+    this.companyService.companyPositionDelete({ body })
+      .subscribe({
+        next: () => {
+          this.snackBar.open(`Должность ${this.position.name} удалена`, undefined, {duration: 1000});
+          this.goToPositions();
+        },
+        error: (err) => this.snackBar.open(`Ошибка удаления должности: ` + err.error.error_message, undefined, {duration: 1000})
+      });
+  }
 
 }

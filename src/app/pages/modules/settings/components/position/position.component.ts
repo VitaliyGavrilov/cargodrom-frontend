@@ -1,6 +1,8 @@
+import { MatSnackBar } from '@angular/material/snack-bar';
+import { MatDialog } from '@angular/material/dialog';
 import { Position } from './../../../../../api/custom_models/position';
 import { CompanyService } from './../../../../../api/services/company.service';
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, TemplateRef, ViewChild } from '@angular/core';
 
 @Component({
   selector: 'app-position',
@@ -17,9 +19,12 @@ export class PositionComponent implements OnInit {
   start = 0;
   limits = [25, 50, 100];
   count = this.limits[0];
+  @ViewChild('removeDialogRef') removeDialogRef!: TemplateRef<Position>;
 
   constructor(
     private companyService: CompanyService,
+    private dialog: MatDialog,
+    private snackBar: MatSnackBar,
   ) { }
 
   ngOnInit(): void {
@@ -40,6 +45,26 @@ export class PositionComponent implements OnInit {
 
   onCountChange(newCount: number): void {
     this.loadPositions();
+  }
+
+  confirmRemove(position: Position): void {
+    this.dialog.open(this.removeDialogRef, {data: position}).afterClosed().subscribe(res => {
+      if (res) {
+        this.removePosition(position);
+      }
+    });
+  }
+
+  removePosition(position: Position): void {
+    const body = { id: position.id };
+    this.companyService.companyPositionDelete({ body })
+      .subscribe({
+        next: () => {
+          this.snackBar.open(`Должность ${position.name} удалена`, undefined, {duration: 1000});
+          this.loadPositions();
+        },
+        error: (err) => this.snackBar.open(`Ошибка удаления должности: ` + err.error.error_message, undefined, {duration: 1000})
+      });
   }
 
 }
