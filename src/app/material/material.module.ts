@@ -1,3 +1,5 @@
+import { RouterModule } from '@angular/router';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { MatDialogModule } from '@angular/material/dialog';
@@ -9,13 +11,21 @@ import { PopupDialogComponent } from './components/popup-dialog/popup-dialog.com
 import { MatAutocompleteModule } from '@angular/material/autocomplete';
 import { MatInputModule } from '@angular/material/input';
 import { MatCheckboxModule } from '@angular/material/checkbox';
+import { PaginatorComponent } from './components/paginator/paginator.component';
+import { EditorHeaderComponent } from './components/editor-header/editor-header.component';
+import { MatButtonModule } from '@angular/material/button';
 
 @NgModule({
   declarations: [
-    PopupDialogComponent
+    PopupDialogComponent,
+    PaginatorComponent,
+    EditorHeaderComponent,
   ],
   imports: [
     CommonModule,
+    RouterModule,
+    FormsModule,
+    ReactiveFormsModule,
     MatDialogModule,
     MatFormFieldModule,
     MatSelectModule,
@@ -23,6 +33,7 @@ import { MatCheckboxModule } from '@angular/material/checkbox';
     MatSnackBarModule,
     MatAutocompleteModule,
     MatCheckboxModule,
+    MatButtonModule,
   ],
   exports: [
     MatDialogModule,
@@ -33,6 +44,10 @@ import { MatCheckboxModule } from '@angular/material/checkbox';
     MatAutocompleteModule,
     MatInputModule,
     MatCheckboxModule,
+    PopupDialogComponent,
+    PaginatorComponent,
+    EditorHeaderComponent,
+    MatButtonModule,
   ]
 })
 export class MaterialModule { }

@@ -1,0 +1,36 @@
+<div class="subheader">
+  <div class="placer">
+    <div class="title">{{ activeMenuItem?.title }}</div>
+    <div class="break-crumbs">
+      <span class="item-crumbs">Настройки</span>
+      <span class="del-crumbs">/</span>
+      <span class="item-crumbs"> {{ activeMenuGroup?.title }}</span>
+      <span class="del-crumbs">/</span>
+      <span class="item-crumbs">
+        <a [routerLink]="[activeMenuItem?.link]"> {{ activeMenuItem?.title }}</a>
+      </span>
+    </div>
+    <div class="div"></div>
+    <a *ngIf="activeMenuItem?.canAdd" [routerLink]="[activeMenuItem?.link, 'add']" class="btn add">
+      <span>{{ activeMenuItem?.addButtonTitle }}</span>
+    </a>
+  </div>
+</div>
+<div class="settings">
+  <div class="left side-menu">
+    <div class="menu-group" *ngFor="let group of settings" [ngClass]="{'open': group.expanded}">
+      <div class="group-name"  (click)="toggleGroup(group)">
+        <span class="ico" [ngClass]="group.cssClass"></span>
+        <span class="name">{{ group.title }}</span>
+        <span class="chevron"></span>
+      </div>
+      <div class="group-items" [ngStyle]="{'display': group.expanded ? '' : 'none'}">
+        <a *ngFor="let item of group.items" class="menu-item" routerLinkActive="open" [routerLink]="[item.link]">{{
+          item.title }}</a>
+      </div>
+    </div>
+  </div>
+  <div class="settings-page">
+    <router-outlet></router-outlet>
+  </div>
+</div>

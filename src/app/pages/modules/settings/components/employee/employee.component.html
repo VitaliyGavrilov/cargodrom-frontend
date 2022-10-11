@@ -1,0 +1,63 @@
+<table class="main-table fix-head table-98a02492513816a6438bbd36fc9458a2">
+  <thead>
+    <tr>
+      <th class="col column-sortable"
+        data-href="/erp/settings/employee?sort_field=name&amp;sort_order=asc&amp;ajax_load=table%2Ctable_function"
+        title="сортировать по убыванию">
+        <span>Ф.И.О.<span class="sorting-indicator"></span></span>
+      </th>
+      <th class="column-sortable"
+        data-href="/erp/settings/employee?sort_field=count_position&amp;sort_order=asc&amp;ajax_load=table%2Ctable_function"
+        title="сортировать по убыванию">
+        <span>Организация<span class="sorting-indicator"></span></span>
+      </th>
+      <th class="column-sortable"
+        data-href="/erp/settings/employee?sort_field=department_id&amp;sort_order=asc&amp;ajax_load=table%2Ctable_function"
+        title="сортировать по убыванию">
+        <span>Подразделение<span class="sorting-indicator"></span></span>
+      </th>
+      <th class="column-sortable"
+        data-href="/erp/settings/employee?sort_field=position_id&amp;sort_order=asc&amp;ajax_load=table%2Ctable_function"
+        title="сортировать по убыванию">
+        <span>Должность<span class="sorting-indicator"></span></span>
+      </th>
+      <th class="column-sortable"
+        data-href="/erp/settings/employee?sort_field=phone&amp;sort_order=asc&amp;ajax_load=table%2Ctable_function"
+        title="сортировать по убыванию">
+        <span>Телефон<span class="sorting-indicator"></span></span>
+      </th>
+      <th class="column-sortable"
+        data-href="/erp/settings/employee?sort_field=email&amp;sort_order=asc&amp;ajax_load=table%2Ctable_function"
+        title="сортировать по убыванию">
+        <span>E-mail<span class="sorting-indicator"></span></span>
+      </th>
+      <th class="column-sortable"
+        data-href="/erp/settings/employee?sort_field=birth_date&amp;sort_order=asc&amp;ajax_load=table%2Ctable_function"
+        title="сортировать по убыванию">
+        <span>Дата рожд.<span class="sorting-indicator"></span></span>
+      </th>
+      <th class="right" style="width: 80px;">
+        <span></span>
+      </th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr *ngFor="let employee of employees; odd as isOdd" [ngClass]="{'odd': isOdd}">
+      <td class="col">{{ employee.name_f }} {{ employee.name_i }} {{ employee.name_o }}</td>
+      <td>{{ getCompanyById(employee.company_id) }}</td>
+      <td>{{ getDepartmentById(employee.department_id) }}</td>
+      <td>{{ getPositionById(employee.position_id) }}</td>
+      <td>{{ employee.phone }}</td>
+      <td>{{ employee.email }}</td>
+      <td>{{ employee.birth_date }}</td>
+      <td class="col min right"><span class="link-pic ajax notext fn-link link-hide"
+          data-href="/erp/settings/employee?id=1&amp;act=switch_show&amp;show=1" title="Показывать">Нет</span><a
+          class="link-pic link-edit ico ico-pencil fn-link" href="/erp/settings/employee?id=1&amp;act=edit"
+          title="Редактировать"></a><span class="link-pic link-del ico ico-cross2 fn-link"
+          data-href="/erp/settings/employee?id=1&amp;act=del" onclick="return delConfirm(this, 'Удалить?');"
+          title="Удалить"></span></td>
+    </tr>
+  </tbody>
+</table>
+<app-paginator [total]="total" [count]="count" [start]="start" [limits]="limits" (startChange)="onStartChange($event)"
+  (countChange)="onCountChange($event)"></app-paginator>
