@@ -3703,6 +3703,248 @@ export class CompanyService extends BaseService {
   }
 
   /**
+   * Path part for operation companyDepartmentInfo
+   */
+  static readonly CompanyDepartmentInfoPath = '/company_department_info';
+
+  /**
+   * Подразделения: данные.
+   *
+   *
+   *
+   * This method provides access to the full `HttpResponse`, allowing access to response headers.
+   * To access only the response body, use `companyDepartmentInfo()` instead.
+   *
+   * This method doesn't expect any request body.
+   */
+  companyDepartmentInfo$Response(params?: {
+
+    /**
+     * ID подразделения
+     */
+    id?: number;
+  }): Observable<StrictHttpResponse<{
+
+/**
+ * ID
+ */
+'id'?: number;
+
+/**
+ * Наименование
+ */
+'name'?: string;
+
+/**
+ * Количество должностей
+ */
+'count_position'?: number;
+
+/**
+ * Количество сотрудников
+ */
+'count_user'?: number;
+
+/**
+ * Порядок (меньше - выше)
+ */
+'num'?: number;
+
+/**
+ * Время создания
+ */
+'time_add'?: string;
+
+/**
+ * Время изменения
+ */
+'time_edit'?: string;
+}>> {
+
+    const rb = new RequestBuilder(this.rootUrl, CompanyService.CompanyDepartmentInfoPath, 'get');
+    if (params) {
+      rb.query('id', params.id, {});
+    }
+
+    return this.http.request(rb.build({
+      responseType: 'json',
+      accept: 'application/json'
+    })).pipe(
+      filter((r: any) => r instanceof HttpResponse),
+      map((r: HttpResponse<any>) => {
+        return r as StrictHttpResponse<{
+        
+        /**
+         * ID
+         */
+        'id'?: number;
+        
+        /**
+         * Наименование
+         */
+        'name'?: string;
+        
+        /**
+         * Количество должностей
+         */
+        'count_position'?: number;
+        
+        /**
+         * Количество сотрудников
+         */
+        'count_user'?: number;
+        
+        /**
+         * Порядок (меньше - выше)
+         */
+        'num'?: number;
+        
+        /**
+         * Время создания
+         */
+        'time_add'?: string;
+        
+        /**
+         * Время изменения
+         */
+        'time_edit'?: string;
+        }>;
+      })
+    );
+  }
+
+  /**
+   * Подразделения: данные.
+   *
+   *
+   *
+   * This method provides access to only to the response body.
+   * To access the full response (for headers, for example), `companyDepartmentInfo$Response()` instead.
+   *
+   * This method doesn't expect any request body.
+   */
+  companyDepartmentInfo(params?: {
+
+    /**
+     * ID подразделения
+     */
+    id?: number;
+  }): Observable<{
+
+/**
+ * ID
+ */
+'id'?: number;
+
+/**
+ * Наименование
+ */
+'name'?: string;
+
+/**
+ * Количество должностей
+ */
+'count_position'?: number;
+
+/**
+ * Количество сотрудников
+ */
+'count_user'?: number;
+
+/**
+ * Порядок (меньше - выше)
+ */
+'num'?: number;
+
+/**
+ * Время создания
+ */
+'time_add'?: string;
+
+/**
+ * Время изменения
+ */
+'time_edit'?: string;
+}> {
+
+    return this.companyDepartmentInfo$Response(params).pipe(
+      map((r: StrictHttpResponse<{
+
+/**
+ * ID
+ */
+'id'?: number;
+
+/**
+ * Наименование
+ */
+'name'?: string;
+
+/**
+ * Количество должностей
+ */
+'count_position'?: number;
+
+/**
+ * Количество сотрудников
+ */
+'count_user'?: number;
+
+/**
+ * Порядок (меньше - выше)
+ */
+'num'?: number;
+
+/**
+ * Время создания
+ */
+'time_add'?: string;
+
+/**
+ * Время изменения
+ */
+'time_edit'?: string;
+}>) => r.body as {
+
+/**
+ * ID
+ */
+'id'?: number;
+
+/**
+ * Наименование
+ */
+'name'?: string;
+
+/**
+ * Количество должностей
+ */
+'count_position'?: number;
+
+/**
+ * Количество сотрудников
+ */
+'count_user'?: number;
+
+/**
+ * Порядок (меньше - выше)
+ */
+'num'?: number;
+
+/**
+ * Время создания
+ */
+'time_add'?: string;
+
+/**
+ * Время изменения
+ */
+'time_edit'?: string;
+})
+    );
+  }
+
+  /**
    * Path part for operation companyDepartmentCreate
    */
   static readonly CompanyDepartmentCreatePath = '/company_department_create';

@@ -47,8 +47,8 @@ export class DepartmentEditorComponent implements OnInit {
 
   getDepartment(): void {
     const id = Number(this.route.snapshot.paramMap.get('id'));
-    this.companyService.companyDepartmentList() // FIXME: call companyDepartmentInfo when ready
-      .pipe(tap(([department]) => {
+    this.companyService.companyDepartmentInfo({id})
+      .pipe(tap((department) => {
         // currently, when position doesn't exist the service returns HTTP 200 with empty response body instead of HTTP 404
         // therefore we have to handle that case manually
         if (!department) {
@@ -56,7 +56,7 @@ export class DepartmentEditorComponent implements OnInit {
         }
       }))
       .subscribe({
-        next: ([department]) => {
+        next: (department) => {
           this.department = department as Department;
           this.form.patchValue(this.department);
         },
