@@ -1,0 +1,198 @@
+<app-editor-header [title]="title" (save)="save()" [backLink]="['/pages/settings/employee']" (remove)="remove()"
+  [isEditMode]="isEditMode"></app-editor-header>
+
+<div class="edit-form">
+  <form class="form" [formGroup]="form">
+    <div class="form-placer">
+      <div class="form-items">
+        <div class="form-group">
+          <div class="form-group-title">Данные о сотруднике</div>
+          <div>
+            <input type="hidden" formControlName="id">
+            <div class="form-item form-inline-group">
+              <div class="form-title">
+              </div>
+              <div class="form-data">
+                <div class="form-group-row">
+                  <div class="form-item" style="width: 25%">
+                    <div class="form-title">
+                      <div>Фамилия:<span class="req">*</span></div>
+                    </div>
+                    <div class="form-data">
+                      <div>
+                        <div class="form-input"><input class="text-control" type="text" formControlName="name_f"
+                            required>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="form-item" style="width: 25%">
+                    <div class="form-title">
+                      <div>Имя:<span class="req">*</span></div>
+                    </div>
+                    <div class="form-data">
+                      <div>
+                        <div class="form-input"><input class="text-control" type="text" formControlName="name_i"
+                            required>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="form-item" data-id="var_name_o" style="width: 25%">
+                    <div class="form-title">
+                      <div>Отчество:<span class="req">*</span></div>
+                    </div>
+                    <div class="form-data">
+                      <div>
+                        <div class="form-input"><input class="text-control" type="text" formControlName="name_o">
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="form-item" data-id="var_birth_date" style="width: 25%">
+                    <div class="form-title">
+                      <div>Дата рождения:</div>
+                    </div>
+                    <div class="form-data">
+                      <div>
+                        <div class="form-input"><input class="text-control" type="text" formControlName="birth_date">
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="form-item form-inline-group" data-id="group_inline_2">
+              <div class="form-title">
+              </div>
+              <div class="form-data">
+                <div class="form-group-row">
+                  <div class="form-item" data-id="var_company_id" style="width: 50%">
+                    <div class="form-title">
+                      <div>Организация:<span class="req">*</span></div>
+                    </div>
+                    <div class="form-data">
+                      <mat-form-field appearance="outline" class="full-width ui-select">
+                        <mat-select formControlName="company_id">
+                          <mat-option *ngFor="let company of companies;" [value]="company.id">{{ company.name }}
+                          </mat-option>
+                        </mat-select>
+                      </mat-form-field>
+                    </div>
+                  </div>
+                  <div class="form-item" data-id="var_department_id" style="width: 50%">
+                    <div class="form-title">
+                      <div>Подразделение:<span class="req">*</span></div>
+                    </div>
+                    <div class="form-data">
+                      <mat-form-field appearance="outline" class="full-width ui-select">
+                        <mat-select formControlName="department_id">
+                          <mat-option *ngFor="let department of departments;" [value]="department.id">{{ department.name
+                            }}</mat-option>
+                        </mat-select>
+                      </mat-form-field>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="form-item form-inline-group" data-id="group_inline_3">
+              <div class="form-title">
+              </div>
+              <div class="form-data">
+                <div class="form-group-row">
+                  <div class="form-item" style="width: 50%">
+                    <div class="form-title">
+                      <div>Должность:<span class="req">*</span></div>
+                    </div>
+                    <div class="form-data">
+                      <mat-form-field appearance="outline" class="full-width ui-select">
+                        <mat-select formControlName="position_id">
+                          <mat-option *ngFor="let position of positions;" [value]="position.id">{{ position.name }}
+                          </mat-option>
+                        </mat-select>
+                      </mat-form-field>
+                    </div>
+                  </div>
+                  <div class="width_50 form-group-row">
+                    <div class="form-item" style="width: 50%">
+                      <div class="form-title">
+                        <div>Дата трудоустройства:</div>
+                      </div>
+                      <div class="form-data">
+                        <div>
+                          <div class="form-input"><input class="text-control" type="text"
+                              formControlName="employment_date" value=""></div>
+                        </div>
+                      </div>
+                    </div>
+                    <div class="form-item" style="width: 50%">
+                      <div class="form-title">
+                        <div>Дата увольнения:</div>
+                      </div>
+                      <div class="form-data">
+                        <div>
+                          <div class="form-input"><input class="text-control" type="text"
+                              formControlName="dismissal_date" value=""></div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="form-item form-inline-group" data-id="group_inline_4">
+              <div class="form-title">
+              </div>
+              <div class="form-data">
+                <div class="form-group-row">
+                  <div class="form-item" style="width: 25%">
+                    <div class="form-title">
+                      <div>E-mail:<span class="req">*</span></div>
+                    </div>
+                    <div class="form-data">
+                      <div>
+                        <div class="form-input"><input class="text-control" type="text" formControlName="email"
+                            required>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="form-item" data-id="var_phone" style="width: 25%">
+                    <div class="form-title">
+                      <div>Телефон:</div>
+                    </div>
+                    <div class="form-data">
+                      <div>
+                        <div class="form-input"><input class="text-control" type="text" formControlName="phone">
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="form-item" data-id="var_skype" style="width: 25%">
+                    <div class="form-title">
+                      <div>Skype:</div>
+                    </div>
+                    <div class="form-data">
+                      <div>
+                        <div class="form-input"><input class="text-control" type="text" formControlName="skype">
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="width_25"></div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="form-button-placer"><span class="btn v save button ico ico-floppy-disk2"
+          (click)="save()"><span>Сохранить</span></span>
+        <span class="btn v del button" *ngIf="isEditMode" (click)="remove()"><span>Удалить</span></span><span
+          class="btn v cancel button gray" [routerLink]="['/pages/settings/employee']"><span>Отмена</span></span>
+      </div>
+    </div>
+  </form>
+</div>

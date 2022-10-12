@@ -721,9 +721,8 @@ th.clp { width: 20px; background: #606A74; }
 /* .form-group {  } */
 .form-group + .form-group { margin-top: 25px; }
 .form-group > div > .form-item + .form-item { margin-top: 25px; }
-.form-group-title { font-size: 24px; line-height: 24px; font-weight: bold; }
-.form-group-title + div { background: #fff; border: 1px solid #C3CCD6; box-shadow: 0 2px 8px rgba(36, 45, 67, 0.08); margin: 24px 0 0 0; padding: 40px 40px; }
-.form-line { border-top: 1px solid #C3CCD6; margin: 40px -40px 40px; }
+.form-group-title { font-size: 24px; line-height: 24px; font-weight: bold;  margin-bottom: 24px; }
+.form-group-title + div { background: #fff; border: 1px solid #C3CCD6; box-shadow: 0 2px 8px rgba(36, 45, 67, 0.08); padding: 40px 40px; }.form-line { border-top: 1px solid #C3CCD6; margin: 40px -40px 40px; }
 .form-sub-title { font-size: 20px; line-height: 20px; font-weight: bold; color: #2C3640; margin: 40px 0 39px; }
 .form-sub-title:first-child { margin-top: 0; }
 .form-inline-group { display: flex; }

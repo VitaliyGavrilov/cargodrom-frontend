@@ -50,12 +50,11 @@
       <td>{{ employee.phone }}</td>
       <td>{{ employee.email }}</td>
       <td>{{ employee.birth_date }}</td>
-      <td class="col min right"><span class="link-pic ajax notext fn-link link-hide"
-          data-href="/erp/settings/employee?id=1&amp;act=switch_show&amp;show=1" title="Показывать">Нет</span><a
-          class="link-pic link-edit ico ico-pencil fn-link" href="/erp/settings/employee?id=1&amp;act=edit"
+      <td class="col min right"><span class="link-pic ajax notext fn-link link-hide" title="Показывать">Нет</span>
+        <a class="link-pic link-edit ico ico-pencil fn-link" [routerLink]="['edit', employee.id]"
           title="Редактировать"></a><span class="link-pic link-del ico ico-cross2 fn-link"
-          data-href="/erp/settings/employee?id=1&amp;act=del" onclick="return delConfirm(this, 'Удалить?');"
-          title="Удалить"></span></td>
+          onclick="return delConfirm(this, 'Удалить?');" title="Удалить"></span>
+      </td>
     </tr>
   </tbody>
 </table>

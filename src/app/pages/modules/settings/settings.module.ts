@@ -10,6 +10,7 @@ import { PositionComponent } from './components/position/position.component';
 import { DepartmentComponent } from './components/department/department.component';
 import { PositionEditorComponent } from './components/position-editor/position-editor.component';
 import { DepartmentEditorComponent } from './components/department-editor/department-editor.component';
+import { EmployeeEditorComponent } from './components/employee-editor/employee-editor.component';
 
 
 @NgModule({
@@ -19,7 +20,8 @@ import { DepartmentEditorComponent } from './components/department-editor/depart
     PositionComponent,
     DepartmentComponent,
     PositionEditorComponent,
-    DepartmentEditorComponent
+    DepartmentEditorComponent,
+    EmployeeEditorComponent
   ],
   imports: [
     CommonModule,

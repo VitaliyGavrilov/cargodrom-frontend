@@ -8,3 +8,4 @@ export * from './contractor-filter';
 export * from './department';
 export * from './position';
 export * from './employee';
+export * from './company';
