@@ -38,13 +38,13 @@ export class EmployeeEditorComponent implements OnInit {
       name_f: ['', [Validators.required]],
       name_i: ['', [Validators.required]],
       name_o: ['', [Validators.required]],
-      birth_date: [''],
+      birth_date: [null],
       company_id: ['', [Validators.required]],
       department_id: ['', [Validators.required]],
       position_id: ['', [Validators.required]],
-      employment_date: [''],
-      dismissal_date: [''],
-      email: ['', [Validators.required, Validators.email]],
+      employment_date: [null],
+      dismissal_date: [null],
+      email: ['a@66.ru', [Validators.required, Validators.email]],
       phone: [''],
       skype: [''],
     });
@@ -75,6 +75,7 @@ export class EmployeeEditorComponent implements OnInit {
       .subscribe({
         next: (employee) => {
           this.employee = employee as Employee;
+          this.employee.birth_date = new Date(this.employee.birth_date!) || null;
           this.form.patchValue(this.employee);
         },
         error: (err: any) => {

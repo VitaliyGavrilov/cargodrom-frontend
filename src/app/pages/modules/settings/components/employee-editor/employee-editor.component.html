@@ -49,13 +49,18 @@
                       </div>
                     </div>
                   </div>
-                  <div class="form-item" data-id="var_birth_date" style="width: 25%">
+                  <div class="form-item" style="width: 25%">
                     <div class="form-title">
                       <div>Дата рождения:</div>
                     </div>
                     <div class="form-data">
                       <div>
-                        <div class="form-input"><input class="text-control" type="text" formControlName="birth_date">
+                        <div class="form-input">
+                          <input class="text-control" type="date" formControlName="birth_date">
+                          <!-- <input class="text-control" type="text" formControlName="birth_date" [matDatepicker]="picker">
+                          <mat-hint>MM/DD/YYYY</mat-hint>
+                          <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+                          <mat-datepicker #picker></mat-datepicker> -->
                         </div>
                       </div>
                     </div>
@@ -125,8 +130,8 @@
                       </div>
                       <div class="form-data">
                         <div>
-                          <div class="form-input"><input class="text-control" type="text"
-                              formControlName="employment_date" value=""></div>
+                          <div class="form-input"><input class="text-control" type="date"
+                              formControlName="employment_date"></div>
                         </div>
                       </div>
                     </div>
@@ -136,8 +141,8 @@
                       </div>
                       <div class="form-data">
                         <div>
-                          <div class="form-input"><input class="text-control" type="text"
-                              formControlName="dismissal_date" value=""></div>
+                          <div class="form-input"><input class="text-control" type="date"
+                              formControlName="dismissal_date"></div>
                         </div>
                       </div>
                     </div>
