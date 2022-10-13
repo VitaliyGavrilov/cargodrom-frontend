@@ -40,7 +40,7 @@ export interface Company {
   tax_system: number;
   base_currency: string;
   num: number;
-  general: boolean;
+  general: boolean | 0 | 1;
   time_add: string;
   time_edit: string;
 }

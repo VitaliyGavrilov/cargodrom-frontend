@@ -1,1 +1,98 @@
-<p>company works!</p>
+<table class="main-table fix-head table-00bea6b89e723964a80f4b0d828e09b7">
+  <thead>
+    <tr>
+      <th class="col column-sortable"
+        data-href="/erp/settings/company?sort_field=name&amp;sort_order=asc&amp;ajax_load=table%2Ctable_function"
+        title="сортировать по убыванию">
+        <span>Наименование организации<span class="sorting-indicator"></span></span>
+      </th>
+      <th class="column-sortable"
+        data-href="/erp/settings/company?sort_field=phone&amp;sort_order=asc&amp;ajax_load=table%2Ctable_function"
+        title="сортировать по убыванию">
+        <span>Телефон<span class="sorting-indicator"></span></span>
+      </th>
+      <th class="column-sortable"
+        data-href="/erp/settings/company?sort_field=email&amp;sort_order=asc&amp;ajax_load=table%2Ctable_function"
+        title="сортировать по убыванию">
+        <span>E-mail<span class="sorting-indicator"></span></span>
+      </th>
+      <th class="column-sortable"
+        data-href="/erp/settings/company?sort_field=inn&amp;sort_order=asc&amp;ajax_load=table%2Ctable_function"
+        title="сортировать по убыванию">
+        <span>ИНН<span class="sorting-indicator"></span></span>
+      </th>
+      <th class="column-sortable"
+        data-href="/erp/settings/company?sort_field=director&amp;sort_order=asc&amp;ajax_load=table%2Ctable_function"
+        title="сортировать по убыванию">
+        <span>Руководитель<span class="sorting-indicator"></span></span>
+      </th>
+      <th class="column-sortable"
+        data-href="/erp/settings/company?sort_field=is_main&amp;sort_order=asc&amp;ajax_load=table%2Ctable_function"
+        title="сортировать по убыванию">
+        <span><span class="sorting-indicator"></span></span>
+      </th>
+      <th>
+        <span></span>
+      </th>
+      <th class="right" style="width: 150px;">
+        <span></span>
+      </th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr *ngFor="let company of companies; odd as isOdd" [ngClass]="{'odd': isOdd}">
+      <td class="col">{{ company.name }}</td>
+      <td>{{ company.phone }}</td>
+      <td>{{ company.email }}</td>
+      <td>{{ company.inn }}</td>
+      <td>{{ company.responsible_person_fio }}</td>
+      <td></td>
+      <td>
+        <form class="form">
+          <div class="form-placer">
+            <div class="form-items">
+              <div class="form-item" data-id="main">
+                <div class="form-title">
+                </div>
+                <div class="form-data">
+                  <div>
+                    <div class="form-input">
+                      <label class="switch  outer">
+                        <input type="checkbox" name="general" [ngModel]="company.general === 1" (ngModelChange)="onGeneralChange($event, company)">
+                        <div class="switcher">
+                          <span class="bg" data-on="Главная организация" data-off="Сделать главной"></span>
+                          <span class="thumb"></span>
+                        </div>
+                        <span class="switch-title" data-on="Главная организация" data-off="Сделать главной"></span>
+                      </label>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </form>
+      </td>
+      <td class="col min right">
+        <a class="link-pic ajax link-txt fn-link" data-href="/erp/settings/company?id=2&amp;act=save_txt" title="TXT"></a>
+        <a class="link-pic ajax link-pdf fn-link" data-href="/erp/settings/company?id=2&amp;act=save_pdf" title="PDF"></a>
+        <span class="link-pic ajax notext fn-link link-hide" data-href="/erp/settings/company?id=2&amp;act=switch_show&amp;show=1" title="Показывать">Нет</span>
+        <a class="link-pic link-edit ico ico-pencil fn-link" [routerLink]="['edit', company.id]" title="Редактировать"></a>
+        <span class="link-pic link-del ico ico-cross2 fn-link" (click)="confirmRemove(company)" title="Удалить"></span>
+      </td>
+    </tr>
+  </tbody>
+</table>
+<app-paginator [total]="total" [count]="count" [start]="start" [limits]="limits" (startChange)="onStartChange($event)"
+  (countChange)="onCountChange($event)"></app-paginator>
+
+<ng-template #removeDialogRef let-data>
+  <h1 mat-dialog-title>Удалить организацию</h1>
+  <div mat-dialog-content>
+    Вы действительно хотите удалить организацию <b>{{ data.name }}</b> ?
+  </div>
+  <div mat-dialog-actions align="end">
+    <button mat-button [mat-dialog-close]="true" cdkFocusInitial>Да</button>
+    <button mat-button mat-dialog-close>Нет</button>
+  </div>
+</ng-template>
