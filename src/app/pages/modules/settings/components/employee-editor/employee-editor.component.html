@@ -78,7 +78,7 @@
                       <div>Организация:<span class="req">*</span></div>
                     </div>
                     <div class="form-data">
-                      <mat-form-field appearance="outline" class="full-width ui-select">
+                      <mat-form-field appearance="outline" class="ui-select">
                         <mat-select formControlName="company_id">
                           <mat-option value="">-- Не выбрано --</mat-option>
                           <mat-option *ngFor="let company of companies;" [value]="company.id">{{ company.name }}
