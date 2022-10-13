@@ -11,6 +11,8 @@ import { DepartmentComponent } from './components/department/department.componen
 import { PositionEditorComponent } from './components/position-editor/position-editor.component';
 import { DepartmentEditorComponent } from './components/department-editor/department-editor.component';
 import { EmployeeEditorComponent } from './components/employee-editor/employee-editor.component';
+import { CompanyComponent } from './components/company/company.component';
+import { CompanyEditorComponent } from './components/company-editor/company-editor.component';
 
 
 @NgModule({
@@ -21,7 +23,9 @@ import { EmployeeEditorComponent } from './components/employee-editor/employee-e
     DepartmentComponent,
     PositionEditorComponent,
     DepartmentEditorComponent,
-    EmployeeEditorComponent
+    EmployeeEditorComponent,
+    CompanyComponent,
+    CompanyEditorComponent
   ],
   imports: [
     CommonModule,
