@@ -75,6 +75,7 @@
                     <div class="form-data">
                       <mat-form-field appearance="outline" class="full-width ui-select">
                         <mat-select formControlName="company_id">
+                          <mat-option value="">-- Не выбрано --</mat-option>
                           <mat-option *ngFor="let company of companies;" [value]="company.id">{{ company.name }}
                           </mat-option>
                         </mat-select>
@@ -88,6 +89,7 @@
                     <div class="form-data">
                       <mat-form-field appearance="outline" class="full-width ui-select">
                         <mat-select formControlName="department_id">
+                          <mat-option value="">-- Не выбрано --</mat-option>
                           <mat-option *ngFor="let department of departments;" [value]="department.id">{{ department.name
                             }}</mat-option>
                         </mat-select>
@@ -109,6 +111,7 @@
                     <div class="form-data">
                       <mat-form-field appearance="outline" class="full-width ui-select">
                         <mat-select formControlName="position_id">
+                          <mat-option value="">-- Не выбрано --</mat-option>
                           <mat-option *ngFor="let position of positions;" [value]="position.id">{{ position.name }}
                           </mat-option>
                         </mat-select>
