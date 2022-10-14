@@ -1,5 +1,7 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
+import { CompanyEditorComponent } from './components/company-editor/company-editor.component';
+import { CompanyComponent } from './components/company/company.component';
 import { DepartmentEditorComponent } from './components/department-editor/department-editor.component';
 import { DepartmentComponent } from './components/department/department.component';
 import { EmployeeEditorComponent } from './components/employee-editor/employee-editor.component';
@@ -32,7 +34,12 @@ const routes: Routes = [
         path: 'employee',
         component: EmployeeComponent,
         pathMatch: 'full',
-      }
+      },
+      {
+        path: 'company',
+        component: CompanyComponent,
+        pathMatch: 'full',
+      },
     ]
   },
   {
@@ -63,6 +70,16 @@ const routes: Routes = [
   {
     path: 'employee/edit/:id',
     component: EmployeeEditorComponent,
+    pathMatch: 'full',
+  },
+  {
+    path: 'company/add',
+    component: CompanyEditorComponent,
+    pathMatch: 'full',
+  },
+  {
+    path: 'company/edit/:id',
+    component: CompanyEditorComponent,
     pathMatch: 'full',
   },
 ];

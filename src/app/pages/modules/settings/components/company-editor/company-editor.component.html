@@ -1,0 +1,594 @@
+<app-editor-header [title]="title" (save)="save()" [backLink]="['/pages/settings/company']" (remove)="remove()"
+  [isEditMode]="isEditMode"></app-editor-header>
+
+<div class="edit-form">
+  <form class="form" [formGroup]="form">
+    <div class="form-placer">
+      <div class="form-items">
+        <div class="form-group" data-id="group_0">
+          <div class="form-group-title">Реквизиты для резидентов РФ</div>
+          <div>
+            <div class="form-sub-title" data-id="title_0">Компания</div>
+            <div class="form-item form-inline-group" data-id="group_inline_1">
+              <div class="form-title">
+              </div>
+              <div class="form-data">
+                <div class="form-group-row">
+                  <div class="form-item" data-id="var_name" style="width: 50%">
+                    <div class="form-title">
+                      <div>Наименование полное:<span class="req">*</span></div>
+                    </div>
+                    <div class="form-data">
+                      <div>
+                        <div class="form-input">
+                          <input class="text-control" type="hidden" formControlName="id" required>
+                          <input class="text-control" type="text" formControlName="name" required>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="form-item" data-id="var_name_short" style="width: 50%">
+                    <div class="form-title">
+                      <div>наименование сокращенное:<span class="req">*</span></div>
+                    </div>
+                    <div class="form-data">
+                      <div>
+                        <div class="form-input">
+                          <input class="text-control" type="text" formControlName="name_short" required>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="form-item form-inline-group" data-id="group_inline_2">
+              <div class="form-title">
+              </div>
+              <div class="form-data">
+                <div class="form-group-row">
+                  <div class="form-item" data-id="var_jur_address" style="width: 50%">
+                    <div class="form-title">
+                      <div>юридический адрес:</div>
+                    </div>
+                    <div class="form-data">
+                      <div>
+                        <div class="form-input">
+                          <input class="text-control" type="text" formControlName="jur_address">
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="form-item" data-id="var_post_address" style="width: 50%">
+                    <div class="form-title">
+                      <div>почтовый адрес:</div>
+                    </div>
+                    <div class="form-data">
+                      <div>
+                        <div class="form-input"><input class="text-control" type="text" formControlName="post_address">
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="form-item form-inline-group" data-id="group_inline_3">
+              <div class="form-title">
+              </div>
+              <div class="form-data">
+                <div class="form-group-row">
+                  <div class="form-item" data-id="var_inn" style="width: 25%">
+                    <div class="form-title">
+                      <div>ИНН:</div>
+                    </div>
+                    <div class="form-data">
+                      <div>
+                        <div class="form-input"><input class="text-control" type="text" formControlName="inn"></div>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="form-item" data-id="var_kpp" style="width: 25%">
+                    <div class="form-title">
+                      <div>КПП:</div>
+                    </div>
+                    <div class="form-data">
+                      <div>
+                        <div class="form-input"><input class="text-control" type="text" formControlName="kpp"></div>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="form-item" data-id="var_ogrn" style="width: 25%">
+                    <div class="form-title">
+                      <div>ОГРН:</div>
+                    </div>
+                    <div class="form-data">
+                      <div>
+                        <div class="form-input"><input class="text-control" type="text" formControlName="ogrn"></div>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="form-item" data-id="var_okpo" style="width: 25%">
+                    <div class="form-title">
+                      <div>ОКПО:</div>
+                    </div>
+                    <div class="form-data">
+                      <div>
+                        <div class="form-input"><input class="text-control" type="text" formControlName="okpo"></div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="form-item form-inline-group" data-id="group_inline_4">
+              <div class="form-title">
+              </div>
+              <div class="form-data">
+                <div class="form-group-row">
+                  <div class="form-item" data-id="var_phone" style="width: 25%">
+                    <div class="form-title">
+                      <div>номер телефона:</div>
+                    </div>
+                    <div class="form-data">
+                      <div>
+                        <div class="form-input"><input class="text-control" type="text" formControlName="phone">
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="form-item" data-id="var_email" style="width: 25%">
+                    <div class="form-title">
+                      <div>e-mail:</div>
+                    </div>
+                    <div class="form-data">
+                      <div>
+                        <div class="form-input"><input class="text-control" type="text" formControlName="email">
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="form-item" data-id="var_website" style="width: 25%">
+                    <div class="form-title">
+                      <div>вебсайт:</div>
+                    </div>
+                    <div class="form-data">
+                      <div>
+                        <div class="form-input"><input class="text-control" type="text" formControlName="website">
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="form-item" data-id="var_skype" style="width: 25%">
+                    <div class="form-title">
+                      <div>Skype:</div>
+                    </div>
+                    <div class="form-data">
+                      <div>
+                        <div class="form-input"><input class="text-control" type="text" formControlName="skype">
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="form-line" data-id="line_0"></div>
+            <div class="form-sub-title" data-id="title_1">Лицо, имеющее право подписывать договора</div>
+            <div class="form-item form-inline-group" data-id="group_inline_5">
+              <div class="form-title">
+              </div>
+              <div class="form-data">
+                <div class="form-group-row">
+                  <div class="form-item" data-id="var_responsible_person_fio" style="width: 50%">
+                    <div class="form-title">
+                      <div>Ф.И.О.:</div>
+                    </div>
+                    <div class="form-data">
+                      <div>
+                        <div class="form-input">
+                          <mat-form-field appearance="outline" class="ui-select" style="margin-bottom: 0px; margin-top: 0px; margin-right: 0px; width: 100%;">
+                            <mat-select formControlName="responsible_person_id">
+                              <mat-option value="">-- Не выбрано --</mat-option>
+                              <mat-option *ngFor="let employee of employees;" [value]="employee.id">
+                                {{ employee.name_f }} {{ employee.name_i }} {{ employee.name_o }}
+                              </mat-option>
+                            </mat-select>
+                          </mat-form-field>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="form-item" data-id="var_responsible_person_position" style="width: 50%">
+                    <div class="form-title">
+                      <div>Должность:</div>
+                    </div>
+                    <div class="form-data">
+                      <div>
+                        <div class="form-input"><input class="text-control" type="text"
+                            formControlName="responsible_person_position"></div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="form-item form-inline-group" data-id="group_inline_6">
+              <div class="form-title">
+              </div>
+              <div class="form-data">
+                <div class="form-group-row">
+                  <div class="form-item" data-id="var_responsible_person_base" style="width: 100%">
+                    <div class="form-title">
+                      <div>основание:</div>
+                    </div>
+                    <div class="form-data">
+                      <div>
+                        <div class="form-input"><input class="text-control" type="text"
+                            formControlName="responsible_person_base"></div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="form-line" data-id="line_1"></div>
+            <div class="form-sub-title" data-id="title_2">Главный бухгалтер</div>
+            <div class="form-item form-inline-group" data-id="group_inline_7">
+              <div class="form-title">
+              </div>
+              <div class="form-data">
+                <div class="form-group-row">
+                  <div class="form-item" data-id="var_chief_accountant_fio" style="width: 100%">
+                    <div class="form-title">
+                      <div>Ф.И.О.:</div>
+                    </div>
+                    <div class="form-data">
+                      <div>
+                        <div class="form-input"><input class="text-control" type="text"
+                            formControlName="chief_accountant_fio">
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="form-line" data-id="line_2"></div>
+            <div class="form-sub-title" data-id="title_3">Банк</div>
+            <div class="form-item form-inline-group" data-id="group_inline_8">
+              <div class="form-title">
+              </div>
+              <div class="form-data">
+                <div class="form-group-row">
+                  <div class="form-item" data-id="var_bank_name" style="width: 50%">
+                    <div class="form-title">
+                      <div>наименование банка:</div>
+                    </div>
+                    <div class="form-data">
+                      <div>
+                        <div class="form-input"><input class="text-control" type="text" formControlName="bank_name">
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="form-item" data-id="var_bank_rs" style="width: 25%">
+                    <div class="form-title">
+                      <div>расчетный счет:</div>
+                    </div>
+                    <div class="form-data">
+                      <div>
+                        <div class="form-input"><input class="text-control" type="text" formControlName="bank_rs">
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="form-item" data-id="var_bank_currency" style="width: 25%">
+                    <div class="form-title">
+                      <div>валюта счета:</div>
+                    </div>
+                    <div class="form-data">
+                      <div>
+                        <div class="form-input"><input class="text-control" type="text" formControlName="bank_currency">
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="form-item form-inline-group" data-id="group_inline_9">
+              <div class="form-title">
+              </div>
+              <div class="form-data">
+                <div class="form-group-row">
+                  <div class="form-item" data-id="var_bank_ks" style="width: 50%">
+                    <div class="form-title">
+                      <div>Корреспондентский счет:</div>
+                    </div>
+                    <div class="form-data">
+                      <div>
+                        <div class="form-input"><input class="text-control" type="text" formControlName="bank_ks">
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="form-item" data-id="var_bank_bik" style="width: 25%">
+                    <div class="form-title">
+                      <div>бик:</div>
+                    </div>
+                    <div class="form-data">
+                      <div>
+                        <div class="form-input"><input class="text-control" type="text" formControlName="bank_bik">
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="form-item" data-id="var_bank_kpp" style="width: 25%">
+                    <div class="form-title">
+                      <div>КПП:</div>
+                    </div>
+                    <div class="form-data">
+                      <div>
+                        <div class="form-input"><input class="text-control" type="text" formControlName="bank_kpp">
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="form-group" data-id="group_10">
+          <div class="form-group-title">Реквизиты для НЕрезидентов РФ</div>
+          <div>
+            <div class="form-sub-title" data-id="title_4">Company</div>
+            <div class="form-item form-inline-group" data-id="group_inline_11">
+              <div class="form-title">
+              </div>
+              <div class="form-data">
+                <div class="form-group-row">
+                  <div class="form-item" data-id="var_noresident_name" style="width: 50%">
+                    <div class="form-title">
+                      <div>full name:<span class="req">*</span></div>
+                    </div>
+                    <div class="form-data">
+                      <div>
+                        <div class="form-input"><input class="text-control" type="text"
+                            formControlName="noresident_name">
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="form-item" data-id="var_noresident_address" style="width: 50%">
+                    <div class="form-title">
+                      <div>address:<span class="req">*</span></div>
+                    </div>
+                    <div class="form-data">
+                      <div>
+                        <div class="form-input"><input class="text-control" type="text"
+                            formControlName="noresident_address">
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="form-item form-inline-group" data-id="group_inline_12">
+              <div class="form-title">
+              </div>
+              <div class="form-data">
+                <div class="form-group-row">
+                  <div class="form-item" data-id="var_noresident_phone" style="width: 25%">
+                    <div class="form-title">
+                      <div>phone / fax:</div>
+                    </div>
+                    <div class="form-data">
+                      <div>
+                        <div class="form-input"><input class="text-control" type="text"
+                            formControlName="noresident_phone">
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="form-item" data-id="var_noresident_email" style="width: 25%">
+                    <div class="form-title">
+                      <div>e-mail:</div>
+                    </div>
+                    <div class="form-data">
+                      <div>
+                        <div class="form-input"><input class="text-control" type="text"
+                            formControlName="noresident_email">
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="form-item" data-id="var_noresident_website" style="width: 25%">
+                    <div class="form-title">
+                      <div>Website:</div>
+                    </div>
+                    <div class="form-data">
+                      <div>
+                        <div class="form-input"><input class="text-control" type="text"
+                            formControlName="noresident_website">
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="form-item" data-id="var_noresident_skype" style="width: 25%">
+                    <div class="form-title">
+                      <div>Skype:</div>
+                    </div>
+                    <div class="form-data">
+                      <div>
+                        <div class="form-input"><input class="text-control" type="text"
+                            formControlName="noresident_skype">
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="form-line" data-id="line_3"></div>
+            <div class="form-sub-title" data-id="title_5">Signatory</div>
+            <div class="form-item form-inline-group" data-id="group_inline_13">
+              <div class="form-title">
+              </div>
+              <div class="form-data">
+                <div class="form-group-row">
+                  <div class="form-item" data-id="var_noresident_signatory_fio" style="width: 50%">
+                    <div class="form-title">
+                      <div>full name:</div>
+                    </div>
+                    <div class="form-data">
+                      <div>
+                        <div class="form-input">
+                          <mat-form-field appearance="outline" class="ui-select" style="margin-bottom: 0px; margin-top: 0px; margin-right: 0px; width: 100%;">
+                            <mat-select formControlName="noresident_signatory_id">
+                              <mat-option value="">-- Не выбрано --</mat-option>
+                              <mat-option *ngFor="let employee of employees;" [value]="employee.id">
+                                {{ employee.name_f }} {{ employee.name_i }} {{ employee.name_o }}
+                              </mat-option>
+                            </mat-select>
+                          </mat-form-field>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="form-item" data-id="var_noresident_signatory_position" style="width: 50%">
+                    <div class="form-title">
+                      <div>position:</div>
+                    </div>
+                    <div class="form-data">
+                      <div>
+                        <div class="form-input">
+                          <input class="text-control" type="text" formControlName="noresident_signatory_position">
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="form-line" data-id="line_4"></div>
+            <div class="form-sub-title" data-id="title_6">Banking Details</div>
+            <div class="form-item form-inline-group" data-id="group_inline_14">
+              <div class="form-title">
+              </div>
+              <div class="form-data">
+                <div class="form-group-row">
+                  <div class="form-item" data-id="var_noresident_bank_name" style="width: 50%">
+                    <div class="form-title">
+                      <div>bank name:</div>
+                    </div>
+                    <div class="form-data">
+                      <div>
+                        <div class="form-input"><input class="text-control" type="text"
+                            formControlName="noresident_bank_name">
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="form-item" data-id="var_noresident_bank_address" style="width: 50%">
+                    <div class="form-title">
+                      <div>bank address:</div>
+                    </div>
+                    <div class="form-data">
+                      <div>
+                        <div class="form-input"><input class="text-control" type="text"
+                            formControlName="noresident_bank_address"></div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="form-item form-inline-group" data-id="group_inline_15">
+              <div class="form-title">
+              </div>
+              <div class="form-data">
+                <div class="form-group-row">
+                  <div class="width_50 form-group-row">
+                    <div class="form-item" data-id="var_noresident_bank_rs" style="width: 25%">
+                      <div class="form-title">
+                        <div>account Number:</div>
+                      </div>
+                      <div class="form-data">
+                        <div>
+                          <div class="form-input"><input class="text-control" type="text"
+                              formControlName="noresident_bank_rs">
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                    <div class="form-item" data-id="var_noresident_bank_currency" style="width: 25%">
+                      <div class="form-title">
+                        <div>account currency:</div>
+                      </div>
+                      <div class="form-data">
+                        <div>
+                          <div class="form-input"><input class="text-control" type="text"
+                              formControlName="noresident_bank_currency"></div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="form-item" data-id="var_noresident_bank_rs_name" style="width: 50%">
+                    <div class="form-title">
+                      <div>account name:</div>
+                    </div>
+                    <div class="form-data">
+                      <div>
+                        <div class="form-input"><input class="text-control" type="text"
+                            formControlName="noresident_bank_rs_name"></div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="form-item form-inline-group" data-id="group_inline_16">
+              <div class="form-title">
+              </div>
+              <div class="form-data">
+                <div class="form-group-row">
+                  <div class="form-item" data-id="var_noresident_bank_swift" style="width: 50%">
+                    <div class="form-title">
+                      <div>swift code:</div>
+                    </div>
+                    <div class="form-data">
+                      <div>
+                        <div class="form-input"><input class="text-control" type="text"
+                            formControlName="noresident_bank_swift"></div>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="form-item" data-id="var_noresident_bank_im" style="width: 50%">
+                    <div class="form-title">
+                      <div>intermediary bank:</div>
+                    </div>
+                    <div class="form-data">
+                      <div>
+                        <div class="form-input"><input class="text-control" type="text"
+                            formControlName="noresident_bank_im">
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="form-button-placer">
+        <span class="btn v save button ico ico-floppy-disk2" (click)="save()"><span>Сохранить</span></span>
+        <span class="btn v del button" (click)="remove()" *ngIf="isEditMode"><span>Удалить</span></span>
+        <span class="btn v cancel button gray" [routerLink]="['/pages/settings/company']"><span>Отмена</span></span>
+      </div>
+    </div>
+  </form>
+</div>

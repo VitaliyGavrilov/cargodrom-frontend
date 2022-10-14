@@ -12,9 +12,11 @@ export interface Company {
   email: string;
   website: string;
   skype: string;
+  responsible_person_id: number;
   responsible_person_fio: string;
   responsible_person_position: string;
   responsible_person_base: string;
+  chief_accountant_id: number;
   chief_accountant_fio: string;
   bank_name: string;
   bank_bik: string;
@@ -28,6 +30,7 @@ export interface Company {
   noresident_email: string;
   noresident_website: string;
   noresident_skype: string;
+  noresident_signatory_id: number;
   noresident_signatory_fio: string;
   noresident_signatory_position: string;
   noresident_bank_name: string;
@@ -40,7 +43,7 @@ export interface Company {
   tax_system: number;
   base_currency: string;
   num: number;
-  general: boolean;
+  general: boolean | 0 | 1;
   time_add: string;
   time_edit: string;
 }

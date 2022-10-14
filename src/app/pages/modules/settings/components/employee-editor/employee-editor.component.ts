@@ -44,7 +44,7 @@ export class EmployeeEditorComponent implements OnInit {
       position_id: ['', [Validators.required]],
       employment_date: [''],
       dismissal_date: [''],
-      email: ['a@66.ru', [Validators.required, Validators.email]],
+      email: ['', [Validators.required, Validators.email]],
       phone: [''],
       skype: [''],
     });
