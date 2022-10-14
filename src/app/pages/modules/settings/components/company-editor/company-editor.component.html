@@ -20,7 +20,10 @@
                     </div>
                     <div class="form-data">
                       <div>
-                        <div class="form-input"><input class="text-control" type="text" formControlName="name" required></div>
+                        <div class="form-input">
+                          <input class="text-control" type="hidden" formControlName="id" required>
+                          <input class="text-control" type="text" formControlName="name" required>
+                        </div>
                       </div>
                     </div>
                   </div>
@@ -30,7 +33,8 @@
                     </div>
                     <div class="form-data">
                       <div>
-                        <div class="form-input"><input class="text-control" type="text" name="var[name_short]" value="">
+                        <div class="form-input">
+                          <input class="text-control" type="text" formControlName="name_short" required>
                         </div>
                       </div>
                     </div>
@@ -49,8 +53,9 @@
                     </div>
                     <div class="form-data">
                       <div>
-                        <div class="form-input"><input class="text-control" type="text" name="var[jur_address]"
-                            value=""></div>
+                        <div class="form-input">
+                          <input class="text-control" type="text" formControlName="jur_address">
+                        </div>
                       </div>
                     </div>
                   </div>
@@ -60,8 +65,8 @@
                     </div>
                     <div class="form-data">
                       <div>
-                        <div class="form-input"><input class="text-control" type="text" name="var[post_address]"
-                            value=""></div>
+                        <div class="form-input"><input class="text-control" type="text" formControlName="post_address">
+                        </div>
                       </div>
                     </div>
                   </div>
@@ -79,7 +84,7 @@
                     </div>
                     <div class="form-data">
                       <div>
-                        <div class="form-input"><input class="text-control" type="text" name="var[inn]" value=""></div>
+                        <div class="form-input"><input class="text-control" type="text" formControlName="inn"></div>
                       </div>
                     </div>
                   </div>
@@ -89,7 +94,7 @@
                     </div>
                     <div class="form-data">
                       <div>
-                        <div class="form-input"><input class="text-control" type="text" name="var[kpp]" value=""></div>
+                        <div class="form-input"><input class="text-control" type="text" formControlName="kpp"></div>
                       </div>
                     </div>
                   </div>
@@ -99,7 +104,7 @@
                     </div>
                     <div class="form-data">
                       <div>
-                        <div class="form-input"><input class="text-control" type="text" name="var[ogrn]" value=""></div>
+                        <div class="form-input"><input class="text-control" type="text" formControlName="ogrn"></div>
                       </div>
                     </div>
                   </div>
@@ -109,7 +114,7 @@
                     </div>
                     <div class="form-data">
                       <div>
-                        <div class="form-input"><input class="text-control" type="text" name="var[okpo]" value=""></div>
+                        <div class="form-input"><input class="text-control" type="text" formControlName="okpo"></div>
                       </div>
                     </div>
                   </div>
@@ -127,7 +132,7 @@
                     </div>
                     <div class="form-data">
                       <div>
-                        <div class="form-input"><input class="text-control" type="text" name="var[phone]" value="">
+                        <div class="form-input"><input class="text-control" type="text" formControlName="phone">
                         </div>
                       </div>
                     </div>
@@ -138,7 +143,7 @@
                     </div>
                     <div class="form-data">
                       <div>
-                        <div class="form-input"><input class="text-control" type="text" name="var[email]" value="">
+                        <div class="form-input"><input class="text-control" type="text" formControlName="email">
                         </div>
                       </div>
                     </div>
@@ -149,7 +154,7 @@
                     </div>
                     <div class="form-data">
                       <div>
-                        <div class="form-input"><input class="text-control" type="text" name="var[website]" value="">
+                        <div class="form-input"><input class="text-control" type="text" formControlName="website">
                         </div>
                       </div>
                     </div>
@@ -160,7 +165,7 @@
                     </div>
                     <div class="form-data">
                       <div>
-                        <div class="form-input"><input class="text-control" type="text" name="var[skype]" value="">
+                        <div class="form-input"><input class="text-control" type="text" formControlName="skype">
                         </div>
                       </div>
                     </div>
@@ -185,9 +190,9 @@
                             style="margin-bottom: 0px; margin-top: 0px; margin-right: 0px; width: 100%;"><span
                               class="ui-select-width"
                               style="padding-left: 66px; font-size: 15px; font-family: regular, arial, &quot;sans-serif&quot;; display: block; overflow: hidden; height: 0px; line-height: 0; visibility: hidden; position: relative;">--
-                              Не выбрано --</span><select name="var[responsible_person_fio]" class="text-control init"
-                              style="display: none;">
-                              <option value="" selected="">-- Не выбрано --</option>
+                              Не выбрано --</span><select formControlName="responsible_person_fio"
+                              class="text-control init" style="display: none;">
+                              <option selected="">-- Не выбрано --</option>
                               <option value="1">111</option>
                               <option value="2">222</option>
                             </select><span class="ui-select-input ui-select-input-def">-- Не выбрано --</span><span
@@ -216,7 +221,7 @@
                     <div class="form-data">
                       <div>
                         <div class="form-input"><input class="text-control" type="text"
-                            name="var[responsible_person_position]" value=""></div>
+                            formControlName="responsible_person_position"></div>
                       </div>
                     </div>
                   </div>
@@ -235,7 +240,7 @@
                     <div class="form-data">
                       <div>
                         <div class="form-input"><input class="text-control" type="text"
-                            name="var[responsible_person_base]" value=""></div>
+                            formControlName="responsible_person_base"></div>
                       </div>
                     </div>
                   </div>
@@ -255,8 +260,9 @@
                     </div>
                     <div class="form-data">
                       <div>
-                        <div class="form-input"><input class="text-control" type="text" name="var[chief_accountant_fio]"
-                            value=""></div>
+                        <div class="form-input"><input class="text-control" type="text"
+                            formControlName="chief_accountant_fio">
+                        </div>
                       </div>
                     </div>
                   </div>
@@ -276,7 +282,7 @@
                     </div>
                     <div class="form-data">
                       <div>
-                        <div class="form-input"><input class="text-control" type="text" name="var[bank_name]" value="">
+                        <div class="form-input"><input class="text-control" type="text" formControlName="bank_name">
                         </div>
                       </div>
                     </div>
@@ -287,7 +293,7 @@
                     </div>
                     <div class="form-data">
                       <div>
-                        <div class="form-input"><input class="text-control" type="text" name="var[bank_rs]" value="">
+                        <div class="form-input"><input class="text-control" type="text" formControlName="bank_rs">
                         </div>
                       </div>
                     </div>
@@ -298,8 +304,8 @@
                     </div>
                     <div class="form-data">
                       <div>
-                        <div class="form-input"><input class="text-control" type="text" name="var[bank_currency]"
-                            value=""></div>
+                        <div class="form-input"><input class="text-control" type="text" formControlName="bank_currency">
+                        </div>
                       </div>
                     </div>
                   </div>
@@ -317,7 +323,7 @@
                     </div>
                     <div class="form-data">
                       <div>
-                        <div class="form-input"><input class="text-control" type="text" name="var[bank_ks]" value="">
+                        <div class="form-input"><input class="text-control" type="text" formControlName="bank_ks">
                         </div>
                       </div>
                     </div>
@@ -328,7 +334,7 @@
                     </div>
                     <div class="form-data">
                       <div>
-                        <div class="form-input"><input class="text-control" type="text" name="var[bank_bik]" value="">
+                        <div class="form-input"><input class="text-control" type="text" formControlName="bank_bik">
                         </div>
                       </div>
                     </div>
@@ -339,7 +345,7 @@
                     </div>
                     <div class="form-data">
                       <div>
-                        <div class="form-input"><input class="text-control" type="text" name="var[bank_kpp]" value="">
+                        <div class="form-input"><input class="text-control" type="text" formControlName="bank_kpp">
                         </div>
                       </div>
                     </div>
@@ -364,8 +370,9 @@
                     </div>
                     <div class="form-data">
                       <div>
-                        <div class="form-input"><input class="text-control" type="text" name="var[noresident_name]"
-                            value=""></div>
+                        <div class="form-input"><input class="text-control" type="text"
+                            formControlName="noresident_name">
+                        </div>
                       </div>
                     </div>
                   </div>
@@ -375,8 +382,9 @@
                     </div>
                     <div class="form-data">
                       <div>
-                        <div class="form-input"><input class="text-control" type="text" name="var[noresident_address]"
-                            value=""></div>
+                        <div class="form-input"><input class="text-control" type="text"
+                            formControlName="noresident_address">
+                        </div>
                       </div>
                     </div>
                   </div>
@@ -394,8 +402,9 @@
                     </div>
                     <div class="form-data">
                       <div>
-                        <div class="form-input"><input class="text-control" type="text" name="var[noresident_phone]"
-                            value=""></div>
+                        <div class="form-input"><input class="text-control" type="text"
+                            formControlName="noresident_phone">
+                        </div>
                       </div>
                     </div>
                   </div>
@@ -405,8 +414,9 @@
                     </div>
                     <div class="form-data">
                       <div>
-                        <div class="form-input"><input class="text-control" type="text" name="var[noresident_email]"
-                            value=""></div>
+                        <div class="form-input"><input class="text-control" type="text"
+                            formControlName="noresident_email">
+                        </div>
                       </div>
                     </div>
                   </div>
@@ -416,8 +426,9 @@
                     </div>
                     <div class="form-data">
                       <div>
-                        <div class="form-input"><input class="text-control" type="text" name="var[noresident_website]"
-                            value=""></div>
+                        <div class="form-input"><input class="text-control" type="text"
+                            formControlName="noresident_website">
+                        </div>
                       </div>
                     </div>
                   </div>
@@ -427,8 +438,9 @@
                     </div>
                     <div class="form-data">
                       <div>
-                        <div class="form-input"><input class="text-control" type="text" name="var[noresident_skype]"
-                            value=""></div>
+                        <div class="form-input"><input class="text-control" type="text"
+                            formControlName="noresident_skype">
+                        </div>
                       </div>
                     </div>
                   </div>
@@ -452,9 +464,9 @@
                             style="margin-bottom: 0px; margin-top: 0px; margin-right: 0px; width: 100%;"><span
                               class="ui-select-width"
                               style="padding-left: 66px; font-size: 15px; font-family: regular, arial, &quot;sans-serif&quot;; display: block; overflow: hidden; height: 0px; line-height: 0; visibility: hidden; position: relative;">--
-                              Не выбрано --</span><select name="var[noresident_signatory_fio]" class="text-control init"
-                              style="display: none;">
-                              <option value="" selected="">-- Не выбрано --</option>
+                              Не выбрано --</span><select formControlName="noresident_signatory_fio"
+                              class="text-control init" style="display: none;">
+                              <option selected="">-- Не выбрано --</option>
                               <option value="1">111</option>
                               <option value="2">222</option>
                             </select><span class="ui-select-input ui-select-input-def ui-select-input-open">-- Не
@@ -485,7 +497,7 @@
                     <div class="form-data">
                       <div>
                         <div class="form-input"><input class="text-control" type="text"
-                            name="var[noresident_signatory_position]" value=""></div>
+                            formControlName="noresident_signatory_position"></div>
                       </div>
                     </div>
                   </div>
@@ -505,8 +517,9 @@
                     </div>
                     <div class="form-data">
                       <div>
-                        <div class="form-input"><input class="text-control" type="text" name="var[noresident_bank_name]"
-                            value=""></div>
+                        <div class="form-input"><input class="text-control" type="text"
+                            formControlName="noresident_bank_name">
+                        </div>
                       </div>
                     </div>
                   </div>
@@ -517,7 +530,7 @@
                     <div class="form-data">
                       <div>
                         <div class="form-input"><input class="text-control" type="text"
-                            name="var[noresident_bank_address]" value=""></div>
+                            formControlName="noresident_bank_address"></div>
                       </div>
                     </div>
                   </div>
@@ -536,8 +549,9 @@
                       </div>
                       <div class="form-data">
                         <div>
-                          <div class="form-input"><input class="text-control" type="text" name="var[noresident_bank_rs]"
-                              value=""></div>
+                          <div class="form-input"><input class="text-control" type="text"
+                              formControlName="noresident_bank_rs">
+                          </div>
                         </div>
                       </div>
                     </div>
@@ -548,7 +562,7 @@
                       <div class="form-data">
                         <div>
                           <div class="form-input"><input class="text-control" type="text"
-                              name="var[noresident_bank_currency]" value=""></div>
+                              formControlName="noresident_bank_currency"></div>
                         </div>
                       </div>
                     </div>
@@ -560,7 +574,7 @@
                     <div class="form-data">
                       <div>
                         <div class="form-input"><input class="text-control" type="text"
-                            name="var[noresident_bank_rs_name]" value=""></div>
+                            formControlName="noresident_bank_rs_name"></div>
                       </div>
                     </div>
                   </div>
@@ -579,7 +593,7 @@
                     <div class="form-data">
                       <div>
                         <div class="form-input"><input class="text-control" type="text"
-                            name="var[noresident_bank_swift]" value=""></div>
+                            formControlName="noresident_bank_swift"></div>
                       </div>
                     </div>
                   </div>
@@ -589,8 +603,9 @@
                     </div>
                     <div class="form-data">
                       <div>
-                        <div class="form-input"><input class="text-control" type="text" name="var[noresident_bank_im]"
-                            value=""></div>
+                        <div class="form-input"><input class="text-control" type="text"
+                            formControlName="noresident_bank_im">
+                        </div>
                       </div>
                     </div>
                   </div>
@@ -600,12 +615,11 @@
           </div>
         </div>
       </div>
-      <div class="form-button-placer"><span class="btn v save button ico ico-floppy-disk2" data-href=""
-          onclick="$(this).parents('form').submit()"><span>Сохранить</span></span><span class="btn v del button"
-          data-href="" onclick="return formApply(this)"><span>Удалить</span></span><span
-          class="btn v cancel button gray" data-href="" onclick="return history.back();"><span>Отмена</span></span>
+      <div class="form-button-placer">
+        <span class="btn v save button ico ico-floppy-disk2" (click)="save()"><span>Сохранить</span></span>
+        <span class="btn v del button" (click)="remove()" *ngIf="isEditMode"><span>Удалить</span></span>
+        <span class="btn v cancel button gray" [routerLink]="['/pages/settings/company']"><span>Отмена</span></span>
       </div>
-    </div><input type="hidden" name="validator"
-      value="{&quot;items&quot;:[{&quot;required&quot;:true,&quot;name&quot;:&quot;Наименование полное:&quot;,&quot;field&quot;:&quot;var[name]&quot;},{&quot;required&quot;:&quot;*&quot;,&quot;name&quot;:&quot;наименование сокращенное:&quot;,&quot;field&quot;:&quot;var[name_short]&quot;},{&quot;required&quot;:true,&quot;name&quot;:&quot;full name:&quot;,&quot;field&quot;:&quot;var[noresident_name]&quot;},{&quot;required&quot;:&quot;*&quot;,&quot;name&quot;:&quot;address:&quot;,&quot;field&quot;:&quot;var[noresident_address]&quot;}],&quot;hash&quot;:&quot;76bcb2657c3aba3e5585fef79ecbd3c2&quot;}">
+    </div>
   </form>
 </div>
