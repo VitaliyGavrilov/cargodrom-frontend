@@ -5,6 +5,7 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { MatSnackBar, MatSnackBarConfig } from '@angular/material/snack-bar';
 import { ActivatedRoute, Router } from '@angular/router';
 import { tap } from 'rxjs';
+import { Employee } from 'src/app/api/custom_models';
 
 @Component({
   selector: 'app-company-editor',
@@ -19,6 +20,7 @@ export class CompanyEditorComponent implements OnInit {
   snackBarWithShortDuration: MatSnackBarConfig = { duration: 1000 };
   snackBarWithLongDuration: MatSnackBarConfig = { duration: 5000 };
   title = '';
+  employees: Employee[] = [];
 
   constructor(
     private fb: FormBuilder,
@@ -41,6 +43,7 @@ export class CompanyEditorComponent implements OnInit {
       phone: [''],
       website: [''],
       skype: [''],
+      responsible_person_id: [''],
       responsible_person_position: [''],
       responsible_person_base: [''],
       responsible_person_fio: [''],
@@ -57,6 +60,7 @@ export class CompanyEditorComponent implements OnInit {
       noresident_email: [''],
       noresident_skype: [''],
       noresident_website: [''],
+      noresident_signatory_id: [''],
       noresident_signatory_position: [''],
       noresident_signatory_fio: [''],
       noresident_bank_name: [''],
@@ -75,6 +79,7 @@ export class CompanyEditorComponent implements OnInit {
     if (this.isEditMode) {
       this.getCompany();
     }
+    this.loadEmployees();
     this.title = this.isEditMode ? 'Редактирование организации' : 'Добавление организации';
   }
 
@@ -146,6 +151,12 @@ export class CompanyEditorComponent implements OnInit {
         },
         error: (err) => this.snackBar.open(`Ошибка удаления организации: ` + err.error.error_message, undefined, {duration: 1000})
       });
+  }
+  
+  loadEmployees(): void {
+    this.companyService.companyEmployeeList().subscribe(employees => {
+      this.employees = employees ? employees as Employee[] : [];
+    });
   }
 
 }

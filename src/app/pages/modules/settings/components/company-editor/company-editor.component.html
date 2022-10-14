@@ -186,31 +186,16 @@
                     </div>
                     <div class="form-data">
                       <div>
-                        <div class="form-input"><span class="ui-select" contenteditable="false"
-                            style="margin-bottom: 0px; margin-top: 0px; margin-right: 0px; width: 100%;"><span
-                              class="ui-select-width"
-                              style="padding-left: 66px; font-size: 15px; font-family: regular, arial, &quot;sans-serif&quot;; display: block; overflow: hidden; height: 0px; line-height: 0; visibility: hidden; position: relative;">--
-                              Не выбрано --</span><select formControlName="responsible_person_fio"
-                              class="text-control init" style="display: none;">
-                              <option selected="">-- Не выбрано --</option>
-                              <option value="1">111</option>
-                              <option value="2">222</option>
-                            </select><span class="ui-select-input ui-select-input-def">-- Не выбрано --</span><span
-                              class="ui-select-button ui-select-button-def">&nbsp;</span><span
-                              class="ui-select-fader">&nbsp;</span><span class="ui-select-layer"
-                              style="display: none; height: auto; visibility: visible;"><span
-                                class="ui-select-list-scroller"><span class="ui-select-list"><span
-                                    class="ui-select-item selected">-- Не выбрано --</span><span
-                                    class="ui-select-item odd">111</span><span
-                                    class="ui-select-item">222</span></span></span>
-                              <div class="scrollbar-track">
-                                <div class="scrollbar-track-btn scrollbar-up"></div>
-                                <div class="scrollbar-track-free">
-                                  <div class="scrollbar-bar"></div>
-                                </div>
-                                <div class="scrollbar-track-btn scrollbar-down"></div>
-                              </div>
-                            </span></span></div>
+                        <div class="form-input">
+                          <mat-form-field appearance="outline" class="ui-select" style="margin-bottom: 0px; margin-top: 0px; margin-right: 0px; width: 100%;">
+                            <mat-select formControlName="responsible_person_id">
+                              <mat-option value="">-- Не выбрано --</mat-option>
+                              <mat-option *ngFor="let employee of employees;" [value]="employee.id">
+                                {{ employee.name_f }} {{ employee.name_i }} {{ employee.name_o }}
+                              </mat-option>
+                            </mat-select>
+                          </mat-form-field>
+                        </div>
                       </div>
                     </div>
                   </div>
@@ -460,33 +445,16 @@
                     </div>
                     <div class="form-data">
                       <div>
-                        <div class="form-input"><span class="ui-select" contenteditable="false"
-                            style="margin-bottom: 0px; margin-top: 0px; margin-right: 0px; width: 100%;"><span
-                              class="ui-select-width"
-                              style="padding-left: 66px; font-size: 15px; font-family: regular, arial, &quot;sans-serif&quot;; display: block; overflow: hidden; height: 0px; line-height: 0; visibility: hidden; position: relative;">--
-                              Не выбрано --</span><select formControlName="noresident_signatory_fio"
-                              class="text-control init" style="display: none;">
-                              <option selected="">-- Не выбрано --</option>
-                              <option value="1">111</option>
-                              <option value="2">222</option>
-                            </select><span class="ui-select-input ui-select-input-def ui-select-input-open">-- Не
-                              выбрано --</span><span
-                              class="ui-select-button ui-select-button-def ui-select-button-open">&nbsp;</span><span
-                              class="ui-select-fader">&nbsp;</span><span class="ui-select-layer open"
-                              style="height: auto; visibility: visible; overflow: hidden;" data-baron-v-id="0"><span
-                                class="ui-select-list-scroller"
-                                style="overflow-y: auto; box-sizing: border-box; margin: 0px; border: 0px;"><span
-                                  class="ui-select-list"><span class="ui-select-item selected">-- Не выбрано
-                                    --</span><span class="ui-select-item odd">111</span><span
-                                    class="ui-select-item">222</span></span></span>
-                              <div class="scrollbar-track">
-                                <div class="scrollbar-track-btn scrollbar-up"></div>
-                                <div class="scrollbar-track-free">
-                                  <div class="scrollbar-bar" style="height: 0px; top: 0px;"></div>
-                                </div>
-                                <div class="scrollbar-track-btn scrollbar-down"></div>
-                              </div>
-                            </span></span></div>
+                        <div class="form-input">
+                          <mat-form-field appearance="outline" class="ui-select" style="margin-bottom: 0px; margin-top: 0px; margin-right: 0px; width: 100%;">
+                            <mat-select formControlName="noresident_signatory_id">
+                              <mat-option value="">-- Не выбрано --</mat-option>
+                              <mat-option *ngFor="let employee of employees;" [value]="employee.id">
+                                {{ employee.name_f }} {{ employee.name_i }} {{ employee.name_o }}
+                              </mat-option>
+                            </mat-select>
+                          </mat-form-field>
+                        </div>
                       </div>
                     </div>
                   </div>
@@ -496,8 +464,9 @@
                     </div>
                     <div class="form-data">
                       <div>
-                        <div class="form-input"><input class="text-control" type="text"
-                            formControlName="noresident_signatory_position"></div>
+                        <div class="form-input">
+                          <input class="text-control" type="text" formControlName="noresident_signatory_position">
+                        </div>
                       </div>
                     </div>
                   </div>
