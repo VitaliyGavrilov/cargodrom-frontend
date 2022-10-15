@@ -13,6 +13,7 @@ import { DepartmentEditorComponent } from './components/department-editor/depart
 import { EmployeeEditorComponent } from './components/employee-editor/employee-editor.component';
 import { CompanyComponent } from './components/company/company.component';
 import { CompanyEditorComponent } from './components/company-editor/company-editor.component';
+import { DepartmentEmployeeComponent } from './components/department-employee/department-employee.component';
 
 
 @NgModule({
@@ -25,7 +26,8 @@ import { CompanyEditorComponent } from './components/company-editor/company-edit
     DepartmentEditorComponent,
     EmployeeEditorComponent,
     CompanyComponent,
-    CompanyEditorComponent
+    CompanyEditorComponent,
+    DepartmentEmployeeComponent
   ],
   imports: [
     CommonModule,
