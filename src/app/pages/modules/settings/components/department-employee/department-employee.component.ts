@@ -1,8 +1,9 @@
+import { MatSnackBar } from '@angular/material/snack-bar';
 import { MatDialog } from '@angular/material/dialog';
-import { Position } from './../../../../../api/custom_models/position';
 import { Employee } from './../../../../../api/custom_models/employee';
 import { CompanyService } from 'src/app/api/services/company.service';
 import { Component, Input, OnInit, TemplateRef, ViewChild } from '@angular/core';
+import { Position } from 'src/app/api/custom_models';
 
 @Component({
   selector: 'app-department-employee',
@@ -22,13 +23,13 @@ export class DepartmentEmployeeComponent implements OnInit {
   constructor(
     private companyService: CompanyService,
     private dialog: MatDialog,
+    private snackBar: MatSnackBar,
   ) {
 
   }
 
   ngOnInit(): void {
     this.loadEmployeesForDepartment(this.departmentId);
-    this.loadPositions();
   }
 
   loadEmployeesForDepartment(departmentId: number): void {
@@ -50,25 +51,29 @@ export class DepartmentEmployeeComponent implements OnInit {
     return this.positions.find(position => position.id === id)?.name;
   }
 
-
-  save(departmentId?: number): void {
-
-  }
-
   onDepartmentLeaderChange(employee: Employee, isLeader: boolean): void {
-    employee.department_leader = isLeader ? 1 : 0;
+    const body = {...employee, department_leader: isLeader ? 1: 0} as any;
+    this.companyService.companyEmployeeUpdate({body}).subscribe(() => this.loadEmployeesForDepartment(this.departmentId));
   }
 
   confirmRemove(employee: Employee): void {
     this.dialog.open(this.removeDialogRef, { data: employee }).afterClosed().subscribe(res => {
       if (res) {
-        this.removeEmployeeFromDepartment(employee);
+        this.removeEmployee(employee);
       }
     });
   }
 
-  removeEmployeeFromDepartment(employee: Employee): void {
-
+  removeEmployee(employee: Employee): void {
+    const body = { id: employee.id };
+    this.companyService.companyEmployeeDelete({ body })
+      .subscribe({
+        next: () => {
+          this.snackBar.open(`Сотрудник ${employee.name_f} удалена`, undefined, {duration: 1000});
+          this.loadEmployeesForDepartment(this.departmentId);
+        },
+        error: (err) => this.snackBar.open(`Ошибка удаления сотрудника: ` + err.error.error_message, undefined, {duration: 1000})
+      });
   }
 
 }

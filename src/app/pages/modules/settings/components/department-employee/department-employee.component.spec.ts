@@ -1,3 +1,4 @@
+import { MatSnackBar } from '@angular/material/snack-bar';
 import { RouterTestingModule } from '@angular/router/testing';
 import { MatDialog } from '@angular/material/dialog';
 import { of } from 'rxjs';
@@ -17,6 +18,7 @@ describe('DepartmentEmployeeComponent', () => {
         RouterTestingModule,
       ],
       providers: [
+        { provide: MatSnackBar, useValue: {} },
         { provide: MatDialog, useValue: {} },
         {
           provide: CompanyService, useValue: {
