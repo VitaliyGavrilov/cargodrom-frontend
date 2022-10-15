@@ -1,3 +1,6 @@
+import { MatDialog } from '@angular/material/dialog';
+import { of } from 'rxjs';
+import { CompanyService } from 'src/app/api/services/company.service';
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { DepartmentEmployeeComponent } from './department-employee.component';
@@ -8,9 +11,17 @@ describe('DepartmentEmployeeComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ DepartmentEmployeeComponent ]
+      declarations: [DepartmentEmployeeComponent],
+      providers: [
+        { provide: MatDialog, useValue: {} },
+        {
+          provide: CompanyService, useValue: {
+            companyPositionList: () => of([]),
+          }
+        }
+      ]
     })
-    .compileComponents();
+      .compileComponents();
 
     fixture = TestBed.createComponent(DepartmentEmployeeComponent);
     component = fixture.componentInstance;

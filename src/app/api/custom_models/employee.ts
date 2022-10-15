@@ -14,7 +14,7 @@ export interface Employee {
   company_id: number;
   department_id: number;
   position_id: number;
-  department_leader: boolean;
+  department_leader: boolean | 1 | 0;
   num: number;
   time_add: string;
   time_edit: string;

@@ -22,6 +22,7 @@ export class DepartmentEditorComponent implements OnInit {
   snackBarWithShortDuration: MatSnackBarConfig = { duration: 1000 };
   snackBarWithLongDuration: MatSnackBarConfig = { duration: 5000 };
   title = '';
+  departmentId?: number;
 
   constructor(
     private fb: FormBuilder,
@@ -40,6 +41,7 @@ export class DepartmentEditorComponent implements OnInit {
     const segments = this.route.snapshot.url.map(s => s.path);
     this.isEditMode = segments[1] === 'edit';
     if (this.isEditMode) {
+      this.departmentId = Number(this.route.snapshot.paramMap.get('id'));
       this.getDepartment();
     }
     this.title = this.isEditMode ? 'Редактирование подразделения' : 'Добавление подразделения';
