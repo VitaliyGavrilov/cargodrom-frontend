@@ -72,7 +72,7 @@ export class CompanyComponent implements OnInit {
   onGeneralChange(general: boolean | 0 | 1, company: Company): void {
     const body = { ...company, general: general ? 1 : 0 } as any;
     this.companyService.companyUpdate({ body }).subscribe({
-      next: () => company.general = general ? 1 : 0,
+      next: () => this.loadCompanies(),
       error: (err) => this.snackBar.open(`Ошибка: ` + err.error.error_message, undefined, { duration: 1000 })
     });
   }
