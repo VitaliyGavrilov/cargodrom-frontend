@@ -89,6 +89,12 @@
           class="link-pic link-del ico ico-cross2 fn-link" (click)="confirmRemove(employee)" title="Удалить"></span>
       </td>
     </tr>
+    <tr class="odd">
+      <td colspan="5">
+        <a class="btn add-item-text" href="?act=add&amp;id=1">
+          <span>Добавить сотрудника</span></a>
+      </td>
+    </tr>
   </tbody>
 </table>
 
@@ -96,7 +102,8 @@
 <ng-template #removeDialogRef let-data>
   <h1 mat-dialog-title>Удалить сотрудника из подразделения</h1>
   <div mat-dialog-content>
-    Вы действительно хотите удалить сотрудника <b>{{ data.name_f }} {{ data.name_i }} {{ data.name_o }}</b> из подразделения ?
+    Вы действительно хотите удалить сотрудника <b>{{ data.name_f }} {{ data.name_i }} {{ data.name_o }}</b> из
+    подразделения ?
   </div>
   <div mat-dialog-actions align="end">
     <button mat-button [mat-dialog-close]="true" cdkFocusInitial>Да</button>
