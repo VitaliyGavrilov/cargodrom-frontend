@@ -6,6 +6,7 @@ import { MatSnackBar, MatSnackBarConfig } from '@angular/material/snack-bar';
 import { ActivatedRoute, Router } from '@angular/router';
 import { tap } from 'rxjs';
 import { Employee } from 'src/app/api/custom_models';
+import { Location } from '@angular/common';
 
 @Component({
   selector: 'app-company-editor',
@@ -28,6 +29,7 @@ export class CompanyEditorComponent implements OnInit {
     private route: ActivatedRoute,
     private snackBar: MatSnackBar,
     private router: Router,
+    private location: Location,
   ) {
     this.form = this.fb.group({
       id: [''],
@@ -100,14 +102,15 @@ export class CompanyEditorComponent implements OnInit {
         },
         error: (err: any) => {
           this.snackBar.open(`Организация не найдена: ` + err.error.error_message, undefined, this.snackBarWithShortDuration);
-          this.goToCompanies();
+          this.goBack();
         }
       });
   }
 
-  goToCompanies(): void {
-    this.router.navigate(['/pages/settings/company']);
+  goBack(): void {
+    this.location.back();
   }
+
   save(): void {
     if (!this.form.valid) {
       this.snackBar.open('Не все поля заполнены корректно', undefined, this.snackBarWithLongDuration);
@@ -124,7 +127,7 @@ export class CompanyEditorComponent implements OnInit {
   private createCompany(body: any) {
     this.companyService.companyCreate({ body }).pipe().subscribe({
       next: ({ id }) => {
-        this.goToCompanies();
+        this.goBack();
         this.snackBar.open(`Организация создана`, undefined, this.snackBarWithShortDuration)
       },
       error: (err) => this.snackBar.open(`Ошибка создания организации: ` + err.error.error_message, undefined, this.snackBarWithShortDuration)
@@ -135,7 +138,7 @@ export class CompanyEditorComponent implements OnInit {
     this.companyService.companyUpdate({ body }).pipe().subscribe({
       next: () => {
         this.snackBar.open(`Организация сохранена`, undefined, this.snackBarWithShortDuration);
-        this.goToCompanies();
+        this.goBack();
       },
       error: (err) => this.snackBar.open(`Ошибка сохранения организации: ` + err.error.error_message, undefined, this.snackBarWithShortDuration)
     });
@@ -147,7 +150,7 @@ export class CompanyEditorComponent implements OnInit {
       .subscribe({
         next: () => {
           this.snackBar.open(`Организация ${this.company.name} удалена`, undefined, {duration: 1000});
-          this.goToCompanies();
+          this.goBack();
         },
         error: (err) => this.snackBar.open(`Ошибка удаления организации: ` + err.error.error_message, undefined, {duration: 1000})
       });

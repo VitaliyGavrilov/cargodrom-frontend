@@ -1,6 +1,6 @@
 <div class="subheader">
   <div class="placer">
-    <a [routerLink]="backLink" class="title">
+    <a (click)="goBack()" class="title">
       {{ title }}
       <div class="req-fields">Обязательные поля: <span class="req">•</span> </div>
     </a>
@@ -8,7 +8,7 @@
     <div class="fn">
       <span class="btn v save" (click)="onSave()"><span>сохранить</span></span>
       <span class="btn v del" *ngIf="isEditMode" (click)="onRemove()"><span>Удалить</span></span>
-      <span class="btn v cancel" [routerLink]="backLink"><span>отмена</span></span>
+      <span class="btn v cancel" (click)="goBack()"><span>отмена</span></span>
     </div>
   </div>
 </div>

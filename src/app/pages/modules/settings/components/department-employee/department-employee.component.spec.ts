@@ -1,3 +1,4 @@
+import { RouterTestingModule } from '@angular/router/testing';
 import { MatDialog } from '@angular/material/dialog';
 import { of } from 'rxjs';
 import { CompanyService } from 'src/app/api/services/company.service';
@@ -12,6 +13,9 @@ describe('DepartmentEmployeeComponent', () => {
   beforeEach(async () => {
     await TestBed.configureTestingModule({
       declarations: [DepartmentEmployeeComponent],
+      imports: [
+        RouterTestingModule,
+      ],
       providers: [
         { provide: MatDialog, useValue: {} },
         {

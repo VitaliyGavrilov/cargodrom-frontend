@@ -5,6 +5,7 @@ import { CompanyService } from '../../../../../api/services/company.service';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Component, OnInit } from '@angular/core';
 import { tap } from 'rxjs';
+import { Location } from '@angular/common';
 
 @Component({
   selector: 'app-position-editor',
@@ -25,6 +26,7 @@ export class PositionEditorComponent implements OnInit {
     private route: ActivatedRoute,
     private snackBar: MatSnackBar,
     private router: Router,
+    private location: Location,
   ) {
     this.form = this.fb.group({
       id: [''],
@@ -58,14 +60,15 @@ export class PositionEditorComponent implements OnInit {
         },
         error: (err: any) => {
           this.snackBar.open(`Должность не найдена: ` + err.error.error_message, undefined, this.snackBarWithShortDuration);
-          this.goToPositions();
+          this.goBack();
         }
       });
   }
 
-  goToPositions(): void {
-    this.router.navigate(['/pages/settings/position']);
+  goBack(): void {
+    this.location.back();
   }
+
   save(): void {
     if (!this.form.valid) {
       this.snackBar.open('Не все поля заполнены корректно', undefined, this.snackBarWithLongDuration);
@@ -82,7 +85,7 @@ export class PositionEditorComponent implements OnInit {
   private createPosition(body: any) {
     this.companyService.companyPositionCreate({ body }).pipe().subscribe({
       next: ({ id }) => {
-        this.goToPositions();
+        this.goBack();
         this.snackBar.open(`Должность создана`, undefined, this.snackBarWithShortDuration)
       },
       error: (err) => this.snackBar.open(`Ошибка создания должности: ` + err.error.error_message, undefined, this.snackBarWithShortDuration)
@@ -93,7 +96,7 @@ export class PositionEditorComponent implements OnInit {
     this.companyService.companyPositionUpdate({ body }).pipe().subscribe({
       next: () => {
         this.snackBar.open(`Должность сохранена`, undefined, this.snackBarWithShortDuration);
-        this.goToPositions();
+        this.goBack();
       },
       error: (err) => this.snackBar.open(`Ошибка сохранения должности: ` + err.error.error_message, undefined, this.snackBarWithShortDuration)
     });
@@ -105,7 +108,7 @@ export class PositionEditorComponent implements OnInit {
       .subscribe({
         next: () => {
           this.snackBar.open(`Должность ${this.position.name} удалена`, undefined, {duration: 1000});
-          this.goToPositions();
+          this.goBack();
         },
         error: (err) => this.snackBar.open(`Ошибка удаления должности: ` + err.error.error_message, undefined, {duration: 1000})
       });

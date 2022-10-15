@@ -5,7 +5,7 @@ import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { MatSnackBarConfig, MatSnackBar } from '@angular/material/snack-bar';
 import { ActivatedRoute, Router } from '@angular/router';
 import { tap } from 'rxjs';
-
+import { Location } from '@angular/common';
 @Component({
   selector: 'app-department-editor',
   templateUrl: './department-editor.component.html',
@@ -30,6 +30,7 @@ export class DepartmentEditorComponent implements OnInit {
     private route: ActivatedRoute,
     private snackBar: MatSnackBar,
     private router: Router,
+    private location: Location,
   ) {
     this.form = this.fb.group({
       id: [''],
@@ -64,13 +65,13 @@ export class DepartmentEditorComponent implements OnInit {
         },
         error: (err: any) => {
           this.snackBar.open(`Подразделение не найдено: ` + err.error.error_message, undefined, this.snackBarWithShortDuration);
-          this.goToDepartments();
+          this.goBack();
         }
       });
   }
 
-  goToDepartments(): void {
-    this.router.navigate(['/pages/settings/department']);
+  goBack(): void {
+    this.location.back();
   }
   save(): void {
     if (!this.form.valid) {
@@ -88,7 +89,7 @@ export class DepartmentEditorComponent implements OnInit {
   private createDepartment(body: any) {
     this.companyService.companyDepartmentCreate({ body }).pipe().subscribe({
       next: ({ id }) => {
-        this.goToDepartments();
+        this.goBack();
         this.snackBar.open(`Подразделение создано`, undefined, this.snackBarWithShortDuration)
       },
       error: (err) => this.snackBar.open(`Ошибка создания подразделения: ` + err.error.error_message, undefined, this.snackBarWithShortDuration)
@@ -99,7 +100,7 @@ export class DepartmentEditorComponent implements OnInit {
     this.companyService.companyDepartmentUpdate({ body }).pipe().subscribe({
       next: () => {
         this.snackBar.open(`Подразделение сохранено`, undefined, this.snackBarWithShortDuration);
-        this.goToDepartments();
+        this.goBack();
       },
       error: (err) => this.snackBar.open(`Ошибка сохранения подразделения: ` + err.error.error_message, undefined, this.snackBarWithShortDuration)
     });
@@ -111,7 +112,7 @@ export class DepartmentEditorComponent implements OnInit {
       .subscribe({
         next: () => {
           this.snackBar.open(`Подразделение ${this.department.name} удалено`, undefined, {duration: 1000});
-          this.goToDepartments();
+          this.goBack();
         },
         error: (err) => this.snackBar.open(`Ошибка удаления подразделения: ` + err.error.error_message, undefined, {duration: 1000})
       });
