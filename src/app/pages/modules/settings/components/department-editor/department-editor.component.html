@@ -31,7 +31,7 @@
             </div>
           </div>
         </div>
-      <app-department-employee [departmentId]="departmentId"></app-department-employee>
+      <app-department-employee *ngIf="departmentId" [departmentId]="departmentId"></app-department-employee>
       </div>
       <div class="form-button-placer">
         <span class="btn v save button ico ico-floppy-disk2"><span>Сохранить</span></span>

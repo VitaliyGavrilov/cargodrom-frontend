@@ -55,11 +55,16 @@ export class EmployeeEditorComponent implements OnInit {
     this.isEditMode = segments[1] === 'edit';
     if (this.isEditMode) {
       this.getEmployee();
+    } else {
+      const departmentId = this.route.snapshot.queryParamMap.get('department_id');
+      if (departmentId) {
+        this.form.patchValue({department_id: Number(departmentId)});
+      }
     }
     this.getCompanies();
     this.getDepartments();
     this.getPositions();
-    this.title = this.isEditMode ? 'Редактирование подразделения' : 'Добавление подразделения';
+    this.title = this.isEditMode ? 'Редактирование сотрудника' : 'Добавление сотрудника';
   }
 
   getEmployee(): void {

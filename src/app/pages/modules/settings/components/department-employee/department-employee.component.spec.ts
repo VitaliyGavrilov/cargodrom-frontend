@@ -17,6 +17,7 @@ describe('DepartmentEmployeeComponent', () => {
         {
           provide: CompanyService, useValue: {
             companyPositionList: () => of([]),
+            companyEmployeeList: () => of([]),
           }
         }
       ]

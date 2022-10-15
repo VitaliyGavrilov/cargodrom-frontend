@@ -91,7 +91,7 @@
     </tr>
     <tr class="odd">
       <td colspan="5">
-        <a class="btn add-item-text" href="?act=add&amp;id=1">
+        <a class="btn add-item-text" [routerLink]="['/pages', 'settings', 'employee', 'add']" [queryParams]="{department_id: departmentId}">
           <span>Добавить сотрудника</span></a>
       </td>
     </tr>
