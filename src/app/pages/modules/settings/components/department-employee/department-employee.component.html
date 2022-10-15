@@ -1,0 +1,111 @@
+<div class="form-group">
+  <div class="form-group-title">Сотрудники подразделения</div>
+</div>
+<table class="main-table fixed" cellspacing="0" style="display: none; width: 1144px; top: 0px;">
+  <tbody>
+    <tr>
+      <th class="column-sortable" style="width: 57.775px;"
+        data-href="/erp/settings/department?act=new&amp;sort_field=nums&amp;sort_order=asc&amp;ajax_load=table%2Ctable_function"
+        title="сортировать по убыванию">
+        <span><span class="sorting-indicator"></span></span>
+      </th>
+      <th class="column-sortable" style="width: 299px;"
+        data-href="/erp/settings/department?act=new&amp;sort_field=name&amp;sort_order=asc&amp;ajax_load=table%2Ctable_function"
+        title="сортировать по убыванию">
+        <span>Ф.И.О.<span class="sorting-indicator"></span></span>
+      </th>
+      <th class="column-sortable"
+        data-href="/erp/settings/department?act=new&amp;sort_field=position_id&amp;sort_order=asc&amp;ajax_load=table%2Ctable_function"
+        title="сортировать по убыванию" style="width: 323.725px;">
+        <span>Должность<span class="sorting-indicator"></span></span>
+      </th>
+      <th style="width: 349px;">
+        <span></span>
+      </th>
+      <th style="width: 114px;">
+        <span>Ред.</span>
+      </th>
+    </tr>
+  </tbody>
+</table>
+<table class="main-table fix-head table-61c20c0f4c8ddffee3f3624545fe9ea4">
+  <thead>
+    <tr>
+      <th class="column-sortable" style="width: 1px;"
+        data-href="/erp/settings/department?act=new&amp;sort_field=nums&amp;sort_order=asc&amp;ajax_load=table%2Ctable_function"
+        title="сортировать по убыванию">
+        <span><span class="sorting-indicator"></span></span>
+      </th>
+      <th class="column-sortable" style="width: 250px;"
+        data-href="/erp/settings/department?act=new&amp;sort_field=name&amp;sort_order=asc&amp;ajax_load=table%2Ctable_function"
+        title="сортировать по убыванию">
+        <span>Ф.И.О.<span class="sorting-indicator"></span></span>
+      </th>
+      <th class="column-sortable"
+        data-href="/erp/settings/department?act=new&amp;sort_field=position_id&amp;sort_order=asc&amp;ajax_load=table%2Ctable_function"
+        title="сортировать по убыванию">
+        <span>Должность<span class="sorting-indicator"></span></span>
+      </th>
+      <th style="width: 300px;">
+        <span></span>
+      </th>
+      <th style="width: 65px;">
+        <span>Ред.</span>
+      </th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr *ngFor="let employee of employees; odd as isOdd; index as i" [ngClass]="{'odd': isOdd}">
+      <td>{{ i + 1 }}</td>
+      <td>{{ employee.name_f }} {{ employee.name_i }} {{ employee.name_o }}</td>
+      <td>{{ getPositionById(employee.position_id) }}</td>
+      <td>
+        <div class="form-placer">
+          <div class="form-items">
+            <div class="form-item" data-id="main">
+              <div class="form-title">
+              </div>
+              <div class="form-data">
+                <div>
+                  <div class="form-input"> <label class="switch  outer">
+                      <input type="checkbox" [ngModel]="employee.department_leader === 1"
+                        (ngModelChange)="onDepartmentLeaderChange(employee, $event)">
+                      <div class="switcher">
+                        <span class="bg" data-on="Руководитель подразделения" data-off="Сделать руководителем"></span>
+                        <span class="thumb"></span>
+                      </div>
+                      <span class="switch-title" data-on="Руководитель подразделения"
+                        data-off="Сделать руководителем"></span>
+                    </label>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </td>
+      <td class="col min">
+        <a class="link-pic link-edit ico ico-pencil fn-link" [routerLink]="['employee', 'edit', employee.id]" title="Редактировать"></a>
+        <span class="link-pic link-del ico ico-cross2 fn-link" (click)="confirmRemove(employee)" title="Удалить"></span>
+      </td>
+    </tr>
+    <tr class="odd">
+      <td colspan="5">
+        <a class="btn add-item-text" [routerLink]="['/pages', 'settings', 'employee', 'add']" [queryParams]="{department_id: departmentId}">
+          <span>Добавить сотрудника</span></a>
+      </td>
+    </tr>
+  </tbody>
+</table>
+
+
+<ng-template #removeDialogRef let-data>
+  <h1 mat-dialog-title>Удалить сотрудника</h1>
+  <div mat-dialog-content>
+    Вы действительно хотите удалить сотрудника <b>{{ data.name_f }} {{ data.name_i }} {{ data.name_o }}</b>?
+  </div>
+  <div mat-dialog-actions align="end">
+    <button mat-button [mat-dialog-close]="true" cdkFocusInitial>Да</button>
+    <button mat-button mat-dialog-close>Нет</button>
+  </div>
+</ng-template>

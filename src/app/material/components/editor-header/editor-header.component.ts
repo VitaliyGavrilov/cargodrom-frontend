@@ -1,3 +1,4 @@
+import { Location } from '@angular/common';
 import { Component, Input, OnInit, Output, EventEmitter } from '@angular/core';
 
 @Component({
@@ -7,23 +8,28 @@ import { Component, Input, OnInit, Output, EventEmitter } from '@angular/core';
 })
 export class EditorHeaderComponent implements OnInit {
 
-  @Input() backLink: string[] = [];
   @Input() title: string = '';
   @Input() isEditMode = false;
   @Output() save = new EventEmitter<void>();
   @Output() remove = new EventEmitter<void>();
-  
-  constructor() { }
+
+  constructor(
+    private location: Location,
+  ) { }
 
   ngOnInit(): void {
   }
-  
+
   onSave(): void {
     this.save.emit();
   }
-  
+
   onRemove(): void {
     this.remove.emit();
   }
-  
+
+  goBack(): void {
+    this.location.back();
+  }
+
 }

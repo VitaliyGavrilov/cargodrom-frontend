@@ -8,6 +8,7 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { MatSnackBar, MatSnackBarConfig } from '@angular/material/snack-bar';
 import { tap } from 'rxjs';
+import { Location } from '@angular/common';
 
 @Component({
   selector: 'app-employee-editor',
@@ -32,6 +33,7 @@ export class EmployeeEditorComponent implements OnInit {
     private route: ActivatedRoute,
     private snackBar: MatSnackBar,
     private router: Router,
+    private location: Location,
   ) {
     this.form = this.fb.group({
       id: [''],
@@ -55,11 +57,16 @@ export class EmployeeEditorComponent implements OnInit {
     this.isEditMode = segments[1] === 'edit';
     if (this.isEditMode) {
       this.getEmployee();
+    } else {
+      const departmentId = this.route.snapshot.queryParamMap.get('department_id');
+      if (departmentId) {
+        this.form.patchValue({department_id: Number(departmentId)});
+      }
     }
     this.getCompanies();
     this.getDepartments();
     this.getPositions();
-    this.title = this.isEditMode ? 'Редактирование подразделения' : 'Добавление подразделения';
+    this.title = this.isEditMode ? 'Редактирование сотрудника' : 'Добавление сотрудника';
   }
 
   getEmployee(): void {
@@ -79,14 +86,15 @@ export class EmployeeEditorComponent implements OnInit {
         },
         error: (err: any) => {
           this.snackBar.open(`Сотрудник не найден: ` + err.error.error_message, undefined, this.snackBarWithShortDuration);
-          this.goToEmployees();
+          this.goBack();
         }
       });
   }
 
-  goToEmployees(): void {
-    this.router.navigate(['/pages/settings/employee']);
+  goBack(): void {
+    this.location.back();
   }
+
   save(): void {
     if (!this.form.valid) {
       this.snackBar.open('Не все поля заполнены корректно', undefined, this.snackBarWithLongDuration);
@@ -103,7 +111,7 @@ export class EmployeeEditorComponent implements OnInit {
   private createEmployee(body: any) {
     this.companyService.companyEmployeeCreate({ body }).pipe().subscribe({
       next: ({ id }) => {
-        this.goToEmployees();
+        this.goBack();
         this.snackBar.open(`Сотрудник создан`, undefined, this.snackBarWithShortDuration)
       },
       error: (err) => this.snackBar.open(`Ошибка создания сотрудника: ` + err.error.error_message, undefined, this.snackBarWithShortDuration)
@@ -113,8 +121,8 @@ export class EmployeeEditorComponent implements OnInit {
   updateEmployee(body: any) {
     this.companyService.companyEmployeeUpdate({ body }).pipe().subscribe({
       next: () => {
+        this.goBack();
         this.snackBar.open(`Сотрудник сохранен`, undefined, this.snackBarWithShortDuration);
-        this.goToEmployees();
       },
       error: (err) => this.snackBar.open(`Ошибка сохранения сотрудника: ` + err.error.error_message, undefined, this.snackBarWithShortDuration)
     });
@@ -126,7 +134,7 @@ export class EmployeeEditorComponent implements OnInit {
       .subscribe({
         next: () => {
           this.snackBar.open(`Сотрудник ${this.employee.name_f} удален`, undefined, { duration: 1000 });
-          this.goToEmployees();
+          this.goBack();
         },
         error: (err) => this.snackBar.open(`Ошибка удаления сотрудника: ` + err.error.error_message, undefined, { duration: 1000 })
       });

@@ -11,6 +11,7 @@ import { Component, OnInit, ViewEncapsulation } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { MatSnackBar, MatSnackBarConfig } from '@angular/material/snack-bar';
 import { CityService } from '../../services/city.service';
+import { Location } from '@angular/common';
 
 @Component({
   selector: 'app-contractor-editor',
@@ -31,6 +32,7 @@ export class ContractorEditorComponent implements OnInit {
   snackBarWithLongDuration: MatSnackBarConfig = { duration: 3000 };
   requestFormats: ContractorRequestFormat[] = [];
   production = environment.production;
+  title = '';
 
   constructor(
     private route: ActivatedRoute,
@@ -40,6 +42,7 @@ export class ContractorEditorComponent implements OnInit {
     private fb: FormBuilder,
     private snackBar: MatSnackBar,
     private router: Router,
+    private location: Location,
   ) {
     this.contractorForm = this.fb.group({
       id: [''],
@@ -68,14 +71,15 @@ export class ContractorEditorComponent implements OnInit {
     if (this.isEditMode) {
       this.getContractor();
     }
+    this.title = this.isEditMode ? 'Редактирование подрядчика' : 'Добавление подрядчика';
     this.getContractorTypes();
     this.getAssociations();
     this.getCountries();
     this.getRequestFormats();
   }
 
-  goToContractors(): void {
-    this.router.navigate(['/pages/contractor']);
+  goBack(): void {
+    this.location.back();
   }
 
   goToContractor(id: number): void {
@@ -156,7 +160,7 @@ export class ContractorEditorComponent implements OnInit {
     this.contractorService.contractorDelete({ body }).subscribe({
       next: () => {
         this.snackBar.open('Подрядчик удален', undefined, this.snackBarWithShortDuration);
-        this.goToContractors();
+        this.goBack();
       },
       error: (err) => this.snackBar.open(`Ошибка сохранения подрядчика: ` + err.error.error_message, undefined, this.snackBarWithShortDuration)
     });
@@ -210,7 +214,7 @@ export class ContractorEditorComponent implements OnInit {
         },
         error: (err: any) => {
           this.snackBar.open(`Подрядчик не найден: ` + err.error.error_message, undefined, this.snackBarWithShortDuration);
-          this.goToContractors();
+          this.goBack();
         }
       });
   }

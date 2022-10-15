@@ -8,13 +8,13 @@ export interface Employee {
   name_f: string;
   name_i: string;
   name_o: string;
-  birth_date: string | Date;
-  employment_date: string | Date;
-  dismissal_date: string | Date;
+  birth_date: string;
+  employment_date: string;
+  dismissal_date: string;
   company_id: number;
   department_id: number;
   position_id: number;
-  department_leader: boolean;
+  department_leader: boolean | 1 | 0;
   num: number;
   time_add: string;
   time_edit: string;

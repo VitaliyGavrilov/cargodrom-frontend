@@ -35,7 +35,7 @@
       <td>{{ department.count_position }}</td>
       <td>{{ department.count_user }}</td>
       <td><a class="link-view" [routerLink]="['../employee', department.id]">Полина Зайцева</a></td>
-      <td><a class="btn add-item-text" href="?act=add&amp;id=1"><span>Добавить сотрудника</span></a></td>
+      <td><a class="btn add-item-text" [routerLink]="['/pages', 'settings', 'employee', 'add']" [queryParams]="{department_id: department.id}"><span>Добавить сотрудника</span></a></td>
       <td class="col min right">
         <span class="link-pic ajax notext fn-link link-hide" [routerLink]="['./department?id=1&amp;act=switch_show&amp;show=1']" title="Показывать">Нет</span>
         <a class="link-pic link-edit ico ico-pencil fn-link" [routerLink]="['edit', department.id]" title="Редактировать"></a>
