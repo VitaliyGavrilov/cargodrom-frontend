@@ -6,7 +6,12 @@
     "cargodrom-frontend": {
       "projectType": "application",
       "i18n": {
-        "sourceLocale": "ru"
+        "sourceLocale": "ru",
+        "locales": {
+          "ru": {
+            "baseHref": ""
+          }
+        }
       },
       "schematics": {
         "@schematics/angular:component": {
