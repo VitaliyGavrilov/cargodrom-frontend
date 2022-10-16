@@ -36,47 +36,47 @@ export class CompanyEditorComponent implements OnInit {
     private location: Location,
   ) {
     this.form = this.fb.group({
-      id: [''],
-      tax_system: [''],
+      id: ['', [Validators.required]],
+      tax_system: ['', [Validators.required]],
       name: ['', [Validators.required]],
       name_short: ['', [Validators.required]],
-      jur_address: [''],
-      post_address: [''],
-      inn: [''],
-      kpp: [''],
-      ogrn: [''],
-      okpo: [''],
-      email: [''],
-      phone: [''],
-      website: [''],
-      skype: [''],
-      responsible_person_id: [''],
-      responsible_person_position: [''],
-      responsible_person_base: [''],
-      responsible_person_fio: [''],
-      chief_accountant_fio: [''],
-      bank_name: [''],
-      bank_rs: [''],
-      bank_ks: [''],
-      bank_bik: [''],
-      bank_kpp: [''],
-      bank_currency: [''],
-      noresident_name: [''],
-      noresident_address: [''],
-      noresident_phone: [''],
-      noresident_email: [''],
-      noresident_skype: [''],
-      noresident_website: [''],
-      noresident_signatory_id: [''],
-      noresident_signatory_position: [''],
-      noresident_signatory_fio: [''],
-      noresident_bank_name: [''],
-      noresident_bank_address: [''],
-      noresident_bank_currency: [''],
-      noresident_bank_rs: [''],
-      noresident_bank_rs_name: [''],
-      noresident_bank_swift: [''],
-      noresident_bank_im: [''],
+      jur_address: ['', [Validators.required]],
+      post_address: ['', [Validators.required]],
+      inn: ['', [Validators.required]],
+      kpp: ['', [Validators.required]],
+      ogrn: ['', [Validators.required]],
+      okpo: ['', [Validators.required]],
+      email: ['', [Validators.required]],
+      phone: ['', [Validators.required]],
+      website: ['', [Validators.required]],
+      skype: ['', [Validators.required]],
+      responsible_person_id: ['', [Validators.required]],
+      responsible_person_position: ['', [Validators.required]],
+      responsible_person_base: ['', [Validators.required]],
+      responsible_person_fio: ['', [Validators.required]],
+      chief_accountant_fio: ['', [Validators.required]],
+      bank_name: ['', [Validators.required]],
+      bank_rs: ['', [Validators.required]],
+      bank_ks: ['', [Validators.required]],
+      bank_bik: ['', [Validators.required]],
+      bank_kpp: ['', [Validators.required]],
+      bank_currency: ['', [Validators.required]],
+      noresident_name: ['', [Validators.required]],
+      noresident_address: ['', [Validators.required]],
+      noresident_phone: ['', [Validators.required]],
+      noresident_email: ['', [Validators.required]],
+      noresident_skype: ['', [Validators.required]],
+      noresident_website: ['', [Validators.required]],
+      noresident_signatory_id: ['', [Validators.required]],
+      noresident_signatory_position: ['', [Validators.required]],
+      noresident_signatory_fio: ['', [Validators.required]],
+      noresident_bank_name: ['', [Validators.required]],
+      noresident_bank_address: ['', [Validators.required]],
+      noresident_bank_currency: ['', [Validators.required]],
+      noresident_bank_rs: ['', [Validators.required]],
+      noresident_bank_rs_name: ['', [Validators.required]],
+      noresident_bank_swift: ['', [Validators.required]],
+      noresident_bank_im: ['', [Validators.required]],
     });
   }
 
@@ -118,10 +118,10 @@ export class CompanyEditorComponent implements OnInit {
   }
 
   save(): void {
-    if (!this.form.valid) {
-      this.snackBar.open('Не все поля заполнены корректно', undefined, this.snackBarWithLongDuration);
-      return;
-    }
+    // if (!this.form.valid) {
+    //   this.snackBar.open('Не все поля заполнены корректно', undefined, this.snackBarWithLongDuration);
+    //   return;
+    // }
     const body = this.form.value;
     if (typeof this.company.id === 'number') {
       this.updateCompany(body);
@@ -132,11 +132,11 @@ export class CompanyEditorComponent implements OnInit {
 
   private createCompany(body: any) {
     this.companyService.companyCreate({ body }).pipe().subscribe({
-      next: ({ id }) => {
+      next: () => {
         this.goBack();
         this.snackBar.open(`Организация создана`, undefined, this.snackBarWithShortDuration)
       },
-      error: (err) => this.snackBar.open(`Ошибка создания организации: ` + err.error.error_message, undefined, this.snackBarWithShortDuration)
+      error: (err) => this.snackBar.open(`Ошибка создания организации: ` + err.error?.error_message + ':' + err.error?.error_message_description, undefined, this.snackBarWithShortDuration)
     });
   }
 
@@ -146,7 +146,7 @@ export class CompanyEditorComponent implements OnInit {
         this.snackBar.open(`Организация сохранена`, undefined, this.snackBarWithShortDuration);
         this.goBack();
       },
-      error: (err) => this.snackBar.open(`Ошибка сохранения организации: ` + err.error.error_message, undefined, this.snackBarWithShortDuration)
+      error: (err) => this.snackBar.open(`Ошибка сохранения организации: ` + err.error?.error_message + ':' + err.error?.error_message_description, undefined, this.snackBarWithShortDuration)
     });
   }
   
