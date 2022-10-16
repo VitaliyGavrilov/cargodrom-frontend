@@ -1,7 +1,9 @@
 import { byField } from './../../../../../constants/sort-predicate';
 import { Department, Employee, Position } from './../../../../../api/custom_models';
 import { CompanyService } from './../../../../../api/services/company.service';
-import { Component, OnInit, ViewEncapsulation } from '@angular/core';
+import { Component, OnInit, TemplateRef, ViewChild, ViewEncapsulation } from '@angular/core';
+import { MatDialog } from '@angular/material/dialog';
+import { MatSnackBar } from '@angular/material/snack-bar';
 
 @Component({
   selector: 'app-employee',
@@ -21,9 +23,12 @@ export class EmployeeComponent implements OnInit {
   start = 0;
   limits = [10, 25, 50, 100];
   count = this.limits[0];
+  @ViewChild('removeDialogRef') removeDialogRef!: TemplateRef<Employee>;
 
   constructor(
     private companyService: CompanyService,
+    private dialog: MatDialog,
+    private snackBar: MatSnackBar,
   ) { }
 
   ngOnInit(): void {
@@ -81,6 +86,26 @@ export class EmployeeComponent implements OnInit {
     this.start = 0;
     this.count = newCount;
     this.loadEmployees();
+  }
+  
+  confirmRemove(employee: Employee): void {
+    this.dialog.open(this.removeDialogRef, { data: employee }).afterClosed().subscribe(res => {
+      if (res) {
+        this.removeEmployee(employee);
+      }
+    });
+  }
+
+  removeEmployee(employee: Employee): void {
+    const body = { id: employee.id };
+    this.companyService.companyEmployeeDelete({ body })
+      .subscribe({
+        next: () => {
+          this.snackBar.open(`Сотрудник ${employee.name_f} удален`, undefined, { duration: 1000 });
+          this.loadEmployees();
+        },
+        error: (err) => this.snackBar.open(`Ошибка удаления сотрудника: ` + err.error.error_message, undefined, { duration: 1000 })
+      });
   }
   
 }
