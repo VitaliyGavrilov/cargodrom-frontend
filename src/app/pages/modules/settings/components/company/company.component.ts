@@ -3,7 +3,7 @@ import { Company } from './../../../../../api/custom_models/company';
 import { Component, OnInit, TemplateRef, ViewChild } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { MatSnackBar } from '@angular/material/snack-bar';
-import { byName } from 'src/app/constants';
+import { byField } from 'src/app/constants';
 
 @Component({
   selector: 'app-company',
@@ -31,7 +31,7 @@ export class CompanyComponent implements OnInit {
   loadCompanies(): void {
     this.companyService.companyList().subscribe(companies => {
       const allCompanies = companies ? companies as unknown as Company[] : [];
-      allCompanies.sort(byName('asc'));
+      allCompanies.sort(byField('name', 'asc', 'case-insensitive'));
       this.total = allCompanies.length;
       this.companies = allCompanies.slice(this.start, this.start + this.count);
     });
