@@ -14,6 +14,7 @@ import { EmployeeEditorComponent } from './components/employee-editor/employee-e
 import { CompanyComponent } from './components/company/company.component';
 import { CompanyEditorComponent } from './components/company-editor/company-editor.component';
 import { DepartmentEmployeeComponent } from './components/department-employee/department-employee.component';
+import { PersonalSettingsComponent } from './components/personal-settings/personal-settings.component';
 
 
 @NgModule({
@@ -27,7 +28,8 @@ import { DepartmentEmployeeComponent } from './components/department-employee/de
     EmployeeEditorComponent,
     CompanyComponent,
     CompanyEditorComponent,
-    DepartmentEmployeeComponent
+    DepartmentEmployeeComponent,
+    PersonalSettingsComponent
   ],
   imports: [
     CommonModule,
