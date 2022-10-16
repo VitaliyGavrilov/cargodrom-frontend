@@ -1,25 +1,9 @@
 <table class="main-table fix-head table-065dcf359d0addbf0d3ed4570559e2c1">
   <thead>
     <tr>
-      <th class="col column-sortable"
-        data-href="/erp/settings/department?sort_field=name&amp;sort_order=asc&amp;ajax_load=table%2Ctable_function"
-        title="сортировать по убыванию">
-        <span>Название подразделения<span class="sorting-indicator"></span></span>
-      </th>
-      <th class="column-sortable"
-        data-href="/erp/settings/department?sort_field=count_position&amp;sort_order=asc&amp;ajax_load=table%2Ctable_function"
-        title="сортировать по убыванию">
-        <span>Должностей<span class="sorting-indicator"></span></span>
-      </th>
-      <th class="column-sortable"
-        data-href="/erp/settings/department?sort_field=count_user&amp;sort_order=asc&amp;ajax_load=table%2Ctable_function"
-        title="сортировать по убыванию">
-        <span>Сотрудников<span class="sorting-indicator"></span></span>
-      </th>
-      <th class="column-sortable"
-        data-href="/erp/settings/department?sort_field=director&amp;sort_order=asc&amp;ajax_load=table%2Ctable_function"
-        title="сортировать по убыванию">
-        <span>Руководитель подразделения<span class="sorting-indicator"></span></span>
+      <th class="column-sortable" *ngFor="let col of columns; first as isFirst" [ngClass]="{'col': isFirst}"
+        [attr.title]="getColTitle(col)" (click)="sort(col)">
+        <span>{{ col.title }}<span class="sorting-indicator"></span></span>
       </th>
       <th style="width: 134px;">
         <span></span>
