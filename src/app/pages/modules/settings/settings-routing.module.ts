@@ -6,6 +6,7 @@ import { DepartmentEditorComponent } from './components/department-editor/depart
 import { DepartmentComponent } from './components/department/department.component';
 import { EmployeeEditorComponent } from './components/employee-editor/employee-editor.component';
 import { EmployeeComponent } from './components/employee/employee.component';
+import { PersonalSettingsComponent } from './components/personal-settings/personal-settings.component';
 import { PositionEditorComponent } from './components/position-editor/position-editor.component';
 import { PositionComponent } from './components/position/position.component';
 import { SettingsComponent } from './settings.component';
@@ -38,6 +39,11 @@ const routes: Routes = [
       {
         path: 'company',
         component: CompanyComponent,
+        pathMatch: 'full',
+      },
+      {
+        path: 'personal',
+        component: PersonalSettingsComponent,
         pathMatch: 'full',
       },
     ]

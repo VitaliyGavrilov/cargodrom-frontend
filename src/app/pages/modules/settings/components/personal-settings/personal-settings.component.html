@@ -1,0 +1,48 @@
+<form class="form" [formGroup]="form">
+  <div class="form-placer simple">
+    <div class="form-items">
+      <div class="form-sub-title" data-id="title_0">Контакты</div>
+      <div class="form-item form-inline-group" data-id="group_inline_0">
+        <div class="form-title">
+        </div>
+        <div class="form-data">
+          <div class="form-group-row">
+            <div class="form-item" data-id="var_fio" style="width: 50%">
+              <div class="form-title">
+                <div>ФИО:</div>
+              </div>
+              <div class="form-data">
+                <div>
+                  <div class="form-input"><input class="text-control" type="text" formControlName="fio"></div>
+                </div>
+              </div>
+            </div>
+            <div class="form-item" data-id="var_phone" style="width: 25%">
+              <div class="form-title">
+                <div>Номер телефона:</div>
+              </div>
+              <div class="form-data">
+                <div>
+                  <div class="form-input"><input class="text-control" type="text" formControlName="phone"></div>
+                </div>
+              </div>
+            </div>
+            <div class="form-item" data-id="var_email" style="width: 25%">
+              <div class="form-title">
+                <div>E-mail:</div>
+              </div>
+              <div class="form-data">
+                <div>
+                  <div class="form-input"><input class="text-control" type="text" formControlName="email"></div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="form-button-placer">
+      <span class="btn v save button ico ico-floppy-disk2" (click)="save()"><span>Сохранить изменения</span></span>
+    </div>
+  </div>
+</form>
