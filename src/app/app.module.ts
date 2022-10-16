@@ -1,6 +1,6 @@
 import { AuthModule } from './auth/auth.module';
 import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
-import { NgModule } from '@angular/core';
+import { LOCALE_ID, NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 
 import { AppRoutingModule } from './app-routing.module';
@@ -31,6 +31,10 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
       useClass: ErrorInterceptor,
       multi: true
     },
+    {
+      provide: LOCALE_ID,
+      useValue: 'ru'
+    }
   ],
   bootstrap: [AppComponent]
 })
