@@ -1,3 +1,4 @@
+import { byField } from './../../../../../constants/sort-predicate';
 import { Department, Employee, Position } from './../../../../../api/custom_models';
 import { CompanyService } from './../../../../../api/services/company.service';
 import { Component, OnInit, ViewEncapsulation } from '@angular/core';
@@ -18,7 +19,7 @@ export class EmployeeComponent implements OnInit {
   companies: any[] = [];
   total = 0;
   start = 0;
-  limits = [25, 50, 100];
+  limits = [10, 25, 50, 100];
   count = this.limits[0];
 
   constructor(
@@ -34,9 +35,10 @@ export class EmployeeComponent implements OnInit {
 
   loadEmployees(): void {
     this.companyService.companyEmployeeList().subscribe(employees => {
-      this.employees = employees ? employees as Employee[] : [];
-      this.total = this.employees.length;
-      console.table(this.employees);
+      const allEmployees = employees ? employees as Employee[] : [];
+      allEmployees.sort(byField('name_f', 'asc', 'case-insensitive'));
+      this.total = allEmployees.length;
+      this.employees = allEmployees.slice(this.start, this.start + this.count);
     });
   }
   
@@ -71,11 +73,14 @@ export class EmployeeComponent implements OnInit {
   }
   
   onStartChange(newStart: number): void {
+    this.start = newStart;
     this.loadEmployees();
   }
-
+  
   onCountChange(newCount: number): void {
+    this.start = 0;
+    this.count = newCount;
     this.loadEmployees();
   }
-
+  
 }

@@ -1,4 +1,4 @@
-import { byName } from './../../../../../constants/sort-predicate';
+import { byField } from './../../../../../constants/sort-predicate';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { MatDialog } from '@angular/material/dialog';
 import { Position } from './../../../../../api/custom_models/position';
@@ -34,7 +34,7 @@ export class PositionComponent implements OnInit {
   loadPositions(): void {
     this.companyService.companyPositionList().subscribe(positions => {
       const allPositions = positions ? positions as Position[] : [];
-      allPositions.sort(byName('asc'));
+      allPositions.sort(byField('name', 'asc', 'case-insensitive'));
       this.total = allPositions.length;
       this.positions = allPositions.slice(this.start, this.start + this.count);
     });
