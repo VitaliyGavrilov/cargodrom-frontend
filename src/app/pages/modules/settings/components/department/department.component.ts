@@ -1,8 +1,10 @@
+import { MatSnackBar } from '@angular/material/snack-bar';
 import { ActivatedRoute } from '@angular/router';
 import { byField, SortOrder, SortType } from './../../../../../constants/sort-predicate';
 import { Department } from './../../../../../api/custom_models/department';
 import { CompanyService } from './../../../../../api/services/company.service';
-import { Component, OnInit, ViewEncapsulation } from '@angular/core';
+import { Component, OnInit, TemplateRef, ViewChild, ViewEncapsulation } from '@angular/core';
+import { MatDialog } from '@angular/material/dialog';
 
 interface Column<T> {
   name: keyof T;
@@ -26,6 +28,7 @@ export class DepartmentComponent implements OnInit {
   start = 0;
   limits = [10, 25, 50, 100];
   count = this.limits[0];
+  @ViewChild('removeDialogRef') removeDialogRef!: TemplateRef<Department>;
   columns: Column<Department>[] = [
     { name: 'name', sortType: 'case-insensitive', title: 'Название подразделения', sortOrder: 'asc' },
     { name: 'count_position', sortType: 'numeric', title: 'Должностей', sortOrder: 'asc' },
@@ -38,6 +41,8 @@ export class DepartmentComponent implements OnInit {
   constructor(
     private companyService: CompanyService,
     private route: ActivatedRoute,
+    private dialog: MatDialog,
+    private snackBar: MatSnackBar,
   ) { }
 
   ngOnInit(): void {
@@ -90,5 +95,26 @@ export class DepartmentComponent implements OnInit {
     }
     return 'сортировать по возрастанию';
   }
+  
+  confirmRemove(department: Department): void {
+    this.dialog.open(this.removeDialogRef, { data: department }).afterClosed().subscribe(res => {
+      if (res) {
+        this.removeDepartment(department);
+      }
+    });
+  }
+
+  removeDepartment(department: Department): void {
+    const body = { id: department.id };
+    this.companyService.companyDepartmentDelete({ body })
+      .subscribe({
+        next: () => {
+          this.snackBar.open(`Подразделение ${department.name} удалено`, undefined, { duration: 1000 });
+          this.loadDepartments();
+        },
+        error: (err) => this.snackBar.open(`Ошибка удаления подразделения: ` + err.error.error_message, undefined, { duration: 1000 })
+      });
+  }
+
 
 }

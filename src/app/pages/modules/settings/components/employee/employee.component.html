@@ -51,12 +51,22 @@
       <td>{{ employee.email }}</td>
       <td>{{ employee.birth_date | date}}</td>
       <td class="col min right"><span class="link-pic ajax notext fn-link link-hide" title="Показывать">Нет</span>
-        <a class="link-pic link-edit ico ico-pencil fn-link" [routerLink]="['edit', employee.id]"
-          title="Редактировать"></a><span class="link-pic link-del ico ico-cross2 fn-link"
-          onclick="return delConfirm(this, 'Удалить?');" title="Удалить"></span>
+        <a class="link-pic link-edit ico ico-pencil fn-link" [routerLink]="['edit', employee.id]" title="Редактировать"></a>
+        <span class="link-pic link-del ico ico-cross2 fn-link" (click)="confirmRemove(employee)" title="Удалить"></span>
       </td>
     </tr>
   </tbody>
 </table>
 <app-paginator [total]="total" [count]="count" [start]="start" [limits]="limits" (startChange)="onStartChange($event)"
   (countChange)="onCountChange($event)"></app-paginator>
+  
+  <ng-template #removeDialogRef let-data>
+    <h1 mat-dialog-title>Удалить сотрудника</h1>
+    <div mat-dialog-content>
+      Вы действительно хотите удалить сотрудника <b>{{ data.name_f }} {{ data.name_i }} {{ data.name_o }}</b> ?
+    </div>
+    <div mat-dialog-actions align="end">
+      <button mat-button [mat-dialog-close]="true" cdkFocusInitial>Да</button>
+      <button mat-button mat-dialog-close>Нет</button>
+    </div>
+  </ng-template>
