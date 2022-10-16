@@ -1142,7 +1142,7 @@ export class SettingsService extends BaseService {
 /**
  * Брендирование: Логотип вашей компании, строка base64 (svg, png, jpg, gif, bmp)
  */
-'branding_logo'?: file;
+'branding_logo'?: string;
 }
   }): Observable<StrictHttpResponse<{
 
@@ -1275,7 +1275,7 @@ export class SettingsService extends BaseService {
 /**
  * Брендирование: Логотип вашей компании, строка base64 (svg, png, jpg, gif, bmp)
  */
-'branding_logo'?: file;
+'branding_logo'?: string;
 }
   }): Observable<{
 
