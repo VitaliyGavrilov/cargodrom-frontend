@@ -1,3 +1,5 @@
+import { TaxSystem } from './../../../../../api/custom_models/tax-system';
+import { SettingsService } from './../../../../../api/services/settings.service';
 import { CompanyService } from './../../../../../api/services/company.service';
 import { Company } from './../../../../../api/custom_models/company';
 import { Component, OnInit } from '@angular/core';
@@ -22,10 +24,12 @@ export class CompanyEditorComponent implements OnInit {
   snackBarWithLongDuration: MatSnackBarConfig = { duration: 5000 };
   title = '';
   employees: Employee[] = [];
+  taxSystems: TaxSystem[] = [];
 
   constructor(
     private fb: FormBuilder,
     private companyService: CompanyService,
+    private settingsService: SettingsService,
     private route: ActivatedRoute,
     private snackBar: MatSnackBar,
     private router: Router,
@@ -33,6 +37,7 @@ export class CompanyEditorComponent implements OnInit {
   ) {
     this.form = this.fb.group({
       id: [''],
+      tax_system: [''],
       name: ['', [Validators.required]],
       name_short: ['', [Validators.required]],
       jur_address: [''],
@@ -78,6 +83,7 @@ export class CompanyEditorComponent implements OnInit {
   ngOnInit(): void {
     const segments = this.route.snapshot.url.map(s => s.path);
     this.isEditMode = segments[1] === 'edit';
+    this.getTaxSystems();
     if (this.isEditMode) {
       this.getCompany();
     }
@@ -160,6 +166,14 @@ export class CompanyEditorComponent implements OnInit {
     this.companyService.companyEmployeeList().subscribe(employees => {
       this.employees = employees ? employees as Employee[] : [];
     });
+  }
+  
+  getTaxSystems(): void {
+    this.settingsService.settingsGet().subscribe(
+      settings => {
+        this.taxSystems = settings.tax as TaxSystem[];
+      }
+    );
   }
 
 }

@@ -1,3 +1,4 @@
+import { SettingsService } from './../../../../../api/services/settings.service';
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
@@ -14,7 +15,7 @@ describe('CompanyEditorComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ CompanyEditorComponent ],
+      declarations: [CompanyEditorComponent],
       imports: [
         MaterialModule,
         FormsModule,
@@ -25,13 +26,18 @@ describe('CompanyEditorComponent', () => {
       providers: [
         {
           provide: CompanyService, useValue: {
-            companyInfo: () => of({name: 'Three Bears LLC'}),
+            companyInfo: () => of({ name: 'Three Bears LLC' }),
             companyEmployeeList: () => of([]),
+          }
+        },
+        {
+          provide: SettingsService, useValue: {
+            settingsGet: () => of([{ tax: {id: 1, name: 'Tax System'} }]),
           }
         },
       ]
     })
-    .compileComponents();
+      .compileComponents();
 
     fixture = TestBed.createComponent(CompanyEditorComponent);
     component = fixture.componentInstance;
