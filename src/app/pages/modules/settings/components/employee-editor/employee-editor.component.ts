@@ -26,6 +26,7 @@ export class EmployeeEditorComponent implements OnInit {
   companies: Company[] = [];
   departments: Department[] = [];
   positions: Position[] = [];
+  hasDepartment = false;
 
   constructor(
     private fb: FormBuilder,
@@ -60,6 +61,7 @@ export class EmployeeEditorComponent implements OnInit {
     } else {
       const departmentId = this.route.snapshot.queryParamMap.get('department_id');
       if (departmentId) {
+        this.hasDepartment = true;
         this.form.patchValue({department_id: Number(departmentId)});
       }
     }
