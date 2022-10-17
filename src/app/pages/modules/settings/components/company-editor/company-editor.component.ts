@@ -1,6 +1,5 @@
 import { Currency } from './../../../../../api/custom_models/currency';
 import { TaxSystem } from './../../../../../api/custom_models/tax-system';
-import { SettingsService } from './../../../../../api/services/settings.service';
 import { CompanyService } from './../../../../../api/services/company.service';
 import { Company } from './../../../../../api/custom_models/company';
 import { Component, OnInit } from '@angular/core';
