@@ -13,7 +13,7 @@ describe('CompanyComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ CompanyComponent ],
+      declarations: [CompanyComponent],
       imports: [
         MaterialModule,
         RouterTestingModule,
@@ -21,13 +21,15 @@ describe('CompanyComponent', () => {
       ],
       providers: [
         {
-          provide: CompanyService, useValue: {
-            companyList: () => of([])
+          provide: CompanyService,
+          useValue: {
+            companyList: () => of([]),
+            companyEmployeeList: () => of([]),
           }
         },
       ]
     })
-    .compileComponents();
+      .compileComponents();
 
     fixture = TestBed.createComponent(CompanyComponent);
     component = fixture.componentInstance;
