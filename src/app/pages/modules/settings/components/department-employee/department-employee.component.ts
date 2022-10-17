@@ -30,6 +30,7 @@ export class DepartmentEmployeeComponent implements OnInit {
 
   ngOnInit(): void {
     this.loadEmployeesForDepartment(this.departmentId);
+    this.loadPositions();
   }
 
   loadEmployeesForDepartment(departmentId: number): void {
