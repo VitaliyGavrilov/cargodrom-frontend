@@ -1,3 +1,4 @@
+import { CompanyService } from 'src/app/api/services/company.service';
 import { CountryService } from './../../services/country.service';
 import { environment } from './../../../../environments/environment';
 import { tap } from 'rxjs';
@@ -12,6 +13,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { MatSnackBar, MatSnackBarConfig } from '@angular/material/snack-bar';
 import { CityService } from '../../services/city.service';
 import { Location } from '@angular/common';
+import { TaxSystem } from 'src/app/api/custom_models';
 
 @Component({
   selector: 'app-contractor-editor',
@@ -33,6 +35,7 @@ export class ContractorEditorComponent implements OnInit {
   requestFormats: ContractorRequestFormat[] = [];
   production = environment.production;
   title = '';
+  taxSystems: TaxSystem[] = [];
 
   constructor(
     private route: ActivatedRoute,
@@ -43,6 +46,7 @@ export class ContractorEditorComponent implements OnInit {
     private snackBar: MatSnackBar,
     private router: Router,
     private location: Location,
+    private companyService: CompanyService,
   ) {
     this.contractorForm = this.fb.group({
       id: [''],
@@ -76,6 +80,7 @@ export class ContractorEditorComponent implements OnInit {
     this.getAssociations();
     this.getCountries();
     this.getRequestFormats();
+    this.getTaxSystems();
   }
 
   goBack(): void {
@@ -217,6 +222,12 @@ export class ContractorEditorComponent implements OnInit {
           this.goBack();
         }
       });
+  }
+  
+  getTaxSystems(): void {
+    this.companyService.companyTaxSystem().subscribe(
+      taxSystems => this.taxSystems = taxSystems ? taxSystems as TaxSystem[] : []
+    );
   }
 
 }
