@@ -1049,7 +1049,7 @@ export class SettingsService extends BaseService {
    * This method provides access to the full `HttpResponse`, allowing access to response headers.
    * To access only the response body, use `settingsUpdate()` instead.
    *
-   * This method sends `multipart/form-data` and handles request body of type `multipart/form-data`.
+   * This method sends `application/json` and handles request body of type `application/json`.
    */
   settingsUpdate$Response(params?: {
     body?: {
@@ -1154,7 +1154,7 @@ export class SettingsService extends BaseService {
 
     const rb = new RequestBuilder(this.rootUrl, SettingsService.SettingsUpdatePath, 'post');
     if (params) {
-      rb.body(params.body, 'multipart/form-data');
+      rb.body(params.body, 'application/json');
     }
 
     return this.http.request(rb.build({
@@ -1182,7 +1182,7 @@ export class SettingsService extends BaseService {
    * This method provides access to only to the response body.
    * To access the full response (for headers, for example), `settingsUpdate$Response()` instead.
    *
-   * This method sends `multipart/form-data` and handles request body of type `multipart/form-data`.
+   * This method sends `application/json` and handles request body of type `application/json`.
    */
   settingsUpdate(params?: {
     body?: {

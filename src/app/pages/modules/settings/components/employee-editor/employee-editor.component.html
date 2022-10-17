@@ -92,7 +92,7 @@
                     </div>
                     <div class="form-data">
                       <mat-form-field appearance="outline" class="full-width ui-select">
-                        <mat-select formControlName="department_id" [disabled]="hasDepartment">
+                        <mat-select formControlName="department_id">
                           <mat-option value="">-- Не выбрано --</mat-option>
                           <mat-option *ngFor="let department of departments;" [value]="department.id">{{ department.name
                             }}</mat-option>

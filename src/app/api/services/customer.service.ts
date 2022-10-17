@@ -43,14 +43,14 @@ export class CustomerService extends BaseService {
   customerList$Response(params?: {
 
     /**
-     * Страница
+     * Начальная позиция
      */
-    page?: number;
+    start?: number;
 
     /**
      * Лимит позиций на страницу
      */
-    limit?: number;
+    count?: number;
   }): Observable<StrictHttpResponse<Array<{
 
 /**
@@ -96,8 +96,8 @@ export class CustomerService extends BaseService {
 
     const rb = new RequestBuilder(this.rootUrl, CustomerService.CustomerListPath, 'get');
     if (params) {
-      rb.query('page', params.page, {});
-      rb.query('limit', params.limit, {});
+      rb.query('start', params.start, {});
+      rb.query('count', params.count, {});
     }
 
     return this.http.request(rb.build({
@@ -165,14 +165,14 @@ export class CustomerService extends BaseService {
   customerList(params?: {
 
     /**
-     * Страница
+     * Начальная позиция
      */
-    page?: number;
+    start?: number;
 
     /**
      * Лимит позиций на страницу
      */
-    limit?: number;
+    count?: number;
   }): Observable<Array<{
 
 /**

@@ -28,12 +28,12 @@
                   </div>
                   <div class="form-item" data-id="var_name_short" style="width: 50%">
                     <div class="form-title">
-                      <div>наименование сокращенное:<span class="req">*</span></div>
+                      <div>наименование сокращенное:</div>
                     </div>
                     <div class="form-data">
                       <div>
                         <div class="form-input">
-                          <input class="text-control" type="text" formControlName="name_short" required>
+                          <input class="text-control" type="text" formControlName="name_short">
                         </div>
                       </div>
                     </div>
@@ -48,7 +48,7 @@
                 <div class="form-group-row">
                   <div class="form-item" data-id="var_jur_address" style="width: 50%">
                     <div class="form-title">
-                      <div>юридический адрес:<span class="req">*</span></div>
+                      <div>юридический адрес:</div>
                     </div>
                     <div class="form-data">
                       <div>
@@ -60,7 +60,7 @@
                   </div>
                   <div class="form-item" data-id="var_post_address" style="width: 50%">
                     <div class="form-title">
-                      <div>почтовый адрес:<span class="req">*</span></div>
+                      <div>почтовый адрес:</div>
                     </div>
                     <div class="form-data">
                       <div>
@@ -79,7 +79,7 @@
                 <div class="form-group-row">
                   <div class="form-item" data-id="var_inn" style="width: 25%">
                     <div class="form-title">
-                      <div>ИНН:<span class="req">*</span></div>
+                      <div>ИНН:</div>
                     </div>
                     <div class="form-data">
                       <div>
@@ -89,7 +89,7 @@
                   </div>
                   <div class="form-item" data-id="var_kpp" style="width: 25%">
                     <div class="form-title">
-                      <div>КПП:<span class="req">*</span></div>
+                      <div>КПП:</div>
                     </div>
                     <div class="form-data">
                       <div>
@@ -99,7 +99,7 @@
                   </div>
                   <div class="form-item" data-id="var_ogrn" style="width: 25%">
                     <div class="form-title">
-                      <div>ОГРН:<span class="req">*</span></div>
+                      <div>ОГРН:</div>
                     </div>
                     <div class="form-data">
                       <div>
@@ -109,7 +109,7 @@
                   </div>
                   <div class="form-item" data-id="var_okpo" style="width: 25%">
                     <div class="form-title">
-                      <div>ОКПО:<span class="req">*</span></div>
+                      <div>ОКПО:</div>
                     </div>
                     <div class="form-data">
                       <div>
@@ -127,7 +127,7 @@
                 <div class="form-group-row">
                   <div class="form-item" data-id="var_phone" style="width: 25%">
                     <div class="form-title">
-                      <div>номер телефона:<span class="req">*</span></div>
+                      <div>номер телефона:</div>
                     </div>
                     <div class="form-data">
                       <div>
@@ -138,7 +138,7 @@
                   </div>
                   <div class="form-item" data-id="var_email" style="width: 25%">
                     <div class="form-title">
-                      <div>e-mail:<span class="req">*</span></div>
+                      <div>e-mail:</div>
                     </div>
                     <div class="form-data">
                       <div>
@@ -149,7 +149,7 @@
                   </div>
                   <div class="form-item" data-id="var_website" style="width: 25%">
                     <div class="form-title">
-                      <div>вебсайт:<span class="req">*</span></div>
+                      <div>вебсайт:</div>
                     </div>
                     <div class="form-data">
                       <div>
@@ -160,7 +160,7 @@
                   </div>
                   <div class="form-item" data-id="var_skype" style="width: 25%">
                     <div class="form-title">
-                      <div>Skype:<span class="req">*</span></div>
+                      <div>Skype:</div>
                     </div>
                     <div class="form-data">
                       <div>
@@ -181,7 +181,7 @@
                 <div class="form-group-row">
                   <div class="form-item" data-id="var_responsible_person_fio" style="width: 50%">
                     <div class="form-title">
-                      <div>Ф.И.О.:<span class="req">*</span></div>
+                      <div>Ф.И.О.:</div>
                     </div>
                     <div class="form-data">
                       <div>
@@ -200,7 +200,7 @@
                   </div>
                   <div class="form-item" data-id="var_responsible_person_position" style="width: 50%">
                     <div class="form-title">
-                      <div>Должность:<span class="req">*</span></div>
+                      <div>Должность:</div>
                     </div>
                     <div class="form-data">
                       <div>
@@ -219,7 +219,7 @@
                 <div class="form-group-row">
                   <div class="form-item" data-id="var_responsible_person_base" style="width: 100%">
                     <div class="form-title">
-                      <div>основание:<span class="req">*</span></div>
+                      <div>основание:</div>
                     </div>
                     <div class="form-data">
                       <div>
@@ -240,14 +240,17 @@
                 <div class="form-group-row">
                   <div class="form-item" data-id="var_chief_accountant_fio" style="width: 100%">
                     <div class="form-title">
-                      <div>Ф.И.О.:<span class="req">*</span></div>
+                      <div>Ф.И.О.:</div>
                     </div>
                     <div class="form-data">
-                      <div>
-                        <div class="form-input"><input class="text-control" type="text"
-                            formControlName="chief_accountant_fio">
-                        </div>
-                      </div>
+                      <mat-form-field appearance="outline" class="ui-select" style="margin-bottom: 0px; margin-top: 0px; margin-right: 0px; width: 100%;">
+                        <mat-select formControlName="chief_accountant_id">
+                          <mat-option value="">-- Не выбрано --</mat-option>
+                          <mat-option *ngFor="let employee of employees;" [value]="employee.id">
+                            {{ employee.name_f }} {{ employee.name_i }} {{ employee.name_o }}
+                          </mat-option>
+                        </mat-select>
+                      </mat-form-field>
                     </div>
                   </div>
                 </div>
@@ -262,7 +265,7 @@
                 <div class="form-group-row">
                   <div class="form-item" data-id="var_chief_accountant_fio" style="width: 100%">
                     <div class="form-title">
-                      <div>вид:<span class="req">*</span></div>
+                      <div>вид:</div>
                     </div>
                     <div class="form-data">
                       <mat-form-field appearance="outline" class="ui-select" style="width: 100%">
@@ -285,7 +288,7 @@
                 <div class="form-group-row">
                   <div class="form-item" data-id="var_bank_name" style="width: 50%">
                     <div class="form-title">
-                      <div>наименование банка:<span class="req">*</span></div>
+                      <div>наименование банка:</div>
                     </div>
                     <div class="form-data">
                       <div>
@@ -296,7 +299,7 @@
                   </div>
                   <div class="form-item" data-id="var_bank_rs" style="width: 25%">
                     <div class="form-title">
-                      <div>расчетный счет:<span class="req">*</span></div>
+                      <div>расчетный счет:</div>
                     </div>
                     <div class="form-data">
                       <div>
@@ -307,13 +310,17 @@
                   </div>
                   <div class="form-item" data-id="var_bank_currency" style="width: 25%">
                     <div class="form-title">
-                      <div>валюта счета:<span class="req">*</span></div>
+                      <div>валюта счета:</div>
                     </div>
                     <div class="form-data">
-                      <div>
-                        <div class="form-input"><input class="text-control" type="text" formControlName="bank_currency">
-                        </div>
-                      </div>
+                      <mat-form-field appearance="outline" class="ui-select" style="margin-bottom: 0px; margin-top: 0px; margin-right: 0px; width: 100%;">
+                        <mat-select formControlName="bank_currency">
+                          <mat-option value="">-- Не выбрано --</mat-option>
+                          <mat-option *ngFor="let currency of currencies;" [value]="currency.code">
+                            {{ currency.name }}
+                          </mat-option>
+                        </mat-select>
+                      </mat-form-field>
                     </div>
                   </div>
                 </div>
@@ -326,7 +333,7 @@
                 <div class="form-group-row">
                   <div class="form-item" data-id="var_bank_ks" style="width: 50%">
                     <div class="form-title">
-                      <div>Корреспондентский счет:<span class="req">*</span></div>
+                      <div>Корреспондентский счет:</div>
                     </div>
                     <div class="form-data">
                       <div>
@@ -337,7 +344,7 @@
                   </div>
                   <div class="form-item" data-id="var_bank_bik" style="width: 25%">
                     <div class="form-title">
-                      <div>бик:<span class="req">*</span></div>
+                      <div>бик:</div>
                     </div>
                     <div class="form-data">
                       <div>
@@ -348,7 +355,7 @@
                   </div>
                   <div class="form-item" data-id="var_bank_kpp" style="width: 25%">
                     <div class="form-title">
-                      <div>КПП:<span class="req">*</span></div>
+                      <div>КПП:</div>
                     </div>
                     <div class="form-data">
                       <div>
@@ -373,7 +380,7 @@
                 <div class="form-group-row">
                   <div class="form-item" data-id="var_noresident_name" style="width: 50%">
                     <div class="form-title">
-                      <div>full name:<span class="req">*</span></div>
+                      <div>full name:</div>
                     </div>
                     <div class="form-data">
                       <div>
@@ -385,7 +392,7 @@
                   </div>
                   <div class="form-item" data-id="var_noresident_address" style="width: 50%">
                     <div class="form-title">
-                      <div>address:<span class="req">*</span></div>
+                      <div>address:</div>
                     </div>
                     <div class="form-data">
                       <div>
@@ -405,7 +412,7 @@
                 <div class="form-group-row">
                   <div class="form-item" data-id="var_noresident_phone" style="width: 25%">
                     <div class="form-title">
-                      <div>phone / fax:<span class="req">*</span></div>
+                      <div>phone / fax:</div>
                     </div>
                     <div class="form-data">
                       <div>
@@ -417,7 +424,7 @@
                   </div>
                   <div class="form-item" data-id="var_noresident_email" style="width: 25%">
                     <div class="form-title">
-                      <div>e-mail:<span class="req">*</span></div>
+                      <div>e-mail:</div>
                     </div>
                     <div class="form-data">
                       <div>
@@ -429,7 +436,7 @@
                   </div>
                   <div class="form-item" data-id="var_noresident_website" style="width: 25%">
                     <div class="form-title">
-                      <div>Website:<span class="req">*</span></div>
+                      <div>Website:</div>
                     </div>
                     <div class="form-data">
                       <div>
@@ -441,7 +448,7 @@
                   </div>
                   <div class="form-item" data-id="var_noresident_skype" style="width: 25%">
                     <div class="form-title">
-                      <div>Skype:<span class="req">*</span></div>
+                      <div>Skype:</div>
                     </div>
                     <div class="form-data">
                       <div>
@@ -463,7 +470,7 @@
                 <div class="form-group-row">
                   <div class="form-item" data-id="var_noresident_signatory_fio" style="width: 50%">
                     <div class="form-title">
-                      <div>full name:<span class="req">*</span></div>
+                      <div>full name:</div>
                     </div>
                     <div class="form-data">
                       <div>
@@ -482,7 +489,7 @@
                   </div>
                   <div class="form-item" data-id="var_noresident_signatory_position" style="width: 50%">
                     <div class="form-title">
-                      <div>position:<span class="req">*</span></div>
+                      <div>position:</div>
                     </div>
                     <div class="form-data">
                       <div>
@@ -504,7 +511,7 @@
                 <div class="form-group-row">
                   <div class="form-item" data-id="var_noresident_bank_name" style="width: 50%">
                     <div class="form-title">
-                      <div>bank name:<span class="req">*</span></div>
+                      <div>bank name:</div>
                     </div>
                     <div class="form-data">
                       <div>
@@ -516,7 +523,7 @@
                   </div>
                   <div class="form-item" data-id="var_noresident_bank_address" style="width: 50%">
                     <div class="form-title">
-                      <div>bank address:<span class="req">*</span></div>
+                      <div>bank address:</div>
                     </div>
                     <div class="form-data">
                       <div>
@@ -536,7 +543,7 @@
                   <div class="width_50 form-group-row">
                     <div class="form-item" data-id="var_noresident_bank_rs" style="width: 25%">
                       <div class="form-title">
-                        <div>account Number:<span class="req">*</span></div>
+                        <div>account Number:</div>
                       </div>
                       <div class="form-data">
                         <div>
@@ -548,7 +555,7 @@
                     </div>
                     <div class="form-item" data-id="var_noresident_bank_currency" style="width: 25%">
                       <div class="form-title">
-                        <div>account currency:<span class="req">*</span></div>
+                        <div>account currency:</div>
                       </div>
                       <div class="form-data">
                         <div>
@@ -560,7 +567,7 @@
                   </div>
                   <div class="form-item" data-id="var_noresident_bank_rs_name" style="width: 50%">
                     <div class="form-title">
-                      <div>account name:<span class="req">*</span></div>
+                      <div>account name:</div>
                     </div>
                     <div class="form-data">
                       <div>
@@ -579,7 +586,7 @@
                 <div class="form-group-row">
                   <div class="form-item" data-id="var_noresident_bank_swift" style="width: 50%">
                     <div class="form-title">
-                      <div>swift code:<span class="req">*</span></div>
+                      <div>swift code:</div>
                     </div>
                     <div class="form-data">
                       <div>
@@ -598,6 +605,49 @@
                             formControlName="noresident_bank_im">
                         </div>
                       </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="form-group" data-id="group_17">
+          <div class="form-group-title">Бухгалтерия</div>
+          <div>
+            <div class="form-item form-inline-group" data-id="group_inline_18">
+              <div class="form-title">
+              </div>
+              <div class="form-data">
+                <div class="form-group-row">
+                  <div class="form-item" data-id="var_tax_system" style="width: 50%">
+                    <div class="form-title">
+                      <div>Система налогообложения</div>
+                    </div>
+                    <div class="form-data">
+                      <mat-form-field appearance="outline" class="ui-select" style="margin-bottom: 0px; margin-top: 0px; margin-right: 0px; width: 100%;">
+                        <mat-select formControlName="tax_system">
+                          <mat-option value="">-- Не выбрано --</mat-option>
+                          <mat-option *ngFor="let taxSystem of taxSystems;" [value]="taxSystem.id">
+                            {{ taxSystem.name }}
+                          </mat-option>
+                        </mat-select>
+                      </mat-form-field>
+                    </div>
+                  </div>
+                  <div class="form-item" data-id="var_base_currency" style="width: 50%">
+                    <div class="form-title">
+                      <div>основная валюта счетов:</div>
+                    </div>
+                    <div class="form-data">
+                      <mat-form-field appearance="outline" class="ui-select" style="margin-bottom: 0px; margin-top: 0px; margin-right: 0px; width: 100%;">
+                        <mat-select formControlName="base_currency">
+                          <mat-option value="">-- Не выбрано --</mat-option>
+                          <mat-option *ngFor="let currency of currencies;" [value]="currency.code">
+                            {{ currency.name }}
+                          </mat-option>
+                        </mat-select>
+                      </mat-form-field>
                     </div>
                   </div>
                 </div>
