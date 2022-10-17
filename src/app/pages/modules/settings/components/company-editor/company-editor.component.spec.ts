@@ -28,11 +28,8 @@ describe('CompanyEditorComponent', () => {
           provide: CompanyService, useValue: {
             companyInfo: () => of({ name: 'Three Bears LLC' }),
             companyEmployeeList: () => of([]),
-          }
-        },
-        {
-          provide: SettingsService, useValue: {
-            settingsGet: () => of([{ tax: {id: 1, name: 'Tax System'} }]),
+            companyTaxSystem: () => of([]),
+            companyCurrency: () => of([]),
           }
         },
       ]

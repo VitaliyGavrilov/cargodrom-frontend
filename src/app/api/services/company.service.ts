@@ -41,6 +41,16 @@ export class CompanyService extends BaseService {
    * This method doesn't expect any request body.
    */
   companyList$Response(params?: {
+
+    /**
+     * Начальная позиция
+     */
+    start?: number;
+
+    /**
+     * Лимит позиций на страницу
+     */
+    count?: number;
   }): Observable<StrictHttpResponse<Array<{
 
 /**
@@ -111,7 +121,7 @@ export class CompanyService extends BaseService {
 /**
  * Ф.И.О.
  */
-'responsible_person_fio'?: string;
+'responsible_person_id'?: number;
 
 /**
  * Должность
@@ -126,7 +136,7 @@ export class CompanyService extends BaseService {
 /**
  * Ф.И.О.
  */
-'chief_accountant_fio'?: string;
+'chief_accountant_id'?: number;
 
 /**
  * Наименование
@@ -191,7 +201,7 @@ export class CompanyService extends BaseService {
 /**
  * Full name
  */
-'noresident_signatory_fio'?: string;
+'noresident_signatory_id'?: number;
 
 /**
  * Position
@@ -234,7 +244,7 @@ export class CompanyService extends BaseService {
 'noresident_bank_im'?: string;
 
 /**
- * Система налогообложения (ID берем из запроса - settings_tax)
+ * Система налогообложения (ID берем из запроса - tax_system)
  */
 'tax_system'?: number;
 
@@ -266,6 +276,8 @@ export class CompanyService extends BaseService {
 
     const rb = new RequestBuilder(this.rootUrl, CompanyService.CompanyListPath, 'get');
     if (params) {
+      rb.query('start', params.start, {});
+      rb.query('count', params.count, {});
     }
 
     return this.http.request(rb.build({
@@ -344,7 +356,7 @@ export class CompanyService extends BaseService {
         /**
          * Ф.И.О.
          */
-        'responsible_person_fio'?: string;
+        'responsible_person_id'?: number;
         
         /**
          * Должность
@@ -359,7 +371,7 @@ export class CompanyService extends BaseService {
         /**
          * Ф.И.О.
          */
-        'chief_accountant_fio'?: string;
+        'chief_accountant_id'?: number;
         
         /**
          * Наименование
@@ -424,7 +436,7 @@ export class CompanyService extends BaseService {
         /**
          * Full name
          */
-        'noresident_signatory_fio'?: string;
+        'noresident_signatory_id'?: number;
         
         /**
          * Position
@@ -467,7 +479,7 @@ export class CompanyService extends BaseService {
         'noresident_bank_im'?: string;
         
         /**
-         * Система налогообложения (ID берем из запроса - settings_tax)
+         * Система налогообложения (ID берем из запроса - tax_system)
          */
         'tax_system'?: number;
         
@@ -511,6 +523,16 @@ export class CompanyService extends BaseService {
    * This method doesn't expect any request body.
    */
   companyList(params?: {
+
+    /**
+     * Начальная позиция
+     */
+    start?: number;
+
+    /**
+     * Лимит позиций на страницу
+     */
+    count?: number;
   }): Observable<Array<{
 
 /**
@@ -581,7 +603,7 @@ export class CompanyService extends BaseService {
 /**
  * Ф.И.О.
  */
-'responsible_person_fio'?: string;
+'responsible_person_id'?: number;
 
 /**
  * Должность
@@ -596,7 +618,7 @@ export class CompanyService extends BaseService {
 /**
  * Ф.И.О.
  */
-'chief_accountant_fio'?: string;
+'chief_accountant_id'?: number;
 
 /**
  * Наименование
@@ -661,7 +683,7 @@ export class CompanyService extends BaseService {
 /**
  * Full name
  */
-'noresident_signatory_fio'?: string;
+'noresident_signatory_id'?: number;
 
 /**
  * Position
@@ -704,7 +726,7 @@ export class CompanyService extends BaseService {
 'noresident_bank_im'?: string;
 
 /**
- * Система налогообложения (ID берем из запроса - settings_tax)
+ * Система налогообложения (ID берем из запроса - tax_system)
  */
 'tax_system'?: number;
 
@@ -805,7 +827,7 @@ export class CompanyService extends BaseService {
 /**
  * Ф.И.О.
  */
-'responsible_person_fio'?: string;
+'responsible_person_id'?: number;
 
 /**
  * Должность
@@ -820,7 +842,7 @@ export class CompanyService extends BaseService {
 /**
  * Ф.И.О.
  */
-'chief_accountant_fio'?: string;
+'chief_accountant_id'?: number;
 
 /**
  * Наименование
@@ -885,7 +907,7 @@ export class CompanyService extends BaseService {
 /**
  * Full name
  */
-'noresident_signatory_fio'?: string;
+'noresident_signatory_id'?: number;
 
 /**
  * Position
@@ -928,7 +950,7 @@ export class CompanyService extends BaseService {
 'noresident_bank_im'?: string;
 
 /**
- * Система налогообложения (ID берем из запроса - settings_tax)
+ * Система налогообложения (ID берем из запроса - tax_system)
  */
 'tax_system'?: number;
 
@@ -1026,7 +1048,7 @@ export class CompanyService extends BaseService {
 /**
  * Ф.И.О.
  */
-'responsible_person_fio'?: string;
+'responsible_person_id'?: number;
 
 /**
  * Должность
@@ -1041,7 +1063,7 @@ export class CompanyService extends BaseService {
 /**
  * Ф.И.О.
  */
-'chief_accountant_fio'?: string;
+'chief_accountant_id'?: number;
 
 /**
  * Наименование
@@ -1106,7 +1128,7 @@ export class CompanyService extends BaseService {
 /**
  * Full name
  */
-'noresident_signatory_fio'?: string;
+'noresident_signatory_id'?: number;
 
 /**
  * Position
@@ -1149,7 +1171,7 @@ export class CompanyService extends BaseService {
 'noresident_bank_im'?: string;
 
 /**
- * Система налогообложения (ID берем из запроса - settings_tax)
+ * Система налогообложения (ID берем из запроса - tax_system)
  */
 'tax_system'?: number;
 
@@ -1272,7 +1294,7 @@ export class CompanyService extends BaseService {
 /**
  * Ф.И.О.
  */
-'responsible_person_fio'?: string;
+'responsible_person_id'?: number;
 
 /**
  * Должность
@@ -1287,7 +1309,7 @@ export class CompanyService extends BaseService {
 /**
  * Ф.И.О.
  */
-'chief_accountant_fio'?: string;
+'chief_accountant_id'?: number;
 
 /**
  * Наименование
@@ -1352,7 +1374,7 @@ export class CompanyService extends BaseService {
 /**
  * Full name
  */
-'noresident_signatory_fio'?: string;
+'noresident_signatory_id'?: number;
 
 /**
  * Position
@@ -1395,7 +1417,7 @@ export class CompanyService extends BaseService {
 'noresident_bank_im'?: string;
 
 /**
- * Система налогообложения (ID берем из запроса - settings_tax)
+ * Система налогообложения (ID берем из запроса - tax_system)
  */
 'tax_system'?: number;
 
@@ -1506,7 +1528,7 @@ export class CompanyService extends BaseService {
         /**
          * Ф.И.О.
          */
-        'responsible_person_fio'?: string;
+        'responsible_person_id'?: number;
         
         /**
          * Должность
@@ -1521,7 +1543,7 @@ export class CompanyService extends BaseService {
         /**
          * Ф.И.О.
          */
-        'chief_accountant_fio'?: string;
+        'chief_accountant_id'?: number;
         
         /**
          * Наименование
@@ -1586,7 +1608,7 @@ export class CompanyService extends BaseService {
         /**
          * Full name
          */
-        'noresident_signatory_fio'?: string;
+        'noresident_signatory_id'?: number;
         
         /**
          * Position
@@ -1629,7 +1651,7 @@ export class CompanyService extends BaseService {
         'noresident_bank_im'?: string;
         
         /**
-         * Система налогообложения (ID берем из запроса - settings_tax)
+         * Система налогообложения (ID берем из запроса - tax_system)
          */
         'tax_system'?: number;
         
@@ -1748,7 +1770,7 @@ export class CompanyService extends BaseService {
 /**
  * Ф.И.О.
  */
-'responsible_person_fio'?: string;
+'responsible_person_id'?: number;
 
 /**
  * Должность
@@ -1763,7 +1785,7 @@ export class CompanyService extends BaseService {
 /**
  * Ф.И.О.
  */
-'chief_accountant_fio'?: string;
+'chief_accountant_id'?: number;
 
 /**
  * Наименование
@@ -1828,7 +1850,7 @@ export class CompanyService extends BaseService {
 /**
  * Full name
  */
-'noresident_signatory_fio'?: string;
+'noresident_signatory_id'?: number;
 
 /**
  * Position
@@ -1871,7 +1893,7 @@ export class CompanyService extends BaseService {
 'noresident_bank_im'?: string;
 
 /**
- * Система налогообложения (ID берем из запроса - settings_tax)
+ * Система налогообложения (ID берем из запроса - tax_system)
  */
 'tax_system'?: number;
 
@@ -1972,7 +1994,7 @@ export class CompanyService extends BaseService {
 /**
  * Ф.И.О.
  */
-'responsible_person_fio'?: string;
+'responsible_person_id'?: number;
 
 /**
  * Должность
@@ -1987,7 +2009,7 @@ export class CompanyService extends BaseService {
 /**
  * Ф.И.О.
  */
-'chief_accountant_fio'?: string;
+'chief_accountant_id'?: number;
 
 /**
  * Наименование
@@ -2052,7 +2074,7 @@ export class CompanyService extends BaseService {
 /**
  * Full name
  */
-'noresident_signatory_fio'?: string;
+'noresident_signatory_id'?: number;
 
 /**
  * Position
@@ -2095,7 +2117,7 @@ export class CompanyService extends BaseService {
 'noresident_bank_im'?: string;
 
 /**
- * Система налогообложения (ID берем из запроса - settings_tax)
+ * Система налогообложения (ID берем из запроса - tax_system)
  */
 'tax_system'?: number;
 
@@ -2193,7 +2215,7 @@ export class CompanyService extends BaseService {
 /**
  * Ф.И.О.
  */
-'responsible_person_fio'?: string;
+'responsible_person_id'?: number;
 
 /**
  * Должность
@@ -2208,7 +2230,7 @@ export class CompanyService extends BaseService {
 /**
  * Ф.И.О.
  */
-'chief_accountant_fio'?: string;
+'chief_accountant_id'?: number;
 
 /**
  * Наименование
@@ -2273,7 +2295,7 @@ export class CompanyService extends BaseService {
 /**
  * Full name
  */
-'noresident_signatory_fio'?: string;
+'noresident_signatory_id'?: number;
 
 /**
  * Position
@@ -2316,7 +2338,7 @@ export class CompanyService extends BaseService {
 'noresident_bank_im'?: string;
 
 /**
- * Система налогообложения (ID берем из запроса - settings_tax)
+ * Система налогообложения (ID берем из запроса - tax_system)
  */
 'tax_system'?: number;
 
@@ -2374,192 +2396,192 @@ export class CompanyService extends BaseService {
 /**
  * Наименование сокращенное
  */
-'name_short': string;
+'name_short'?: string;
 
 /**
  * Юридический адрес
  */
-'jur_address': string;
+'jur_address'?: string;
 
 /**
  * Почтовый адрес
  */
-'post_address': string;
+'post_address'?: string;
 
 /**
  * ИНН
  */
-'inn': string;
+'inn'?: string;
 
 /**
  * КПП
  */
-'kpp': string;
+'kpp'?: string;
 
 /**
  * ОГРН
  */
-'ogrn': string;
+'ogrn'?: string;
 
 /**
  * ОКПО
  */
-'okpo': string;
+'okpo'?: string;
 
 /**
  * Номер телефона
  */
-'phone': string;
+'phone'?: string;
 
 /**
  * Email
  */
-'email': string;
+'email'?: string;
 
 /**
  * Вебсайт
  */
-'website': string;
+'website'?: string;
 
 /**
  * Skype
  */
-'skype': string;
+'skype'?: string;
 
 /**
  * Ф.И.О.
  */
-'responsible_person_fio': string;
+'responsible_person_id'?: number;
 
 /**
  * Должность
  */
-'responsible_person_position': string;
+'responsible_person_position'?: string;
 
 /**
  * Основание
  */
-'responsible_person_base': string;
+'responsible_person_base'?: string;
 
 /**
  * Ф.И.О.
  */
-'chief_accountant_fio': string;
+'chief_accountant_id'?: number;
 
 /**
  * Наименование
  */
-'bank_name': string;
+'bank_name'?: string;
 
 /**
  * БИК
  */
-'bank_bik': string;
+'bank_bik'?: string;
 
 /**
  * КПП
  */
-'bank_kpp': string;
+'bank_kpp'?: string;
 
 /**
  * Расчетный счет
  */
-'bank_rs': string;
+'bank_rs'?: string;
 
 /**
  * Корреспондентский счет
  */
-'bank_ks': string;
+'bank_ks'?: string;
 
 /**
  * Валюта счета
  */
-'bank_currency': string;
+'bank_currency'?: string;
 
 /**
  * Full name
  */
-'noresident_name': string;
+'noresident_name'?: string;
 
 /**
  * Address
  */
-'noresident_address': string;
+'noresident_address'?: string;
 
 /**
  * Phone / fax
  */
-'noresident_phone': string;
+'noresident_phone'?: string;
 
 /**
  * Email
  */
-'noresident_email': string;
+'noresident_email'?: string;
 
 /**
  * Website
  */
-'noresident_website': string;
+'noresident_website'?: string;
 
 /**
  * Skype
  */
-'noresident_skype': string;
+'noresident_skype'?: string;
 
 /**
  * Full name
  */
-'noresident_signatory_fio': string;
+'noresident_signatory_id'?: number;
 
 /**
  * Position
  */
-'noresident_signatory_position': string;
+'noresident_signatory_position'?: string;
 
 /**
  * Bank name
  */
-'noresident_bank_name': string;
+'noresident_bank_name'?: string;
 
 /**
  * Bank address
  */
-'noresident_bank_address': string;
+'noresident_bank_address'?: string;
 
 /**
  * Account Number
  */
-'noresident_bank_rs': string;
+'noresident_bank_rs'?: string;
 
 /**
  * Account currency
  */
-'noresident_bank_currency': string;
+'noresident_bank_currency'?: string;
 
 /**
  * Account name
  */
-'noresident_bank_rs_name': string;
+'noresident_bank_rs_name'?: string;
 
 /**
  * Swift code
  */
-'noresident_bank_swift': string;
+'noresident_bank_swift'?: string;
 
 /**
  * Intermediary bank
  */
-'noresident_bank_im': string;
+'noresident_bank_im'?: string;
 
 /**
- * Система налогообложения (ID берем из запроса - settings_tax)
+ * Система налогообложения (ID берем из запроса - tax_system)
  */
-'tax_system': number;
+'tax_system'?: number;
 
 /**
  * Основная валюта счетов
  */
-'base_currency': string;
+'base_currency'?: string;
 
 /**
  * Порядок для сортировки (меньше - выше)
@@ -2632,192 +2654,192 @@ export class CompanyService extends BaseService {
 /**
  * Наименование сокращенное
  */
-'name_short': string;
+'name_short'?: string;
 
 /**
  * Юридический адрес
  */
-'jur_address': string;
+'jur_address'?: string;
 
 /**
  * Почтовый адрес
  */
-'post_address': string;
+'post_address'?: string;
 
 /**
  * ИНН
  */
-'inn': string;
+'inn'?: string;
 
 /**
  * КПП
  */
-'kpp': string;
+'kpp'?: string;
 
 /**
  * ОГРН
  */
-'ogrn': string;
+'ogrn'?: string;
 
 /**
  * ОКПО
  */
-'okpo': string;
+'okpo'?: string;
 
 /**
  * Номер телефона
  */
-'phone': string;
+'phone'?: string;
 
 /**
  * Email
  */
-'email': string;
+'email'?: string;
 
 /**
  * Вебсайт
  */
-'website': string;
+'website'?: string;
 
 /**
  * Skype
  */
-'skype': string;
+'skype'?: string;
 
 /**
  * Ф.И.О.
  */
-'responsible_person_fio': string;
+'responsible_person_id'?: number;
 
 /**
  * Должность
  */
-'responsible_person_position': string;
+'responsible_person_position'?: string;
 
 /**
  * Основание
  */
-'responsible_person_base': string;
+'responsible_person_base'?: string;
 
 /**
  * Ф.И.О.
  */
-'chief_accountant_fio': string;
+'chief_accountant_id'?: number;
 
 /**
  * Наименование
  */
-'bank_name': string;
+'bank_name'?: string;
 
 /**
  * БИК
  */
-'bank_bik': string;
+'bank_bik'?: string;
 
 /**
  * КПП
  */
-'bank_kpp': string;
+'bank_kpp'?: string;
 
 /**
  * Расчетный счет
  */
-'bank_rs': string;
+'bank_rs'?: string;
 
 /**
  * Корреспондентский счет
  */
-'bank_ks': string;
+'bank_ks'?: string;
 
 /**
  * Валюта счета
  */
-'bank_currency': string;
+'bank_currency'?: string;
 
 /**
  * Full name
  */
-'noresident_name': string;
+'noresident_name'?: string;
 
 /**
  * Address
  */
-'noresident_address': string;
+'noresident_address'?: string;
 
 /**
  * Phone / fax
  */
-'noresident_phone': string;
+'noresident_phone'?: string;
 
 /**
  * Email
  */
-'noresident_email': string;
+'noresident_email'?: string;
 
 /**
  * Website
  */
-'noresident_website': string;
+'noresident_website'?: string;
 
 /**
  * Skype
  */
-'noresident_skype': string;
+'noresident_skype'?: string;
 
 /**
  * Full name
  */
-'noresident_signatory_fio': string;
+'noresident_signatory_id'?: number;
 
 /**
  * Position
  */
-'noresident_signatory_position': string;
+'noresident_signatory_position'?: string;
 
 /**
  * Bank name
  */
-'noresident_bank_name': string;
+'noresident_bank_name'?: string;
 
 /**
  * Bank address
  */
-'noresident_bank_address': string;
+'noresident_bank_address'?: string;
 
 /**
  * Account Number
  */
-'noresident_bank_rs': string;
+'noresident_bank_rs'?: string;
 
 /**
  * Account currency
  */
-'noresident_bank_currency': string;
+'noresident_bank_currency'?: string;
 
 /**
  * Account name
  */
-'noresident_bank_rs_name': string;
+'noresident_bank_rs_name'?: string;
 
 /**
  * Swift code
  */
-'noresident_bank_swift': string;
+'noresident_bank_swift'?: string;
 
 /**
  * Intermediary bank
  */
-'noresident_bank_im': string;
+'noresident_bank_im'?: string;
 
 /**
- * Система налогообложения (ID берем из запроса - settings_tax)
+ * Система налогообложения (ID берем из запроса - tax_system)
  */
-'tax_system': number;
+'tax_system'?: number;
 
 /**
  * Основная валюта счетов
  */
-'base_currency': string;
+'base_currency'?: string;
 
 /**
  * Порядок для сортировки (меньше - выше)
@@ -2895,7 +2917,7 @@ export class CompanyService extends BaseService {
 /**
  * Наименование полное
  */
-'name'?: string;
+'name': string;
 
 /**
  * Наименование сокращенное
@@ -2955,7 +2977,7 @@ export class CompanyService extends BaseService {
 /**
  * Ф.И.О.
  */
-'responsible_person_fio'?: string;
+'responsible_person_id'?: number;
 
 /**
  * Должность
@@ -2970,7 +2992,7 @@ export class CompanyService extends BaseService {
 /**
  * Ф.И.О.
  */
-'chief_accountant_fio'?: string;
+'chief_accountant_id'?: number;
 
 /**
  * Наименование
@@ -3035,7 +3057,7 @@ export class CompanyService extends BaseService {
 /**
  * Full name
  */
-'noresident_signatory_fio'?: string;
+'noresident_signatory_id'?: number;
 
 /**
  * Position
@@ -3078,7 +3100,7 @@ export class CompanyService extends BaseService {
 'noresident_bank_im'?: string;
 
 /**
- * Система налогообложения (ID берем из запроса - settings_tax)
+ * Система налогообложения (ID берем из запроса - tax_system)
  */
 'tax_system'?: number;
 
@@ -3148,7 +3170,7 @@ export class CompanyService extends BaseService {
 /**
  * Наименование полное
  */
-'name'?: string;
+'name': string;
 
 /**
  * Наименование сокращенное
@@ -3208,7 +3230,7 @@ export class CompanyService extends BaseService {
 /**
  * Ф.И.О.
  */
-'responsible_person_fio'?: string;
+'responsible_person_id'?: number;
 
 /**
  * Должность
@@ -3223,7 +3245,7 @@ export class CompanyService extends BaseService {
 /**
  * Ф.И.О.
  */
-'chief_accountant_fio'?: string;
+'chief_accountant_id'?: number;
 
 /**
  * Наименование
@@ -3288,7 +3310,7 @@ export class CompanyService extends BaseService {
 /**
  * Full name
  */
-'noresident_signatory_fio'?: string;
+'noresident_signatory_id'?: number;
 
 /**
  * Position
@@ -3331,7 +3353,7 @@ export class CompanyService extends BaseService {
 'noresident_bank_im'?: string;
 
 /**
- * Система налогообложения (ID берем из запроса - settings_tax)
+ * Система налогообложения (ID берем из запроса - tax_system)
  */
 'tax_system'?: number;
 
@@ -3487,6 +3509,16 @@ export class CompanyService extends BaseService {
    * This method doesn't expect any request body.
    */
   companyDepartmentList$Response(params?: {
+
+    /**
+     * Начальная позиция
+     */
+    start?: number;
+
+    /**
+     * Лимит позиций на страницу
+     */
+    count?: number;
   }): Observable<StrictHttpResponse<Array<{
 
 /**
@@ -3527,6 +3559,8 @@ export class CompanyService extends BaseService {
 
     const rb = new RequestBuilder(this.rootUrl, CompanyService.CompanyDepartmentListPath, 'get');
     if (params) {
+      rb.query('start', params.start, {});
+      rb.query('count', params.count, {});
     }
 
     return this.http.request(rb.build({
@@ -3587,6 +3621,16 @@ export class CompanyService extends BaseService {
    * This method doesn't expect any request body.
    */
   companyDepartmentList(params?: {
+
+    /**
+     * Начальная позиция
+     */
+    start?: number;
+
+    /**
+     * Лимит позиций на страницу
+     */
+    count?: number;
   }): Observable<Array<{
 
 /**
@@ -4323,6 +4367,16 @@ export class CompanyService extends BaseService {
    * This method doesn't expect any request body.
    */
   companyPositionList$Response(params?: {
+
+    /**
+     * Начальная позиция
+     */
+    start?: number;
+
+    /**
+     * Лимит позиций на страницу
+     */
+    count?: number;
   }): Observable<StrictHttpResponse<Array<{
 
 /**
@@ -4359,6 +4413,8 @@ export class CompanyService extends BaseService {
 
     const rb = new RequestBuilder(this.rootUrl, CompanyService.CompanyPositionListPath, 'get');
     if (params) {
+      rb.query('start', params.start, {});
+      rb.query('count', params.count, {});
     }
 
     return this.http.request(rb.build({
@@ -4415,6 +4471,16 @@ export class CompanyService extends BaseService {
    * This method doesn't expect any request body.
    */
   companyPositionList(params?: {
+
+    /**
+     * Начальная позиция
+     */
+    start?: number;
+
+    /**
+     * Лимит позиций на страницу
+     */
+    count?: number;
   }): Observable<Array<{
 
 /**
@@ -5145,14 +5211,14 @@ export class CompanyService extends BaseService {
     position_id?: number;
 
     /**
-     * Страница
+     * Начальная позиция
      */
-    page?: number;
+    start?: number;
 
     /**
      * Лимит позиций на страницу
      */
-    limit?: number;
+    count?: number;
   }): Observable<StrictHttpResponse<Array<{
 
 /**
@@ -5255,8 +5321,8 @@ export class CompanyService extends BaseService {
     if (params) {
       rb.query('department_id', params.department_id, {});
       rb.query('position_id', params.position_id, {});
-      rb.query('page', params.page, {});
-      rb.query('limit', params.limit, {});
+      rb.query('start', params.start, {});
+      rb.query('count', params.count, {});
     }
 
     return this.http.request(rb.build({
@@ -5389,14 +5455,14 @@ export class CompanyService extends BaseService {
     position_id?: number;
 
     /**
-     * Страница
+     * Начальная позиция
      */
-    page?: number;
+    start?: number;
 
     /**
      * Лимит позиций на страницу
      */
-    limit?: number;
+    count?: number;
   }): Observable<Array<{
 
 /**
@@ -6854,6 +6920,243 @@ export class CompanyService extends BaseService {
  */
 'result': string;
 })
+    );
+  }
+
+  /**
+   * Path part for operation companyTaxSystem
+   */
+  static readonly CompanyTaxSystemPath = '/company_tax_system';
+
+  /**
+   * Система налогооблажения.
+   *
+   *
+   *
+   * This method provides access to the full `HttpResponse`, allowing access to response headers.
+   * To access only the response body, use `companyTaxSystem()` instead.
+   *
+   * This method doesn't expect any request body.
+   */
+  companyTaxSystem$Response(params?: {
+  }): Observable<StrictHttpResponse<Array<{
+
+/**
+ * ID
+ */
+'id'?: number;
+
+/**
+ * Наименование
+ */
+'name'?: string;
+}>>> {
+
+    const rb = new RequestBuilder(this.rootUrl, CompanyService.CompanyTaxSystemPath, 'get');
+    if (params) {
+    }
+
+    return this.http.request(rb.build({
+      responseType: 'json',
+      accept: 'application/json'
+    })).pipe(
+      filter((r: any) => r instanceof HttpResponse),
+      map((r: HttpResponse<any>) => {
+        return r as StrictHttpResponse<Array<{
+        
+        /**
+         * ID
+         */
+        'id'?: number;
+        
+        /**
+         * Наименование
+         */
+        'name'?: string;
+        }>>;
+      })
+    );
+  }
+
+  /**
+   * Система налогооблажения.
+   *
+   *
+   *
+   * This method provides access to only to the response body.
+   * To access the full response (for headers, for example), `companyTaxSystem$Response()` instead.
+   *
+   * This method doesn't expect any request body.
+   */
+  companyTaxSystem(params?: {
+  }): Observable<Array<{
+
+/**
+ * ID
+ */
+'id'?: number;
+
+/**
+ * Наименование
+ */
+'name'?: string;
+}>> {
+
+    return this.companyTaxSystem$Response(params).pipe(
+      map((r: StrictHttpResponse<Array<{
+
+/**
+ * ID
+ */
+'id'?: number;
+
+/**
+ * Наименование
+ */
+'name'?: string;
+}>>) => r.body as Array<{
+
+/**
+ * ID
+ */
+'id'?: number;
+
+/**
+ * Наименование
+ */
+'name'?: string;
+}>)
+    );
+  }
+
+  /**
+   * Path part for operation companyCurrency
+   */
+  static readonly CompanyCurrencyPath = '/company_currency';
+
+  /**
+   * Валюта.
+   *
+   *
+   *
+   * This method provides access to the full `HttpResponse`, allowing access to response headers.
+   * To access only the response body, use `companyCurrency()` instead.
+   *
+   * This method doesn't expect any request body.
+   */
+  companyCurrency$Response(params?: {
+  }): Observable<StrictHttpResponse<Array<{
+
+/**
+ * ID
+ */
+'id'?: number;
+
+/**
+ * Код
+ */
+'code'?: string;
+
+/**
+ * Наименование
+ */
+'name'?: string;
+}>>> {
+
+    const rb = new RequestBuilder(this.rootUrl, CompanyService.CompanyCurrencyPath, 'get');
+    if (params) {
+    }
+
+    return this.http.request(rb.build({
+      responseType: 'json',
+      accept: 'application/json'
+    })).pipe(
+      filter((r: any) => r instanceof HttpResponse),
+      map((r: HttpResponse<any>) => {
+        return r as StrictHttpResponse<Array<{
+        
+        /**
+         * ID
+         */
+        'id'?: number;
+        
+        /**
+         * Код
+         */
+        'code'?: string;
+        
+        /**
+         * Наименование
+         */
+        'name'?: string;
+        }>>;
+      })
+    );
+  }
+
+  /**
+   * Валюта.
+   *
+   *
+   *
+   * This method provides access to only to the response body.
+   * To access the full response (for headers, for example), `companyCurrency$Response()` instead.
+   *
+   * This method doesn't expect any request body.
+   */
+  companyCurrency(params?: {
+  }): Observable<Array<{
+
+/**
+ * ID
+ */
+'id'?: number;
+
+/**
+ * Код
+ */
+'code'?: string;
+
+/**
+ * Наименование
+ */
+'name'?: string;
+}>> {
+
+    return this.companyCurrency$Response(params).pipe(
+      map((r: StrictHttpResponse<Array<{
+
+/**
+ * ID
+ */
+'id'?: number;
+
+/**
+ * Код
+ */
+'code'?: string;
+
+/**
+ * Наименование
+ */
+'name'?: string;
+}>>) => r.body as Array<{
+
+/**
+ * ID
+ */
+'id'?: number;
+
+/**
+ * Код
+ */
+'code'?: string;
+
+/**
+ * Наименование
+ */
+'name'?: string;
+}>)
     );
   }
 

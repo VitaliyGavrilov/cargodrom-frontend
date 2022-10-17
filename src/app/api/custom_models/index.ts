@@ -10,3 +10,4 @@ export * from './position';
 export * from './employee';
 export * from './company';
 export * from './tax-system';
+export * from './currency';

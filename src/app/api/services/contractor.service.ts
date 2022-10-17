@@ -4420,6 +4420,16 @@ export class ContractorService extends BaseService {
      * ID контрагента
      */
     id: number;
+
+    /**
+     * Начальная позиция
+     */
+    start?: number;
+
+    /**
+     * Лимит позиций на страницу
+     */
+    count?: number;
   }): Observable<StrictHttpResponse<Array<{
 
 /**
@@ -4522,6 +4532,8 @@ export class ContractorService extends BaseService {
     const rb = new RequestBuilder(this.rootUrl, ContractorService.ContractorContactListPath, 'get');
     if (params) {
       rb.query('id', params.id, {});
+      rb.query('start', params.start, {});
+      rb.query('count', params.count, {});
     }
 
     return this.http.request(rb.build({
@@ -4648,6 +4660,16 @@ export class ContractorService extends BaseService {
      * ID контрагента
      */
     id: number;
+
+    /**
+     * Начальная позиция
+     */
+    start?: number;
+
+    /**
+     * Лимит позиций на страницу
+     */
+    count?: number;
   }): Observable<Array<{
 
 /**

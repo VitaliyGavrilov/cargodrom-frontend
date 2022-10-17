@@ -1,3 +1,4 @@
+import { Currency } from './../../../../../api/custom_models/currency';
 import { TaxSystem } from './../../../../../api/custom_models/tax-system';
 import { SettingsService } from './../../../../../api/services/settings.service';
 import { CompanyService } from './../../../../../api/services/company.service';
@@ -25,11 +26,11 @@ export class CompanyEditorComponent implements OnInit {
   title = '';
   employees: Employee[] = [];
   taxSystems: TaxSystem[] = [];
+  currencies: Currency[] = [];
 
   constructor(
     private fb: FormBuilder,
     private companyService: CompanyService,
-    private settingsService: SettingsService,
     private route: ActivatedRoute,
     private snackBar: MatSnackBar,
     private router: Router,
@@ -54,7 +55,7 @@ export class CompanyEditorComponent implements OnInit {
       responsible_person_position: ['', [Validators.required]],
       responsible_person_base: ['', [Validators.required]],
       responsible_person_fio: ['', [Validators.required]],
-      chief_accountant_fio: ['', [Validators.required]],
+      chief_accountant_id: ['', [Validators.required]],
       bank_name: ['', [Validators.required]],
       bank_rs: ['', [Validators.required]],
       bank_ks: ['', [Validators.required]],
@@ -77,6 +78,7 @@ export class CompanyEditorComponent implements OnInit {
       noresident_bank_rs_name: ['', [Validators.required]],
       noresident_bank_swift: ['', [Validators.required]],
       noresident_bank_im: ['', [Validators.required]],
+      base_currency: [''],
     });
   }
 
@@ -84,6 +86,7 @@ export class CompanyEditorComponent implements OnInit {
     const segments = this.route.snapshot.url.map(s => s.path);
     this.isEditMode = segments[1] === 'edit';
     this.getTaxSystems();
+    this.getCurrencies();
     if (this.isEditMode) {
       this.getCompany();
     }
@@ -169,10 +172,14 @@ export class CompanyEditorComponent implements OnInit {
   }
   
   getTaxSystems(): void {
-    this.settingsService.settingsGet().subscribe(
-      settings => {
-        this.taxSystems = settings.tax as TaxSystem[];
-      }
+    this.companyService.companyTaxSystem().subscribe(
+      taxSystems => this.taxSystems = taxSystems ? taxSystems as TaxSystem[] : []
+    );
+  }
+
+  getCurrencies(): void {
+    this.companyService.companyCurrency().subscribe(
+      currencies => this.currencies = currencies ? currencies as Currency[] : []
     );
   }
 

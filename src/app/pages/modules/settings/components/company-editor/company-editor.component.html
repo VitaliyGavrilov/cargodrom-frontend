@@ -243,11 +243,14 @@
                       <div>Ф.И.О.:<span class="req">*</span></div>
                     </div>
                     <div class="form-data">
-                      <div>
-                        <div class="form-input"><input class="text-control" type="text"
-                            formControlName="chief_accountant_fio">
-                        </div>
-                      </div>
+                      <mat-form-field appearance="outline" class="ui-select" style="margin-bottom: 0px; margin-top: 0px; margin-right: 0px; width: 100%;">
+                        <mat-select formControlName="chief_accountant_id">
+                          <mat-option value="">-- Не выбрано --</mat-option>
+                          <mat-option *ngFor="let employee of employees;" [value]="employee.id">
+                            {{ employee.name_f }} {{ employee.name_i }} {{ employee.name_o }}
+                          </mat-option>
+                        </mat-select>
+                      </mat-form-field>
                     </div>
                   </div>
                 </div>
@@ -310,10 +313,14 @@
                       <div>валюта счета:<span class="req">*</span></div>
                     </div>
                     <div class="form-data">
-                      <div>
-                        <div class="form-input"><input class="text-control" type="text" formControlName="bank_currency">
-                        </div>
-                      </div>
+                      <mat-form-field appearance="outline" class="ui-select" style="margin-bottom: 0px; margin-top: 0px; margin-right: 0px; width: 100%;">
+                        <mat-select formControlName="bank_currency">
+                          <mat-option value="">-- Не выбрано --</mat-option>
+                          <mat-option *ngFor="let currency of currencies;" [value]="currency.code">
+                            {{ currency.name }}
+                          </mat-option>
+                        </mat-select>
+                      </mat-form-field>
                     </div>
                   </div>
                 </div>
@@ -598,6 +605,49 @@
                             formControlName="noresident_bank_im">
                         </div>
                       </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="form-group" data-id="group_17">
+          <div class="form-group-title">Бухгалтерия</div>
+          <div>
+            <div class="form-item form-inline-group" data-id="group_inline_18">
+              <div class="form-title">
+              </div>
+              <div class="form-data">
+                <div class="form-group-row">
+                  <div class="form-item" data-id="var_tax_system" style="width: 50%">
+                    <div class="form-title">
+                      <div>Система налогообложения</div>
+                    </div>
+                    <div class="form-data">
+                      <mat-form-field appearance="outline" class="ui-select" style="margin-bottom: 0px; margin-top: 0px; margin-right: 0px; width: 100%;">
+                        <mat-select formControlName="tax_system">
+                          <mat-option value="">-- Не выбрано --</mat-option>
+                          <mat-option *ngFor="let taxSystem of taxSystems;" [value]="taxSystem.id">
+                            {{ taxSystem.name }}
+                          </mat-option>
+                        </mat-select>
+                      </mat-form-field>
+                    </div>
+                  </div>
+                  <div class="form-item" data-id="var_base_currency" style="width: 50%">
+                    <div class="form-title">
+                      <div>основная валюта счетов:</div>
+                    </div>
+                    <div class="form-data">
+                      <mat-form-field appearance="outline" class="ui-select" style="margin-bottom: 0px; margin-top: 0px; margin-right: 0px; width: 100%;">
+                        <mat-select formControlName="base_currency">
+                          <mat-option value="">-- Не выбрано --</mat-option>
+                          <mat-option *ngFor="let currency of currencies;" [value]="currency.code">
+                            {{ currency.name }}
+                          </mat-option>
+                        </mat-select>
+                      </mat-form-field>
                     </div>
                   </div>
                 </div>
