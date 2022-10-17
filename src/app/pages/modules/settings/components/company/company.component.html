@@ -45,7 +45,10 @@
       <td>{{ company.phone }}</td>
       <td>{{ company.email }}</td>
       <td>{{ company.inn }}</td>
-      <td>{{ company.responsible_person_fio }}</td>
+      <td>
+        <ng-container *ngTemplateOutlet="fio; context: {employee: findEmployeeById(company.responsible_person_id)}">
+        </ng-container>
+      </td>
       <td></td>
       <td>
         <form class="form">
@@ -95,4 +98,8 @@
     <button mat-button [mat-dialog-close]="true" cdkFocusInitial>Да</button>
     <button mat-button mat-dialog-close>Нет</button>
   </div>
+</ng-template>
+
+<ng-template #fio let-employee="employee">
+  {{ employee?.name_f }} {{ employee?.name_i }} {{ employee?.name_o }}
 </ng-template>

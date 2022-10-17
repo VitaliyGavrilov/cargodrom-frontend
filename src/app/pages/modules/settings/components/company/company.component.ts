@@ -1,3 +1,4 @@
+import { Employee } from 'src/app/api/custom_models';
 import { CompanyService } from './../../../../../api/services/company.service';
 import { Company } from './../../../../../api/custom_models/company';
 import { Component, OnInit, TemplateRef, ViewChild } from '@angular/core';
@@ -17,6 +18,7 @@ export class CompanyComponent implements OnInit {
   limits = [10, 25, 50, 100];
   count = this.limits[0];
   @ViewChild('removeDialogRef') removeDialogRef!: TemplateRef<Company>;
+  employees: Employee[] = [];
 
   constructor(
     private companyService: CompanyService,
@@ -26,6 +28,7 @@ export class CompanyComponent implements OnInit {
 
   ngOnInit(): void {
     this.loadCompanies();
+    this.loadEmployees();
   }
 
   loadCompanies(): void {
@@ -35,6 +38,16 @@ export class CompanyComponent implements OnInit {
       this.total = allCompanies.length;
       this.companies = allCompanies.slice(this.start, this.start + this.count);
     });
+  }
+
+  loadEmployees(): void {
+    this.companyService.companyEmployeeList().subscribe(
+      employees => this.employees = employees ? employees as Employee[] : []
+    );
+  }
+  
+  findEmployeeById(id: number) {
+    return this.employees.find(employee => employee.id === id);
   }
 
 
