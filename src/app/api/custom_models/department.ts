@@ -6,4 +6,5 @@ export interface Department {
   num: number;
   time_add: string;
   time_edit: string;
+  leader_user_id?: number;
 }

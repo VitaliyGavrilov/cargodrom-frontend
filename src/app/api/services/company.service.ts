@@ -3547,6 +3547,11 @@ export class CompanyService extends BaseService {
 'num'?: number;
 
 /**
+ * ID Руководителя подразделения
+ */
+'leader_user_id'?: number;
+
+/**
  * Время создания
  */
 'time_add'?: string;
@@ -3595,6 +3600,11 @@ export class CompanyService extends BaseService {
          * Порядок (меньше - выше)
          */
         'num'?: number;
+        
+        /**
+         * ID Руководителя подразделения
+         */
+        'leader_user_id'?: number;
         
         /**
          * Время создания
@@ -3659,6 +3669,11 @@ export class CompanyService extends BaseService {
 'num'?: number;
 
 /**
+ * ID Руководителя подразделения
+ */
+'leader_user_id'?: number;
+
+/**
  * Время создания
  */
 'time_add'?: string;
@@ -3698,6 +3713,11 @@ export class CompanyService extends BaseService {
 'num'?: number;
 
 /**
+ * ID Руководителя подразделения
+ */
+'leader_user_id'?: number;
+
+/**
  * Время создания
  */
 'time_add'?: string;
@@ -3732,6 +3752,11 @@ export class CompanyService extends BaseService {
  * Порядок (меньше - выше)
  */
 'num'?: number;
+
+/**
+ * ID Руководителя подразделения
+ */
+'leader_user_id'?: number;
 
 /**
  * Время создания
@@ -3795,6 +3820,11 @@ export class CompanyService extends BaseService {
 'num'?: number;
 
 /**
+ * ID Руководителя подразделения
+ */
+'leader_user_id'?: number;
+
+/**
  * Время создания
  */
 'time_add'?: string;
@@ -3842,6 +3872,11 @@ export class CompanyService extends BaseService {
          * Порядок (меньше - выше)
          */
         'num'?: number;
+        
+        /**
+         * ID Руководителя подразделения
+         */
+        'leader_user_id'?: number;
         
         /**
          * Время создания
@@ -3901,6 +3936,11 @@ export class CompanyService extends BaseService {
 'num'?: number;
 
 /**
+ * ID Руководителя подразделения
+ */
+'leader_user_id'?: number;
+
+/**
  * Время создания
  */
 'time_add'?: string;
@@ -3940,6 +3980,11 @@ export class CompanyService extends BaseService {
 'num'?: number;
 
 /**
+ * ID Руководителя подразделения
+ */
+'leader_user_id'?: number;
+
+/**
  * Время создания
  */
 'time_add'?: string;
@@ -3974,6 +4019,11 @@ export class CompanyService extends BaseService {
  * Порядок (меньше - выше)
  */
 'num'?: number;
+
+/**
+ * ID Руководителя подразделения
+ */
+'leader_user_id'?: number;
 
 /**
  * Время создания
