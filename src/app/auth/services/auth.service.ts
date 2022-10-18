@@ -11,7 +11,7 @@ const TOKEN_INFO_KEY = 'com.cargodrom.token-info';
 export class AuthService {
 
   private tokenInfo?: TokenInfo;
-  readonly storage = window.sessionStorage;
+  readonly storage = window.localStorage; // window.sessionStorage;
 
   constructor(
     private userService: UserService
