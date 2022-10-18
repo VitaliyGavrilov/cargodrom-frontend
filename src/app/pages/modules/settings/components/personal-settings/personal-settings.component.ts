@@ -34,6 +34,6 @@ export class PersonalSettingsComponent implements OnInit {
   }
 
   private sorry() {
-    this.snackBar.open(`Sorry, No API for personal settings implemented yet`);
+    this.snackBar.open(`Sorry, No API for personal settings implemented yet`, undefined, {duration: 1000});
   }
 }
