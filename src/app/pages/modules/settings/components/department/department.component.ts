@@ -5,6 +5,7 @@ import { Department } from './../../../../../api/custom_models/department';
 import { CompanyService } from './../../../../../api/services/company.service';
 import { Component, OnInit, TemplateRef, ViewChild, ViewEncapsulation } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
+import { Employee } from 'src/app/api/custom_models';
 
 interface Column<T> {
   name: keyof T;
@@ -36,6 +37,7 @@ export class DepartmentComponent implements OnInit {
     { name: 'name', sortType: 'case-insensitive', title: 'Руководитель подразделения', sortOrder: 'asc' }, // TODO: Where to get this column
   ];
   sortCol: Column<Department>= this.columns[0];
+  employees: Employee[] = [];
 
 
   constructor(
@@ -47,6 +49,7 @@ export class DepartmentComponent implements OnInit {
 
   ngOnInit(): void {
     this.loadDepartments();
+    this.loadEmployees();
   }
 
   loadDepartments(): void {
@@ -115,6 +118,18 @@ export class DepartmentComponent implements OnInit {
         error: (err) => this.snackBar.open(`Ошибка удаления подразделения: ` + err.error.error_message, undefined, { duration: 1000 })
       });
   }
-
+  
+  loadEmployees(): void {
+    this.companyService.companyEmployeeList().subscribe(
+      employees => this.employees = employees ? employees as Employee[] : []
+    );
+  }
+  
+  findEmployeeById(id?: number) {
+    if (typeof id !== 'number') {
+      return undefined;
+    }
+    return this.employees.find(employee => employee.id === id);
+  }
 
 }

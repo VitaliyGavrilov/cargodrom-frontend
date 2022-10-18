@@ -18,7 +18,11 @@
       <td class="col">{{ department.name }}</td>
       <td>{{ department.count_position }}</td>
       <td>{{ department.count_user }}</td>
-      <td><a class="link-view" [routerLink]="['../employee', department.id]">Полина Зайцева</a></td>
+      <td>
+        <a class="link-view" [routerLink]="['../employee', department.leader_user_id]">
+          <ng-container *ngTemplateOutlet="fio; context: {employee: findEmployeeById(department.leader_user_id)}"></ng-container>
+        </a>
+      </td>
       <td><a class="btn add-item-text" [routerLink]="['/pages', 'settings', 'employee', 'add']" [queryParams]="{department_id: department.id}"><span>Добавить сотрудника</span></a></td>
       <td class="col min right">
         <span class="link-pic ajax notext fn-link link-hide" [routerLink]="['./department?id=1&amp;act=switch_show&amp;show=1']" title="Показывать">Нет</span>
@@ -40,4 +44,8 @@
       <button mat-button [mat-dialog-close]="true" cdkFocusInitial>Да</button>
       <button mat-button mat-dialog-close>Нет</button>
     </div>
+  </ng-template>
+  
+  <ng-template #fio let-employee="employee">
+    {{ employee?.name_f }} {{ employee?.name_i }} {{ employee?.name_o }}
   </ng-template>
