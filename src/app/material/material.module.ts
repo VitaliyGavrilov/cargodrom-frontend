@@ -15,12 +15,14 @@ import { PaginatorComponent } from './components/paginator/paginator.component';
 import { EditorHeaderComponent } from './components/editor-header/editor-header.component';
 import { MatButtonModule } from '@angular/material/button';
 import { MatDatepickerModule } from '@angular/material/datepicker';
+import { FocusInitialDirective } from './directives/focus-initial.directive';
 
 @NgModule({
   declarations: [
     PopupDialogComponent,
     PaginatorComponent,
     EditorHeaderComponent,
+    FocusInitialDirective,
   ],
   imports: [
     CommonModule,
@@ -53,6 +55,7 @@ import { MatDatepickerModule } from '@angular/material/datepicker';
     MatButtonModule,
     MatDatepickerModule,
     MatNativeDateModule,
+    FocusInitialDirective,
   ]
 })
 export class MaterialModule { }
