@@ -862,4 +862,5 @@ mat-form-field.mat-form-field-appearance-outline .mat-select-arrow { width: 10px
 app-settings { display: flex; flex-direction: column; flex: 1 1 auto; }
 
 .hidden { display: none; }
+.error { color: #f00000; padding: 5px 0 0 5px; font-size: 13px; }
 

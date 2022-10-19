@@ -19,8 +19,9 @@
                     </div>
                     <div class="form-data">
                       <div>
-                        <div class="form-input"><input class="text-control" type="text" formControlName="name_f"
-                            appFocusInitial required>
+                        <div class="form-input">
+                          <input class="text-control" type="text" formControlName="name_f" appFocusInitial required>
+                          <ng-container *ngTemplateOutlet="error; context: {name: 'name_f'}"></ng-container>
                         </div>
                       </div>
                     </div>
@@ -31,8 +32,9 @@
                     </div>
                     <div class="form-data">
                       <div>
-                        <div class="form-input"><input class="text-control" type="text" formControlName="name_i"
-                            required>
+                        <div class="form-input">
+                          <input class="text-control" type="text" formControlName="name_i" required>
+                          <ng-container *ngTemplateOutlet="error; context: {name: 'name_i'}"></ng-container>
                         </div>
                       </div>
                     </div>
@@ -43,7 +45,9 @@
                     </div>
                     <div class="form-data">
                       <div>
-                        <div class="form-input"><input class="text-control" type="text" formControlName="name_o">
+                        <div class="form-input">
+                          <input class="text-control" type="text" formControlName="name_o" required>
+                          <ng-container *ngTemplateOutlet="error; context: {name: 'name_o'}"></ng-container>
                         </div>
                       </div>
                     </div>
@@ -84,6 +88,7 @@
                           </mat-option>
                         </mat-select>
                       </mat-form-field>
+                      <ng-container *ngTemplateOutlet="error; context: {name: 'company_id'}"></ng-container>
                     </div>
                   </div>
                   <div class="form-item" data-id="var_department_id" style="width: 50%">
@@ -98,6 +103,7 @@
                             }}</mat-option>
                         </mat-select>
                       </mat-form-field>
+                      <ng-container *ngTemplateOutlet="error; context: {name: 'department_id'}"></ng-container>
                     </div>
                   </div>
                 </div>
@@ -120,6 +126,7 @@
                           </mat-option>
                         </mat-select>
                       </mat-form-field>
+                      <ng-container *ngTemplateOutlet="error; context: {name: 'position_id'}"></ng-container>
                     </div>
                   </div>
                   <div class="width_50 form-group-row">
@@ -160,8 +167,9 @@
                     </div>
                     <div class="form-data">
                       <div>
-                        <div class="form-input"><input class="text-control" type="text" formControlName="email"
-                            required>
+                        <div class="form-input">
+                          <input class="text-control" type="text" formControlName="email" required>
+                          <ng-container *ngTemplateOutlet="error; context: {name: 'email'}"></ng-container>
                         </div>
                       </div>
                     </div>
@@ -204,3 +212,7 @@
     </div>
   </form>
 </div>
+
+<ng-template #error let-name="name">
+  <div class="error" *ngIf="isFormSubmitted && hasError(name)">{{ getError(name) }}</div>
+</ng-template>
