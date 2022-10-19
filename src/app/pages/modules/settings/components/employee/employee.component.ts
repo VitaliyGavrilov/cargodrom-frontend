@@ -1,9 +1,10 @@
-import { byField } from './../../../../../constants/sort-predicate';
-import { Department, Employee, Position } from './../../../../../api/custom_models';
-import { CompanyService } from './../../../../../api/services/company.service';
 import { Component, OnInit, TemplateRef, ViewChild, ViewEncapsulation } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { MatSnackBar } from '@angular/material/snack-bar';
+import { concat, map, Observable, zip } from 'rxjs';
+import { Company, Department, Employee, Position } from './../../../../../api/custom_models';
+import { CompanyService } from './../../../../../api/services/company.service';
+import { byField } from './../../../../../constants/sort-predicate';
 
 @Component({
   selector: 'app-employee',
@@ -16,14 +17,15 @@ import { MatSnackBar } from '@angular/material/snack-bar';
 })
 export class EmployeeComponent implements OnInit {
   employees: Employee[] = [];
-  departments: Department[] = [];
-  positions: Position[] = [];
-  companies: any[] = [];
   total = 0;
   start = 0;
   limits = [10, 25, 50, 100];
   count = this.limits[0];
   @ViewChild('removeDialogRef') removeDialogRef!: TemplateRef<Employee>;
+  departmentById: { [id: string]: Department } = {};
+  positionById: { [id: string]: Position } = {};
+  companyById: { [id: string]: Company } = {};
+  trackById = (_index: number, employee: Employee) => employee.id;
 
   constructor(
     private companyService: CompanyService,
@@ -32,62 +34,56 @@ export class EmployeeComponent implements OnInit {
   ) { }
 
   ngOnInit(): void {
-    this.loadEmployees();
-    this.loadPositions();
-    this.loadDepartments();
-    this.loadCompanies();
+    concat(
+      zip(this.loadPositions(), this.loadDepartments(), this.loadCompanies()),
+      this.loadEmployees(),
+    ).subscribe();
   }
 
-  loadEmployees(): void {
-    this.companyService.companyEmployeeList().subscribe(employees => {
-      const allEmployees = employees ? employees as Employee[] : [];
-      allEmployees.sort(byField('name_f', 'asc', 'case-insensitive'));
+  loadEmployees(): Observable<void> {
+    return this.companyService.companyEmployeeList().pipe(map(employees => {
+      const allEmployees = employees ? employees.sort(byField('name_f', 'asc', 'case-insensitive')) as Employee[] : [];
       this.total = allEmployees.length;
       this.employees = allEmployees.slice(this.start, this.start + this.count);
-    });
-  }
-  
-  loadDepartments(): void {
-    this.companyService.companyDepartmentList().subscribe(departments => {
-      this.departments = departments ? departments as Department[] : [];
-    });
-  }
-  
-  loadPositions(): void {
-    this.companyService.companyPositionList().subscribe(positions => {
-      this.positions = positions ? positions as Position[] : [];
-    });
+    }));
   }
 
-  loadCompanies(): void {
-    this.companyService.companyList().subscribe(companies => {
-      this.companies = companies ? companies as any[] : [];
-    });
+  reloadEmployees(): void {
+    this.loadEmployees().subscribe();
   }
-  
-  getPositionById(id: number): string | undefined {
-    return this.positions.find(position => position.id === id)?.name;
+
+  loadDepartments(): Observable<void> {
+    return this.companyService.companyDepartmentList().pipe(map(departments => {
+      const allDepartments = departments ? departments as Department[] : [];
+      allDepartments.forEach(department => this.departmentById[department.id] = department);
+    }));
   }
-  
-  getDepartmentById(id: number): string | undefined {
-    return this.departments.find(department => department.id === id)?.name;
+
+  loadPositions(): Observable<void> {
+    return this.companyService.companyPositionList().pipe(map(positions => {
+      const allPositions = positions ? positions as Position[] : [];
+      allPositions.forEach(position => this.positionById[position.id] = position);
+    }));
   }
-  
-  getCompanyById(id: number): string | undefined {
-    return this.companies.find(company => company.id === id)?.name;
+
+  loadCompanies(): Observable<void> {
+    return this.companyService.companyList().pipe(map(companies => {
+      const allCompanies = companies ? companies as Company[] : [];
+      allCompanies.forEach(company => this.companyById[company.id] = company);
+    }));
   }
-  
+
   onStartChange(newStart: number): void {
     this.start = newStart;
-    this.loadEmployees();
+    this.reloadEmployees();
   }
-  
+
   onCountChange(newCount: number): void {
     this.start = 0;
     this.count = newCount;
-    this.loadEmployees();
+    this.reloadEmployees();
   }
-  
+
   confirmRemove(employee: Employee): void {
     this.dialog.open(this.removeDialogRef, { data: employee }).afterClosed().subscribe(res => {
       if (res) {
@@ -102,10 +98,10 @@ export class EmployeeComponent implements OnInit {
       .subscribe({
         next: () => {
           this.snackBar.open(`Сотрудник ${employee.name_f} удален`, undefined, { duration: 1000 });
-          this.loadEmployees();
+          this.reloadEmployees();
         },
         error: (err) => this.snackBar.open(`Ошибка удаления сотрудника: ` + err.error.error_message, undefined, { duration: 1000 })
       });
   }
-  
+
 }
