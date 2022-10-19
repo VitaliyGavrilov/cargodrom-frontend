@@ -42,11 +42,11 @@
     </tr>
   </thead>
   <tbody>
-    <tr *ngFor="let employee of employees; odd as isOdd" [ngClass]="{'odd': isOdd}">
+    <tr *ngFor="let employee of employees; odd as isOdd; trackBy: trackById" [ngClass]="{'odd': isOdd}">
       <td class="col">{{ employee.name_f }} {{ employee.name_i }} {{ employee.name_o }}</td>
-      <td>{{ getCompanyById(employee.company_id) }}</td>
-      <td>{{ getDepartmentById(employee.department_id) }}</td>
-      <td>{{ getPositionById(employee.position_id) }}</td>
+      <td>{{ companyById[employee.company_id]?.name }}</td>
+      <td>{{ departmentById[employee.department_id]?.name }}</td>
+      <td>{{ positionById[employee.position_id]?.name }}</td>
       <td>{{ employee.phone }}</td>
       <td>{{ employee.email }}</td>
       <td>{{ employee.birth_date | date}}</td>
