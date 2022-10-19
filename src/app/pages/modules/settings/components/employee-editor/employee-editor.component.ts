@@ -101,7 +101,7 @@ export class EmployeeEditorComponent implements OnInit {
       this.snackBar.open('Не все поля заполнены корректно', undefined, this.snackBarWithLongDuration);
       return;
     }
-    const body = this.form.value;
+    const body = this.form.getRawValue(); // include disabled fields
     if (typeof this.employee.id === 'number') {
       this.updateEmployee(body);
     } else {
