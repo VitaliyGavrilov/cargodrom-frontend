@@ -1,7 +1,7 @@
 <app-editor-header [title]="title" (save)="save()" (remove)="remove()" [isEditMode]="isEditMode"></app-editor-header>
 
 <div class="edit-form">
-  <form class="form" [formGroup]="form">
+  <form class="form" [formGroup]="form" (ngSubmit)="save()">
     <div class="form-placer">
       <div class="form-items">
         <div class="form-group">
@@ -33,6 +33,7 @@
       <app-department-employee *ngIf="departmentId" [departmentId]="departmentId"></app-department-employee>
       </div>
       <div class="form-button-placer">
+        <input type="submit" class="hidden">
         <span class="btn v save button ico ico-floppy-disk2" (click)="save()"><span>Сохранить</span></span>
         <span class="btn v del button" *ngIf="isEditMode" (click)="remove()"><span>Удалить</span></span>
         <span class="btn v cancel button gray" (click)="goBack()"><span>Отмена</span></span>
