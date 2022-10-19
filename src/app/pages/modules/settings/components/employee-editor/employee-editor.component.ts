@@ -1,14 +1,14 @@
-import { Position } from './../../../../../api/custom_models/position';
-import { Department } from './../../../../../api/custom_models/department';
-import { CompanyService } from './../../../../../api/services/company.service';
-import { Company } from './../../../../../api/custom_models/company';
-import { Employee } from './../../../../../api/custom_models/employee';
-import { Component, OnInit, ViewEncapsulation } from '@angular/core';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { ActivatedRoute, Router } from '@angular/router';
-import { MatSnackBar, MatSnackBarConfig } from '@angular/material/snack-bar';
-import { tap } from 'rxjs';
 import { Location } from '@angular/common';
+import { Component, OnInit, ViewEncapsulation } from '@angular/core';
+import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
+import { MatSnackBar, MatSnackBarConfig } from '@angular/material/snack-bar';
+import { ActivatedRoute, Router } from '@angular/router';
+import { tap } from 'rxjs';
+import { Company } from './../../../../../api/custom_models/company';
+import { Department } from './../../../../../api/custom_models/department';
+import { Employee } from './../../../../../api/custom_models/employee';
+import { Position } from './../../../../../api/custom_models/position';
+import { CompanyService } from './../../../../../api/services/company.service';
 
 @Component({
   selector: 'app-employee-editor',
@@ -26,6 +26,7 @@ export class EmployeeEditorComponent implements OnInit {
   companies: Company[] = [];
   departments: Department[] = [];
   positions: Position[] = [];
+  isFormSubmitted = false;
 
   constructor(
     private fb: FormBuilder,
@@ -97,6 +98,7 @@ export class EmployeeEditorComponent implements OnInit {
   }
 
   save(): void {
+    this.isFormSubmitted = true;
     if (!this.form.valid) {
       this.snackBar.open('Не все поля заполнены корректно', undefined, this.snackBarWithLongDuration);
       return;
@@ -152,4 +154,21 @@ export class EmployeeEditorComponent implements OnInit {
   getPositions(): void {
     this.companyService.companyPositionList().subscribe(positions => this.positions = positions as Position[]);
   }
+  
+  hasError(name: string): boolean {
+    const control = this.form.get(name) as FormControl;
+    return control.invalid && (control.dirty || control.touched);
+  }
+  
+  getError(name: string): string {
+    const control = this.form.get(name) as FormControl;
+    if (control.errors?.['required']) {
+      return 'Поле обязательно';
+    }
+    if (control.errors?.['email']) {
+      return 'Не валидный email';
+    }
+    return '';
+  }
+  
 }
