@@ -85,7 +85,7 @@ export class SettingsEditor {
   
   detectEditMode(): void {
     const segments = this.route.snapshot.url.map(s => s.path);
-    this.isEditMode = segments[1] === 'edit';
+    this.isEditMode = segments[1] !== 'add';
   }
   
   getIdParam(): number {

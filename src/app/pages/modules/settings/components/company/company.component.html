@@ -80,7 +80,7 @@
         <a class="link-pic ajax link-txt fn-link" data-href="/erp/settings/company?id=2&amp;act=save_txt" title="TXT"></a>
         <a class="link-pic ajax link-pdf fn-link" data-href="/erp/settings/company?id=2&amp;act=save_pdf" title="PDF"></a>
         <span class="link-pic ajax notext fn-link link-hide" data-href="/erp/settings/company?id=2&amp;act=switch_show&amp;show=1" title="Показывать">Нет</span>
-        <a class="link-pic link-edit ico ico-pencil fn-link" [routerLink]="['edit', company.id]" title="Редактировать"></a>
+        <a class="link-pic link-edit ico ico-pencil fn-link" [routerLink]="[company.id]" title="Редактировать"></a>
         <span class="link-pic link-del ico ico-cross2 fn-link" (click)="confirmRemove(company)" title="Удалить"></span>
       </td>
     </tr>

@@ -1,3 +1,4 @@
+import { NgxMaskModule } from 'ngx-mask';
 import { MatSelectModule } from '@angular/material/select';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { ComponentFixture, TestBed } from '@angular/core/testing';
@@ -25,6 +26,7 @@ describe('EmployeeEditorComponent', () => {
         NoopAnimationsModule,
         MatFormFieldModule,
         MatSelectModule,
+        NgxMaskModule.forRoot({}),
       ],
       providers: [
         {
@@ -32,6 +34,7 @@ describe('EmployeeEditorComponent', () => {
             companyDepartmentList: () => of([]),
             companyPositionList: () => of([]),
             companyList: () => of([]),
+            companyEmployeeInfo: () => of({name_f: 'Last', name_i: 'First', name_o: 'Middle'})
           }
         },
       ]

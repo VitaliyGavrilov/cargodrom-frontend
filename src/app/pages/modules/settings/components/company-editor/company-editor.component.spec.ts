@@ -1,3 +1,4 @@
+import { NgxMaskModule } from 'ngx-mask';
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
@@ -21,6 +22,7 @@ describe('CompanyEditorComponent', () => {
         ReactiveFormsModule,
         RouterTestingModule,
         NoopAnimationsModule,
+        NgxMaskModule.forRoot({}),
       ],
       providers: [
         {
