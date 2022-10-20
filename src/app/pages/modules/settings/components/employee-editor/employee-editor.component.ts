@@ -10,6 +10,7 @@ import { Department } from './../../../../../api/custom_models/department';
 import { Employee } from './../../../../../api/custom_models/employee';
 import { Position } from './../../../../../api/custom_models/position';
 import { CompanyService } from './../../../../../api/services/company.service';
+import { SettingsEditor } from '../../classes/settings-editor';
 
 @Component({
   selector: 'app-employee-editor',
@@ -17,26 +18,17 @@ import { CompanyService } from './../../../../../api/services/company.service';
   styleUrls: ['./employee-editor.component.scss'],
   encapsulation: ViewEncapsulation.None,
 })
-export class EmployeeEditorComponent implements OnInit {
-  form: FormGroup;
-  isEditMode = false;
+export class EmployeeEditorComponent extends SettingsEditor implements OnInit {
   employee: Partial<Employee> = {};
-  snackBarWithShortDuration: MatSnackBarConfig = { duration: 1000 };
-  snackBarWithLongDuration: MatSnackBarConfig = { duration: 5000 };
-  title = '';
-  companies: Company[] = [];
-  departments: Department[] = [];
-  positions: Position[] = [];
-  isFormSubmitted = false;
 
   constructor(
     private fb: FormBuilder,
-    private companyService: CompanyService,
-    private route: ActivatedRoute,
     private snackBar: MatSnackBar,
-    private router: Router,
-    private location: Location,
+    route: ActivatedRoute,
+    companyService: CompanyService,
+    location: Location,
   ) {
+    super(location, companyService, route);
     this.form = this.fb.group({
       id: [''],
       name_f: ['', [Validators.required]],
@@ -55,8 +47,7 @@ export class EmployeeEditorComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    const segments = this.route.snapshot.url.map(s => s.path);
-    this.isEditMode = segments[1] === 'edit';
+    this.detectEditMode();
     if (this.isEditMode) {
       this.getEmployee();
     } else {
@@ -73,7 +64,7 @@ export class EmployeeEditorComponent implements OnInit {
   }
 
   getEmployee(): void {
-    const id = Number(this.route.snapshot.paramMap.get('id'));
+    const id = this.getIdParam();
     this.companyService.companyEmployeeInfo({ id })
       .pipe(tap((employee) => {
         // currently, when employee doesn't exist the service returns HTTP 200 with empty response body instead of HTTP 404
@@ -92,10 +83,6 @@ export class EmployeeEditorComponent implements OnInit {
           this.goBack();
         }
       });
-  }
-
-  goBack(): void {
-    this.location.back();
   }
 
   save(): void {
@@ -144,38 +131,4 @@ export class EmployeeEditorComponent implements OnInit {
       });
   }
 
-  getCompanies(): void {
-    this.companyService.companyList().subscribe(companies => this.companies = companies as Company[]);
-  }
-
-  getDepartments(): void {
-    this.companyService.companyDepartmentList().subscribe(departments => this.departments = departments as Department[]);
-  }
-
-  getPositions(): void {
-    this.companyService.companyPositionList().subscribe(positions => this.positions = positions as Position[]);
-  }
-  
-  hasError(name: string): boolean {
-    const control = this.form.get(name) as FormControl;
-    return control.invalid;
-  }
-  
-  getError(name: string): string {
-    const control = this.form.get(name) as FormControl;
-    if (control.errors?.['required']) {
-      return 'Поле обязательно';
-    }
-    if (control.errors?.['email']) {
-      return 'Невалидный email';
-    }
-    if (control.errors?.['inn']) {
-      return 'Неверный формат ИНН';
-    }
-    if (control.errors?.['mask']) {
-      return 'Неверный формат';
-    }
-    return '';
-  }
-  
 }

@@ -2,7 +2,7 @@ import { ActivatedRoute } from '@angular/router';
 import { CompanyService } from './../../../../api/services/company.service';
 import { FormControl, FormGroup } from "@angular/forms";
 import { MatSnackBarConfig } from "@angular/material/snack-bar";
-import { Currency, Employee, TaxSystem } from "src/app/api/custom_models";
+import { Company, Currency, Department, Employee, Position, TaxSystem } from "src/app/api/custom_models";
 import { Location } from '@angular/common';
 import { phoneMask } from 'src/app/constants';
 
@@ -15,6 +15,9 @@ export class SettingsEditor {
   employees: Employee[] = [];
   taxSystems: TaxSystem[] = [];
   currencies: Currency[] = [];
+  companies: Company[] = [];
+  departments: Department[] = [];
+  positions: Position[] = [];
   isFormSubmitted = false;
   phoneMask = phoneMask;
 
@@ -44,6 +47,18 @@ export class SettingsEditor {
     this.companyService.companyCurrency().subscribe(
       currencies => this.currencies = currencies ? currencies as Currency[] : []
     );
+  }
+  
+  getCompanies(): void {
+    this.companyService.companyList().subscribe(companies => this.companies = companies as Company[]);
+  }
+
+  getDepartments(): void {
+    this.companyService.companyDepartmentList().subscribe(departments => this.departments = departments as Department[]);
+  }
+
+  getPositions(): void {
+    this.companyService.companyPositionList().subscribe(positions => this.positions = positions as Position[]);
   }
 
   hasError(name: string): boolean {
