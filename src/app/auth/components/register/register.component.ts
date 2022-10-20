@@ -1,3 +1,4 @@
+import { emailValidator, innValidator } from './../../../validators';
 import { Component, OnInit } from '@angular/core';
 import {FormBuilder, FormGroup, Validators} from "@angular/forms";
 import {Router} from "@angular/router";
@@ -32,8 +33,8 @@ export class RegisterComponent implements OnInit {
       company: ['', [Validators.required] ],
       fio: ['', [Validators.required] ],
       phone: ['', [Validators.required] ],
-      inn: ['', [Validators.required, Validators.pattern(/^([0-9]{10,12})$/ ) ] ],
-      email: ['', [Validators.required, Validators.email] ],
+      inn: ['', [Validators.required, innValidator ] ],
+      email: ['', [Validators.required, emailValidator] ],
       password: ['', [Validators.required] ],
       password_confirm: ['', [Validators.required] ],
     });
@@ -68,7 +69,7 @@ export class RegisterComponent implements OnInit {
       error_message.push('E-mail введен не верно');
     }
 
-    if ( this._inn?.errors?.['pattern']  ) {
+    if ( this._inn?.errors?.['inn']  ) {
       error_message.push('ИНН введен не верно');
     }
 

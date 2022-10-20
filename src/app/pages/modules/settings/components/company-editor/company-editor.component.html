@@ -22,6 +22,7 @@
                         <div class="form-input">
                           <input class="text-control" type="hidden" formControlName="id">
                           <input class="text-control" type="text" formControlName="name" required appFocusInitial>
+                          <ng-container *ngTemplateOutlet="error; context: {name: 'name'}"></ng-container>
                         </div>
                       </div>
                     </div>
@@ -83,7 +84,10 @@
                     </div>
                     <div class="form-data">
                       <div>
-                        <div class="form-input"><input class="text-control" type="text" formControlName="inn"></div>
+                        <div class="form-input">
+                          <input class="text-control" type="text" formControlName="inn">
+                          <ng-container *ngTemplateOutlet="error; context: {name: 'inn'}"></ng-container>
+                        </div>
                       </div>
                     </div>
                   </div>
@@ -142,7 +146,9 @@
                     </div>
                     <div class="form-data">
                       <div>
-                        <div class="form-input"><input class="text-control" type="text" formControlName="email">
+                        <div class="form-input">
+                          <input class="text-control" type="text" formControlName="email">
+                          <ng-container *ngTemplateOutlet="error; context: {name: 'email'}"></ng-container>
                         </div>
                       </div>
                     </div>
@@ -428,8 +434,9 @@
                     </div>
                     <div class="form-data">
                       <div>
-                        <div class="form-input"><input class="text-control" type="text"
-                            formControlName="noresident_email">
+                        <div class="form-input">
+                          <input class="text-control" type="text" formControlName="noresident_email">
+                          <ng-container *ngTemplateOutlet="error; context: {name: 'noresident_email'}"></ng-container>
                         </div>
                       </div>
                     </div>
@@ -665,3 +672,7 @@
     </div>
   </form>
 </div>
+
+<ng-template #error let-name="name">
+  <div class="error" *ngIf="isFormSubmitted && hasError(name)">{{ getError(name) }}</div>
+</ng-template>

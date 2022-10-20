@@ -1,9 +1,10 @@
+import { emailValidator, innValidator } from './../../../../../validators';
 import { Currency } from './../../../../../api/custom_models/currency';
 import { TaxSystem } from './../../../../../api/custom_models/tax-system';
 import { CompanyService } from './../../../../../api/services/company.service';
 import { Company } from './../../../../../api/custom_models/company';
 import { Component, OnInit } from '@angular/core';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { MatSnackBar, MatSnackBarConfig } from '@angular/material/snack-bar';
 import { ActivatedRoute, Router } from '@angular/router';
 import { tap } from 'rxjs';
@@ -26,6 +27,7 @@ export class CompanyEditorComponent implements OnInit {
   employees: Employee[] = [];
   taxSystems: TaxSystem[] = [];
   currencies: Currency[] = [];
+  isFormSubmitted = false;
 
   constructor(
     private fb: FormBuilder,
@@ -42,11 +44,11 @@ export class CompanyEditorComponent implements OnInit {
       name_short: ['', []],
       jur_address: ['', []],
       post_address: ['', []],
-      inn: ['', []],
+      inn: ['', [innValidator]],
       kpp: ['', []],
       ogrn: ['', []],
       okpo: ['', []],
-      email: ['', [Validators.email]],
+      email: ['', [emailValidator]],
       phone: ['', []],
       website: ['', []],
       skype: ['', []],
@@ -64,7 +66,7 @@ export class CompanyEditorComponent implements OnInit {
       noresident_name: ['', []],
       noresident_address: ['', []],
       noresident_phone: ['', []],
-      noresident_email: ['', []],
+      noresident_email: ['', [emailValidator]],
       noresident_skype: ['', []],
       noresident_website: ['', []],
       noresident_signatory_id: ['', []],
@@ -120,10 +122,11 @@ export class CompanyEditorComponent implements OnInit {
   }
 
   save(): void {
-    // if (!this.form.valid) {
-    //   this.snackBar.open('Не все поля заполнены корректно', undefined, this.snackBarWithLongDuration);
-    //   return;
-    // }
+    this.isFormSubmitted = true;
+    if (!this.form.valid) {
+      this.snackBar.open('Не все поля заполнены корректно', undefined, this.snackBarWithLongDuration);
+      return;
+    }
     const body = this.form.value;
     if (typeof this.company.id === 'number') {
       this.updateCompany(body);
@@ -181,5 +184,23 @@ export class CompanyEditorComponent implements OnInit {
       currencies => this.currencies = currencies ? currencies as Currency[] : []
     );
   }
-
+  
+  hasError(name: string): boolean {
+    const control = this.form.get(name) as FormControl;
+    return control.invalid && (control.dirty || control.touched);
+  }
+  
+  getError(name: string): string {
+    const control = this.form.get(name) as FormControl;
+    if (control.errors?.['required']) {
+      return 'Поле обязательно';
+    }
+    if (control.errors?.['email']) {
+      return 'Не валидный email';
+    }
+    if (control.errors?.['inn']) {
+      return 'Не валидный ИНН';
+    }
+    return '';
+  }
 }
