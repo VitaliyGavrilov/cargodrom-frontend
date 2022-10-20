@@ -58,13 +58,13 @@
         </div>
       </td>
       <td class="col min">
-        <a class="link-pic link-edit ico ico-pencil fn-link" [routerLink]="['/pages', 'settings', 'employee', 'edit', employee.id]" title="Редактировать"></a>
+        <a class="link-pic link-edit ico ico-pencil fn-link" [routerLink]="['..', 'employee', employee.id]" title="Редактировать"></a>
         <span class="link-pic link-del ico ico-cross2 fn-link" (click)="confirmRemove(employee)" title="Удалить"></span>
       </td>
     </tr>
     <tr class="odd">
       <td colspan="5">
-        <a class="btn add-item-text" [routerLink]="['/pages', 'settings', 'employee', 'add']" [queryParams]="{department_id: departmentId}">
+        <a class="btn add-item-text" [routerLink]="['..', 'employee', 'add']" [queryParams]="{department_id: departmentId}">
           <span>Добавить сотрудника</span></a>
       </td>
     </tr>

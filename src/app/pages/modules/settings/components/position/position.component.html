@@ -15,7 +15,7 @@
     <tr *ngFor="let position of positions; odd as isOdd" [ngClass]="{'odd': isOdd}">
       <td class="col">{{ position.name }}</td>
       <td class="col min">
-        <a class="link-pic link-edit ico ico-pencil fn-link" [routerLink]="['./edit', position.id]" title="Редактировать"></a>
+        <a class="link-pic link-edit ico ico-pencil fn-link" [routerLink]="[position.id]" title="Редактировать"></a>
         <span class="link-pic link-del ico ico-cross2 fn-link" title="Удалить" (click)="confirmRemove(position)"></span>
       </td>
     </tr>

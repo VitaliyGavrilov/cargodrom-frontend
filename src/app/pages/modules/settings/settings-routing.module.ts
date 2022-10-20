@@ -54,7 +54,7 @@ const routes: Routes = [
     pathMatch: 'full',
   },
   {
-    path: 'position/edit/:id',
+    path: 'position/:id',
     component: PositionEditorComponent,
     pathMatch: 'full',
   },
@@ -64,7 +64,7 @@ const routes: Routes = [
     pathMatch: 'full',
   },
   {
-    path: 'department/edit/:id',
+    path: 'department/:id',
     component: DepartmentEditorComponent,
     pathMatch: 'full',
   },
@@ -74,7 +74,7 @@ const routes: Routes = [
     pathMatch: 'full',
   },
   {
-    path: 'employee/edit/:id',
+    path: 'employee/:id',
     component: EmployeeEditorComponent,
     pathMatch: 'full',
   },
@@ -84,7 +84,7 @@ const routes: Routes = [
     pathMatch: 'full',
   },
   {
-    path: 'company/edit/:id',
+    path: 'company/:id',
     component: CompanyEditorComponent,
     pathMatch: 'full',
   },
