@@ -180,7 +180,9 @@
                     </div>
                     <div class="form-data">
                       <div>
-                        <div class="form-input"><input class="text-control" type="text" formControlName="phone">
+                        <div class="form-input">
+                          <input class="text-control" type="text" formControlName="phone" mask="+0 (000) 000-00-00">
+                          <ng-container *ngTemplateOutlet="error; context: {name: 'phone'}"></ng-container>
                         </div>
                       </div>
                     </div>

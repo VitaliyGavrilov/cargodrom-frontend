@@ -2,6 +2,7 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { MaterialModule } from '@cargodrom/material/material.module';
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
+import { NgxMaskModule } from 'ngx-mask';
 
 import { SettingsRoutingModule } from './settings-routing.module';
 import { SettingsComponent } from './settings.component';
@@ -36,7 +37,8 @@ import { PersonalSettingsComponent } from './components/personal-settings/person
     MaterialModule,
     FormsModule,
     ReactiveFormsModule,
-    SettingsRoutingModule
+    SettingsRoutingModule,
+    NgxMaskModule.forChild(),
   ]
 })
 export class SettingsModule { }
