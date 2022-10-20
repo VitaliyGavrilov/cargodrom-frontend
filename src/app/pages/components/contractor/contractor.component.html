@@ -1,7 +1,7 @@
 <div class="subheader">
   <div class="placer">
     <div class="title">Подрядчики</div>
-    <a class="link add" [routerLink]="['./add']"><svg width="14" height="14" viewBox="0 0 14 14" fill="none"
+    <a class="link add" [routerLink]="['add']"><svg width="14" height="14" viewBox="0 0 14 14" fill="none"
         xmlns="http://www.w3.org/2000/svg">
         <path d="M5 9H3V8H5V6H6V8H8V9H6V11H5V9ZM14 0V14H0V0H14ZM13 1H1V13H13V1Z" fill="#DB563B"></path>
       </svg><span>Новый подрядчик</span></a>
@@ -42,7 +42,7 @@
       </tr>
       <tr *ngFor="let contractor of contractors; index as i; trackBy:trackById" [ngClass]="{'odd': i % 2 == 1}">
         <td>{{ start + i + 1 }}</td>
-        <td><a class="link" [routerLink]="['./edit', contractor.id]">{{ contractor.name }}</a></td>
+        <td><a class="link" [routerLink]="[contractor.id]">{{ contractor.name }}</a></td>
         <td>{{ contractor.country_name }} </td>
         <td class="l">
           <span class="type air"></span>
