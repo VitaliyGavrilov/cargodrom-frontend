@@ -1,9 +1,9 @@
 import { SettingsEditor } from './../../classes/settings-editor';
-import { MatSnackBar, MatSnackBarConfig } from '@angular/material/snack-bar';
+import { MatSnackBar } from '@angular/material/snack-bar';
 import { Position } from './../../../../../api/custom_models/position';
-import { ActivatedRoute, Router } from '@angular/router';
+import { ActivatedRoute } from '@angular/router';
 import { CompanyService } from '../../../../../api/services/company.service';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { FormBuilder, Validators } from '@angular/forms';
 import { Component, OnInit } from '@angular/core';
 import { tap } from 'rxjs';
 import { Location } from '@angular/common';

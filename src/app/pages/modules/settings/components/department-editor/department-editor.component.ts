@@ -2,9 +2,9 @@ import { SettingsEditor } from './../../classes/settings-editor';
 import { CompanyService } from './../../../../../api/services/company.service';
 import { Department } from './../../../../../api/custom_models/department';
 import { Component, OnInit } from '@angular/core';
-import { FormGroup, FormBuilder, Validators } from '@angular/forms';
-import { MatSnackBarConfig, MatSnackBar } from '@angular/material/snack-bar';
-import { ActivatedRoute, Router } from '@angular/router';
+import { FormBuilder, Validators } from '@angular/forms';
+import { MatSnackBar } from '@angular/material/snack-bar';
+import { ActivatedRoute } from '@angular/router';
 import { tap } from 'rxjs';
 import { Location } from '@angular/common';
 @Component({

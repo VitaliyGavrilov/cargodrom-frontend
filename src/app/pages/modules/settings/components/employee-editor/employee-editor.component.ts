@@ -1,14 +1,11 @@
 import { emailValidator } from './../../../../../validators';
 import { Location } from '@angular/common';
 import { Component, OnInit, ViewEncapsulation } from '@angular/core';
-import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
-import { MatSnackBar, MatSnackBarConfig } from '@angular/material/snack-bar';
-import { ActivatedRoute, Router } from '@angular/router';
+import { FormBuilder, Validators } from '@angular/forms';
+import { MatSnackBar } from '@angular/material/snack-bar';
+import { ActivatedRoute } from '@angular/router';
 import { tap } from 'rxjs';
-import { Company } from './../../../../../api/custom_models/company';
-import { Department } from './../../../../../api/custom_models/department';
 import { Employee } from './../../../../../api/custom_models/employee';
-import { Position } from './../../../../../api/custom_models/position';
 import { CompanyService } from './../../../../../api/services/company.service';
 import { SettingsEditor } from '../../classes/settings-editor';
 
