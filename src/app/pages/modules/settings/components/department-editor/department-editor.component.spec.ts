@@ -33,7 +33,8 @@ describe('DepartmentEditorComponent', () => {
       providers: [
         {
           provide: CompanyService, useValue: {
-            companyDepartmentList: () => of([])
+            companyDepartmentList: () => of([]),
+            companyDepartmentInfo: () => of({name: 'Title'}),
           }
         },
       ]
