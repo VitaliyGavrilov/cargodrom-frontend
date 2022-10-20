@@ -19,7 +19,7 @@
       <td>{{ department.count_position }}</td>
       <td>{{ department.count_user }}</td>
       <td>
-        <a class="link-view" [routerLink]="['../employee', department.leader_user_id]">
+        <a class="link-view" [routerLink]="['../employee', 'edit', department.leader_user_id]">
           <ng-container *ngTemplateOutlet="fio; context: {employee: findEmployeeById(department.leader_user_id)}"></ng-container>
         </a>
       </td>
