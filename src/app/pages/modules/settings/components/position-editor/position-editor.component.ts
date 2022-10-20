@@ -1,3 +1,4 @@
+import { SettingsEditor } from './../../classes/settings-editor';
 import { MatSnackBar, MatSnackBarConfig } from '@angular/material/snack-bar';
 import { Position } from './../../../../../api/custom_models/position';
 import { ActivatedRoute, Router } from '@angular/router';
@@ -12,22 +13,17 @@ import { Location } from '@angular/common';
   templateUrl: './position-editor.component.html',
   styleUrls: ['./position-editor.component.scss']
 })
-export class PositionEditorComponent implements OnInit {
-  form: FormGroup;
-  isEditMode = false;
+export class PositionEditorComponent extends SettingsEditor implements OnInit {
   position: Partial<Position> = {};
-  snackBarWithShortDuration: MatSnackBarConfig = { duration: 1000 };
-  snackBarWithLongDuration: MatSnackBarConfig = { duration: 5000 };
-  title = '';
 
   constructor(
     private fb: FormBuilder,
-    private companyService: CompanyService,
-    private route: ActivatedRoute,
     private snackBar: MatSnackBar,
-    private router: Router,
-    private location: Location,
+    companyService: CompanyService,
+    route: ActivatedRoute,
+    location: Location,
   ) {
+    super(location, companyService, route);
     this.form = this.fb.group({
       id: [''],
       name: ['', [Validators.required]],
@@ -35,8 +31,7 @@ export class PositionEditorComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    const segments = this.route.snapshot.url.map(s => s.path);
-    this.isEditMode = segments[1] === 'edit';
+    this.detectEditMode();
     if (this.isEditMode) {
       this.getPosition();
     }
@@ -44,7 +39,7 @@ export class PositionEditorComponent implements OnInit {
   }
 
   getPosition(): void {
-    const id = Number(this.route.snapshot.paramMap.get('id'));
+    const id = this.getIdParam();
     this.companyService.companyPositionInfo({ id })
       .pipe(tap(position => {
         // currently, when position doesn't exist the service returns HTTP 200 with empty response body instead of HTTP 404
@@ -65,11 +60,8 @@ export class PositionEditorComponent implements OnInit {
       });
   }
 
-  goBack(): void {
-    this.location.back();
-  }
-
   save(): void {
+    this.isFormSubmitted = true;
     if (!this.form.valid) {
       this.snackBar.open('Не все поля заполнены корректно', undefined, this.snackBarWithLongDuration);
       return;

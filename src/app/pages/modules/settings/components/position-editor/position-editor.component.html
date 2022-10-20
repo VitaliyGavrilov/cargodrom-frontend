@@ -21,6 +21,7 @@
                       <div>
                         <div class="form-input">
                           <input class="text-control" type="text" formControlName="name" required appFocusInitial>
+                          <ng-container *ngTemplateOutlet="error; context: {name: 'name'}"></ng-container>
                         </div>
                       </div>
                     </div>
@@ -41,3 +42,7 @@
     </div>
   </form>
 </div>
+
+<ng-template #error let-name="name">
+  <div class="error" *ngIf="isFormSubmitted && hasError(name)">{{ getError(name) }}</div>
+</ng-template>
