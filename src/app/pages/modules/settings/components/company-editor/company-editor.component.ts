@@ -1,3 +1,4 @@
+import { emailValidator, innValidator } from './../../../../../validators';
 import { Currency } from './../../../../../api/custom_models/currency';
 import { TaxSystem } from './../../../../../api/custom_models/tax-system';
 import { CompanyService } from './../../../../../api/services/company.service';
@@ -9,7 +10,6 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { tap } from 'rxjs';
 import { Employee } from 'src/app/api/custom_models';
 import { Location } from '@angular/common';
-import { innValidator } from 'src/app/validators';
 
 @Component({
   selector: 'app-company-editor',
@@ -44,11 +44,11 @@ export class CompanyEditorComponent implements OnInit {
       name_short: ['', []],
       jur_address: ['', []],
       post_address: ['', []],
-      inn: ['', [innValidator()]],
+      inn: ['', [innValidator]],
       kpp: ['', []],
       ogrn: ['', []],
       okpo: ['', []],
-      email: ['', [Validators.email]],
+      email: ['', [emailValidator]],
       phone: ['', []],
       website: ['', []],
       skype: ['', []],
@@ -66,7 +66,7 @@ export class CompanyEditorComponent implements OnInit {
       noresident_name: ['', []],
       noresident_address: ['', []],
       noresident_phone: ['', []],
-      noresident_email: ['', [Validators.email]],
+      noresident_email: ['', [emailValidator]],
       noresident_skype: ['', []],
       noresident_website: ['', []],
       noresident_signatory_id: ['', []],

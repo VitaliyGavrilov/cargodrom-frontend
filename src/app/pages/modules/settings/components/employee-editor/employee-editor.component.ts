@@ -1,3 +1,4 @@
+import { emailValidator } from './../../../../../validators';
 import { Location } from '@angular/common';
 import { Component, OnInit, ViewEncapsulation } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
@@ -47,7 +48,7 @@ export class EmployeeEditorComponent implements OnInit {
       position_id: ['', [Validators.required]],
       employment_date: [''],
       dismissal_date: [''],
-      email: ['', [Validators.required, Validators.email]],
+      email: ['', [Validators.required, emailValidator]],
       phone: [''],
       skype: [''],
     });

@@ -1,1 +1,1 @@
-export * from './inn-validator';
+export * from './pattern-validator';
