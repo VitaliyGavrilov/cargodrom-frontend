@@ -54,7 +54,7 @@ const routes: Routes = [
         pathMatch: 'full',
       },
       {
-        path: 'contractor/edit/:id',
+        path: 'contractor/:id',
         component: ContractorEditorComponent,
         pathMatch: 'full',
       },

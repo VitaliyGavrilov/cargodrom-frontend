@@ -71,7 +71,7 @@ export class ContractorEditorComponent implements OnInit {
 
   ngOnInit(): void {
     const segments = this.route.snapshot.url.map(s => s.path);
-    this.isEditMode = segments[1] === 'edit';
+    this.isEditMode = segments[1] !== 'add';
     if (this.isEditMode) {
       this.getContractor();
     }
@@ -88,7 +88,7 @@ export class ContractorEditorComponent implements OnInit {
   }
 
   goToContractor(id: number): void {
-    this.router.navigate(['/pages/contractor/edit', id]);
+    this.router.navigate(['..', id]);
   }
 
   removeContact(i: number): void {
