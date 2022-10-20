@@ -47,7 +47,7 @@
       <td>{{ companyById[employee.company_id]?.name }}</td>
       <td>{{ departmentById[employee.department_id]?.name }}</td>
       <td>{{ positionById[employee.position_id]?.name }}</td>
-      <td>{{ employee.phone }}</td>
+      <td>{{ employee.phone | mask: '+0 (000) 000-00-00' }}</td>
       <td>{{ employee.email }}</td>
       <td>{{ employee.birth_date | date}}</td>
       <td class="col min right"><span class="link-pic ajax notext fn-link link-hide" title="Показывать">Нет</span>

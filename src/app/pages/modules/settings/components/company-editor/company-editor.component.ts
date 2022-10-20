@@ -187,7 +187,7 @@ export class CompanyEditorComponent implements OnInit {
   
   hasError(name: string): boolean {
     const control = this.form.get(name) as FormControl;
-    return control.invalid && (control.dirty || control.touched);
+    return control.invalid;
   }
   
   getError(name: string): string {
@@ -196,10 +196,13 @@ export class CompanyEditorComponent implements OnInit {
       return 'Поле обязательно';
     }
     if (control.errors?.['email']) {
-      return 'Не валидный email';
+      return 'Невалидный email';
     }
     if (control.errors?.['inn']) {
-      return 'Не валидный ИНН';
+      return 'Неверный формат ИНН';
+    }
+    if (control.errors?.['mask']) {
+      return 'Неверный формат';
     }
     return '';
   }
