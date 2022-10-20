@@ -1,3 +1,4 @@
+import { SettingsEditor } from './../../classes/settings-editor';
 import { CompanyService } from './../../../../../api/services/company.service';
 import { Department } from './../../../../../api/custom_models/department';
 import { Component, OnInit } from '@angular/core';
@@ -14,24 +15,18 @@ import { Location } from '@angular/common';
     '../../main-table.scss'
   ]
 })
-export class DepartmentEditorComponent implements OnInit {
-
-  form: FormGroup;
-  isEditMode = false;
-  department: Partial<Department> = {};
-  snackBarWithShortDuration: MatSnackBarConfig = { duration: 1000 };
-  snackBarWithLongDuration: MatSnackBarConfig = { duration: 5000 };
-  title = '';
+export class DepartmentEditorComponent extends SettingsEditor implements OnInit {
   departmentId?: number;
+  department: Partial<Department> = {};
 
   constructor(
     private fb: FormBuilder,
-    private companyService: CompanyService,
-    private route: ActivatedRoute,
     private snackBar: MatSnackBar,
-    private router: Router,
-    private location: Location,
+    route: ActivatedRoute,
+    companyService: CompanyService,
+    location: Location,
   ) {
+    super(location, companyService, route);
     this.form = this.fb.group({
       id: [''],
       name: ['', [Validators.required]],
@@ -39,8 +34,7 @@ export class DepartmentEditorComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    const segments = this.route.snapshot.url.map(s => s.path);
-    this.isEditMode = segments[1] === 'edit';
+    this.detectEditMode();
     if (this.isEditMode) {
       this.departmentId = Number(this.route.snapshot.paramMap.get('id'));
       this.getDepartment();
@@ -49,7 +43,7 @@ export class DepartmentEditorComponent implements OnInit {
   }
 
   getDepartment(): void {
-    const id = Number(this.route.snapshot.paramMap.get('id'));
+    const id = this.getIdParam();
     this.companyService.companyDepartmentInfo({id})
       .pipe(tap((department) => {
         // currently, when position doesn't exist the service returns HTTP 200 with empty response body instead of HTTP 404
@@ -70,10 +64,8 @@ export class DepartmentEditorComponent implements OnInit {
       });
   }
 
-  goBack(): void {
-    this.location.back();
-  }
   save(): void {
+    this.isFormSubmitted = true;
     if (!this.form.valid) {
       this.snackBar.open('Не все поля заполнены корректно', undefined, this.snackBarWithLongDuration);
       return;
