@@ -1,14 +1,12 @@
+import { SettingsEditor } from './../../classes/settings-editor';
 import { emailValidator, innValidator } from './../../../../../validators';
-import { Currency } from './../../../../../api/custom_models/currency';
-import { TaxSystem } from './../../../../../api/custom_models/tax-system';
 import { CompanyService } from './../../../../../api/services/company.service';
 import { Company } from './../../../../../api/custom_models/company';
 import { Component, OnInit } from '@angular/core';
-import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
-import { MatSnackBar, MatSnackBarConfig } from '@angular/material/snack-bar';
-import { ActivatedRoute, Router } from '@angular/router';
+import { FormBuilder, Validators } from '@angular/forms';
+import { MatSnackBar} from '@angular/material/snack-bar';
+import { ActivatedRoute } from '@angular/router';
 import { tap } from 'rxjs';
-import { Employee } from 'src/app/api/custom_models';
 import { Location } from '@angular/common';
 
 @Component({
@@ -16,27 +14,18 @@ import { Location } from '@angular/common';
   templateUrl: './company-editor.component.html',
   styleUrls: ['./company-editor.component.scss']
 })
-export class CompanyEditorComponent implements OnInit {
+export class CompanyEditorComponent extends SettingsEditor implements OnInit {
 
-  form: FormGroup;
-  isEditMode = false;
   company: Partial<Company> = {};
-  snackBarWithShortDuration: MatSnackBarConfig = { duration: 1000 };
-  snackBarWithLongDuration: MatSnackBarConfig = { duration: 5000 };
-  title = '';
-  employees: Employee[] = [];
-  taxSystems: TaxSystem[] = [];
-  currencies: Currency[] = [];
-  isFormSubmitted = false;
 
   constructor(
     private fb: FormBuilder,
-    private companyService: CompanyService,
-    private route: ActivatedRoute,
     private snackBar: MatSnackBar,
-    private router: Router,
-    private location: Location,
+    companyService: CompanyService,
+    route: ActivatedRoute,
+    location: Location,
   ) {
+    super(location, companyService, route);
     this.form = this.fb.group({
       id: ['', []],
       tax_system: ['', []],
@@ -84,8 +73,7 @@ export class CompanyEditorComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    const segments = this.route.snapshot.url.map(s => s.path);
-    this.isEditMode = segments[1] === 'edit';
+    this.detectEditMode();
     this.getTaxSystems();
     this.getCurrencies();
     if (this.isEditMode) {
@@ -96,7 +84,7 @@ export class CompanyEditorComponent implements OnInit {
   }
 
   getCompany(): void {
-    const id = Number(this.route.snapshot.paramMap.get('id'));
+    const id = this.getIdParam();
     this.companyService.companyInfo({ id })
       .pipe(tap(company => {
         // currently, when company doesn't exist the service returns HTTP 200 with empty response body instead of HTTP 404
@@ -115,10 +103,6 @@ export class CompanyEditorComponent implements OnInit {
           this.goBack();
         }
       });
-  }
-
-  goBack(): void {
-    this.location.back();
   }
 
   save(): void {
@@ -167,43 +151,4 @@ export class CompanyEditorComponent implements OnInit {
       });
   }
   
-  loadEmployees(): void {
-    this.companyService.companyEmployeeList().subscribe(employees => {
-      this.employees = employees ? employees as Employee[] : [];
-    });
-  }
-  
-  getTaxSystems(): void {
-    this.companyService.companyTaxSystem().subscribe(
-      taxSystems => this.taxSystems = taxSystems ? taxSystems as TaxSystem[] : []
-    );
-  }
-
-  getCurrencies(): void {
-    this.companyService.companyCurrency().subscribe(
-      currencies => this.currencies = currencies ? currencies as Currency[] : []
-    );
-  }
-  
-  hasError(name: string): boolean {
-    const control = this.form.get(name) as FormControl;
-    return control.invalid;
-  }
-  
-  getError(name: string): string {
-    const control = this.form.get(name) as FormControl;
-    if (control.errors?.['required']) {
-      return 'Поле обязательно';
-    }
-    if (control.errors?.['email']) {
-      return 'Невалидный email';
-    }
-    if (control.errors?.['inn']) {
-      return 'Неверный формат ИНН';
-    }
-    if (control.errors?.['mask']) {
-      return 'Неверный формат';
-    }
-    return '';
-  }
 }
