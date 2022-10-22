@@ -93,25 +93,25 @@ export class SettingsEditor {
     return Number(this.route.snapshot.paramMap.get('id'));
   }
 
-  showSuccessMessage(message: string): void {
+  showMessage(message: string): void {
     this.snackBar.open(message, undefined, this.snackBarWithShortDuration);
   }
   
-  showSuccessMessageAndGoBack(message: string): void {
-    this.showSuccessMessage(message);
+  showMessageAndGoBack(message: string): void {
+    this.showMessage(message);
     this.goBack();
   }
 
-  showSimpleErrorMessage(message: string): void {
-    this.snackBar.open(message, undefined, this.snackBarWithLongDuration);
+  showError(message: string, err?: any): void {
+    if (typeof err?.error === 'object') {
+      this.snackBar.open(`${message}: ` + err.error?.error_message + ':' + err.error?.error_message_description, undefined, this.snackBarWithLongDuration);
+    } else {
+      this.snackBar.open(message, undefined, this.snackBarWithLongDuration);
+    }
   }
   
-  showErrorMessage(err: any, message: string): void {
-    this.snackBar.open(`${message}: ` + err.error?.error_message + ':' + err.error?.error_message_description, undefined, this.snackBarWithLongDuration);
-  }
-  
-  showErrorMessageAndGoBack(err: any, message: string): void {
-    this.showErrorMessage(err, message);
+  showErrorAndGoBack(err: any, message: string): void {
+    this.showError(message, err);
     this.goBack();
   }
 }

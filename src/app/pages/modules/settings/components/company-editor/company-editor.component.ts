@@ -98,14 +98,14 @@ export class CompanyEditorComponent extends SettingsEditor implements OnInit {
           this.company = company as Company;
           this.form.patchValue(this.company);
         },
-        error: (err: any) => this.showErrorMessageAndGoBack(err, `Организация не найдена`)
+        error: (err: any) => this.showErrorAndGoBack(err, `Организация не найдена`)
       });
   }
 
   save(): void {
     this.isFormSubmitted = true;
     if (!this.form.valid) {
-      this.showSimpleErrorMessage('Не все поля заполнены корректно');
+      this.showError('Не все поля заполнены корректно');
       return;
     }
     const body = this.form.value;
@@ -118,15 +118,15 @@ export class CompanyEditorComponent extends SettingsEditor implements OnInit {
 
   private createCompany(body: any) {
     this.companyService.companyCreate({ body }).pipe().subscribe({
-      next: () => this.showSuccessMessageAndGoBack(`Организация создана`),
-      error: (err) => this.showErrorMessage(err, `Ошибка создания организации`)
+      next: () => this.showMessageAndGoBack(`Организация создана`),
+      error: (err) => this.showError(`Ошибка создания организации`, err)
     });
   }
 
   updateCompany(body: any) {
     this.companyService.companyUpdate({ body }).pipe().subscribe({
-      next: () => this.showSuccessMessageAndGoBack(`Организация сохранена`),
-      error: (err) => this.showErrorMessage(err, `Ошибка сохранения организации`)
+      next: () => this.showMessageAndGoBack(`Организация сохранена`),
+      error: (err) => this.showError(`Ошибка сохранения организации`, err)
     });
   }
 
@@ -134,8 +134,8 @@ export class CompanyEditorComponent extends SettingsEditor implements OnInit {
     const body = { id: this.company.id! };
     this.companyService.companyDelete({ body })
       .subscribe({
-        next: () => this.showSuccessMessageAndGoBack(`Организация ${this.company.name} удалена`),
-        error: (err) => this.showErrorMessage(err, 'Ошибка удаления организации')
+        next: () => this.showMessageAndGoBack(`Организация ${this.company.name} удалена`),
+        error: (err) => this.showError('Ошибка удаления организации', err)
       });
   }
 

@@ -75,14 +75,14 @@ export class EmployeeEditorComponent extends SettingsEditor implements OnInit {
           this.employee = employee as Employee;
           this.form.patchValue(this.employee);
         },
-        error: (err: any) => this.showErrorMessageAndGoBack(err, `Сотрудник не найден`)
+        error: (err: any) => this.showErrorAndGoBack(err, `Сотрудник не найден`)
       });
   }
 
   save(): void {
     this.isFormSubmitted = true;
     if (!this.form.valid) {
-      this.showSimpleErrorMessage('Не все поля заполнены корректно');
+      this.showError('Не все поля заполнены корректно');
       return;
     }
     const body = this.form.getRawValue(); // include disabled fields
@@ -95,15 +95,15 @@ export class EmployeeEditorComponent extends SettingsEditor implements OnInit {
 
   private createEmployee(body: any) {
     this.companyService.companyEmployeeCreate({ body }).pipe().subscribe({
-      next: ({ id }) => this.showSuccessMessageAndGoBack(`Сотрудник создан`),
-      error: (err) => this.showErrorMessage(err, 'Ошибка создания сотрудника')
+      next: ({ id }) => this.showMessageAndGoBack(`Сотрудник создан`),
+      error: (err) => this.showError('Ошибка создания сотрудника', err)
     });
   }
 
   updateEmployee(body: any) {
     this.companyService.companyEmployeeUpdate({ body }).pipe().subscribe({
-      next: () => this.showSuccessMessageAndGoBack(`Сотрудник сохранен`),
-      error: (err) => this.showErrorMessage(err, 'Ошибка сохранения сотрудника')
+      next: () => this.showMessageAndGoBack(`Сотрудник сохранен`),
+      error: (err) => this.showError('Ошибка сохранения сотрудника', err)
     });
   }
 
@@ -111,8 +111,8 @@ export class EmployeeEditorComponent extends SettingsEditor implements OnInit {
     const body = { id: this.employee.id! };
     this.companyService.companyEmployeeDelete({ body })
       .subscribe({
-        next: () => this.showSuccessMessageAndGoBack(`Сотрудник ${this.employee.name_f} удален`),
-        error: (err) => this.showErrorMessage(err, `Ошибка удаления сотрудника`)
+        next: () => this.showMessageAndGoBack(`Сотрудник ${this.employee.name_f} удален`),
+        error: (err) => this.showError(`Ошибка удаления сотрудника`, err)
       });
   }
 

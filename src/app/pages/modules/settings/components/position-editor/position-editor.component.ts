@@ -53,14 +53,14 @@ export class PositionEditorComponent extends SettingsEditor implements OnInit {
           this.position = position as Position;
           this.form.patchValue(this.position);
         },
-        error: (err: any) => this.showErrorMessageAndGoBack(err, `Должность не найдена`)
+        error: (err: any) => this.showErrorAndGoBack(err, `Должность не найдена`)
       });
   }
 
   save(): void {
     this.isFormSubmitted = true;
     if (!this.form.valid) {
-      this.showSimpleErrorMessage('Не все поля заполнены корректно');
+      this.showError('Не все поля заполнены корректно');
       return;
     }
     const body = this.form.value;
@@ -73,15 +73,15 @@ export class PositionEditorComponent extends SettingsEditor implements OnInit {
 
   private createPosition(body: any) {
     this.companyService.companyPositionCreate({ body }).pipe().subscribe({
-      next: () => this.showSuccessMessageAndGoBack(`Должность создана`),
-      error: (err) => this.showErrorMessage(err, 'Ошибка создания должности')
+      next: () => this.showMessageAndGoBack(`Должность создана`),
+      error: (err) => this.showError('Ошибка создания должности', err)
     });
   }
 
   updatePosition(body: any) {
     this.companyService.companyPositionUpdate({ body }).pipe().subscribe({
-      next: () => this.showSuccessMessageAndGoBack('Должность сохранена'),
-      error: (err) => this.showErrorMessage(err, `Ошибка сохранения должности`)
+      next: () => this.showMessageAndGoBack('Должность сохранена'),
+      error: (err) => this.showError(`Ошибка сохранения должности`, err)
     });
   }
 
@@ -89,8 +89,8 @@ export class PositionEditorComponent extends SettingsEditor implements OnInit {
     const body = { id: this.position.id! };
     this.companyService.companyPositionDelete({ body })
       .subscribe({
-        next: () => this.showSuccessMessageAndGoBack(`Должность ${this.position.name} удалена`),
-        error: (err) => this.showErrorMessage(err, `Ошибка удаления должности`)
+        next: () => this.showMessageAndGoBack(`Должность ${this.position.name} удалена`),
+        error: (err) => this.showError(`Ошибка удаления должности`, err)
       });
   }
 

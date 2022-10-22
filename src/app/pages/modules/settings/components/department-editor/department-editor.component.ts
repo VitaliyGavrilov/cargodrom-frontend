@@ -57,14 +57,14 @@ export class DepartmentEditorComponent extends SettingsEditor implements OnInit 
           this.department = department as Department;
           this.form.patchValue(this.department);
         },
-        error: (err: any) => this.showErrorMessageAndGoBack(err, `Подразделение не найдено`)
+        error: (err: any) => this.showErrorAndGoBack(err, `Подразделение не найдено`)
       });
   }
 
   save(): void {
     this.isFormSubmitted = true;
     if (!this.form.valid) {
-      this.showSimpleErrorMessage('Не все поля заполнены корректно');
+      this.showError('Не все поля заполнены корректно');
       return;
     }
     const body = this.form.value;
@@ -77,15 +77,15 @@ export class DepartmentEditorComponent extends SettingsEditor implements OnInit 
 
   private createDepartment(body: any) {
     this.companyService.companyDepartmentCreate({ body }).pipe().subscribe({
-      next: () => this.showSuccessMessageAndGoBack(`Подразделение создано`),
-      error: (err) => this.showErrorMessage(err, `Ошибка создания подразделения`)
+      next: () => this.showMessageAndGoBack(`Подразделение создано`),
+      error: (err) => this.showError(`Ошибка создания подразделения`, err)
     });
   }
 
   updateDepartment(body: any) {
     this.companyService.companyDepartmentUpdate({ body }).pipe().subscribe({
-      next: () => this.showSuccessMessageAndGoBack(`Подразделение сохранено`),
-      error: (err) => this.showErrorMessage(err, `Ошибка сохранения подразделения`)
+      next: () => this.showMessageAndGoBack(`Подразделение сохранено`),
+      error: (err) => this.showError(`Ошибка сохранения подразделения`, err)
     });
   }
 
@@ -93,8 +93,8 @@ export class DepartmentEditorComponent extends SettingsEditor implements OnInit 
     const body = { id: this.department.id! };
     this.companyService.companyDepartmentDelete({ body })
       .subscribe({
-        next: () => this.showSuccessMessageAndGoBack(`Подразделение ${this.department.name} удалено`),
-        error: (err) => this.showErrorMessage(err, `Ошибка удаления подразделения`)
+        next: () => this.showMessageAndGoBack(`Подразделение ${this.department.name} удалено`),
+        error: (err) => this.showError(`Ошибка удаления подразделения`, err)
       });
   }
 
