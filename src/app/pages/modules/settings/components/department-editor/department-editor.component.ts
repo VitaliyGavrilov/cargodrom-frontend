@@ -21,12 +21,12 @@ export class DepartmentEditorComponent extends SettingsEditor implements OnInit 
 
   constructor(
     private fb: FormBuilder,
-    private snackBar: MatSnackBar,
+    snackBar: MatSnackBar,
     route: ActivatedRoute,
     companyService: CompanyService,
     location: Location,
   ) {
-    super(location, companyService, route);
+    super(location, companyService, route, snackBar);
     this.form = this.fb.group({
       id: [''],
       name: ['', [Validators.required]],
@@ -44,7 +44,7 @@ export class DepartmentEditorComponent extends SettingsEditor implements OnInit 
 
   getDepartment(): void {
     const id = this.getIdParam();
-    this.companyService.companyDepartmentInfo({id})
+    this.companyService.companyDepartmentInfo({ id })
       .pipe(tap((department) => {
         // currently, when position doesn't exist the service returns HTTP 200 with empty response body instead of HTTP 404
         // therefore we have to handle that case manually
@@ -57,17 +57,14 @@ export class DepartmentEditorComponent extends SettingsEditor implements OnInit 
           this.department = department as Department;
           this.form.patchValue(this.department);
         },
-        error: (err: any) => {
-          this.snackBar.open(`Подразделение не найдено: ` + err.error.error_message, undefined, this.snackBarWithShortDuration);
-          this.goBack();
-        }
+        error: (err: any) => this.showErrorMessageAndGoBack(err, `Подразделение не найдено`)
       });
   }
 
   save(): void {
     this.isFormSubmitted = true;
     if (!this.form.valid) {
-      this.snackBar.open('Не все поля заполнены корректно', undefined, this.snackBarWithLongDuration);
+      this.showSimpleErrorMessage('Не все поля заполнены корректно');
       return;
     }
     const body = this.form.value;
@@ -80,33 +77,24 @@ export class DepartmentEditorComponent extends SettingsEditor implements OnInit 
 
   private createDepartment(body: any) {
     this.companyService.companyDepartmentCreate({ body }).pipe().subscribe({
-      next: ({ id }) => {
-        this.goBack();
-        this.snackBar.open(`Подразделение создано`, undefined, this.snackBarWithShortDuration)
-      },
-      error: (err) => this.snackBar.open(`Ошибка создания подразделения: ` + err.error.error_message, undefined, this.snackBarWithShortDuration)
+      next: () => this.showSuccessMessageAndGoBack(`Подразделение создано`),
+      error: (err) => this.showErrorMessage(err, `Ошибка создания подразделения`)
     });
   }
 
   updateDepartment(body: any) {
     this.companyService.companyDepartmentUpdate({ body }).pipe().subscribe({
-      next: () => {
-        this.snackBar.open(`Подразделение сохранено`, undefined, this.snackBarWithShortDuration);
-        this.goBack();
-      },
-      error: (err) => this.snackBar.open(`Ошибка сохранения подразделения: ` + err.error.error_message, undefined, this.snackBarWithShortDuration)
+      next: () => this.showSuccessMessageAndGoBack(`Подразделение сохранено`),
+      error: (err) => this.showErrorMessage(err, `Ошибка сохранения подразделения`)
     });
   }
-  
+
   remove(): void {
     const body = { id: this.department.id! };
     this.companyService.companyDepartmentDelete({ body })
       .subscribe({
-        next: () => {
-          this.snackBar.open(`Подразделение ${this.department.name} удалено`, undefined, {duration: 1000});
-          this.goBack();
-        },
-        error: (err) => this.snackBar.open(`Ошибка удаления подразделения: ` + err.error.error_message, undefined, {duration: 1000})
+        next: () => this.showSuccessMessageAndGoBack(`Подразделение ${this.department.name} удалено`),
+        error: (err) => this.showErrorMessage(err, `Ошибка удаления подразделения`)
       });
   }
 

@@ -18,12 +18,12 @@ export class PositionEditorComponent extends SettingsEditor implements OnInit {
 
   constructor(
     private fb: FormBuilder,
-    private snackBar: MatSnackBar,
+    snackBar: MatSnackBar,
     companyService: CompanyService,
     route: ActivatedRoute,
     location: Location,
   ) {
-    super(location, companyService, route);
+    super(location, companyService, route, snackBar);
     this.form = this.fb.group({
       id: [''],
       name: ['', [Validators.required]],
@@ -53,17 +53,14 @@ export class PositionEditorComponent extends SettingsEditor implements OnInit {
           this.position = position as Position;
           this.form.patchValue(this.position);
         },
-        error: (err: any) => {
-          this.snackBar.open(`Должность не найдена: ` + err.error.error_message, undefined, this.snackBarWithShortDuration);
-          this.goBack();
-        }
+        error: (err: any) => this.showErrorMessageAndGoBack(err, `Должность не найдена`)
       });
   }
 
   save(): void {
     this.isFormSubmitted = true;
     if (!this.form.valid) {
-      this.snackBar.open('Не все поля заполнены корректно', undefined, this.snackBarWithLongDuration);
+      this.showSimpleErrorMessage('Не все поля заполнены корректно');
       return;
     }
     const body = this.form.value;
@@ -76,33 +73,24 @@ export class PositionEditorComponent extends SettingsEditor implements OnInit {
 
   private createPosition(body: any) {
     this.companyService.companyPositionCreate({ body }).pipe().subscribe({
-      next: ({ id }) => {
-        this.goBack();
-        this.snackBar.open(`Должность создана`, undefined, this.snackBarWithShortDuration)
-      },
-      error: (err) => this.snackBar.open(`Ошибка создания должности: ` + err.error.error_message, undefined, this.snackBarWithShortDuration)
+      next: () => this.showSuccessMessageAndGoBack(`Должность создана`),
+      error: (err) => this.showErrorMessage(err, 'Ошибка создания должности')
     });
   }
 
   updatePosition(body: any) {
     this.companyService.companyPositionUpdate({ body }).pipe().subscribe({
-      next: () => {
-        this.snackBar.open(`Должность сохранена`, undefined, this.snackBarWithShortDuration);
-        this.goBack();
-      },
-      error: (err) => this.snackBar.open(`Ошибка сохранения должности: ` + err.error.error_message, undefined, this.snackBarWithShortDuration)
+      next: () => this.showSuccessMessageAndGoBack('Должность сохранена'),
+      error: (err) => this.showErrorMessage(err, `Ошибка сохранения должности`)
     });
   }
-  
+
   remove(): void {
     const body = { id: this.position.id! };
     this.companyService.companyPositionDelete({ body })
       .subscribe({
-        next: () => {
-          this.snackBar.open(`Должность ${this.position.name} удалена`, undefined, {duration: 1000});
-          this.goBack();
-        },
-        error: (err) => this.snackBar.open(`Ошибка удаления должности: ` + err.error.error_message, undefined, {duration: 1000})
+        next: () => this.showSuccessMessageAndGoBack(`Должность ${this.position.name} удалена`),
+        error: (err) => this.showErrorMessage(err, `Ошибка удаления должности`)
       });
   }
 

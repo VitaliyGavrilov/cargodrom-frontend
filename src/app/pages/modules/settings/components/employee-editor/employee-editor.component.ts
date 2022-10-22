@@ -20,12 +20,12 @@ export class EmployeeEditorComponent extends SettingsEditor implements OnInit {
 
   constructor(
     private fb: FormBuilder,
-    private snackBar: MatSnackBar,
+    snackBar: MatSnackBar,
     route: ActivatedRoute,
     companyService: CompanyService,
     location: Location,
   ) {
-    super(location, companyService, route);
+    super(location, companyService, route, snackBar);
     this.form = this.fb.group({
       id: [''],
       name_f: ['', [Validators.required]],
@@ -50,7 +50,7 @@ export class EmployeeEditorComponent extends SettingsEditor implements OnInit {
     } else {
       const departmentId = this.route.snapshot.queryParamMap.get('department_id');
       if (departmentId) {
-        this.form.patchValue({department_id: Number(departmentId)});
+        this.form.patchValue({ department_id: Number(departmentId) });
         this.form.controls['department_id'].disable();
       }
     }
@@ -75,17 +75,14 @@ export class EmployeeEditorComponent extends SettingsEditor implements OnInit {
           this.employee = employee as Employee;
           this.form.patchValue(this.employee);
         },
-        error: (err: any) => {
-          this.snackBar.open(`Сотрудник не найден: ` + err.error.error_message, undefined, this.snackBarWithShortDuration);
-          this.goBack();
-        }
+        error: (err: any) => this.showErrorMessageAndGoBack(err, `Сотрудник не найден`)
       });
   }
 
   save(): void {
     this.isFormSubmitted = true;
     if (!this.form.valid) {
-      this.snackBar.open('Не все поля заполнены корректно', undefined, this.snackBarWithLongDuration);
+      this.showSimpleErrorMessage('Не все поля заполнены корректно');
       return;
     }
     const body = this.form.getRawValue(); // include disabled fields
@@ -98,21 +95,15 @@ export class EmployeeEditorComponent extends SettingsEditor implements OnInit {
 
   private createEmployee(body: any) {
     this.companyService.companyEmployeeCreate({ body }).pipe().subscribe({
-      next: ({ id }) => {
-        this.goBack();
-        this.snackBar.open(`Сотрудник создан`, undefined, this.snackBarWithShortDuration)
-      },
-      error: (err) => this.snackBar.open(`Ошибка создания сотрудника: ` + err.error.error_message, undefined, this.snackBarWithShortDuration)
+      next: ({ id }) => this.showSuccessMessageAndGoBack(`Сотрудник создан`),
+      error: (err) => this.showErrorMessage(err, 'Ошибка создания сотрудника')
     });
   }
 
   updateEmployee(body: any) {
     this.companyService.companyEmployeeUpdate({ body }).pipe().subscribe({
-      next: () => {
-        this.goBack();
-        this.snackBar.open(`Сотрудник сохранен`, undefined, this.snackBarWithShortDuration);
-      },
-      error: (err) => this.snackBar.open(`Ошибка сохранения сотрудника: ` + err.error.error_message, undefined, this.snackBarWithShortDuration)
+      next: () => this.showSuccessMessageAndGoBack(`Сотрудник сохранен`),
+      error: (err) => this.showErrorMessage(err, 'Ошибка сохранения сотрудника')
     });
   }
 
@@ -120,11 +111,8 @@ export class EmployeeEditorComponent extends SettingsEditor implements OnInit {
     const body = { id: this.employee.id! };
     this.companyService.companyEmployeeDelete({ body })
       .subscribe({
-        next: () => {
-          this.snackBar.open(`Сотрудник ${this.employee.name_f} удален`, undefined, { duration: 1000 });
-          this.goBack();
-        },
-        error: (err) => this.snackBar.open(`Ошибка удаления сотрудника: ` + err.error.error_message, undefined, { duration: 1000 })
+        next: () => this.showSuccessMessageAndGoBack(`Сотрудник ${this.employee.name_f} удален`),
+        error: (err) => this.showErrorMessage(err, `Ошибка удаления сотрудника`)
       });
   }
 
