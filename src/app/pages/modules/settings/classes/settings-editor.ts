@@ -62,13 +62,13 @@ export class SettingsEditor {
     this.companyService.companyPositionList().subscribe(positions => this.positions = positions as Position[]);
   }
 
-  hasError(name: string): boolean {
-    const control = this.form.get(name) as FormControl;
+  hasError(controlName: string): boolean {
+    const control = this.form.get(controlName) as FormControl;
     return control.invalid;
   }
 
-  getError(name: string): string {
-    const control = this.form.get(name) as FormControl;
+  getError(controlName: string): string {
+    const control = this.form.get(controlName) as FormControl;
     if (control.errors?.['required']) {
       return 'Поле обязательно';
     }
