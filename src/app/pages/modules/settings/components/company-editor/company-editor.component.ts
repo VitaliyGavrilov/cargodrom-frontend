@@ -6,7 +6,7 @@ import { Component, OnInit } from '@angular/core';
 import { FormBuilder, Validators } from '@angular/forms';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { ActivatedRoute } from '@angular/router';
-import { tap } from 'rxjs';
+import { Observable } from 'rxjs';
 import { Location } from '@angular/common';
 
 @Component({
@@ -14,9 +14,7 @@ import { Location } from '@angular/common';
   templateUrl: './company-editor.component.html',
   styleUrls: ['./company-editor.component.scss']
 })
-export class CompanyEditorComponent extends SettingsEditor implements OnInit {
-
-  company: Partial<Company> = {};
+export class CompanyEditorComponent extends SettingsEditor<Company> implements OnInit {
 
   constructor(
     private fb: FormBuilder,
@@ -72,71 +70,28 @@ export class CompanyEditorComponent extends SettingsEditor implements OnInit {
     });
   }
 
-  ngOnInit(): void {
-    this.detectEditMode();
+  override ngOnInit(): void {
+    super.ngOnInit();
     this.getTaxSystems();
     this.getCurrencies();
-    if (this.isEditMode) {
-      this.getCompany();
-    }
     this.loadEmployees();
     this.title = this.isEditMode ? 'Редактирование организации' : 'Добавление организации';
   }
-
-  getCompany(): void {
-    const id = this.getIdParam();
-    this.companyService.companyInfo({ id })
-      .pipe(tap(company => {
-        // currently, when company doesn't exist the service returns HTTP 200 with empty response body instead of HTTP 404
-        // therefore we have to handle that case manually
-        if (!company) {
-          throw ({ error: { error_message: `организация не существует` } });
-        }
-      }))
-      .subscribe({
-        next: company => {
-          this.company = company as Company;
-          this.form.patchValue(this.company);
-        },
-        error: (err: any) => this.showErrorAndGoBack(err, `Организация не найдена`)
-      });
+  
+  protected create(params: {body: Omit<Company, 'id'>}) {
+   return this.companyService.companyCreate(params as any) as unknown as Observable<Company>; 
   }
-
-  save(): void {
-    this.isFormSubmitted = true;
-    if (!this.form.valid) {
-      this.showError('Не все поля заполнены корректно');
-      return;
-    }
-    const body = this.form.value;
-    if (typeof this.company.id === 'number') {
-      this.updateCompany(body);
-    } else {
-      this.createCompany(body);
-    }
+  
+  protected read(params: { id: number; }): Observable<Company> {
+    return this.companyService.companyInfo(params) as Observable<Company>;
   }
-
-  private createCompany(body: any) {
-    this.companyService.companyCreate({ body }).pipe().subscribe({
-      next: () => this.showMessageAndGoBack(`Организация создана`),
-      error: (err) => this.showError(`Ошибка создания организации`, err)
-    });
+  
+  protected update(params: { body: Partial<Company>; }): Observable<void> {
+    return this.companyService.companyUpdate(params as any) as unknown as Observable<void>;
   }
-
-  updateCompany(body: any) {
-    this.companyService.companyUpdate({ body }).pipe().subscribe({
-      next: () => this.showMessageAndGoBack(`Организация сохранена`),
-      error: (err) => this.showError(`Ошибка сохранения организации`, err)
-    });
-  }
-
-  remove(): void {
-    const body = { id: this.company.id! };
-    this.companyService.companyDelete({ body })
-      .subscribe({
-        next: () => this.showMessageAndGoBack(`Организация ${this.company.name} удалена`),
-        error: (err) => this.showError('Ошибка удаления организации', err)
-      });
+  
+  protected delete(params: {body: { id: number; }}): Observable<void> {
+    return this.companyService.companyDelete(params) as unknown as Observable<void>;
   }
 
 }

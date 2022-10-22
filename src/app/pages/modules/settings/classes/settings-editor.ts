@@ -1,3 +1,5 @@
+import { Directive, OnInit } from '@angular/core';
+import { Observable, tap } from 'rxjs';
 import { ActivatedRoute } from '@angular/router';
 import { CompanyService } from './../../../../api/services/company.service';
 import { FormControl, FormGroup } from "@angular/forms";
@@ -6,7 +8,9 @@ import { Company, Currency, Department, Employee, Position, TaxSystem } from "sr
 import { Location } from '@angular/common';
 import { phoneMask } from 'src/app/constants';
 
-export class SettingsEditor {
+@Directive()
+export abstract class SettingsEditor<T> implements OnInit {
+  id?: number;
   form!: FormGroup;
   isEditMode = false;
   snackBarWithShortDuration: MatSnackBarConfig = { duration: 1000 };
@@ -20,6 +24,12 @@ export class SettingsEditor {
   positions: Position[] = [];
   isFormSubmitted = false;
   phoneMask = phoneMask;
+  data: Partial<T> = {};
+  
+  protected abstract create(params: {body: Omit<T, 'id'>}): Observable<T>;
+  protected abstract read(params: {id: number}): Observable<T>;
+  protected abstract update(params: {body: Partial<T>}): Observable<void>;
+  protected abstract delete(params: {body: {id: number}}): Observable<void>;
 
   constructor(
     protected location: Location,
@@ -27,7 +37,14 @@ export class SettingsEditor {
     protected route: ActivatedRoute,
     protected snackBar: MatSnackBar,
   ) { }
-
+  
+  ngOnInit(): void {
+    this.detectEditMode();
+    if (this.isEditMode) {
+      this.load();
+    }
+  }
+  
   goBack(): void {
     this.location.back();
   }
@@ -84,14 +101,6 @@ export class SettingsEditor {
     return '';
   }
 
-  detectEditMode(): void {
-    const segments = this.route.snapshot.url.map(s => s.path);
-    this.isEditMode = segments[1] !== 'add';
-  }
-
-  getIdParam(): number {
-    return Number(this.route.snapshot.paramMap.get('id'));
-  }
 
   showMessage(message: string): void {
     this.snackBar.open(message, undefined, this.snackBarWithShortDuration);
@@ -103,7 +112,7 @@ export class SettingsEditor {
   }
 
   showError(message: string, err?: any): void {
-    if (typeof err?.error === 'object') {
+    if (typeof err?.error?.error_message === 'string') {
       this.snackBar.open(`${message}: ` + err.error?.error_message + ':' + err.error?.error_message_description, undefined, this.snackBarWithLongDuration);
     } else {
       this.snackBar.open(message, undefined, this.snackBarWithLongDuration);
@@ -113,5 +122,70 @@ export class SettingsEditor {
   showErrorAndGoBack(err: any, message: string): void {
     this.showError(message, err);
     this.goBack();
+  }
+  
+  load(): void {
+    const id = this.getIdParam();
+    this.read({ id })
+      .pipe(tap(data => {
+        // currently, when entity doesn't exist the service returns HTTP 200 with empty response body instead of HTTP 404
+        // therefore we have to handle that case manually
+        if (!data) {
+          throw ({ error: { error_message: `запись не существует` } });
+        }
+      }))
+      .subscribe({
+        next: data => {
+          this.data = data as T;
+          this.form.patchValue(this.data);
+        },
+        error: (err: any) => this.showErrorAndGoBack(err, `Данные не найдены`)
+      });
+  }
+  
+  save(): void {
+    this.isFormSubmitted = true;
+    if (!this.form.valid) {
+      this.showError('Не все поля заполнены корректно');
+      return;
+    }
+    const body = this.form.value;
+    if (typeof (this.data as any).id === 'number') {
+      this.updateData(body);
+    } else {
+      this.createData(body);
+    }
+  }
+  
+  remove(): void {
+    const body = { id: (this.data as any).id as number };
+    this.delete({body})
+      .subscribe({
+        next: () => this.showMessageAndGoBack(`Успешное удаление`),
+        error: (err) => this.showError('Ошибка удаления', err)
+      });
+  }
+  
+  private createData(body: any) {
+    this.create({ body }).pipe().subscribe({
+      next: () => this.showMessageAndGoBack(`Создание успешно`),
+      error: (err) => this.showError(`Ошибка создания`, err)
+    });
+  }
+
+  private updateData(body: any) {
+    this.update({ body }).pipe().subscribe({
+      next: () => this.showMessageAndGoBack(`Сохранено`),
+      error: (err) => this.showError(`Ошибка сохранения`, err)
+    });
+  }
+  
+  private detectEditMode(): void {
+    const segments = this.route.snapshot.url.map(s => s.path);
+    this.isEditMode = segments[1] !== 'add';
+  }
+
+  private getIdParam(): number {
+    return Number(this.route.snapshot.paramMap.get('id'));
   }
 }

@@ -4,7 +4,7 @@ import { Component, OnInit, ViewEncapsulation } from '@angular/core';
 import { FormBuilder, Validators } from '@angular/forms';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { ActivatedRoute } from '@angular/router';
-import { tap } from 'rxjs';
+import { Observable } from 'rxjs';
 import { Employee } from './../../../../../api/custom_models/employee';
 import { CompanyService } from './../../../../../api/services/company.service';
 import { SettingsEditor } from '../../classes/settings-editor';
@@ -15,8 +15,7 @@ import { SettingsEditor } from '../../classes/settings-editor';
   styleUrls: ['./employee-editor.component.scss'],
   encapsulation: ViewEncapsulation.None,
 })
-export class EmployeeEditorComponent extends SettingsEditor implements OnInit {
-  employee: Partial<Employee> = {};
+export class EmployeeEditorComponent extends SettingsEditor<Employee> implements OnInit {
 
   constructor(
     private fb: FormBuilder,
@@ -43,11 +42,9 @@ export class EmployeeEditorComponent extends SettingsEditor implements OnInit {
     });
   }
 
-  ngOnInit(): void {
-    this.detectEditMode();
-    if (this.isEditMode) {
-      this.getEmployee();
-    } else {
+  override ngOnInit(): void {
+    super.ngOnInit();
+    if (!this.isEditMode) {
       const departmentId = this.route.snapshot.queryParamMap.get('department_id');
       if (departmentId) {
         this.form.patchValue({ department_id: Number(departmentId) });
@@ -60,60 +57,19 @@ export class EmployeeEditorComponent extends SettingsEditor implements OnInit {
     this.title = this.isEditMode ? 'Редактирование сотрудника' : 'Добавление сотрудника';
   }
 
-  getEmployee(): void {
-    const id = this.getIdParam();
-    this.companyService.companyEmployeeInfo({ id })
-      .pipe(tap((employee) => {
-        // currently, when employee doesn't exist the service returns HTTP 200 with empty response body instead of HTTP 404
-        // therefore we have to handle that case manually
-        if (!employee) {
-          throw ({ error: { error_message: `сотрудник не существует` } });
-        }
-      }))
-      .subscribe({
-        next: (employee) => {
-          this.employee = employee as Employee;
-          this.form.patchValue(this.employee);
-        },
-        error: (err: any) => this.showErrorAndGoBack(err, `Сотрудник не найден`)
-      });
+  protected create(params: { body: Omit<Employee, 'id'> }) {
+    return this.companyService.companyEmployeeCreate(params as any) as unknown as Observable<Employee>;
   }
 
-  save(): void {
-    this.isFormSubmitted = true;
-    if (!this.form.valid) {
-      this.showError('Не все поля заполнены корректно');
-      return;
-    }
-    const body = this.form.getRawValue(); // include disabled fields
-    if (typeof this.employee.id === 'number') {
-      this.updateEmployee(body);
-    } else {
-      this.createEmployee(body);
-    }
+  protected read(params: { id: number; }): Observable<Employee> {
+    return this.companyService.companyEmployeeInfo(params) as Observable<Employee>;
   }
 
-  private createEmployee(body: any) {
-    this.companyService.companyEmployeeCreate({ body }).pipe().subscribe({
-      next: ({ id }) => this.showMessageAndGoBack(`Сотрудник создан`),
-      error: (err) => this.showError('Ошибка создания сотрудника', err)
-    });
+  protected update(params: { body: Partial<Employee>; }): Observable<void> {
+    return this.companyService.companyEmployeeUpdate(params as any) as unknown as Observable<void>;
   }
 
-  updateEmployee(body: any) {
-    this.companyService.companyEmployeeUpdate({ body }).pipe().subscribe({
-      next: () => this.showMessageAndGoBack(`Сотрудник сохранен`),
-      error: (err) => this.showError('Ошибка сохранения сотрудника', err)
-    });
+  protected delete(params: { body: { id: number; } }): Observable<void> {
+    return this.companyService.companyEmployeeDelete(params) as unknown as Observable<void>;
   }
-
-  remove(): void {
-    const body = { id: this.employee.id! };
-    this.companyService.companyEmployeeDelete({ body })
-      .subscribe({
-        next: () => this.showMessageAndGoBack(`Сотрудник ${this.employee.name_f} удален`),
-        error: (err) => this.showError(`Ошибка удаления сотрудника`, err)
-      });
-  }
-
 }

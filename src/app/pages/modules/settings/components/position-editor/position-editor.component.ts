@@ -5,7 +5,7 @@ import { ActivatedRoute } from '@angular/router';
 import { CompanyService } from '../../../../../api/services/company.service';
 import { FormBuilder, Validators } from '@angular/forms';
 import { Component, OnInit } from '@angular/core';
-import { tap } from 'rxjs';
+import { Observable } from 'rxjs';
 import { Location } from '@angular/common';
 
 @Component({
@@ -13,8 +13,7 @@ import { Location } from '@angular/common';
   templateUrl: './position-editor.component.html',
   styleUrls: ['./position-editor.component.scss']
 })
-export class PositionEditorComponent extends SettingsEditor implements OnInit {
-  position: Partial<Position> = {};
+export class PositionEditorComponent extends SettingsEditor<Position> implements OnInit {
 
   constructor(
     private fb: FormBuilder,
@@ -30,68 +29,25 @@ export class PositionEditorComponent extends SettingsEditor implements OnInit {
     });
   }
 
-  ngOnInit(): void {
-    this.detectEditMode();
-    if (this.isEditMode) {
-      this.getPosition();
-    }
+  override ngOnInit(): void {
+    super.ngOnInit();
     this.title = this.isEditMode ? 'Редактирование должности' : 'Добавление должности';
   }
-
-  getPosition(): void {
-    const id = this.getIdParam();
-    this.companyService.companyPositionInfo({ id })
-      .pipe(tap(position => {
-        // currently, when position doesn't exist the service returns HTTP 200 with empty response body instead of HTTP 404
-        // therefore we have to handle that case manually
-        if (!position) {
-          throw ({ error: { error_message: `должность не существует` } });
-        }
-      }))
-      .subscribe({
-        next: position => {
-          this.position = position as Position;
-          this.form.patchValue(this.position);
-        },
-        error: (err: any) => this.showErrorAndGoBack(err, `Должность не найдена`)
-      });
-  }
-
-  save(): void {
-    this.isFormSubmitted = true;
-    if (!this.form.valid) {
-      this.showError('Не все поля заполнены корректно');
-      return;
-    }
-    const body = this.form.value;
-    if (typeof this.position.id === 'number') {
-      this.updatePosition(body);
-    } else {
-      this.createPosition(body);
-    }
-  }
-
-  private createPosition(body: any) {
-    this.companyService.companyPositionCreate({ body }).pipe().subscribe({
-      next: () => this.showMessageAndGoBack(`Должность создана`),
-      error: (err) => this.showError('Ошибка создания должности', err)
-    });
-  }
-
-  updatePosition(body: any) {
-    this.companyService.companyPositionUpdate({ body }).pipe().subscribe({
-      next: () => this.showMessageAndGoBack('Должность сохранена'),
-      error: (err) => this.showError(`Ошибка сохранения должности`, err)
-    });
-  }
-
-  remove(): void {
-    const body = { id: this.position.id! };
-    this.companyService.companyPositionDelete({ body })
-      .subscribe({
-        next: () => this.showMessageAndGoBack(`Должность ${this.position.name} удалена`),
-        error: (err) => this.showError(`Ошибка удаления должности`, err)
-      });
-  }
+  
+  protected create(params: {body: Omit<Position, 'id'>}) {
+    return this.companyService.companyPositionCreate(params as any) as unknown as Observable<Position>; 
+   }
+   
+   protected read(params: { id: number; }): Observable<Position> {
+     return this.companyService.companyPositionInfo(params) as Observable<Position>;
+   }
+   
+   protected update(params: { body: Partial<Position>; }): Observable<void> {
+     return this.companyService.companyPositionUpdate(params as any) as unknown as Observable<void>;
+   }
+   
+   protected delete(params: {body: { id: number; }}): Observable<void> {
+     return this.companyService.companyPositionDelete(params) as unknown as Observable<void>;
+   }
 
 }
