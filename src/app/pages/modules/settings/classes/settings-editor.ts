@@ -1,3 +1,4 @@
+import { byField } from './../../../../constants/sort-predicate';
 import { Directive, OnInit } from '@angular/core';
 import { Observable, tap } from 'rxjs';
 import { ActivatedRoute } from '@angular/router';
@@ -30,12 +31,12 @@ export abstract class SettingsEditor<T> implements OnInit {
   abstract removedMessage: string;
   abstract createdMessage: string;
   abstract notFoundMessage: string;
-  
+
   private currentTitle = '';
-  protected abstract create(params: {body: Omit<T, 'id'>}): Observable<T>;
-  protected abstract read(params: {id: number}): Observable<T>;
-  protected abstract update(params: {body: Partial<T>}): Observable<void>;
-  protected abstract delete(params: {body: {id: number}}): Observable<void>;
+  protected abstract create(params: { body: Omit<T, 'id'> }): Observable<T>;
+  protected abstract read(params: { id: number }): Observable<T>;
+  protected abstract update(params: { body: Partial<T> }): Observable<void>;
+  protected abstract delete(params: { body: { id: number } }): Observable<void>;
 
   constructor(
     protected location: Location,
@@ -43,7 +44,7 @@ export abstract class SettingsEditor<T> implements OnInit {
     protected route: ActivatedRoute,
     protected snackBar: MatSnackBar,
   ) { }
-  
+
   ngOnInit(): void {
     this.detectEditMode();
     if (this.isEditMode) {
@@ -51,11 +52,11 @@ export abstract class SettingsEditor<T> implements OnInit {
     }
     this.currentTitle = this.isEditMode ? this.editTitle : this.newTitle;
   }
-  
+
   get title(): string {
     return this.currentTitle;
   }
-  
+
   goBack(): void {
     this.location.back();
   }
@@ -68,26 +69,32 @@ export abstract class SettingsEditor<T> implements OnInit {
 
   loadTaxSystems(): void {
     this.companyService.companyTaxSystem().subscribe(
-      taxSystems => this.taxSystems = taxSystems ? taxSystems as TaxSystem[] : []
+      taxSystems => this.taxSystems = taxSystems ? (taxSystems as TaxSystem[]).sort(byField('name', 'asc', 'case-insensitive')) : []
     );
   }
 
   loadCurrencies(): void {
     this.companyService.companyCurrency().subscribe(
-      currencies => this.currencies = currencies ? currencies as Currency[] : []
+      currencies => this.currencies = currencies ? (currencies as Currency[]).sort(byField('code', 'asc', 'case-insensitive')) : []
     );
   }
 
   loadCompanies(): void {
-    this.companyService.companyList().subscribe(companies => this.companies = companies as Company[]);
+    this.companyService.companyList().subscribe(
+      companies => this.companies = companies ? (companies as Company[]).sort(byField('name', 'asc', 'case-insensitive')) : []
+    );
   }
 
   loadDepartments(): void {
-    this.companyService.companyDepartmentList().subscribe(departments => this.departments = departments as Department[]);
+    this.companyService.companyDepartmentList().subscribe(
+      departments => this.departments = departments ? (departments as Department[]).sort(byField('name', 'asc', 'case-insensitive')) : []
+    );
   }
 
   loadPositions(): void {
-    this.companyService.companyPositionList().subscribe(positions => this.positions = positions as Position[]);
+    this.companyService.companyPositionList().subscribe(
+      positions => this.positions = positions ? (positions as Position[]).sort(byField('name', 'asc', 'case-insensitive')) : []
+    );
   }
 
   hasError(controlName: string): boolean {
@@ -116,7 +123,7 @@ export abstract class SettingsEditor<T> implements OnInit {
   showMessage(message: string): void {
     this.snackBar.open(message, undefined, this.snackBarWithShortDuration);
   }
-  
+
   showMessageAndGoBack(message: string): void {
     this.showMessage(message);
     this.goBack();
@@ -134,12 +141,12 @@ export abstract class SettingsEditor<T> implements OnInit {
       this.snackBar.open(message, undefined, this.snackBarWithLongDuration);
     }
   }
-  
+
   showErrorAndGoBack(err: any, message: string): void {
     this.showError(message, err);
     this.goBack();
   }
-  
+
   load(): void {
     const id = this.getIdParam();
     this.read({ id })
@@ -158,7 +165,7 @@ export abstract class SettingsEditor<T> implements OnInit {
         error: (err: any) => this.showErrorAndGoBack(err, this.notFoundMessage)
       });
   }
-  
+
   save(): void {
     this.isFormSubmitted = true;
     if (!this.form.valid) {
@@ -172,16 +179,16 @@ export abstract class SettingsEditor<T> implements OnInit {
       this.createData(body);
     }
   }
-  
+
   remove(): void {
     const body = { id: (this.data as any).id as number };
-    this.delete({body})
+    this.delete({ body })
       .subscribe({
         next: () => this.showMessageAndGoBack(this.removedMessage),
         error: (err) => this.showError('Ошибка', err)
       });
   }
-  
+
   private createData(body: any) {
     this.create({ body }).pipe().subscribe({
       next: () => this.showMessageAndGoBack(this.createdMessage),
@@ -195,7 +202,7 @@ export abstract class SettingsEditor<T> implements OnInit {
       error: (err) => this.showError(`Ошибка`, err)
     });
   }
-  
+
   private detectEditMode(): void {
     const segments = this.route.snapshot.url.map(s => s.path);
     this.isEditMode = segments[1] !== 'add';
