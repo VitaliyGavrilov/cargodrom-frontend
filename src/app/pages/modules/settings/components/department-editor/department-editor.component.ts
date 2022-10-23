@@ -5,7 +5,7 @@ import { Component, OnInit } from '@angular/core';
 import { FormBuilder, Validators } from '@angular/forms';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { ActivatedRoute } from '@angular/router';
-import { tap } from 'rxjs';
+import { Observable } from 'rxjs';
 import { Location } from '@angular/common';
 @Component({
   selector: 'app-department-editor',
@@ -15,99 +15,51 @@ import { Location } from '@angular/common';
     '../../main-table.scss'
   ]
 })
-export class DepartmentEditorComponent extends SettingsEditor implements OnInit {
+export class DepartmentEditorComponent extends SettingsEditor<Department> implements OnInit {
   departmentId?: number;
-  department: Partial<Department> = {};
+  private entity = 'Подразделение';
+  editTitle = 'Редактирование подразделения';
+  newTitle = 'Добавление подразделения';
+  savedMessage = `${this.entity} сохранено`;
+  removedMessage = `${this.entity} удалено`;
+  createdMessage = `${this.entity} создано`;
+  notFoundMessage = `${this.entity} не найдено`;
 
   constructor(
     private fb: FormBuilder,
-    private snackBar: MatSnackBar,
+    snackBar: MatSnackBar,
     route: ActivatedRoute,
     companyService: CompanyService,
     location: Location,
   ) {
-    super(location, companyService, route);
+    super(location, companyService, route, snackBar);
     this.form = this.fb.group({
       id: [''],
       name: ['', [Validators.required]],
     });
   }
 
-  ngOnInit(): void {
-    this.detectEditMode();
+  override ngOnInit(): void {
+    super.ngOnInit();
     if (this.isEditMode) {
       this.departmentId = Number(this.route.snapshot.paramMap.get('id'));
-      this.getDepartment();
-    }
-    this.title = this.isEditMode ? 'Редактирование подразделения' : 'Добавление подразделения';
-  }
-
-  getDepartment(): void {
-    const id = this.getIdParam();
-    this.companyService.companyDepartmentInfo({id})
-      .pipe(tap((department) => {
-        // currently, when position doesn't exist the service returns HTTP 200 with empty response body instead of HTTP 404
-        // therefore we have to handle that case manually
-        if (!department) {
-          throw ({ error: { error_message: `подразделение не существует` } });
-        }
-      }))
-      .subscribe({
-        next: (department) => {
-          this.department = department as Department;
-          this.form.patchValue(this.department);
-        },
-        error: (err: any) => {
-          this.snackBar.open(`Подразделение не найдено: ` + err.error.error_message, undefined, this.snackBarWithShortDuration);
-          this.goBack();
-        }
-      });
-  }
-
-  save(): void {
-    this.isFormSubmitted = true;
-    if (!this.form.valid) {
-      this.snackBar.open('Не все поля заполнены корректно', undefined, this.snackBarWithLongDuration);
-      return;
-    }
-    const body = this.form.value;
-    if (typeof this.department.id === 'number') {
-      this.updateDepartment(body);
-    } else {
-      this.createDepartment(body);
     }
   }
 
-  private createDepartment(body: any) {
-    this.companyService.companyDepartmentCreate({ body }).pipe().subscribe({
-      next: ({ id }) => {
-        this.goBack();
-        this.snackBar.open(`Подразделение создано`, undefined, this.snackBarWithShortDuration)
-      },
-      error: (err) => this.snackBar.open(`Ошибка создания подразделения: ` + err.error.error_message, undefined, this.snackBarWithShortDuration)
-    });
+  protected create(params: { body: Omit<Department, 'id'> }) {
+    return this.companyService.companyDepartmentCreate(params as any) as unknown as Observable<Department>;
   }
 
-  updateDepartment(body: any) {
-    this.companyService.companyDepartmentUpdate({ body }).pipe().subscribe({
-      next: () => {
-        this.snackBar.open(`Подразделение сохранено`, undefined, this.snackBarWithShortDuration);
-        this.goBack();
-      },
-      error: (err) => this.snackBar.open(`Ошибка сохранения подразделения: ` + err.error.error_message, undefined, this.snackBarWithShortDuration)
-    });
+  protected read(params: { id: number; }): Observable<Department> {
+    return this.companyService.companyDepartmentInfo(params) as Observable<Department>;
   }
-  
-  remove(): void {
-    const body = { id: this.department.id! };
-    this.companyService.companyDepartmentDelete({ body })
-      .subscribe({
-        next: () => {
-          this.snackBar.open(`Подразделение ${this.department.name} удалено`, undefined, {duration: 1000});
-          this.goBack();
-        },
-        error: (err) => this.snackBar.open(`Ошибка удаления подразделения: ` + err.error.error_message, undefined, {duration: 1000})
-      });
+
+  protected update(params: { body: Partial<Department>; }): Observable<void> {
+    return this.companyService.companyDepartmentUpdate(params as any) as unknown as Observable<void>;
+  }
+
+  protected delete(params: { body: { id: number; } }): Observable<void> {
+    return this.companyService.companyDepartmentDelete(params) as unknown as Observable<void>;
   }
 
 }

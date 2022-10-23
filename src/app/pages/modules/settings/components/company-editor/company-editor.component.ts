@@ -4,9 +4,9 @@ import { CompanyService } from './../../../../../api/services/company.service';
 import { Company } from './../../../../../api/custom_models/company';
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, Validators } from '@angular/forms';
-import { MatSnackBar} from '@angular/material/snack-bar';
+import { MatSnackBar } from '@angular/material/snack-bar';
 import { ActivatedRoute } from '@angular/router';
-import { tap } from 'rxjs';
+import { Observable } from 'rxjs';
 import { Location } from '@angular/common';
 
 @Component({
@@ -14,18 +14,23 @@ import { Location } from '@angular/common';
   templateUrl: './company-editor.component.html',
   styleUrls: ['./company-editor.component.scss']
 })
-export class CompanyEditorComponent extends SettingsEditor implements OnInit {
-
-  company: Partial<Company> = {};
+export class CompanyEditorComponent extends SettingsEditor<Company> implements OnInit {
+  private entity = 'Организация';
+  editTitle = 'Редактирование организации';
+  newTitle = 'Добавление организации';
+  savedMessage = `${this.entity} сохранен`;
+  removedMessage = `${this.entity} удален`;
+  createdMessage = `${this.entity} создан`;
+  notFoundMessage = `${this.entity} не найден`;
 
   constructor(
     private fb: FormBuilder,
-    private snackBar: MatSnackBar,
+    snackBar: MatSnackBar,
     companyService: CompanyService,
     route: ActivatedRoute,
     location: Location,
   ) {
-    super(location, companyService, route);
+    super(location, companyService, route, snackBar);
     this.form = this.fb.group({
       id: ['', []],
       tax_system: ['', []],
@@ -72,83 +77,27 @@ export class CompanyEditorComponent extends SettingsEditor implements OnInit {
     });
   }
 
-  ngOnInit(): void {
-    this.detectEditMode();
-    this.getTaxSystems();
-    this.getCurrencies();
-    if (this.isEditMode) {
-      this.getCompany();
-    }
+  override ngOnInit(): void {
+    super.ngOnInit();
+    this.loadTaxSystems();
+    this.loadCurrencies();
     this.loadEmployees();
-    this.title = this.isEditMode ? 'Редактирование организации' : 'Добавление организации';
-  }
-
-  getCompany(): void {
-    const id = this.getIdParam();
-    this.companyService.companyInfo({ id })
-      .pipe(tap(company => {
-        // currently, when company doesn't exist the service returns HTTP 200 with empty response body instead of HTTP 404
-        // therefore we have to handle that case manually
-        if (!company) {
-          throw ({ error: { error_message: `организация не существует` } });
-        }
-      }))
-      .subscribe({
-        next: company => {
-          this.company = company as Company;
-          this.form.patchValue(this.company);
-        },
-        error: (err: any) => {
-          this.snackBar.open(`Организация не найдена: ` + err.error.error_message, undefined, this.snackBarWithShortDuration);
-          this.goBack();
-        }
-      });
-  }
-
-  save(): void {
-    this.isFormSubmitted = true;
-    if (!this.form.valid) {
-      this.snackBar.open('Не все поля заполнены корректно', undefined, this.snackBarWithLongDuration);
-      return;
-    }
-    const body = this.form.value;
-    if (typeof this.company.id === 'number') {
-      this.updateCompany(body);
-    } else {
-      this.createCompany(body);
-    }
-  }
-
-  private createCompany(body: any) {
-    this.companyService.companyCreate({ body }).pipe().subscribe({
-      next: () => {
-        this.goBack();
-        this.snackBar.open(`Организация создана`, undefined, this.snackBarWithShortDuration)
-      },
-      error: (err) => this.snackBar.open(`Ошибка создания организации: ` + err.error?.error_message + ':' + err.error?.error_message_description, undefined, this.snackBarWithShortDuration)
-    });
-  }
-
-  updateCompany(body: any) {
-    this.companyService.companyUpdate({ body }).pipe().subscribe({
-      next: () => {
-        this.snackBar.open(`Организация сохранена`, undefined, this.snackBarWithShortDuration);
-        this.goBack();
-      },
-      error: (err) => this.snackBar.open(`Ошибка сохранения организации: ` + err.error?.error_message + ':' + err.error?.error_message_description, undefined, this.snackBarWithShortDuration)
-    });
   }
   
-  remove(): void {
-    const body = { id: this.company.id! };
-    this.companyService.companyDelete({ body })
-      .subscribe({
-        next: () => {
-          this.snackBar.open(`Организация ${this.company.name} удалена`, undefined, {duration: 1000});
-          this.goBack();
-        },
-        error: (err) => this.snackBar.open(`Ошибка удаления организации: ` + err.error.error_message, undefined, {duration: 1000})
-      });
+  protected create(params: {body: Omit<Company, 'id'>}) {
+   return this.companyService.companyCreate(params as any) as unknown as Observable<Company>; 
   }
   
+  protected read(params: { id: number; }): Observable<Company> {
+    return this.companyService.companyInfo(params) as Observable<Company>;
+  }
+  
+  protected update(params: { body: Partial<Company>; }): Observable<void> {
+    return this.companyService.companyUpdate(params as any) as unknown as Observable<void>;
+  }
+  
+  protected delete(params: {body: { id: number; }}): Observable<void> {
+    return this.companyService.companyDelete(params) as unknown as Observable<void>;
+  }
+
 }

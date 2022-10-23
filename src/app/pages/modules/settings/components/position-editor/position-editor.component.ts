@@ -5,7 +5,7 @@ import { ActivatedRoute } from '@angular/router';
 import { CompanyService } from '../../../../../api/services/company.service';
 import { FormBuilder, Validators } from '@angular/forms';
 import { Component, OnInit } from '@angular/core';
-import { tap } from 'rxjs';
+import { Observable } from 'rxjs';
 import { Location } from '@angular/common';
 
 @Component({
@@ -13,97 +13,43 @@ import { Location } from '@angular/common';
   templateUrl: './position-editor.component.html',
   styleUrls: ['./position-editor.component.scss']
 })
-export class PositionEditorComponent extends SettingsEditor implements OnInit {
-  position: Partial<Position> = {};
+export class PositionEditorComponent extends SettingsEditor<Position> implements OnInit {
+  private entity = 'Должность';
+  editTitle = 'Редактирование должности';
+  newTitle = 'Добавление должности';
+  savedMessage = `${this.entity} сохранена`;
+  removedMessage = `${this.entity} удалена`;
+  createdMessage = `${this.entity} создана`;
+  notFoundMessage = `${this.entity} не найдена`;
 
   constructor(
     private fb: FormBuilder,
-    private snackBar: MatSnackBar,
+    snackBar: MatSnackBar,
     companyService: CompanyService,
     route: ActivatedRoute,
     location: Location,
   ) {
-    super(location, companyService, route);
+    super(location, companyService, route, snackBar);
     this.form = this.fb.group({
       id: [''],
       name: ['', [Validators.required]],
     });
   }
 
-  ngOnInit(): void {
-    this.detectEditMode();
-    if (this.isEditMode) {
-      this.getPosition();
-    }
-    this.title = this.isEditMode ? 'Редактирование должности' : 'Добавление должности';
-  }
-
-  getPosition(): void {
-    const id = this.getIdParam();
-    this.companyService.companyPositionInfo({ id })
-      .pipe(tap(position => {
-        // currently, when position doesn't exist the service returns HTTP 200 with empty response body instead of HTTP 404
-        // therefore we have to handle that case manually
-        if (!position) {
-          throw ({ error: { error_message: `должность не существует` } });
-        }
-      }))
-      .subscribe({
-        next: position => {
-          this.position = position as Position;
-          this.form.patchValue(this.position);
-        },
-        error: (err: any) => {
-          this.snackBar.open(`Должность не найдена: ` + err.error.error_message, undefined, this.snackBarWithShortDuration);
-          this.goBack();
-        }
-      });
-  }
-
-  save(): void {
-    this.isFormSubmitted = true;
-    if (!this.form.valid) {
-      this.snackBar.open('Не все поля заполнены корректно', undefined, this.snackBarWithLongDuration);
-      return;
-    }
-    const body = this.form.value;
-    if (typeof this.position.id === 'number') {
-      this.updatePosition(body);
-    } else {
-      this.createPosition(body);
-    }
-  }
-
-  private createPosition(body: any) {
-    this.companyService.companyPositionCreate({ body }).pipe().subscribe({
-      next: ({ id }) => {
-        this.goBack();
-        this.snackBar.open(`Должность создана`, undefined, this.snackBarWithShortDuration)
-      },
-      error: (err) => this.snackBar.open(`Ошибка создания должности: ` + err.error.error_message, undefined, this.snackBarWithShortDuration)
-    });
-  }
-
-  updatePosition(body: any) {
-    this.companyService.companyPositionUpdate({ body }).pipe().subscribe({
-      next: () => {
-        this.snackBar.open(`Должность сохранена`, undefined, this.snackBarWithShortDuration);
-        this.goBack();
-      },
-      error: (err) => this.snackBar.open(`Ошибка сохранения должности: ` + err.error.error_message, undefined, this.snackBarWithShortDuration)
-    });
-  }
-  
-  remove(): void {
-    const body = { id: this.position.id! };
-    this.companyService.companyPositionDelete({ body })
-      .subscribe({
-        next: () => {
-          this.snackBar.open(`Должность ${this.position.name} удалена`, undefined, {duration: 1000});
-          this.goBack();
-        },
-        error: (err) => this.snackBar.open(`Ошибка удаления должности: ` + err.error.error_message, undefined, {duration: 1000})
-      });
-  }
+  protected create(params: {body: Omit<Position, 'id'>}) {
+    return this.companyService.companyPositionCreate(params as any) as unknown as Observable<Position>; 
+   }
+   
+   protected read(params: { id: number; }): Observable<Position> {
+     return this.companyService.companyPositionInfo(params) as Observable<Position>;
+   }
+   
+   protected update(params: { body: Partial<Position>; }): Observable<void> {
+     return this.companyService.companyPositionUpdate(params as any) as unknown as Observable<void>;
+   }
+   
+   protected delete(params: {body: { id: number; }}): Observable<void> {
+     return this.companyService.companyPositionDelete(params) as unknown as Observable<void>;
+   }
 
 }
