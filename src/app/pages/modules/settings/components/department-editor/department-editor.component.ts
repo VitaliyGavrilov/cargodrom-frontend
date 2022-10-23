@@ -17,6 +17,13 @@ import { Location } from '@angular/common';
 })
 export class DepartmentEditorComponent extends SettingsEditor<Department> implements OnInit {
   departmentId?: number;
+  private entity = 'Подразделение';
+  editTitle = 'Редактирование подразделения';
+  newTitle = 'Добавление подразделения';
+  savedMessage = `${this.entity} сохранено`;
+  removedMessage = `${this.entity} удалено`;
+  createdMessage = `${this.entity} создано`;
+  notFoundMessage = `${this.entity} не найдено`;
 
   constructor(
     private fb: FormBuilder,
@@ -37,7 +44,6 @@ export class DepartmentEditorComponent extends SettingsEditor<Department> implem
     if (this.isEditMode) {
       this.departmentId = Number(this.route.snapshot.paramMap.get('id'));
     }
-    this.title = this.isEditMode ? 'Редактирование подразделения' : 'Добавление подразделения';
   }
 
   protected create(params: { body: Omit<Department, 'id'> }) {

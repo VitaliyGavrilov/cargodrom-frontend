@@ -16,7 +16,14 @@ import { SettingsEditor } from '../../classes/settings-editor';
   encapsulation: ViewEncapsulation.None,
 })
 export class EmployeeEditorComponent extends SettingsEditor<Employee> implements OnInit {
-
+  private entity = 'Сотрудник';
+  editTitle = 'Редактирование сотрудника';
+  newTitle = 'Добавление сотрудника';
+  savedMessage = `${this.entity} сохранен`;
+  removedMessage = `${this.entity} удален`;
+  createdMessage = `${this.entity} создан`;
+  notFoundMessage = `${this.entity} не найден`;
+  
   constructor(
     private fb: FormBuilder,
     snackBar: MatSnackBar,
@@ -51,10 +58,9 @@ export class EmployeeEditorComponent extends SettingsEditor<Employee> implements
         this.form.controls['department_id'].disable();
       }
     }
-    this.getCompanies();
-    this.getDepartments();
-    this.getPositions();
-    this.title = this.isEditMode ? 'Редактирование сотрудника' : 'Добавление сотрудника';
+    this.loadCompanies();
+    this.loadDepartments();
+    this.loadPositions();
   }
 
   protected create(params: { body: Omit<Employee, 'id'> }) {

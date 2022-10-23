@@ -15,7 +15,6 @@ export abstract class SettingsEditor<T> implements OnInit {
   isEditMode = false;
   snackBarWithShortDuration: MatSnackBarConfig = { duration: 1000 };
   snackBarWithLongDuration: MatSnackBarConfig = { duration: 5000 };
-  title = '';
   employees: Employee[] = [];
   taxSystems: TaxSystem[] = [];
   currencies: Currency[] = [];
@@ -25,7 +24,14 @@ export abstract class SettingsEditor<T> implements OnInit {
   isFormSubmitted = false;
   phoneMask = phoneMask;
   data: Partial<T> = {};
+  abstract editTitle: string;
+  abstract newTitle: string;
+  abstract savedMessage: string;
+  abstract removedMessage: string;
+  abstract createdMessage: string;
+  abstract notFoundMessage: string;
   
+  private currentTitle = '';
   protected abstract create(params: {body: Omit<T, 'id'>}): Observable<T>;
   protected abstract read(params: {id: number}): Observable<T>;
   protected abstract update(params: {body: Partial<T>}): Observable<void>;
@@ -43,6 +49,11 @@ export abstract class SettingsEditor<T> implements OnInit {
     if (this.isEditMode) {
       this.load();
     }
+    this.currentTitle = this.isEditMode ? this.editTitle : this.newTitle;
+  }
+  
+  get title(): string {
+    return this.currentTitle;
   }
   
   goBack(): void {
@@ -55,27 +66,27 @@ export abstract class SettingsEditor<T> implements OnInit {
     });
   }
 
-  getTaxSystems(): void {
+  loadTaxSystems(): void {
     this.companyService.companyTaxSystem().subscribe(
       taxSystems => this.taxSystems = taxSystems ? taxSystems as TaxSystem[] : []
     );
   }
 
-  getCurrencies(): void {
+  loadCurrencies(): void {
     this.companyService.companyCurrency().subscribe(
       currencies => this.currencies = currencies ? currencies as Currency[] : []
     );
   }
 
-  getCompanies(): void {
+  loadCompanies(): void {
     this.companyService.companyList().subscribe(companies => this.companies = companies as Company[]);
   }
 
-  getDepartments(): void {
+  loadDepartments(): void {
     this.companyService.companyDepartmentList().subscribe(departments => this.departments = departments as Department[]);
   }
 
-  getPositions(): void {
+  loadPositions(): void {
     this.companyService.companyPositionList().subscribe(positions => this.positions = positions as Position[]);
   }
 
@@ -113,7 +124,12 @@ export abstract class SettingsEditor<T> implements OnInit {
 
   showError(message: string, err?: any): void {
     if (typeof err?.error?.error_message === 'string') {
-      this.snackBar.open(`${message}: ` + err.error?.error_message + ':' + err.error?.error_message_description, undefined, this.snackBarWithLongDuration);
+      const hasDescription = typeof err.error?.error_message_description === 'string';
+      if (hasDescription) {
+        this.snackBar.open(`${message}: ` + err.error?.error_message + ':' + err.error?.error_message_description, undefined, this.snackBarWithLongDuration);
+      } else {
+        this.snackBar.open(`${message}: ` + err.error?.error_message, undefined, this.snackBarWithLongDuration);
+      }
     } else {
       this.snackBar.open(message, undefined, this.snackBarWithLongDuration);
     }
@@ -139,7 +155,7 @@ export abstract class SettingsEditor<T> implements OnInit {
           this.data = data as T;
           this.form.patchValue(this.data);
         },
-        error: (err: any) => this.showErrorAndGoBack(err, `Данные не найдены`)
+        error: (err: any) => this.showErrorAndGoBack(err, this.notFoundMessage)
       });
   }
   
@@ -161,22 +177,22 @@ export abstract class SettingsEditor<T> implements OnInit {
     const body = { id: (this.data as any).id as number };
     this.delete({body})
       .subscribe({
-        next: () => this.showMessageAndGoBack(`Успешное удаление`),
-        error: (err) => this.showError('Ошибка удаления', err)
+        next: () => this.showMessageAndGoBack(this.removedMessage),
+        error: (err) => this.showError('Ошибка', err)
       });
   }
   
   private createData(body: any) {
     this.create({ body }).pipe().subscribe({
-      next: () => this.showMessageAndGoBack(`Создание успешно`),
-      error: (err) => this.showError(`Ошибка создания`, err)
+      next: () => this.showMessageAndGoBack(this.createdMessage),
+      error: (err) => this.showError(`Ошибка`, err)
     });
   }
 
   private updateData(body: any) {
     this.update({ body }).pipe().subscribe({
-      next: () => this.showMessageAndGoBack(`Сохранено`),
-      error: (err) => this.showError(`Ошибка сохранения`, err)
+      next: () => this.showMessageAndGoBack(this.savedMessage),
+      error: (err) => this.showError(`Ошибка`, err)
     });
   }
   

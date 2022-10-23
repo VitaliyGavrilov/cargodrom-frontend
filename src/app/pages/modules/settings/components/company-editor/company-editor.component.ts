@@ -15,6 +15,13 @@ import { Location } from '@angular/common';
   styleUrls: ['./company-editor.component.scss']
 })
 export class CompanyEditorComponent extends SettingsEditor<Company> implements OnInit {
+  private entity = 'Организация';
+  editTitle = 'Редактирование организации';
+  newTitle = 'Добавление организации';
+  savedMessage = `${this.entity} сохранен`;
+  removedMessage = `${this.entity} удален`;
+  createdMessage = `${this.entity} создан`;
+  notFoundMessage = `${this.entity} не найден`;
 
   constructor(
     private fb: FormBuilder,
@@ -72,10 +79,9 @@ export class CompanyEditorComponent extends SettingsEditor<Company> implements O
 
   override ngOnInit(): void {
     super.ngOnInit();
-    this.getTaxSystems();
-    this.getCurrencies();
+    this.loadTaxSystems();
+    this.loadCurrencies();
     this.loadEmployees();
-    this.title = this.isEditMode ? 'Редактирование организации' : 'Добавление организации';
   }
   
   protected create(params: {body: Omit<Company, 'id'>}) {

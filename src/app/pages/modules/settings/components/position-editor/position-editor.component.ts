@@ -14,6 +14,13 @@ import { Location } from '@angular/common';
   styleUrls: ['./position-editor.component.scss']
 })
 export class PositionEditorComponent extends SettingsEditor<Position> implements OnInit {
+  private entity = 'Должность';
+  editTitle = 'Редактирование должности';
+  newTitle = 'Добавление должности';
+  savedMessage = `${this.entity} сохранена`;
+  removedMessage = `${this.entity} удалена`;
+  createdMessage = `${this.entity} создана`;
+  notFoundMessage = `${this.entity} не найдена`;
 
   constructor(
     private fb: FormBuilder,
@@ -29,11 +36,6 @@ export class PositionEditorComponent extends SettingsEditor<Position> implements
     });
   }
 
-  override ngOnInit(): void {
-    super.ngOnInit();
-    this.title = this.isEditMode ? 'Редактирование должности' : 'Добавление должности';
-  }
-  
   protected create(params: {body: Omit<Position, 'id'>}) {
     return this.companyService.companyPositionCreate(params as any) as unknown as Observable<Position>; 
    }
