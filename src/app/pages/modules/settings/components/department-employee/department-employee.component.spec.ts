@@ -22,8 +22,8 @@ describe('DepartmentEmployeeComponent', () => {
         { provide: MatDialog, useValue: {} },
         {
           provide: CompanyService, useValue: {
-            companyPositionList: () => of([]),
-            companyEmployeeList: () => of([]),
+            companyPositionList: () => of({items: [], total: 0}),
+            companyEmployeeList: () => of({items: [], total: 0}),
           }
         }
       ]

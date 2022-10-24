@@ -27,7 +27,7 @@ describe('PositionEditorComponent', () => {
       providers: [
         {
           provide: CompanyService, useValue: {
-            companyPositionList: () => of([]),
+            companyPositionList: () => of({items: [], total: 0}),
             companyPositionInfo: () => of({name: 'Title'}),
           }
         },

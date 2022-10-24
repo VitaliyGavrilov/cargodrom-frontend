@@ -31,9 +31,9 @@ describe('EmployeeEditorComponent', () => {
       providers: [
         {
           provide: CompanyService, useValue: {
-            companyDepartmentList: () => of([]),
-            companyPositionList: () => of([]),
-            companyList: () => of([]),
+            companyDepartmentList: () => of({items: [], total: 0}),
+            companyPositionList: () => of({items: [], total: 0}),
+            companyList: () => of({items: [], total: 0}),
             companyEmployeeInfo: () => of({name_f: 'Last', name_i: 'First', name_o: 'Middle'})
           }
         },
