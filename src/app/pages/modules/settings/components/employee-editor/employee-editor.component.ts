@@ -55,7 +55,6 @@ export class EmployeeEditorComponent extends SettingsEditor<Employee> implements
       const departmentId = this.route.snapshot.queryParamMap.get('department_id');
       if (departmentId) {
         this.form.patchValue({ department_id: Number(departmentId) });
-        this.form.controls['department_id'].disable();
       }
     }
     this.loadCompanies();
