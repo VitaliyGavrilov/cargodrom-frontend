@@ -53,7 +53,7 @@ export class PaginatorComponent implements OnInit, OnChanges {
   }
 
   get lastPage(): number {
-    return Math.floor(this.total / this.count);
+    return Math.ceil(this.total / this.count) - 1;
   }
 
   goToPage(page: number): void {
