@@ -32,11 +32,10 @@ export class PositionComponent implements OnInit {
   }
 
   loadPositions(): void {
-    this.companyService.companyPositionList().subscribe(positions => {
-      const allPositions = positions ? positions.items as Position[] : [];
-      allPositions.sort(byField('name', 'asc', 'case-insensitive'));
-      this.total = allPositions.length;
-      this.positions = allPositions.slice(this.start, this.start + this.count);
+    this.companyService.companyPositionList({start: this.start, count: this.count}).subscribe(positions => {
+      this.positions = positions ? positions.items as Position[] : [];
+      this.positions.sort(byField('name', 'asc', 'case-insensitive'));
+      this.total = positions.total!;
     });
   }
 
