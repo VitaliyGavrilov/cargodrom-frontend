@@ -33,7 +33,7 @@ export class CompanyComponent implements OnInit {
 
   loadCompanies(): void {
     this.companyService.companyList().subscribe(companies => {
-      const allCompanies = companies ? companies as unknown as Company[] : [];
+      const allCompanies = companies ? companies.items as unknown as Company[] : [];
       allCompanies.sort(byField('name', 'asc', 'case-insensitive'));
       this.total = allCompanies.length;
       this.companies = allCompanies.slice(this.start, this.start + this.count);
@@ -42,7 +42,7 @@ export class CompanyComponent implements OnInit {
 
   loadEmployees(): void {
     this.companyService.companyEmployeeList().subscribe(
-      employees => this.employees = employees ? employees as Employee[] : []
+      employees => this.employees = employees ? employees.items as Employee[] : []
     );
   }
   

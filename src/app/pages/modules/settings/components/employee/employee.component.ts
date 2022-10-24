@@ -42,7 +42,7 @@ export class EmployeeComponent implements OnInit {
 
   loadEmployees(): Observable<void> {
     return this.companyService.companyEmployeeList().pipe(map(employees => {
-      const allEmployees = employees ? employees.sort(byField('name_f', 'asc', 'case-insensitive')) as Employee[] : [];
+      const allEmployees = employees ? (employees.items! as Employee[]).sort(byField('name_f', 'asc', 'case-insensitive')) : [];
       this.total = allEmployees.length;
       this.employees = allEmployees.slice(this.start, this.start + this.count);
     }));
@@ -54,21 +54,21 @@ export class EmployeeComponent implements OnInit {
 
   loadDepartments(): Observable<void> {
     return this.companyService.companyDepartmentList().pipe(map(departments => {
-      const allDepartments = departments ? departments as Department[] : [];
+      const allDepartments = departments ? departments.items as Department[] : [];
       allDepartments.forEach(department => this.departmentById[department.id] = department);
     }));
   }
 
   loadPositions(): Observable<void> {
     return this.companyService.companyPositionList().pipe(map(positions => {
-      const allPositions = positions ? positions as Position[] : [];
+      const allPositions = positions ? positions.items as Position[] : [];
       allPositions.forEach(position => this.positionById[position.id] = position);
     }));
   }
 
   loadCompanies(): Observable<void> {
     return this.companyService.companyList().pipe(map(companies => {
-      const allCompanies = companies ? companies as Company[] : [];
+      const allCompanies = companies ? companies.items as Company[] : [];
       allCompanies.forEach(company => this.companyById[company.id] = company);
     }));
   }

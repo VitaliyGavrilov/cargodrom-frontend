@@ -54,7 +54,7 @@ export class DepartmentComponent implements OnInit {
 
   loadDepartments(): void {
     this.companyService.companyDepartmentList().subscribe(departments => {
-      const allDepartments = departments = departments ? departments as Department[] : [];
+      const allDepartments = departments ? departments.items as Department[] : [];
       allDepartments.sort(this.getSortPredicate());
       this.total = allDepartments.length;
       this.departments = allDepartments.slice(this.start, this.start + this.count);
@@ -121,7 +121,7 @@ export class DepartmentComponent implements OnInit {
   
   loadEmployees(): void {
     this.companyService.companyEmployeeList().subscribe(
-      employees => this.employees = employees ? employees as Employee[] : []
+      employees => this.employees = employees ? employees.items as Employee[] : []
     );
   }
   
