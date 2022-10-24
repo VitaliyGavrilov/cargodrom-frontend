@@ -37,14 +37,14 @@ export class DepartmentEmployeeComponent implements OnInit {
     const params = { department_id: departmentId };
     this.companyService.companyEmployeeList(params)
       .subscribe(employees => {
-        this.employees = employees ? employees as Employee[] : [];
+        this.employees = employees ? employees.items as Employee[] : [];
       })
   }
 
   loadPositions(): void {
     this.companyService.companyPositionList()
       .subscribe(positions => {
-        this.positions = positions ? positions as Position[] : [];
+        this.positions = positions ? positions.items as Position[] : [];
       })
   }
 

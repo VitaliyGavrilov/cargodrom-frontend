@@ -63,7 +63,7 @@ export abstract class SettingsEditor<T> implements OnInit {
 
   loadEmployees(): void {
     this.companyService.companyEmployeeList().subscribe(employees => {
-      this.employees = employees ? employees as Employee[] : [];
+      this.employees = employees ? employees.items as Employee[] : [];
     });
   }
 
@@ -81,19 +81,19 @@ export abstract class SettingsEditor<T> implements OnInit {
 
   loadCompanies(): void {
     this.companyService.companyList().subscribe(
-      companies => this.companies = companies ? (companies as Company[]).sort(byField('name', 'asc', 'case-insensitive')) : []
+      companies => this.companies = companies ? (companies.items as Company[]).sort(byField('name', 'asc', 'case-insensitive')) : []
     );
   }
 
   loadDepartments(): void {
     this.companyService.companyDepartmentList().subscribe(
-      departments => this.departments = departments ? (departments as Department[]).sort(byField('name', 'asc', 'case-insensitive')) : []
+      departments => this.departments = departments ? (departments.items as Department[]).sort(byField('name', 'asc', 'case-insensitive')) : []
     );
   }
 
   loadPositions(): void {
     this.companyService.companyPositionList().subscribe(
-      positions => this.positions = positions ? (positions as Position[]).sort(byField('name', 'asc', 'case-insensitive')) : []
+      positions => this.positions = positions ? (positions.items as Position[]).sort(byField('name', 'asc', 'case-insensitive')) : []
     );
   }
 

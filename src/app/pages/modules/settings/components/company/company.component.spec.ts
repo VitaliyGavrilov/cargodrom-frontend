@@ -23,8 +23,8 @@ describe('CompanyComponent', () => {
         {
           provide: CompanyService,
           useValue: {
-            companyList: () => of([]),
-            companyEmployeeList: () => of([]),
+            companyList: () => of({items: [], total: 0}),
+            companyEmployeeList: () => of({items: [], total: 0}),
           }
         },
       ]

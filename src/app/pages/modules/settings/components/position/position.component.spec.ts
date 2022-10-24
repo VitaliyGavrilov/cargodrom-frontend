@@ -23,7 +23,7 @@ describe('PositionComponent', () => {
       providers: [
         {
           provide: CompanyService, useValue: {
-            companyPositionList: () => of([])
+            companyPositionList: () => of({items: [], total: 0})
           }
         },
       ]

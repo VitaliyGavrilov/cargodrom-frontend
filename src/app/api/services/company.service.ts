@@ -51,7 +51,12 @@ export class CompanyService extends BaseService {
      * Лимит позиций на страницу
      */
     count?: number;
-  }): Observable<StrictHttpResponse<Array<{
+  }): Observable<StrictHttpResponse<{
+
+/**
+ * Позиции
+ */
+'items'?: Array<{
 
 /**
  * ID
@@ -272,7 +277,13 @@ export class CompanyService extends BaseService {
  * Время изменения
  */
 'time_edit'?: string;
-}>>> {
+}>;
+
+/**
+ * Всего позиций
+ */
+'total'?: number;
+}>> {
 
     const rb = new RequestBuilder(this.rootUrl, CompanyService.CompanyListPath, 'get');
     if (params) {
@@ -286,7 +297,12 @@ export class CompanyService extends BaseService {
     })).pipe(
       filter((r: any) => r instanceof HttpResponse),
       map((r: HttpResponse<any>) => {
-        return r as StrictHttpResponse<Array<{
+        return r as StrictHttpResponse<{
+        
+        /**
+         * Позиции
+         */
+        'items'?: Array<{
         
         /**
          * ID
@@ -507,7 +523,13 @@ export class CompanyService extends BaseService {
          * Время изменения
          */
         'time_edit'?: string;
-        }>>;
+        }>;
+        
+        /**
+         * Всего позиций
+         */
+        'total'?: number;
+        }>;
       })
     );
   }
@@ -533,7 +555,12 @@ export class CompanyService extends BaseService {
      * Лимит позиций на страницу
      */
     count?: number;
-  }): Observable<Array<{
+  }): Observable<{
+
+/**
+ * Позиции
+ */
+'items'?: Array<{
 
 /**
  * ID
@@ -754,10 +781,21 @@ export class CompanyService extends BaseService {
  * Время изменения
  */
 'time_edit'?: string;
-}>> {
+}>;
+
+/**
+ * Всего позиций
+ */
+'total'?: number;
+}> {
 
     return this.companyList$Response(params).pipe(
-      map((r: StrictHttpResponse<Array<{
+      map((r: StrictHttpResponse<{
+
+/**
+ * Позиции
+ */
+'items'?: Array<{
 
 /**
  * ID
@@ -978,7 +1016,18 @@ export class CompanyService extends BaseService {
  * Время изменения
  */
 'time_edit'?: string;
-}>>) => r.body as Array<{
+}>;
+
+/**
+ * Всего позиций
+ */
+'total'?: number;
+}>) => r.body as {
+
+/**
+ * Позиции
+ */
+'items'?: Array<{
 
 /**
  * ID
@@ -1199,7 +1248,13 @@ export class CompanyService extends BaseService {
  * Время изменения
  */
 'time_edit'?: string;
-}>)
+}>;
+
+/**
+ * Всего позиций
+ */
+'total'?: number;
+})
     );
   }
 
@@ -3519,7 +3574,12 @@ export class CompanyService extends BaseService {
      * Лимит позиций на страницу
      */
     count?: number;
-  }): Observable<StrictHttpResponse<Array<{
+  }): Observable<StrictHttpResponse<{
+
+/**
+ * Позиции
+ */
+'items'?: Array<{
 
 /**
  * ID
@@ -3560,7 +3620,13 @@ export class CompanyService extends BaseService {
  * Время изменения
  */
 'time_edit'?: string;
-}>>> {
+}>;
+
+/**
+ * Всего позиций
+ */
+'total'?: number;
+}>> {
 
     const rb = new RequestBuilder(this.rootUrl, CompanyService.CompanyDepartmentListPath, 'get');
     if (params) {
@@ -3574,7 +3640,12 @@ export class CompanyService extends BaseService {
     })).pipe(
       filter((r: any) => r instanceof HttpResponse),
       map((r: HttpResponse<any>) => {
-        return r as StrictHttpResponse<Array<{
+        return r as StrictHttpResponse<{
+        
+        /**
+         * Позиции
+         */
+        'items'?: Array<{
         
         /**
          * ID
@@ -3615,7 +3686,13 @@ export class CompanyService extends BaseService {
          * Время изменения
          */
         'time_edit'?: string;
-        }>>;
+        }>;
+        
+        /**
+         * Всего позиций
+         */
+        'total'?: number;
+        }>;
       })
     );
   }
@@ -3641,7 +3718,12 @@ export class CompanyService extends BaseService {
      * Лимит позиций на страницу
      */
     count?: number;
-  }): Observable<Array<{
+  }): Observable<{
+
+/**
+ * Позиции
+ */
+'items'?: Array<{
 
 /**
  * ID
@@ -3682,10 +3764,21 @@ export class CompanyService extends BaseService {
  * Время изменения
  */
 'time_edit'?: string;
-}>> {
+}>;
+
+/**
+ * Всего позиций
+ */
+'total'?: number;
+}> {
 
     return this.companyDepartmentList$Response(params).pipe(
-      map((r: StrictHttpResponse<Array<{
+      map((r: StrictHttpResponse<{
+
+/**
+ * Позиции
+ */
+'items'?: Array<{
 
 /**
  * ID
@@ -3726,7 +3819,18 @@ export class CompanyService extends BaseService {
  * Время изменения
  */
 'time_edit'?: string;
-}>>) => r.body as Array<{
+}>;
+
+/**
+ * Всего позиций
+ */
+'total'?: number;
+}>) => r.body as {
+
+/**
+ * Позиции
+ */
+'items'?: Array<{
 
 /**
  * ID
@@ -3767,7 +3871,13 @@ export class CompanyService extends BaseService {
  * Время изменения
  */
 'time_edit'?: string;
-}>)
+}>;
+
+/**
+ * Всего позиций
+ */
+'total'?: number;
+})
     );
   }
 
@@ -4427,7 +4537,12 @@ export class CompanyService extends BaseService {
      * Лимит позиций на страницу
      */
     count?: number;
-  }): Observable<StrictHttpResponse<Array<{
+  }): Observable<StrictHttpResponse<{
+
+/**
+ * Позиции
+ */
+'items'?: Array<{
 
 /**
  * ID
@@ -4459,7 +4574,13 @@ export class CompanyService extends BaseService {
  * Время изменения
  */
 'time_edit'?: string;
-}>>> {
+}>;
+
+/**
+ * Всего позиций
+ */
+'total'?: number;
+}>> {
 
     const rb = new RequestBuilder(this.rootUrl, CompanyService.CompanyPositionListPath, 'get');
     if (params) {
@@ -4473,7 +4594,12 @@ export class CompanyService extends BaseService {
     })).pipe(
       filter((r: any) => r instanceof HttpResponse),
       map((r: HttpResponse<any>) => {
-        return r as StrictHttpResponse<Array<{
+        return r as StrictHttpResponse<{
+        
+        /**
+         * Позиции
+         */
+        'items'?: Array<{
         
         /**
          * ID
@@ -4505,7 +4631,13 @@ export class CompanyService extends BaseService {
          * Время изменения
          */
         'time_edit'?: string;
-        }>>;
+        }>;
+        
+        /**
+         * Всего позиций
+         */
+        'total'?: number;
+        }>;
       })
     );
   }
@@ -4531,7 +4663,12 @@ export class CompanyService extends BaseService {
      * Лимит позиций на страницу
      */
     count?: number;
-  }): Observable<Array<{
+  }): Observable<{
+
+/**
+ * Позиции
+ */
+'items'?: Array<{
 
 /**
  * ID
@@ -4563,10 +4700,21 @@ export class CompanyService extends BaseService {
  * Время изменения
  */
 'time_edit'?: string;
-}>> {
+}>;
+
+/**
+ * Всего позиций
+ */
+'total'?: number;
+}> {
 
     return this.companyPositionList$Response(params).pipe(
-      map((r: StrictHttpResponse<Array<{
+      map((r: StrictHttpResponse<{
+
+/**
+ * Позиции
+ */
+'items'?: Array<{
 
 /**
  * ID
@@ -4598,7 +4746,18 @@ export class CompanyService extends BaseService {
  * Время изменения
  */
 'time_edit'?: string;
-}>>) => r.body as Array<{
+}>;
+
+/**
+ * Всего позиций
+ */
+'total'?: number;
+}>) => r.body as {
+
+/**
+ * Позиции
+ */
+'items'?: Array<{
 
 /**
  * ID
@@ -4630,7 +4789,13 @@ export class CompanyService extends BaseService {
  * Время изменения
  */
 'time_edit'?: string;
-}>)
+}>;
+
+/**
+ * Всего позиций
+ */
+'total'?: number;
+})
     );
   }
 
@@ -5269,7 +5434,12 @@ export class CompanyService extends BaseService {
      * Лимит позиций на страницу
      */
     count?: number;
-  }): Observable<StrictHttpResponse<Array<{
+  }): Observable<StrictHttpResponse<{
+
+/**
+ * Позиции
+ */
+'items'?: Array<{
 
 /**
  * ID
@@ -5365,7 +5535,13 @@ export class CompanyService extends BaseService {
  * Время изменения
  */
 'time_edit'?: string;
-}>>> {
+}>;
+
+/**
+ * Всего позиций
+ */
+'total'?: number;
+}>> {
 
     const rb = new RequestBuilder(this.rootUrl, CompanyService.CompanyEmployeeListPath, 'get');
     if (params) {
@@ -5381,7 +5557,12 @@ export class CompanyService extends BaseService {
     })).pipe(
       filter((r: any) => r instanceof HttpResponse),
       map((r: HttpResponse<any>) => {
-        return r as StrictHttpResponse<Array<{
+        return r as StrictHttpResponse<{
+        
+        /**
+         * Позиции
+         */
+        'items'?: Array<{
         
         /**
          * ID
@@ -5477,7 +5658,13 @@ export class CompanyService extends BaseService {
          * Время изменения
          */
         'time_edit'?: string;
-        }>>;
+        }>;
+        
+        /**
+         * Всего позиций
+         */
+        'total'?: number;
+        }>;
       })
     );
   }
@@ -5513,7 +5700,12 @@ export class CompanyService extends BaseService {
      * Лимит позиций на страницу
      */
     count?: number;
-  }): Observable<Array<{
+  }): Observable<{
+
+/**
+ * Позиции
+ */
+'items'?: Array<{
 
 /**
  * ID
@@ -5609,10 +5801,21 @@ export class CompanyService extends BaseService {
  * Время изменения
  */
 'time_edit'?: string;
-}>> {
+}>;
+
+/**
+ * Всего позиций
+ */
+'total'?: number;
+}> {
 
     return this.companyEmployeeList$Response(params).pipe(
-      map((r: StrictHttpResponse<Array<{
+      map((r: StrictHttpResponse<{
+
+/**
+ * Позиции
+ */
+'items'?: Array<{
 
 /**
  * ID
@@ -5708,7 +5911,18 @@ export class CompanyService extends BaseService {
  * Время изменения
  */
 'time_edit'?: string;
-}>>) => r.body as Array<{
+}>;
+
+/**
+ * Всего позиций
+ */
+'total'?: number;
+}>) => r.body as {
+
+/**
+ * Позиции
+ */
+'items'?: Array<{
 
 /**
  * ID
@@ -5804,7 +6018,13 @@ export class CompanyService extends BaseService {
  * Время изменения
  */
 'time_edit'?: string;
-}>)
+}>;
+
+/**
+ * Всего позиций
+ */
+'total'?: number;
+})
     );
   }
 

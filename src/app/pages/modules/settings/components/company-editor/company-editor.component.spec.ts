@@ -28,9 +28,9 @@ describe('CompanyEditorComponent', () => {
         {
           provide: CompanyService, useValue: {
             companyInfo: () => of({ name: 'Three Bears LLC' }),
-            companyEmployeeList: () => of([]),
-            companyTaxSystem: () => of([]),
-            companyCurrency: () => of([]),
+            companyEmployeeList: () => of({items: [], total: 0}),
+            companyTaxSystem: () => of({items: [], total: 0}),
+            companyCurrency: () => of({items: [], total: 0}),
           }
         },
       ]
