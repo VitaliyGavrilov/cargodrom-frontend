@@ -53,11 +53,10 @@ export class DepartmentComponent implements OnInit {
   }
 
   loadDepartments(): void {
-    this.companyService.companyDepartmentList().subscribe(departments => {
-      const allDepartments = departments ? departments.items as Department[] : [];
-      allDepartments.sort(this.getSortPredicate());
-      this.total = allDepartments.length;
-      this.departments = allDepartments.slice(this.start, this.start + this.count);
+    this.companyService.companyDepartmentList({start: this.start, count: this.count}).subscribe(departments => {
+      this.departments = departments ? departments.items as Department[] : [];
+      this.departments.sort(this.getSortPredicate());
+      this.total = departments.total!;
     });
   }
 

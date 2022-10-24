@@ -32,11 +32,10 @@ export class CompanyComponent implements OnInit {
   }
 
   loadCompanies(): void {
-    this.companyService.companyList().subscribe(companies => {
-      const allCompanies = companies ? companies.items as unknown as Company[] : [];
-      allCompanies.sort(byField('name', 'asc', 'case-insensitive'));
-      this.total = allCompanies.length;
-      this.companies = allCompanies.slice(this.start, this.start + this.count);
+    this.companyService.companyList({start: this.start, count: this.count}).subscribe(companies => {
+      this.companies = companies ? companies.items as unknown as Company[] : [];
+      this.companies.sort(byField('name', 'asc', 'case-insensitive'));
+      this.total = companies.total!;
     });
   }
 

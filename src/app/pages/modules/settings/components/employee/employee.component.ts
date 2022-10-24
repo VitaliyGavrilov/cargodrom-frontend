@@ -41,10 +41,9 @@ export class EmployeeComponent implements OnInit {
   }
 
   loadEmployees(): Observable<void> {
-    return this.companyService.companyEmployeeList().pipe(map(employees => {
-      const allEmployees = employees ? (employees.items! as Employee[]).sort(byField('name_f', 'asc', 'case-insensitive')) : [];
-      this.total = allEmployees.length;
-      this.employees = allEmployees.slice(this.start, this.start + this.count);
+    return this.companyService.companyEmployeeList({start: this.start, count: this.count}).pipe(map(employees => {
+      this.employees = employees ? (employees.items! as Employee[]).sort(byField('name_f', 'asc', 'case-insensitive')) : [];
+      this.total = employees.total!;
     }));
   }
 
