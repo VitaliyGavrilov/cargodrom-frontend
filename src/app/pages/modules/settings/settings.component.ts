@@ -1,6 +1,6 @@
 import { Router, ActivatedRoute, NavigationEnd } from '@angular/router';
 import { Component, OnInit, ViewEncapsulation, OnDestroy } from '@angular/core';
-import { expand, Subscription } from 'rxjs';
+import { Subscription } from 'rxjs';
 
 interface MenuGroup {
   title: string;
