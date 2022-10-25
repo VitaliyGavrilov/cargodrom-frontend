@@ -3,7 +3,7 @@ import { Location } from '@angular/common';
 import { Component, OnInit, ViewEncapsulation } from '@angular/core';
 import { FormBuilder, Validators } from '@angular/forms';
 import { MatSnackBar } from '@angular/material/snack-bar';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { Observable } from 'rxjs';
 import { Employee } from './../../../../../api/custom_models/employee';
 import { CompanyService } from './../../../../../api/services/company.service';
@@ -30,8 +30,9 @@ export class EmployeeEditorComponent extends SettingsEditor<Employee> implements
     route: ActivatedRoute,
     companyService: CompanyService,
     location: Location,
+    router: Router,
   ) {
-    super(location, companyService, route, snackBar);
+    super(location, companyService, route, snackBar, router);
     this.form = this.fb.group({
       id: [''],
       name_f: ['', [Validators.required]],
@@ -63,7 +64,7 @@ export class EmployeeEditorComponent extends SettingsEditor<Employee> implements
   }
 
   protected create(params: { body: Omit<Employee, 'id'> }) {
-    return this.companyService.companyEmployeeCreate(params as any) as unknown as Observable<Employee>;
+    return this.companyService.companyEmployeeCreate(params as any);
   }
 
   protected read(params: { id: number; }): Observable<Employee> {

@@ -4,7 +4,7 @@ import { Department } from './../../../../../api/custom_models/department';
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, Validators } from '@angular/forms';
 import { MatSnackBar } from '@angular/material/snack-bar';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { Observable } from 'rxjs';
 import { Location } from '@angular/common';
 @Component({
@@ -31,8 +31,9 @@ export class DepartmentEditorComponent extends SettingsEditor<Department> implem
     route: ActivatedRoute,
     companyService: CompanyService,
     location: Location,
+    router: Router,
   ) {
-    super(location, companyService, route, snackBar);
+    super(location, companyService, route, snackBar, router);
     this.form = this.fb.group({
       id: [''],
       name: ['', [Validators.required]],
@@ -47,7 +48,7 @@ export class DepartmentEditorComponent extends SettingsEditor<Department> implem
   }
 
   protected create(params: { body: Omit<Department, 'id'> }) {
-    return this.companyService.companyDepartmentCreate(params as any) as unknown as Observable<Department>;
+    return this.companyService.companyDepartmentCreate(params as any);
   }
 
   protected read(params: { id: number; }): Observable<Department> {
