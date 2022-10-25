@@ -1,7 +1,7 @@
 import { byField } from './../../../../constants/sort-predicate';
 import { Directive, OnInit } from '@angular/core';
 import { Observable, tap } from 'rxjs';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { CompanyService } from './../../../../api/services/company.service';
 import { FormControl, FormGroup } from "@angular/forms";
 import { MatSnackBar, MatSnackBarConfig } from "@angular/material/snack-bar";
@@ -33,7 +33,7 @@ export abstract class SettingsEditor<T> implements OnInit {
   abstract notFoundMessage: string;
 
   private currentTitle = '';
-  protected abstract create(params: { body: Omit<T, 'id'> }): Observable<T>;
+  protected abstract create(params: { body: Omit<T, 'id'> }): Observable<{id: number}>;
   protected abstract read(params: { id: number }): Observable<T>;
   protected abstract update(params: { body: Partial<T> }): Observable<void>;
   protected abstract delete(params: { body: { id: number } }): Observable<void>;
@@ -43,6 +43,7 @@ export abstract class SettingsEditor<T> implements OnInit {
     protected companyService: CompanyService,
     protected route: ActivatedRoute,
     protected snackBar: MatSnackBar,
+    protected router: Router,
   ) { }
 
   ngOnInit(): void {
@@ -128,6 +129,16 @@ export abstract class SettingsEditor<T> implements OnInit {
     this.showMessage(message);
     this.goBack();
   }
+  
+  showMessageAndSwitchToEditMode(message: string, id: number): void {
+    this.showMessage(message);
+    this.router.navigate(['..', id], {replaceUrl: true, relativeTo: this.route});
+  }
+
+  showMessageAndReload(message: string): void {
+    this.showMessage(message);
+    this.load();
+  }
 
   showError(message: string, err?: any): void {
     if (typeof err?.error?.error_message === 'string') {
@@ -191,14 +202,14 @@ export abstract class SettingsEditor<T> implements OnInit {
 
   private createData(body: any) {
     this.create({ body }).pipe().subscribe({
-      next: () => this.showMessageAndGoBack(this.createdMessage),
+      next: ({id}) => this.showMessageAndSwitchToEditMode(this.createdMessage, id),
       error: (err) => this.showError(`Ошибка`, err)
     });
   }
 
   private updateData(body: any) {
     this.update({ body }).pipe().subscribe({
-      next: () => this.showMessageAndGoBack(this.savedMessage),
+      next: () => this.showMessageAndReload(this.savedMessage),
       error: (err) => this.showError(`Ошибка`, err)
     });
   }

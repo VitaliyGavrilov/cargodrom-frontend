@@ -1,7 +1,7 @@
 import { SettingsEditor } from './../../classes/settings-editor';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { Position } from './../../../../../api/custom_models/position';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { CompanyService } from '../../../../../api/services/company.service';
 import { FormBuilder, Validators } from '@angular/forms';
 import { Component, OnInit } from '@angular/core';
@@ -28,8 +28,9 @@ export class PositionEditorComponent extends SettingsEditor<Position> implements
     companyService: CompanyService,
     route: ActivatedRoute,
     location: Location,
+    router: Router,
   ) {
-    super(location, companyService, route, snackBar);
+    super(location, companyService, route, snackBar, router);
     this.form = this.fb.group({
       id: [''],
       name: ['', [Validators.required]],
@@ -37,7 +38,7 @@ export class PositionEditorComponent extends SettingsEditor<Position> implements
   }
 
   protected create(params: {body: Omit<Position, 'id'>}) {
-    return this.companyService.companyPositionCreate(params as any) as unknown as Observable<Position>; 
+    return this.companyService.companyPositionCreate(params as any); 
    }
    
    protected read(params: { id: number; }): Observable<Position> {

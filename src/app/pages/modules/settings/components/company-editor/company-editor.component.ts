@@ -5,7 +5,7 @@ import { Company } from './../../../../../api/custom_models/company';
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, Validators } from '@angular/forms';
 import { MatSnackBar } from '@angular/material/snack-bar';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { Observable } from 'rxjs';
 import { Location } from '@angular/common';
 
@@ -29,8 +29,9 @@ export class CompanyEditorComponent extends SettingsEditor<Company> implements O
     companyService: CompanyService,
     route: ActivatedRoute,
     location: Location,
+    router: Router,
   ) {
-    super(location, companyService, route, snackBar);
+    super(location, companyService, route, snackBar, router);
     this.form = this.fb.group({
       id: ['', []],
       tax_system: ['', []],
@@ -85,7 +86,7 @@ export class CompanyEditorComponent extends SettingsEditor<Company> implements O
   }
   
   protected create(params: {body: Omit<Company, 'id'>}) {
-   return this.companyService.companyCreate(params as any) as unknown as Observable<Company>; 
+   return this.companyService.companyCreate(params as any); 
   }
   
   protected read(params: { id: number; }): Observable<Company> {
