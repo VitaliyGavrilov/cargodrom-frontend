@@ -1,6 +1,6 @@
 import { Router, ActivatedRoute, NavigationEnd } from '@angular/router';
 import { Component, OnInit, ViewEncapsulation, OnDestroy } from '@angular/core';
-import { Subscription } from 'rxjs';
+import { expand, Subscription } from 'rxjs';
 
 interface MenuGroup {
   title: string;
@@ -28,7 +28,7 @@ export class SettingsComponent implements OnInit, OnDestroy {
     {
       title: 'Общие настройки',
       cssClass: 'settings-common',
-      expanded: true,
+      expanded: false,
       items: [
         {
           title: 'Личные настройки',
@@ -45,7 +45,7 @@ export class SettingsComponent implements OnInit, OnDestroy {
     {
       title: 'Структура организации',
       cssClass: 'settings-company-structure',
-      expanded: true,
+      expanded: false,
       items: [
         {
           title: 'Подразделения',
@@ -102,6 +102,7 @@ export class SettingsComponent implements OnInit, OnDestroy {
         if (isActive) {
           this.activeMenuItem = item;
           this.activeMenuGroup = group;
+          this.activeMenuGroup.expanded = true;
           return;
         }
       }
