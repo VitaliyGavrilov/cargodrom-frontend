@@ -1,12 +1,10 @@
-import { Router } from '@angular/router';
+import { Router, ActivatedRoute } from '@angular/router';
 import { AuthService } from './../../services/auth.service';
-import { UserService } from './../../../api/services/user.service';
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { finalize } from 'rxjs';
 import { MatDialog } from '@angular/material/dialog';
 import {PopupService} from "../../../material/services/popup.service";
-import {Contractor} from "../../../api/custom_models/contractor";
 
 
 @Component({
@@ -24,7 +22,8 @@ export class LoginComponent implements OnInit {
     private auth: AuthService,
     private router: Router,
     public popup: PopupService,
-    public dialog: MatDialog
+    public dialog: MatDialog,
+    private route: ActivatedRoute,
   ) {
     this.loginForm = this.fb.group({
       login: ['', [Validators.required]],
@@ -59,7 +58,12 @@ export class LoginComponent implements OnInit {
   }
 
   processLogin(): void {
-    this.router.navigate(['/pages']);
+    const returnUrl = this.route.snapshot.queryParams['returnUrl'];
+    if (returnUrl) {
+      this.router.navigateByUrl(returnUrl);
+    } else {
+      this.router.navigate(['/pages']);
+    }
   }
 
 }

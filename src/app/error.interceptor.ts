@@ -20,8 +20,9 @@ export class ErrorInterceptor implements HttpInterceptor {
   intercept(request: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
     return next.handle(request).pipe(catchError(e => {
       if (e.status === 401 || e.status === 403) {
+        const currentState = { returnUrl: this.router.url };
         this.auth.logout().subscribe(
-          () => this.router.navigate(['/login'])
+          () => this.router.navigate(['/login'], { queryParams: currentState })
         );
         
       } else {
