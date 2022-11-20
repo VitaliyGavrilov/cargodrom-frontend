@@ -501,7 +501,7 @@ export class UserService extends BaseService {
 /**
  * Статус выполнения
  */
-'result': string;
+'result': 'success';
 }>> {
 
     const rb = new RequestBuilder(this.rootUrl, UserService.UserLogoutPath, 'post');
@@ -520,7 +520,7 @@ export class UserService extends BaseService {
         /**
          * Статус выполнения
          */
-        'result': string;
+        'result': 'success';
         }>;
       })
     );
@@ -554,7 +554,7 @@ export class UserService extends BaseService {
 /**
  * Статус выполнения
  */
-'result': string;
+'result': 'success';
 }> {
 
     return this.userLogout$Response(params).pipe(
@@ -563,13 +563,13 @@ export class UserService extends BaseService {
 /**
  * Статус выполнения
  */
-'result': string;
+'result': 'success';
 }>) => r.body as {
 
 /**
  * Статус выполнения
  */
-'result': string;
+'result': 'success';
 })
     );
   }

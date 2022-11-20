@@ -394,6 +394,22 @@ export class ContractorService extends BaseService {
      * Лимит позиций на страницу
      */
     count?: number;
+
+    /**
+     * Сортировка
+     */
+    sort?: Array<{
+
+/**
+ * Поле
+ */
+'field': string;
+
+/**
+ * Направление сортировки
+ */
+'dir': 'asc' | 'desc';
+}>;
   }): Observable<StrictHttpResponse<{
 
 /**
@@ -709,6 +725,7 @@ export class ContractorService extends BaseService {
       rb.query('country_arrival', params.country_arrival, {});
       rb.query('start', params.start, {});
       rb.query('count', params.count, {});
+      rb.query('sort', params.sort, {"style":"form","explode":true});
     }
 
     return this.http.request(rb.build({
@@ -1072,6 +1089,22 @@ export class ContractorService extends BaseService {
      * Лимит позиций на страницу
      */
     count?: number;
+
+    /**
+     * Сортировка
+     */
+    sort?: Array<{
+
+/**
+ * Поле
+ */
+'field': string;
+
+/**
+ * Направление сортировки
+ */
+'dir': 'asc' | 'desc';
+}>;
   }): Observable<{
 
 /**
@@ -3688,7 +3721,7 @@ export class ContractorService extends BaseService {
 /**
  * Статус выполнения
  */
-'result': string;
+'result': 'success';
 }>> {
 
     const rb = new RequestBuilder(this.rootUrl, ContractorService.ContractorCreatePath, 'post');
@@ -3712,7 +3745,7 @@ export class ContractorService extends BaseService {
         /**
          * Статус выполнения
          */
-        'result': string;
+        'result': 'success';
         }>;
       })
     );
@@ -3883,7 +3916,7 @@ export class ContractorService extends BaseService {
 /**
  * Статус выполнения
  */
-'result': string;
+'result': 'success';
 }> {
 
     return this.contractorCreate$Response(params).pipe(
@@ -3897,7 +3930,7 @@ export class ContractorService extends BaseService {
 /**
  * Статус выполнения
  */
-'result': string;
+'result': 'success';
 }>) => r.body as {
 
 /**
@@ -3908,7 +3941,7 @@ export class ContractorService extends BaseService {
 /**
  * Статус выполнения
  */
-'result': string;
+'result': 'success';
 })
     );
   }
@@ -4088,7 +4121,7 @@ export class ContractorService extends BaseService {
 /**
  * Статус выполнения
  */
-'result': string;
+'result': 'success';
 }>> {
 
     const rb = new RequestBuilder(this.rootUrl, ContractorService.ContractorUpdatePath, 'post');
@@ -4107,7 +4140,7 @@ export class ContractorService extends BaseService {
         /**
          * Статус выполнения
          */
-        'result': string;
+        'result': 'success';
         }>;
       })
     );
@@ -4283,7 +4316,7 @@ export class ContractorService extends BaseService {
 /**
  * Статус выполнения
  */
-'result': string;
+'result': 'success';
 }> {
 
     return this.contractorUpdate$Response(params).pipe(
@@ -4292,13 +4325,13 @@ export class ContractorService extends BaseService {
 /**
  * Статус выполнения
  */
-'result': string;
+'result': 'success';
 }>) => r.body as {
 
 /**
  * Статус выполнения
  */
-'result': string;
+'result': 'success';
 })
     );
   }
@@ -4331,7 +4364,7 @@ export class ContractorService extends BaseService {
 /**
  * Статус выполнения
  */
-'result': string;
+'result': 'success';
 }>> {
 
     const rb = new RequestBuilder(this.rootUrl, ContractorService.ContractorDeletePath, 'post');
@@ -4350,7 +4383,7 @@ export class ContractorService extends BaseService {
         /**
          * Статус выполнения
          */
-        'result': string;
+        'result': 'success';
         }>;
       })
     );
@@ -4379,7 +4412,7 @@ export class ContractorService extends BaseService {
 /**
  * Статус выполнения
  */
-'result': string;
+'result': 'success';
 }> {
 
     return this.contractorDelete$Response(params).pipe(
@@ -4388,13 +4421,13 @@ export class ContractorService extends BaseService {
 /**
  * Статус выполнения
  */
-'result': string;
+'result': 'success';
 }>) => r.body as {
 
 /**
  * Статус выполнения
  */
-'result': string;
+'result': 'success';
 })
     );
   }
@@ -4430,6 +4463,22 @@ export class ContractorService extends BaseService {
      * Лимит позиций на страницу
      */
     count?: number;
+
+    /**
+     * Сортировка
+     */
+    sort?: Array<{
+
+/**
+ * Поле
+ */
+'field': string;
+
+/**
+ * Направление сортировки
+ */
+'dir': 'asc' | 'desc';
+}>;
   }): Observable<StrictHttpResponse<Array<{
 
 /**
@@ -4534,6 +4583,7 @@ export class ContractorService extends BaseService {
       rb.query('id', params.id, {});
       rb.query('start', params.start, {});
       rb.query('count', params.count, {});
+      rb.query('sort', params.sort, {"style":"form","explode":true});
     }
 
     return this.http.request(rb.build({
@@ -4670,6 +4720,22 @@ export class ContractorService extends BaseService {
      * Лимит позиций на страницу
      */
     count?: number;
+
+    /**
+     * Сортировка
+     */
+    sort?: Array<{
+
+/**
+ * Поле
+ */
+'field': string;
+
+/**
+ * Направление сортировки
+ */
+'dir': 'asc' | 'desc';
+}>;
   }): Observable<Array<{
 
 /**
@@ -5619,7 +5685,7 @@ export class ContractorService extends BaseService {
 /**
  * Статус выполнения
  */
-'result': string;
+'result': 'success';
 }>> {
 
     const rb = new RequestBuilder(this.rootUrl, ContractorService.ContractorContactCreatePath, 'post');
@@ -5643,7 +5709,7 @@ export class ContractorService extends BaseService {
         /**
          * Статус выполнения
          */
-        'result': string;
+        'result': 'success';
         }>;
       })
     );
@@ -5748,7 +5814,7 @@ export class ContractorService extends BaseService {
 /**
  * Статус выполнения
  */
-'result': string;
+'result': 'success';
 }> {
 
     return this.contractorContactCreate$Response(params).pipe(
@@ -5762,7 +5828,7 @@ export class ContractorService extends BaseService {
 /**
  * Статус выполнения
  */
-'result': string;
+'result': 'success';
 }>) => r.body as {
 
 /**
@@ -5773,7 +5839,7 @@ export class ContractorService extends BaseService {
 /**
  * Статус выполнения
  */
-'result': string;
+'result': 'success';
 })
     );
   }
@@ -5882,7 +5948,7 @@ export class ContractorService extends BaseService {
 /**
  * Статус выполнения
  */
-'result': string;
+'result': 'success';
 }>> {
 
     const rb = new RequestBuilder(this.rootUrl, ContractorService.ContractorContactUpdatePath, 'post');
@@ -5901,7 +5967,7 @@ export class ContractorService extends BaseService {
         /**
          * Статус выполнения
          */
-        'result': string;
+        'result': 'success';
         }>;
       })
     );
@@ -6006,7 +6072,7 @@ export class ContractorService extends BaseService {
 /**
  * Статус выполнения
  */
-'result': string;
+'result': 'success';
 }> {
 
     return this.contractorContactUpdate$Response(params).pipe(
@@ -6015,13 +6081,13 @@ export class ContractorService extends BaseService {
 /**
  * Статус выполнения
  */
-'result': string;
+'result': 'success';
 }>) => r.body as {
 
 /**
  * Статус выполнения
  */
-'result': string;
+'result': 'success';
 })
     );
   }
@@ -6054,7 +6120,7 @@ export class ContractorService extends BaseService {
 /**
  * Статус выполнения
  */
-'result': string;
+'result': 'success';
 }>> {
 
     const rb = new RequestBuilder(this.rootUrl, ContractorService.ContractorContactDeletePath, 'post');
@@ -6073,7 +6139,7 @@ export class ContractorService extends BaseService {
         /**
          * Статус выполнения
          */
-        'result': string;
+        'result': 'success';
         }>;
       })
     );
@@ -6102,7 +6168,7 @@ export class ContractorService extends BaseService {
 /**
  * Статус выполнения
  */
-'result': string;
+'result': 'success';
 }> {
 
     return this.contractorContactDelete$Response(params).pipe(
@@ -6111,13 +6177,13 @@ export class ContractorService extends BaseService {
 /**
  * Статус выполнения
  */
-'result': string;
+'result': 'success';
 }>) => r.body as {
 
 /**
  * Статус выполнения
  */
-'result': string;
+'result': 'success';
 })
     );
   }

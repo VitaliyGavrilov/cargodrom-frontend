@@ -51,6 +51,22 @@ export class CompanyService extends BaseService {
      * Лимит позиций на страницу
      */
     count?: number;
+
+    /**
+     * Сортировка
+     */
+    sort?: Array<{
+
+/**
+ * Поле
+ */
+'field': string;
+
+/**
+ * Направление сортировки
+ */
+'dir': 'asc' | 'desc';
+}>;
   }): Observable<StrictHttpResponse<{
 
 /**
@@ -289,6 +305,7 @@ export class CompanyService extends BaseService {
     if (params) {
       rb.query('start', params.start, {});
       rb.query('count', params.count, {});
+      rb.query('sort', params.sort, {"style":"form","explode":true});
     }
 
     return this.http.request(rb.build({
@@ -555,6 +572,22 @@ export class CompanyService extends BaseService {
      * Лимит позиций на страницу
      */
     count?: number;
+
+    /**
+     * Сортировка
+     */
+    sort?: Array<{
+
+/**
+ * Поле
+ */
+'field': string;
+
+/**
+ * Направление сортировки
+ */
+'dir': 'asc' | 'desc';
+}>;
   }): Observable<{
 
 /**
@@ -2658,7 +2691,7 @@ export class CompanyService extends BaseService {
 /**
  * Статус выполнения
  */
-'result': string;
+'result': 'success';
 }>> {
 
     const rb = new RequestBuilder(this.rootUrl, CompanyService.CompanyCreatePath, 'post');
@@ -2682,7 +2715,7 @@ export class CompanyService extends BaseService {
         /**
          * Статус выполнения
          */
-        'result': string;
+        'result': 'success';
         }>;
       })
     );
@@ -2916,7 +2949,7 @@ export class CompanyService extends BaseService {
 /**
  * Статус выполнения
  */
-'result': string;
+'result': 'success';
 }> {
 
     return this.companyCreate$Response(params).pipe(
@@ -2930,7 +2963,7 @@ export class CompanyService extends BaseService {
 /**
  * Статус выполнения
  */
-'result': string;
+'result': 'success';
 }>) => r.body as {
 
 /**
@@ -2941,7 +2974,7 @@ export class CompanyService extends BaseService {
 /**
  * Статус выполнения
  */
-'result': string;
+'result': 'success';
 })
     );
   }
@@ -3179,7 +3212,7 @@ export class CompanyService extends BaseService {
 /**
  * Статус выполнения
  */
-'result': string;
+'result': 'success';
 }>> {
 
     const rb = new RequestBuilder(this.rootUrl, CompanyService.CompanyUpdatePath, 'post');
@@ -3198,7 +3231,7 @@ export class CompanyService extends BaseService {
         /**
          * Статус выполнения
          */
-        'result': string;
+        'result': 'success';
         }>;
       })
     );
@@ -3432,7 +3465,7 @@ export class CompanyService extends BaseService {
 /**
  * Статус выполнения
  */
-'result': string;
+'result': 'success';
 }> {
 
     return this.companyUpdate$Response(params).pipe(
@@ -3441,13 +3474,13 @@ export class CompanyService extends BaseService {
 /**
  * Статус выполнения
  */
-'result': string;
+'result': 'success';
 }>) => r.body as {
 
 /**
  * Статус выполнения
  */
-'result': string;
+'result': 'success';
 })
     );
   }
@@ -3480,7 +3513,7 @@ export class CompanyService extends BaseService {
 /**
  * Статус выполнения
  */
-'result': string;
+'result': 'success';
 }>> {
 
     const rb = new RequestBuilder(this.rootUrl, CompanyService.CompanyDeletePath, 'post');
@@ -3499,7 +3532,7 @@ export class CompanyService extends BaseService {
         /**
          * Статус выполнения
          */
-        'result': string;
+        'result': 'success';
         }>;
       })
     );
@@ -3528,7 +3561,7 @@ export class CompanyService extends BaseService {
 /**
  * Статус выполнения
  */
-'result': string;
+'result': 'success';
 }> {
 
     return this.companyDelete$Response(params).pipe(
@@ -3537,13 +3570,13 @@ export class CompanyService extends BaseService {
 /**
  * Статус выполнения
  */
-'result': string;
+'result': 'success';
 }>) => r.body as {
 
 /**
  * Статус выполнения
  */
-'result': string;
+'result': 'success';
 })
     );
   }
@@ -3574,6 +3607,22 @@ export class CompanyService extends BaseService {
      * Лимит позиций на страницу
      */
     count?: number;
+
+    /**
+     * Сортировка
+     */
+    sort?: Array<{
+
+/**
+ * Поле
+ */
+'field': string;
+
+/**
+ * Направление сортировки
+ */
+'dir': 'asc' | 'desc';
+}>;
   }): Observable<StrictHttpResponse<{
 
 /**
@@ -3607,6 +3656,11 @@ export class CompanyService extends BaseService {
 'num'?: number;
 
 /**
+ * Руководитель подразделения
+ */
+'leader_user'?: string;
+
+/**
  * ID Руководителя подразделения
  */
 'leader_user_id'?: number;
@@ -3632,6 +3686,7 @@ export class CompanyService extends BaseService {
     if (params) {
       rb.query('start', params.start, {});
       rb.query('count', params.count, {});
+      rb.query('sort', params.sort, {"style":"form","explode":true});
     }
 
     return this.http.request(rb.build({
@@ -3671,6 +3726,11 @@ export class CompanyService extends BaseService {
          * Порядок (меньше - выше)
          */
         'num'?: number;
+        
+        /**
+         * Руководитель подразделения
+         */
+        'leader_user'?: string;
         
         /**
          * ID Руководителя подразделения
@@ -3718,6 +3778,22 @@ export class CompanyService extends BaseService {
      * Лимит позиций на страницу
      */
     count?: number;
+
+    /**
+     * Сортировка
+     */
+    sort?: Array<{
+
+/**
+ * Поле
+ */
+'field': string;
+
+/**
+ * Направление сортировки
+ */
+'dir': 'asc' | 'desc';
+}>;
   }): Observable<{
 
 /**
@@ -3749,6 +3825,11 @@ export class CompanyService extends BaseService {
  * Порядок (меньше - выше)
  */
 'num'?: number;
+
+/**
+ * Руководитель подразделения
+ */
+'leader_user'?: string;
 
 /**
  * ID Руководителя подразделения
@@ -3806,6 +3887,11 @@ export class CompanyService extends BaseService {
 'num'?: number;
 
 /**
+ * Руководитель подразделения
+ */
+'leader_user'?: string;
+
+/**
  * ID Руководителя подразделения
  */
 'leader_user_id'?: number;
@@ -3856,6 +3942,11 @@ export class CompanyService extends BaseService {
  * Порядок (меньше - выше)
  */
 'num'?: number;
+
+/**
+ * Руководитель подразделения
+ */
+'leader_user'?: string;
 
 /**
  * ID Руководителя подразделения
@@ -4186,7 +4277,7 @@ export class CompanyService extends BaseService {
 /**
  * Статус выполнения
  */
-'result': string;
+'result': 'success';
 }>> {
 
     const rb = new RequestBuilder(this.rootUrl, CompanyService.CompanyDepartmentCreatePath, 'post');
@@ -4210,7 +4301,7 @@ export class CompanyService extends BaseService {
         /**
          * Статус выполнения
          */
-        'result': string;
+        'result': 'success';
         }>;
       })
     );
@@ -4249,7 +4340,7 @@ export class CompanyService extends BaseService {
 /**
  * Статус выполнения
  */
-'result': string;
+'result': 'success';
 }> {
 
     return this.companyDepartmentCreate$Response(params).pipe(
@@ -4263,7 +4354,7 @@ export class CompanyService extends BaseService {
 /**
  * Статус выполнения
  */
-'result': string;
+'result': 'success';
 }>) => r.body as {
 
 /**
@@ -4274,7 +4365,7 @@ export class CompanyService extends BaseService {
 /**
  * Статус выполнения
  */
-'result': string;
+'result': 'success';
 })
     );
   }
@@ -4317,7 +4408,7 @@ export class CompanyService extends BaseService {
 /**
  * Статус выполнения
  */
-'result': string;
+'result': 'success';
 }>> {
 
     const rb = new RequestBuilder(this.rootUrl, CompanyService.CompanyDepartmentUpdatePath, 'post');
@@ -4336,7 +4427,7 @@ export class CompanyService extends BaseService {
         /**
          * Статус выполнения
          */
-        'result': string;
+        'result': 'success';
         }>;
       })
     );
@@ -4375,7 +4466,7 @@ export class CompanyService extends BaseService {
 /**
  * Статус выполнения
  */
-'result': string;
+'result': 'success';
 }> {
 
     return this.companyDepartmentUpdate$Response(params).pipe(
@@ -4384,13 +4475,13 @@ export class CompanyService extends BaseService {
 /**
  * Статус выполнения
  */
-'result': string;
+'result': 'success';
 }>) => r.body as {
 
 /**
  * Статус выполнения
  */
-'result': string;
+'result': 'success';
 })
     );
   }
@@ -4433,7 +4524,7 @@ export class CompanyService extends BaseService {
 /**
  * Статус выполнения
  */
-'result': string;
+'result': 'success';
 }>> {
 
     const rb = new RequestBuilder(this.rootUrl, CompanyService.CompanyDepartmentDeletePath, 'post');
@@ -4452,7 +4543,7 @@ export class CompanyService extends BaseService {
         /**
          * Статус выполнения
          */
-        'result': string;
+        'result': 'success';
         }>;
       })
     );
@@ -4491,7 +4582,7 @@ export class CompanyService extends BaseService {
 /**
  * Статус выполнения
  */
-'result': string;
+'result': 'success';
 }> {
 
     return this.companyDepartmentDelete$Response(params).pipe(
@@ -4500,13 +4591,13 @@ export class CompanyService extends BaseService {
 /**
  * Статус выполнения
  */
-'result': string;
+'result': 'success';
 }>) => r.body as {
 
 /**
  * Статус выполнения
  */
-'result': string;
+'result': 'success';
 })
     );
   }
@@ -4537,6 +4628,22 @@ export class CompanyService extends BaseService {
      * Лимит позиций на страницу
      */
     count?: number;
+
+    /**
+     * Сортировка
+     */
+    sort?: Array<{
+
+/**
+ * Поле
+ */
+'field': string;
+
+/**
+ * Направление сортировки
+ */
+'dir': 'asc' | 'desc';
+}>;
   }): Observable<StrictHttpResponse<{
 
 /**
@@ -4586,6 +4693,7 @@ export class CompanyService extends BaseService {
     if (params) {
       rb.query('start', params.start, {});
       rb.query('count', params.count, {});
+      rb.query('sort', params.sort, {"style":"form","explode":true});
     }
 
     return this.http.request(rb.build({
@@ -4663,6 +4771,22 @@ export class CompanyService extends BaseService {
      * Лимит позиций на страницу
      */
     count?: number;
+
+    /**
+     * Сортировка
+     */
+    sort?: Array<{
+
+/**
+ * Поле
+ */
+'field': string;
+
+/**
+ * Направление сортировки
+ */
+'dir': 'asc' | 'desc';
+}>;
   }): Observable<{
 
 /**
@@ -5065,7 +5189,7 @@ export class CompanyService extends BaseService {
 /**
  * Статус выполнения
  */
-'result': string;
+'result': 'success';
 }>> {
 
     const rb = new RequestBuilder(this.rootUrl, CompanyService.CompanyPositionCreatePath, 'post');
@@ -5089,7 +5213,7 @@ export class CompanyService extends BaseService {
         /**
          * Статус выполнения
          */
-        'result': string;
+        'result': 'success';
         }>;
       })
     );
@@ -5134,7 +5258,7 @@ export class CompanyService extends BaseService {
 /**
  * Статус выполнения
  */
-'result': string;
+'result': 'success';
 }> {
 
     return this.companyPositionCreate$Response(params).pipe(
@@ -5148,7 +5272,7 @@ export class CompanyService extends BaseService {
 /**
  * Статус выполнения
  */
-'result': string;
+'result': 'success';
 }>) => r.body as {
 
 /**
@@ -5159,7 +5283,7 @@ export class CompanyService extends BaseService {
 /**
  * Статус выполнения
  */
-'result': string;
+'result': 'success';
 })
     );
   }
@@ -5208,7 +5332,7 @@ export class CompanyService extends BaseService {
 /**
  * Статус выполнения
  */
-'result': string;
+'result': 'success';
 }>> {
 
     const rb = new RequestBuilder(this.rootUrl, CompanyService.CompanyPositionUpdatePath, 'post');
@@ -5227,7 +5351,7 @@ export class CompanyService extends BaseService {
         /**
          * Статус выполнения
          */
-        'result': string;
+        'result': 'success';
         }>;
       })
     );
@@ -5272,7 +5396,7 @@ export class CompanyService extends BaseService {
 /**
  * Статус выполнения
  */
-'result': string;
+'result': 'success';
 }> {
 
     return this.companyPositionUpdate$Response(params).pipe(
@@ -5281,13 +5405,13 @@ export class CompanyService extends BaseService {
 /**
  * Статус выполнения
  */
-'result': string;
+'result': 'success';
 }>) => r.body as {
 
 /**
  * Статус выполнения
  */
-'result': string;
+'result': 'success';
 })
     );
   }
@@ -5325,7 +5449,7 @@ export class CompanyService extends BaseService {
 /**
  * Статус выполнения
  */
-'result': string;
+'result': 'success';
 }>> {
 
     const rb = new RequestBuilder(this.rootUrl, CompanyService.CompanyPositionDeletePath, 'post');
@@ -5344,7 +5468,7 @@ export class CompanyService extends BaseService {
         /**
          * Статус выполнения
          */
-        'result': string;
+        'result': 'success';
         }>;
       })
     );
@@ -5378,7 +5502,7 @@ export class CompanyService extends BaseService {
 /**
  * Статус выполнения
  */
-'result': string;
+'result': 'success';
 }> {
 
     return this.companyPositionDelete$Response(params).pipe(
@@ -5387,13 +5511,13 @@ export class CompanyService extends BaseService {
 /**
  * Статус выполнения
  */
-'result': string;
+'result': 'success';
 }>) => r.body as {
 
 /**
  * Статус выполнения
  */
-'result': string;
+'result': 'success';
 })
     );
   }
@@ -5434,6 +5558,22 @@ export class CompanyService extends BaseService {
      * Лимит позиций на страницу
      */
     count?: number;
+
+    /**
+     * Сортировка
+     */
+    sort?: Array<{
+
+/**
+ * Поле
+ */
+'field': string;
+
+/**
+ * Направление сортировки
+ */
+'dir': 'asc' | 'desc';
+}>;
   }): Observable<StrictHttpResponse<{
 
 /**
@@ -5549,6 +5689,7 @@ export class CompanyService extends BaseService {
       rb.query('position_id', params.position_id, {});
       rb.query('start', params.start, {});
       rb.query('count', params.count, {});
+      rb.query('sort', params.sort, {"style":"form","explode":true});
     }
 
     return this.http.request(rb.build({
@@ -5700,6 +5841,22 @@ export class CompanyService extends BaseService {
      * Лимит позиций на страницу
      */
     count?: number;
+
+    /**
+     * Сортировка
+     */
+    sort?: Array<{
+
+/**
+ * Поле
+ */
+'field': string;
+
+/**
+ * Направление сортировки
+ */
+'dir': 'asc' | 'desc';
+}>;
   }): Observable<{
 
 /**
@@ -6678,7 +6835,7 @@ export class CompanyService extends BaseService {
 /**
  * Статус выполнения
  */
-'result': string;
+'result': 'success';
 }>> {
 
     const rb = new RequestBuilder(this.rootUrl, CompanyService.CompanyEmployeeCreatePath, 'post');
@@ -6702,7 +6859,7 @@ export class CompanyService extends BaseService {
         /**
          * Статус выполнения
          */
-        'result': string;
+        'result': 'success';
         }>;
       })
     );
@@ -6811,7 +6968,7 @@ export class CompanyService extends BaseService {
 /**
  * Статус выполнения
  */
-'result': string;
+'result': 'success';
 }> {
 
     return this.companyEmployeeCreate$Response(params).pipe(
@@ -6825,7 +6982,7 @@ export class CompanyService extends BaseService {
 /**
  * Статус выполнения
  */
-'result': string;
+'result': 'success';
 }>) => r.body as {
 
 /**
@@ -6836,7 +6993,7 @@ export class CompanyService extends BaseService {
 /**
  * Статус выполнения
  */
-'result': string;
+'result': 'success';
 })
     );
   }
@@ -6949,7 +7106,7 @@ export class CompanyService extends BaseService {
 /**
  * Статус выполнения
  */
-'result': string;
+'result': 'success';
 }>> {
 
     const rb = new RequestBuilder(this.rootUrl, CompanyService.CompanyEmployeeUpdatePath, 'post');
@@ -6968,7 +7125,7 @@ export class CompanyService extends BaseService {
         /**
          * Статус выполнения
          */
-        'result': string;
+        'result': 'success';
         }>;
       })
     );
@@ -7077,7 +7234,7 @@ export class CompanyService extends BaseService {
 /**
  * Статус выполнения
  */
-'result': string;
+'result': 'success';
 }> {
 
     return this.companyEmployeeUpdate$Response(params).pipe(
@@ -7086,13 +7243,13 @@ export class CompanyService extends BaseService {
 /**
  * Статус выполнения
  */
-'result': string;
+'result': 'success';
 }>) => r.body as {
 
 /**
  * Статус выполнения
  */
-'result': string;
+'result': 'success';
 })
     );
   }
@@ -7125,7 +7282,7 @@ export class CompanyService extends BaseService {
 /**
  * Статус выполнения
  */
-'result': string;
+'result': 'success';
 }>> {
 
     const rb = new RequestBuilder(this.rootUrl, CompanyService.CompanyEmployeeDeletePath, 'post');
@@ -7144,7 +7301,7 @@ export class CompanyService extends BaseService {
         /**
          * Статус выполнения
          */
-        'result': string;
+        'result': 'success';
         }>;
       })
     );
@@ -7173,7 +7330,7 @@ export class CompanyService extends BaseService {
 /**
  * Статус выполнения
  */
-'result': string;
+'result': 'success';
 }> {
 
     return this.companyEmployeeDelete$Response(params).pipe(
@@ -7182,13 +7339,13 @@ export class CompanyService extends BaseService {
 /**
  * Статус выполнения
  */
-'result': string;
+'result': 'success';
 }>) => r.body as {
 
 /**
  * Статус выполнения
  */
-'result': string;
+'result': 'success';
 })
     );
   }
