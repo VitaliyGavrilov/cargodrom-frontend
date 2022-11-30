@@ -34,7 +34,7 @@ export class DepartmentComponent implements OnInit {
     { name: 'name', sortType: 'case-insensitive', title: 'Название подразделения', sortOrder: 'asc' },
     { name: 'count_position', sortType: 'numeric', title: 'Должностей', sortOrder: 'asc' },
     { name: 'count_user', sortType: 'numeric', title: 'Сотрудников', sortOrder: 'asc' },
-    { name: 'name', sortType: 'case-insensitive', title: 'Руководитель подразделения', sortOrder: 'asc' }, // TODO: Where to get this column
+    { name: 'leader_user', sortType: 'case-insensitive', title: 'Руководитель подразделения', sortOrder: 'asc' }, // TODO: Where to get this column
   ];
   sortCol: Column<Department>= this.columns[0];
   employees: Employee[] = [];
@@ -49,7 +49,6 @@ export class DepartmentComponent implements OnInit {
 
   ngOnInit(): void {
     this.loadDepartments();
-    this.loadEmployees();
   }
 
   loadDepartments(): void {
@@ -118,17 +117,4 @@ export class DepartmentComponent implements OnInit {
       });
   }
   
-  loadEmployees(): void {
-    this.companyService.companyEmployeeList().subscribe(
-      employees => this.employees = employees ? employees.items as Employee[] : []
-    );
-  }
-  
-  findEmployeeById(id?: number) {
-    if (typeof id !== 'number') {
-      return undefined;
-    }
-    return this.employees.find(employee => employee.id === id);
-  }
-
 }

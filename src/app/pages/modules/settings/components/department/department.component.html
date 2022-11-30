@@ -20,7 +20,7 @@
       <td>{{ department.count_user }}</td>
       <td>
         <a class="link-view" [routerLink]="['..', 'employee', department.leader_user_id]">
-          <ng-container *ngTemplateOutlet="fio; context: {employee: findEmployeeById(department.leader_user_id)}"></ng-container>
+          {{ department.leader_user }}
         </a>
       </td>
       <td><a class="btn add-item-text" [routerLink]="['..', 'employee', 'add']" [queryParams]="{department_id: department.id}"><span>Добавить сотрудника</span></a></td>
