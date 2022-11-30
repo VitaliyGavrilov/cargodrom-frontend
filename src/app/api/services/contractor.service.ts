@@ -1,7 +1,7 @@
 /* tslint:disable */
 /* eslint-disable */
 import { Injectable } from '@angular/core';
-import { HttpClient, HttpResponse } from '@angular/common/http';
+import { HttpClient, HttpResponse, HttpContext } from '@angular/common/http';
 import { BaseService } from '../base-service';
 import { ApiConfiguration } from '../api-configuration';
 import { StrictHttpResponse } from '../strict-http-response';
@@ -41,7 +41,9 @@ export class ContractorService extends BaseService {
    * This method doesn't expect any request body.
    */
   contractorRequestFormat$Response(params?: {
-  }): Observable<StrictHttpResponse<Array<{
+    context?: HttpContext
+  }
+): Observable<StrictHttpResponse<Array<{
 
 /**
  * ID
@@ -60,7 +62,8 @@ export class ContractorService extends BaseService {
 
     return this.http.request(rb.build({
       responseType: 'json',
-      accept: 'application/json'
+      accept: 'application/json',
+      context: params?.context
     })).pipe(
       filter((r: any) => r instanceof HttpResponse),
       map((r: HttpResponse<any>) => {
@@ -91,7 +94,9 @@ export class ContractorService extends BaseService {
    * This method doesn't expect any request body.
    */
   contractorRequestFormat(params?: {
-  }): Observable<Array<{
+    context?: HttpContext
+  }
+): Observable<Array<{
 
 /**
  * ID
@@ -147,7 +152,9 @@ export class ContractorService extends BaseService {
    * This method doesn't expect any request body.
    */
   contractorType$Response(params?: {
-  }): Observable<StrictHttpResponse<Array<{
+    context?: HttpContext
+  }
+): Observable<StrictHttpResponse<Array<{
 
 /**
  * ID
@@ -166,7 +173,8 @@ export class ContractorService extends BaseService {
 
     return this.http.request(rb.build({
       responseType: 'json',
-      accept: 'application/json'
+      accept: 'application/json',
+      context: params?.context
     })).pipe(
       filter((r: any) => r instanceof HttpResponse),
       map((r: HttpResponse<any>) => {
@@ -197,7 +205,9 @@ export class ContractorService extends BaseService {
    * This method doesn't expect any request body.
    */
   contractorType(params?: {
-  }): Observable<Array<{
+    context?: HttpContext
+  }
+): Observable<Array<{
 
 /**
  * ID
@@ -253,7 +263,9 @@ export class ContractorService extends BaseService {
    * This method doesn't expect any request body.
    */
   contractorAssociation$Response(params?: {
-  }): Observable<StrictHttpResponse<Array<{
+    context?: HttpContext
+  }
+): Observable<StrictHttpResponse<Array<{
 
 /**
  * ID
@@ -272,7 +284,8 @@ export class ContractorService extends BaseService {
 
     return this.http.request(rb.build({
       responseType: 'json',
-      accept: 'application/json'
+      accept: 'application/json',
+      context: params?.context
     })).pipe(
       filter((r: any) => r instanceof HttpResponse),
       map((r: HttpResponse<any>) => {
@@ -303,7 +316,9 @@ export class ContractorService extends BaseService {
    * This method doesn't expect any request body.
    */
   contractorAssociation(params?: {
-  }): Observable<Array<{
+    context?: HttpContext
+  }
+): Observable<Array<{
 
 /**
  * ID
@@ -410,7 +425,9 @@ export class ContractorService extends BaseService {
  */
 'dir': 'asc' | 'desc';
 }>;
-  }): Observable<StrictHttpResponse<{
+    context?: HttpContext
+  }
+): Observable<StrictHttpResponse<{
 
 /**
  * Позиции
@@ -730,7 +747,8 @@ export class ContractorService extends BaseService {
 
     return this.http.request(rb.build({
       responseType: 'json',
-      accept: 'application/json'
+      accept: 'application/json',
+      context: params?.context
     })).pipe(
       filter((r: any) => r instanceof HttpResponse),
       map((r: HttpResponse<any>) => {
@@ -1105,7 +1123,9 @@ export class ContractorService extends BaseService {
  */
 'dir': 'asc' | 'desc';
 }>;
-  }): Observable<{
+    context?: HttpContext
+  }
+): Observable<{
 
 /**
  * Позиции
@@ -2045,7 +2065,9 @@ export class ContractorService extends BaseService {
      * ID контрагента
      */
     id: number;
-  }): Observable<StrictHttpResponse<{
+    context?: HttpContext
+  }
+): Observable<StrictHttpResponse<{
 
 /**
  * ID
@@ -2347,7 +2369,8 @@ export class ContractorService extends BaseService {
 
     return this.http.request(rb.build({
       responseType: 'json',
-      accept: 'application/json'
+      accept: 'application/json',
+      context: params?.context
     })).pipe(
       filter((r: any) => r instanceof HttpResponse),
       map((r: HttpResponse<any>) => {
@@ -2665,7 +2688,9 @@ export class ContractorService extends BaseService {
      * ID контрагента
      */
     id: number;
-  }): Observable<{
+    context?: HttpContext
+  }
+): Observable<{
 
 /**
  * ID
@@ -3567,6 +3592,7 @@ export class ContractorService extends BaseService {
    * This method sends `application/json` and handles request body of type `application/json`.
    */
   contractorCreate$Response(params?: {
+    context?: HttpContext
     body?: {
 
 /**
@@ -3711,7 +3737,8 @@ export class ContractorService extends BaseService {
 };
 }>;
 }
-  }): Observable<StrictHttpResponse<{
+  }
+): Observable<StrictHttpResponse<{
 
 /**
  * ID созданной записи
@@ -3731,7 +3758,8 @@ export class ContractorService extends BaseService {
 
     return this.http.request(rb.build({
       responseType: 'json',
-      accept: 'application/json'
+      accept: 'application/json',
+      context: params?.context
     })).pipe(
       filter((r: any) => r instanceof HttpResponse),
       map((r: HttpResponse<any>) => {
@@ -3762,6 +3790,7 @@ export class ContractorService extends BaseService {
    * This method sends `application/json` and handles request body of type `application/json`.
    */
   contractorCreate(params?: {
+    context?: HttpContext
     body?: {
 
 /**
@@ -3906,7 +3935,8 @@ export class ContractorService extends BaseService {
 };
 }>;
 }
-  }): Observable<{
+  }
+): Observable<{
 
 /**
  * ID созданной записи
@@ -3962,6 +3992,7 @@ export class ContractorService extends BaseService {
    * This method sends `application/json` and handles request body of type `application/json`.
    */
   contractorUpdate$Response(params?: {
+    context?: HttpContext
     body?: {
 
 /**
@@ -4116,7 +4147,8 @@ export class ContractorService extends BaseService {
 };
 }>;
 }
-  }): Observable<StrictHttpResponse<{
+  }
+): Observable<StrictHttpResponse<{
 
 /**
  * Статус выполнения
@@ -4131,7 +4163,8 @@ export class ContractorService extends BaseService {
 
     return this.http.request(rb.build({
       responseType: 'json',
-      accept: 'application/json'
+      accept: 'application/json',
+      context: params?.context
     })).pipe(
       filter((r: any) => r instanceof HttpResponse),
       map((r: HttpResponse<any>) => {
@@ -4157,6 +4190,7 @@ export class ContractorService extends BaseService {
    * This method sends `application/json` and handles request body of type `application/json`.
    */
   contractorUpdate(params?: {
+    context?: HttpContext
     body?: {
 
 /**
@@ -4311,7 +4345,8 @@ export class ContractorService extends BaseService {
 };
 }>;
 }
-  }): Observable<{
+  }
+): Observable<{
 
 /**
  * Статус выполнения
@@ -4352,6 +4387,7 @@ export class ContractorService extends BaseService {
    * This method sends `application/json` and handles request body of type `application/json`.
    */
   contractorDelete$Response(params?: {
+    context?: HttpContext
     body?: {
 
 /**
@@ -4359,7 +4395,8 @@ export class ContractorService extends BaseService {
  */
 'id': number;
 }
-  }): Observable<StrictHttpResponse<{
+  }
+): Observable<StrictHttpResponse<{
 
 /**
  * Статус выполнения
@@ -4374,7 +4411,8 @@ export class ContractorService extends BaseService {
 
     return this.http.request(rb.build({
       responseType: 'json',
-      accept: 'application/json'
+      accept: 'application/json',
+      context: params?.context
     })).pipe(
       filter((r: any) => r instanceof HttpResponse),
       map((r: HttpResponse<any>) => {
@@ -4400,6 +4438,7 @@ export class ContractorService extends BaseService {
    * This method sends `application/json` and handles request body of type `application/json`.
    */
   contractorDelete(params?: {
+    context?: HttpContext
     body?: {
 
 /**
@@ -4407,7 +4446,8 @@ export class ContractorService extends BaseService {
  */
 'id': number;
 }
-  }): Observable<{
+  }
+): Observable<{
 
 /**
  * Статус выполнения
@@ -4479,7 +4519,9 @@ export class ContractorService extends BaseService {
  */
 'dir': 'asc' | 'desc';
 }>;
-  }): Observable<StrictHttpResponse<Array<{
+    context?: HttpContext
+  }
+): Observable<StrictHttpResponse<Array<{
 
 /**
  * ID
@@ -4588,7 +4630,8 @@ export class ContractorService extends BaseService {
 
     return this.http.request(rb.build({
       responseType: 'json',
-      accept: 'application/json'
+      accept: 'application/json',
+      context: params?.context
     })).pipe(
       filter((r: any) => r instanceof HttpResponse),
       map((r: HttpResponse<any>) => {
@@ -4736,7 +4779,9 @@ export class ContractorService extends BaseService {
  */
 'dir': 'asc' | 'desc';
 }>;
-  }): Observable<Array<{
+    context?: HttpContext
+  }
+): Observable<Array<{
 
 /**
  * ID
@@ -5055,7 +5100,9 @@ export class ContractorService extends BaseService {
      * ID контакта
      */
     id: number;
-  }): Observable<StrictHttpResponse<{
+    context?: HttpContext
+  }
+): Observable<StrictHttpResponse<{
 
 /**
  * ID
@@ -5161,7 +5208,8 @@ export class ContractorService extends BaseService {
 
     return this.http.request(rb.build({
       responseType: 'json',
-      accept: 'application/json'
+      accept: 'application/json',
+      context: params?.context
     })).pipe(
       filter((r: any) => r instanceof HttpResponse),
       map((r: HttpResponse<any>) => {
@@ -5283,7 +5331,9 @@ export class ContractorService extends BaseService {
      * ID контакта
      */
     id: number;
-  }): Observable<{
+    context?: HttpContext
+  }
+): Observable<{
 
 /**
  * ID
@@ -5597,6 +5647,7 @@ export class ContractorService extends BaseService {
    * This method sends `application/json` and handles request body of type `application/json`.
    */
   contractorContactCreate$Response(params?: {
+    context?: HttpContext
     body?: {
 
 /**
@@ -5675,7 +5726,8 @@ export class ContractorService extends BaseService {
 'responsible_param'?: {
 };
 }
-  }): Observable<StrictHttpResponse<{
+  }
+): Observable<StrictHttpResponse<{
 
 /**
  * ID созданной записи
@@ -5695,7 +5747,8 @@ export class ContractorService extends BaseService {
 
     return this.http.request(rb.build({
       responseType: 'json',
-      accept: 'application/json'
+      accept: 'application/json',
+      context: params?.context
     })).pipe(
       filter((r: any) => r instanceof HttpResponse),
       map((r: HttpResponse<any>) => {
@@ -5726,6 +5779,7 @@ export class ContractorService extends BaseService {
    * This method sends `application/json` and handles request body of type `application/json`.
    */
   contractorContactCreate(params?: {
+    context?: HttpContext
     body?: {
 
 /**
@@ -5804,7 +5858,8 @@ export class ContractorService extends BaseService {
 'responsible_param'?: {
 };
 }
-  }): Observable<{
+  }
+): Observable<{
 
 /**
  * ID созданной записи
@@ -5860,6 +5915,7 @@ export class ContractorService extends BaseService {
    * This method sends `application/json` and handles request body of type `application/json`.
    */
   contractorContactUpdate$Response(params?: {
+    context?: HttpContext
     body?: {
 
 /**
@@ -5943,7 +5999,8 @@ export class ContractorService extends BaseService {
 'responsible_param'?: {
 };
 }
-  }): Observable<StrictHttpResponse<{
+  }
+): Observable<StrictHttpResponse<{
 
 /**
  * Статус выполнения
@@ -5958,7 +6015,8 @@ export class ContractorService extends BaseService {
 
     return this.http.request(rb.build({
       responseType: 'json',
-      accept: 'application/json'
+      accept: 'application/json',
+      context: params?.context
     })).pipe(
       filter((r: any) => r instanceof HttpResponse),
       map((r: HttpResponse<any>) => {
@@ -5984,6 +6042,7 @@ export class ContractorService extends BaseService {
    * This method sends `application/json` and handles request body of type `application/json`.
    */
   contractorContactUpdate(params?: {
+    context?: HttpContext
     body?: {
 
 /**
@@ -6067,7 +6126,8 @@ export class ContractorService extends BaseService {
 'responsible_param'?: {
 };
 }
-  }): Observable<{
+  }
+): Observable<{
 
 /**
  * Статус выполнения
@@ -6108,6 +6168,7 @@ export class ContractorService extends BaseService {
    * This method sends `application/json` and handles request body of type `application/json`.
    */
   contractorContactDelete$Response(params?: {
+    context?: HttpContext
     body?: {
 
 /**
@@ -6115,7 +6176,8 @@ export class ContractorService extends BaseService {
  */
 'id': number;
 }
-  }): Observable<StrictHttpResponse<{
+  }
+): Observable<StrictHttpResponse<{
 
 /**
  * Статус выполнения
@@ -6130,7 +6192,8 @@ export class ContractorService extends BaseService {
 
     return this.http.request(rb.build({
       responseType: 'json',
-      accept: 'application/json'
+      accept: 'application/json',
+      context: params?.context
     })).pipe(
       filter((r: any) => r instanceof HttpResponse),
       map((r: HttpResponse<any>) => {
@@ -6156,6 +6219,7 @@ export class ContractorService extends BaseService {
    * This method sends `application/json` and handles request body of type `application/json`.
    */
   contractorContactDelete(params?: {
+    context?: HttpContext
     body?: {
 
 /**
@@ -6163,7 +6227,8 @@ export class ContractorService extends BaseService {
  */
 'id': number;
 }
-  }): Observable<{
+  }
+): Observable<{
 
 /**
  * Статус выполнения

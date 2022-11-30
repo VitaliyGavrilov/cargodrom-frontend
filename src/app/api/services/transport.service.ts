@@ -1,7 +1,7 @@
 /* tslint:disable */
 /* eslint-disable */
 import { Injectable } from '@angular/core';
-import { HttpClient, HttpResponse } from '@angular/common/http';
+import { HttpClient, HttpResponse, HttpContext } from '@angular/common/http';
 import { BaseService } from '../base-service';
 import { ApiConfiguration } from '../api-configuration';
 import { StrictHttpResponse } from '../strict-http-response';
@@ -41,7 +41,9 @@ export class TransportService extends BaseService {
    * This method doesn't expect any request body.
    */
   transportKind$Response(params?: {
-  }): Observable<StrictHttpResponse<Array<{
+    context?: HttpContext
+  }
+): Observable<StrictHttpResponse<Array<{
 
 /**
  * ID
@@ -60,7 +62,8 @@ export class TransportService extends BaseService {
 
     return this.http.request(rb.build({
       responseType: 'json',
-      accept: 'application/json'
+      accept: 'application/json',
+      context: params?.context
     })).pipe(
       filter((r: any) => r instanceof HttpResponse),
       map((r: HttpResponse<any>) => {
@@ -91,7 +94,9 @@ export class TransportService extends BaseService {
    * This method doesn't expect any request body.
    */
   transportKind(params?: {
-  }): Observable<Array<{
+    context?: HttpContext
+  }
+): Observable<Array<{
 
 /**
  * ID
@@ -147,7 +152,9 @@ export class TransportService extends BaseService {
    * This method doesn't expect any request body.
    */
   transportSubKind$Response(params?: {
-  }): Observable<StrictHttpResponse<Array<{
+    context?: HttpContext
+  }
+): Observable<StrictHttpResponse<Array<{
 
 /**
  * ID
@@ -171,7 +178,8 @@ export class TransportService extends BaseService {
 
     return this.http.request(rb.build({
       responseType: 'json',
-      accept: 'application/json'
+      accept: 'application/json',
+      context: params?.context
     })).pipe(
       filter((r: any) => r instanceof HttpResponse),
       map((r: HttpResponse<any>) => {
@@ -207,7 +215,9 @@ export class TransportService extends BaseService {
    * This method doesn't expect any request body.
    */
   transportSubKind(params?: {
-  }): Observable<Array<{
+    context?: HttpContext
+  }
+): Observable<Array<{
 
 /**
  * ID
@@ -283,7 +293,9 @@ export class TransportService extends BaseService {
      * Вид перевозки
      */
     kind_id: string;
-  }): Observable<StrictHttpResponse<Array<{
+    context?: HttpContext
+  }
+): Observable<StrictHttpResponse<Array<{
 
 /**
  * ID
@@ -303,7 +315,8 @@ export class TransportService extends BaseService {
 
     return this.http.request(rb.build({
       responseType: 'json',
-      accept: 'application/json'
+      accept: 'application/json',
+      context: params?.context
     })).pipe(
       filter((r: any) => r instanceof HttpResponse),
       map((r: HttpResponse<any>) => {
@@ -339,7 +352,9 @@ export class TransportService extends BaseService {
      * Вид перевозки
      */
     kind_id: string;
-  }): Observable<Array<{
+    context?: HttpContext
+  }
+): Observable<Array<{
 
 /**
  * ID
@@ -400,7 +415,9 @@ export class TransportService extends BaseService {
      * Вид перевозки
      */
     kind_id: string;
-  }): Observable<StrictHttpResponse<Array<{
+    context?: HttpContext
+  }
+): Observable<StrictHttpResponse<Array<{
 
 /**
  * ID
@@ -420,7 +437,8 @@ export class TransportService extends BaseService {
 
     return this.http.request(rb.build({
       responseType: 'json',
-      accept: 'application/json'
+      accept: 'application/json',
+      context: params?.context
     })).pipe(
       filter((r: any) => r instanceof HttpResponse),
       map((r: HttpResponse<any>) => {
@@ -456,7 +474,9 @@ export class TransportService extends BaseService {
      * Вид перевозки
      */
     kind_id: string;
-  }): Observable<Array<{
+    context?: HttpContext
+  }
+): Observable<Array<{
 
 /**
  * ID
@@ -517,7 +537,9 @@ export class TransportService extends BaseService {
      * Вид перевозки
      */
     kind_id: string;
-  }): Observable<StrictHttpResponse<Array<{
+    context?: HttpContext
+  }
+): Observable<StrictHttpResponse<Array<{
 
 /**
  * ID
@@ -537,7 +559,8 @@ export class TransportService extends BaseService {
 
     return this.http.request(rb.build({
       responseType: 'json',
-      accept: 'application/json'
+      accept: 'application/json',
+      context: params?.context
     })).pipe(
       filter((r: any) => r instanceof HttpResponse),
       map((r: HttpResponse<any>) => {
@@ -573,7 +596,9 @@ export class TransportService extends BaseService {
      * Вид перевозки
      */
     kind_id: string;
-  }): Observable<Array<{
+    context?: HttpContext
+  }
+): Observable<Array<{
 
 /**
  * ID
