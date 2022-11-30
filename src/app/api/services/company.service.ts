@@ -305,7 +305,7 @@ export class CompanyService extends BaseService {
     if (params) {
       rb.query('start', params.start, {});
       rb.query('count', params.count, {});
-      rb.query('sort', params.sort, {"style":"form","explode":true});
+      rb.query('sort', params.sort, {"style":"form","explode":false});
     }
 
     return this.http.request(rb.build({
@@ -3686,7 +3686,7 @@ export class CompanyService extends BaseService {
     if (params) {
       rb.query('start', params.start, {});
       rb.query('count', params.count, {});
-      rb.query('sort', params.sort, {"style":"form","explode":true});
+      rb.query('sort', params.sort, {"style":"form","explode":false});
     }
 
     return this.http.request(rb.build({
@@ -4693,7 +4693,7 @@ export class CompanyService extends BaseService {
     if (params) {
       rb.query('start', params.start, {});
       rb.query('count', params.count, {});
-      rb.query('sort', params.sort, {"style":"form","explode":true});
+      rb.query('sort', params.sort, {"style":"form","explode":false});
     }
 
     return this.http.request(rb.build({
@@ -5689,7 +5689,7 @@ export class CompanyService extends BaseService {
       rb.query('position_id', params.position_id, {});
       rb.query('start', params.start, {});
       rb.query('count', params.count, {});
-      rb.query('sort', params.sort, {"style":"form","explode":true});
+      rb.query('sort', params.sort, {"style":"form","explode":false});
     }
 
     return this.http.request(rb.build({

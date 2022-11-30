@@ -725,7 +725,7 @@ export class ContractorService extends BaseService {
       rb.query('country_arrival', params.country_arrival, {});
       rb.query('start', params.start, {});
       rb.query('count', params.count, {});
-      rb.query('sort', params.sort, {"style":"form","explode":true});
+      rb.query('sort', params.sort, {"style":"form","explode":false});
     }
 
     return this.http.request(rb.build({
@@ -4583,7 +4583,7 @@ export class ContractorService extends BaseService {
       rb.query('id', params.id, {});
       rb.query('start', params.start, {});
       rb.query('count', params.count, {});
-      rb.query('sort', params.sort, {"style":"form","explode":true});
+      rb.query('sort', params.sort, {"style":"form","explode":false});
     }
 
     return this.http.request(rb.build({
