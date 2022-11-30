@@ -1,3 +1,4 @@
+import { SortColumn } from './../../../../../api/custom_models/sort-column';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { ActivatedRoute } from '@angular/router';
 import { byField, SortOrder, SortType } from './../../../../../constants/sort-predicate';
@@ -7,11 +8,8 @@ import { Component, OnInit, TemplateRef, ViewChild, ViewEncapsulation } from '@a
 import { MatDialog } from '@angular/material/dialog';
 import { Employee } from 'src/app/api/custom_models';
 
-interface Column<T> {
-  name: keyof T;
+interface Column<T> extends SortColumn<T> {
   title: string;
-  sortType: SortType;
-  sortOrder: SortOrder,
 }
 
 @Component({
@@ -31,12 +29,12 @@ export class DepartmentComponent implements OnInit {
   count = this.limits[0];
   @ViewChild('removeDialogRef') removeDialogRef!: TemplateRef<Department>;
   columns: Column<Department>[] = [
-    { name: 'name', sortType: 'case-insensitive', title: 'Название подразделения', sortOrder: 'asc' },
-    { name: 'count_position', sortType: 'numeric', title: 'Должностей', sortOrder: 'asc' },
-    { name: 'count_user', sortType: 'numeric', title: 'Сотрудников', sortOrder: 'asc' },
-    { name: 'leader_user', sortType: 'case-insensitive', title: 'Руководитель подразделения', sortOrder: 'asc' }, // TODO: Where to get this column
+    { field: 'name', title: 'Название подразделения', dir: 'asc' },
+    { field: 'count_position', title: 'Должностей', dir: 'asc' },
+    { field: 'count_user', title: 'Сотрудников', dir: 'asc' },
+    { field: 'leader_user', title: 'Руководитель подразделения', dir: 'asc' },
   ];
-  sortCol: Column<Department>= this.columns[0];
+  sortCol =  this.columns[0];
   employees: Employee[] = [];
 
 
@@ -52,9 +50,17 @@ export class DepartmentComponent implements OnInit {
   }
 
   loadDepartments(): void {
-    this.companyService.companyDepartmentList({start: this.start, count: this.count}).subscribe(departments => {
+    const sortCol: SortColumn<Department> = {
+      dir: this.sortCol.dir,
+      field: this.sortCol.field,
+    };
+    const sortByName: SortColumn<Department> = {
+      dir: 'asc',
+      field: 'name',
+    };
+    const sort = sortCol.field !== sortByName.field ? [sortCol, sortByName] : [sortCol];
+    this.companyService.companyDepartmentList({start: this.start, count: this.count, sort: JSON.stringify(sort) as unknown as SortColumn<Department>[] }).subscribe(departments => {
       this.departments = departments ? departments.items as Department[] : [];
-      this.departments.sort(this.getSortPredicate());
       this.total = departments.total!;
     });
   }
@@ -70,29 +76,25 @@ export class DepartmentComponent implements OnInit {
     this.loadDepartments();
   }
   
-  getSortPredicate() {
-    return byField<Department>(this.sortCol.name, this.sortCol.sortOrder, this.sortCol.sortType);
-  }
-  
   sort(col: Column<Department>): void {
     this.start = 0;
     if (this.sortCol === col) {
-      this.sortCol.sortOrder = col.sortOrder === 'asc' ? 'desc' : 'asc';
+      this.sortCol.dir = col.dir === 'asc' ? 'desc' : 'asc';
     } else {
-      this.sortCol.sortOrder = 'asc';
+      this.sortCol.dir = 'asc';
       this.sortCol = col;
-      this.sortCol.sortOrder = 'asc';
+      this.sortCol.dir = 'asc';
     }
     this.loadDepartments();
   }
   
   findColumnByName(name: keyof Department) {
-    return this.columns.find(column => column.name === name);
+    return this.columns.find(column => column.field === name);
   }
 
   getColTitle(col: Column<Department>): string {
     if (col === this.sortCol) {
-      return col.sortOrder === 'asc' ? 'сортировать по убыванию' : 'сортировать по возрастанию'
+      return col.dir === 'asc' ? 'сортировать по убыванию' : 'сортировать по возрастанию'
     }
     return 'сортировать по возрастанию';
   }
