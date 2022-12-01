@@ -2,7 +2,7 @@
   <thead>
     <tr>
       <th class="column-sortable" *ngFor="let col of columns; first as isFirst" [ngClass]="{'col': isFirst}"
-        [attr.title]="getColTitle(col)" (click)="sort(col)">
+        [attr.title]="getColTitle(col)" (click)="sort(col.field)">
         <span>{{ col.title }}<span class="sorting-indicator"></span></span>
       </th>
       <th style="width: 134px;">
@@ -14,7 +14,7 @@
     </tr>
   </thead>
   <tbody>
-    <tr *ngFor="let department of departments; odd as isOdd" [ngClass]="{'odd': isOdd}">
+    <tr *ngFor="let department of rows; odd as isOdd" [ngClass]="{'odd': isOdd}">
       <td class="col">{{ department.name }}</td>
       <td>{{ department.count_position }}</td>
       <td>{{ department.count_user }}</td>
