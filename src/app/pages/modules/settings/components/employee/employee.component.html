@@ -1,39 +1,25 @@
 <table class="main-table fix-head table-98a02492513816a6438bbd36fc9458a2">
   <thead>
     <tr>
-      <th class="col column-sortable"
-        data-href="/erp/settings/employee?sort_field=name&amp;sort_order=asc&amp;ajax_load=table%2Ctable_function"
-        title="сортировать по убыванию">
+      <th class="col column-sortable" [attr.title]="getColTitle('name_f')" (click)="sort('name_f')">
         <span>Ф.И.О.<span class="sorting-indicator"></span></span>
       </th>
-      <th class="column-sortable"
-        data-href="/erp/settings/employee?sort_field=count_position&amp;sort_order=asc&amp;ajax_load=table%2Ctable_function"
-        title="сортировать по убыванию">
+      <th class="column-sortable" [attr.title]="getColTitle('company_name')" (click)="sort('company_name')">
         <span>Организация<span class="sorting-indicator"></span></span>
       </th>
-      <th class="column-sortable"
-        data-href="/erp/settings/employee?sort_field=department_id&amp;sort_order=asc&amp;ajax_load=table%2Ctable_function"
-        title="сортировать по убыванию">
+      <th class="column-sortable" [attr.title]="getColTitle('department_name')" (click)="sort('department_name')">
         <span>Подразделение<span class="sorting-indicator"></span></span>
       </th>
-      <th class="column-sortable"
-        data-href="/erp/settings/employee?sort_field=position_id&amp;sort_order=asc&amp;ajax_load=table%2Ctable_function"
-        title="сортировать по убыванию">
+      <th class="column-sortable" [attr.title]="getColTitle('position_name')" (click)="sort('position_name')">
         <span>Должность<span class="sorting-indicator"></span></span>
       </th>
-      <th class="column-sortable"
-        data-href="/erp/settings/employee?sort_field=phone&amp;sort_order=asc&amp;ajax_load=table%2Ctable_function"
-        title="сортировать по убыванию">
+      <th class="column-sortable" [attr.title]="getColTitle('phone')" (click)="sort('phone')">
         <span>Телефон<span class="sorting-indicator"></span></span>
       </th>
-      <th class="column-sortable"
-        data-href="/erp/settings/employee?sort_field=email&amp;sort_order=asc&amp;ajax_load=table%2Ctable_function"
-        title="сортировать по убыванию">
+      <th class="column-sortable" [attr.title]="getColTitle('email')" (click)="sort('email')">
         <span>E-mail<span class="sorting-indicator"></span></span>
       </th>
-      <th class="column-sortable"
-        data-href="/erp/settings/employee?sort_field=birth_date&amp;sort_order=asc&amp;ajax_load=table%2Ctable_function"
-        title="сортировать по убыванию">
+      <th class="column-sortable" [attr.title]="getColTitle('birth_date')" (click)="sort('birth_date')">
         <span>Дата рожд.<span class="sorting-indicator"></span></span>
       </th>
       <th class="right" style="width: 80px;">
@@ -42,11 +28,11 @@
     </tr>
   </thead>
   <tbody>
-    <tr *ngFor="let employee of employees; odd as isOdd; trackBy: trackById" [ngClass]="{'odd': isOdd}">
+    <tr *ngFor="let employee of rows; odd as isOdd; trackBy: trackById" [ngClass]="{'odd': isOdd}">
       <td class="col">{{ employee.name_f }} {{ employee.name_i }} {{ employee.name_o }}</td>
-      <td>{{ companyById[employee.company_id]?.name }}</td>
-      <td>{{ departmentById[employee.department_id]?.name }}</td>
-      <td>{{ positionById[employee.position_id]?.name }}</td>
+      <td>{{ employee.company_name }}</td>
+      <td>{{ employee.department_name }}</td>
+      <td>{{ employee.position_name }}</td>
       <td>{{ employee.phone | mask: '+0 (000) 000-00-00' }}</td>
       <td>{{ employee.email }}</td>
       <td>{{ employee.birth_date | date}}</td>

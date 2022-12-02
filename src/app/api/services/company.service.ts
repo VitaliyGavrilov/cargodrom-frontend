@@ -5724,14 +5724,29 @@ export class CompanyService extends BaseService {
 'company_id'?: number;
 
 /**
+ * Наименование компании
+ */
+'company_name'?: string;
+
+/**
  * ID подразделения
  */
 'department_id'?: number;
 
 /**
+ * Наименование подразделения
+ */
+'department_name'?: string;
+
+/**
  * ID должности
  */
 'position_id'?: number;
+
+/**
+ * Наименование должности
+ */
+'position_name'?: string;
 
 /**
  * Руководитель подразделения
@@ -5849,14 +5864,29 @@ export class CompanyService extends BaseService {
         'company_id'?: number;
         
         /**
+         * Наименование компании
+         */
+        'company_name'?: string;
+        
+        /**
          * ID подразделения
          */
         'department_id'?: number;
         
         /**
+         * Наименование подразделения
+         */
+        'department_name'?: string;
+        
+        /**
          * ID должности
          */
         'position_id'?: number;
+        
+        /**
+         * Наименование должности
+         */
+        'position_name'?: string;
         
         /**
          * Руководитель подразделения
@@ -6010,14 +6040,29 @@ export class CompanyService extends BaseService {
 'company_id'?: number;
 
 /**
+ * Наименование компании
+ */
+'company_name'?: string;
+
+/**
  * ID подразделения
  */
 'department_id'?: number;
 
 /**
+ * Наименование подразделения
+ */
+'department_name'?: string;
+
+/**
  * ID должности
  */
 'position_id'?: number;
+
+/**
+ * Наименование должности
+ */
+'position_name'?: string;
 
 /**
  * Руководитель подразделения
@@ -6120,14 +6165,29 @@ export class CompanyService extends BaseService {
 'company_id'?: number;
 
 /**
+ * Наименование компании
+ */
+'company_name'?: string;
+
+/**
  * ID подразделения
  */
 'department_id'?: number;
 
 /**
+ * Наименование подразделения
+ */
+'department_name'?: string;
+
+/**
  * ID должности
  */
 'position_id'?: number;
+
+/**
+ * Наименование должности
+ */
+'position_name'?: string;
 
 /**
  * Руководитель подразделения
@@ -6227,14 +6287,29 @@ export class CompanyService extends BaseService {
 'company_id'?: number;
 
 /**
+ * Наименование компании
+ */
+'company_name'?: string;
+
+/**
  * ID подразделения
  */
 'department_id'?: number;
 
 /**
+ * Наименование подразделения
+ */
+'department_name'?: string;
+
+/**
  * ID должности
  */
 'position_id'?: number;
+
+/**
+ * Наименование должности
+ */
+'position_name'?: string;
 
 /**
  * Руководитель подразделения
@@ -6356,14 +6431,29 @@ export class CompanyService extends BaseService {
 'company_id'?: number;
 
 /**
+ * Наименование компании
+ */
+'company_name'?: string;
+
+/**
  * ID подразделения
  */
 'department_id'?: number;
 
 /**
+ * Наименование подразделения
+ */
+'department_name'?: string;
+
+/**
  * ID должности
  */
 'position_id'?: number;
+
+/**
+ * Наименование должности
+ */
+'position_name'?: string;
 
 /**
  * Руководитель подразделения
@@ -6466,14 +6556,29 @@ export class CompanyService extends BaseService {
         'company_id'?: number;
         
         /**
+         * Наименование компании
+         */
+        'company_name'?: string;
+        
+        /**
          * ID подразделения
          */
         'department_id'?: number;
         
         /**
+         * Наименование подразделения
+         */
+        'department_name'?: string;
+        
+        /**
          * ID должности
          */
         'position_id'?: number;
+        
+        /**
+         * Наименование должности
+         */
+        'position_name'?: string;
         
         /**
          * Руководитель подразделения
@@ -6585,14 +6690,29 @@ export class CompanyService extends BaseService {
 'company_id'?: number;
 
 /**
+ * Наименование компании
+ */
+'company_name'?: string;
+
+/**
  * ID подразделения
  */
 'department_id'?: number;
 
 /**
+ * Наименование подразделения
+ */
+'department_name'?: string;
+
+/**
  * ID должности
  */
 'position_id'?: number;
+
+/**
+ * Наименование должности
+ */
+'position_name'?: string;
 
 /**
  * Руководитель подразделения
@@ -6684,14 +6804,29 @@ export class CompanyService extends BaseService {
 'company_id'?: number;
 
 /**
+ * Наименование компании
+ */
+'company_name'?: string;
+
+/**
  * ID подразделения
  */
 'department_id'?: number;
 
 /**
+ * Наименование подразделения
+ */
+'department_name'?: string;
+
+/**
  * ID должности
  */
 'position_id'?: number;
+
+/**
+ * Наименование должности
+ */
+'position_name'?: string;
 
 /**
  * Руководитель подразделения
@@ -6780,14 +6915,29 @@ export class CompanyService extends BaseService {
 'company_id'?: number;
 
 /**
+ * Наименование компании
+ */
+'company_name'?: string;
+
+/**
  * ID подразделения
  */
 'department_id'?: number;
 
 /**
+ * Наименование подразделения
+ */
+'department_name'?: string;
+
+/**
  * ID должности
  */
 'position_id'?: number;
+
+/**
+ * Наименование должности
+ */
+'position_name'?: string;
 
 /**
  * Руководитель подразделения
