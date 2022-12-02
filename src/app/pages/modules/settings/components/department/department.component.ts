@@ -29,7 +29,8 @@ export class DepartmentComponent extends SettingsTable<Department> {
     { field: 'leader_user', title: 'Руководитель подразделения' },
   ];
   sortCol = this.columns[0].field;
-  sortByName: SortColumn<Department> = {
+
+  override sortByName: SortColumn<Department> = {
     dir: 'asc',
     field: 'name',
   };

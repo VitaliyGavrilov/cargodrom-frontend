@@ -22,7 +22,7 @@ export abstract class SettingsTable<T extends { id: number }> implements OnInit,
   limits = [10, 25, 50, 100];
   count = this.limits[0];
   abstract sortCol: keyof T;
-  abstract sortByName: SortColumn<T>;
+  sortByName?: SortColumn<T>;
   sortDir: 'asc' | 'desc' = 'asc';
   @ViewChild('removeDialogRef') removeDialogRef!: TemplateRef<T>;
 
@@ -52,7 +52,7 @@ export abstract class SettingsTable<T extends { id: number }> implements OnInit,
       dir: this.sortDir,
     };
 
-    const sort = sortCol.field !== this.sortByName.field ? [sortCol, this.sortByName] : [sortCol];
+    const sort = this.sortByName && sortCol.field !== this.sortByName.field ? [sortCol, this.sortByName] : [sortCol];
     this.load({ start: this.start, count: this.count, sort: JSON.stringify(sort) as unknown as SortColumn<T>[] }).subscribe(rows => {
       this.rows = rows ? rows.items as T[] : [];
       this.total = rows.total;
