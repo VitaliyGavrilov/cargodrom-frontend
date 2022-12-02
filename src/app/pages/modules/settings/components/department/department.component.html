@@ -2,7 +2,7 @@
   <thead>
     <tr>
       <th class="column-sortable" *ngFor="let col of columns; first as isFirst" [ngClass]="{'col': isFirst}"
-        [attr.title]="getColTitle(col)" (click)="sort(col.field)">
+        [attr.title]="getColTitle(col.field)" (click)="sort(col.field)">
         <span>{{ col.title }}<span class="sorting-indicator"></span></span>
       </th>
       <th style="width: 134px;">
