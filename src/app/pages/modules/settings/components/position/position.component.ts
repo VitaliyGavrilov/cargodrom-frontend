@@ -1,9 +1,8 @@
-import { byField } from './../../../../../constants/sort-predicate';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { MatDialog } from '@angular/material/dialog';
 import { Position } from './../../../../../api/custom_models/position';
 import { CompanyService } from './../../../../../api/services/company.service';
-import { Component, OnInit, TemplateRef, ViewChild } from '@angular/core';
+import { Component } from '@angular/core';
 import { SettingsTable } from '../../classes/settings-table';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Observable } from 'rxjs';
