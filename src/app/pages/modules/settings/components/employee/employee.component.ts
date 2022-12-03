@@ -17,11 +17,12 @@ import { CompanyService } from './../../../../../api/services/company.service';
   ],
   encapsulation: ViewEncapsulation.None,
 })
-export class EmployeeComponent extends SettingsTable<Employee> {
+export class EmployeeComponent extends SettingsTable<Employee, 'fio'> {
   trackById = (_index: number, employee: Employee) => employee.id;
 
   removedMessage = `Сотрудник удален`;
-  sortField = 'name_f' as keyof Employee;
+  sortField = 'fio' as const;
+  override nameField = 'fio' as const;
 
   constructor(
     private companyService: CompanyService,
@@ -31,6 +32,7 @@ export class EmployeeComponent extends SettingsTable<Employee> {
     router: Router,
   ) {
     super(route, router, dialog, snackBar);
+    this.registerAlias('fio', ['name_f', 'name_i', 'name_o']);
   }
 
   load<Employee>(params: { start?: number; count?: number; sort?: SortColumn<Employee>[]; }): Observable<{ total: number; items: Employee[]; }> {

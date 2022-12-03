@@ -16,10 +16,11 @@ import { SortColumn } from 'src/app/api/custom_models/sort-column';
     '../../main-table.scss'
   ]
 })
-export class DepartmentEmployeeComponent extends SettingsTable<Employee> {
+export class DepartmentEmployeeComponent extends SettingsTable<Employee, 'fio'> {
   @Input() departmentId!: number;
   removedMessage = `Сотрудник удален`;
-  sortField = 'name_f' as keyof Employee;
+  sortField = 'fio' as const;
+  override nameField = 'fio' as const;
 
   constructor(
     private companyService: CompanyService,
@@ -29,6 +30,7 @@ export class DepartmentEmployeeComponent extends SettingsTable<Employee> {
     router: Router,
   ) {
     super(route, router, dialog, snackBar);
+    this.registerAlias('fio', ['name_f', 'name_i', 'name_o']);
   }
 
   load<Employee>(params: { start?: number; count?: number; sort?: SortColumn<Employee>[]; }): Observable<{ total: number; items: Employee[]; }> {

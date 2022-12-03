@@ -7,7 +7,7 @@ import { MatSnackBarConfig } from '@angular/material/snack-bar';
 import { MatDialog } from '@angular/material/dialog';
 
 @Directive()
-export abstract class SettingsTable<T extends { id: number }> implements OnInit, OnDestroy {
+export abstract class SettingsTable<T extends { id: number }, A = never> implements OnInit, OnDestroy {
   snackBarWithShortDuration: MatSnackBarConfig = { duration: 1000 };
   snackBarWithLongDuration: MatSnackBarConfig = { duration: 5000 };
   protected abstract load<T>(params: { start?: number, count?: number, sort?: SortColumn<T>[] }): Observable<{ total: number, items: T[] }>;
@@ -21,10 +21,11 @@ export abstract class SettingsTable<T extends { id: number }> implements OnInit,
   start = 0;
   limits = [10, 25, 50, 100];
   count = this.limits[0];
-  abstract sortField: keyof T;
-  sortByName?: SortColumn<T>;
+  abstract sortField: keyof T | A;
+  readonly nameField?: keyof T| A;
   sortDir: 'asc' | 'desc' = 'asc';
   @ViewChild('removeDialogRef') removeDialogRef!: TemplateRef<T>;
+  private aliases = new Map<A, (keyof T)[]>();
 
   constructor(
     private route: ActivatedRoute,
@@ -47,13 +48,8 @@ export abstract class SettingsTable<T extends { id: number }> implements OnInit,
   }
 
   protected loadRows(): void {
-    const sortCol: SortColumn<T> = {
-      field: this.sortField,
-      dir: this.sortDir,
-    };
-
-    const sort = this.sortByName && sortCol.field !== this.sortByName.field ? [sortCol, this.sortByName] : [sortCol];
-    this.load({ start: this.start, count: this.count, sort: JSON.stringify(sort) as unknown as SortColumn<T>[] }).subscribe(rows => {
+    const sortCol = this.getSort();
+    this.load({ start: this.start, count: this.count, sort: JSON.stringify(sortCol) as unknown as SortColumn<T>[] }).subscribe(rows => {
       this.rows = rows ? rows.items as T[] : [];
       this.total = rows.total;
     });
@@ -109,7 +105,7 @@ export abstract class SettingsTable<T extends { id: number }> implements OnInit,
     });
   }
 
-  sort(field: keyof T): void {
+  sort(field: keyof T | A): void {
     this.start = 0;
     if (this.sortField === field) {
       this.sortDir = this.sortDir === 'asc' ? 'desc' : 'asc';
@@ -144,7 +140,7 @@ export abstract class SettingsTable<T extends { id: number }> implements OnInit,
       });
   }
 
-  getColTitle(field: keyof T): string {
+  getColTitle(field: keyof T | A): string {
     if (field === this.sortField) {
       return this.sortDir === 'asc' ? 'сортировать по убыванию' : 'сортировать по возрастанию'
     }
@@ -154,6 +150,31 @@ export abstract class SettingsTable<T extends { id: number }> implements OnInit,
   ngOnDestroy(): void {
     this.destroy$.next();
     this.destroy$.complete();
+  }
+  
+  private getSort(): SortColumn<T>[] {
+    const sortCol: SortColumn<T>[] = [];
+    const sortField = this.sortField as unknown as A;
+    if (this.aliases.has(sortField)) {
+      const fields = this.aliases.get(sortField)!;
+      sortCol.push(...fields.map(field => ({field, dir: this.sortDir})));
+    } else {
+      sortCol.push({field: this.sortField as keyof T, dir: this.sortDir});
+    }
+    if (this.nameField && this.nameField !== this.sortField) {
+      const name = this.nameField as unknown as A;
+      if (this.aliases.has(name)) {
+        const fields = this.aliases.get(name)!;
+        sortCol.push(...fields.map(field => ({field, dir: 'asc' as const})));
+      } else {
+        sortCol.push({field: this.nameField as keyof T, dir: 'asc'});
+      }
+    }
+    return sortCol;
+  }
+  
+  registerAlias(alias: A, fields: (keyof T)[]): void {
+    this.aliases.set(alias, fields);
   }
 
 }

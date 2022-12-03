@@ -30,10 +30,7 @@ export class DepartmentComponent extends SettingsTable<Department> {
   ];
   sortField = this.columns[0].field;
 
-  override sortByName: SortColumn<Department> = {
-    dir: 'asc',
-    field: 'name',
-  };
+  override nameField = 'name' as const;
   removedMessage = `Подразделение удалено`;
 
   constructor(
