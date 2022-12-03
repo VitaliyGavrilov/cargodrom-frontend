@@ -21,7 +21,7 @@ export abstract class SettingsTable<T extends { id: number }> implements OnInit,
   start = 0;
   limits = [10, 25, 50, 100];
   count = this.limits[0];
-  abstract sortCol: keyof T;
+  abstract sortField: keyof T;
   sortByName?: SortColumn<T>;
   sortDir: 'asc' | 'desc' = 'asc';
   @ViewChild('removeDialogRef') removeDialogRef!: TemplateRef<T>;
@@ -40,7 +40,7 @@ export abstract class SettingsTable<T extends { id: number }> implements OnInit,
       .subscribe(queryParamMap => {
         this.start = this.getIntParamSafely(queryParamMap, 'start', this.start);
         this.count = this.getIntEnumParamSafely(queryParamMap, 'count', this.limits, this.count);
-        this.sortCol = this.getStringParamSafely(queryParamMap, 'sortCol', this.sortCol as string) as keyof T;
+        this.sortField = this.getStringParamSafely(queryParamMap, 'sortCol', this.sortField as string) as keyof T;
         this.sortDir = this.getEnumParamSafely(queryParamMap, 'sortDir', ['asc', 'desc'], this.sortDir) as 'asc' | 'desc';
         this.loadRows();
       });
@@ -48,7 +48,7 @@ export abstract class SettingsTable<T extends { id: number }> implements OnInit,
 
   protected loadRows(): void {
     const sortCol: SortColumn<T> = {
-      field: this.sortCol,
+      field: this.sortField,
       dir: this.sortDir,
     };
 
@@ -111,14 +111,14 @@ export abstract class SettingsTable<T extends { id: number }> implements OnInit,
 
   sort(field: keyof T): void {
     this.start = 0;
-    if (this.sortCol === field) {
+    if (this.sortField === field) {
       this.sortDir = this.sortDir === 'asc' ? 'desc' : 'asc';
     } else {
       this.sortDir = 'asc';
-      this.sortCol = field;
+      this.sortField = field;
     }
     this.router.navigate(['.'], {
-      queryParams: { sortCol: this.sortCol, sortDir: this.sortDir, start: this.start },
+      queryParams: { sortCol: this.sortField, sortDir: this.sortDir, start: this.start },
       queryParamsHandling: 'merge',
       relativeTo: this.route,
     });
@@ -145,7 +145,7 @@ export abstract class SettingsTable<T extends { id: number }> implements OnInit,
   }
 
   getColTitle(field: keyof T): string {
-    if (field === this.sortCol) {
+    if (field === this.sortField) {
       return this.sortDir === 'asc' ? 'сортировать по убыванию' : 'сортировать по возрастанию'
     }
     return 'сортировать по возрастанию';

@@ -15,7 +15,7 @@ import { Observable } from 'rxjs';
 })
 export class CompanyComponent extends SettingsTable<Company> {
   removedMessage = `Компания удалена`;
-  sortCol = 'name' as keyof Company;
+  sortField = 'name' as keyof Company;
 
   constructor(
     private companyService: CompanyService,

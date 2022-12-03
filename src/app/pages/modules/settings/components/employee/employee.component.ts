@@ -21,7 +21,7 @@ export class EmployeeComponent extends SettingsTable<Employee> {
   trackById = (_index: number, employee: Employee) => employee.id;
 
   removedMessage = `Сотрудник удален`;
-  sortCol = 'name_f' as keyof Employee;
+  sortField = 'name_f' as keyof Employee;
 
   constructor(
     private companyService: CompanyService,

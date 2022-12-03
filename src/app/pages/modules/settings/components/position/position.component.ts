@@ -19,7 +19,7 @@ import { SortColumn } from 'src/app/api/custom_models/sort-column';
 export class PositionComponent extends SettingsTable<Position> {
   
   removedMessage = `Должность удалена`;
-  sortCol = 'name' as keyof Position;
+  sortField = 'name' as keyof Position;
 
   constructor(
     private companyService: CompanyService,

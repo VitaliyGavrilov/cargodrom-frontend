@@ -19,7 +19,7 @@ import { SortColumn } from 'src/app/api/custom_models/sort-column';
 export class DepartmentEmployeeComponent extends SettingsTable<Employee> {
   @Input() departmentId!: number;
   removedMessage = `Сотрудник удален`;
-  sortCol = 'name_f' as keyof Employee;
+  sortField = 'name_f' as keyof Employee;
 
   constructor(
     private companyService: CompanyService,
