@@ -1,37 +1,25 @@
 <table class="main-table fix-head table-00bea6b89e723964a80f4b0d828e09b7">
   <thead>
     <tr>
-      <th class="col column-sortable"
-        data-href="/erp/settings/company?sort_field=name&amp;sort_order=asc&amp;ajax_load=table%2Ctable_function"
-        title="сортировать по убыванию">
+      <th class="col column-sortable" [attr.title]="getColTitle('name')" (click)="sort('name')">
         <span>Наименование организации<span class="sorting-indicator"></span></span>
       </th>
-      <th class="column-sortable"
-        data-href="/erp/settings/company?sort_field=phone&amp;sort_order=asc&amp;ajax_load=table%2Ctable_function"
-        title="сортировать по убыванию">
+      <th class="col column-sortable" [attr.title]="getColTitle('phone')" (click)="sort('phone')">
         <span>Телефон<span class="sorting-indicator"></span></span>
       </th>
-      <th class="column-sortable"
-        data-href="/erp/settings/company?sort_field=email&amp;sort_order=asc&amp;ajax_load=table%2Ctable_function"
-        title="сортировать по убыванию">
+      <th class="col column-sortable" [attr.title]="getColTitle('email')" (click)="sort('email')">
         <span>E-mail<span class="sorting-indicator"></span></span>
       </th>
-      <th class="column-sortable"
-        data-href="/erp/settings/company?sort_field=inn&amp;sort_order=asc&amp;ajax_load=table%2Ctable_function"
-        title="сортировать по убыванию">
+      <th class="col column-sortable" [attr.title]="getColTitle('inn')" (click)="sort('inn')">
         <span>ИНН<span class="sorting-indicator"></span></span>
       </th>
-      <th class="column-sortable"
-        data-href="/erp/settings/company?sort_field=director&amp;sort_order=asc&amp;ajax_load=table%2Ctable_function"
-        title="сортировать по убыванию">
+      <th class="col column-sortable" [attr.title]="getColTitle('responsible_person_id')" (click)="sort('responsible_person_fio')">
         <span>Руководитель<span class="sorting-indicator"></span></span>
       </th>
-      <th class="column-sortable"
-        data-href="/erp/settings/company?sort_field=is_main&amp;sort_order=asc&amp;ajax_load=table%2Ctable_function"
-        title="сортировать по убыванию">
+      <th class="col column-sortable">
         <span><span class="sorting-indicator"></span></span>
       </th>
-      <th>
+      <th class="col column-sortable" [attr.title]="getColTitle('general')" (click)="sort('general')">
         <span></span>
       </th>
       <th class="right" style="width: 150px;">
@@ -40,15 +28,12 @@
     </tr>
   </thead>
   <tbody>
-    <tr *ngFor="let company of companies; odd as isOdd" [ngClass]="{'odd': isOdd}">
+    <tr *ngFor="let company of rows; odd as isOdd" [ngClass]="{'odd': isOdd}">
       <td class="col">{{ company.name }}</td>
       <td>{{ company.phone  | mask: '+0 (000) 000-00-00'}} </td>
       <td>{{ company.email }}</td>
       <td>{{ company.inn }}</td>
-      <td>
-        <ng-container *ngTemplateOutlet="fio; context: {employee: findEmployeeById(company.responsible_person_id)}">
-        </ng-container>
-      </td>
+      <td>{{ company.responsible_person_fio }}</td>
       <td></td>
       <td>
         <form class="form">

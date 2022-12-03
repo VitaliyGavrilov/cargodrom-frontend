@@ -30,7 +30,7 @@ export abstract class SettingsTable<T extends { id: number }> implements OnInit,
     private route: ActivatedRoute,
     private router: Router,
     private dialog: MatDialog,
-    private snackBar: MatSnackBar,
+    protected snackBar: MatSnackBar,
   ) {
   }
 
@@ -46,7 +46,7 @@ export abstract class SettingsTable<T extends { id: number }> implements OnInit,
       });
   }
 
-  private loadRows(): void {
+  protected loadRows(): void {
     const sortCol: SortColumn<T> = {
       field: this.sortCol,
       dir: this.sortDir,
