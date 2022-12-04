@@ -31,7 +31,7 @@ export class DepartmentComponent extends Table<Department> {
   sortField = this.columns[0].field;
 
   override nameField = 'name' as const;
-  removedMessage = `Подразделение удалено`;
+  override removedMessage = `Подразделение удалено`;
 
   constructor(
     private companyService: CompanyService,
@@ -47,7 +47,7 @@ export class DepartmentComponent extends Table<Department> {
     return this.companyService.companyDepartmentList(params as any) as Observable<{ total: number; items: Department[]; }>;
   }
 
-  delete(params: { body: { id: number; } }): Observable<void> {
+  override delete(params: { body: { id: number; } }): Observable<void> {
     return this.companyService.companyDepartmentDelete(params) as unknown as Observable<void>;
   }
 

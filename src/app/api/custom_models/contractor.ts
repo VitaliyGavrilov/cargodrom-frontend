@@ -1,7 +1,7 @@
 import { Contact } from "./contact";
 
 export interface Contractor {
-  id?: number;
+  id: number;
   name?: string;
   ind?: string | number;
   name_f?: string,

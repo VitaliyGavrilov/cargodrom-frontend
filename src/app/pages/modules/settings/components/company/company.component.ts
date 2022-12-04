@@ -14,7 +14,7 @@ import { Observable } from 'rxjs';
   styleUrls: ['./company.component.scss', '../../main-table.scss']
 })
 export class CompanyComponent extends Table<Company> {
-  removedMessage = `Компания удалена`;
+  override removedMessage = `Компания удалена`;
   sortField = 'name' as keyof Company;
 
   constructor(
@@ -31,7 +31,7 @@ export class CompanyComponent extends Table<Company> {
     return this.companyService.companyList(params as any) as unknown as Observable<{ total: number; items: Company[]; }>;
   }
 
-  delete(params: { body: { id: number; } }): Observable<void> {
+  override delete(params: { body: { id: number; } }): Observable<void> {
     return this.companyService.companyDelete(params) as unknown as Observable<void>;
   }
 

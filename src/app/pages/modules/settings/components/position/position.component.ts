@@ -18,7 +18,7 @@ import { SortColumn } from 'src/app/api/custom_models/sort-column';
 })
 export class PositionComponent extends Table<Position> {
   
-  removedMessage = `Должность удалена`;
+  override removedMessage = `Должность удалена`;
   sortField = 'name' as keyof Position;
 
   constructor(
@@ -35,7 +35,7 @@ export class PositionComponent extends Table<Position> {
     return this.companyService.companyPositionList(params as any) as unknown as Observable<{ total: number; items: Position[]; }>;
   }
 
-  delete(params: { body: { id: number; } }): Observable<void> {
+  override delete(params: { body: { id: number; } }): Observable<void> {
     return this.companyService.companyPositionDelete(params) as unknown as Observable<void>;
   }
 

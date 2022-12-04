@@ -20,7 +20,7 @@ import { CompanyService } from './../../../../../api/services/company.service';
 export class EmployeeComponent extends Table<Employee, 'fio'> {
   trackById = (_index: number, employee: Employee) => employee.id;
 
-  removedMessage = `Сотрудник удален`;
+  override removedMessage = `Сотрудник удален`;
   sortField = 'fio' as const;
   override nameField = 'fio' as const;
 
@@ -39,7 +39,7 @@ export class EmployeeComponent extends Table<Employee, 'fio'> {
     return this.companyService.companyEmployeeList(params as any) as unknown as Observable<{ total: number; items: Employee[]; }>;
   }
 
-  delete(params: { body: { id: number; } }): Observable<void> {
+  override delete(params: { body: { id: number; } }): Observable<void> {
     return this.companyService.companyEmployeeDelete(params) as unknown as Observable<void>;
   }
 

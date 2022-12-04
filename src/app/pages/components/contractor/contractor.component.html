@@ -28,19 +28,19 @@
     <tbody>
       <tr>
         <th>№</th>
-        <th>Подрядчик</th>
-        <th>Страна</th>
+        <th class="col column-sortable" [attr.title]="getColTitle('name')" (click)="sort('name')">Подрядчик</th>
+        <th class="col column-sortable" [attr.title]="getColTitle('country_name')" (click)="sort('country_name')">Страна</th>
         <th class="l">Специализация</th>
         <th>Грузы</th>
-        <th class="l">Рейтинг</th>
+        <th class="l col column-sortable" [attr.title]="getColTitle('rating_nps_text')" (click)="sort('rating_nps_text')">Рейтинг</th>
         <th>Результаты торгов</th>
-        <th>Допуск</th>
+        <th class="col column-sortable" [attr.title]="getColTitle('exclude_from_trade')" (click)="sort('exclude_from_trade')">Допуск</th>
         <th>Средняя скорость ответа</th>
         <th>ФОЗ</th>
         <th class="l">Контактные лица</th>
         <th>Связь</th>
       </tr>
-      <tr *ngFor="let contractor of contractors; index as i; trackBy:trackById" [ngClass]="{'odd': i % 2 == 1}">
+      <tr *ngFor="let contractor of rows; index as i; trackBy:trackById" [ngClass]="{'odd': i % 2 == 1}">
         <td>{{ start + i + 1 }}</td>
         <td><a class="link" [routerLink]="[contractor.id]">{{ contractor.name }}</a></td>
         <td>{{ contractor.country_name }} </td>
@@ -63,7 +63,7 @@
           <span *ngIf="!contractor.exclude_from_trade" class="success b">Есть</span>
           <span *ngIf="contractor.exclude_from_trade" class="fail b">Нет</span>
         </td>
-        <td>{{ contractor.avg_answer_time | number}} мин.</td>
+        <td>{{ contractor.avg_answer_time || 0 | number }} мин.</td>
         <td></td>
         <td class="l">
           <ng-container *ngFor="let contact of contractor.contacts">

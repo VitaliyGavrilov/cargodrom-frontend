@@ -18,7 +18,7 @@ import { SortColumn } from 'src/app/api/custom_models/sort-column';
 })
 export class DepartmentEmployeeComponent extends Table<Employee, 'fio'> {
   @Input() departmentId!: number;
-  removedMessage = `Сотрудник удален`;
+  override removedMessage = `Сотрудник удален`;
   sortField = 'fio' as const;
   override nameField = 'fio' as const;
 
@@ -38,7 +38,7 @@ export class DepartmentEmployeeComponent extends Table<Employee, 'fio'> {
     return this.companyService.companyEmployeeList(queryParams as any) as unknown as Observable<{ total: number; items: Employee[]; }>;
   }
 
-  delete(params: { body: { id: number; } }): Observable<void> {
+  override delete(params: { body: { id: number; } }): Observable<void> {
     return this.companyService.companyEmployeeDelete(params) as unknown as Observable<void>;
   }
 
