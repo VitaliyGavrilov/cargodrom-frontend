@@ -22,7 +22,7 @@
     </div>
   </div>
 </div>
-<app-contractor-filter (filterChange)="onFilterChange($event)"></app-contractor-filter>
+<app-contractor-filter [filter]="filter" (filterChange)="onFilterChange($event)"></app-contractor-filter>
 <div class="table">
   <table>
     <tbody>

@@ -17,6 +17,7 @@ export interface LoadParams<T, F> {
 export abstract class Table<T extends { id: number }, A = never, F = never> implements OnInit, OnDestroy {
   snackBarWithShortDuration: MatSnackBarConfig = { duration: 1000 };
   snackBarWithLongDuration: MatSnackBarConfig = { duration: 5000 };
+  filter?: F;
   protected abstract load<T>(params: LoadParams<T, F>): Observable<{ total: number, items: T[] }>;
 
   protected removedMessage: string = 'Запись удалена';
@@ -49,13 +50,14 @@ export abstract class Table<T extends { id: number }, A = never, F = never> impl
         this.count = this.getIntEnumParamSafely(queryParamMap, 'count', this.limits, this.count);
         this.sortField = this.getStringParamSafely(queryParamMap, 'sortCol', this.sortField as string) as keyof T;
         this.sortDir = this.getEnumParamSafely(queryParamMap, 'sortDir', ['asc', 'desc'], this.sortDir) as 'asc' | 'desc';
+        this.filter = this.getJsonParamSafely(queryParamMap, 'filter', {}) as F;
         this.loadRows();
       });
   }
 
-  protected loadRows(filter?: F): void {
+  protected loadRows(): void {
     const sortCol = this.getSort();
-    this.load({ start: this.start, count: this.count, sort: JSON.stringify(sortCol) as unknown as SortColumn<T>[], ...filter }).subscribe(rows => {
+    this.load({ start: this.start, count: this.count, sort: JSON.stringify(sortCol) as unknown as SortColumn<T>[], ...this.filter }).subscribe(rows => {
       this.rows = rows ? rows.items as T[] : [];
       this.total = rows.total;
     });
@@ -99,6 +101,19 @@ export abstract class Table<T extends { id: number }, A = never, F = never> impl
     }
     return fallback;
   }
+  
+  getJsonParamSafely(queryParamMap: ParamMap, name: string, fallback: any): unknown {
+    const value = queryParamMap.get(name);
+    if (value != null) {
+      try {
+        const json = JSON.parse(value);
+        return json;
+      } catch (e) {
+        return fallback;
+      }
+    }
+    return fallback;
+  }
 
   onStartChange(newStart: number): void {
     this.router.navigate(['.'], {
@@ -111,6 +126,24 @@ export abstract class Table<T extends { id: number }, A = never, F = never> impl
   onCountChange(newCount: number): void {
     this.router.navigate(['.'], {
       queryParams: { count: newCount, start: 0 },
+      queryParamsHandling: 'merge',
+      relativeTo: this.route,
+    });
+  }
+  
+  onFilterChange(filter: F): void {
+    const filterWithNonEmptyValue: any = {};
+    for (const key in filter) {
+      const value = filter[key];
+      if (value != null) {
+        if (!Array.isArray(value) || value.length > 0) {
+          filterWithNonEmptyValue[key] = value;
+        }
+      }
+    }
+    const hasKeys = Object.keys(filterWithNonEmptyValue).length > 0;
+    this.router.navigate(['.'], {
+      queryParams: { start: 0, filter: hasKeys? JSON.stringify(filterWithNonEmptyValue) : null},
       queryParamsHandling: 'merge',
       relativeTo: this.route,
     });

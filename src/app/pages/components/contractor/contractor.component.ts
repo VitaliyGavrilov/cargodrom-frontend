@@ -18,7 +18,6 @@ export class ContractorComponent extends Table<Contractor, never, ContractorFilt
   
   
   trackById = (_index: number, contractor: Contractor) => contractor.id!;
-  filter: ContractorFilter = {};
 
   constructor(
     private contractorService: ContractorService,
@@ -32,11 +31,6 @@ export class ContractorComponent extends Table<Contractor, never, ContractorFilt
   
   load<Contractor>(params: LoadParams<Contractor, ContractorFilter>): Observable<{ total: number; items: Contractor[]; }> {
     return this.contractorService.contractorList(params as any) as unknown as Observable<{ total: number; items: Contractor[]; }>;
-  }
-
-  onFilterChange(filter: ContractorFilter): void {
-    this.filter = filter;
-    this.loadRows(filter);
   }
 
 }
