@@ -163,6 +163,13 @@ export abstract class Table<T extends { id: number }, A = never, F = never> impl
       relativeTo: this.route,
     });
   }
+  
+  getSortClass(field: keyof T | A): string {
+    if (this.sortField === field) {
+      return this.sortDir === 'asc' ? 'sort-dir-asc' : 'sort-dir-desc';
+    }
+    return '';
+  }
 
   confirmRemove(row: T): void {
     this.dialog.open(this.removeDialogRef, { data: row }).afterClosed().subscribe(res => {

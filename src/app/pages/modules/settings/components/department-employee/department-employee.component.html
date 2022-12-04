@@ -4,16 +4,16 @@
 <table class="main-table fix-head table-61c20c0f4c8ddffee3f3624545fe9ea4">
   <thead *ngIf="rows.length > 0">
     <tr>
-      <th class="col column-sortable" style="width: 1px" [attr.title]="getColTitle('num')" (click)="sort('num')">
+      <th class="col column-sortable" style="width: 1px" [attr.title]="getColTitle('num')" (click)="sort('num')" [ngClass]="getSortClass('num')">
         <span><span class="sorting-indicator"></span></span>
       </th>
-      <th class="column-sortable" style="width: 250px;" [attr.title]="getColTitle('fio')" (click)="sort('fio')">
+      <th class="column-sortable" style="width: 250px;" [attr.title]="getColTitle('fio')" (click)="sort('fio')" [ngClass]="getSortClass('fio')">
         <span>Ф.И.О.<span class="sorting-indicator"></span></span>
       </th>
-      <th class="column-sortable" [attr.title]="getColTitle('position_name')" (click)="sort('position_name')">
+      <th class="column-sortable" [attr.title]="getColTitle('position_name')" (click)="sort('position_name')" [ngClass]="getSortClass('position_name')">
         <span>Должность<span class="sorting-indicator"></span></span>
       </th>
-      <th class="column-sortable" style="width: 300px;" [attr.title]="getColTitle('department_leader')" (click)="sort('department_leader')">
+      <th class="column-sortable" style="width: 300px;" [attr.title]="getColTitle('department_leader')" (click)="sort('department_leader')" [ngClass]="getSortClass('department_leader')">
         <span></span>
       </th>
       <th style="width: 65px;">

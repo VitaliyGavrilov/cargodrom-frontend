@@ -1,25 +1,25 @@
 <table class="main-table fix-head table-98a02492513816a6438bbd36fc9458a2">
   <thead>
     <tr>
-      <th class="col column-sortable" [attr.title]="getColTitle('fio')" (click)="sort('fio')">
+      <th class="col column-sortable" [attr.title]="getColTitle('fio')" (click)="sort('fio')" [ngClass]="getSortClass('fio')">
         <span>Ф.И.О.<span class="sorting-indicator"></span></span>
       </th>
-      <th class="column-sortable" [attr.title]="getColTitle('company_name')" (click)="sort('company_name')">
+      <th class="column-sortable" [attr.title]="getColTitle('company_name')" (click)="sort('company_name')" [ngClass]="getSortClass('company_name')">
         <span>Организация<span class="sorting-indicator"></span></span>
       </th>
-      <th class="column-sortable" [attr.title]="getColTitle('department_name')" (click)="sort('department_name')">
+      <th class="column-sortable" [attr.title]="getColTitle('department_name')" (click)="sort('department_name')" [ngClass]="getSortClass('department_name')">
         <span>Подразделение<span class="sorting-indicator"></span></span>
       </th>
-      <th class="column-sortable" [attr.title]="getColTitle('position_name')" (click)="sort('position_name')">
+      <th class="column-sortable" [attr.title]="getColTitle('position_name')" (click)="sort('position_name')" [ngClass]="getSortClass('position_name')">
         <span>Должность<span class="sorting-indicator"></span></span>
       </th>
-      <th class="column-sortable" [attr.title]="getColTitle('phone')" (click)="sort('phone')">
+      <th class="column-sortable" [attr.title]="getColTitle('phone')" (click)="sort('phone')" [ngClass]="getSortClass('phone')">
         <span>Телефон<span class="sorting-indicator"></span></span>
       </th>
-      <th class="column-sortable" [attr.title]="getColTitle('email')" (click)="sort('email')">
+      <th class="column-sortable" [attr.title]="getColTitle('email')" (click)="sort('email')" [ngClass]="getSortClass('email')">
         <span>E-mail<span class="sorting-indicator"></span></span>
       </th>
-      <th class="column-sortable" [attr.title]="getColTitle('birth_date')" (click)="sort('birth_date')">
+      <th class="column-sortable" [attr.title]="getColTitle('birth_date')" (click)="sort('birth_date')" [ngClass]="getSortClass('birth_date')">
         <span>Дата рожд.<span class="sorting-indicator"></span></span>
       </th>
       <th class="right" style="width: 80px;">

@@ -1,7 +1,7 @@
 <table class="main-table fix-head table-4e6cc9770d169fc6e17fab7fb0968f9b">
   <thead>
     <tr>
-      <th class="col column-sortable" [attr.title]="getColTitle('name')" (click)="sort('name')">
+      <th class="col column-sortable" [attr.title]="getColTitle('name')" (click)="sort('name')" [ngClass]="getSortClass('name')">
         <span>Название<span class="sorting-indicator"></span></span>
       </th>
       <th style="width: 40px;">

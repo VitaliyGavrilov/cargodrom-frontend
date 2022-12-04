@@ -28,13 +28,13 @@
     <tbody>
       <tr>
         <th>№</th>
-        <th class="col column-sortable" [attr.title]="getColTitle('name')" (click)="sort('name')">Подрядчик</th>
-        <th class="col column-sortable" [attr.title]="getColTitle('country_name')" (click)="sort('country_name')">Страна</th>
+        <th class="col column-sortable" [attr.title]="getColTitle('name')" (click)="sort('name')" [ngClass]="getSortClass('name')">Подрядчик</th>
+        <th class="col column-sortable" [attr.title]="getColTitle('country_name')" (click)="sort('country_name')" [ngClass]="getSortClass('country_name')">Страна</th>
         <th class="l">Специализация</th>
         <th>Грузы</th>
-        <th class="l col column-sortable" [attr.title]="getColTitle('rating_nps_text')" (click)="sort('rating_nps_text')">Рейтинг</th>
+        <th class="l col column-sortable" [attr.title]="getColTitle('rating_nps_text')" (click)="sort('rating_nps_text')" [ngClass]="getSortClass('rating_nps_text')">Рейтинг</th>
         <th>Результаты торгов</th>
-        <th class="col column-sortable" [attr.title]="getColTitle('exclude_from_trade')" (click)="sort('exclude_from_trade')">Допуск</th>
+        <th class="col column-sortable" [attr.title]="getColTitle('exclude_from_trade')" (click)="sort('exclude_from_trade')" [ngClass]="getSortClass('exclude_from_trade')">Допуск</th>
         <th>Средняя скорость ответа</th>
         <th>ФОЗ</th>
         <th class="l">Контактные лица</th>
