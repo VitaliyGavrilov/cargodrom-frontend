@@ -3,7 +3,7 @@ import { MatDialog } from '@angular/material/dialog';
 import { Employee } from './../../../../../api/custom_models/employee';
 import { CompanyService } from 'src/app/api/services/company.service';
 import { Component, Input } from '@angular/core';
-import { SettingsTable } from '../../classes/settings-table';
+import { Table } from '../../../../../classes';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Observable } from 'rxjs';
 import { SortColumn } from 'src/app/api/custom_models/sort-column';
@@ -16,7 +16,7 @@ import { SortColumn } from 'src/app/api/custom_models/sort-column';
     '../../main-table.scss'
   ]
 })
-export class DepartmentEmployeeComponent extends SettingsTable<Employee, 'fio'> {
+export class DepartmentEmployeeComponent extends Table<Employee, 'fio'> {
   @Input() departmentId!: number;
   removedMessage = `Сотрудник удален`;
   sortField = 'fio' as const;

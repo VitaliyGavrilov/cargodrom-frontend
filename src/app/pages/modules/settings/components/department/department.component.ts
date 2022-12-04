@@ -6,7 +6,7 @@ import { CompanyService } from './../../../../../api/services/company.service';
 import { Component, ViewEncapsulation } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { Observable } from 'rxjs';
-import { SettingsTable } from '../../classes/settings-table';
+import { Table } from '../../../../../classes';
 
 interface Column<T> extends Omit<SortColumn<T>, 'dir'> {
   title: string;
@@ -21,7 +21,7 @@ interface Column<T> extends Omit<SortColumn<T>, 'dir'> {
   ],
   encapsulation: ViewEncapsulation.None,
 })
-export class DepartmentComponent extends SettingsTable<Department> {
+export class DepartmentComponent extends Table<Department> {
   columns: Column<Department>[] = [
     { field: 'name', title: 'Название подразделения' },
     { field: 'count_position', title: 'Должностей' },

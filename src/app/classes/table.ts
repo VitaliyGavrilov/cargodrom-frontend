@@ -1,13 +1,13 @@
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { ActivatedRoute, ParamMap, Router } from '@angular/router';
-import { SortColumn } from './../../../../api/custom_models/sort-column';
+import { SortColumn } from '../api/custom_models/sort-column';
 import { Directive, OnInit, OnDestroy, ViewChild, TemplateRef } from '@angular/core';
 import { Observable, Subject, takeUntil } from 'rxjs';
 import { MatSnackBarConfig } from '@angular/material/snack-bar';
 import { MatDialog } from '@angular/material/dialog';
 
 @Directive()
-export abstract class SettingsTable<T extends { id: number }, A = never> implements OnInit, OnDestroy {
+export abstract class Table<T extends { id: number }, A = never> implements OnInit, OnDestroy {
   snackBarWithShortDuration: MatSnackBarConfig = { duration: 1000 };
   snackBarWithLongDuration: MatSnackBarConfig = { duration: 5000 };
   protected abstract load<T>(params: { start?: number, count?: number, sort?: SortColumn<T>[] }): Observable<{ total: number, items: T[] }>;

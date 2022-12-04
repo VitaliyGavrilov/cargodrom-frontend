@@ -3,7 +3,7 @@ import { MatDialog } from '@angular/material/dialog';
 import { Position } from './../../../../../api/custom_models/position';
 import { CompanyService } from './../../../../../api/services/company.service';
 import { Component } from '@angular/core';
-import { SettingsTable } from '../../classes/settings-table';
+import { Table } from '../../../../../classes';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Observable } from 'rxjs';
 import { SortColumn } from 'src/app/api/custom_models/sort-column';
@@ -16,7 +16,7 @@ import { SortColumn } from 'src/app/api/custom_models/sort-column';
     '../../main-table.scss'
   ]
 })
-export class PositionComponent extends SettingsTable<Position> {
+export class PositionComponent extends Table<Position> {
   
   removedMessage = `Должность удалена`;
   sortField = 'name' as keyof Position;

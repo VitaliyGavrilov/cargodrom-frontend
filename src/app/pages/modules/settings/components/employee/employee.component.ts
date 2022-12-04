@@ -4,7 +4,7 @@ import { MatSnackBar } from '@angular/material/snack-bar';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Observable } from 'rxjs';
 import { SortColumn } from '../../../../../api/custom_models/sort-column';
-import { SettingsTable } from '../../classes/settings-table';
+import { Table } from '../../../../../classes';
 import { Employee } from './../../../../../api/custom_models';
 import { CompanyService } from './../../../../../api/services/company.service';
 
@@ -17,7 +17,7 @@ import { CompanyService } from './../../../../../api/services/company.service';
   ],
   encapsulation: ViewEncapsulation.None,
 })
-export class EmployeeComponent extends SettingsTable<Employee, 'fio'> {
+export class EmployeeComponent extends Table<Employee, 'fio'> {
   trackById = (_index: number, employee: Employee) => employee.id;
 
   removedMessage = `Сотрудник удален`;

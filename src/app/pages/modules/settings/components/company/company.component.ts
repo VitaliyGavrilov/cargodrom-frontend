@@ -3,7 +3,7 @@ import { Company } from './../../../../../api/custom_models/company';
 import { Component } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { MatSnackBar } from '@angular/material/snack-bar';
-import { SettingsTable } from '../../classes/settings-table';
+import { Table } from '../../../../../classes';
 import { ActivatedRoute, Router } from '@angular/router';
 import { SortColumn } from 'src/app/api/custom_models/sort-column';
 import { Observable } from 'rxjs';
@@ -13,7 +13,7 @@ import { Observable } from 'rxjs';
   templateUrl: './company.component.html',
   styleUrls: ['./company.component.scss', '../../main-table.scss']
 })
-export class CompanyComponent extends SettingsTable<Company> {
+export class CompanyComponent extends Table<Company> {
   removedMessage = `Компания удалена`;
   sortField = 'name' as keyof Company;
 
