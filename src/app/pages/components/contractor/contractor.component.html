@@ -33,7 +33,7 @@
         <th class="l">Специализация</th>
         <th>Грузы</th>
         <th class="l col column-sortable" [attr.title]="getColTitle('rating_nps_text')" (click)="sort('rating_nps_text')" [ngClass]="getSortClass('rating_nps_text')">Рейтинг</th>
-        <th>Результаты торгов</th>
+        <th class="col column-sortable" [attr.title]="getColTitle('trade_rating')" (click)="sort('trade_rating')" [ngClass]="getSortClass('trade_rating')">Результаты торгов</th>
         <th class="col column-sortable" [attr.title]="getColTitle('exclude_from_trade')" (click)="sort('exclude_from_trade')" [ngClass]="getSortClass('exclude_from_trade')">Допуск</th>
         <th class="col column-sortable" [attr.title]="getColTitle('avg_answer_time')" (click)="sort('avg_answer_time')" [ngClass]="getSortClass('avg_answer_time')">Средняя скорость ответа</th>
         <th>ФОЗ</th>

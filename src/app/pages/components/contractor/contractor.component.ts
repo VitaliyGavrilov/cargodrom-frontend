@@ -13,7 +13,7 @@ import { Observable } from 'rxjs';
   styleUrls: ['./contractor.component.scss']
 })
 
-export class ContractorComponent extends Table<Contractor, never, ContractorFilter> {
+export class ContractorComponent extends Table<Contractor, 'trade_rating', ContractorFilter> {
   sortField = 'name' as const;
   
   
@@ -27,6 +27,7 @@ export class ContractorComponent extends Table<Contractor, never, ContractorFilt
     router: Router,
   ) {
     super(route, router, dialog, snackBar);
+    this.registerAlias('trade_rating', ['trade_count', 'trade_success_count', 'trade_fail_count']);
   }
   
   load<Contractor>(params: LoadParams<Contractor, ContractorFilter>): Observable<{ total: number; items: Contractor[]; }> {
