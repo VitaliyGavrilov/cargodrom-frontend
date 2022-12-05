@@ -555,6 +555,11 @@ export class ContractorService extends BaseService {
 'user_rating_nps'?: number;
 
 /**
+ * Средняя скорость ответа
+ */
+'avg_answer_time': string;
+
+/**
  * Отзывы по работе с подрядчиком (всего)
  */
 'review_count'?: number;
@@ -878,6 +883,11 @@ export class ContractorService extends BaseService {
          * Моя оценка подрядчика (NPS)
          */
         'user_rating_nps'?: number;
+        
+        /**
+         * Средняя скорость ответа
+         */
+        'avg_answer_time': string;
         
         /**
          * Отзывы по работе с подрядчиком (всего)
@@ -1253,6 +1263,11 @@ export class ContractorService extends BaseService {
 'user_rating_nps'?: number;
 
 /**
+ * Средняя скорость ответа
+ */
+'avg_answer_time': string;
+
+/**
  * Отзывы по работе с подрядчиком (всего)
  */
 'review_count'?: number;
@@ -1560,6 +1575,11 @@ export class ContractorService extends BaseService {
 'user_rating_nps'?: number;
 
 /**
+ * Средняя скорость ответа
+ */
+'avg_answer_time': string;
+
+/**
  * Отзывы по работе с подрядчиком (всего)
  */
 'review_count'?: number;
@@ -1862,6 +1882,11 @@ export class ContractorService extends BaseService {
  * Моя оценка подрядчика (NPS)
  */
 'user_rating_nps'?: number;
+
+/**
+ * Средняя скорость ответа
+ */
+'avg_answer_time': string;
 
 /**
  * Отзывы по работе с подрядчиком (всего)
@@ -2190,6 +2215,11 @@ export class ContractorService extends BaseService {
 'user_rating_nps'?: number;
 
 /**
+ * Средняя скорость ответа
+ */
+'avg_answer_time': string;
+
+/**
  * Отзывы по работе с подрядчиком (всего)
  */
 'review_count'?: number;
@@ -2495,6 +2525,11 @@ export class ContractorService extends BaseService {
          * Моя оценка подрядчика (NPS)
          */
         'user_rating_nps'?: number;
+        
+        /**
+         * Средняя скорость ответа
+         */
+        'avg_answer_time': string;
         
         /**
          * Отзывы по работе с подрядчиком (всего)
@@ -2813,6 +2848,11 @@ export class ContractorService extends BaseService {
 'user_rating_nps'?: number;
 
 /**
+ * Средняя скорость ответа
+ */
+'avg_answer_time': string;
+
+/**
  * Отзывы по работе с подрядчиком (всего)
  */
 'review_count'?: number;
@@ -3109,6 +3149,11 @@ export class ContractorService extends BaseService {
 'user_rating_nps'?: number;
 
 /**
+ * Средняя скорость ответа
+ */
+'avg_answer_time': string;
+
+/**
  * Отзывы по работе с подрядчиком (всего)
  */
 'review_count'?: number;
@@ -3400,6 +3445,11 @@ export class ContractorService extends BaseService {
  * Моя оценка подрядчика (NPS)
  */
 'user_rating_nps'?: number;
+
+/**
+ * Средняя скорость ответа
+ */
+'avg_answer_time': string;
 
 /**
  * Отзывы по работе с подрядчиком (всего)

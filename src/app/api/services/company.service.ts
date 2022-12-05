@@ -147,6 +147,11 @@ export class CompanyService extends BaseService {
 'responsible_person_id'?: number;
 
 /**
+ * Ф.И.О.
+ */
+'responsible_person_fio'?: string;
+
+/**
  * Должность
  */
 'responsible_person_position'?: string;
@@ -393,6 +398,11 @@ export class CompanyService extends BaseService {
          * Ф.И.О.
          */
         'responsible_person_id'?: number;
+        
+        /**
+         * Ф.И.О.
+         */
+        'responsible_person_fio'?: string;
         
         /**
          * Должность
@@ -671,6 +681,11 @@ export class CompanyService extends BaseService {
 'responsible_person_id'?: number;
 
 /**
+ * Ф.И.О.
+ */
+'responsible_person_fio'?: string;
+
+/**
  * Должность
  */
 'responsible_person_position'?: string;
@@ -906,6 +921,11 @@ export class CompanyService extends BaseService {
 'responsible_person_id'?: number;
 
 /**
+ * Ф.И.О.
+ */
+'responsible_person_fio'?: string;
+
+/**
  * Должность
  */
 'responsible_person_position'?: string;
@@ -1136,6 +1156,11 @@ export class CompanyService extends BaseService {
  * Ф.И.О.
  */
 'responsible_person_id'?: number;
+
+/**
+ * Ф.И.О.
+ */
+'responsible_person_fio'?: string;
 
 /**
  * Должность
@@ -1392,6 +1417,11 @@ export class CompanyService extends BaseService {
 'responsible_person_id'?: number;
 
 /**
+ * Ф.И.О.
+ */
+'responsible_person_fio'?: string;
+
+/**
  * Должность
  */
 'responsible_person_position'?: string;
@@ -1625,6 +1655,11 @@ export class CompanyService extends BaseService {
          * Ф.И.О.
          */
         'responsible_person_id'?: number;
+        
+        /**
+         * Ф.И.О.
+         */
+        'responsible_person_fio'?: string;
         
         /**
          * Должность
@@ -1871,6 +1906,11 @@ export class CompanyService extends BaseService {
 'responsible_person_id'?: number;
 
 /**
+ * Ф.И.О.
+ */
+'responsible_person_fio'?: string;
+
+/**
  * Должность
  */
 'responsible_person_position'?: string;
@@ -2095,6 +2135,11 @@ export class CompanyService extends BaseService {
 'responsible_person_id'?: number;
 
 /**
+ * Ф.И.О.
+ */
+'responsible_person_fio'?: string;
+
+/**
  * Должность
  */
 'responsible_person_position'?: string;
@@ -2314,6 +2359,11 @@ export class CompanyService extends BaseService {
  * Ф.И.О.
  */
 'responsible_person_id'?: number;
+
+/**
+ * Ф.И.О.
+ */
+'responsible_person_fio'?: string;
 
 /**
  * Должность
