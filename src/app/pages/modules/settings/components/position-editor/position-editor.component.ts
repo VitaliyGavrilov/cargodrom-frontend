@@ -15,7 +15,7 @@ import { Location } from '@angular/common';
 })
 export class PositionEditorComponent extends SettingsEditor<Position> implements OnInit {
   private entity = 'Должность';
-  editTitle = 'Редактирование должности';
+  editTitle = 'Информация о должности';
   newTitle = 'Добавление должности';
   savedMessage = `${this.entity} сохранена`;
   removedMessage = `${this.entity} удалена`;
@@ -52,5 +52,9 @@ export class PositionEditorComponent extends SettingsEditor<Position> implements
    protected delete(params: {body: { id: number; }}): Observable<void> {
      return this.companyService.companyPositionDelete(params) as unknown as Observable<void>;
    }
+   
+   protected getNameForHeader(body: Position): string {
+    return body.name;
+  }
 
 }

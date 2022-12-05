@@ -17,7 +17,7 @@ import { SettingsEditor } from '../../classes/settings-editor';
 })
 export class EmployeeEditorComponent extends SettingsEditor<Employee> implements OnInit {
   private entity = 'Сотрудник';
-  editTitle = 'Редактирование сотрудника';
+  editTitle = 'Информация о сотруднике';
   newTitle = 'Добавление сотрудника';
   savedMessage = `${this.entity} сохранен`;
   removedMessage = `${this.entity} удален`;
@@ -77,5 +77,9 @@ export class EmployeeEditorComponent extends SettingsEditor<Employee> implements
 
   protected delete(params: { body: { id: number; } }): Observable<void> {
     return this.companyService.companyEmployeeDelete(params) as unknown as Observable<void>;
+  }
+  
+  protected getNameForHeader(body: Employee): string {
+    return `${body.name_f} ${body.name_i} ${body.name_o}`;
   }
 }

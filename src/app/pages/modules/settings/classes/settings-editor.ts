@@ -31,12 +31,15 @@ export abstract class SettingsEditor<T> implements OnInit {
   abstract removedMessage: string;
   abstract createdMessage: string;
   abstract notFoundMessage: string;
+  nameForHeader?: string;
 
   private currentTitle = '';
   protected abstract create(params: { body: Omit<T, 'id'> }): Observable<{id: number}>;
   protected abstract read(params: { id: number }): Observable<T>;
   protected abstract update(params: { body: Partial<T> }): Observable<void>;
   protected abstract delete(params: { body: { id: number } }): Observable<void>;
+  
+  protected abstract getNameForHeader(body: T): string;
 
   constructor(
     protected location: Location,
@@ -172,6 +175,7 @@ export abstract class SettingsEditor<T> implements OnInit {
         next: data => {
           this.data = data as T;
           this.form.patchValue(this.data);
+          this.nameForHeader = this.getNameForHeader(data as T);
         },
         error: (err: any) => this.showErrorAndGoBack(err, this.notFoundMessage)
       });

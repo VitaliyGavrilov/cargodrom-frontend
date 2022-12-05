@@ -2,7 +2,8 @@
   <div class="placer">
     <a (click)="goBack()" class="title">
       {{ title }}
-      <div class="req-fields">Обязательные поля: <span class="req">•</span> </div>
+      <div class="req-fields" *ngIf="!isEditMode">Обязательные поля: <span class="req">•</span> </div>
+      <div class="req-fields" *ngIf="isEditMode">{{ name }}</div>
     </a>
     <div class="div"></div>
     <div class="fn">

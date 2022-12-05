@@ -36,6 +36,7 @@ export class ContractorEditorComponent implements OnInit {
   production = environment.production;
   title = '';
   taxSystems: TaxSystem[] = [];
+  nameForHeader?: string;
 
   constructor(
     private route: ActivatedRoute,
@@ -75,7 +76,7 @@ export class ContractorEditorComponent implements OnInit {
     if (this.isEditMode) {
       this.getContractor();
     }
-    this.title = this.isEditMode ? 'Редактирование подрядчика' : 'Добавление подрядчика';
+    this.title = this.isEditMode ? 'Информация о подрядчике' : 'Добавление подрядчика';
     this.getContractorTypes();
     this.getAssociations();
     this.getCountries();
@@ -216,6 +217,7 @@ export class ContractorEditorComponent implements OnInit {
           if (typeof contractor.country_id === 'number') {
             this.getCities(contractor.country_id);
           }
+          this.nameForHeader = contractor.name;
         },
         error: (err: any) => {
           this.snackBar.open(`Подрядчик не найден: ` + err.error.error_message, undefined, this.snackBarWithShortDuration);
