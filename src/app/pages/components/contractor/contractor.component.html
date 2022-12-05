@@ -35,7 +35,7 @@
         <th class="l col column-sortable" [attr.title]="getColTitle('rating_nps_text')" (click)="sort('rating_nps_text')" [ngClass]="getSortClass('rating_nps_text')">Рейтинг</th>
         <th>Результаты торгов</th>
         <th class="col column-sortable" [attr.title]="getColTitle('exclude_from_trade')" (click)="sort('exclude_from_trade')" [ngClass]="getSortClass('exclude_from_trade')">Допуск</th>
-        <th>Средняя скорость ответа</th>
+        <th class="col column-sortable" [attr.title]="getColTitle('avg_answer_time')" (click)="sort('avg_answer_time')" [ngClass]="getSortClass('avg_answer_time')">Средняя скорость ответа</th>
         <th>ФОЗ</th>
         <th class="l">Контактные лица</th>
         <th>Связь</th>
@@ -63,7 +63,7 @@
           <span *ngIf="!contractor.exclude_from_trade" class="success b">Есть</span>
           <span *ngIf="contractor.exclude_from_trade" class="fail b">Нет</span>
         </td>
-        <td>{{ contractor.avg_answer_time || 0 | number }} мин.</td>
+        <td>{{ contractor.avg_answer_time }}</td>
         <td></td>
         <td class="l">
           <ng-container *ngFor="let contact of contractor.contacts">
