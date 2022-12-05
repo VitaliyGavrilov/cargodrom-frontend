@@ -18,7 +18,7 @@ import { Location } from '@angular/common';
 export class DepartmentEditorComponent extends SettingsEditor<Department> implements OnInit {
   departmentId?: number;
   private entity = 'Подразделение';
-  editTitle = 'Редактирование подразделения';
+  editTitle = 'Информация о подразделении';
   newTitle = 'Добавление подразделения';
   savedMessage = `${this.entity} сохранено`;
   removedMessage = `${this.entity} удалено`;
@@ -61,6 +61,10 @@ export class DepartmentEditorComponent extends SettingsEditor<Department> implem
 
   protected delete(params: { body: { id: number; } }): Observable<void> {
     return this.companyService.companyDepartmentDelete(params) as unknown as Observable<void>;
+  }
+  
+  protected getNameForHeader(body: Department): string {
+    return body.name;
   }
 
 }
