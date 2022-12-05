@@ -178,7 +178,7 @@ export class ContractorEditorComponent implements OnInit {
 
   private getContractorTypes() {
     this.contractorService.contractorType()
-      .subscribe(contractorTypes => this.contractorTypes = contractorTypes as ContractorType[]);
+      .subscribe(contractorTypes => this.contractorTypes = contractorTypes as unknown as ContractorType[]);
   }
 
   private getCountries() {
