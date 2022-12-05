@@ -1,7 +1,7 @@
 /* tslint:disable */
 /* eslint-disable */
 import { Injectable } from '@angular/core';
-import { HttpClient, HttpResponse } from '@angular/common/http';
+import { HttpClient, HttpResponse, HttpContext } from '@angular/common/http';
 import { BaseService } from '../base-service';
 import { ApiConfiguration } from '../api-configuration';
 import { StrictHttpResponse } from '../strict-http-response';
@@ -51,7 +51,25 @@ export class CompanyService extends BaseService {
      * Лимит позиций на страницу
      */
     count?: number;
-  }): Observable<StrictHttpResponse<{
+
+    /**
+     * Сортировка
+     */
+    sort?: Array<{
+
+/**
+ * Поле
+ */
+'field': string;
+
+/**
+ * Направление сортировки
+ */
+'dir': 'asc' | 'desc';
+}>;
+    context?: HttpContext
+  }
+): Observable<StrictHttpResponse<{
 
 /**
  * Позиции
@@ -127,6 +145,11 @@ export class CompanyService extends BaseService {
  * Ф.И.О.
  */
 'responsible_person_id'?: number;
+
+/**
+ * Ф.И.О.
+ */
+'responsible_person_fio'?: string;
 
 /**
  * Должность
@@ -289,11 +312,13 @@ export class CompanyService extends BaseService {
     if (params) {
       rb.query('start', params.start, {});
       rb.query('count', params.count, {});
+      rb.query('sort', params.sort, {"style":"form","explode":false});
     }
 
     return this.http.request(rb.build({
       responseType: 'json',
-      accept: 'application/json'
+      accept: 'application/json',
+      context: params?.context
     })).pipe(
       filter((r: any) => r instanceof HttpResponse),
       map((r: HttpResponse<any>) => {
@@ -373,6 +398,11 @@ export class CompanyService extends BaseService {
          * Ф.И.О.
          */
         'responsible_person_id'?: number;
+        
+        /**
+         * Ф.И.О.
+         */
+        'responsible_person_fio'?: string;
         
         /**
          * Должность
@@ -555,7 +585,25 @@ export class CompanyService extends BaseService {
      * Лимит позиций на страницу
      */
     count?: number;
-  }): Observable<{
+
+    /**
+     * Сортировка
+     */
+    sort?: Array<{
+
+/**
+ * Поле
+ */
+'field': string;
+
+/**
+ * Направление сортировки
+ */
+'dir': 'asc' | 'desc';
+}>;
+    context?: HttpContext
+  }
+): Observable<{
 
 /**
  * Позиции
@@ -631,6 +679,11 @@ export class CompanyService extends BaseService {
  * Ф.И.О.
  */
 'responsible_person_id'?: number;
+
+/**
+ * Ф.И.О.
+ */
+'responsible_person_fio'?: string;
 
 /**
  * Должность
@@ -868,6 +921,11 @@ export class CompanyService extends BaseService {
 'responsible_person_id'?: number;
 
 /**
+ * Ф.И.О.
+ */
+'responsible_person_fio'?: string;
+
+/**
  * Должность
  */
 'responsible_person_position'?: string;
@@ -1100,6 +1158,11 @@ export class CompanyService extends BaseService {
 'responsible_person_id'?: number;
 
 /**
+ * Ф.И.О.
+ */
+'responsible_person_fio'?: string;
+
+/**
  * Должность
  */
 'responsible_person_position'?: string;
@@ -1279,7 +1342,9 @@ export class CompanyService extends BaseService {
      * ID компании
      */
     id: number;
-  }): Observable<StrictHttpResponse<{
+    context?: HttpContext
+  }
+): Observable<StrictHttpResponse<{
 
 /**
  * ID
@@ -1350,6 +1415,11 @@ export class CompanyService extends BaseService {
  * Ф.И.О.
  */
 'responsible_person_id'?: number;
+
+/**
+ * Ф.И.О.
+ */
+'responsible_person_fio'?: string;
 
 /**
  * Должность
@@ -1509,7 +1579,8 @@ export class CompanyService extends BaseService {
 
     return this.http.request(rb.build({
       responseType: 'json',
-      accept: 'application/json'
+      accept: 'application/json',
+      context: params?.context
     })).pipe(
       filter((r: any) => r instanceof HttpResponse),
       map((r: HttpResponse<any>) => {
@@ -1584,6 +1655,11 @@ export class CompanyService extends BaseService {
          * Ф.И.О.
          */
         'responsible_person_id'?: number;
+        
+        /**
+         * Ф.И.О.
+         */
+        'responsible_person_fio'?: string;
         
         /**
          * Должность
@@ -1755,7 +1831,9 @@ export class CompanyService extends BaseService {
      * ID компании
      */
     id: number;
-  }): Observable<{
+    context?: HttpContext
+  }
+): Observable<{
 
 /**
  * ID
@@ -1826,6 +1904,11 @@ export class CompanyService extends BaseService {
  * Ф.И.О.
  */
 'responsible_person_id'?: number;
+
+/**
+ * Ф.И.О.
+ */
+'responsible_person_fio'?: string;
 
 /**
  * Должность
@@ -2052,6 +2135,11 @@ export class CompanyService extends BaseService {
 'responsible_person_id'?: number;
 
 /**
+ * Ф.И.О.
+ */
+'responsible_person_fio'?: string;
+
+/**
  * Должность
  */
 'responsible_person_position'?: string;
@@ -2271,6 +2359,11 @@ export class CompanyService extends BaseService {
  * Ф.И.О.
  */
 'responsible_person_id'?: number;
+
+/**
+ * Ф.И.О.
+ */
+'responsible_person_fio'?: string;
 
 /**
  * Должность
@@ -2441,6 +2534,7 @@ export class CompanyService extends BaseService {
    * This method sends `application/json` and handles request body of type `application/json`.
    */
   companyCreate$Response(params?: {
+    context?: HttpContext
     body?: {
 
 /**
@@ -2648,7 +2742,8 @@ export class CompanyService extends BaseService {
  */
 'general'?: boolean;
 }
-  }): Observable<StrictHttpResponse<{
+  }
+): Observable<StrictHttpResponse<{
 
 /**
  * ID созданной записи
@@ -2658,7 +2753,7 @@ export class CompanyService extends BaseService {
 /**
  * Статус выполнения
  */
-'result': string;
+'result': 'success';
 }>> {
 
     const rb = new RequestBuilder(this.rootUrl, CompanyService.CompanyCreatePath, 'post');
@@ -2668,7 +2763,8 @@ export class CompanyService extends BaseService {
 
     return this.http.request(rb.build({
       responseType: 'json',
-      accept: 'application/json'
+      accept: 'application/json',
+      context: params?.context
     })).pipe(
       filter((r: any) => r instanceof HttpResponse),
       map((r: HttpResponse<any>) => {
@@ -2682,7 +2778,7 @@ export class CompanyService extends BaseService {
         /**
          * Статус выполнения
          */
-        'result': string;
+        'result': 'success';
         }>;
       })
     );
@@ -2699,6 +2795,7 @@ export class CompanyService extends BaseService {
    * This method sends `application/json` and handles request body of type `application/json`.
    */
   companyCreate(params?: {
+    context?: HttpContext
     body?: {
 
 /**
@@ -2906,7 +3003,8 @@ export class CompanyService extends BaseService {
  */
 'general'?: boolean;
 }
-  }): Observable<{
+  }
+): Observable<{
 
 /**
  * ID созданной записи
@@ -2916,7 +3014,7 @@ export class CompanyService extends BaseService {
 /**
  * Статус выполнения
  */
-'result': string;
+'result': 'success';
 }> {
 
     return this.companyCreate$Response(params).pipe(
@@ -2930,7 +3028,7 @@ export class CompanyService extends BaseService {
 /**
  * Статус выполнения
  */
-'result': string;
+'result': 'success';
 }>) => r.body as {
 
 /**
@@ -2941,7 +3039,7 @@ export class CompanyService extends BaseService {
 /**
  * Статус выполнения
  */
-'result': string;
+'result': 'success';
 })
     );
   }
@@ -2962,6 +3060,7 @@ export class CompanyService extends BaseService {
    * This method sends `application/json` and handles request body of type `application/json`.
    */
   companyUpdate$Response(params?: {
+    context?: HttpContext
     body?: {
 
 /**
@@ -3174,12 +3273,13 @@ export class CompanyService extends BaseService {
  */
 'general'?: boolean;
 }
-  }): Observable<StrictHttpResponse<{
+  }
+): Observable<StrictHttpResponse<{
 
 /**
  * Статус выполнения
  */
-'result': string;
+'result': 'success';
 }>> {
 
     const rb = new RequestBuilder(this.rootUrl, CompanyService.CompanyUpdatePath, 'post');
@@ -3189,7 +3289,8 @@ export class CompanyService extends BaseService {
 
     return this.http.request(rb.build({
       responseType: 'json',
-      accept: 'application/json'
+      accept: 'application/json',
+      context: params?.context
     })).pipe(
       filter((r: any) => r instanceof HttpResponse),
       map((r: HttpResponse<any>) => {
@@ -3198,7 +3299,7 @@ export class CompanyService extends BaseService {
         /**
          * Статус выполнения
          */
-        'result': string;
+        'result': 'success';
         }>;
       })
     );
@@ -3215,6 +3316,7 @@ export class CompanyService extends BaseService {
    * This method sends `application/json` and handles request body of type `application/json`.
    */
   companyUpdate(params?: {
+    context?: HttpContext
     body?: {
 
 /**
@@ -3427,12 +3529,13 @@ export class CompanyService extends BaseService {
  */
 'general'?: boolean;
 }
-  }): Observable<{
+  }
+): Observable<{
 
 /**
  * Статус выполнения
  */
-'result': string;
+'result': 'success';
 }> {
 
     return this.companyUpdate$Response(params).pipe(
@@ -3441,13 +3544,13 @@ export class CompanyService extends BaseService {
 /**
  * Статус выполнения
  */
-'result': string;
+'result': 'success';
 }>) => r.body as {
 
 /**
  * Статус выполнения
  */
-'result': string;
+'result': 'success';
 })
     );
   }
@@ -3468,6 +3571,7 @@ export class CompanyService extends BaseService {
    * This method sends `application/json` and handles request body of type `application/json`.
    */
   companyDelete$Response(params?: {
+    context?: HttpContext
     body?: {
 
 /**
@@ -3475,12 +3579,13 @@ export class CompanyService extends BaseService {
  */
 'id': number;
 }
-  }): Observable<StrictHttpResponse<{
+  }
+): Observable<StrictHttpResponse<{
 
 /**
  * Статус выполнения
  */
-'result': string;
+'result': 'success';
 }>> {
 
     const rb = new RequestBuilder(this.rootUrl, CompanyService.CompanyDeletePath, 'post');
@@ -3490,7 +3595,8 @@ export class CompanyService extends BaseService {
 
     return this.http.request(rb.build({
       responseType: 'json',
-      accept: 'application/json'
+      accept: 'application/json',
+      context: params?.context
     })).pipe(
       filter((r: any) => r instanceof HttpResponse),
       map((r: HttpResponse<any>) => {
@@ -3499,7 +3605,7 @@ export class CompanyService extends BaseService {
         /**
          * Статус выполнения
          */
-        'result': string;
+        'result': 'success';
         }>;
       })
     );
@@ -3516,6 +3622,7 @@ export class CompanyService extends BaseService {
    * This method sends `application/json` and handles request body of type `application/json`.
    */
   companyDelete(params?: {
+    context?: HttpContext
     body?: {
 
 /**
@@ -3523,12 +3630,13 @@ export class CompanyService extends BaseService {
  */
 'id': number;
 }
-  }): Observable<{
+  }
+): Observable<{
 
 /**
  * Статус выполнения
  */
-'result': string;
+'result': 'success';
 }> {
 
     return this.companyDelete$Response(params).pipe(
@@ -3537,13 +3645,13 @@ export class CompanyService extends BaseService {
 /**
  * Статус выполнения
  */
-'result': string;
+'result': 'success';
 }>) => r.body as {
 
 /**
  * Статус выполнения
  */
-'result': string;
+'result': 'success';
 })
     );
   }
@@ -3574,7 +3682,25 @@ export class CompanyService extends BaseService {
      * Лимит позиций на страницу
      */
     count?: number;
-  }): Observable<StrictHttpResponse<{
+
+    /**
+     * Сортировка
+     */
+    sort?: Array<{
+
+/**
+ * Поле
+ */
+'field': string;
+
+/**
+ * Направление сортировки
+ */
+'dir': 'asc' | 'desc';
+}>;
+    context?: HttpContext
+  }
+): Observable<StrictHttpResponse<{
 
 /**
  * Позиции
@@ -3607,6 +3733,11 @@ export class CompanyService extends BaseService {
 'num'?: number;
 
 /**
+ * Руководитель подразделения
+ */
+'leader_user'?: string;
+
+/**
  * ID Руководителя подразделения
  */
 'leader_user_id'?: number;
@@ -3632,11 +3763,13 @@ export class CompanyService extends BaseService {
     if (params) {
       rb.query('start', params.start, {});
       rb.query('count', params.count, {});
+      rb.query('sort', params.sort, {"style":"form","explode":false});
     }
 
     return this.http.request(rb.build({
       responseType: 'json',
-      accept: 'application/json'
+      accept: 'application/json',
+      context: params?.context
     })).pipe(
       filter((r: any) => r instanceof HttpResponse),
       map((r: HttpResponse<any>) => {
@@ -3671,6 +3804,11 @@ export class CompanyService extends BaseService {
          * Порядок (меньше - выше)
          */
         'num'?: number;
+        
+        /**
+         * Руководитель подразделения
+         */
+        'leader_user'?: string;
         
         /**
          * ID Руководителя подразделения
@@ -3718,7 +3856,25 @@ export class CompanyService extends BaseService {
      * Лимит позиций на страницу
      */
     count?: number;
-  }): Observable<{
+
+    /**
+     * Сортировка
+     */
+    sort?: Array<{
+
+/**
+ * Поле
+ */
+'field': string;
+
+/**
+ * Направление сортировки
+ */
+'dir': 'asc' | 'desc';
+}>;
+    context?: HttpContext
+  }
+): Observable<{
 
 /**
  * Позиции
@@ -3749,6 +3905,11 @@ export class CompanyService extends BaseService {
  * Порядок (меньше - выше)
  */
 'num'?: number;
+
+/**
+ * Руководитель подразделения
+ */
+'leader_user'?: string;
 
 /**
  * ID Руководителя подразделения
@@ -3806,6 +3967,11 @@ export class CompanyService extends BaseService {
 'num'?: number;
 
 /**
+ * Руководитель подразделения
+ */
+'leader_user'?: string;
+
+/**
  * ID Руководителя подразделения
  */
 'leader_user_id'?: number;
@@ -3858,6 +4024,11 @@ export class CompanyService extends BaseService {
 'num'?: number;
 
 /**
+ * Руководитель подразделения
+ */
+'leader_user'?: string;
+
+/**
  * ID Руководителя подразделения
  */
 'leader_user_id'?: number;
@@ -3902,7 +4073,9 @@ export class CompanyService extends BaseService {
      * ID подразделения
      */
     id?: number;
-  }): Observable<StrictHttpResponse<{
+    context?: HttpContext
+  }
+): Observable<StrictHttpResponse<{
 
 /**
  * ID
@@ -3952,7 +4125,8 @@ export class CompanyService extends BaseService {
 
     return this.http.request(rb.build({
       responseType: 'json',
-      accept: 'application/json'
+      accept: 'application/json',
+      context: params?.context
     })).pipe(
       filter((r: any) => r instanceof HttpResponse),
       map((r: HttpResponse<any>) => {
@@ -4018,7 +4192,9 @@ export class CompanyService extends BaseService {
      * ID подразделения
      */
     id?: number;
-  }): Observable<{
+    context?: HttpContext
+  }
+): Observable<{
 
 /**
  * ID
@@ -4164,6 +4340,7 @@ export class CompanyService extends BaseService {
    * This method sends `application/json` and handles request body of type `application/json`.
    */
   companyDepartmentCreate$Response(params?: {
+    context?: HttpContext
     body?: {
 
 /**
@@ -4176,7 +4353,8 @@ export class CompanyService extends BaseService {
  */
 'num'?: number;
 }
-  }): Observable<StrictHttpResponse<{
+  }
+): Observable<StrictHttpResponse<{
 
 /**
  * ID созданной записи
@@ -4186,7 +4364,7 @@ export class CompanyService extends BaseService {
 /**
  * Статус выполнения
  */
-'result': string;
+'result': 'success';
 }>> {
 
     const rb = new RequestBuilder(this.rootUrl, CompanyService.CompanyDepartmentCreatePath, 'post');
@@ -4196,7 +4374,8 @@ export class CompanyService extends BaseService {
 
     return this.http.request(rb.build({
       responseType: 'json',
-      accept: 'application/json'
+      accept: 'application/json',
+      context: params?.context
     })).pipe(
       filter((r: any) => r instanceof HttpResponse),
       map((r: HttpResponse<any>) => {
@@ -4210,7 +4389,7 @@ export class CompanyService extends BaseService {
         /**
          * Статус выполнения
          */
-        'result': string;
+        'result': 'success';
         }>;
       })
     );
@@ -4227,6 +4406,7 @@ export class CompanyService extends BaseService {
    * This method sends `application/json` and handles request body of type `application/json`.
    */
   companyDepartmentCreate(params?: {
+    context?: HttpContext
     body?: {
 
 /**
@@ -4239,7 +4419,8 @@ export class CompanyService extends BaseService {
  */
 'num'?: number;
 }
-  }): Observable<{
+  }
+): Observable<{
 
 /**
  * ID созданной записи
@@ -4249,7 +4430,7 @@ export class CompanyService extends BaseService {
 /**
  * Статус выполнения
  */
-'result': string;
+'result': 'success';
 }> {
 
     return this.companyDepartmentCreate$Response(params).pipe(
@@ -4263,7 +4444,7 @@ export class CompanyService extends BaseService {
 /**
  * Статус выполнения
  */
-'result': string;
+'result': 'success';
 }>) => r.body as {
 
 /**
@@ -4274,7 +4455,7 @@ export class CompanyService extends BaseService {
 /**
  * Статус выполнения
  */
-'result': string;
+'result': 'success';
 })
     );
   }
@@ -4295,6 +4476,7 @@ export class CompanyService extends BaseService {
    * This method sends `application/json` and handles request body of type `application/json`.
    */
   companyDepartmentUpdate$Response(params?: {
+    context?: HttpContext
     body?: {
 
 /**
@@ -4312,12 +4494,13 @@ export class CompanyService extends BaseService {
  */
 'num'?: number;
 }
-  }): Observable<StrictHttpResponse<{
+  }
+): Observable<StrictHttpResponse<{
 
 /**
  * Статус выполнения
  */
-'result': string;
+'result': 'success';
 }>> {
 
     const rb = new RequestBuilder(this.rootUrl, CompanyService.CompanyDepartmentUpdatePath, 'post');
@@ -4327,7 +4510,8 @@ export class CompanyService extends BaseService {
 
     return this.http.request(rb.build({
       responseType: 'json',
-      accept: 'application/json'
+      accept: 'application/json',
+      context: params?.context
     })).pipe(
       filter((r: any) => r instanceof HttpResponse),
       map((r: HttpResponse<any>) => {
@@ -4336,7 +4520,7 @@ export class CompanyService extends BaseService {
         /**
          * Статус выполнения
          */
-        'result': string;
+        'result': 'success';
         }>;
       })
     );
@@ -4353,6 +4537,7 @@ export class CompanyService extends BaseService {
    * This method sends `application/json` and handles request body of type `application/json`.
    */
   companyDepartmentUpdate(params?: {
+    context?: HttpContext
     body?: {
 
 /**
@@ -4370,12 +4555,13 @@ export class CompanyService extends BaseService {
  */
 'num'?: number;
 }
-  }): Observable<{
+  }
+): Observable<{
 
 /**
  * Статус выполнения
  */
-'result': string;
+'result': 'success';
 }> {
 
     return this.companyDepartmentUpdate$Response(params).pipe(
@@ -4384,13 +4570,13 @@ export class CompanyService extends BaseService {
 /**
  * Статус выполнения
  */
-'result': string;
+'result': 'success';
 }>) => r.body as {
 
 /**
  * Статус выполнения
  */
-'result': string;
+'result': 'success';
 })
     );
   }
@@ -4411,6 +4597,7 @@ export class CompanyService extends BaseService {
    * This method sends `application/json` and handles request body of type `application/json`.
    */
   companyDepartmentDelete$Response(params?: {
+    context?: HttpContext
     body?: {
 
 /**
@@ -4428,12 +4615,13 @@ export class CompanyService extends BaseService {
  */
 'with_staff'?: boolean;
 }
-  }): Observable<StrictHttpResponse<{
+  }
+): Observable<StrictHttpResponse<{
 
 /**
  * Статус выполнения
  */
-'result': string;
+'result': 'success';
 }>> {
 
     const rb = new RequestBuilder(this.rootUrl, CompanyService.CompanyDepartmentDeletePath, 'post');
@@ -4443,7 +4631,8 @@ export class CompanyService extends BaseService {
 
     return this.http.request(rb.build({
       responseType: 'json',
-      accept: 'application/json'
+      accept: 'application/json',
+      context: params?.context
     })).pipe(
       filter((r: any) => r instanceof HttpResponse),
       map((r: HttpResponse<any>) => {
@@ -4452,7 +4641,7 @@ export class CompanyService extends BaseService {
         /**
          * Статус выполнения
          */
-        'result': string;
+        'result': 'success';
         }>;
       })
     );
@@ -4469,6 +4658,7 @@ export class CompanyService extends BaseService {
    * This method sends `application/json` and handles request body of type `application/json`.
    */
   companyDepartmentDelete(params?: {
+    context?: HttpContext
     body?: {
 
 /**
@@ -4486,12 +4676,13 @@ export class CompanyService extends BaseService {
  */
 'with_staff'?: boolean;
 }
-  }): Observable<{
+  }
+): Observable<{
 
 /**
  * Статус выполнения
  */
-'result': string;
+'result': 'success';
 }> {
 
     return this.companyDepartmentDelete$Response(params).pipe(
@@ -4500,13 +4691,13 @@ export class CompanyService extends BaseService {
 /**
  * Статус выполнения
  */
-'result': string;
+'result': 'success';
 }>) => r.body as {
 
 /**
  * Статус выполнения
  */
-'result': string;
+'result': 'success';
 })
     );
   }
@@ -4537,7 +4728,25 @@ export class CompanyService extends BaseService {
      * Лимит позиций на страницу
      */
     count?: number;
-  }): Observable<StrictHttpResponse<{
+
+    /**
+     * Сортировка
+     */
+    sort?: Array<{
+
+/**
+ * Поле
+ */
+'field': string;
+
+/**
+ * Направление сортировки
+ */
+'dir': 'asc' | 'desc';
+}>;
+    context?: HttpContext
+  }
+): Observable<StrictHttpResponse<{
 
 /**
  * Позиции
@@ -4586,11 +4795,13 @@ export class CompanyService extends BaseService {
     if (params) {
       rb.query('start', params.start, {});
       rb.query('count', params.count, {});
+      rb.query('sort', params.sort, {"style":"form","explode":false});
     }
 
     return this.http.request(rb.build({
       responseType: 'json',
-      accept: 'application/json'
+      accept: 'application/json',
+      context: params?.context
     })).pipe(
       filter((r: any) => r instanceof HttpResponse),
       map((r: HttpResponse<any>) => {
@@ -4663,7 +4874,25 @@ export class CompanyService extends BaseService {
      * Лимит позиций на страницу
      */
     count?: number;
-  }): Observable<{
+
+    /**
+     * Сортировка
+     */
+    sort?: Array<{
+
+/**
+ * Поле
+ */
+'field': string;
+
+/**
+ * Направление сортировки
+ */
+'dir': 'asc' | 'desc';
+}>;
+    context?: HttpContext
+  }
+): Observable<{
 
 /**
  * Позиции
@@ -4820,7 +5049,9 @@ export class CompanyService extends BaseService {
      * ID должности
      */
     id: number;
-  }): Observable<StrictHttpResponse<{
+    context?: HttpContext
+  }
+): Observable<StrictHttpResponse<{
 
 /**
  * ID
@@ -4861,7 +5092,8 @@ export class CompanyService extends BaseService {
 
     return this.http.request(rb.build({
       responseType: 'json',
-      accept: 'application/json'
+      accept: 'application/json',
+      context: params?.context
     })).pipe(
       filter((r: any) => r instanceof HttpResponse),
       map((r: HttpResponse<any>) => {
@@ -4918,7 +5150,9 @@ export class CompanyService extends BaseService {
      * ID должности
      */
     id: number;
-  }): Observable<{
+    context?: HttpContext
+  }
+): Observable<{
 
 /**
  * ID
@@ -5037,6 +5271,7 @@ export class CompanyService extends BaseService {
    * This method sends `application/json` and handles request body of type `application/json`.
    */
   companyPositionCreate$Response(params?: {
+    context?: HttpContext
     body?: {
 
 /**
@@ -5055,7 +5290,8 @@ export class CompanyService extends BaseService {
  */
 'num'?: number;
 }
-  }): Observable<StrictHttpResponse<{
+  }
+): Observable<StrictHttpResponse<{
 
 /**
  * ID созданной записи
@@ -5065,7 +5301,7 @@ export class CompanyService extends BaseService {
 /**
  * Статус выполнения
  */
-'result': string;
+'result': 'success';
 }>> {
 
     const rb = new RequestBuilder(this.rootUrl, CompanyService.CompanyPositionCreatePath, 'post');
@@ -5075,7 +5311,8 @@ export class CompanyService extends BaseService {
 
     return this.http.request(rb.build({
       responseType: 'json',
-      accept: 'application/json'
+      accept: 'application/json',
+      context: params?.context
     })).pipe(
       filter((r: any) => r instanceof HttpResponse),
       map((r: HttpResponse<any>) => {
@@ -5089,7 +5326,7 @@ export class CompanyService extends BaseService {
         /**
          * Статус выполнения
          */
-        'result': string;
+        'result': 'success';
         }>;
       })
     );
@@ -5106,6 +5343,7 @@ export class CompanyService extends BaseService {
    * This method sends `application/json` and handles request body of type `application/json`.
    */
   companyPositionCreate(params?: {
+    context?: HttpContext
     body?: {
 
 /**
@@ -5124,7 +5362,8 @@ export class CompanyService extends BaseService {
  */
 'num'?: number;
 }
-  }): Observable<{
+  }
+): Observable<{
 
 /**
  * ID созданной записи
@@ -5134,7 +5373,7 @@ export class CompanyService extends BaseService {
 /**
  * Статус выполнения
  */
-'result': string;
+'result': 'success';
 }> {
 
     return this.companyPositionCreate$Response(params).pipe(
@@ -5148,7 +5387,7 @@ export class CompanyService extends BaseService {
 /**
  * Статус выполнения
  */
-'result': string;
+'result': 'success';
 }>) => r.body as {
 
 /**
@@ -5159,7 +5398,7 @@ export class CompanyService extends BaseService {
 /**
  * Статус выполнения
  */
-'result': string;
+'result': 'success';
 })
     );
   }
@@ -5180,6 +5419,7 @@ export class CompanyService extends BaseService {
    * This method sends `application/json` and handles request body of type `application/json`.
    */
   companyPositionUpdate$Response(params?: {
+    context?: HttpContext
     body?: {
 
 /**
@@ -5203,12 +5443,13 @@ export class CompanyService extends BaseService {
  */
 'num'?: number;
 }
-  }): Observable<StrictHttpResponse<{
+  }
+): Observable<StrictHttpResponse<{
 
 /**
  * Статус выполнения
  */
-'result': string;
+'result': 'success';
 }>> {
 
     const rb = new RequestBuilder(this.rootUrl, CompanyService.CompanyPositionUpdatePath, 'post');
@@ -5218,7 +5459,8 @@ export class CompanyService extends BaseService {
 
     return this.http.request(rb.build({
       responseType: 'json',
-      accept: 'application/json'
+      accept: 'application/json',
+      context: params?.context
     })).pipe(
       filter((r: any) => r instanceof HttpResponse),
       map((r: HttpResponse<any>) => {
@@ -5227,7 +5469,7 @@ export class CompanyService extends BaseService {
         /**
          * Статус выполнения
          */
-        'result': string;
+        'result': 'success';
         }>;
       })
     );
@@ -5244,6 +5486,7 @@ export class CompanyService extends BaseService {
    * This method sends `application/json` and handles request body of type `application/json`.
    */
   companyPositionUpdate(params?: {
+    context?: HttpContext
     body?: {
 
 /**
@@ -5267,12 +5510,13 @@ export class CompanyService extends BaseService {
  */
 'num'?: number;
 }
-  }): Observable<{
+  }
+): Observable<{
 
 /**
  * Статус выполнения
  */
-'result': string;
+'result': 'success';
 }> {
 
     return this.companyPositionUpdate$Response(params).pipe(
@@ -5281,13 +5525,13 @@ export class CompanyService extends BaseService {
 /**
  * Статус выполнения
  */
-'result': string;
+'result': 'success';
 }>) => r.body as {
 
 /**
  * Статус выполнения
  */
-'result': string;
+'result': 'success';
 })
     );
   }
@@ -5308,6 +5552,7 @@ export class CompanyService extends BaseService {
    * This method sends `application/json` and handles request body of type `application/json`.
    */
   companyPositionDelete$Response(params?: {
+    context?: HttpContext
     body?: {
 
 /**
@@ -5320,12 +5565,13 @@ export class CompanyService extends BaseService {
  */
 'delete_staff'?: boolean;
 }
-  }): Observable<StrictHttpResponse<{
+  }
+): Observable<StrictHttpResponse<{
 
 /**
  * Статус выполнения
  */
-'result': string;
+'result': 'success';
 }>> {
 
     const rb = new RequestBuilder(this.rootUrl, CompanyService.CompanyPositionDeletePath, 'post');
@@ -5335,7 +5581,8 @@ export class CompanyService extends BaseService {
 
     return this.http.request(rb.build({
       responseType: 'json',
-      accept: 'application/json'
+      accept: 'application/json',
+      context: params?.context
     })).pipe(
       filter((r: any) => r instanceof HttpResponse),
       map((r: HttpResponse<any>) => {
@@ -5344,7 +5591,7 @@ export class CompanyService extends BaseService {
         /**
          * Статус выполнения
          */
-        'result': string;
+        'result': 'success';
         }>;
       })
     );
@@ -5361,6 +5608,7 @@ export class CompanyService extends BaseService {
    * This method sends `application/json` and handles request body of type `application/json`.
    */
   companyPositionDelete(params?: {
+    context?: HttpContext
     body?: {
 
 /**
@@ -5373,12 +5621,13 @@ export class CompanyService extends BaseService {
  */
 'delete_staff'?: boolean;
 }
-  }): Observable<{
+  }
+): Observable<{
 
 /**
  * Статус выполнения
  */
-'result': string;
+'result': 'success';
 }> {
 
     return this.companyPositionDelete$Response(params).pipe(
@@ -5387,13 +5636,13 @@ export class CompanyService extends BaseService {
 /**
  * Статус выполнения
  */
-'result': string;
+'result': 'success';
 }>) => r.body as {
 
 /**
  * Статус выполнения
  */
-'result': string;
+'result': 'success';
 })
     );
   }
@@ -5434,7 +5683,25 @@ export class CompanyService extends BaseService {
      * Лимит позиций на страницу
      */
     count?: number;
-  }): Observable<StrictHttpResponse<{
+
+    /**
+     * Сортировка
+     */
+    sort?: Array<{
+
+/**
+ * Поле
+ */
+'field': string;
+
+/**
+ * Направление сортировки
+ */
+'dir': 'asc' | 'desc';
+}>;
+    context?: HttpContext
+  }
+): Observable<StrictHttpResponse<{
 
 /**
  * Позиции
@@ -5507,14 +5774,29 @@ export class CompanyService extends BaseService {
 'company_id'?: number;
 
 /**
+ * Наименование компании
+ */
+'company_name'?: string;
+
+/**
  * ID подразделения
  */
 'department_id'?: number;
 
 /**
+ * Наименование подразделения
+ */
+'department_name'?: string;
+
+/**
  * ID должности
  */
 'position_id'?: number;
+
+/**
+ * Наименование должности
+ */
+'position_name'?: string;
 
 /**
  * Руководитель подразделения
@@ -5549,11 +5831,13 @@ export class CompanyService extends BaseService {
       rb.query('position_id', params.position_id, {});
       rb.query('start', params.start, {});
       rb.query('count', params.count, {});
+      rb.query('sort', params.sort, {"style":"form","explode":false});
     }
 
     return this.http.request(rb.build({
       responseType: 'json',
-      accept: 'application/json'
+      accept: 'application/json',
+      context: params?.context
     })).pipe(
       filter((r: any) => r instanceof HttpResponse),
       map((r: HttpResponse<any>) => {
@@ -5630,14 +5914,29 @@ export class CompanyService extends BaseService {
         'company_id'?: number;
         
         /**
+         * Наименование компании
+         */
+        'company_name'?: string;
+        
+        /**
          * ID подразделения
          */
         'department_id'?: number;
         
         /**
+         * Наименование подразделения
+         */
+        'department_name'?: string;
+        
+        /**
          * ID должности
          */
         'position_id'?: number;
+        
+        /**
+         * Наименование должности
+         */
+        'position_name'?: string;
         
         /**
          * Руководитель подразделения
@@ -5700,7 +5999,25 @@ export class CompanyService extends BaseService {
      * Лимит позиций на страницу
      */
     count?: number;
-  }): Observable<{
+
+    /**
+     * Сортировка
+     */
+    sort?: Array<{
+
+/**
+ * Поле
+ */
+'field': string;
+
+/**
+ * Направление сортировки
+ */
+'dir': 'asc' | 'desc';
+}>;
+    context?: HttpContext
+  }
+): Observable<{
 
 /**
  * Позиции
@@ -5773,14 +6090,29 @@ export class CompanyService extends BaseService {
 'company_id'?: number;
 
 /**
+ * Наименование компании
+ */
+'company_name'?: string;
+
+/**
  * ID подразделения
  */
 'department_id'?: number;
 
 /**
+ * Наименование подразделения
+ */
+'department_name'?: string;
+
+/**
  * ID должности
  */
 'position_id'?: number;
+
+/**
+ * Наименование должности
+ */
+'position_name'?: string;
 
 /**
  * Руководитель подразделения
@@ -5883,14 +6215,29 @@ export class CompanyService extends BaseService {
 'company_id'?: number;
 
 /**
+ * Наименование компании
+ */
+'company_name'?: string;
+
+/**
  * ID подразделения
  */
 'department_id'?: number;
 
 /**
+ * Наименование подразделения
+ */
+'department_name'?: string;
+
+/**
  * ID должности
  */
 'position_id'?: number;
+
+/**
+ * Наименование должности
+ */
+'position_name'?: string;
 
 /**
  * Руководитель подразделения
@@ -5990,14 +6337,29 @@ export class CompanyService extends BaseService {
 'company_id'?: number;
 
 /**
+ * Наименование компании
+ */
+'company_name'?: string;
+
+/**
  * ID подразделения
  */
 'department_id'?: number;
 
 /**
+ * Наименование подразделения
+ */
+'department_name'?: string;
+
+/**
  * ID должности
  */
 'position_id'?: number;
+
+/**
+ * Наименование должности
+ */
+'position_name'?: string;
 
 /**
  * Руководитель подразделения
@@ -6049,7 +6411,9 @@ export class CompanyService extends BaseService {
      * ID сотрудника
      */
     id: number;
-  }): Observable<StrictHttpResponse<{
+    context?: HttpContext
+  }
+): Observable<StrictHttpResponse<{
 
 /**
  * ID
@@ -6117,14 +6481,29 @@ export class CompanyService extends BaseService {
 'company_id'?: number;
 
 /**
+ * Наименование компании
+ */
+'company_name'?: string;
+
+/**
  * ID подразделения
  */
 'department_id'?: number;
 
 /**
+ * Наименование подразделения
+ */
+'department_name'?: string;
+
+/**
  * ID должности
  */
 'position_id'?: number;
+
+/**
+ * Наименование должности
+ */
+'position_name'?: string;
 
 /**
  * Руководитель подразделения
@@ -6154,7 +6533,8 @@ export class CompanyService extends BaseService {
 
     return this.http.request(rb.build({
       responseType: 'json',
-      accept: 'application/json'
+      accept: 'application/json',
+      context: params?.context
     })).pipe(
       filter((r: any) => r instanceof HttpResponse),
       map((r: HttpResponse<any>) => {
@@ -6226,14 +6606,29 @@ export class CompanyService extends BaseService {
         'company_id'?: number;
         
         /**
+         * Наименование компании
+         */
+        'company_name'?: string;
+        
+        /**
          * ID подразделения
          */
         'department_id'?: number;
         
         /**
+         * Наименование подразделения
+         */
+        'department_name'?: string;
+        
+        /**
          * ID должности
          */
         'position_id'?: number;
+        
+        /**
+         * Наименование должности
+         */
+        'position_name'?: string;
         
         /**
          * Руководитель подразделения
@@ -6275,7 +6670,9 @@ export class CompanyService extends BaseService {
      * ID сотрудника
      */
     id: number;
-  }): Observable<{
+    context?: HttpContext
+  }
+): Observable<{
 
 /**
  * ID
@@ -6343,14 +6740,29 @@ export class CompanyService extends BaseService {
 'company_id'?: number;
 
 /**
+ * Наименование компании
+ */
+'company_name'?: string;
+
+/**
  * ID подразделения
  */
 'department_id'?: number;
 
 /**
+ * Наименование подразделения
+ */
+'department_name'?: string;
+
+/**
  * ID должности
  */
 'position_id'?: number;
+
+/**
+ * Наименование должности
+ */
+'position_name'?: string;
 
 /**
  * Руководитель подразделения
@@ -6442,14 +6854,29 @@ export class CompanyService extends BaseService {
 'company_id'?: number;
 
 /**
+ * Наименование компании
+ */
+'company_name'?: string;
+
+/**
  * ID подразделения
  */
 'department_id'?: number;
 
 /**
+ * Наименование подразделения
+ */
+'department_name'?: string;
+
+/**
  * ID должности
  */
 'position_id'?: number;
+
+/**
+ * Наименование должности
+ */
+'position_name'?: string;
 
 /**
  * Руководитель подразделения
@@ -6538,14 +6965,29 @@ export class CompanyService extends BaseService {
 'company_id'?: number;
 
 /**
+ * Наименование компании
+ */
+'company_name'?: string;
+
+/**
  * ID подразделения
  */
 'department_id'?: number;
 
 /**
+ * Наименование подразделения
+ */
+'department_name'?: string;
+
+/**
  * ID должности
  */
 'position_id'?: number;
+
+/**
+ * Наименование должности
+ */
+'position_name'?: string;
 
 /**
  * Руководитель подразделения
@@ -6586,6 +7028,7 @@ export class CompanyService extends BaseService {
    * This method sends `application/json` and handles request body of type `application/json`.
    */
   companyEmployeeCreate$Response(params?: {
+    context?: HttpContext
     body?: {
 
 /**
@@ -6668,7 +7111,8 @@ export class CompanyService extends BaseService {
  */
 'num'?: number;
 }
-  }): Observable<StrictHttpResponse<{
+  }
+): Observable<StrictHttpResponse<{
 
 /**
  * ID созданной записи
@@ -6678,7 +7122,7 @@ export class CompanyService extends BaseService {
 /**
  * Статус выполнения
  */
-'result': string;
+'result': 'success';
 }>> {
 
     const rb = new RequestBuilder(this.rootUrl, CompanyService.CompanyEmployeeCreatePath, 'post');
@@ -6688,7 +7132,8 @@ export class CompanyService extends BaseService {
 
     return this.http.request(rb.build({
       responseType: 'json',
-      accept: 'application/json'
+      accept: 'application/json',
+      context: params?.context
     })).pipe(
       filter((r: any) => r instanceof HttpResponse),
       map((r: HttpResponse<any>) => {
@@ -6702,7 +7147,7 @@ export class CompanyService extends BaseService {
         /**
          * Статус выполнения
          */
-        'result': string;
+        'result': 'success';
         }>;
       })
     );
@@ -6719,6 +7164,7 @@ export class CompanyService extends BaseService {
    * This method sends `application/json` and handles request body of type `application/json`.
    */
   companyEmployeeCreate(params?: {
+    context?: HttpContext
     body?: {
 
 /**
@@ -6801,7 +7247,8 @@ export class CompanyService extends BaseService {
  */
 'num'?: number;
 }
-  }): Observable<{
+  }
+): Observable<{
 
 /**
  * ID созданной записи
@@ -6811,7 +7258,7 @@ export class CompanyService extends BaseService {
 /**
  * Статус выполнения
  */
-'result': string;
+'result': 'success';
 }> {
 
     return this.companyEmployeeCreate$Response(params).pipe(
@@ -6825,7 +7272,7 @@ export class CompanyService extends BaseService {
 /**
  * Статус выполнения
  */
-'result': string;
+'result': 'success';
 }>) => r.body as {
 
 /**
@@ -6836,7 +7283,7 @@ export class CompanyService extends BaseService {
 /**
  * Статус выполнения
  */
-'result': string;
+'result': 'success';
 })
     );
   }
@@ -6857,6 +7304,7 @@ export class CompanyService extends BaseService {
    * This method sends `application/json` and handles request body of type `application/json`.
    */
   companyEmployeeUpdate$Response(params?: {
+    context?: HttpContext
     body?: {
 
 /**
@@ -6944,12 +7392,13 @@ export class CompanyService extends BaseService {
  */
 'num'?: number;
 }
-  }): Observable<StrictHttpResponse<{
+  }
+): Observable<StrictHttpResponse<{
 
 /**
  * Статус выполнения
  */
-'result': string;
+'result': 'success';
 }>> {
 
     const rb = new RequestBuilder(this.rootUrl, CompanyService.CompanyEmployeeUpdatePath, 'post');
@@ -6959,7 +7408,8 @@ export class CompanyService extends BaseService {
 
     return this.http.request(rb.build({
       responseType: 'json',
-      accept: 'application/json'
+      accept: 'application/json',
+      context: params?.context
     })).pipe(
       filter((r: any) => r instanceof HttpResponse),
       map((r: HttpResponse<any>) => {
@@ -6968,7 +7418,7 @@ export class CompanyService extends BaseService {
         /**
          * Статус выполнения
          */
-        'result': string;
+        'result': 'success';
         }>;
       })
     );
@@ -6985,6 +7435,7 @@ export class CompanyService extends BaseService {
    * This method sends `application/json` and handles request body of type `application/json`.
    */
   companyEmployeeUpdate(params?: {
+    context?: HttpContext
     body?: {
 
 /**
@@ -7072,12 +7523,13 @@ export class CompanyService extends BaseService {
  */
 'num'?: number;
 }
-  }): Observable<{
+  }
+): Observable<{
 
 /**
  * Статус выполнения
  */
-'result': string;
+'result': 'success';
 }> {
 
     return this.companyEmployeeUpdate$Response(params).pipe(
@@ -7086,13 +7538,13 @@ export class CompanyService extends BaseService {
 /**
  * Статус выполнения
  */
-'result': string;
+'result': 'success';
 }>) => r.body as {
 
 /**
  * Статус выполнения
  */
-'result': string;
+'result': 'success';
 })
     );
   }
@@ -7113,6 +7565,7 @@ export class CompanyService extends BaseService {
    * This method sends `application/json` and handles request body of type `application/json`.
    */
   companyEmployeeDelete$Response(params?: {
+    context?: HttpContext
     body?: {
 
 /**
@@ -7120,12 +7573,13 @@ export class CompanyService extends BaseService {
  */
 'id'?: number;
 }
-  }): Observable<StrictHttpResponse<{
+  }
+): Observable<StrictHttpResponse<{
 
 /**
  * Статус выполнения
  */
-'result': string;
+'result': 'success';
 }>> {
 
     const rb = new RequestBuilder(this.rootUrl, CompanyService.CompanyEmployeeDeletePath, 'post');
@@ -7135,7 +7589,8 @@ export class CompanyService extends BaseService {
 
     return this.http.request(rb.build({
       responseType: 'json',
-      accept: 'application/json'
+      accept: 'application/json',
+      context: params?.context
     })).pipe(
       filter((r: any) => r instanceof HttpResponse),
       map((r: HttpResponse<any>) => {
@@ -7144,7 +7599,7 @@ export class CompanyService extends BaseService {
         /**
          * Статус выполнения
          */
-        'result': string;
+        'result': 'success';
         }>;
       })
     );
@@ -7161,6 +7616,7 @@ export class CompanyService extends BaseService {
    * This method sends `application/json` and handles request body of type `application/json`.
    */
   companyEmployeeDelete(params?: {
+    context?: HttpContext
     body?: {
 
 /**
@@ -7168,12 +7624,13 @@ export class CompanyService extends BaseService {
  */
 'id'?: number;
 }
-  }): Observable<{
+  }
+): Observable<{
 
 /**
  * Статус выполнения
  */
-'result': string;
+'result': 'success';
 }> {
 
     return this.companyEmployeeDelete$Response(params).pipe(
@@ -7182,13 +7639,13 @@ export class CompanyService extends BaseService {
 /**
  * Статус выполнения
  */
-'result': string;
+'result': 'success';
 }>) => r.body as {
 
 /**
  * Статус выполнения
  */
-'result': string;
+'result': 'success';
 })
     );
   }
@@ -7209,7 +7666,9 @@ export class CompanyService extends BaseService {
    * This method doesn't expect any request body.
    */
   companyTaxSystem$Response(params?: {
-  }): Observable<StrictHttpResponse<Array<{
+    context?: HttpContext
+  }
+): Observable<StrictHttpResponse<Array<{
 
 /**
  * ID
@@ -7228,7 +7687,8 @@ export class CompanyService extends BaseService {
 
     return this.http.request(rb.build({
       responseType: 'json',
-      accept: 'application/json'
+      accept: 'application/json',
+      context: params?.context
     })).pipe(
       filter((r: any) => r instanceof HttpResponse),
       map((r: HttpResponse<any>) => {
@@ -7259,7 +7719,9 @@ export class CompanyService extends BaseService {
    * This method doesn't expect any request body.
    */
   companyTaxSystem(params?: {
-  }): Observable<Array<{
+    context?: HttpContext
+  }
+): Observable<Array<{
 
 /**
  * ID
@@ -7315,7 +7777,9 @@ export class CompanyService extends BaseService {
    * This method doesn't expect any request body.
    */
   companyCurrency$Response(params?: {
-  }): Observable<StrictHttpResponse<Array<{
+    context?: HttpContext
+  }
+): Observable<StrictHttpResponse<Array<{
 
 /**
  * ID
@@ -7339,7 +7803,8 @@ export class CompanyService extends BaseService {
 
     return this.http.request(rb.build({
       responseType: 'json',
-      accept: 'application/json'
+      accept: 'application/json',
+      context: params?.context
     })).pipe(
       filter((r: any) => r instanceof HttpResponse),
       map((r: HttpResponse<any>) => {
@@ -7375,7 +7840,9 @@ export class CompanyService extends BaseService {
    * This method doesn't expect any request body.
    */
   companyCurrency(params?: {
-  }): Observable<Array<{
+    context?: HttpContext
+  }
+): Observable<Array<{
 
 /**
  * ID

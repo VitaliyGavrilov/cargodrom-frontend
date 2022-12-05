@@ -1,17 +1,15 @@
+import { SortColumn } from './../../../../../api/custom_models/sort-column';
 import { MatSnackBar } from '@angular/material/snack-bar';
-import { ActivatedRoute } from '@angular/router';
-import { byField, SortOrder, SortType } from './../../../../../constants/sort-predicate';
+import { ActivatedRoute, Router } from '@angular/router';
 import { Department } from './../../../../../api/custom_models/department';
 import { CompanyService } from './../../../../../api/services/company.service';
-import { Component, OnInit, TemplateRef, ViewChild, ViewEncapsulation } from '@angular/core';
+import { Component, ViewEncapsulation } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
-import { Employee } from 'src/app/api/custom_models';
+import { Observable } from 'rxjs';
+import { Table } from '../../../../../classes';
 
-interface Column<T> {
-  name: keyof T;
+interface Column<T> extends Omit<SortColumn<T>, 'dir'> {
   title: string;
-  sortType: SortType;
-  sortOrder: SortOrder,
 }
 
 @Component({
@@ -23,112 +21,34 @@ interface Column<T> {
   ],
   encapsulation: ViewEncapsulation.None,
 })
-export class DepartmentComponent implements OnInit {
-  departments: Department[] = [];
-  total = 0;
-  start = 0;
-  limits = [10, 25, 50, 100];
-  count = this.limits[0];
-  @ViewChild('removeDialogRef') removeDialogRef!: TemplateRef<Department>;
+export class DepartmentComponent extends Table<Department> {
   columns: Column<Department>[] = [
-    { name: 'name', sortType: 'case-insensitive', title: 'Название подразделения', sortOrder: 'asc' },
-    { name: 'count_position', sortType: 'numeric', title: 'Должностей', sortOrder: 'asc' },
-    { name: 'count_user', sortType: 'numeric', title: 'Сотрудников', sortOrder: 'asc' },
-    { name: 'name', sortType: 'case-insensitive', title: 'Руководитель подразделения', sortOrder: 'asc' }, // TODO: Where to get this column
+    { field: 'name', title: 'Название подразделения' },
+    { field: 'count_position', title: 'Должностей' },
+    { field: 'count_user', title: 'Сотрудников' },
+    { field: 'leader_user', title: 'Руководитель подразделения' },
   ];
-  sortCol: Column<Department>= this.columns[0];
-  employees: Employee[] = [];
+  sortField = this.columns[0].field;
 
+  override nameField = 'name' as const;
+  override removedMessage = `Подразделение удалено`;
 
   constructor(
     private companyService: CompanyService,
-    private route: ActivatedRoute,
-    private dialog: MatDialog,
-    private snackBar: MatSnackBar,
-  ) { }
-
-  ngOnInit(): void {
-    this.loadDepartments();
-    this.loadEmployees();
+    dialog: MatDialog,
+    snackBar: MatSnackBar,
+    route: ActivatedRoute,
+    router: Router,
+  ) {
+    super(route, router, dialog, snackBar);
   }
 
-  loadDepartments(): void {
-    this.companyService.companyDepartmentList({start: this.start, count: this.count}).subscribe(departments => {
-      this.departments = departments ? departments.items as Department[] : [];
-      this.departments.sort(this.getSortPredicate());
-      this.total = departments.total!;
-    });
+  load<Department>(params: { start?: number; count?: number; sort?: SortColumn<Department>[]; }): Observable<{ total: number; items: Department[]; }> {
+    return this.companyService.companyDepartmentList(params as any) as Observable<{ total: number; items: Department[]; }>;
   }
 
-  onStartChange(newStart: number): void {
-    this.start = newStart;
-    this.loadDepartments();
-  }
-  
-  onCountChange(newCount: number): void {
-    this.start = 0;
-    this.count = newCount;
-    this.loadDepartments();
-  }
-  
-  getSortPredicate() {
-    return byField<Department>(this.sortCol.name, this.sortCol.sortOrder, this.sortCol.sortType);
-  }
-  
-  sort(col: Column<Department>): void {
-    this.start = 0;
-    if (this.sortCol === col) {
-      this.sortCol.sortOrder = col.sortOrder === 'asc' ? 'desc' : 'asc';
-    } else {
-      this.sortCol.sortOrder = 'asc';
-      this.sortCol = col;
-      this.sortCol.sortOrder = 'asc';
-    }
-    this.loadDepartments();
-  }
-  
-  findColumnByName(name: keyof Department) {
-    return this.columns.find(column => column.name === name);
-  }
-
-  getColTitle(col: Column<Department>): string {
-    if (col === this.sortCol) {
-      return col.sortOrder === 'asc' ? 'сортировать по убыванию' : 'сортировать по возрастанию'
-    }
-    return 'сортировать по возрастанию';
-  }
-  
-  confirmRemove(department: Department): void {
-    this.dialog.open(this.removeDialogRef, { data: department }).afterClosed().subscribe(res => {
-      if (res) {
-        this.removeDepartment(department);
-      }
-    });
-  }
-
-  removeDepartment(department: Department): void {
-    const body = { id: department.id };
-    this.companyService.companyDepartmentDelete({ body })
-      .subscribe({
-        next: () => {
-          this.snackBar.open(`Подразделение ${department.name} удалено`, undefined, { duration: 1000 });
-          this.loadDepartments();
-        },
-        error: (err) => this.snackBar.open(`Ошибка удаления подразделения: ` + err.error.error_message, undefined, { duration: 1000 })
-      });
-  }
-  
-  loadEmployees(): void {
-    this.companyService.companyEmployeeList().subscribe(
-      employees => this.employees = employees ? employees.items as Employee[] : []
-    );
-  }
-  
-  findEmployeeById(id?: number) {
-    if (typeof id !== 'number') {
-      return undefined;
-    }
-    return this.employees.find(employee => employee.id === id);
+  override delete(params: { body: { id: number; } }): Observable<void> {
+    return this.companyService.companyDepartmentDelete(params) as unknown as Observable<void>;
   }
 
 }

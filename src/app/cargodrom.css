@@ -862,5 +862,9 @@ mat-form-field.mat-form-field-appearance-outline .mat-select-arrow { width: 10px
 app-settings { display: flex; flex-direction: column; flex: 1 1 auto; }
 
 .hidden { display: none; }
-.error { color: #f00000; padding: 5px 0 0 5px; font-size: 13px; }
+.error { color: hsl(0, 100%, 47%); padding: 5px 0 0 5px; font-size: 13px; }
+
+.sort-dir-asc, .sort-dir-desc { position: relative; }
+.sort-dir-asc::after { content: "↓"; position: relative; left: 0.5rem; }
+.sort-dir-desc::after { content: "↑"; position: relative; left: 0.5rem; }
 

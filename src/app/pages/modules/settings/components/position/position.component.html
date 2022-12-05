@@ -1,9 +1,7 @@
 <table class="main-table fix-head table-4e6cc9770d169fc6e17fab7fb0968f9b">
   <thead>
     <tr>
-      <th class="col column-sortable"
-        data-href="/erp/settings/position?sort_field=name&amp;sort_order=asc&amp;ajax_load=table%2Ctable_function"
-        title="сортировать по убыванию">
+      <th class="col column-sortable" [attr.title]="getColTitle('name')" (click)="sort('name')" [ngClass]="getSortClass('name')">
         <span>Название<span class="sorting-indicator"></span></span>
       </th>
       <th style="width: 40px;">
@@ -12,7 +10,7 @@
     </tr>
   </thead>
   <tbody>
-    <tr *ngFor="let position of positions; odd as isOdd" [ngClass]="{'odd': isOdd}">
+    <tr *ngFor="let position of rows; odd as isOdd" [ngClass]="{'odd': isOdd}">
       <td class="col">{{ position.name }}</td>
       <td class="col min">
         <a class="link-pic link-edit ico ico-pencil fn-link" [routerLink]="[position.id]" title="Редактировать"></a>

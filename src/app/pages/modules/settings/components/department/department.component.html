@@ -2,7 +2,7 @@
   <thead>
     <tr>
       <th class="column-sortable" *ngFor="let col of columns; first as isFirst" [ngClass]="{'col': isFirst}"
-        [attr.title]="getColTitle(col)" (click)="sort(col)">
+        [attr.title]="getColTitle(col.field)" (click)="sort(col.field)" [ngClass]="getSortClass(col.field)">
         <span>{{ col.title }}<span class="sorting-indicator"></span></span>
       </th>
       <th style="width: 134px;">
@@ -14,13 +14,13 @@
     </tr>
   </thead>
   <tbody>
-    <tr *ngFor="let department of departments; odd as isOdd" [ngClass]="{'odd': isOdd}">
+    <tr *ngFor="let department of rows; odd as isOdd" [ngClass]="{'odd': isOdd}">
       <td class="col">{{ department.name }}</td>
       <td>{{ department.count_position }}</td>
       <td>{{ department.count_user }}</td>
       <td>
         <a class="link-view" [routerLink]="['..', 'employee', department.leader_user_id]">
-          <ng-container *ngTemplateOutlet="fio; context: {employee: findEmployeeById(department.leader_user_id)}"></ng-container>
+          {{ department.leader_user }}
         </a>
       </td>
       <td><a class="btn add-item-text" [routerLink]="['..', 'employee', 'add']" [queryParams]="{department_id: department.id}"><span>Добавить сотрудника</span></a></td>
@@ -44,8 +44,4 @@
       <button mat-button [mat-dialog-close]="true" cdkFocusInitial>Да</button>
       <button mat-button mat-dialog-close>Нет</button>
     </div>
-  </ng-template>
-  
-  <ng-template #fio let-employee="employee">
-    {{ employee?.name_f }} {{ employee?.name_i }} {{ employee?.name_o }}
   </ng-template>

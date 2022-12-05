@@ -1,7 +1,7 @@
 /* tslint:disable */
 /* eslint-disable */
 import { Injectable } from '@angular/core';
-import { HttpClient, HttpResponse } from '@angular/common/http';
+import { HttpClient, HttpResponse, HttpContext } from '@angular/common/http';
 import { BaseService } from '../base-service';
 import { ApiConfiguration } from '../api-configuration';
 import { StrictHttpResponse } from '../strict-http-response';
@@ -41,6 +41,7 @@ export class UserService extends BaseService {
    * This method sends `application/json` and handles request body of type `application/json`.
    */
   userCreate$Response(params?: {
+    context?: HttpContext
     body?: {
 
 /**
@@ -78,7 +79,8 @@ export class UserService extends BaseService {
  */
 'password_confirm': string;
 }
-  }): Observable<StrictHttpResponse<{
+  }
+): Observable<StrictHttpResponse<{
 
 /**
  * Идентификатор регистрации
@@ -93,7 +95,8 @@ export class UserService extends BaseService {
 
     return this.http.request(rb.build({
       responseType: 'json',
-      accept: 'application/json'
+      accept: 'application/json',
+      context: params?.context
     })).pipe(
       filter((r: any) => r instanceof HttpResponse),
       map((r: HttpResponse<any>) => {
@@ -119,6 +122,7 @@ export class UserService extends BaseService {
    * This method sends `application/json` and handles request body of type `application/json`.
    */
   userCreate(params?: {
+    context?: HttpContext
     body?: {
 
 /**
@@ -156,7 +160,8 @@ export class UserService extends BaseService {
  */
 'password_confirm': string;
 }
-  }): Observable<{
+  }
+): Observable<{
 
 /**
  * Идентификатор регистрации
@@ -197,6 +202,7 @@ export class UserService extends BaseService {
    * This method sends `application/json` and handles request body of type `application/json`.
    */
   userConfirm$Response(params?: {
+    context?: HttpContext
     body?: {
 
 /**
@@ -209,7 +215,8 @@ export class UserService extends BaseService {
  */
 'code': string;
 }
-  }): Observable<StrictHttpResponse<{
+  }
+): Observable<StrictHttpResponse<{
 
 /**
  * ID
@@ -224,7 +231,8 @@ export class UserService extends BaseService {
 
     return this.http.request(rb.build({
       responseType: 'json',
-      accept: 'application/json'
+      accept: 'application/json',
+      context: params?.context
     })).pipe(
       filter((r: any) => r instanceof HttpResponse),
       map((r: HttpResponse<any>) => {
@@ -250,6 +258,7 @@ export class UserService extends BaseService {
    * This method sends `application/json` and handles request body of type `application/json`.
    */
   userConfirm(params?: {
+    context?: HttpContext
     body?: {
 
 /**
@@ -262,7 +271,8 @@ export class UserService extends BaseService {
  */
 'code': string;
 }
-  }): Observable<{
+  }
+): Observable<{
 
 /**
  * ID
@@ -303,6 +313,7 @@ export class UserService extends BaseService {
    * This method sends `application/json` and handles request body of type `application/json`.
    */
   userLogin$Response(params?: {
+    context?: HttpContext
     body?: {
 
 /**
@@ -315,7 +326,8 @@ export class UserService extends BaseService {
  */
 'password': string;
 }
-  }): Observable<StrictHttpResponse<{
+  }
+): Observable<StrictHttpResponse<{
 
 /**
  * Токен доступа, передается в заголовке "Bearer ACCESS_TOKEN" всех запросов кроме авторизации
@@ -345,7 +357,8 @@ export class UserService extends BaseService {
 
     return this.http.request(rb.build({
       responseType: 'json',
-      accept: 'application/json'
+      accept: 'application/json',
+      context: params?.context
     })).pipe(
       filter((r: any) => r instanceof HttpResponse),
       map((r: HttpResponse<any>) => {
@@ -386,6 +399,7 @@ export class UserService extends BaseService {
    * This method sends `application/json` and handles request body of type `application/json`.
    */
   userLogin(params?: {
+    context?: HttpContext
     body?: {
 
 /**
@@ -398,7 +412,8 @@ export class UserService extends BaseService {
  */
 'password': string;
 }
-  }): Observable<{
+  }
+): Observable<{
 
 /**
  * Токен доступа, передается в заголовке "Bearer ACCESS_TOKEN" всех запросов кроме авторизации
@@ -484,6 +499,7 @@ export class UserService extends BaseService {
    * This method sends `application/json` and handles request body of type `application/json`.
    */
   userLogout$Response(params?: {
+    context?: HttpContext
     body?: {
 
 /**
@@ -496,12 +512,13 @@ export class UserService extends BaseService {
  */
 'everywhere'?: boolean;
 }
-  }): Observable<StrictHttpResponse<{
+  }
+): Observable<StrictHttpResponse<{
 
 /**
  * Статус выполнения
  */
-'result': string;
+'result': 'success';
 }>> {
 
     const rb = new RequestBuilder(this.rootUrl, UserService.UserLogoutPath, 'post');
@@ -511,7 +528,8 @@ export class UserService extends BaseService {
 
     return this.http.request(rb.build({
       responseType: 'json',
-      accept: 'application/json'
+      accept: 'application/json',
+      context: params?.context
     })).pipe(
       filter((r: any) => r instanceof HttpResponse),
       map((r: HttpResponse<any>) => {
@@ -520,7 +538,7 @@ export class UserService extends BaseService {
         /**
          * Статус выполнения
          */
-        'result': string;
+        'result': 'success';
         }>;
       })
     );
@@ -537,6 +555,7 @@ export class UserService extends BaseService {
    * This method sends `application/json` and handles request body of type `application/json`.
    */
   userLogout(params?: {
+    context?: HttpContext
     body?: {
 
 /**
@@ -549,12 +568,13 @@ export class UserService extends BaseService {
  */
 'everywhere'?: boolean;
 }
-  }): Observable<{
+  }
+): Observable<{
 
 /**
  * Статус выполнения
  */
-'result': string;
+'result': 'success';
 }> {
 
     return this.userLogout$Response(params).pipe(
@@ -563,13 +583,13 @@ export class UserService extends BaseService {
 /**
  * Статус выполнения
  */
-'result': string;
+'result': 'success';
 }>) => r.body as {
 
 /**
  * Статус выполнения
  */
-'result': string;
+'result': 'success';
 })
     );
   }
@@ -590,6 +610,7 @@ export class UserService extends BaseService {
    * This method sends `application/json` and handles request body of type `application/json`.
    */
   userUpdateToken$Response(params?: {
+    context?: HttpContext
     body?: {
 
 /**
@@ -597,7 +618,8 @@ export class UserService extends BaseService {
  */
 'refresh_token': string;
 }
-  }): Observable<StrictHttpResponse<{
+  }
+): Observable<StrictHttpResponse<{
 
 /**
  * токен доступа
@@ -627,7 +649,8 @@ export class UserService extends BaseService {
 
     return this.http.request(rb.build({
       responseType: 'json',
-      accept: 'application/json'
+      accept: 'application/json',
+      context: params?.context
     })).pipe(
       filter((r: any) => r instanceof HttpResponse),
       map((r: HttpResponse<any>) => {
@@ -668,6 +691,7 @@ export class UserService extends BaseService {
    * This method sends `application/json` and handles request body of type `application/json`.
    */
   userUpdateToken(params?: {
+    context?: HttpContext
     body?: {
 
 /**
@@ -675,7 +699,8 @@ export class UserService extends BaseService {
  */
 'refresh_token': string;
 }
-  }): Observable<{
+  }
+): Observable<{
 
 /**
  * токен доступа

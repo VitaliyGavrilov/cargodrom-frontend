@@ -1,7 +1,7 @@
 /* tslint:disable */
 /* eslint-disable */
 import { Injectable } from '@angular/core';
-import { HttpClient, HttpResponse } from '@angular/common/http';
+import { HttpClient, HttpResponse, HttpContext } from '@angular/common/http';
 import { BaseService } from '../base-service';
 import { ApiConfiguration } from '../api-configuration';
 import { StrictHttpResponse } from '../strict-http-response';
@@ -41,7 +41,9 @@ export class SettingsService extends BaseService {
    * This method doesn't expect any request body.
    */
   settingsGet$Response(params?: {
-  }): Observable<StrictHttpResponse<{
+    context?: HttpContext
+  }
+): Observable<StrictHttpResponse<{
 
 /**
  * Общее: Язык интерфейса (ID берем из запроса - settings_get из поля language)
@@ -241,7 +243,8 @@ export class SettingsService extends BaseService {
 
     return this.http.request(rb.build({
       responseType: 'json',
-      accept: 'application/json'
+      accept: 'application/json',
+      context: params?.context
     })).pipe(
       filter((r: any) => r instanceof HttpResponse),
       map((r: HttpResponse<any>) => {
@@ -453,7 +456,9 @@ export class SettingsService extends BaseService {
    * This method doesn't expect any request body.
    */
   settingsGet(params?: {
-  }): Observable<{
+    context?: HttpContext
+  }
+): Observable<{
 
 /**
  * Общее: Язык интерфейса (ID берем из запроса - settings_get из поля language)
@@ -1052,6 +1057,7 @@ export class SettingsService extends BaseService {
    * This method sends `application/json` and handles request body of type `application/json`.
    */
   settingsUpdate$Response(params?: {
+    context?: HttpContext
     body?: {
 
 /**
@@ -1144,12 +1150,13 @@ export class SettingsService extends BaseService {
  */
 'branding_logo'?: string;
 }
-  }): Observable<StrictHttpResponse<{
+  }
+): Observable<StrictHttpResponse<{
 
 /**
  * Статус выполнения
  */
-'result': string;
+'result': 'success';
 }>> {
 
     const rb = new RequestBuilder(this.rootUrl, SettingsService.SettingsUpdatePath, 'post');
@@ -1159,7 +1166,8 @@ export class SettingsService extends BaseService {
 
     return this.http.request(rb.build({
       responseType: 'json',
-      accept: 'application/json'
+      accept: 'application/json',
+      context: params?.context
     })).pipe(
       filter((r: any) => r instanceof HttpResponse),
       map((r: HttpResponse<any>) => {
@@ -1168,7 +1176,7 @@ export class SettingsService extends BaseService {
         /**
          * Статус выполнения
          */
-        'result': string;
+        'result': 'success';
         }>;
       })
     );
@@ -1185,6 +1193,7 @@ export class SettingsService extends BaseService {
    * This method sends `application/json` and handles request body of type `application/json`.
    */
   settingsUpdate(params?: {
+    context?: HttpContext
     body?: {
 
 /**
@@ -1277,12 +1286,13 @@ export class SettingsService extends BaseService {
  */
 'branding_logo'?: string;
 }
-  }): Observable<{
+  }
+): Observable<{
 
 /**
  * Статус выполнения
  */
-'result': string;
+'result': 'success';
 }> {
 
     return this.settingsUpdate$Response(params).pipe(
@@ -1291,13 +1301,13 @@ export class SettingsService extends BaseService {
 /**
  * Статус выполнения
  */
-'result': string;
+'result': 'success';
 }>) => r.body as {
 
 /**
  * Статус выполнения
  */
-'result': string;
+'result': 'success';
 })
     );
   }

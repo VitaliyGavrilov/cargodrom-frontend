@@ -2,24 +2,18 @@
   <div class="form-group-title">Сотрудники подразделения</div>
 </div>
 <table class="main-table fix-head table-61c20c0f4c8ddffee3f3624545fe9ea4">
-  <thead *ngIf="employees.length > 0">
+  <thead *ngIf="rows.length > 0">
     <tr>
-      <th class="column-sortable" style="width: 1px;"
-        data-href="/erp/settings/department?act=new&amp;sort_field=nums&amp;sort_order=asc&amp;ajax_load=table%2Ctable_function"
-        title="сортировать по убыванию">
+      <th class="col column-sortable" style="width: 1px" [attr.title]="getColTitle('num')" (click)="sort('num')" [ngClass]="getSortClass('num')">
         <span><span class="sorting-indicator"></span></span>
       </th>
-      <th class="column-sortable" style="width: 250px;"
-        data-href="/erp/settings/department?act=new&amp;sort_field=name&amp;sort_order=asc&amp;ajax_load=table%2Ctable_function"
-        title="сортировать по убыванию">
+      <th class="column-sortable" style="width: 250px;" [attr.title]="getColTitle('fio')" (click)="sort('fio')" [ngClass]="getSortClass('fio')">
         <span>Ф.И.О.<span class="sorting-indicator"></span></span>
       </th>
-      <th class="column-sortable"
-        data-href="/erp/settings/department?act=new&amp;sort_field=position_id&amp;sort_order=asc&amp;ajax_load=table%2Ctable_function"
-        title="сортировать по убыванию">
+      <th class="column-sortable" [attr.title]="getColTitle('position_name')" (click)="sort('position_name')" [ngClass]="getSortClass('position_name')">
         <span>Должность<span class="sorting-indicator"></span></span>
       </th>
-      <th style="width: 300px;">
+      <th class="column-sortable" style="width: 300px;" [attr.title]="getColTitle('department_leader')" (click)="sort('department_leader')" [ngClass]="getSortClass('department_leader')">
         <span></span>
       </th>
       <th style="width: 65px;">
@@ -28,10 +22,10 @@
     </tr>
   </thead>
   <tbody>
-    <tr *ngFor="let employee of employees; odd as isOdd; index as i" [ngClass]="{'odd': isOdd}">
+    <tr *ngFor="let employee of rows; odd as isOdd; index as i" [ngClass]="{'odd': isOdd}">
       <td>{{ i + 1 }}</td>
       <td>{{ employee.name_f }} {{ employee.name_i }} {{ employee.name_o }}</td>
-      <td>{{ getPositionById(employee.position_id) }}</td>
+      <td>{{ employee.position_name }}</td>
       <td>
         <div class="form-placer">
           <div class="form-items">

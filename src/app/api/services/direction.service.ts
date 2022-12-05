@@ -1,7 +1,7 @@
 /* tslint:disable */
 /* eslint-disable */
 import { Injectable } from '@angular/core';
-import { HttpClient, HttpResponse } from '@angular/common/http';
+import { HttpClient, HttpResponse, HttpContext } from '@angular/common/http';
 import { BaseService } from '../base-service';
 import { ApiConfiguration } from '../api-configuration';
 import { StrictHttpResponse } from '../strict-http-response';
@@ -41,7 +41,9 @@ export class DirectionService extends BaseService {
    * This method doesn't expect any request body.
    */
   directionType$Response(params?: {
-  }): Observable<StrictHttpResponse<Array<{
+    context?: HttpContext
+  }
+): Observable<StrictHttpResponse<Array<{
 
 /**
  * ID
@@ -60,7 +62,8 @@ export class DirectionService extends BaseService {
 
     return this.http.request(rb.build({
       responseType: 'json',
-      accept: 'application/json'
+      accept: 'application/json',
+      context: params?.context
     })).pipe(
       filter((r: any) => r instanceof HttpResponse),
       map((r: HttpResponse<any>) => {
@@ -91,7 +94,9 @@ export class DirectionService extends BaseService {
    * This method doesn't expect any request body.
    */
   directionType(params?: {
-  }): Observable<Array<{
+    context?: HttpContext
+  }
+): Observable<Array<{
 
 /**
  * ID
@@ -147,7 +152,9 @@ export class DirectionService extends BaseService {
    * This method doesn't expect any request body.
    */
   directionCountryList$Response(params?: {
-  }): Observable<StrictHttpResponse<Array<{
+    context?: HttpContext
+  }
+): Observable<StrictHttpResponse<Array<{
 
 /**
  * ID
@@ -181,7 +188,8 @@ export class DirectionService extends BaseService {
 
     return this.http.request(rb.build({
       responseType: 'json',
-      accept: 'application/json'
+      accept: 'application/json',
+      context: params?.context
     })).pipe(
       filter((r: any) => r instanceof HttpResponse),
       map((r: HttpResponse<any>) => {
@@ -227,7 +235,9 @@ export class DirectionService extends BaseService {
    * This method doesn't expect any request body.
    */
   directionCountryList(params?: {
-  }): Observable<Array<{
+    context?: HttpContext
+  }
+): Observable<Array<{
 
 /**
  * ID
@@ -338,7 +348,9 @@ export class DirectionService extends BaseService {
      * Поисковая строка
      */
     search?: string;
-  }): Observable<StrictHttpResponse<Array<{
+    context?: HttpContext
+  }
+): Observable<StrictHttpResponse<Array<{
 
 /**
  * ID
@@ -369,7 +381,8 @@ export class DirectionService extends BaseService {
 
     return this.http.request(rb.build({
       responseType: 'json',
-      accept: 'application/json'
+      accept: 'application/json',
+      context: params?.context
     })).pipe(
       filter((r: any) => r instanceof HttpResponse),
       map((r: HttpResponse<any>) => {
@@ -420,7 +433,9 @@ export class DirectionService extends BaseService {
      * Поисковая строка
      */
     search?: string;
-  }): Observable<Array<{
+    context?: HttpContext
+  }
+): Observable<Array<{
 
 /**
  * ID
@@ -521,7 +536,9 @@ export class DirectionService extends BaseService {
      * Поисковая строка
      */
     search?: string;
-  }): Observable<StrictHttpResponse<Array<{
+    context?: HttpContext
+  }
+): Observable<StrictHttpResponse<Array<{
 
 /**
  * ID
@@ -568,7 +585,8 @@ export class DirectionService extends BaseService {
 
     return this.http.request(rb.build({
       responseType: 'json',
-      accept: 'application/json'
+      accept: 'application/json',
+      context: params?.context
     })).pipe(
       filter((r: any) => r instanceof HttpResponse),
       map((r: HttpResponse<any>) => {
@@ -639,7 +657,9 @@ export class DirectionService extends BaseService {
      * Поисковая строка
      */
     search?: string;
-  }): Observable<Array<{
+    context?: HttpContext
+  }
+): Observable<Array<{
 
 /**
  * ID
@@ -780,7 +800,9 @@ export class DirectionService extends BaseService {
      * Поисковая строка
      */
     search?: string;
-  }): Observable<StrictHttpResponse<Array<{
+    context?: HttpContext
+  }
+): Observable<StrictHttpResponse<Array<{
 
 /**
  * ID
@@ -801,7 +823,8 @@ export class DirectionService extends BaseService {
 
     return this.http.request(rb.build({
       responseType: 'json',
-      accept: 'application/json'
+      accept: 'application/json',
+      context: params?.context
     })).pipe(
       filter((r: any) => r instanceof HttpResponse),
       map((r: HttpResponse<any>) => {
@@ -842,7 +865,9 @@ export class DirectionService extends BaseService {
      * Поисковая строка
      */
     search?: string;
-  }): Observable<Array<{
+    context?: HttpContext
+  }
+): Observable<Array<{
 
 /**
  * ID

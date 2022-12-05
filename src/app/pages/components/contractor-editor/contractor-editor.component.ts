@@ -178,7 +178,7 @@ export class ContractorEditorComponent implements OnInit {
 
   private getContractorTypes() {
     this.contractorService.contractorType()
-      .subscribe(contractorTypes => this.contractorTypes = contractorTypes as ContractorType[]);
+      .subscribe(contractorTypes => this.contractorTypes = contractorTypes as unknown as ContractorType[]);
   }
 
   private getCountries() {
@@ -208,7 +208,7 @@ export class ContractorEditorComponent implements OnInit {
       }))
       .subscribe({
         next: contractor => {
-          this.contractor = contractor as Contractor;
+          this.contractor = contractor as unknown as Contractor;
           const contactsControls = this.contacts;
           this.contractor.contacts?.forEach(contact => contact.contractor_id = contractor.id);
           this.contractor.contacts?.forEach(contact => contactsControls.push(this.fb.control(contact)));

@@ -1,7 +1,7 @@
 /* tslint:disable */
 /* eslint-disable */
 import { Injectable } from '@angular/core';
-import { HttpClient, HttpResponse } from '@angular/common/http';
+import { HttpClient, HttpResponse, HttpContext } from '@angular/common/http';
 import { BaseService } from '../base-service';
 import { ApiConfiguration } from '../api-configuration';
 import { StrictHttpResponse } from '../strict-http-response';
@@ -51,7 +51,25 @@ export class CustomerService extends BaseService {
      * Лимит позиций на страницу
      */
     count?: number;
-  }): Observable<StrictHttpResponse<Array<{
+
+    /**
+     * Сортировка
+     */
+    sort?: Array<{
+
+/**
+ * Поле
+ */
+'field': string;
+
+/**
+ * Направление сортировки
+ */
+'dir': 'asc' | 'desc';
+}>;
+    context?: HttpContext
+  }
+): Observable<StrictHttpResponse<Array<{
 
 /**
  * ID
@@ -98,11 +116,13 @@ export class CustomerService extends BaseService {
     if (params) {
       rb.query('start', params.start, {});
       rb.query('count', params.count, {});
+      rb.query('sort', params.sort, {"style":"form","explode":false});
     }
 
     return this.http.request(rb.build({
       responseType: 'json',
-      accept: 'application/json'
+      accept: 'application/json',
+      context: params?.context
     })).pipe(
       filter((r: any) => r instanceof HttpResponse),
       map((r: HttpResponse<any>) => {
@@ -173,7 +193,25 @@ export class CustomerService extends BaseService {
      * Лимит позиций на страницу
      */
     count?: number;
-  }): Observable<Array<{
+
+    /**
+     * Сортировка
+     */
+    sort?: Array<{
+
+/**
+ * Поле
+ */
+'field': string;
+
+/**
+ * Направление сортировки
+ */
+'dir': 'asc' | 'desc';
+}>;
+    context?: HttpContext
+  }
+): Observable<Array<{
 
 /**
  * ID
@@ -324,7 +362,9 @@ export class CustomerService extends BaseService {
      * ID клиента
      */
     id: number;
-  }): Observable<StrictHttpResponse<{
+    context?: HttpContext
+  }
+): Observable<StrictHttpResponse<{
 
 /**
  * ID
@@ -374,7 +414,8 @@ export class CustomerService extends BaseService {
 
     return this.http.request(rb.build({
       responseType: 'json',
-      accept: 'application/json'
+      accept: 'application/json',
+      context: params?.context
     })).pipe(
       filter((r: any) => r instanceof HttpResponse),
       map((r: HttpResponse<any>) => {
@@ -440,7 +481,9 @@ export class CustomerService extends BaseService {
      * ID клиента
      */
     id: number;
-  }): Observable<{
+    context?: HttpContext
+  }
+): Observable<{
 
 /**
  * ID
@@ -586,6 +629,7 @@ export class CustomerService extends BaseService {
    * This method sends `application/json` and handles request body of type `application/json`.
    */
   customerCreate$Response(params?: {
+    context?: HttpContext
     body?: {
 
 /**
@@ -613,7 +657,8 @@ export class CustomerService extends BaseService {
  */
 'email': string;
 }
-  }): Observable<StrictHttpResponse<{
+  }
+): Observable<StrictHttpResponse<{
 
 /**
  * ID созданной записи
@@ -623,7 +668,7 @@ export class CustomerService extends BaseService {
 /**
  * Статус выполнения
  */
-'result': string;
+'result': 'success';
 }>> {
 
     const rb = new RequestBuilder(this.rootUrl, CustomerService.CustomerCreatePath, 'post');
@@ -633,7 +678,8 @@ export class CustomerService extends BaseService {
 
     return this.http.request(rb.build({
       responseType: 'json',
-      accept: 'application/json'
+      accept: 'application/json',
+      context: params?.context
     })).pipe(
       filter((r: any) => r instanceof HttpResponse),
       map((r: HttpResponse<any>) => {
@@ -647,7 +693,7 @@ export class CustomerService extends BaseService {
         /**
          * Статус выполнения
          */
-        'result': string;
+        'result': 'success';
         }>;
       })
     );
@@ -664,6 +710,7 @@ export class CustomerService extends BaseService {
    * This method sends `application/json` and handles request body of type `application/json`.
    */
   customerCreate(params?: {
+    context?: HttpContext
     body?: {
 
 /**
@@ -691,7 +738,8 @@ export class CustomerService extends BaseService {
  */
 'email': string;
 }
-  }): Observable<{
+  }
+): Observable<{
 
 /**
  * ID созданной записи
@@ -701,7 +749,7 @@ export class CustomerService extends BaseService {
 /**
  * Статус выполнения
  */
-'result': string;
+'result': 'success';
 }> {
 
     return this.customerCreate$Response(params).pipe(
@@ -715,7 +763,7 @@ export class CustomerService extends BaseService {
 /**
  * Статус выполнения
  */
-'result': string;
+'result': 'success';
 }>) => r.body as {
 
 /**
@@ -726,7 +774,7 @@ export class CustomerService extends BaseService {
 /**
  * Статус выполнения
  */
-'result': string;
+'result': 'success';
 })
     );
   }
@@ -747,6 +795,7 @@ export class CustomerService extends BaseService {
    * This method sends `application/json` and handles request body of type `application/json`.
    */
   customerUpdate$Response(params?: {
+    context?: HttpContext
     body?: {
 
 /**
@@ -779,12 +828,13 @@ export class CustomerService extends BaseService {
  */
 'email'?: string;
 }
-  }): Observable<StrictHttpResponse<{
+  }
+): Observable<StrictHttpResponse<{
 
 /**
  * Статус выполнения
  */
-'result': string;
+'result': 'success';
 }>> {
 
     const rb = new RequestBuilder(this.rootUrl, CustomerService.CustomerUpdatePath, 'post');
@@ -794,7 +844,8 @@ export class CustomerService extends BaseService {
 
     return this.http.request(rb.build({
       responseType: 'json',
-      accept: 'application/json'
+      accept: 'application/json',
+      context: params?.context
     })).pipe(
       filter((r: any) => r instanceof HttpResponse),
       map((r: HttpResponse<any>) => {
@@ -803,7 +854,7 @@ export class CustomerService extends BaseService {
         /**
          * Статус выполнения
          */
-        'result': string;
+        'result': 'success';
         }>;
       })
     );
@@ -820,6 +871,7 @@ export class CustomerService extends BaseService {
    * This method sends `application/json` and handles request body of type `application/json`.
    */
   customerUpdate(params?: {
+    context?: HttpContext
     body?: {
 
 /**
@@ -852,12 +904,13 @@ export class CustomerService extends BaseService {
  */
 'email'?: string;
 }
-  }): Observable<{
+  }
+): Observable<{
 
 /**
  * Статус выполнения
  */
-'result': string;
+'result': 'success';
 }> {
 
     return this.customerUpdate$Response(params).pipe(
@@ -866,13 +919,13 @@ export class CustomerService extends BaseService {
 /**
  * Статус выполнения
  */
-'result': string;
+'result': 'success';
 }>) => r.body as {
 
 /**
  * Статус выполнения
  */
-'result': string;
+'result': 'success';
 })
     );
   }
@@ -893,6 +946,7 @@ export class CustomerService extends BaseService {
    * This method sends `application/json` and handles request body of type `application/json`.
    */
   customerDelete$Response(params?: {
+    context?: HttpContext
     body?: {
 
 /**
@@ -900,12 +954,13 @@ export class CustomerService extends BaseService {
  */
 'id': number;
 }
-  }): Observable<StrictHttpResponse<{
+  }
+): Observable<StrictHttpResponse<{
 
 /**
  * Статус выполнения
  */
-'result': string;
+'result': 'success';
 }>> {
 
     const rb = new RequestBuilder(this.rootUrl, CustomerService.CustomerDeletePath, 'post');
@@ -915,7 +970,8 @@ export class CustomerService extends BaseService {
 
     return this.http.request(rb.build({
       responseType: 'json',
-      accept: 'application/json'
+      accept: 'application/json',
+      context: params?.context
     })).pipe(
       filter((r: any) => r instanceof HttpResponse),
       map((r: HttpResponse<any>) => {
@@ -924,7 +980,7 @@ export class CustomerService extends BaseService {
         /**
          * Статус выполнения
          */
-        'result': string;
+        'result': 'success';
         }>;
       })
     );
@@ -941,6 +997,7 @@ export class CustomerService extends BaseService {
    * This method sends `application/json` and handles request body of type `application/json`.
    */
   customerDelete(params?: {
+    context?: HttpContext
     body?: {
 
 /**
@@ -948,12 +1005,13 @@ export class CustomerService extends BaseService {
  */
 'id': number;
 }
-  }): Observable<{
+  }
+): Observable<{
 
 /**
  * Статус выполнения
  */
-'result': string;
+'result': 'success';
 }> {
 
     return this.customerDelete$Response(params).pipe(
@@ -962,13 +1020,13 @@ export class CustomerService extends BaseService {
 /**
  * Статус выполнения
  */
-'result': string;
+'result': 'success';
 }>) => r.body as {
 
 /**
  * Статус выполнения
  */
-'result': string;
+'result': 'success';
 })
     );
   }

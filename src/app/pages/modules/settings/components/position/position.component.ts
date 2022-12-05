@@ -1,9 +1,12 @@
-import { byField } from './../../../../../constants/sort-predicate';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { MatDialog } from '@angular/material/dialog';
 import { Position } from './../../../../../api/custom_models/position';
 import { CompanyService } from './../../../../../api/services/company.service';
-import { Component, OnInit, TemplateRef, ViewChild } from '@angular/core';
+import { Component } from '@angular/core';
+import { Table } from '../../../../../classes';
+import { ActivatedRoute, Router } from '@angular/router';
+import { Observable } from 'rxjs';
+import { SortColumn } from 'src/app/api/custom_models/sort-column';
 
 @Component({
   selector: 'app-position',
@@ -13,62 +16,29 @@ import { Component, OnInit, TemplateRef, ViewChild } from '@angular/core';
     '../../main-table.scss'
   ]
 })
-export class PositionComponent implements OnInit {
-  positions: Position[] = [];
-  total = 0;
-  start = 0;
-  limits = [10, 25, 50, 100];
-  count = this.limits[0];
-  @ViewChild('removeDialogRef') removeDialogRef!: TemplateRef<Position>;
+export class PositionComponent extends Table<Position> {
+  
+  override removedMessage = `Должность удалена`;
+  sortField = 'name' as keyof Position;
 
   constructor(
     private companyService: CompanyService,
-    private dialog: MatDialog,
-    private snackBar: MatSnackBar,
-  ) { }
-
-  ngOnInit(): void {
-    this.loadPositions();
+    dialog: MatDialog,
+    snackBar: MatSnackBar,
+    route: ActivatedRoute,
+    router: Router,
+  ) {
+    super(route, router, dialog, snackBar);
   }
 
-  loadPositions(): void {
-    this.companyService.companyPositionList({start: this.start, count: this.count}).subscribe(positions => {
-      this.positions = positions ? positions.items as Position[] : [];
-      this.positions.sort(byField('name', 'asc', 'case-insensitive'));
-      this.total = positions.total!;
-    });
+  load<Position>(params: { start?: number; count?: number; sort?: SortColumn<Position>[]; }): Observable<{ total: number; items: Position[]; }> {
+    return this.companyService.companyPositionList(params as any) as unknown as Observable<{ total: number; items: Position[]; }>;
   }
 
-
-  onStartChange(newStart: number): void {
-    this.start = newStart;
-    this.loadPositions();
-  }
-
-  onCountChange(newCount: number): void {
-    this.start = 0;
-    this.count = newCount;
-    this.loadPositions();
-  }
-
-  confirmRemove(position: Position): void {
-    this.dialog.open(this.removeDialogRef, {data: position}).afterClosed().subscribe(res => {
-      if (res) {
-        this.removePosition(position);
-      }
-    });
-  }
-
-  removePosition(position: Position): void {
-    const body = { id: position.id };
-    this.companyService.companyPositionDelete({ body })
-      .subscribe({
-        next: () => {
-          this.snackBar.open(`Должность ${position.name} удалена`, undefined, {duration: 1000});
-          this.loadPositions();
-        },
-        error: (err) => this.snackBar.open(`Ошибка удаления должности: ` + err.error.error_message, undefined, {duration: 1000})
-      });
+  override delete(params: { body: { id: number; } }): Observable<void> {
+    return this.companyService.companyPositionDelete(params) as unknown as Observable<void>;
   }
 
 }
+
+
