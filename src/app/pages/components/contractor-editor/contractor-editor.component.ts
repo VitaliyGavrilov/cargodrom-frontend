@@ -14,6 +14,7 @@ import { MatSnackBar, MatSnackBarConfig } from '@angular/material/snack-bar';
 import { CityService } from '../../services/city.service';
 import { Location } from '@angular/common';
 import { TaxSystem } from 'src/app/api/custom_models';
+import { SystemService } from 'src/app/api/services';
 
 @Component({
   selector: 'app-contractor-editor',
@@ -47,7 +48,7 @@ export class ContractorEditorComponent implements OnInit {
     private snackBar: MatSnackBar,
     private router: Router,
     private location: Location,
-    private companyService: CompanyService,
+    private systemService: SystemService,
   ) {
     this.contractorForm = this.fb.group({
       id: [''],
@@ -173,7 +174,7 @@ export class ContractorEditorComponent implements OnInit {
   }
 
   private getAssociations() {
-    this.contractorService.contractorAssociation()
+    this.systemService.systemAssociation()
       .subscribe(associations => this.associations = associations as Association[]);
   }
 
@@ -227,7 +228,7 @@ export class ContractorEditorComponent implements OnInit {
   }
   
   getTaxSystems(): void {
-    this.companyService.companyTaxSystem().subscribe(
+    this.systemService.systemTaxSystem().subscribe(
       taxSystems => this.taxSystems = taxSystems ? taxSystems as TaxSystem[] : []
     );
   }

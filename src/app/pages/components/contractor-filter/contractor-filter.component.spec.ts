@@ -23,7 +23,7 @@ describe('ContractorFilterComponent', () => {
         {
         provide: DirectionService,
         useValue: {
-          directionCountryList: () => of([])
+          directionCountry: () => of([])
         }
       }
     ],

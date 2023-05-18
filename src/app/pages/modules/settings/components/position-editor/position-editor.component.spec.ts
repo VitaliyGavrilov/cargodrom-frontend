@@ -8,6 +8,7 @@ import { MaterialModule } from '@cargodrom/material/material.module';
 import { of } from 'rxjs';
 
 import { PositionEditorComponent } from './position-editor.component';
+import { SystemService } from 'src/app/api/services';
 
 describe('PositionEditorComponent', () => {
   let component: PositionEditorComponent;
@@ -31,6 +32,10 @@ describe('PositionEditorComponent', () => {
             companyPositionInfo: () => of({name: 'Title'}),
           }
         },
+        {
+          provide: SystemService, useValue: <Partial<SystemService>>{
+          }
+        }
       ]
     })
     .compileComponents();

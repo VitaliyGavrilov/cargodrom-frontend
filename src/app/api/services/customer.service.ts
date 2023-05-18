@@ -77,29 +77,289 @@ export class CustomerService extends BaseService {
 'id': number;
 
 /**
- * Наименование компании
+ * Наименование полное
  */
-'company_name'?: string;
+'name'?: string;
 
 /**
- * Фамилия
+ * Наименование краткое
  */
-'name_f'?: string;
+'name_short'?: string;
 
 /**
- * Имя
+ * Страна местонахождения
  */
-'name_i'?: string;
+'country_name'?: string;
 
 /**
- * Имя
+ * Страна местонахождения (ID берем из запроса - direction_country)
  */
-'name_o'?: string;
+'country_id'?: number;
 
 /**
- * Email
+ * Город местонахождения
+ */
+'city_name'?: string;
+
+/**
+ * Город местонахождения (ID берем из запроса - direction_city)
+ */
+'city_id'?: number;
+
+/**
+ * Юридический адрес
+ */
+'address_legal'?: string;
+
+/**
+ * Юридический адрес
+ */
+'address_post'?: string;
+
+/**
+ * ИНН
+ */
+'inn'?: string;
+
+/**
+ * КПП
+ */
+'kpp'?: string;
+
+/**
+ * ОГРН
+ */
+'ogrn'?: string;
+
+/**
+ * ОКПО
+ */
+'okpo'?: string;
+
+/**
+ * Номер телефона
+ */
+'phone'?: string;
+
+/**
+ * E-mail
  */
 'email'?: string;
+
+/**
+ * Сайт
+ */
+'web'?: string;
+
+/**
+ * Руководитель ФИО
+ */
+'head_name'?: string;
+
+/**
+ * Должность руководителя (ID берем из запроса - customer_head_position)
+ */
+'head_position_id'?: string;
+
+/**
+ * Документы (файл)
+ */
+'documents_file'?: string;
+
+/**
+ * Документы (ссылка)
+ */
+'documents_url'?: string;
+
+/**
+ * Адрес для корреспонденции
+ */
+'document_address'?: string;
+
+/**
+ * Контактное лицо для корреспонденции
+ */
+'document_contact_fio'?: string;
+
+/**
+ * Телефон для корреспонденции
+ */
+'document_contact_phone'?: string;
+
+/**
+ * Адрес для доставки груза
+ */
+'delivery_address'?: string;
+
+/**
+ * Контактное лицо для доставки груза
+ */
+'delivery_contact_fio'?: string;
+
+/**
+ * Телефон
+ */
+'delivery_contact_phone'?: string;
+
+/**
+ * График работы склада
+ */
+'warehouse_schedule'?: string;
+
+/**
+ * Подпись ФИО
+ */
+'signature_fio'?: string;
+
+/**
+ * Подпись должность
+ */
+'signature_position'?: string;
+
+/**
+ * Подпись основание
+ */
+'signature_basis'?: string;
+
+/**
+ * Главный бухгалтер
+ */
+'accountant_fio'?: string;
+
+/**
+ * Наименование банка
+ */
+'bank_name'?: string;
+
+/**
+ * Расчетный счет
+ */
+'bank_payment_account'?: string;
+
+/**
+ * Корреспондентный счет
+ */
+'bank_correspondent_account'?: string;
+
+/**
+ * БИК
+ */
+'bank_bik'?: string;
+
+/**
+ * КПП
+ */
+'bank_kpp'?: string;
+
+/**
+ * Валюта счета
+ */
+'currency'?: string;
+
+/**
+ * Группа
+ */
+'group_name'?: string;
+
+/**
+ * Группа (ID берем из запроса - customer_group_list)
+ */
+'group_id'?: number;
+
+/**
+ * Источник
+ */
+'source_name'?: string;
+
+/**
+ * Источник (ID берем из запроса - customer_contact_source)
+ */
+'source_id'?: number;
+
+/**
+ * Тип клиента
+ */
+'type_name'?: string;
+
+/**
+ * Тип клиента (ID берем из запроса - customer_type)
+ */
+'type_id'?: number;
+
+/**
+ * Статус
+ */
+'status_name'?: string;
+
+/**
+ * Статус (ID берем из запроса - customer_status)
+ */
+'status_id'?: number;
+
+/**
+ * Привилегии
+ */
+'privilege_name'?: string;
+
+/**
+ * Привилегии (ID берем из запроса - customer_privilege)
+ */
+'privilege_id'?: number;
+
+/**
+ * Виды услуг
+ */
+'service_name'?: string;
+
+/**
+ * Виды услуг (ID берем из запроса - customer_services)
+ */
+'service_id'?: number;
+
+/**
+ * Отрасль деятельности
+ */
+'business_name'?: string;
+
+/**
+ * Отрасль деятельности (ID берем из запроса - customer_business)
+ */
+'business_id'?: number;
+
+/**
+ * Примечание
+ */
+'note'?: string;
+
+/**
+ * Менеджер по клиенту
+ */
+'manager_name'?: string;
+
+/**
+ * Менеджер по клиенту (ID берем из запроса - company_employee_list)
+ */
+'manager_id'?: number;
+
+/**
+ * Менеджер продаж
+ */
+'manager_sale_name'?: string;
+
+/**
+ * Менеджер продаж (ID берем из запроса - company_employee_list)
+ */
+'manager_sale_id'?: number;
+
+/**
+ * Менеджер создания
+ */
+'user_name'?: string;
+
+/**
+ * Менеджер создания (ID берем из запроса - company_employee_list)
+ */
+'user_id'?: number;
 
 /**
  * Время создания
@@ -134,29 +394,289 @@ export class CustomerService extends BaseService {
         'id': number;
         
         /**
-         * Наименование компании
+         * Наименование полное
          */
-        'company_name'?: string;
+        'name'?: string;
         
         /**
-         * Фамилия
+         * Наименование краткое
          */
-        'name_f'?: string;
+        'name_short'?: string;
         
         /**
-         * Имя
+         * Страна местонахождения
          */
-        'name_i'?: string;
+        'country_name'?: string;
         
         /**
-         * Имя
+         * Страна местонахождения (ID берем из запроса - direction_country)
          */
-        'name_o'?: string;
+        'country_id'?: number;
         
         /**
-         * Email
+         * Город местонахождения
+         */
+        'city_name'?: string;
+        
+        /**
+         * Город местонахождения (ID берем из запроса - direction_city)
+         */
+        'city_id'?: number;
+        
+        /**
+         * Юридический адрес
+         */
+        'address_legal'?: string;
+        
+        /**
+         * Юридический адрес
+         */
+        'address_post'?: string;
+        
+        /**
+         * ИНН
+         */
+        'inn'?: string;
+        
+        /**
+         * КПП
+         */
+        'kpp'?: string;
+        
+        /**
+         * ОГРН
+         */
+        'ogrn'?: string;
+        
+        /**
+         * ОКПО
+         */
+        'okpo'?: string;
+        
+        /**
+         * Номер телефона
+         */
+        'phone'?: string;
+        
+        /**
+         * E-mail
          */
         'email'?: string;
+        
+        /**
+         * Сайт
+         */
+        'web'?: string;
+        
+        /**
+         * Руководитель ФИО
+         */
+        'head_name'?: string;
+        
+        /**
+         * Должность руководителя (ID берем из запроса - customer_head_position)
+         */
+        'head_position_id'?: string;
+        
+        /**
+         * Документы (файл)
+         */
+        'documents_file'?: string;
+        
+        /**
+         * Документы (ссылка)
+         */
+        'documents_url'?: string;
+        
+        /**
+         * Адрес для корреспонденции
+         */
+        'document_address'?: string;
+        
+        /**
+         * Контактное лицо для корреспонденции
+         */
+        'document_contact_fio'?: string;
+        
+        /**
+         * Телефон для корреспонденции
+         */
+        'document_contact_phone'?: string;
+        
+        /**
+         * Адрес для доставки груза
+         */
+        'delivery_address'?: string;
+        
+        /**
+         * Контактное лицо для доставки груза
+         */
+        'delivery_contact_fio'?: string;
+        
+        /**
+         * Телефон
+         */
+        'delivery_contact_phone'?: string;
+        
+        /**
+         * График работы склада
+         */
+        'warehouse_schedule'?: string;
+        
+        /**
+         * Подпись ФИО
+         */
+        'signature_fio'?: string;
+        
+        /**
+         * Подпись должность
+         */
+        'signature_position'?: string;
+        
+        /**
+         * Подпись основание
+         */
+        'signature_basis'?: string;
+        
+        /**
+         * Главный бухгалтер
+         */
+        'accountant_fio'?: string;
+        
+        /**
+         * Наименование банка
+         */
+        'bank_name'?: string;
+        
+        /**
+         * Расчетный счет
+         */
+        'bank_payment_account'?: string;
+        
+        /**
+         * Корреспондентный счет
+         */
+        'bank_correspondent_account'?: string;
+        
+        /**
+         * БИК
+         */
+        'bank_bik'?: string;
+        
+        /**
+         * КПП
+         */
+        'bank_kpp'?: string;
+        
+        /**
+         * Валюта счета
+         */
+        'currency'?: string;
+        
+        /**
+         * Группа
+         */
+        'group_name'?: string;
+        
+        /**
+         * Группа (ID берем из запроса - customer_group_list)
+         */
+        'group_id'?: number;
+        
+        /**
+         * Источник
+         */
+        'source_name'?: string;
+        
+        /**
+         * Источник (ID берем из запроса - customer_contact_source)
+         */
+        'source_id'?: number;
+        
+        /**
+         * Тип клиента
+         */
+        'type_name'?: string;
+        
+        /**
+         * Тип клиента (ID берем из запроса - customer_type)
+         */
+        'type_id'?: number;
+        
+        /**
+         * Статус
+         */
+        'status_name'?: string;
+        
+        /**
+         * Статус (ID берем из запроса - customer_status)
+         */
+        'status_id'?: number;
+        
+        /**
+         * Привилегии
+         */
+        'privilege_name'?: string;
+        
+        /**
+         * Привилегии (ID берем из запроса - customer_privilege)
+         */
+        'privilege_id'?: number;
+        
+        /**
+         * Виды услуг
+         */
+        'service_name'?: string;
+        
+        /**
+         * Виды услуг (ID берем из запроса - customer_services)
+         */
+        'service_id'?: number;
+        
+        /**
+         * Отрасль деятельности
+         */
+        'business_name'?: string;
+        
+        /**
+         * Отрасль деятельности (ID берем из запроса - customer_business)
+         */
+        'business_id'?: number;
+        
+        /**
+         * Примечание
+         */
+        'note'?: string;
+        
+        /**
+         * Менеджер по клиенту
+         */
+        'manager_name'?: string;
+        
+        /**
+         * Менеджер по клиенту (ID берем из запроса - company_employee_list)
+         */
+        'manager_id'?: number;
+        
+        /**
+         * Менеджер продаж
+         */
+        'manager_sale_name'?: string;
+        
+        /**
+         * Менеджер продаж (ID берем из запроса - company_employee_list)
+         */
+        'manager_sale_id'?: number;
+        
+        /**
+         * Менеджер создания
+         */
+        'user_name'?: string;
+        
+        /**
+         * Менеджер создания (ID берем из запроса - company_employee_list)
+         */
+        'user_id'?: number;
         
         /**
          * Время создания
@@ -219,29 +739,289 @@ export class CustomerService extends BaseService {
 'id': number;
 
 /**
- * Наименование компании
+ * Наименование полное
  */
-'company_name'?: string;
+'name'?: string;
 
 /**
- * Фамилия
+ * Наименование краткое
  */
-'name_f'?: string;
+'name_short'?: string;
 
 /**
- * Имя
+ * Страна местонахождения
  */
-'name_i'?: string;
+'country_name'?: string;
 
 /**
- * Имя
+ * Страна местонахождения (ID берем из запроса - direction_country)
  */
-'name_o'?: string;
+'country_id'?: number;
 
 /**
- * Email
+ * Город местонахождения
+ */
+'city_name'?: string;
+
+/**
+ * Город местонахождения (ID берем из запроса - direction_city)
+ */
+'city_id'?: number;
+
+/**
+ * Юридический адрес
+ */
+'address_legal'?: string;
+
+/**
+ * Юридический адрес
+ */
+'address_post'?: string;
+
+/**
+ * ИНН
+ */
+'inn'?: string;
+
+/**
+ * КПП
+ */
+'kpp'?: string;
+
+/**
+ * ОГРН
+ */
+'ogrn'?: string;
+
+/**
+ * ОКПО
+ */
+'okpo'?: string;
+
+/**
+ * Номер телефона
+ */
+'phone'?: string;
+
+/**
+ * E-mail
  */
 'email'?: string;
+
+/**
+ * Сайт
+ */
+'web'?: string;
+
+/**
+ * Руководитель ФИО
+ */
+'head_name'?: string;
+
+/**
+ * Должность руководителя (ID берем из запроса - customer_head_position)
+ */
+'head_position_id'?: string;
+
+/**
+ * Документы (файл)
+ */
+'documents_file'?: string;
+
+/**
+ * Документы (ссылка)
+ */
+'documents_url'?: string;
+
+/**
+ * Адрес для корреспонденции
+ */
+'document_address'?: string;
+
+/**
+ * Контактное лицо для корреспонденции
+ */
+'document_contact_fio'?: string;
+
+/**
+ * Телефон для корреспонденции
+ */
+'document_contact_phone'?: string;
+
+/**
+ * Адрес для доставки груза
+ */
+'delivery_address'?: string;
+
+/**
+ * Контактное лицо для доставки груза
+ */
+'delivery_contact_fio'?: string;
+
+/**
+ * Телефон
+ */
+'delivery_contact_phone'?: string;
+
+/**
+ * График работы склада
+ */
+'warehouse_schedule'?: string;
+
+/**
+ * Подпись ФИО
+ */
+'signature_fio'?: string;
+
+/**
+ * Подпись должность
+ */
+'signature_position'?: string;
+
+/**
+ * Подпись основание
+ */
+'signature_basis'?: string;
+
+/**
+ * Главный бухгалтер
+ */
+'accountant_fio'?: string;
+
+/**
+ * Наименование банка
+ */
+'bank_name'?: string;
+
+/**
+ * Расчетный счет
+ */
+'bank_payment_account'?: string;
+
+/**
+ * Корреспондентный счет
+ */
+'bank_correspondent_account'?: string;
+
+/**
+ * БИК
+ */
+'bank_bik'?: string;
+
+/**
+ * КПП
+ */
+'bank_kpp'?: string;
+
+/**
+ * Валюта счета
+ */
+'currency'?: string;
+
+/**
+ * Группа
+ */
+'group_name'?: string;
+
+/**
+ * Группа (ID берем из запроса - customer_group_list)
+ */
+'group_id'?: number;
+
+/**
+ * Источник
+ */
+'source_name'?: string;
+
+/**
+ * Источник (ID берем из запроса - customer_contact_source)
+ */
+'source_id'?: number;
+
+/**
+ * Тип клиента
+ */
+'type_name'?: string;
+
+/**
+ * Тип клиента (ID берем из запроса - customer_type)
+ */
+'type_id'?: number;
+
+/**
+ * Статус
+ */
+'status_name'?: string;
+
+/**
+ * Статус (ID берем из запроса - customer_status)
+ */
+'status_id'?: number;
+
+/**
+ * Привилегии
+ */
+'privilege_name'?: string;
+
+/**
+ * Привилегии (ID берем из запроса - customer_privilege)
+ */
+'privilege_id'?: number;
+
+/**
+ * Виды услуг
+ */
+'service_name'?: string;
+
+/**
+ * Виды услуг (ID берем из запроса - customer_services)
+ */
+'service_id'?: number;
+
+/**
+ * Отрасль деятельности
+ */
+'business_name'?: string;
+
+/**
+ * Отрасль деятельности (ID берем из запроса - customer_business)
+ */
+'business_id'?: number;
+
+/**
+ * Примечание
+ */
+'note'?: string;
+
+/**
+ * Менеджер по клиенту
+ */
+'manager_name'?: string;
+
+/**
+ * Менеджер по клиенту (ID берем из запроса - company_employee_list)
+ */
+'manager_id'?: number;
+
+/**
+ * Менеджер продаж
+ */
+'manager_sale_name'?: string;
+
+/**
+ * Менеджер продаж (ID берем из запроса - company_employee_list)
+ */
+'manager_sale_id'?: number;
+
+/**
+ * Менеджер создания
+ */
+'user_name'?: string;
+
+/**
+ * Менеджер создания (ID берем из запроса - company_employee_list)
+ */
+'user_id'?: number;
 
 /**
  * Время создания
@@ -263,29 +1043,289 @@ export class CustomerService extends BaseService {
 'id': number;
 
 /**
- * Наименование компании
+ * Наименование полное
  */
-'company_name'?: string;
+'name'?: string;
 
 /**
- * Фамилия
+ * Наименование краткое
  */
-'name_f'?: string;
+'name_short'?: string;
 
 /**
- * Имя
+ * Страна местонахождения
  */
-'name_i'?: string;
+'country_name'?: string;
 
 /**
- * Имя
+ * Страна местонахождения (ID берем из запроса - direction_country)
  */
-'name_o'?: string;
+'country_id'?: number;
 
 /**
- * Email
+ * Город местонахождения
+ */
+'city_name'?: string;
+
+/**
+ * Город местонахождения (ID берем из запроса - direction_city)
+ */
+'city_id'?: number;
+
+/**
+ * Юридический адрес
+ */
+'address_legal'?: string;
+
+/**
+ * Юридический адрес
+ */
+'address_post'?: string;
+
+/**
+ * ИНН
+ */
+'inn'?: string;
+
+/**
+ * КПП
+ */
+'kpp'?: string;
+
+/**
+ * ОГРН
+ */
+'ogrn'?: string;
+
+/**
+ * ОКПО
+ */
+'okpo'?: string;
+
+/**
+ * Номер телефона
+ */
+'phone'?: string;
+
+/**
+ * E-mail
  */
 'email'?: string;
+
+/**
+ * Сайт
+ */
+'web'?: string;
+
+/**
+ * Руководитель ФИО
+ */
+'head_name'?: string;
+
+/**
+ * Должность руководителя (ID берем из запроса - customer_head_position)
+ */
+'head_position_id'?: string;
+
+/**
+ * Документы (файл)
+ */
+'documents_file'?: string;
+
+/**
+ * Документы (ссылка)
+ */
+'documents_url'?: string;
+
+/**
+ * Адрес для корреспонденции
+ */
+'document_address'?: string;
+
+/**
+ * Контактное лицо для корреспонденции
+ */
+'document_contact_fio'?: string;
+
+/**
+ * Телефон для корреспонденции
+ */
+'document_contact_phone'?: string;
+
+/**
+ * Адрес для доставки груза
+ */
+'delivery_address'?: string;
+
+/**
+ * Контактное лицо для доставки груза
+ */
+'delivery_contact_fio'?: string;
+
+/**
+ * Телефон
+ */
+'delivery_contact_phone'?: string;
+
+/**
+ * График работы склада
+ */
+'warehouse_schedule'?: string;
+
+/**
+ * Подпись ФИО
+ */
+'signature_fio'?: string;
+
+/**
+ * Подпись должность
+ */
+'signature_position'?: string;
+
+/**
+ * Подпись основание
+ */
+'signature_basis'?: string;
+
+/**
+ * Главный бухгалтер
+ */
+'accountant_fio'?: string;
+
+/**
+ * Наименование банка
+ */
+'bank_name'?: string;
+
+/**
+ * Расчетный счет
+ */
+'bank_payment_account'?: string;
+
+/**
+ * Корреспондентный счет
+ */
+'bank_correspondent_account'?: string;
+
+/**
+ * БИК
+ */
+'bank_bik'?: string;
+
+/**
+ * КПП
+ */
+'bank_kpp'?: string;
+
+/**
+ * Валюта счета
+ */
+'currency'?: string;
+
+/**
+ * Группа
+ */
+'group_name'?: string;
+
+/**
+ * Группа (ID берем из запроса - customer_group_list)
+ */
+'group_id'?: number;
+
+/**
+ * Источник
+ */
+'source_name'?: string;
+
+/**
+ * Источник (ID берем из запроса - customer_contact_source)
+ */
+'source_id'?: number;
+
+/**
+ * Тип клиента
+ */
+'type_name'?: string;
+
+/**
+ * Тип клиента (ID берем из запроса - customer_type)
+ */
+'type_id'?: number;
+
+/**
+ * Статус
+ */
+'status_name'?: string;
+
+/**
+ * Статус (ID берем из запроса - customer_status)
+ */
+'status_id'?: number;
+
+/**
+ * Привилегии
+ */
+'privilege_name'?: string;
+
+/**
+ * Привилегии (ID берем из запроса - customer_privilege)
+ */
+'privilege_id'?: number;
+
+/**
+ * Виды услуг
+ */
+'service_name'?: string;
+
+/**
+ * Виды услуг (ID берем из запроса - customer_services)
+ */
+'service_id'?: number;
+
+/**
+ * Отрасль деятельности
+ */
+'business_name'?: string;
+
+/**
+ * Отрасль деятельности (ID берем из запроса - customer_business)
+ */
+'business_id'?: number;
+
+/**
+ * Примечание
+ */
+'note'?: string;
+
+/**
+ * Менеджер по клиенту
+ */
+'manager_name'?: string;
+
+/**
+ * Менеджер по клиенту (ID берем из запроса - company_employee_list)
+ */
+'manager_id'?: number;
+
+/**
+ * Менеджер продаж
+ */
+'manager_sale_name'?: string;
+
+/**
+ * Менеджер продаж (ID берем из запроса - company_employee_list)
+ */
+'manager_sale_id'?: number;
+
+/**
+ * Менеджер создания
+ */
+'user_name'?: string;
+
+/**
+ * Менеджер создания (ID берем из запроса - company_employee_list)
+ */
+'user_id'?: number;
 
 /**
  * Время создания
@@ -304,29 +1344,289 @@ export class CustomerService extends BaseService {
 'id': number;
 
 /**
- * Наименование компании
+ * Наименование полное
  */
-'company_name'?: string;
+'name'?: string;
 
 /**
- * Фамилия
+ * Наименование краткое
  */
-'name_f'?: string;
+'name_short'?: string;
 
 /**
- * Имя
+ * Страна местонахождения
  */
-'name_i'?: string;
+'country_name'?: string;
 
 /**
- * Имя
+ * Страна местонахождения (ID берем из запроса - direction_country)
  */
-'name_o'?: string;
+'country_id'?: number;
 
 /**
- * Email
+ * Город местонахождения
+ */
+'city_name'?: string;
+
+/**
+ * Город местонахождения (ID берем из запроса - direction_city)
+ */
+'city_id'?: number;
+
+/**
+ * Юридический адрес
+ */
+'address_legal'?: string;
+
+/**
+ * Юридический адрес
+ */
+'address_post'?: string;
+
+/**
+ * ИНН
+ */
+'inn'?: string;
+
+/**
+ * КПП
+ */
+'kpp'?: string;
+
+/**
+ * ОГРН
+ */
+'ogrn'?: string;
+
+/**
+ * ОКПО
+ */
+'okpo'?: string;
+
+/**
+ * Номер телефона
+ */
+'phone'?: string;
+
+/**
+ * E-mail
  */
 'email'?: string;
+
+/**
+ * Сайт
+ */
+'web'?: string;
+
+/**
+ * Руководитель ФИО
+ */
+'head_name'?: string;
+
+/**
+ * Должность руководителя (ID берем из запроса - customer_head_position)
+ */
+'head_position_id'?: string;
+
+/**
+ * Документы (файл)
+ */
+'documents_file'?: string;
+
+/**
+ * Документы (ссылка)
+ */
+'documents_url'?: string;
+
+/**
+ * Адрес для корреспонденции
+ */
+'document_address'?: string;
+
+/**
+ * Контактное лицо для корреспонденции
+ */
+'document_contact_fio'?: string;
+
+/**
+ * Телефон для корреспонденции
+ */
+'document_contact_phone'?: string;
+
+/**
+ * Адрес для доставки груза
+ */
+'delivery_address'?: string;
+
+/**
+ * Контактное лицо для доставки груза
+ */
+'delivery_contact_fio'?: string;
+
+/**
+ * Телефон
+ */
+'delivery_contact_phone'?: string;
+
+/**
+ * График работы склада
+ */
+'warehouse_schedule'?: string;
+
+/**
+ * Подпись ФИО
+ */
+'signature_fio'?: string;
+
+/**
+ * Подпись должность
+ */
+'signature_position'?: string;
+
+/**
+ * Подпись основание
+ */
+'signature_basis'?: string;
+
+/**
+ * Главный бухгалтер
+ */
+'accountant_fio'?: string;
+
+/**
+ * Наименование банка
+ */
+'bank_name'?: string;
+
+/**
+ * Расчетный счет
+ */
+'bank_payment_account'?: string;
+
+/**
+ * Корреспондентный счет
+ */
+'bank_correspondent_account'?: string;
+
+/**
+ * БИК
+ */
+'bank_bik'?: string;
+
+/**
+ * КПП
+ */
+'bank_kpp'?: string;
+
+/**
+ * Валюта счета
+ */
+'currency'?: string;
+
+/**
+ * Группа
+ */
+'group_name'?: string;
+
+/**
+ * Группа (ID берем из запроса - customer_group_list)
+ */
+'group_id'?: number;
+
+/**
+ * Источник
+ */
+'source_name'?: string;
+
+/**
+ * Источник (ID берем из запроса - customer_contact_source)
+ */
+'source_id'?: number;
+
+/**
+ * Тип клиента
+ */
+'type_name'?: string;
+
+/**
+ * Тип клиента (ID берем из запроса - customer_type)
+ */
+'type_id'?: number;
+
+/**
+ * Статус
+ */
+'status_name'?: string;
+
+/**
+ * Статус (ID берем из запроса - customer_status)
+ */
+'status_id'?: number;
+
+/**
+ * Привилегии
+ */
+'privilege_name'?: string;
+
+/**
+ * Привилегии (ID берем из запроса - customer_privilege)
+ */
+'privilege_id'?: number;
+
+/**
+ * Виды услуг
+ */
+'service_name'?: string;
+
+/**
+ * Виды услуг (ID берем из запроса - customer_services)
+ */
+'service_id'?: number;
+
+/**
+ * Отрасль деятельности
+ */
+'business_name'?: string;
+
+/**
+ * Отрасль деятельности (ID берем из запроса - customer_business)
+ */
+'business_id'?: number;
+
+/**
+ * Примечание
+ */
+'note'?: string;
+
+/**
+ * Менеджер по клиенту
+ */
+'manager_name'?: string;
+
+/**
+ * Менеджер по клиенту (ID берем из запроса - company_employee_list)
+ */
+'manager_id'?: number;
+
+/**
+ * Менеджер продаж
+ */
+'manager_sale_name'?: string;
+
+/**
+ * Менеджер продаж (ID берем из запроса - company_employee_list)
+ */
+'manager_sale_id'?: number;
+
+/**
+ * Менеджер создания
+ */
+'user_name'?: string;
+
+/**
+ * Менеджер создания (ID берем из запроса - company_employee_list)
+ */
+'user_id'?: number;
 
 /**
  * Время создания
@@ -372,29 +1672,289 @@ export class CustomerService extends BaseService {
 'id': number;
 
 /**
- * Наименование компании
+ * Наименование полное
  */
-'company_name'?: string;
+'name'?: string;
 
 /**
- * Фамилия
+ * Наименование краткое
  */
-'name_f'?: string;
+'name_short'?: string;
 
 /**
- * Имя
+ * Страна местонахождения
  */
-'name_i'?: string;
+'country_name'?: string;
 
 /**
- * Имя
+ * Страна местонахождения (ID берем из запроса - direction_country)
  */
-'name_o'?: string;
+'country_id'?: number;
 
 /**
- * Email
+ * Город местонахождения
+ */
+'city_name'?: string;
+
+/**
+ * Город местонахождения (ID берем из запроса - direction_city)
+ */
+'city_id'?: number;
+
+/**
+ * Юридический адрес
+ */
+'address_legal'?: string;
+
+/**
+ * Юридический адрес
+ */
+'address_post'?: string;
+
+/**
+ * ИНН
+ */
+'inn'?: string;
+
+/**
+ * КПП
+ */
+'kpp'?: string;
+
+/**
+ * ОГРН
+ */
+'ogrn'?: string;
+
+/**
+ * ОКПО
+ */
+'okpo'?: string;
+
+/**
+ * Номер телефона
+ */
+'phone'?: string;
+
+/**
+ * E-mail
  */
 'email'?: string;
+
+/**
+ * Сайт
+ */
+'web'?: string;
+
+/**
+ * Руководитель ФИО
+ */
+'head_name'?: string;
+
+/**
+ * Должность руководителя (ID берем из запроса - customer_head_position)
+ */
+'head_position_id'?: string;
+
+/**
+ * Документы (файл)
+ */
+'documents_file'?: string;
+
+/**
+ * Документы (ссылка)
+ */
+'documents_url'?: string;
+
+/**
+ * Адрес для корреспонденции
+ */
+'document_address'?: string;
+
+/**
+ * Контактное лицо для корреспонденции
+ */
+'document_contact_fio'?: string;
+
+/**
+ * Телефон для корреспонденции
+ */
+'document_contact_phone'?: string;
+
+/**
+ * Адрес для доставки груза
+ */
+'delivery_address'?: string;
+
+/**
+ * Контактное лицо для доставки груза
+ */
+'delivery_contact_fio'?: string;
+
+/**
+ * Телефон
+ */
+'delivery_contact_phone'?: string;
+
+/**
+ * График работы склада
+ */
+'warehouse_schedule'?: string;
+
+/**
+ * Подпись ФИО
+ */
+'signature_fio'?: string;
+
+/**
+ * Подпись должность
+ */
+'signature_position'?: string;
+
+/**
+ * Подпись основание
+ */
+'signature_basis'?: string;
+
+/**
+ * Главный бухгалтер
+ */
+'accountant_fio'?: string;
+
+/**
+ * Наименование банка
+ */
+'bank_name'?: string;
+
+/**
+ * Расчетный счет
+ */
+'bank_payment_account'?: string;
+
+/**
+ * Корреспондентный счет
+ */
+'bank_correspondent_account'?: string;
+
+/**
+ * БИК
+ */
+'bank_bik'?: string;
+
+/**
+ * КПП
+ */
+'bank_kpp'?: string;
+
+/**
+ * Валюта счета
+ */
+'currency'?: string;
+
+/**
+ * Группа
+ */
+'group_name'?: string;
+
+/**
+ * Группа (ID берем из запроса - customer_group_list)
+ */
+'group_id'?: number;
+
+/**
+ * Источник
+ */
+'source_name'?: string;
+
+/**
+ * Источник (ID берем из запроса - customer_contact_source)
+ */
+'source_id'?: number;
+
+/**
+ * Тип клиента
+ */
+'type_name'?: string;
+
+/**
+ * Тип клиента (ID берем из запроса - customer_type)
+ */
+'type_id'?: number;
+
+/**
+ * Статус
+ */
+'status_name'?: string;
+
+/**
+ * Статус (ID берем из запроса - customer_status)
+ */
+'status_id'?: number;
+
+/**
+ * Привилегии
+ */
+'privilege_name'?: string;
+
+/**
+ * Привилегии (ID берем из запроса - customer_privilege)
+ */
+'privilege_id'?: number;
+
+/**
+ * Виды услуг
+ */
+'service_name'?: string;
+
+/**
+ * Виды услуг (ID берем из запроса - customer_services)
+ */
+'service_id'?: number;
+
+/**
+ * Отрасль деятельности
+ */
+'business_name'?: string;
+
+/**
+ * Отрасль деятельности (ID берем из запроса - customer_business)
+ */
+'business_id'?: number;
+
+/**
+ * Примечание
+ */
+'note'?: string;
+
+/**
+ * Менеджер по клиенту
+ */
+'manager_name'?: string;
+
+/**
+ * Менеджер по клиенту (ID берем из запроса - company_employee_list)
+ */
+'manager_id'?: number;
+
+/**
+ * Менеджер продаж
+ */
+'manager_sale_name'?: string;
+
+/**
+ * Менеджер продаж (ID берем из запроса - company_employee_list)
+ */
+'manager_sale_id'?: number;
+
+/**
+ * Менеджер создания
+ */
+'user_name'?: string;
+
+/**
+ * Менеджер создания (ID берем из запроса - company_employee_list)
+ */
+'user_id'?: number;
 
 /**
  * Время создания
@@ -427,29 +1987,289 @@ export class CustomerService extends BaseService {
         'id': number;
         
         /**
-         * Наименование компании
+         * Наименование полное
          */
-        'company_name'?: string;
+        'name'?: string;
         
         /**
-         * Фамилия
+         * Наименование краткое
          */
-        'name_f'?: string;
+        'name_short'?: string;
         
         /**
-         * Имя
+         * Страна местонахождения
          */
-        'name_i'?: string;
+        'country_name'?: string;
         
         /**
-         * Имя
+         * Страна местонахождения (ID берем из запроса - direction_country)
          */
-        'name_o'?: string;
+        'country_id'?: number;
         
         /**
-         * Email
+         * Город местонахождения
+         */
+        'city_name'?: string;
+        
+        /**
+         * Город местонахождения (ID берем из запроса - direction_city)
+         */
+        'city_id'?: number;
+        
+        /**
+         * Юридический адрес
+         */
+        'address_legal'?: string;
+        
+        /**
+         * Юридический адрес
+         */
+        'address_post'?: string;
+        
+        /**
+         * ИНН
+         */
+        'inn'?: string;
+        
+        /**
+         * КПП
+         */
+        'kpp'?: string;
+        
+        /**
+         * ОГРН
+         */
+        'ogrn'?: string;
+        
+        /**
+         * ОКПО
+         */
+        'okpo'?: string;
+        
+        /**
+         * Номер телефона
+         */
+        'phone'?: string;
+        
+        /**
+         * E-mail
          */
         'email'?: string;
+        
+        /**
+         * Сайт
+         */
+        'web'?: string;
+        
+        /**
+         * Руководитель ФИО
+         */
+        'head_name'?: string;
+        
+        /**
+         * Должность руководителя (ID берем из запроса - customer_head_position)
+         */
+        'head_position_id'?: string;
+        
+        /**
+         * Документы (файл)
+         */
+        'documents_file'?: string;
+        
+        /**
+         * Документы (ссылка)
+         */
+        'documents_url'?: string;
+        
+        /**
+         * Адрес для корреспонденции
+         */
+        'document_address'?: string;
+        
+        /**
+         * Контактное лицо для корреспонденции
+         */
+        'document_contact_fio'?: string;
+        
+        /**
+         * Телефон для корреспонденции
+         */
+        'document_contact_phone'?: string;
+        
+        /**
+         * Адрес для доставки груза
+         */
+        'delivery_address'?: string;
+        
+        /**
+         * Контактное лицо для доставки груза
+         */
+        'delivery_contact_fio'?: string;
+        
+        /**
+         * Телефон
+         */
+        'delivery_contact_phone'?: string;
+        
+        /**
+         * График работы склада
+         */
+        'warehouse_schedule'?: string;
+        
+        /**
+         * Подпись ФИО
+         */
+        'signature_fio'?: string;
+        
+        /**
+         * Подпись должность
+         */
+        'signature_position'?: string;
+        
+        /**
+         * Подпись основание
+         */
+        'signature_basis'?: string;
+        
+        /**
+         * Главный бухгалтер
+         */
+        'accountant_fio'?: string;
+        
+        /**
+         * Наименование банка
+         */
+        'bank_name'?: string;
+        
+        /**
+         * Расчетный счет
+         */
+        'bank_payment_account'?: string;
+        
+        /**
+         * Корреспондентный счет
+         */
+        'bank_correspondent_account'?: string;
+        
+        /**
+         * БИК
+         */
+        'bank_bik'?: string;
+        
+        /**
+         * КПП
+         */
+        'bank_kpp'?: string;
+        
+        /**
+         * Валюта счета
+         */
+        'currency'?: string;
+        
+        /**
+         * Группа
+         */
+        'group_name'?: string;
+        
+        /**
+         * Группа (ID берем из запроса - customer_group_list)
+         */
+        'group_id'?: number;
+        
+        /**
+         * Источник
+         */
+        'source_name'?: string;
+        
+        /**
+         * Источник (ID берем из запроса - customer_contact_source)
+         */
+        'source_id'?: number;
+        
+        /**
+         * Тип клиента
+         */
+        'type_name'?: string;
+        
+        /**
+         * Тип клиента (ID берем из запроса - customer_type)
+         */
+        'type_id'?: number;
+        
+        /**
+         * Статус
+         */
+        'status_name'?: string;
+        
+        /**
+         * Статус (ID берем из запроса - customer_status)
+         */
+        'status_id'?: number;
+        
+        /**
+         * Привилегии
+         */
+        'privilege_name'?: string;
+        
+        /**
+         * Привилегии (ID берем из запроса - customer_privilege)
+         */
+        'privilege_id'?: number;
+        
+        /**
+         * Виды услуг
+         */
+        'service_name'?: string;
+        
+        /**
+         * Виды услуг (ID берем из запроса - customer_services)
+         */
+        'service_id'?: number;
+        
+        /**
+         * Отрасль деятельности
+         */
+        'business_name'?: string;
+        
+        /**
+         * Отрасль деятельности (ID берем из запроса - customer_business)
+         */
+        'business_id'?: number;
+        
+        /**
+         * Примечание
+         */
+        'note'?: string;
+        
+        /**
+         * Менеджер по клиенту
+         */
+        'manager_name'?: string;
+        
+        /**
+         * Менеджер по клиенту (ID берем из запроса - company_employee_list)
+         */
+        'manager_id'?: number;
+        
+        /**
+         * Менеджер продаж
+         */
+        'manager_sale_name'?: string;
+        
+        /**
+         * Менеджер продаж (ID берем из запроса - company_employee_list)
+         */
+        'manager_sale_id'?: number;
+        
+        /**
+         * Менеджер создания
+         */
+        'user_name'?: string;
+        
+        /**
+         * Менеджер создания (ID берем из запроса - company_employee_list)
+         */
+        'user_id'?: number;
         
         /**
          * Время создания
@@ -491,29 +2311,289 @@ export class CustomerService extends BaseService {
 'id': number;
 
 /**
- * Наименование компании
+ * Наименование полное
  */
-'company_name'?: string;
+'name'?: string;
 
 /**
- * Фамилия
+ * Наименование краткое
  */
-'name_f'?: string;
+'name_short'?: string;
 
 /**
- * Имя
+ * Страна местонахождения
  */
-'name_i'?: string;
+'country_name'?: string;
 
 /**
- * Имя
+ * Страна местонахождения (ID берем из запроса - direction_country)
  */
-'name_o'?: string;
+'country_id'?: number;
 
 /**
- * Email
+ * Город местонахождения
+ */
+'city_name'?: string;
+
+/**
+ * Город местонахождения (ID берем из запроса - direction_city)
+ */
+'city_id'?: number;
+
+/**
+ * Юридический адрес
+ */
+'address_legal'?: string;
+
+/**
+ * Юридический адрес
+ */
+'address_post'?: string;
+
+/**
+ * ИНН
+ */
+'inn'?: string;
+
+/**
+ * КПП
+ */
+'kpp'?: string;
+
+/**
+ * ОГРН
+ */
+'ogrn'?: string;
+
+/**
+ * ОКПО
+ */
+'okpo'?: string;
+
+/**
+ * Номер телефона
+ */
+'phone'?: string;
+
+/**
+ * E-mail
  */
 'email'?: string;
+
+/**
+ * Сайт
+ */
+'web'?: string;
+
+/**
+ * Руководитель ФИО
+ */
+'head_name'?: string;
+
+/**
+ * Должность руководителя (ID берем из запроса - customer_head_position)
+ */
+'head_position_id'?: string;
+
+/**
+ * Документы (файл)
+ */
+'documents_file'?: string;
+
+/**
+ * Документы (ссылка)
+ */
+'documents_url'?: string;
+
+/**
+ * Адрес для корреспонденции
+ */
+'document_address'?: string;
+
+/**
+ * Контактное лицо для корреспонденции
+ */
+'document_contact_fio'?: string;
+
+/**
+ * Телефон для корреспонденции
+ */
+'document_contact_phone'?: string;
+
+/**
+ * Адрес для доставки груза
+ */
+'delivery_address'?: string;
+
+/**
+ * Контактное лицо для доставки груза
+ */
+'delivery_contact_fio'?: string;
+
+/**
+ * Телефон
+ */
+'delivery_contact_phone'?: string;
+
+/**
+ * График работы склада
+ */
+'warehouse_schedule'?: string;
+
+/**
+ * Подпись ФИО
+ */
+'signature_fio'?: string;
+
+/**
+ * Подпись должность
+ */
+'signature_position'?: string;
+
+/**
+ * Подпись основание
+ */
+'signature_basis'?: string;
+
+/**
+ * Главный бухгалтер
+ */
+'accountant_fio'?: string;
+
+/**
+ * Наименование банка
+ */
+'bank_name'?: string;
+
+/**
+ * Расчетный счет
+ */
+'bank_payment_account'?: string;
+
+/**
+ * Корреспондентный счет
+ */
+'bank_correspondent_account'?: string;
+
+/**
+ * БИК
+ */
+'bank_bik'?: string;
+
+/**
+ * КПП
+ */
+'bank_kpp'?: string;
+
+/**
+ * Валюта счета
+ */
+'currency'?: string;
+
+/**
+ * Группа
+ */
+'group_name'?: string;
+
+/**
+ * Группа (ID берем из запроса - customer_group_list)
+ */
+'group_id'?: number;
+
+/**
+ * Источник
+ */
+'source_name'?: string;
+
+/**
+ * Источник (ID берем из запроса - customer_contact_source)
+ */
+'source_id'?: number;
+
+/**
+ * Тип клиента
+ */
+'type_name'?: string;
+
+/**
+ * Тип клиента (ID берем из запроса - customer_type)
+ */
+'type_id'?: number;
+
+/**
+ * Статус
+ */
+'status_name'?: string;
+
+/**
+ * Статус (ID берем из запроса - customer_status)
+ */
+'status_id'?: number;
+
+/**
+ * Привилегии
+ */
+'privilege_name'?: string;
+
+/**
+ * Привилегии (ID берем из запроса - customer_privilege)
+ */
+'privilege_id'?: number;
+
+/**
+ * Виды услуг
+ */
+'service_name'?: string;
+
+/**
+ * Виды услуг (ID берем из запроса - customer_services)
+ */
+'service_id'?: number;
+
+/**
+ * Отрасль деятельности
+ */
+'business_name'?: string;
+
+/**
+ * Отрасль деятельности (ID берем из запроса - customer_business)
+ */
+'business_id'?: number;
+
+/**
+ * Примечание
+ */
+'note'?: string;
+
+/**
+ * Менеджер по клиенту
+ */
+'manager_name'?: string;
+
+/**
+ * Менеджер по клиенту (ID берем из запроса - company_employee_list)
+ */
+'manager_id'?: number;
+
+/**
+ * Менеджер продаж
+ */
+'manager_sale_name'?: string;
+
+/**
+ * Менеджер продаж (ID берем из запроса - company_employee_list)
+ */
+'manager_sale_id'?: number;
+
+/**
+ * Менеджер создания
+ */
+'user_name'?: string;
+
+/**
+ * Менеджер создания (ID берем из запроса - company_employee_list)
+ */
+'user_id'?: number;
 
 /**
  * Время создания
@@ -535,29 +2615,289 @@ export class CustomerService extends BaseService {
 'id': number;
 
 /**
- * Наименование компании
+ * Наименование полное
  */
-'company_name'?: string;
+'name'?: string;
 
 /**
- * Фамилия
+ * Наименование краткое
  */
-'name_f'?: string;
+'name_short'?: string;
 
 /**
- * Имя
+ * Страна местонахождения
  */
-'name_i'?: string;
+'country_name'?: string;
 
 /**
- * Имя
+ * Страна местонахождения (ID берем из запроса - direction_country)
  */
-'name_o'?: string;
+'country_id'?: number;
 
 /**
- * Email
+ * Город местонахождения
+ */
+'city_name'?: string;
+
+/**
+ * Город местонахождения (ID берем из запроса - direction_city)
+ */
+'city_id'?: number;
+
+/**
+ * Юридический адрес
+ */
+'address_legal'?: string;
+
+/**
+ * Юридический адрес
+ */
+'address_post'?: string;
+
+/**
+ * ИНН
+ */
+'inn'?: string;
+
+/**
+ * КПП
+ */
+'kpp'?: string;
+
+/**
+ * ОГРН
+ */
+'ogrn'?: string;
+
+/**
+ * ОКПО
+ */
+'okpo'?: string;
+
+/**
+ * Номер телефона
+ */
+'phone'?: string;
+
+/**
+ * E-mail
  */
 'email'?: string;
+
+/**
+ * Сайт
+ */
+'web'?: string;
+
+/**
+ * Руководитель ФИО
+ */
+'head_name'?: string;
+
+/**
+ * Должность руководителя (ID берем из запроса - customer_head_position)
+ */
+'head_position_id'?: string;
+
+/**
+ * Документы (файл)
+ */
+'documents_file'?: string;
+
+/**
+ * Документы (ссылка)
+ */
+'documents_url'?: string;
+
+/**
+ * Адрес для корреспонденции
+ */
+'document_address'?: string;
+
+/**
+ * Контактное лицо для корреспонденции
+ */
+'document_contact_fio'?: string;
+
+/**
+ * Телефон для корреспонденции
+ */
+'document_contact_phone'?: string;
+
+/**
+ * Адрес для доставки груза
+ */
+'delivery_address'?: string;
+
+/**
+ * Контактное лицо для доставки груза
+ */
+'delivery_contact_fio'?: string;
+
+/**
+ * Телефон
+ */
+'delivery_contact_phone'?: string;
+
+/**
+ * График работы склада
+ */
+'warehouse_schedule'?: string;
+
+/**
+ * Подпись ФИО
+ */
+'signature_fio'?: string;
+
+/**
+ * Подпись должность
+ */
+'signature_position'?: string;
+
+/**
+ * Подпись основание
+ */
+'signature_basis'?: string;
+
+/**
+ * Главный бухгалтер
+ */
+'accountant_fio'?: string;
+
+/**
+ * Наименование банка
+ */
+'bank_name'?: string;
+
+/**
+ * Расчетный счет
+ */
+'bank_payment_account'?: string;
+
+/**
+ * Корреспондентный счет
+ */
+'bank_correspondent_account'?: string;
+
+/**
+ * БИК
+ */
+'bank_bik'?: string;
+
+/**
+ * КПП
+ */
+'bank_kpp'?: string;
+
+/**
+ * Валюта счета
+ */
+'currency'?: string;
+
+/**
+ * Группа
+ */
+'group_name'?: string;
+
+/**
+ * Группа (ID берем из запроса - customer_group_list)
+ */
+'group_id'?: number;
+
+/**
+ * Источник
+ */
+'source_name'?: string;
+
+/**
+ * Источник (ID берем из запроса - customer_contact_source)
+ */
+'source_id'?: number;
+
+/**
+ * Тип клиента
+ */
+'type_name'?: string;
+
+/**
+ * Тип клиента (ID берем из запроса - customer_type)
+ */
+'type_id'?: number;
+
+/**
+ * Статус
+ */
+'status_name'?: string;
+
+/**
+ * Статус (ID берем из запроса - customer_status)
+ */
+'status_id'?: number;
+
+/**
+ * Привилегии
+ */
+'privilege_name'?: string;
+
+/**
+ * Привилегии (ID берем из запроса - customer_privilege)
+ */
+'privilege_id'?: number;
+
+/**
+ * Виды услуг
+ */
+'service_name'?: string;
+
+/**
+ * Виды услуг (ID берем из запроса - customer_services)
+ */
+'service_id'?: number;
+
+/**
+ * Отрасль деятельности
+ */
+'business_name'?: string;
+
+/**
+ * Отрасль деятельности (ID берем из запроса - customer_business)
+ */
+'business_id'?: number;
+
+/**
+ * Примечание
+ */
+'note'?: string;
+
+/**
+ * Менеджер по клиенту
+ */
+'manager_name'?: string;
+
+/**
+ * Менеджер по клиенту (ID берем из запроса - company_employee_list)
+ */
+'manager_id'?: number;
+
+/**
+ * Менеджер продаж
+ */
+'manager_sale_name'?: string;
+
+/**
+ * Менеджер продаж (ID берем из запроса - company_employee_list)
+ */
+'manager_sale_id'?: number;
+
+/**
+ * Менеджер создания
+ */
+'user_name'?: string;
+
+/**
+ * Менеджер создания (ID берем из запроса - company_employee_list)
+ */
+'user_id'?: number;
 
 /**
  * Время создания
@@ -576,29 +2916,289 @@ export class CustomerService extends BaseService {
 'id': number;
 
 /**
- * Наименование компании
+ * Наименование полное
  */
-'company_name'?: string;
+'name'?: string;
 
 /**
- * Фамилия
+ * Наименование краткое
  */
-'name_f'?: string;
+'name_short'?: string;
 
 /**
- * Имя
+ * Страна местонахождения
  */
-'name_i'?: string;
+'country_name'?: string;
 
 /**
- * Имя
+ * Страна местонахождения (ID берем из запроса - direction_country)
  */
-'name_o'?: string;
+'country_id'?: number;
 
 /**
- * Email
+ * Город местонахождения
+ */
+'city_name'?: string;
+
+/**
+ * Город местонахождения (ID берем из запроса - direction_city)
+ */
+'city_id'?: number;
+
+/**
+ * Юридический адрес
+ */
+'address_legal'?: string;
+
+/**
+ * Юридический адрес
+ */
+'address_post'?: string;
+
+/**
+ * ИНН
+ */
+'inn'?: string;
+
+/**
+ * КПП
+ */
+'kpp'?: string;
+
+/**
+ * ОГРН
+ */
+'ogrn'?: string;
+
+/**
+ * ОКПО
+ */
+'okpo'?: string;
+
+/**
+ * Номер телефона
+ */
+'phone'?: string;
+
+/**
+ * E-mail
  */
 'email'?: string;
+
+/**
+ * Сайт
+ */
+'web'?: string;
+
+/**
+ * Руководитель ФИО
+ */
+'head_name'?: string;
+
+/**
+ * Должность руководителя (ID берем из запроса - customer_head_position)
+ */
+'head_position_id'?: string;
+
+/**
+ * Документы (файл)
+ */
+'documents_file'?: string;
+
+/**
+ * Документы (ссылка)
+ */
+'documents_url'?: string;
+
+/**
+ * Адрес для корреспонденции
+ */
+'document_address'?: string;
+
+/**
+ * Контактное лицо для корреспонденции
+ */
+'document_contact_fio'?: string;
+
+/**
+ * Телефон для корреспонденции
+ */
+'document_contact_phone'?: string;
+
+/**
+ * Адрес для доставки груза
+ */
+'delivery_address'?: string;
+
+/**
+ * Контактное лицо для доставки груза
+ */
+'delivery_contact_fio'?: string;
+
+/**
+ * Телефон
+ */
+'delivery_contact_phone'?: string;
+
+/**
+ * График работы склада
+ */
+'warehouse_schedule'?: string;
+
+/**
+ * Подпись ФИО
+ */
+'signature_fio'?: string;
+
+/**
+ * Подпись должность
+ */
+'signature_position'?: string;
+
+/**
+ * Подпись основание
+ */
+'signature_basis'?: string;
+
+/**
+ * Главный бухгалтер
+ */
+'accountant_fio'?: string;
+
+/**
+ * Наименование банка
+ */
+'bank_name'?: string;
+
+/**
+ * Расчетный счет
+ */
+'bank_payment_account'?: string;
+
+/**
+ * Корреспондентный счет
+ */
+'bank_correspondent_account'?: string;
+
+/**
+ * БИК
+ */
+'bank_bik'?: string;
+
+/**
+ * КПП
+ */
+'bank_kpp'?: string;
+
+/**
+ * Валюта счета
+ */
+'currency'?: string;
+
+/**
+ * Группа
+ */
+'group_name'?: string;
+
+/**
+ * Группа (ID берем из запроса - customer_group_list)
+ */
+'group_id'?: number;
+
+/**
+ * Источник
+ */
+'source_name'?: string;
+
+/**
+ * Источник (ID берем из запроса - customer_contact_source)
+ */
+'source_id'?: number;
+
+/**
+ * Тип клиента
+ */
+'type_name'?: string;
+
+/**
+ * Тип клиента (ID берем из запроса - customer_type)
+ */
+'type_id'?: number;
+
+/**
+ * Статус
+ */
+'status_name'?: string;
+
+/**
+ * Статус (ID берем из запроса - customer_status)
+ */
+'status_id'?: number;
+
+/**
+ * Привилегии
+ */
+'privilege_name'?: string;
+
+/**
+ * Привилегии (ID берем из запроса - customer_privilege)
+ */
+'privilege_id'?: number;
+
+/**
+ * Виды услуг
+ */
+'service_name'?: string;
+
+/**
+ * Виды услуг (ID берем из запроса - customer_services)
+ */
+'service_id'?: number;
+
+/**
+ * Отрасль деятельности
+ */
+'business_name'?: string;
+
+/**
+ * Отрасль деятельности (ID берем из запроса - customer_business)
+ */
+'business_id'?: number;
+
+/**
+ * Примечание
+ */
+'note'?: string;
+
+/**
+ * Менеджер по клиенту
+ */
+'manager_name'?: string;
+
+/**
+ * Менеджер по клиенту (ID берем из запроса - company_employee_list)
+ */
+'manager_id'?: number;
+
+/**
+ * Менеджер продаж
+ */
+'manager_sale_name'?: string;
+
+/**
+ * Менеджер продаж (ID берем из запроса - company_employee_list)
+ */
+'manager_sale_id'?: number;
+
+/**
+ * Менеджер создания
+ */
+'user_name'?: string;
+
+/**
+ * Менеджер создания (ID берем из запроса - company_employee_list)
+ */
+'user_id'?: number;
 
 /**
  * Время создания
@@ -633,29 +3233,229 @@ export class CustomerService extends BaseService {
     body?: {
 
 /**
- * Наименование компании
+ * Наименование полное
  */
-'company_name'?: string;
+'name'?: string;
 
 /**
- * Фамилия
+ * Наименование краткое
  */
-'name_f': string;
+'name_short'?: string;
 
 /**
- * Имя
+ * Страна местонахождения (ID берем из запроса - direction_country)
  */
-'name_i': string;
+'country_id': number;
 
 /**
- * Имя
+ * Город местонахождения (ID берем из запроса - direction_city)
  */
-'name_o': string;
+'city_id': number;
 
 /**
- * Email
+ * Юридический адрес
  */
-'email': string;
+'address_legal'?: string;
+
+/**
+ * Юридический адрес
+ */
+'address_post'?: string;
+
+/**
+ * ИНН
+ */
+'inn'?: string;
+
+/**
+ * КПП
+ */
+'kpp'?: string;
+
+/**
+ * ОГРН
+ */
+'ogrn'?: string;
+
+/**
+ * ОКПО
+ */
+'okpo'?: string;
+
+/**
+ * Номер телефона
+ */
+'phone'?: string;
+
+/**
+ * E-mail
+ */
+'email'?: string;
+
+/**
+ * Сайт
+ */
+'web'?: string;
+
+/**
+ * Руководитель ФИО
+ */
+'head_name'?: string;
+
+/**
+ * Должность руководителя (ID берем из запроса - customer_head_position)
+ */
+'head_position_id'?: string;
+
+/**
+ * Документы (файл)
+ */
+'documents_file'?: string;
+
+/**
+ * Документы (ссылка)
+ */
+'documents_url'?: string;
+
+/**
+ * Адрес для корреспонденции
+ */
+'document_address'?: string;
+
+/**
+ * Контактное лицо для корреспонденции
+ */
+'document_contact_fio'?: string;
+
+/**
+ * Телефон для корреспонденции
+ */
+'document_contact_phone'?: string;
+
+/**
+ * Адрес для доставки груза
+ */
+'delivery_address'?: string;
+
+/**
+ * Контактное лицо для доставки груза
+ */
+'delivery_contact_fio'?: string;
+
+/**
+ * Телефон
+ */
+'delivery_contact_phone'?: string;
+
+/**
+ * График работы склада
+ */
+'warehouse_schedule'?: string;
+
+/**
+ * Подпись ФИО
+ */
+'signature_fio'?: string;
+
+/**
+ * Подпись должность
+ */
+'signature_position'?: string;
+
+/**
+ * Подпись основание
+ */
+'signature_basis'?: string;
+
+/**
+ * Главный бухгалтер
+ */
+'accountant_fio'?: string;
+
+/**
+ * Наименование банка
+ */
+'bank_name'?: string;
+
+/**
+ * Расчетный счет
+ */
+'bank_payment_account'?: string;
+
+/**
+ * Корреспондентный счет
+ */
+'bank_correspondent_account'?: string;
+
+/**
+ * БИК
+ */
+'bank_bik'?: string;
+
+/**
+ * КПП
+ */
+'bank_kpp'?: string;
+
+/**
+ * Валюта счета
+ */
+'currency'?: string;
+
+/**
+ * Группа (ID берем из запроса - customer_group_list)
+ */
+'group_id'?: number;
+
+/**
+ * Источник (ID берем из запроса - customer_contact_source)
+ */
+'source_id'?: number;
+
+/**
+ * Тип клиента (ID берем из запроса - customer_type)
+ */
+'type_id'?: number;
+
+/**
+ * Статус (ID берем из запроса - customer_status)
+ */
+'status_id'?: number;
+
+/**
+ * Привилегии (ID берем из запроса - customer_privilege)
+ */
+'privilege_id'?: number;
+
+/**
+ * Виды услуг (ID берем из запроса - customer_services)
+ */
+'service_id'?: number;
+
+/**
+ * Отрасль деятельности (ID берем из запроса - customer_business)
+ */
+'business_id'?: number;
+
+/**
+ * Примечание
+ */
+'note'?: string;
+
+/**
+ * Менеджер по клиенту (ID берем из запроса - company_employee_list)
+ */
+'manager_id'?: number;
+
+/**
+ * Менеджер продаж (ID берем из запроса - company_employee_list)
+ */
+'manager_sale_id'?: number;
+
+/**
+ * Менеджер создания (ID берем из запроса - company_employee_list)
+ */
+'user_id'?: number;
 }
   }
 ): Observable<StrictHttpResponse<{
@@ -668,7 +3468,7 @@ export class CustomerService extends BaseService {
 /**
  * Статус выполнения
  */
-'result': 'success';
+'result': 'OK';
 }>> {
 
     const rb = new RequestBuilder(this.rootUrl, CustomerService.CustomerCreatePath, 'post');
@@ -693,7 +3493,7 @@ export class CustomerService extends BaseService {
         /**
          * Статус выполнения
          */
-        'result': 'success';
+        'result': 'OK';
         }>;
       })
     );
@@ -714,29 +3514,229 @@ export class CustomerService extends BaseService {
     body?: {
 
 /**
- * Наименование компании
+ * Наименование полное
  */
-'company_name'?: string;
+'name'?: string;
 
 /**
- * Фамилия
+ * Наименование краткое
  */
-'name_f': string;
+'name_short'?: string;
 
 /**
- * Имя
+ * Страна местонахождения (ID берем из запроса - direction_country)
  */
-'name_i': string;
+'country_id': number;
 
 /**
- * Имя
+ * Город местонахождения (ID берем из запроса - direction_city)
  */
-'name_o': string;
+'city_id': number;
 
 /**
- * Email
+ * Юридический адрес
  */
-'email': string;
+'address_legal'?: string;
+
+/**
+ * Юридический адрес
+ */
+'address_post'?: string;
+
+/**
+ * ИНН
+ */
+'inn'?: string;
+
+/**
+ * КПП
+ */
+'kpp'?: string;
+
+/**
+ * ОГРН
+ */
+'ogrn'?: string;
+
+/**
+ * ОКПО
+ */
+'okpo'?: string;
+
+/**
+ * Номер телефона
+ */
+'phone'?: string;
+
+/**
+ * E-mail
+ */
+'email'?: string;
+
+/**
+ * Сайт
+ */
+'web'?: string;
+
+/**
+ * Руководитель ФИО
+ */
+'head_name'?: string;
+
+/**
+ * Должность руководителя (ID берем из запроса - customer_head_position)
+ */
+'head_position_id'?: string;
+
+/**
+ * Документы (файл)
+ */
+'documents_file'?: string;
+
+/**
+ * Документы (ссылка)
+ */
+'documents_url'?: string;
+
+/**
+ * Адрес для корреспонденции
+ */
+'document_address'?: string;
+
+/**
+ * Контактное лицо для корреспонденции
+ */
+'document_contact_fio'?: string;
+
+/**
+ * Телефон для корреспонденции
+ */
+'document_contact_phone'?: string;
+
+/**
+ * Адрес для доставки груза
+ */
+'delivery_address'?: string;
+
+/**
+ * Контактное лицо для доставки груза
+ */
+'delivery_contact_fio'?: string;
+
+/**
+ * Телефон
+ */
+'delivery_contact_phone'?: string;
+
+/**
+ * График работы склада
+ */
+'warehouse_schedule'?: string;
+
+/**
+ * Подпись ФИО
+ */
+'signature_fio'?: string;
+
+/**
+ * Подпись должность
+ */
+'signature_position'?: string;
+
+/**
+ * Подпись основание
+ */
+'signature_basis'?: string;
+
+/**
+ * Главный бухгалтер
+ */
+'accountant_fio'?: string;
+
+/**
+ * Наименование банка
+ */
+'bank_name'?: string;
+
+/**
+ * Расчетный счет
+ */
+'bank_payment_account'?: string;
+
+/**
+ * Корреспондентный счет
+ */
+'bank_correspondent_account'?: string;
+
+/**
+ * БИК
+ */
+'bank_bik'?: string;
+
+/**
+ * КПП
+ */
+'bank_kpp'?: string;
+
+/**
+ * Валюта счета
+ */
+'currency'?: string;
+
+/**
+ * Группа (ID берем из запроса - customer_group_list)
+ */
+'group_id'?: number;
+
+/**
+ * Источник (ID берем из запроса - customer_contact_source)
+ */
+'source_id'?: number;
+
+/**
+ * Тип клиента (ID берем из запроса - customer_type)
+ */
+'type_id'?: number;
+
+/**
+ * Статус (ID берем из запроса - customer_status)
+ */
+'status_id'?: number;
+
+/**
+ * Привилегии (ID берем из запроса - customer_privilege)
+ */
+'privilege_id'?: number;
+
+/**
+ * Виды услуг (ID берем из запроса - customer_services)
+ */
+'service_id'?: number;
+
+/**
+ * Отрасль деятельности (ID берем из запроса - customer_business)
+ */
+'business_id'?: number;
+
+/**
+ * Примечание
+ */
+'note'?: string;
+
+/**
+ * Менеджер по клиенту (ID берем из запроса - company_employee_list)
+ */
+'manager_id'?: number;
+
+/**
+ * Менеджер продаж (ID берем из запроса - company_employee_list)
+ */
+'manager_sale_id'?: number;
+
+/**
+ * Менеджер создания (ID берем из запроса - company_employee_list)
+ */
+'user_id'?: number;
 }
   }
 ): Observable<{
@@ -749,7 +3749,7 @@ export class CustomerService extends BaseService {
 /**
  * Статус выполнения
  */
-'result': 'success';
+'result': 'OK';
 }> {
 
     return this.customerCreate$Response(params).pipe(
@@ -763,7 +3763,7 @@ export class CustomerService extends BaseService {
 /**
  * Статус выполнения
  */
-'result': 'success';
+'result': 'OK';
 }>) => r.body as {
 
 /**
@@ -774,7 +3774,7 @@ export class CustomerService extends BaseService {
 /**
  * Статус выполнения
  */
-'result': 'success';
+'result': 'OK';
 })
     );
   }
@@ -804,29 +3804,229 @@ export class CustomerService extends BaseService {
 'id': number;
 
 /**
- * Наименование компании
+ * Наименование полное
  */
-'company_name'?: string;
+'name'?: string;
 
 /**
- * Фамилия
+ * Наименование краткое
  */
-'name_f'?: string;
+'name_short'?: string;
 
 /**
- * Имя
+ * Страна местонахождения (ID берем из запроса - direction_country)
  */
-'name_i'?: string;
+'country_id'?: number;
 
 /**
- * Имя
+ * Город местонахождения (ID берем из запроса - direction_city)
  */
-'name_o'?: string;
+'city_id'?: number;
 
 /**
- * Email
+ * Юридический адрес
+ */
+'address_legal'?: string;
+
+/**
+ * Юридический адрес
+ */
+'address_post'?: string;
+
+/**
+ * ИНН
+ */
+'inn'?: string;
+
+/**
+ * КПП
+ */
+'kpp'?: string;
+
+/**
+ * ОГРН
+ */
+'ogrn'?: string;
+
+/**
+ * ОКПО
+ */
+'okpo'?: string;
+
+/**
+ * Номер телефона
+ */
+'phone'?: string;
+
+/**
+ * E-mail
  */
 'email'?: string;
+
+/**
+ * Сайт
+ */
+'web'?: string;
+
+/**
+ * Руководитель ФИО
+ */
+'head_name'?: string;
+
+/**
+ * Должность руководителя (ID берем из запроса - customer_head_position)
+ */
+'head_position_id'?: string;
+
+/**
+ * Документы (файл)
+ */
+'documents_file'?: string;
+
+/**
+ * Документы (ссылка)
+ */
+'documents_url'?: string;
+
+/**
+ * Адрес для корреспонденции
+ */
+'document_address'?: string;
+
+/**
+ * Контактное лицо для корреспонденции
+ */
+'document_contact_fio'?: string;
+
+/**
+ * Телефон для корреспонденции
+ */
+'document_contact_phone'?: string;
+
+/**
+ * Адрес для доставки груза
+ */
+'delivery_address'?: string;
+
+/**
+ * Контактное лицо для доставки груза
+ */
+'delivery_contact_fio'?: string;
+
+/**
+ * Телефон
+ */
+'delivery_contact_phone'?: string;
+
+/**
+ * График работы склада
+ */
+'warehouse_schedule'?: string;
+
+/**
+ * Подпись ФИО
+ */
+'signature_fio'?: string;
+
+/**
+ * Подпись должность
+ */
+'signature_position'?: string;
+
+/**
+ * Подпись основание
+ */
+'signature_basis'?: string;
+
+/**
+ * Главный бухгалтер
+ */
+'accountant_fio'?: string;
+
+/**
+ * Наименование банка
+ */
+'bank_name'?: string;
+
+/**
+ * Расчетный счет
+ */
+'bank_payment_account'?: string;
+
+/**
+ * Корреспондентный счет
+ */
+'bank_correspondent_account'?: string;
+
+/**
+ * БИК
+ */
+'bank_bik'?: string;
+
+/**
+ * КПП
+ */
+'bank_kpp'?: string;
+
+/**
+ * Валюта счета
+ */
+'currency'?: string;
+
+/**
+ * Группа (ID берем из запроса - customer_group_list)
+ */
+'group_id'?: number;
+
+/**
+ * Источник (ID берем из запроса - customer_contact_source)
+ */
+'source_id'?: number;
+
+/**
+ * Тип клиента (ID берем из запроса - customer_type)
+ */
+'type_id'?: number;
+
+/**
+ * Статус (ID берем из запроса - customer_status)
+ */
+'status_id'?: number;
+
+/**
+ * Привилегии (ID берем из запроса - customer_privilege)
+ */
+'privilege_id'?: number;
+
+/**
+ * Виды услуг (ID берем из запроса - customer_services)
+ */
+'service_id'?: number;
+
+/**
+ * Отрасль деятельности (ID берем из запроса - customer_business)
+ */
+'business_id'?: number;
+
+/**
+ * Примечание
+ */
+'note'?: string;
+
+/**
+ * Менеджер по клиенту (ID берем из запроса - company_employee_list)
+ */
+'manager_id'?: number;
+
+/**
+ * Менеджер продаж (ID берем из запроса - company_employee_list)
+ */
+'manager_sale_id'?: number;
+
+/**
+ * Менеджер создания (ID берем из запроса - company_employee_list)
+ */
+'user_id'?: number;
 }
   }
 ): Observable<StrictHttpResponse<{
@@ -834,7 +4034,7 @@ export class CustomerService extends BaseService {
 /**
  * Статус выполнения
  */
-'result': 'success';
+'result': 'OK';
 }>> {
 
     const rb = new RequestBuilder(this.rootUrl, CustomerService.CustomerUpdatePath, 'post');
@@ -854,7 +4054,7 @@ export class CustomerService extends BaseService {
         /**
          * Статус выполнения
          */
-        'result': 'success';
+        'result': 'OK';
         }>;
       })
     );
@@ -880,29 +4080,229 @@ export class CustomerService extends BaseService {
 'id': number;
 
 /**
- * Наименование компании
+ * Наименование полное
  */
-'company_name'?: string;
+'name'?: string;
 
 /**
- * Фамилия
+ * Наименование краткое
  */
-'name_f'?: string;
+'name_short'?: string;
 
 /**
- * Имя
+ * Страна местонахождения (ID берем из запроса - direction_country)
  */
-'name_i'?: string;
+'country_id'?: number;
 
 /**
- * Имя
+ * Город местонахождения (ID берем из запроса - direction_city)
  */
-'name_o'?: string;
+'city_id'?: number;
 
 /**
- * Email
+ * Юридический адрес
+ */
+'address_legal'?: string;
+
+/**
+ * Юридический адрес
+ */
+'address_post'?: string;
+
+/**
+ * ИНН
+ */
+'inn'?: string;
+
+/**
+ * КПП
+ */
+'kpp'?: string;
+
+/**
+ * ОГРН
+ */
+'ogrn'?: string;
+
+/**
+ * ОКПО
+ */
+'okpo'?: string;
+
+/**
+ * Номер телефона
+ */
+'phone'?: string;
+
+/**
+ * E-mail
  */
 'email'?: string;
+
+/**
+ * Сайт
+ */
+'web'?: string;
+
+/**
+ * Руководитель ФИО
+ */
+'head_name'?: string;
+
+/**
+ * Должность руководителя (ID берем из запроса - customer_head_position)
+ */
+'head_position_id'?: string;
+
+/**
+ * Документы (файл)
+ */
+'documents_file'?: string;
+
+/**
+ * Документы (ссылка)
+ */
+'documents_url'?: string;
+
+/**
+ * Адрес для корреспонденции
+ */
+'document_address'?: string;
+
+/**
+ * Контактное лицо для корреспонденции
+ */
+'document_contact_fio'?: string;
+
+/**
+ * Телефон для корреспонденции
+ */
+'document_contact_phone'?: string;
+
+/**
+ * Адрес для доставки груза
+ */
+'delivery_address'?: string;
+
+/**
+ * Контактное лицо для доставки груза
+ */
+'delivery_contact_fio'?: string;
+
+/**
+ * Телефон
+ */
+'delivery_contact_phone'?: string;
+
+/**
+ * График работы склада
+ */
+'warehouse_schedule'?: string;
+
+/**
+ * Подпись ФИО
+ */
+'signature_fio'?: string;
+
+/**
+ * Подпись должность
+ */
+'signature_position'?: string;
+
+/**
+ * Подпись основание
+ */
+'signature_basis'?: string;
+
+/**
+ * Главный бухгалтер
+ */
+'accountant_fio'?: string;
+
+/**
+ * Наименование банка
+ */
+'bank_name'?: string;
+
+/**
+ * Расчетный счет
+ */
+'bank_payment_account'?: string;
+
+/**
+ * Корреспондентный счет
+ */
+'bank_correspondent_account'?: string;
+
+/**
+ * БИК
+ */
+'bank_bik'?: string;
+
+/**
+ * КПП
+ */
+'bank_kpp'?: string;
+
+/**
+ * Валюта счета
+ */
+'currency'?: string;
+
+/**
+ * Группа (ID берем из запроса - customer_group_list)
+ */
+'group_id'?: number;
+
+/**
+ * Источник (ID берем из запроса - customer_contact_source)
+ */
+'source_id'?: number;
+
+/**
+ * Тип клиента (ID берем из запроса - customer_type)
+ */
+'type_id'?: number;
+
+/**
+ * Статус (ID берем из запроса - customer_status)
+ */
+'status_id'?: number;
+
+/**
+ * Привилегии (ID берем из запроса - customer_privilege)
+ */
+'privilege_id'?: number;
+
+/**
+ * Виды услуг (ID берем из запроса - customer_services)
+ */
+'service_id'?: number;
+
+/**
+ * Отрасль деятельности (ID берем из запроса - customer_business)
+ */
+'business_id'?: number;
+
+/**
+ * Примечание
+ */
+'note'?: string;
+
+/**
+ * Менеджер по клиенту (ID берем из запроса - company_employee_list)
+ */
+'manager_id'?: number;
+
+/**
+ * Менеджер продаж (ID берем из запроса - company_employee_list)
+ */
+'manager_sale_id'?: number;
+
+/**
+ * Менеджер создания (ID берем из запроса - company_employee_list)
+ */
+'user_id'?: number;
 }
   }
 ): Observable<{
@@ -910,7 +4310,7 @@ export class CustomerService extends BaseService {
 /**
  * Статус выполнения
  */
-'result': 'success';
+'result': 'OK';
 }> {
 
     return this.customerUpdate$Response(params).pipe(
@@ -919,13 +4319,13 @@ export class CustomerService extends BaseService {
 /**
  * Статус выполнения
  */
-'result': 'success';
+'result': 'OK';
 }>) => r.body as {
 
 /**
  * Статус выполнения
  */
-'result': 'success';
+'result': 'OK';
 })
     );
   }
@@ -960,7 +4360,7 @@ export class CustomerService extends BaseService {
 /**
  * Статус выполнения
  */
-'result': 'success';
+'result': 'OK';
 }>> {
 
     const rb = new RequestBuilder(this.rootUrl, CustomerService.CustomerDeletePath, 'post');
@@ -980,7 +4380,7 @@ export class CustomerService extends BaseService {
         /**
          * Статус выполнения
          */
-        'result': 'success';
+        'result': 'OK';
         }>;
       })
     );
@@ -1011,7 +4411,7 @@ export class CustomerService extends BaseService {
 /**
  * Статус выполнения
  */
-'result': 'success';
+'result': 'OK';
 }> {
 
     return this.customerDelete$Response(params).pipe(
@@ -1020,13 +4420,914 @@ export class CustomerService extends BaseService {
 /**
  * Статус выполнения
  */
-'result': 'success';
+'result': 'OK';
 }>) => r.body as {
 
 /**
  * Статус выполнения
  */
-'result': 'success';
+'result': 'OK';
+})
+    );
+  }
+
+  /**
+   * Path part for operation customerGroupList
+   */
+  static readonly CustomerGroupListPath = '/customer_group_list';
+
+  /**
+   * Группы: список.
+   *
+   *
+   *
+   * This method provides access to the full `HttpResponse`, allowing access to response headers.
+   * To access only the response body, use `customerGroupList()` instead.
+   *
+   * This method doesn't expect any request body.
+   */
+  customerGroupList$Response(params?: {
+
+    /**
+     * Начальная позиция
+     */
+    start?: number;
+
+    /**
+     * Лимит позиций на страницу
+     */
+    count?: number;
+
+    /**
+     * Сортировка
+     */
+    sort?: Array<{
+
+/**
+ * Поле
+ */
+'field': string;
+
+/**
+ * Направление сортировки
+ */
+'dir': 'asc' | 'desc';
+}>;
+    context?: HttpContext
+  }
+): Observable<StrictHttpResponse<{
+
+/**
+ * Позиции
+ */
+'items'?: Array<{
+
+/**
+ * ID
+ */
+'id'?: number;
+
+/**
+ * Наименование
+ */
+'name'?: string;
+
+/**
+ * Количество клиентов
+ */
+'count_customer'?: number;
+
+/**
+ * Порядок (меньше - выше)
+ */
+'num'?: number;
+
+/**
+ * Время создания
+ */
+'time_add'?: string;
+
+/**
+ * Время изменения
+ */
+'time_edit'?: string;
+}>;
+
+/**
+ * Всего позиций
+ */
+'total'?: number;
+}>> {
+
+    const rb = new RequestBuilder(this.rootUrl, CustomerService.CustomerGroupListPath, 'get');
+    if (params) {
+      rb.query('start', params.start, {});
+      rb.query('count', params.count, {});
+      rb.query('sort', params.sort, {"style":"form","explode":false});
+    }
+
+    return this.http.request(rb.build({
+      responseType: 'json',
+      accept: 'application/json',
+      context: params?.context
+    })).pipe(
+      filter((r: any) => r instanceof HttpResponse),
+      map((r: HttpResponse<any>) => {
+        return r as StrictHttpResponse<{
+        
+        /**
+         * Позиции
+         */
+        'items'?: Array<{
+        
+        /**
+         * ID
+         */
+        'id'?: number;
+        
+        /**
+         * Наименование
+         */
+        'name'?: string;
+        
+        /**
+         * Количество клиентов
+         */
+        'count_customer'?: number;
+        
+        /**
+         * Порядок (меньше - выше)
+         */
+        'num'?: number;
+        
+        /**
+         * Время создания
+         */
+        'time_add'?: string;
+        
+        /**
+         * Время изменения
+         */
+        'time_edit'?: string;
+        }>;
+        
+        /**
+         * Всего позиций
+         */
+        'total'?: number;
+        }>;
+      })
+    );
+  }
+
+  /**
+   * Группы: список.
+   *
+   *
+   *
+   * This method provides access to only to the response body.
+   * To access the full response (for headers, for example), `customerGroupList$Response()` instead.
+   *
+   * This method doesn't expect any request body.
+   */
+  customerGroupList(params?: {
+
+    /**
+     * Начальная позиция
+     */
+    start?: number;
+
+    /**
+     * Лимит позиций на страницу
+     */
+    count?: number;
+
+    /**
+     * Сортировка
+     */
+    sort?: Array<{
+
+/**
+ * Поле
+ */
+'field': string;
+
+/**
+ * Направление сортировки
+ */
+'dir': 'asc' | 'desc';
+}>;
+    context?: HttpContext
+  }
+): Observable<{
+
+/**
+ * Позиции
+ */
+'items'?: Array<{
+
+/**
+ * ID
+ */
+'id'?: number;
+
+/**
+ * Наименование
+ */
+'name'?: string;
+
+/**
+ * Количество клиентов
+ */
+'count_customer'?: number;
+
+/**
+ * Порядок (меньше - выше)
+ */
+'num'?: number;
+
+/**
+ * Время создания
+ */
+'time_add'?: string;
+
+/**
+ * Время изменения
+ */
+'time_edit'?: string;
+}>;
+
+/**
+ * Всего позиций
+ */
+'total'?: number;
+}> {
+
+    return this.customerGroupList$Response(params).pipe(
+      map((r: StrictHttpResponse<{
+
+/**
+ * Позиции
+ */
+'items'?: Array<{
+
+/**
+ * ID
+ */
+'id'?: number;
+
+/**
+ * Наименование
+ */
+'name'?: string;
+
+/**
+ * Количество клиентов
+ */
+'count_customer'?: number;
+
+/**
+ * Порядок (меньше - выше)
+ */
+'num'?: number;
+
+/**
+ * Время создания
+ */
+'time_add'?: string;
+
+/**
+ * Время изменения
+ */
+'time_edit'?: string;
+}>;
+
+/**
+ * Всего позиций
+ */
+'total'?: number;
+}>) => r.body as {
+
+/**
+ * Позиции
+ */
+'items'?: Array<{
+
+/**
+ * ID
+ */
+'id'?: number;
+
+/**
+ * Наименование
+ */
+'name'?: string;
+
+/**
+ * Количество клиентов
+ */
+'count_customer'?: number;
+
+/**
+ * Порядок (меньше - выше)
+ */
+'num'?: number;
+
+/**
+ * Время создания
+ */
+'time_add'?: string;
+
+/**
+ * Время изменения
+ */
+'time_edit'?: string;
+}>;
+
+/**
+ * Всего позиций
+ */
+'total'?: number;
+})
+    );
+  }
+
+  /**
+   * Path part for operation customerGroupInfo
+   */
+  static readonly CustomerGroupInfoPath = '/customer_group_info';
+
+  /**
+   * Группы: данные.
+   *
+   *
+   *
+   * This method provides access to the full `HttpResponse`, allowing access to response headers.
+   * To access only the response body, use `customerGroupInfo()` instead.
+   *
+   * This method doesn't expect any request body.
+   */
+  customerGroupInfo$Response(params?: {
+
+    /**
+     * ID группы
+     */
+    id?: number;
+    context?: HttpContext
+  }
+): Observable<StrictHttpResponse<{
+
+/**
+ * ID
+ */
+'id'?: number;
+
+/**
+ * Наименование
+ */
+'name'?: string;
+
+/**
+ * Количество клиентов
+ */
+'count_customer'?: number;
+
+/**
+ * Порядок (меньше - выше)
+ */
+'num'?: number;
+
+/**
+ * Время создания
+ */
+'time_add'?: string;
+
+/**
+ * Время изменения
+ */
+'time_edit'?: string;
+}>> {
+
+    const rb = new RequestBuilder(this.rootUrl, CustomerService.CustomerGroupInfoPath, 'get');
+    if (params) {
+      rb.query('id', params.id, {});
+    }
+
+    return this.http.request(rb.build({
+      responseType: 'json',
+      accept: 'application/json',
+      context: params?.context
+    })).pipe(
+      filter((r: any) => r instanceof HttpResponse),
+      map((r: HttpResponse<any>) => {
+        return r as StrictHttpResponse<{
+        
+        /**
+         * ID
+         */
+        'id'?: number;
+        
+        /**
+         * Наименование
+         */
+        'name'?: string;
+        
+        /**
+         * Количество клиентов
+         */
+        'count_customer'?: number;
+        
+        /**
+         * Порядок (меньше - выше)
+         */
+        'num'?: number;
+        
+        /**
+         * Время создания
+         */
+        'time_add'?: string;
+        
+        /**
+         * Время изменения
+         */
+        'time_edit'?: string;
+        }>;
+      })
+    );
+  }
+
+  /**
+   * Группы: данные.
+   *
+   *
+   *
+   * This method provides access to only to the response body.
+   * To access the full response (for headers, for example), `customerGroupInfo$Response()` instead.
+   *
+   * This method doesn't expect any request body.
+   */
+  customerGroupInfo(params?: {
+
+    /**
+     * ID группы
+     */
+    id?: number;
+    context?: HttpContext
+  }
+): Observable<{
+
+/**
+ * ID
+ */
+'id'?: number;
+
+/**
+ * Наименование
+ */
+'name'?: string;
+
+/**
+ * Количество клиентов
+ */
+'count_customer'?: number;
+
+/**
+ * Порядок (меньше - выше)
+ */
+'num'?: number;
+
+/**
+ * Время создания
+ */
+'time_add'?: string;
+
+/**
+ * Время изменения
+ */
+'time_edit'?: string;
+}> {
+
+    return this.customerGroupInfo$Response(params).pipe(
+      map((r: StrictHttpResponse<{
+
+/**
+ * ID
+ */
+'id'?: number;
+
+/**
+ * Наименование
+ */
+'name'?: string;
+
+/**
+ * Количество клиентов
+ */
+'count_customer'?: number;
+
+/**
+ * Порядок (меньше - выше)
+ */
+'num'?: number;
+
+/**
+ * Время создания
+ */
+'time_add'?: string;
+
+/**
+ * Время изменения
+ */
+'time_edit'?: string;
+}>) => r.body as {
+
+/**
+ * ID
+ */
+'id'?: number;
+
+/**
+ * Наименование
+ */
+'name'?: string;
+
+/**
+ * Количество клиентов
+ */
+'count_customer'?: number;
+
+/**
+ * Порядок (меньше - выше)
+ */
+'num'?: number;
+
+/**
+ * Время создания
+ */
+'time_add'?: string;
+
+/**
+ * Время изменения
+ */
+'time_edit'?: string;
+})
+    );
+  }
+
+  /**
+   * Path part for operation customerGroupCreate
+   */
+  static readonly CustomerGroupCreatePath = '/customer_group_create';
+
+  /**
+   * Группы: добавление.
+   *
+   *
+   *
+   * This method provides access to the full `HttpResponse`, allowing access to response headers.
+   * To access only the response body, use `customerGroupCreate()` instead.
+   *
+   * This method sends `application/json` and handles request body of type `application/json`.
+   */
+  customerGroupCreate$Response(params?: {
+    context?: HttpContext
+    body?: {
+
+/**
+ * Наименование
+ */
+'name': string;
+
+/**
+ * Порядок для сортировки (меньше - выше)
+ */
+'num'?: number;
+}
+  }
+): Observable<StrictHttpResponse<{
+
+/**
+ * ID созданной записи
+ */
+'id': number;
+
+/**
+ * Статус выполнения
+ */
+'result': 'OK';
+}>> {
+
+    const rb = new RequestBuilder(this.rootUrl, CustomerService.CustomerGroupCreatePath, 'post');
+    if (params) {
+      rb.body(params.body, 'application/json');
+    }
+
+    return this.http.request(rb.build({
+      responseType: 'json',
+      accept: 'application/json',
+      context: params?.context
+    })).pipe(
+      filter((r: any) => r instanceof HttpResponse),
+      map((r: HttpResponse<any>) => {
+        return r as StrictHttpResponse<{
+        
+        /**
+         * ID созданной записи
+         */
+        'id': number;
+        
+        /**
+         * Статус выполнения
+         */
+        'result': 'OK';
+        }>;
+      })
+    );
+  }
+
+  /**
+   * Группы: добавление.
+   *
+   *
+   *
+   * This method provides access to only to the response body.
+   * To access the full response (for headers, for example), `customerGroupCreate$Response()` instead.
+   *
+   * This method sends `application/json` and handles request body of type `application/json`.
+   */
+  customerGroupCreate(params?: {
+    context?: HttpContext
+    body?: {
+
+/**
+ * Наименование
+ */
+'name': string;
+
+/**
+ * Порядок для сортировки (меньше - выше)
+ */
+'num'?: number;
+}
+  }
+): Observable<{
+
+/**
+ * ID созданной записи
+ */
+'id': number;
+
+/**
+ * Статус выполнения
+ */
+'result': 'OK';
+}> {
+
+    return this.customerGroupCreate$Response(params).pipe(
+      map((r: StrictHttpResponse<{
+
+/**
+ * ID созданной записи
+ */
+'id': number;
+
+/**
+ * Статус выполнения
+ */
+'result': 'OK';
+}>) => r.body as {
+
+/**
+ * ID созданной записи
+ */
+'id': number;
+
+/**
+ * Статус выполнения
+ */
+'result': 'OK';
+})
+    );
+  }
+
+  /**
+   * Path part for operation customerGroupUpdate
+   */
+  static readonly CustomerGroupUpdatePath = '/customer_group_update';
+
+  /**
+   * Группы: обновление.
+   *
+   *
+   *
+   * This method provides access to the full `HttpResponse`, allowing access to response headers.
+   * To access only the response body, use `customerGroupUpdate()` instead.
+   *
+   * This method sends `application/json` and handles request body of type `application/json`.
+   */
+  customerGroupUpdate$Response(params?: {
+    context?: HttpContext
+    body?: {
+
+/**
+ * ID изменяемого подразделения
+ */
+'id': number;
+
+/**
+ * Наименование
+ */
+'name': string;
+
+/**
+ * Порядок для сортировки (меньше - выше)
+ */
+'num'?: number;
+}
+  }
+): Observable<StrictHttpResponse<{
+
+/**
+ * Статус выполнения
+ */
+'result': 'OK';
+}>> {
+
+    const rb = new RequestBuilder(this.rootUrl, CustomerService.CustomerGroupUpdatePath, 'post');
+    if (params) {
+      rb.body(params.body, 'application/json');
+    }
+
+    return this.http.request(rb.build({
+      responseType: 'json',
+      accept: 'application/json',
+      context: params?.context
+    })).pipe(
+      filter((r: any) => r instanceof HttpResponse),
+      map((r: HttpResponse<any>) => {
+        return r as StrictHttpResponse<{
+        
+        /**
+         * Статус выполнения
+         */
+        'result': 'OK';
+        }>;
+      })
+    );
+  }
+
+  /**
+   * Группы: обновление.
+   *
+   *
+   *
+   * This method provides access to only to the response body.
+   * To access the full response (for headers, for example), `customerGroupUpdate$Response()` instead.
+   *
+   * This method sends `application/json` and handles request body of type `application/json`.
+   */
+  customerGroupUpdate(params?: {
+    context?: HttpContext
+    body?: {
+
+/**
+ * ID изменяемого подразделения
+ */
+'id': number;
+
+/**
+ * Наименование
+ */
+'name': string;
+
+/**
+ * Порядок для сортировки (меньше - выше)
+ */
+'num'?: number;
+}
+  }
+): Observable<{
+
+/**
+ * Статус выполнения
+ */
+'result': 'OK';
+}> {
+
+    return this.customerGroupUpdate$Response(params).pipe(
+      map((r: StrictHttpResponse<{
+
+/**
+ * Статус выполнения
+ */
+'result': 'OK';
+}>) => r.body as {
+
+/**
+ * Статус выполнения
+ */
+'result': 'OK';
+})
+    );
+  }
+
+  /**
+   * Path part for operation customerGroupDelete
+   */
+  static readonly CustomerGroupDeletePath = '/customer_group_delete';
+
+  /**
+   * Группы: удаление.
+   *
+   *
+   *
+   * This method provides access to the full `HttpResponse`, allowing access to response headers.
+   * To access only the response body, use `customerGroupDelete()` instead.
+   *
+   * This method sends `application/json` and handles request body of type `application/json`.
+   */
+  customerGroupDelete$Response(params?: {
+    context?: HttpContext
+    body?: {
+
+/**
+ * ID удаляемой группы
+ */
+'id': number;
+}
+  }
+): Observable<StrictHttpResponse<{
+
+/**
+ * Статус выполнения
+ */
+'result': 'OK';
+}>> {
+
+    const rb = new RequestBuilder(this.rootUrl, CustomerService.CustomerGroupDeletePath, 'post');
+    if (params) {
+      rb.body(params.body, 'application/json');
+    }
+
+    return this.http.request(rb.build({
+      responseType: 'json',
+      accept: 'application/json',
+      context: params?.context
+    })).pipe(
+      filter((r: any) => r instanceof HttpResponse),
+      map((r: HttpResponse<any>) => {
+        return r as StrictHttpResponse<{
+        
+        /**
+         * Статус выполнения
+         */
+        'result': 'OK';
+        }>;
+      })
+    );
+  }
+
+  /**
+   * Группы: удаление.
+   *
+   *
+   *
+   * This method provides access to only to the response body.
+   * To access the full response (for headers, for example), `customerGroupDelete$Response()` instead.
+   *
+   * This method sends `application/json` and handles request body of type `application/json`.
+   */
+  customerGroupDelete(params?: {
+    context?: HttpContext
+    body?: {
+
+/**
+ * ID удаляемой группы
+ */
+'id': number;
+}
+  }
+): Observable<{
+
+/**
+ * Статус выполнения
+ */
+'result': 'OK';
+}> {
+
+    return this.customerGroupDelete$Response(params).pipe(
+      map((r: StrictHttpResponse<{
+
+/**
+ * Статус выполнения
+ */
+'result': 'OK';
+}>) => r.body as {
+
+/**
+ * Статус выполнения
+ */
+'result': 'OK';
 })
     );
   }

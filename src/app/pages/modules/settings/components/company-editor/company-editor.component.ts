@@ -1,3 +1,4 @@
+import { SystemService } from './../../../../../api/services';
 import { SettingsEditor } from './../../classes/settings-editor';
 import { emailValidator, innValidator } from './../../../../../validators';
 import { CompanyService } from './../../../../../api/services/company.service';
@@ -27,11 +28,12 @@ export class CompanyEditorComponent extends SettingsEditor<Company> implements O
     private fb: FormBuilder,
     snackBar: MatSnackBar,
     companyService: CompanyService,
+    systemService: SystemService,
     route: ActivatedRoute,
     location: Location,
     router: Router,
   ) {
-    super(location, companyService, route, snackBar, router);
+    super(location, companyService, systemService, route, snackBar, router);
     this.form = this.fb.group({
       id: ['', []],
       tax_system: ['', []],

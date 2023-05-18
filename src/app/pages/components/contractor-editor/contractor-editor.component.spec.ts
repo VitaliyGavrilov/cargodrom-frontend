@@ -1,4 +1,3 @@
-import { CompanyService } from 'src/app/api/services/company.service';
 import { MaterialModule } from './../../../material/material.module';
 import { HttpClientTestingModule } from '@angular/common/http/testing';
 import { RouterTestingModule } from '@angular/router/testing';
@@ -10,7 +9,7 @@ import { ContractorEditorComponent } from './contractor-editor.component';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 import { of, Observable } from 'rxjs';
-import { TaxSystem } from 'src/app/api/custom_models';
+import { SystemService } from 'src/app/api/services';
 
 describe('ContractorEditorComponent', () => {
   let component: ContractorEditorComponent;
@@ -29,8 +28,9 @@ describe('ContractorEditorComponent', () => {
       providers: [
         { provide: MatSnackBar, useValue: {} },
         {
-          provide: CompanyService, useValue: <CompanyService>{
-            companyTaxSystem: () => of([]) as Observable<any>
+          provide: SystemService, useValue: <SystemService>{
+            systemTaxSystem: () => of([]) as Observable<any>,
+            systemAssociation: () => of([]) as Observable<any>,
           }
         },
       ],

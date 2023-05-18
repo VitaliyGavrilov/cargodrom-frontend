@@ -10,6 +10,7 @@ import { of } from 'rxjs';
 import { CompanyService } from 'src/app/api/services/company.service';
 
 import { EmployeeEditorComponent } from './employee-editor.component';
+import { SystemService } from 'src/app/api/services';
 
 describe('EmployeeEditorComponent', () => {
   let component: EmployeeEditorComponent;
@@ -31,12 +32,17 @@ describe('EmployeeEditorComponent', () => {
       providers: [
         {
           provide: CompanyService, useValue: {
-            companyDepartmentList: () => of({items: [], total: 0}),
-            companyPositionList: () => of({items: [], total: 0}),
-            companyList: () => of({items: [], total: 0}),
-            companyEmployeeInfo: () => of({name_f: 'Last', name_i: 'First', name_o: 'Middle'})
+            companyDepartmentList: () => of({ items: [], total: 0 }),
+            companyPositionList: () => of({ items: [], total: 0 }),
+            companyList: () => of({ items: [], total: 0 }),
+            companyEmployeeInfo: () => of({ name_f: 'Last', name_i: 'First', name_o: 'Middle' })
           }
         },
+        {
+          provide: SystemService, useValue: <Partial<SystemService>>{
+            systemAssociation: () => of([{name: 'ABC', id: 1}]),
+          }
+        }
       ]
     })
       .compileComponents();

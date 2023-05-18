@@ -17,7 +17,7 @@ export class CityService {
   }
 
   getCities(countryId: number): Observable<City[]> {
-    return this.directionService.directionCityList({ country_id: countryId }).pipe(
+    return this.directionService.directionCity({ country_id: countryId }).pipe(
       startWith(this.loadCitiesFromLocalStorage(countryId)),
       map(cities => cities ? cities as City[] : []),
       tap(cities => this.saveCitiesToLocalStorage(countryId, cities))

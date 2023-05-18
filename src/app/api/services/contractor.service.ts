@@ -26,339 +26,6 @@ export class ContractorService extends BaseService {
   }
 
   /**
-   * Path part for operation contractorRequestFormat
-   */
-  static readonly ContractorRequestFormatPath = '/contractor_request_format';
-
-  /**
-   * Форматы отправки запроса.
-   *
-   *
-   *
-   * This method provides access to the full `HttpResponse`, allowing access to response headers.
-   * To access only the response body, use `contractorRequestFormat()` instead.
-   *
-   * This method doesn't expect any request body.
-   */
-  contractorRequestFormat$Response(params?: {
-    context?: HttpContext
-  }
-): Observable<StrictHttpResponse<Array<{
-
-/**
- * ID
- */
-'id'?: number;
-
-/**
- * Наименование
- */
-'name'?: string;
-}>>> {
-
-    const rb = new RequestBuilder(this.rootUrl, ContractorService.ContractorRequestFormatPath, 'get');
-    if (params) {
-    }
-
-    return this.http.request(rb.build({
-      responseType: 'json',
-      accept: 'application/json',
-      context: params?.context
-    })).pipe(
-      filter((r: any) => r instanceof HttpResponse),
-      map((r: HttpResponse<any>) => {
-        return r as StrictHttpResponse<Array<{
-        
-        /**
-         * ID
-         */
-        'id'?: number;
-        
-        /**
-         * Наименование
-         */
-        'name'?: string;
-        }>>;
-      })
-    );
-  }
-
-  /**
-   * Форматы отправки запроса.
-   *
-   *
-   *
-   * This method provides access to only to the response body.
-   * To access the full response (for headers, for example), `contractorRequestFormat$Response()` instead.
-   *
-   * This method doesn't expect any request body.
-   */
-  contractorRequestFormat(params?: {
-    context?: HttpContext
-  }
-): Observable<Array<{
-
-/**
- * ID
- */
-'id'?: number;
-
-/**
- * Наименование
- */
-'name'?: string;
-}>> {
-
-    return this.contractorRequestFormat$Response(params).pipe(
-      map((r: StrictHttpResponse<Array<{
-
-/**
- * ID
- */
-'id'?: number;
-
-/**
- * Наименование
- */
-'name'?: string;
-}>>) => r.body as Array<{
-
-/**
- * ID
- */
-'id'?: number;
-
-/**
- * Наименование
- */
-'name'?: string;
-}>)
-    );
-  }
-
-  /**
-   * Path part for operation contractorType
-   */
-  static readonly ContractorTypePath = '/contractor_type';
-
-  /**
-   * Виды подрядчиков.
-   *
-   *
-   *
-   * This method provides access to the full `HttpResponse`, allowing access to response headers.
-   * To access only the response body, use `contractorType()` instead.
-   *
-   * This method doesn't expect any request body.
-   */
-  contractorType$Response(params?: {
-    context?: HttpContext
-  }
-): Observable<StrictHttpResponse<Array<{
-
-/**
- * ID
- */
-'id'?: number;
-
-/**
- * Наименование
- */
-'name'?: string;
-}>>> {
-
-    const rb = new RequestBuilder(this.rootUrl, ContractorService.ContractorTypePath, 'get');
-    if (params) {
-    }
-
-    return this.http.request(rb.build({
-      responseType: 'json',
-      accept: 'application/json',
-      context: params?.context
-    })).pipe(
-      filter((r: any) => r instanceof HttpResponse),
-      map((r: HttpResponse<any>) => {
-        return r as StrictHttpResponse<Array<{
-        
-        /**
-         * ID
-         */
-        'id'?: number;
-        
-        /**
-         * Наименование
-         */
-        'name'?: string;
-        }>>;
-      })
-    );
-  }
-
-  /**
-   * Виды подрядчиков.
-   *
-   *
-   *
-   * This method provides access to only to the response body.
-   * To access the full response (for headers, for example), `contractorType$Response()` instead.
-   *
-   * This method doesn't expect any request body.
-   */
-  contractorType(params?: {
-    context?: HttpContext
-  }
-): Observable<Array<{
-
-/**
- * ID
- */
-'id'?: number;
-
-/**
- * Наименование
- */
-'name'?: string;
-}>> {
-
-    return this.contractorType$Response(params).pipe(
-      map((r: StrictHttpResponse<Array<{
-
-/**
- * ID
- */
-'id'?: number;
-
-/**
- * Наименование
- */
-'name'?: string;
-}>>) => r.body as Array<{
-
-/**
- * ID
- */
-'id'?: number;
-
-/**
- * Наименование
- */
-'name'?: string;
-}>)
-    );
-  }
-
-  /**
-   * Path part for operation contractorAssociation
-   */
-  static readonly ContractorAssociationPath = '/contractor_association';
-
-  /**
-   * Ассоциации подрядчиков.
-   *
-   *
-   *
-   * This method provides access to the full `HttpResponse`, allowing access to response headers.
-   * To access only the response body, use `contractorAssociation()` instead.
-   *
-   * This method doesn't expect any request body.
-   */
-  contractorAssociation$Response(params?: {
-    context?: HttpContext
-  }
-): Observable<StrictHttpResponse<Array<{
-
-/**
- * ID
- */
-'id'?: number;
-
-/**
- * Наименование
- */
-'name'?: string;
-}>>> {
-
-    const rb = new RequestBuilder(this.rootUrl, ContractorService.ContractorAssociationPath, 'get');
-    if (params) {
-    }
-
-    return this.http.request(rb.build({
-      responseType: 'json',
-      accept: 'application/json',
-      context: params?.context
-    })).pipe(
-      filter((r: any) => r instanceof HttpResponse),
-      map((r: HttpResponse<any>) => {
-        return r as StrictHttpResponse<Array<{
-        
-        /**
-         * ID
-         */
-        'id'?: number;
-        
-        /**
-         * Наименование
-         */
-        'name'?: string;
-        }>>;
-      })
-    );
-  }
-
-  /**
-   * Ассоциации подрядчиков.
-   *
-   *
-   *
-   * This method provides access to only to the response body.
-   * To access the full response (for headers, for example), `contractorAssociation$Response()` instead.
-   *
-   * This method doesn't expect any request body.
-   */
-  contractorAssociation(params?: {
-    context?: HttpContext
-  }
-): Observable<Array<{
-
-/**
- * ID
- */
-'id'?: number;
-
-/**
- * Наименование
- */
-'name'?: string;
-}>> {
-
-    return this.contractorAssociation$Response(params).pipe(
-      map((r: StrictHttpResponse<Array<{
-
-/**
- * ID
- */
-'id'?: number;
-
-/**
- * Наименование
- */
-'name'?: string;
-}>>) => r.body as Array<{
-
-/**
- * ID
- */
-'id'?: number;
-
-/**
- * Наименование
- */
-'name'?: string;
-}>)
-    );
-  }
-
-  /**
    * Path part for operation contractorList
    */
   static readonly ContractorListPath = '/contractor_list';
@@ -3798,7 +3465,7 @@ export class ContractorService extends BaseService {
 /**
  * Статус выполнения
  */
-'result': 'success';
+'result': 'OK';
 }>> {
 
     const rb = new RequestBuilder(this.rootUrl, ContractorService.ContractorCreatePath, 'post');
@@ -3823,7 +3490,7 @@ export class ContractorService extends BaseService {
         /**
          * Статус выполнения
          */
-        'result': 'success';
+        'result': 'OK';
         }>;
       })
     );
@@ -3996,7 +3663,7 @@ export class ContractorService extends BaseService {
 /**
  * Статус выполнения
  */
-'result': 'success';
+'result': 'OK';
 }> {
 
     return this.contractorCreate$Response(params).pipe(
@@ -4010,7 +3677,7 @@ export class ContractorService extends BaseService {
 /**
  * Статус выполнения
  */
-'result': 'success';
+'result': 'OK';
 }>) => r.body as {
 
 /**
@@ -4021,7 +3688,7 @@ export class ContractorService extends BaseService {
 /**
  * Статус выполнения
  */
-'result': 'success';
+'result': 'OK';
 })
     );
   }
@@ -4203,7 +3870,7 @@ export class ContractorService extends BaseService {
 /**
  * Статус выполнения
  */
-'result': 'success';
+'result': 'OK';
 }>> {
 
     const rb = new RequestBuilder(this.rootUrl, ContractorService.ContractorUpdatePath, 'post');
@@ -4223,7 +3890,7 @@ export class ContractorService extends BaseService {
         /**
          * Статус выполнения
          */
-        'result': 'success';
+        'result': 'OK';
         }>;
       })
     );
@@ -4401,7 +4068,7 @@ export class ContractorService extends BaseService {
 /**
  * Статус выполнения
  */
-'result': 'success';
+'result': 'OK';
 }> {
 
     return this.contractorUpdate$Response(params).pipe(
@@ -4410,13 +4077,13 @@ export class ContractorService extends BaseService {
 /**
  * Статус выполнения
  */
-'result': 'success';
+'result': 'OK';
 }>) => r.body as {
 
 /**
  * Статус выполнения
  */
-'result': 'success';
+'result': 'OK';
 })
     );
   }
@@ -4451,7 +4118,7 @@ export class ContractorService extends BaseService {
 /**
  * Статус выполнения
  */
-'result': 'success';
+'result': 'OK';
 }>> {
 
     const rb = new RequestBuilder(this.rootUrl, ContractorService.ContractorDeletePath, 'post');
@@ -4471,7 +4138,7 @@ export class ContractorService extends BaseService {
         /**
          * Статус выполнения
          */
-        'result': 'success';
+        'result': 'OK';
         }>;
       })
     );
@@ -4502,7 +4169,7 @@ export class ContractorService extends BaseService {
 /**
  * Статус выполнения
  */
-'result': 'success';
+'result': 'OK';
 }> {
 
     return this.contractorDelete$Response(params).pipe(
@@ -4511,13 +4178,13 @@ export class ContractorService extends BaseService {
 /**
  * Статус выполнения
  */
-'result': 'success';
+'result': 'OK';
 }>) => r.body as {
 
 /**
  * Статус выполнения
  */
-'result': 'success';
+'result': 'OK';
 })
     );
   }
@@ -5787,7 +5454,7 @@ export class ContractorService extends BaseService {
 /**
  * Статус выполнения
  */
-'result': 'success';
+'result': 'OK';
 }>> {
 
     const rb = new RequestBuilder(this.rootUrl, ContractorService.ContractorContactCreatePath, 'post');
@@ -5812,7 +5479,7 @@ export class ContractorService extends BaseService {
         /**
          * Статус выполнения
          */
-        'result': 'success';
+        'result': 'OK';
         }>;
       })
     );
@@ -5919,7 +5586,7 @@ export class ContractorService extends BaseService {
 /**
  * Статус выполнения
  */
-'result': 'success';
+'result': 'OK';
 }> {
 
     return this.contractorContactCreate$Response(params).pipe(
@@ -5933,7 +5600,7 @@ export class ContractorService extends BaseService {
 /**
  * Статус выполнения
  */
-'result': 'success';
+'result': 'OK';
 }>) => r.body as {
 
 /**
@@ -5944,7 +5611,7 @@ export class ContractorService extends BaseService {
 /**
  * Статус выполнения
  */
-'result': 'success';
+'result': 'OK';
 })
     );
   }
@@ -6055,7 +5722,7 @@ export class ContractorService extends BaseService {
 /**
  * Статус выполнения
  */
-'result': 'success';
+'result': 'OK';
 }>> {
 
     const rb = new RequestBuilder(this.rootUrl, ContractorService.ContractorContactUpdatePath, 'post');
@@ -6075,7 +5742,7 @@ export class ContractorService extends BaseService {
         /**
          * Статус выполнения
          */
-        'result': 'success';
+        'result': 'OK';
         }>;
       })
     );
@@ -6182,7 +5849,7 @@ export class ContractorService extends BaseService {
 /**
  * Статус выполнения
  */
-'result': 'success';
+'result': 'OK';
 }> {
 
     return this.contractorContactUpdate$Response(params).pipe(
@@ -6191,13 +5858,13 @@ export class ContractorService extends BaseService {
 /**
  * Статус выполнения
  */
-'result': 'success';
+'result': 'OK';
 }>) => r.body as {
 
 /**
  * Статус выполнения
  */
-'result': 'success';
+'result': 'OK';
 })
     );
   }
@@ -6232,7 +5899,7 @@ export class ContractorService extends BaseService {
 /**
  * Статус выполнения
  */
-'result': 'success';
+'result': 'OK';
 }>> {
 
     const rb = new RequestBuilder(this.rootUrl, ContractorService.ContractorContactDeletePath, 'post');
@@ -6252,7 +5919,7 @@ export class ContractorService extends BaseService {
         /**
          * Статус выполнения
          */
-        'result': 'success';
+        'result': 'OK';
         }>;
       })
     );
@@ -6283,7 +5950,7 @@ export class ContractorService extends BaseService {
 /**
  * Статус выполнения
  */
-'result': 'success';
+'result': 'OK';
 }> {
 
     return this.contractorContactDelete$Response(params).pipe(
@@ -6292,14 +5959,347 @@ export class ContractorService extends BaseService {
 /**
  * Статус выполнения
  */
-'result': 'success';
+'result': 'OK';
 }>) => r.body as {
 
 /**
  * Статус выполнения
  */
-'result': 'success';
+'result': 'OK';
 })
+    );
+  }
+
+  /**
+   * Path part for operation contractorRequestFormat
+   */
+  static readonly ContractorRequestFormatPath = '/contractor_request_format';
+
+  /**
+   * Форматы отправки запроса.
+   *
+   *
+   *
+   * This method provides access to the full `HttpResponse`, allowing access to response headers.
+   * To access only the response body, use `contractorRequestFormat()` instead.
+   *
+   * This method doesn't expect any request body.
+   */
+  contractorRequestFormat$Response(params?: {
+    context?: HttpContext
+  }
+): Observable<StrictHttpResponse<Array<{
+
+/**
+ * ID
+ */
+'id'?: number;
+
+/**
+ * Наименование
+ */
+'name'?: string;
+}>>> {
+
+    const rb = new RequestBuilder(this.rootUrl, ContractorService.ContractorRequestFormatPath, 'get');
+    if (params) {
+    }
+
+    return this.http.request(rb.build({
+      responseType: 'json',
+      accept: 'application/json',
+      context: params?.context
+    })).pipe(
+      filter((r: any) => r instanceof HttpResponse),
+      map((r: HttpResponse<any>) => {
+        return r as StrictHttpResponse<Array<{
+        
+        /**
+         * ID
+         */
+        'id'?: number;
+        
+        /**
+         * Наименование
+         */
+        'name'?: string;
+        }>>;
+      })
+    );
+  }
+
+  /**
+   * Форматы отправки запроса.
+   *
+   *
+   *
+   * This method provides access to only to the response body.
+   * To access the full response (for headers, for example), `contractorRequestFormat$Response()` instead.
+   *
+   * This method doesn't expect any request body.
+   */
+  contractorRequestFormat(params?: {
+    context?: HttpContext
+  }
+): Observable<Array<{
+
+/**
+ * ID
+ */
+'id'?: number;
+
+/**
+ * Наименование
+ */
+'name'?: string;
+}>> {
+
+    return this.contractorRequestFormat$Response(params).pipe(
+      map((r: StrictHttpResponse<Array<{
+
+/**
+ * ID
+ */
+'id'?: number;
+
+/**
+ * Наименование
+ */
+'name'?: string;
+}>>) => r.body as Array<{
+
+/**
+ * ID
+ */
+'id'?: number;
+
+/**
+ * Наименование
+ */
+'name'?: string;
+}>)
+    );
+  }
+
+  /**
+   * Path part for operation contractorType
+   */
+  static readonly ContractorTypePath = '/contractor_type';
+
+  /**
+   * Виды подрядчиков.
+   *
+   *
+   *
+   * This method provides access to the full `HttpResponse`, allowing access to response headers.
+   * To access only the response body, use `contractorType()` instead.
+   *
+   * This method doesn't expect any request body.
+   */
+  contractorType$Response(params?: {
+    context?: HttpContext
+  }
+): Observable<StrictHttpResponse<Array<{
+
+/**
+ * ID
+ */
+'id'?: number;
+
+/**
+ * Наименование
+ */
+'name'?: string;
+}>>> {
+
+    const rb = new RequestBuilder(this.rootUrl, ContractorService.ContractorTypePath, 'get');
+    if (params) {
+    }
+
+    return this.http.request(rb.build({
+      responseType: 'json',
+      accept: 'application/json',
+      context: params?.context
+    })).pipe(
+      filter((r: any) => r instanceof HttpResponse),
+      map((r: HttpResponse<any>) => {
+        return r as StrictHttpResponse<Array<{
+        
+        /**
+         * ID
+         */
+        'id'?: number;
+        
+        /**
+         * Наименование
+         */
+        'name'?: string;
+        }>>;
+      })
+    );
+  }
+
+  /**
+   * Виды подрядчиков.
+   *
+   *
+   *
+   * This method provides access to only to the response body.
+   * To access the full response (for headers, for example), `contractorType$Response()` instead.
+   *
+   * This method doesn't expect any request body.
+   */
+  contractorType(params?: {
+    context?: HttpContext
+  }
+): Observable<Array<{
+
+/**
+ * ID
+ */
+'id'?: number;
+
+/**
+ * Наименование
+ */
+'name'?: string;
+}>> {
+
+    return this.contractorType$Response(params).pipe(
+      map((r: StrictHttpResponse<Array<{
+
+/**
+ * ID
+ */
+'id'?: number;
+
+/**
+ * Наименование
+ */
+'name'?: string;
+}>>) => r.body as Array<{
+
+/**
+ * ID
+ */
+'id'?: number;
+
+/**
+ * Наименование
+ */
+'name'?: string;
+}>)
+    );
+  }
+
+  /**
+   * Path part for operation contractorAssociation
+   */
+  static readonly ContractorAssociationPath = '/contractor_association';
+
+  /**
+   * Ассоциации подрядчиков (устаревшее, меняем на /system_association ).
+   *
+   *
+   *
+   * This method provides access to the full `HttpResponse`, allowing access to response headers.
+   * To access only the response body, use `contractorAssociation()` instead.
+   *
+   * This method doesn't expect any request body.
+   */
+  contractorAssociation$Response(params?: {
+    context?: HttpContext
+  }
+): Observable<StrictHttpResponse<Array<{
+
+/**
+ * ID
+ */
+'id'?: number;
+
+/**
+ * Наименование
+ */
+'name'?: string;
+}>>> {
+
+    const rb = new RequestBuilder(this.rootUrl, ContractorService.ContractorAssociationPath, 'get');
+    if (params) {
+    }
+
+    return this.http.request(rb.build({
+      responseType: 'json',
+      accept: 'application/json',
+      context: params?.context
+    })).pipe(
+      filter((r: any) => r instanceof HttpResponse),
+      map((r: HttpResponse<any>) => {
+        return r as StrictHttpResponse<Array<{
+        
+        /**
+         * ID
+         */
+        'id'?: number;
+        
+        /**
+         * Наименование
+         */
+        'name'?: string;
+        }>>;
+      })
+    );
+  }
+
+  /**
+   * Ассоциации подрядчиков (устаревшее, меняем на /system_association ).
+   *
+   *
+   *
+   * This method provides access to only to the response body.
+   * To access the full response (for headers, for example), `contractorAssociation$Response()` instead.
+   *
+   * This method doesn't expect any request body.
+   */
+  contractorAssociation(params?: {
+    context?: HttpContext
+  }
+): Observable<Array<{
+
+/**
+ * ID
+ */
+'id'?: number;
+
+/**
+ * Наименование
+ */
+'name'?: string;
+}>> {
+
+    return this.contractorAssociation$Response(params).pipe(
+      map((r: StrictHttpResponse<Array<{
+
+/**
+ * ID
+ */
+'id'?: number;
+
+/**
+ * Наименование
+ */
+'name'?: string;
+}>>) => r.body as Array<{
+
+/**
+ * ID
+ */
+'id'?: number;
+
+/**
+ * Наименование
+ */
+'name'?: string;
+}>)
     );
   }
 

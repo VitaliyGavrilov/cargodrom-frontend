@@ -7,6 +7,7 @@ import { FormBuilder, Validators } from '@angular/forms';
 import { Component, OnInit } from '@angular/core';
 import { Observable } from 'rxjs';
 import { Location } from '@angular/common';
+import { SystemService } from '../../../../../api/services';
 
 @Component({
   selector: 'app-position-editor',
@@ -26,11 +27,12 @@ export class PositionEditorComponent extends SettingsEditor<Position> implements
     private fb: FormBuilder,
     snackBar: MatSnackBar,
     companyService: CompanyService,
+    systemService: SystemService,
     route: ActivatedRoute,
     location: Location,
     router: Router,
   ) {
-    super(location, companyService, route, snackBar, router);
+    super(location, companyService, systemService, route, snackBar, router);
     this.form = this.fb.group({
       id: [''],
       name: ['', [Validators.required]],
