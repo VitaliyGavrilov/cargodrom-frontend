@@ -8,6 +8,7 @@ import { ContactEditorComponent } from './contact-editor.component';
 import { MatAutocompleteModule } from '@angular/material/autocomplete';
 import { MatCheckboxModule } from '@angular/material/checkbox';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
+import { MatFormFieldModule } from '@angular/material/form-field';
 
 describe('ContactEditorComponent', () => {
   let component: ContactEditorComponent;
@@ -20,6 +21,7 @@ describe('ContactEditorComponent', () => {
         FormsModule,
         ReactiveFormsModule,
         MatAutocompleteModule,
+        MatFormFieldModule,
         MatCheckboxModule,
         NoopAnimationsModule,
       ],

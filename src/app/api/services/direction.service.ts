@@ -137,9 +137,9 @@ export class DirectionService extends BaseService {
   }
 
   /**
-   * Path part for operation directionCountryList
+   * Path part for operation directionCountry
    */
-  static readonly DirectionCountryListPath = '/direction_country_list';
+  static readonly DirectionCountryPath = '/direction_country';
 
   /**
    * Список стран.
@@ -147,11 +147,11 @@ export class DirectionService extends BaseService {
    *
    *
    * This method provides access to the full `HttpResponse`, allowing access to response headers.
-   * To access only the response body, use `directionCountryList()` instead.
+   * To access only the response body, use `directionCountry()` instead.
    *
    * This method doesn't expect any request body.
    */
-  directionCountryList$Response(params?: {
+  directionCountry$Response(params?: {
     context?: HttpContext
   }
 ): Observable<StrictHttpResponse<Array<{
@@ -182,7 +182,7 @@ export class DirectionService extends BaseService {
 'time_edit'?: string;
 }>>> {
 
-    const rb = new RequestBuilder(this.rootUrl, DirectionService.DirectionCountryListPath, 'get');
+    const rb = new RequestBuilder(this.rootUrl, DirectionService.DirectionCountryPath, 'get');
     if (params) {
     }
 
@@ -230,11 +230,11 @@ export class DirectionService extends BaseService {
    *
    *
    * This method provides access to only to the response body.
-   * To access the full response (for headers, for example), `directionCountryList$Response()` instead.
+   * To access the full response (for headers, for example), `directionCountry$Response()` instead.
    *
    * This method doesn't expect any request body.
    */
-  directionCountryList(params?: {
+  directionCountry(params?: {
     context?: HttpContext
   }
 ): Observable<Array<{
@@ -265,7 +265,7 @@ export class DirectionService extends BaseService {
 'time_edit'?: string;
 }>> {
 
-    return this.directionCountryList$Response(params).pipe(
+    return this.directionCountry$Response(params).pipe(
       map((r: StrictHttpResponse<Array<{
 
 /**
@@ -323,9 +323,9 @@ export class DirectionService extends BaseService {
   }
 
   /**
-   * Path part for operation directionCityList
+   * Path part for operation directionCity
    */
-  static readonly DirectionCityListPath = '/direction_city_list';
+  static readonly DirectionCityPath = '/direction_city';
 
   /**
    * Список городов.
@@ -333,14 +333,14 @@ export class DirectionService extends BaseService {
    *
    *
    * This method provides access to the full `HttpResponse`, allowing access to response headers.
-   * To access only the response body, use `directionCityList()` instead.
+   * To access only the response body, use `directionCity()` instead.
    *
    * This method doesn't expect any request body.
    */
-  directionCityList$Response(params: {
+  directionCity$Response(params: {
 
     /**
-     * ID страны (ID берем из запроса - direction_country_list)
+     * ID страны (ID берем из запроса - direction_country)
      */
     country_id: number;
 
@@ -373,7 +373,7 @@ export class DirectionService extends BaseService {
 'time_edit'?: string;
 }>>> {
 
-    const rb = new RequestBuilder(this.rootUrl, DirectionService.DirectionCityListPath, 'get');
+    const rb = new RequestBuilder(this.rootUrl, DirectionService.DirectionCityPath, 'get');
     if (params) {
       rb.query('country_id', params.country_id, {});
       rb.query('search', params.search, {});
@@ -418,14 +418,14 @@ export class DirectionService extends BaseService {
    *
    *
    * This method provides access to only to the response body.
-   * To access the full response (for headers, for example), `directionCityList$Response()` instead.
+   * To access the full response (for headers, for example), `directionCity$Response()` instead.
    *
    * This method doesn't expect any request body.
    */
-  directionCityList(params: {
+  directionCity(params: {
 
     /**
-     * ID страны (ID берем из запроса - direction_country_list)
+     * ID страны (ID берем из запроса - direction_country)
      */
     country_id: number;
 
@@ -458,7 +458,7 @@ export class DirectionService extends BaseService {
 'time_edit'?: string;
 }>> {
 
-    return this.directionCityList$Response(params).pipe(
+    return this.directionCity$Response(params).pipe(
       map((r: StrictHttpResponse<Array<{
 
 /**
@@ -506,9 +506,9 @@ export class DirectionService extends BaseService {
   }
 
   /**
-   * Path part for operation directionPointList
+   * Path part for operation directionPoint
    */
-  static readonly DirectionPointListPath = '/direction_point_list';
+  static readonly DirectionPointPath = '/direction_point';
 
   /**
    * Список точек (аэропорт/порт/станция).
@@ -516,14 +516,14 @@ export class DirectionService extends BaseService {
    *
    *
    * This method provides access to the full `HttpResponse`, allowing access to response headers.
-   * To access only the response body, use `directionPointList()` instead.
+   * To access only the response body, use `directionPoint()` instead.
    *
    * This method doesn't expect any request body.
    */
-  directionPointList$Response(params: {
+  directionPoint$Response(params: {
 
     /**
-     * ID города (ID берем из запроса - direction_city_list)
+     * ID города (ID берем из запроса - direction_city)
      */
     city_id: number;
 
@@ -576,7 +576,7 @@ export class DirectionService extends BaseService {
 'time_edit'?: string;
 }>>> {
 
-    const rb = new RequestBuilder(this.rootUrl, DirectionService.DirectionPointListPath, 'get');
+    const rb = new RequestBuilder(this.rootUrl, DirectionService.DirectionPointPath, 'get');
     if (params) {
       rb.query('city_id', params.city_id, {});
       rb.query('transport_kind_id', params.transport_kind_id, {});
@@ -637,14 +637,14 @@ export class DirectionService extends BaseService {
    *
    *
    * This method provides access to only to the response body.
-   * To access the full response (for headers, for example), `directionPointList$Response()` instead.
+   * To access the full response (for headers, for example), `directionPoint$Response()` instead.
    *
    * This method doesn't expect any request body.
    */
-  directionPointList(params: {
+  directionPoint(params: {
 
     /**
-     * ID города (ID берем из запроса - direction_city_list)
+     * ID города (ID берем из запроса - direction_city)
      */
     city_id: number;
 
@@ -697,7 +697,7 @@ export class DirectionService extends BaseService {
 'time_edit'?: string;
 }>> {
 
-    return this.directionPointList$Response(params).pipe(
+    return this.directionPoint$Response(params).pipe(
       map((r: StrictHttpResponse<Array<{
 
 /**
@@ -775,9 +775,9 @@ export class DirectionService extends BaseService {
   }
 
   /**
-   * Path part for operation directionBorderList
+   * Path part for operation directionBorder
    */
-  static readonly DirectionBorderListPath = '/direction_border_list';
+  static readonly DirectionBorderPath = '/direction_border';
 
   /**
    * Список границ.
@@ -785,14 +785,14 @@ export class DirectionService extends BaseService {
    *
    *
    * This method provides access to the full `HttpResponse`, allowing access to response headers.
-   * To access only the response body, use `directionBorderList()` instead.
+   * To access only the response body, use `directionBorder()` instead.
    *
    * This method doesn't expect any request body.
    */
-  directionBorderList$Response(params: {
+  directionBorder$Response(params: {
 
     /**
-     * ID страны (ID берем из запроса - direction_country_list)
+     * ID страны (ID берем из запроса - direction_country)
      */
     country_id: number;
 
@@ -815,7 +815,7 @@ export class DirectionService extends BaseService {
 'name'?: string;
 }>>> {
 
-    const rb = new RequestBuilder(this.rootUrl, DirectionService.DirectionBorderListPath, 'get');
+    const rb = new RequestBuilder(this.rootUrl, DirectionService.DirectionBorderPath, 'get');
     if (params) {
       rb.query('country_id', params.country_id, {});
       rb.query('search', params.search, {});
@@ -850,14 +850,14 @@ export class DirectionService extends BaseService {
    *
    *
    * This method provides access to only to the response body.
-   * To access the full response (for headers, for example), `directionBorderList$Response()` instead.
+   * To access the full response (for headers, for example), `directionBorder$Response()` instead.
    *
    * This method doesn't expect any request body.
    */
-  directionBorderList(params: {
+  directionBorder(params: {
 
     /**
-     * ID страны (ID берем из запроса - direction_country_list)
+     * ID страны (ID берем из запроса - direction_country)
      */
     country_id: number;
 
@@ -880,7 +880,7 @@ export class DirectionService extends BaseService {
 'name'?: string;
 }>> {
 
-    return this.directionBorderList$Response(params).pipe(
+    return this.directionBorder$Response(params).pipe(
       map((r: StrictHttpResponse<Array<{
 
 /**

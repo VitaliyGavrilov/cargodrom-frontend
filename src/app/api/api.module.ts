@@ -11,6 +11,7 @@ import { CustomerService } from './services/customer.service';
 import { DirectionService } from './services/direction.service';
 import { RequestService } from './services/request.service';
 import { SettingsService } from './services/settings.service';
+import { SystemService } from './services/system.service';
 import { TransportService } from './services/transport.service';
 import { UserService } from './services/user.service';
 
@@ -29,6 +30,7 @@ import { UserService } from './services/user.service';
     DirectionService,
     RequestService,
     SettingsService,
+    SystemService,
     TransportService,
     UserService,
     ApiConfiguration

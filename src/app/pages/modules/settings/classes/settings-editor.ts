@@ -8,6 +8,7 @@ import { MatSnackBar, MatSnackBarConfig } from "@angular/material/snack-bar";
 import { Company, Currency, Department, Employee, Position, TaxSystem } from "src/app/api/custom_models";
 import { Location } from '@angular/common';
 import { phoneMask } from 'src/app/constants';
+import { SystemService } from 'src/app/api/services';
 
 @Directive()
 export abstract class SettingsEditor<T> implements OnInit {
@@ -44,6 +45,7 @@ export abstract class SettingsEditor<T> implements OnInit {
   constructor(
     protected location: Location,
     protected companyService: CompanyService,
+    protected systemService: SystemService,
     protected route: ActivatedRoute,
     protected snackBar: MatSnackBar,
     protected router: Router,
@@ -72,13 +74,13 @@ export abstract class SettingsEditor<T> implements OnInit {
   }
 
   loadTaxSystems(): void {
-    this.companyService.companyTaxSystem().subscribe(
+    this.systemService.systemTaxSystem().subscribe(
       taxSystems => this.taxSystems = taxSystems ? (taxSystems as TaxSystem[]).sort(byField('name', 'asc', 'case-insensitive')) : []
     );
   }
 
   loadCurrencies(): void {
-    this.companyService.companyCurrency().subscribe(
+    this.systemService.systemCurrency().subscribe(
       currencies => this.currencies = currencies ? (currencies as Currency[]).sort(byField('code', 'asc', 'case-insensitive')) : []
     );
   }

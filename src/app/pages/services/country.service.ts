@@ -16,7 +16,7 @@ export class CountryService {
   }
 
   getCountries(): Observable<Country[]> {
-    return this.directionService.directionCountryList().pipe(
+    return this.directionService.directionCountry().pipe(
       startWith(this.loadCountriesFromLocalStorage()),
       tap(countries => this.saveCountriesToLocalStorage(countries))
     )

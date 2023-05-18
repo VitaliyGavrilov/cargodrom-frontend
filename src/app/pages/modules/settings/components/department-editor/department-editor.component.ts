@@ -1,3 +1,4 @@
+import { SystemService } from './../../../../../api/services';
 import { SettingsEditor } from './../../classes/settings-editor';
 import { CompanyService } from './../../../../../api/services/company.service';
 import { Department } from './../../../../../api/custom_models/department';
@@ -30,10 +31,11 @@ export class DepartmentEditorComponent extends SettingsEditor<Department> implem
     snackBar: MatSnackBar,
     route: ActivatedRoute,
     companyService: CompanyService,
+    systemService: SystemService,
     location: Location,
     router: Router,
   ) {
-    super(location, companyService, route, snackBar, router);
+    super(location, companyService, systemService, route, snackBar, router);
     this.form = this.fb.group({
       id: [''],
       name: ['', [Validators.required]],

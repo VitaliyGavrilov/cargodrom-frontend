@@ -1,3 +1,4 @@
+import { SystemService } from './../../../../../api/services/system.service';
 import { emailValidator } from './../../../../../validators';
 import { Location } from '@angular/common';
 import { Component, OnInit, ViewEncapsulation } from '@angular/core';
@@ -29,10 +30,11 @@ export class EmployeeEditorComponent extends SettingsEditor<Employee> implements
     snackBar: MatSnackBar,
     route: ActivatedRoute,
     companyService: CompanyService,
+    systemService: SystemService,
     location: Location,
     router: Router,
   ) {
-    super(location, companyService, route, snackBar, router);
+    super(location, companyService, systemService, route, snackBar, router);
     this.form = this.fb.group({
       id: [''],
       name_f: ['', [Validators.required]],
