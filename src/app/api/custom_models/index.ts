@@ -11,3 +11,4 @@ export * from './employee';
 export * from './company';
 export * from './tax-system';
 export * from './currency';
+export * from './client-group';
