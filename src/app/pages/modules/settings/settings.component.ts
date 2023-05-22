@@ -67,6 +67,19 @@ export class SettingsComponent implements OnInit, OnDestroy {
         }
       ]
     },
+    {
+      title: 'Справочники',
+      cssClass: 'settings-directory',
+      expanded: false,
+      items: [
+        {
+          title: 'Группы клиентов',
+          link: './client-group',
+          canAdd: true,
+          addButtonTitle: 'Добавить группу'
+        },
+      ]
+    },
   ];
   activeMenuItem?: MenuItem;
   activeMenuGroup?: MenuGroup;
