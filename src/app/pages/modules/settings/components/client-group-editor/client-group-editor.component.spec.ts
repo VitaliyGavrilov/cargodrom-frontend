@@ -4,7 +4,6 @@ import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { ClientGroupEditorComponent } from './client-group-editor.component';
 import { ReactiveFormsModule } from '@angular/forms';
 import { CompanyService, CustomerService, SystemService } from 'src/app/api/services';
-import { ActivatedRoute, Router } from '@angular/router';
 import { EditorHeaderMockup } from '@cargodrom/material/components/editor-header/editor-header.mockup';
 import { RouterTestingModule } from '@angular/router/testing';
 import { NEVER, of } from 'rxjs';
