@@ -77,14 +77,14 @@ export class CustomerService extends BaseService {
 'id': number;
 
 /**
- * Наименование полное
+ * Наименование краткое
  */
 'name'?: string;
 
 /**
- * Наименование краткое
+ * Наименование полное
  */
-'name_short'?: string;
+'name_full'?: string;
 
 /**
  * Страна местонахождения
@@ -137,6 +137,11 @@ export class CustomerService extends BaseService {
 'okpo'?: string;
 
 /**
+ * Контактное лицо
+ */
+'contact_fio'?: string;
+
+/**
  * Номер телефона
  */
 'phone'?: string;
@@ -157,19 +162,19 @@ export class CustomerService extends BaseService {
 'head_name'?: string;
 
 /**
+ * Должность руководителя
+ */
+'head_position_name'?: string;
+
+/**
  * Должность руководителя (ID берем из запроса - customer_head_position)
  */
 'head_position_id'?: string;
 
 /**
- * Документы (файл)
- */
-'documents_file'?: string;
-
-/**
  * Документы (ссылка)
  */
-'documents_url'?: string;
+'documents_path'?: string;
 
 /**
  * Адрес для корреспонденции
@@ -227,6 +232,11 @@ export class CustomerService extends BaseService {
 'accountant_fio'?: string;
 
 /**
+ * Телефон главного бухгалтера
+ */
+'accountant_phone'?: string;
+
+/**
  * Наименование банка
  */
 'bank_name'?: string;
@@ -272,19 +282,19 @@ export class CustomerService extends BaseService {
 'source_name'?: string;
 
 /**
- * Источник (ID берем из запроса - customer_contact_source)
+ * Источник (ID берем из запроса - system_contact_source)
  */
 'source_id'?: number;
 
 /**
- * Тип клиента
+ * Тип контрагента
  */
-'type_name'?: string;
+'counterparty_name'?: string;
 
 /**
- * Тип клиента (ID берем из запроса - customer_type)
+ * Тип клиента (ID берем из запроса - system_counterparty)
  */
-'type_id'?: number;
+'counterparty_id'?: number;
 
 /**
  * Статус
@@ -292,29 +302,29 @@ export class CustomerService extends BaseService {
 'status_name'?: string;
 
 /**
- * Статус (ID берем из запроса - customer_status)
+ * Статус (ID берем из запроса - system_customer_status)
  */
 'status_id'?: number;
 
 /**
- * Привилегии
+ * Взаимодействие
  */
-'privilege_name'?: string;
+'interaction_name'?: string;
 
 /**
- * Привилегии (ID берем из запроса - customer_privilege)
+ * Взаимодействие (ID берем из запроса - system_interaction)
  */
-'privilege_id'?: number;
+'interaction_id'?: number;
 
 /**
  * Виды услуг
  */
-'service_name'?: string;
+'service_names'?: Array<string>;
 
 /**
- * Виды услуг (ID берем из запроса - customer_services)
+ * Виды услуг (ID берем из запроса - system_services)
  */
-'service_id'?: number;
+'service_ids'?: Array<number>;
 
 /**
  * Отрасль деятельности
@@ -322,7 +332,7 @@ export class CustomerService extends BaseService {
 'business_name'?: string;
 
 /**
- * Отрасль деятельности (ID берем из запроса - customer_business)
+ * Отрасль деятельности (ID берем из запроса - system_business)
  */
 'business_id'?: number;
 
@@ -370,6 +380,37 @@ export class CustomerService extends BaseService {
  * Время изменения
  */
 'time_edit'?: string;
+
+/**
+ * Заказы
+ */
+'order_data'?: {
+
+/**
+ * Количество заказов
+ */
+'count'?: number;
+
+/**
+ * Дней с последнего заказа
+ */
+'days'?: number;
+
+/**
+ * Дней с последнего заказа (расширенная строка)
+ */
+'days_string'?: string;
+
+/**
+ * Просрочка платежей
+ */
+'delay_payment'?: number;
+
+/**
+ * Просрочка платежей (расширенная строка)
+ */
+'delay_payment_string'?: string;
+};
 }>>> {
 
     const rb = new RequestBuilder(this.rootUrl, CustomerService.CustomerListPath, 'get');
@@ -394,14 +435,14 @@ export class CustomerService extends BaseService {
         'id': number;
         
         /**
-         * Наименование полное
+         * Наименование краткое
          */
         'name'?: string;
         
         /**
-         * Наименование краткое
+         * Наименование полное
          */
-        'name_short'?: string;
+        'name_full'?: string;
         
         /**
          * Страна местонахождения
@@ -454,6 +495,11 @@ export class CustomerService extends BaseService {
         'okpo'?: string;
         
         /**
+         * Контактное лицо
+         */
+        'contact_fio'?: string;
+        
+        /**
          * Номер телефона
          */
         'phone'?: string;
@@ -474,19 +520,19 @@ export class CustomerService extends BaseService {
         'head_name'?: string;
         
         /**
+         * Должность руководителя
+         */
+        'head_position_name'?: string;
+        
+        /**
          * Должность руководителя (ID берем из запроса - customer_head_position)
          */
         'head_position_id'?: string;
         
         /**
-         * Документы (файл)
-         */
-        'documents_file'?: string;
-        
-        /**
          * Документы (ссылка)
          */
-        'documents_url'?: string;
+        'documents_path'?: string;
         
         /**
          * Адрес для корреспонденции
@@ -544,6 +590,11 @@ export class CustomerService extends BaseService {
         'accountant_fio'?: string;
         
         /**
+         * Телефон главного бухгалтера
+         */
+        'accountant_phone'?: string;
+        
+        /**
          * Наименование банка
          */
         'bank_name'?: string;
@@ -589,19 +640,19 @@ export class CustomerService extends BaseService {
         'source_name'?: string;
         
         /**
-         * Источник (ID берем из запроса - customer_contact_source)
+         * Источник (ID берем из запроса - system_contact_source)
          */
         'source_id'?: number;
         
         /**
-         * Тип клиента
+         * Тип контрагента
          */
-        'type_name'?: string;
+        'counterparty_name'?: string;
         
         /**
-         * Тип клиента (ID берем из запроса - customer_type)
+         * Тип клиента (ID берем из запроса - system_counterparty)
          */
-        'type_id'?: number;
+        'counterparty_id'?: number;
         
         /**
          * Статус
@@ -609,29 +660,29 @@ export class CustomerService extends BaseService {
         'status_name'?: string;
         
         /**
-         * Статус (ID берем из запроса - customer_status)
+         * Статус (ID берем из запроса - system_customer_status)
          */
         'status_id'?: number;
         
         /**
-         * Привилегии
+         * Взаимодействие
          */
-        'privilege_name'?: string;
+        'interaction_name'?: string;
         
         /**
-         * Привилегии (ID берем из запроса - customer_privilege)
+         * Взаимодействие (ID берем из запроса - system_interaction)
          */
-        'privilege_id'?: number;
+        'interaction_id'?: number;
         
         /**
          * Виды услуг
          */
-        'service_name'?: string;
+        'service_names'?: Array<string>;
         
         /**
-         * Виды услуг (ID берем из запроса - customer_services)
+         * Виды услуг (ID берем из запроса - system_services)
          */
-        'service_id'?: number;
+        'service_ids'?: Array<number>;
         
         /**
          * Отрасль деятельности
@@ -639,7 +690,7 @@ export class CustomerService extends BaseService {
         'business_name'?: string;
         
         /**
-         * Отрасль деятельности (ID берем из запроса - customer_business)
+         * Отрасль деятельности (ID берем из запроса - system_business)
          */
         'business_id'?: number;
         
@@ -687,6 +738,37 @@ export class CustomerService extends BaseService {
          * Время изменения
          */
         'time_edit'?: string;
+        
+        /**
+         * Заказы
+         */
+        'order_data'?: {
+        
+        /**
+         * Количество заказов
+         */
+        'count'?: number;
+        
+        /**
+         * Дней с последнего заказа
+         */
+        'days'?: number;
+        
+        /**
+         * Дней с последнего заказа (расширенная строка)
+         */
+        'days_string'?: string;
+        
+        /**
+         * Просрочка платежей
+         */
+        'delay_payment'?: number;
+        
+        /**
+         * Просрочка платежей (расширенная строка)
+         */
+        'delay_payment_string'?: string;
+        };
         }>>;
       })
     );
@@ -739,14 +821,14 @@ export class CustomerService extends BaseService {
 'id': number;
 
 /**
- * Наименование полное
+ * Наименование краткое
  */
 'name'?: string;
 
 /**
- * Наименование краткое
+ * Наименование полное
  */
-'name_short'?: string;
+'name_full'?: string;
 
 /**
  * Страна местонахождения
@@ -799,6 +881,11 @@ export class CustomerService extends BaseService {
 'okpo'?: string;
 
 /**
+ * Контактное лицо
+ */
+'contact_fio'?: string;
+
+/**
  * Номер телефона
  */
 'phone'?: string;
@@ -819,19 +906,19 @@ export class CustomerService extends BaseService {
 'head_name'?: string;
 
 /**
+ * Должность руководителя
+ */
+'head_position_name'?: string;
+
+/**
  * Должность руководителя (ID берем из запроса - customer_head_position)
  */
 'head_position_id'?: string;
 
 /**
- * Документы (файл)
- */
-'documents_file'?: string;
-
-/**
  * Документы (ссылка)
  */
-'documents_url'?: string;
+'documents_path'?: string;
 
 /**
  * Адрес для корреспонденции
@@ -889,6 +976,11 @@ export class CustomerService extends BaseService {
 'accountant_fio'?: string;
 
 /**
+ * Телефон главного бухгалтера
+ */
+'accountant_phone'?: string;
+
+/**
  * Наименование банка
  */
 'bank_name'?: string;
@@ -934,19 +1026,19 @@ export class CustomerService extends BaseService {
 'source_name'?: string;
 
 /**
- * Источник (ID берем из запроса - customer_contact_source)
+ * Источник (ID берем из запроса - system_contact_source)
  */
 'source_id'?: number;
 
 /**
- * Тип клиента
+ * Тип контрагента
  */
-'type_name'?: string;
+'counterparty_name'?: string;
 
 /**
- * Тип клиента (ID берем из запроса - customer_type)
+ * Тип клиента (ID берем из запроса - system_counterparty)
  */
-'type_id'?: number;
+'counterparty_id'?: number;
 
 /**
  * Статус
@@ -954,29 +1046,29 @@ export class CustomerService extends BaseService {
 'status_name'?: string;
 
 /**
- * Статус (ID берем из запроса - customer_status)
+ * Статус (ID берем из запроса - system_customer_status)
  */
 'status_id'?: number;
 
 /**
- * Привилегии
+ * Взаимодействие
  */
-'privilege_name'?: string;
+'interaction_name'?: string;
 
 /**
- * Привилегии (ID берем из запроса - customer_privilege)
+ * Взаимодействие (ID берем из запроса - system_interaction)
  */
-'privilege_id'?: number;
+'interaction_id'?: number;
 
 /**
  * Виды услуг
  */
-'service_name'?: string;
+'service_names'?: Array<string>;
 
 /**
- * Виды услуг (ID берем из запроса - customer_services)
+ * Виды услуг (ID берем из запроса - system_services)
  */
-'service_id'?: number;
+'service_ids'?: Array<number>;
 
 /**
  * Отрасль деятельности
@@ -984,7 +1076,7 @@ export class CustomerService extends BaseService {
 'business_name'?: string;
 
 /**
- * Отрасль деятельности (ID берем из запроса - customer_business)
+ * Отрасль деятельности (ID берем из запроса - system_business)
  */
 'business_id'?: number;
 
@@ -1032,6 +1124,37 @@ export class CustomerService extends BaseService {
  * Время изменения
  */
 'time_edit'?: string;
+
+/**
+ * Заказы
+ */
+'order_data'?: {
+
+/**
+ * Количество заказов
+ */
+'count'?: number;
+
+/**
+ * Дней с последнего заказа
+ */
+'days'?: number;
+
+/**
+ * Дней с последнего заказа (расширенная строка)
+ */
+'days_string'?: string;
+
+/**
+ * Просрочка платежей
+ */
+'delay_payment'?: number;
+
+/**
+ * Просрочка платежей (расширенная строка)
+ */
+'delay_payment_string'?: string;
+};
 }>> {
 
     return this.customerList$Response(params).pipe(
@@ -1043,14 +1166,14 @@ export class CustomerService extends BaseService {
 'id': number;
 
 /**
- * Наименование полное
+ * Наименование краткое
  */
 'name'?: string;
 
 /**
- * Наименование краткое
+ * Наименование полное
  */
-'name_short'?: string;
+'name_full'?: string;
 
 /**
  * Страна местонахождения
@@ -1103,6 +1226,11 @@ export class CustomerService extends BaseService {
 'okpo'?: string;
 
 /**
+ * Контактное лицо
+ */
+'contact_fio'?: string;
+
+/**
  * Номер телефона
  */
 'phone'?: string;
@@ -1123,19 +1251,19 @@ export class CustomerService extends BaseService {
 'head_name'?: string;
 
 /**
+ * Должность руководителя
+ */
+'head_position_name'?: string;
+
+/**
  * Должность руководителя (ID берем из запроса - customer_head_position)
  */
 'head_position_id'?: string;
 
 /**
- * Документы (файл)
- */
-'documents_file'?: string;
-
-/**
  * Документы (ссылка)
  */
-'documents_url'?: string;
+'documents_path'?: string;
 
 /**
  * Адрес для корреспонденции
@@ -1193,6 +1321,11 @@ export class CustomerService extends BaseService {
 'accountant_fio'?: string;
 
 /**
+ * Телефон главного бухгалтера
+ */
+'accountant_phone'?: string;
+
+/**
  * Наименование банка
  */
 'bank_name'?: string;
@@ -1238,19 +1371,19 @@ export class CustomerService extends BaseService {
 'source_name'?: string;
 
 /**
- * Источник (ID берем из запроса - customer_contact_source)
+ * Источник (ID берем из запроса - system_contact_source)
  */
 'source_id'?: number;
 
 /**
- * Тип клиента
+ * Тип контрагента
  */
-'type_name'?: string;
+'counterparty_name'?: string;
 
 /**
- * Тип клиента (ID берем из запроса - customer_type)
+ * Тип клиента (ID берем из запроса - system_counterparty)
  */
-'type_id'?: number;
+'counterparty_id'?: number;
 
 /**
  * Статус
@@ -1258,29 +1391,29 @@ export class CustomerService extends BaseService {
 'status_name'?: string;
 
 /**
- * Статус (ID берем из запроса - customer_status)
+ * Статус (ID берем из запроса - system_customer_status)
  */
 'status_id'?: number;
 
 /**
- * Привилегии
+ * Взаимодействие
  */
-'privilege_name'?: string;
+'interaction_name'?: string;
 
 /**
- * Привилегии (ID берем из запроса - customer_privilege)
+ * Взаимодействие (ID берем из запроса - system_interaction)
  */
-'privilege_id'?: number;
+'interaction_id'?: number;
 
 /**
  * Виды услуг
  */
-'service_name'?: string;
+'service_names'?: Array<string>;
 
 /**
- * Виды услуг (ID берем из запроса - customer_services)
+ * Виды услуг (ID берем из запроса - system_services)
  */
-'service_id'?: number;
+'service_ids'?: Array<number>;
 
 /**
  * Отрасль деятельности
@@ -1288,7 +1421,7 @@ export class CustomerService extends BaseService {
 'business_name'?: string;
 
 /**
- * Отрасль деятельности (ID берем из запроса - customer_business)
+ * Отрасль деятельности (ID берем из запроса - system_business)
  */
 'business_id'?: number;
 
@@ -1336,6 +1469,37 @@ export class CustomerService extends BaseService {
  * Время изменения
  */
 'time_edit'?: string;
+
+/**
+ * Заказы
+ */
+'order_data'?: {
+
+/**
+ * Количество заказов
+ */
+'count'?: number;
+
+/**
+ * Дней с последнего заказа
+ */
+'days'?: number;
+
+/**
+ * Дней с последнего заказа (расширенная строка)
+ */
+'days_string'?: string;
+
+/**
+ * Просрочка платежей
+ */
+'delay_payment'?: number;
+
+/**
+ * Просрочка платежей (расширенная строка)
+ */
+'delay_payment_string'?: string;
+};
 }>>) => r.body as Array<{
 
 /**
@@ -1344,14 +1508,14 @@ export class CustomerService extends BaseService {
 'id': number;
 
 /**
- * Наименование полное
+ * Наименование краткое
  */
 'name'?: string;
 
 /**
- * Наименование краткое
+ * Наименование полное
  */
-'name_short'?: string;
+'name_full'?: string;
 
 /**
  * Страна местонахождения
@@ -1404,6 +1568,11 @@ export class CustomerService extends BaseService {
 'okpo'?: string;
 
 /**
+ * Контактное лицо
+ */
+'contact_fio'?: string;
+
+/**
  * Номер телефона
  */
 'phone'?: string;
@@ -1424,19 +1593,19 @@ export class CustomerService extends BaseService {
 'head_name'?: string;
 
 /**
+ * Должность руководителя
+ */
+'head_position_name'?: string;
+
+/**
  * Должность руководителя (ID берем из запроса - customer_head_position)
  */
 'head_position_id'?: string;
 
 /**
- * Документы (файл)
- */
-'documents_file'?: string;
-
-/**
  * Документы (ссылка)
  */
-'documents_url'?: string;
+'documents_path'?: string;
 
 /**
  * Адрес для корреспонденции
@@ -1494,6 +1663,11 @@ export class CustomerService extends BaseService {
 'accountant_fio'?: string;
 
 /**
+ * Телефон главного бухгалтера
+ */
+'accountant_phone'?: string;
+
+/**
  * Наименование банка
  */
 'bank_name'?: string;
@@ -1539,19 +1713,19 @@ export class CustomerService extends BaseService {
 'source_name'?: string;
 
 /**
- * Источник (ID берем из запроса - customer_contact_source)
+ * Источник (ID берем из запроса - system_contact_source)
  */
 'source_id'?: number;
 
 /**
- * Тип клиента
+ * Тип контрагента
  */
-'type_name'?: string;
+'counterparty_name'?: string;
 
 /**
- * Тип клиента (ID берем из запроса - customer_type)
+ * Тип клиента (ID берем из запроса - system_counterparty)
  */
-'type_id'?: number;
+'counterparty_id'?: number;
 
 /**
  * Статус
@@ -1559,29 +1733,29 @@ export class CustomerService extends BaseService {
 'status_name'?: string;
 
 /**
- * Статус (ID берем из запроса - customer_status)
+ * Статус (ID берем из запроса - system_customer_status)
  */
 'status_id'?: number;
 
 /**
- * Привилегии
+ * Взаимодействие
  */
-'privilege_name'?: string;
+'interaction_name'?: string;
 
 /**
- * Привилегии (ID берем из запроса - customer_privilege)
+ * Взаимодействие (ID берем из запроса - system_interaction)
  */
-'privilege_id'?: number;
+'interaction_id'?: number;
 
 /**
  * Виды услуг
  */
-'service_name'?: string;
+'service_names'?: Array<string>;
 
 /**
- * Виды услуг (ID берем из запроса - customer_services)
+ * Виды услуг (ID берем из запроса - system_services)
  */
-'service_id'?: number;
+'service_ids'?: Array<number>;
 
 /**
  * Отрасль деятельности
@@ -1589,7 +1763,7 @@ export class CustomerService extends BaseService {
 'business_name'?: string;
 
 /**
- * Отрасль деятельности (ID берем из запроса - customer_business)
+ * Отрасль деятельности (ID берем из запроса - system_business)
  */
 'business_id'?: number;
 
@@ -1637,6 +1811,37 @@ export class CustomerService extends BaseService {
  * Время изменения
  */
 'time_edit'?: string;
+
+/**
+ * Заказы
+ */
+'order_data'?: {
+
+/**
+ * Количество заказов
+ */
+'count'?: number;
+
+/**
+ * Дней с последнего заказа
+ */
+'days'?: number;
+
+/**
+ * Дней с последнего заказа (расширенная строка)
+ */
+'days_string'?: string;
+
+/**
+ * Просрочка платежей
+ */
+'delay_payment'?: number;
+
+/**
+ * Просрочка платежей (расширенная строка)
+ */
+'delay_payment_string'?: string;
+};
 }>)
     );
   }
@@ -1672,14 +1877,14 @@ export class CustomerService extends BaseService {
 'id': number;
 
 /**
- * Наименование полное
+ * Наименование краткое
  */
 'name'?: string;
 
 /**
- * Наименование краткое
+ * Наименование полное
  */
-'name_short'?: string;
+'name_full'?: string;
 
 /**
  * Страна местонахождения
@@ -1732,6 +1937,11 @@ export class CustomerService extends BaseService {
 'okpo'?: string;
 
 /**
+ * Контактное лицо
+ */
+'contact_fio'?: string;
+
+/**
  * Номер телефона
  */
 'phone'?: string;
@@ -1752,19 +1962,19 @@ export class CustomerService extends BaseService {
 'head_name'?: string;
 
 /**
+ * Должность руководителя
+ */
+'head_position_name'?: string;
+
+/**
  * Должность руководителя (ID берем из запроса - customer_head_position)
  */
 'head_position_id'?: string;
 
 /**
- * Документы (файл)
- */
-'documents_file'?: string;
-
-/**
  * Документы (ссылка)
  */
-'documents_url'?: string;
+'documents_path'?: string;
 
 /**
  * Адрес для корреспонденции
@@ -1822,6 +2032,11 @@ export class CustomerService extends BaseService {
 'accountant_fio'?: string;
 
 /**
+ * Телефон главного бухгалтера
+ */
+'accountant_phone'?: string;
+
+/**
  * Наименование банка
  */
 'bank_name'?: string;
@@ -1867,19 +2082,19 @@ export class CustomerService extends BaseService {
 'source_name'?: string;
 
 /**
- * Источник (ID берем из запроса - customer_contact_source)
+ * Источник (ID берем из запроса - system_contact_source)
  */
 'source_id'?: number;
 
 /**
- * Тип клиента
+ * Тип контрагента
  */
-'type_name'?: string;
+'counterparty_name'?: string;
 
 /**
- * Тип клиента (ID берем из запроса - customer_type)
+ * Тип клиента (ID берем из запроса - system_counterparty)
  */
-'type_id'?: number;
+'counterparty_id'?: number;
 
 /**
  * Статус
@@ -1887,29 +2102,29 @@ export class CustomerService extends BaseService {
 'status_name'?: string;
 
 /**
- * Статус (ID берем из запроса - customer_status)
+ * Статус (ID берем из запроса - system_customer_status)
  */
 'status_id'?: number;
 
 /**
- * Привилегии
+ * Взаимодействие
  */
-'privilege_name'?: string;
+'interaction_name'?: string;
 
 /**
- * Привилегии (ID берем из запроса - customer_privilege)
+ * Взаимодействие (ID берем из запроса - system_interaction)
  */
-'privilege_id'?: number;
+'interaction_id'?: number;
 
 /**
  * Виды услуг
  */
-'service_name'?: string;
+'service_names'?: Array<string>;
 
 /**
- * Виды услуг (ID берем из запроса - customer_services)
+ * Виды услуг (ID берем из запроса - system_services)
  */
-'service_id'?: number;
+'service_ids'?: Array<number>;
 
 /**
  * Отрасль деятельности
@@ -1917,7 +2132,7 @@ export class CustomerService extends BaseService {
 'business_name'?: string;
 
 /**
- * Отрасль деятельности (ID берем из запроса - customer_business)
+ * Отрасль деятельности (ID берем из запроса - system_business)
  */
 'business_id'?: number;
 
@@ -1965,6 +2180,43 @@ export class CustomerService extends BaseService {
  * Время изменения
  */
 'time_edit'?: string;
+
+/**
+ * Заказы
+ */
+'order_data'?: {
+
+/**
+ * Количество заказов
+ */
+'count'?: number;
+
+/**
+ * Дней с последнего заказа
+ */
+'days'?: number;
+
+/**
+ * Дней с последнего заказа (расширенная строка)
+ */
+'days_string'?: string;
+
+/**
+ * Просрочка платежей
+ */
+'delay_payment'?: number;
+
+/**
+ * Просрочка платежей (расширенная строка)
+ */
+'delay_payment_string'?: string;
+};
+
+/**
+ * Документы (файлы)
+ */
+'documents_file'?: {
+};
 }>> {
 
     const rb = new RequestBuilder(this.rootUrl, CustomerService.CustomerInfoPath, 'get');
@@ -1987,14 +2239,14 @@ export class CustomerService extends BaseService {
         'id': number;
         
         /**
-         * Наименование полное
+         * Наименование краткое
          */
         'name'?: string;
         
         /**
-         * Наименование краткое
+         * Наименование полное
          */
-        'name_short'?: string;
+        'name_full'?: string;
         
         /**
          * Страна местонахождения
@@ -2047,6 +2299,11 @@ export class CustomerService extends BaseService {
         'okpo'?: string;
         
         /**
+         * Контактное лицо
+         */
+        'contact_fio'?: string;
+        
+        /**
          * Номер телефона
          */
         'phone'?: string;
@@ -2067,19 +2324,19 @@ export class CustomerService extends BaseService {
         'head_name'?: string;
         
         /**
+         * Должность руководителя
+         */
+        'head_position_name'?: string;
+        
+        /**
          * Должность руководителя (ID берем из запроса - customer_head_position)
          */
         'head_position_id'?: string;
         
         /**
-         * Документы (файл)
-         */
-        'documents_file'?: string;
-        
-        /**
          * Документы (ссылка)
          */
-        'documents_url'?: string;
+        'documents_path'?: string;
         
         /**
          * Адрес для корреспонденции
@@ -2137,6 +2394,11 @@ export class CustomerService extends BaseService {
         'accountant_fio'?: string;
         
         /**
+         * Телефон главного бухгалтера
+         */
+        'accountant_phone'?: string;
+        
+        /**
          * Наименование банка
          */
         'bank_name'?: string;
@@ -2182,19 +2444,19 @@ export class CustomerService extends BaseService {
         'source_name'?: string;
         
         /**
-         * Источник (ID берем из запроса - customer_contact_source)
+         * Источник (ID берем из запроса - system_contact_source)
          */
         'source_id'?: number;
         
         /**
-         * Тип клиента
+         * Тип контрагента
          */
-        'type_name'?: string;
+        'counterparty_name'?: string;
         
         /**
-         * Тип клиента (ID берем из запроса - customer_type)
+         * Тип клиента (ID берем из запроса - system_counterparty)
          */
-        'type_id'?: number;
+        'counterparty_id'?: number;
         
         /**
          * Статус
@@ -2202,29 +2464,29 @@ export class CustomerService extends BaseService {
         'status_name'?: string;
         
         /**
-         * Статус (ID берем из запроса - customer_status)
+         * Статус (ID берем из запроса - system_customer_status)
          */
         'status_id'?: number;
         
         /**
-         * Привилегии
+         * Взаимодействие
          */
-        'privilege_name'?: string;
+        'interaction_name'?: string;
         
         /**
-         * Привилегии (ID берем из запроса - customer_privilege)
+         * Взаимодействие (ID берем из запроса - system_interaction)
          */
-        'privilege_id'?: number;
+        'interaction_id'?: number;
         
         /**
          * Виды услуг
          */
-        'service_name'?: string;
+        'service_names'?: Array<string>;
         
         /**
-         * Виды услуг (ID берем из запроса - customer_services)
+         * Виды услуг (ID берем из запроса - system_services)
          */
-        'service_id'?: number;
+        'service_ids'?: Array<number>;
         
         /**
          * Отрасль деятельности
@@ -2232,7 +2494,7 @@ export class CustomerService extends BaseService {
         'business_name'?: string;
         
         /**
-         * Отрасль деятельности (ID берем из запроса - customer_business)
+         * Отрасль деятельности (ID берем из запроса - system_business)
          */
         'business_id'?: number;
         
@@ -2280,6 +2542,43 @@ export class CustomerService extends BaseService {
          * Время изменения
          */
         'time_edit'?: string;
+        
+        /**
+         * Заказы
+         */
+        'order_data'?: {
+        
+        /**
+         * Количество заказов
+         */
+        'count'?: number;
+        
+        /**
+         * Дней с последнего заказа
+         */
+        'days'?: number;
+        
+        /**
+         * Дней с последнего заказа (расширенная строка)
+         */
+        'days_string'?: string;
+        
+        /**
+         * Просрочка платежей
+         */
+        'delay_payment'?: number;
+        
+        /**
+         * Просрочка платежей (расширенная строка)
+         */
+        'delay_payment_string'?: string;
+        };
+        
+        /**
+         * Документы (файлы)
+         */
+        'documents_file'?: {
+        };
         }>;
       })
     );
@@ -2311,14 +2610,14 @@ export class CustomerService extends BaseService {
 'id': number;
 
 /**
- * Наименование полное
+ * Наименование краткое
  */
 'name'?: string;
 
 /**
- * Наименование краткое
+ * Наименование полное
  */
-'name_short'?: string;
+'name_full'?: string;
 
 /**
  * Страна местонахождения
@@ -2371,6 +2670,11 @@ export class CustomerService extends BaseService {
 'okpo'?: string;
 
 /**
+ * Контактное лицо
+ */
+'contact_fio'?: string;
+
+/**
  * Номер телефона
  */
 'phone'?: string;
@@ -2391,19 +2695,19 @@ export class CustomerService extends BaseService {
 'head_name'?: string;
 
 /**
+ * Должность руководителя
+ */
+'head_position_name'?: string;
+
+/**
  * Должность руководителя (ID берем из запроса - customer_head_position)
  */
 'head_position_id'?: string;
 
 /**
- * Документы (файл)
- */
-'documents_file'?: string;
-
-/**
  * Документы (ссылка)
  */
-'documents_url'?: string;
+'documents_path'?: string;
 
 /**
  * Адрес для корреспонденции
@@ -2461,6 +2765,11 @@ export class CustomerService extends BaseService {
 'accountant_fio'?: string;
 
 /**
+ * Телефон главного бухгалтера
+ */
+'accountant_phone'?: string;
+
+/**
  * Наименование банка
  */
 'bank_name'?: string;
@@ -2506,19 +2815,19 @@ export class CustomerService extends BaseService {
 'source_name'?: string;
 
 /**
- * Источник (ID берем из запроса - customer_contact_source)
+ * Источник (ID берем из запроса - system_contact_source)
  */
 'source_id'?: number;
 
 /**
- * Тип клиента
+ * Тип контрагента
  */
-'type_name'?: string;
+'counterparty_name'?: string;
 
 /**
- * Тип клиента (ID берем из запроса - customer_type)
+ * Тип клиента (ID берем из запроса - system_counterparty)
  */
-'type_id'?: number;
+'counterparty_id'?: number;
 
 /**
  * Статус
@@ -2526,29 +2835,29 @@ export class CustomerService extends BaseService {
 'status_name'?: string;
 
 /**
- * Статус (ID берем из запроса - customer_status)
+ * Статус (ID берем из запроса - system_customer_status)
  */
 'status_id'?: number;
 
 /**
- * Привилегии
+ * Взаимодействие
  */
-'privilege_name'?: string;
+'interaction_name'?: string;
 
 /**
- * Привилегии (ID берем из запроса - customer_privilege)
+ * Взаимодействие (ID берем из запроса - system_interaction)
  */
-'privilege_id'?: number;
+'interaction_id'?: number;
 
 /**
  * Виды услуг
  */
-'service_name'?: string;
+'service_names'?: Array<string>;
 
 /**
- * Виды услуг (ID берем из запроса - customer_services)
+ * Виды услуг (ID берем из запроса - system_services)
  */
-'service_id'?: number;
+'service_ids'?: Array<number>;
 
 /**
  * Отрасль деятельности
@@ -2556,7 +2865,7 @@ export class CustomerService extends BaseService {
 'business_name'?: string;
 
 /**
- * Отрасль деятельности (ID берем из запроса - customer_business)
+ * Отрасль деятельности (ID берем из запроса - system_business)
  */
 'business_id'?: number;
 
@@ -2604,6 +2913,43 @@ export class CustomerService extends BaseService {
  * Время изменения
  */
 'time_edit'?: string;
+
+/**
+ * Заказы
+ */
+'order_data'?: {
+
+/**
+ * Количество заказов
+ */
+'count'?: number;
+
+/**
+ * Дней с последнего заказа
+ */
+'days'?: number;
+
+/**
+ * Дней с последнего заказа (расширенная строка)
+ */
+'days_string'?: string;
+
+/**
+ * Просрочка платежей
+ */
+'delay_payment'?: number;
+
+/**
+ * Просрочка платежей (расширенная строка)
+ */
+'delay_payment_string'?: string;
+};
+
+/**
+ * Документы (файлы)
+ */
+'documents_file'?: {
+};
 }> {
 
     return this.customerInfo$Response(params).pipe(
@@ -2615,14 +2961,14 @@ export class CustomerService extends BaseService {
 'id': number;
 
 /**
- * Наименование полное
+ * Наименование краткое
  */
 'name'?: string;
 
 /**
- * Наименование краткое
+ * Наименование полное
  */
-'name_short'?: string;
+'name_full'?: string;
 
 /**
  * Страна местонахождения
@@ -2675,6 +3021,11 @@ export class CustomerService extends BaseService {
 'okpo'?: string;
 
 /**
+ * Контактное лицо
+ */
+'contact_fio'?: string;
+
+/**
  * Номер телефона
  */
 'phone'?: string;
@@ -2695,19 +3046,19 @@ export class CustomerService extends BaseService {
 'head_name'?: string;
 
 /**
+ * Должность руководителя
+ */
+'head_position_name'?: string;
+
+/**
  * Должность руководителя (ID берем из запроса - customer_head_position)
  */
 'head_position_id'?: string;
 
 /**
- * Документы (файл)
- */
-'documents_file'?: string;
-
-/**
  * Документы (ссылка)
  */
-'documents_url'?: string;
+'documents_path'?: string;
 
 /**
  * Адрес для корреспонденции
@@ -2765,6 +3116,11 @@ export class CustomerService extends BaseService {
 'accountant_fio'?: string;
 
 /**
+ * Телефон главного бухгалтера
+ */
+'accountant_phone'?: string;
+
+/**
  * Наименование банка
  */
 'bank_name'?: string;
@@ -2810,19 +3166,19 @@ export class CustomerService extends BaseService {
 'source_name'?: string;
 
 /**
- * Источник (ID берем из запроса - customer_contact_source)
+ * Источник (ID берем из запроса - system_contact_source)
  */
 'source_id'?: number;
 
 /**
- * Тип клиента
+ * Тип контрагента
  */
-'type_name'?: string;
+'counterparty_name'?: string;
 
 /**
- * Тип клиента (ID берем из запроса - customer_type)
+ * Тип клиента (ID берем из запроса - system_counterparty)
  */
-'type_id'?: number;
+'counterparty_id'?: number;
 
 /**
  * Статус
@@ -2830,29 +3186,29 @@ export class CustomerService extends BaseService {
 'status_name'?: string;
 
 /**
- * Статус (ID берем из запроса - customer_status)
+ * Статус (ID берем из запроса - system_customer_status)
  */
 'status_id'?: number;
 
 /**
- * Привилегии
+ * Взаимодействие
  */
-'privilege_name'?: string;
+'interaction_name'?: string;
 
 /**
- * Привилегии (ID берем из запроса - customer_privilege)
+ * Взаимодействие (ID берем из запроса - system_interaction)
  */
-'privilege_id'?: number;
+'interaction_id'?: number;
 
 /**
  * Виды услуг
  */
-'service_name'?: string;
+'service_names'?: Array<string>;
 
 /**
- * Виды услуг (ID берем из запроса - customer_services)
+ * Виды услуг (ID берем из запроса - system_services)
  */
-'service_id'?: number;
+'service_ids'?: Array<number>;
 
 /**
  * Отрасль деятельности
@@ -2860,7 +3216,7 @@ export class CustomerService extends BaseService {
 'business_name'?: string;
 
 /**
- * Отрасль деятельности (ID берем из запроса - customer_business)
+ * Отрасль деятельности (ID берем из запроса - system_business)
  */
 'business_id'?: number;
 
@@ -2908,6 +3264,43 @@ export class CustomerService extends BaseService {
  * Время изменения
  */
 'time_edit'?: string;
+
+/**
+ * Заказы
+ */
+'order_data'?: {
+
+/**
+ * Количество заказов
+ */
+'count'?: number;
+
+/**
+ * Дней с последнего заказа
+ */
+'days'?: number;
+
+/**
+ * Дней с последнего заказа (расширенная строка)
+ */
+'days_string'?: string;
+
+/**
+ * Просрочка платежей
+ */
+'delay_payment'?: number;
+
+/**
+ * Просрочка платежей (расширенная строка)
+ */
+'delay_payment_string'?: string;
+};
+
+/**
+ * Документы (файлы)
+ */
+'documents_file'?: {
+};
 }>) => r.body as {
 
 /**
@@ -2916,14 +3309,14 @@ export class CustomerService extends BaseService {
 'id': number;
 
 /**
- * Наименование полное
+ * Наименование краткое
  */
 'name'?: string;
 
 /**
- * Наименование краткое
+ * Наименование полное
  */
-'name_short'?: string;
+'name_full'?: string;
 
 /**
  * Страна местонахождения
@@ -2976,6 +3369,11 @@ export class CustomerService extends BaseService {
 'okpo'?: string;
 
 /**
+ * Контактное лицо
+ */
+'contact_fio'?: string;
+
+/**
  * Номер телефона
  */
 'phone'?: string;
@@ -2996,19 +3394,19 @@ export class CustomerService extends BaseService {
 'head_name'?: string;
 
 /**
+ * Должность руководителя
+ */
+'head_position_name'?: string;
+
+/**
  * Должность руководителя (ID берем из запроса - customer_head_position)
  */
 'head_position_id'?: string;
 
 /**
- * Документы (файл)
- */
-'documents_file'?: string;
-
-/**
  * Документы (ссылка)
  */
-'documents_url'?: string;
+'documents_path'?: string;
 
 /**
  * Адрес для корреспонденции
@@ -3066,6 +3464,11 @@ export class CustomerService extends BaseService {
 'accountant_fio'?: string;
 
 /**
+ * Телефон главного бухгалтера
+ */
+'accountant_phone'?: string;
+
+/**
  * Наименование банка
  */
 'bank_name'?: string;
@@ -3111,19 +3514,19 @@ export class CustomerService extends BaseService {
 'source_name'?: string;
 
 /**
- * Источник (ID берем из запроса - customer_contact_source)
+ * Источник (ID берем из запроса - system_contact_source)
  */
 'source_id'?: number;
 
 /**
- * Тип клиента
+ * Тип контрагента
  */
-'type_name'?: string;
+'counterparty_name'?: string;
 
 /**
- * Тип клиента (ID берем из запроса - customer_type)
+ * Тип клиента (ID берем из запроса - system_counterparty)
  */
-'type_id'?: number;
+'counterparty_id'?: number;
 
 /**
  * Статус
@@ -3131,29 +3534,29 @@ export class CustomerService extends BaseService {
 'status_name'?: string;
 
 /**
- * Статус (ID берем из запроса - customer_status)
+ * Статус (ID берем из запроса - system_customer_status)
  */
 'status_id'?: number;
 
 /**
- * Привилегии
+ * Взаимодействие
  */
-'privilege_name'?: string;
+'interaction_name'?: string;
 
 /**
- * Привилегии (ID берем из запроса - customer_privilege)
+ * Взаимодействие (ID берем из запроса - system_interaction)
  */
-'privilege_id'?: number;
+'interaction_id'?: number;
 
 /**
  * Виды услуг
  */
-'service_name'?: string;
+'service_names'?: Array<string>;
 
 /**
- * Виды услуг (ID берем из запроса - customer_services)
+ * Виды услуг (ID берем из запроса - system_services)
  */
-'service_id'?: number;
+'service_ids'?: Array<number>;
 
 /**
  * Отрасль деятельности
@@ -3161,7 +3564,7 @@ export class CustomerService extends BaseService {
 'business_name'?: string;
 
 /**
- * Отрасль деятельности (ID берем из запроса - customer_business)
+ * Отрасль деятельности (ID берем из запроса - system_business)
  */
 'business_id'?: number;
 
@@ -3209,6 +3612,43 @@ export class CustomerService extends BaseService {
  * Время изменения
  */
 'time_edit'?: string;
+
+/**
+ * Заказы
+ */
+'order_data'?: {
+
+/**
+ * Количество заказов
+ */
+'count'?: number;
+
+/**
+ * Дней с последнего заказа
+ */
+'days'?: number;
+
+/**
+ * Дней с последнего заказа (расширенная строка)
+ */
+'days_string'?: string;
+
+/**
+ * Просрочка платежей
+ */
+'delay_payment'?: number;
+
+/**
+ * Просрочка платежей (расширенная строка)
+ */
+'delay_payment_string'?: string;
+};
+
+/**
+ * Документы (файлы)
+ */
+'documents_file'?: {
+};
 })
     );
   }
@@ -3233,14 +3673,14 @@ export class CustomerService extends BaseService {
     body?: {
 
 /**
- * Наименование полное
- */
-'name'?: string;
-
-/**
  * Наименование краткое
  */
-'name_short'?: string;
+'name': string;
+
+/**
+ * Наименование полное
+ */
+'name_full': string;
 
 /**
  * Страна местонахождения (ID берем из запроса - direction_country)
@@ -3283,6 +3723,11 @@ export class CustomerService extends BaseService {
 'okpo'?: string;
 
 /**
+ * Контактное лицо
+ */
+'contact_fio': string;
+
+/**
  * Номер телефона
  */
 'phone'?: string;
@@ -3308,14 +3753,9 @@ export class CustomerService extends BaseService {
 'head_position_id'?: string;
 
 /**
- * Документы (файл)
- */
-'documents_file'?: string;
-
-/**
  * Документы (ссылка)
  */
-'documents_url'?: string;
+'documents_path'?: string;
 
 /**
  * Адрес для корреспонденции
@@ -3373,6 +3813,11 @@ export class CustomerService extends BaseService {
 'accountant_fio'?: string;
 
 /**
+ * Телефон главного бухгалтера
+ */
+'accountant_phone'?: string;
+
+/**
  * Наименование банка
  */
 'bank_name'?: string;
@@ -3408,32 +3853,32 @@ export class CustomerService extends BaseService {
 'group_id'?: number;
 
 /**
- * Источник (ID берем из запроса - customer_contact_source)
+ * Источник (ID берем из запроса - system_contact_source)
  */
 'source_id'?: number;
 
 /**
- * Тип клиента (ID берем из запроса - customer_type)
+ * Тип клиента (ID берем из запроса - system_counterparty)
  */
-'type_id'?: number;
+'counterparty_id'?: number;
 
 /**
- * Статус (ID берем из запроса - customer_status)
+ * Статус (ID берем из запроса - system_customer_status)
  */
 'status_id'?: number;
 
 /**
- * Привилегии (ID берем из запроса - customer_privilege)
+ * Взаимодействие (ID берем из запроса - system_interaction)
  */
-'privilege_id'?: number;
+'interaction_id'?: number;
 
 /**
- * Виды услуг (ID берем из запроса - customer_services)
+ * Виды услуг (ID берем из запроса - system_services)
  */
-'service_id'?: number;
+'service_ids'?: Array<number>;
 
 /**
- * Отрасль деятельности (ID берем из запроса - customer_business)
+ * Отрасль деятельности (ID берем из запроса - system_business)
  */
 'business_id'?: number;
 
@@ -3451,11 +3896,6 @@ export class CustomerService extends BaseService {
  * Менеджер продаж (ID берем из запроса - company_employee_list)
  */
 'manager_sale_id'?: number;
-
-/**
- * Менеджер создания (ID берем из запроса - company_employee_list)
- */
-'user_id'?: number;
 }
   }
 ): Observable<StrictHttpResponse<{
@@ -3514,14 +3954,14 @@ export class CustomerService extends BaseService {
     body?: {
 
 /**
- * Наименование полное
- */
-'name'?: string;
-
-/**
  * Наименование краткое
  */
-'name_short'?: string;
+'name': string;
+
+/**
+ * Наименование полное
+ */
+'name_full': string;
 
 /**
  * Страна местонахождения (ID берем из запроса - direction_country)
@@ -3564,6 +4004,11 @@ export class CustomerService extends BaseService {
 'okpo'?: string;
 
 /**
+ * Контактное лицо
+ */
+'contact_fio': string;
+
+/**
  * Номер телефона
  */
 'phone'?: string;
@@ -3589,14 +4034,9 @@ export class CustomerService extends BaseService {
 'head_position_id'?: string;
 
 /**
- * Документы (файл)
- */
-'documents_file'?: string;
-
-/**
  * Документы (ссылка)
  */
-'documents_url'?: string;
+'documents_path'?: string;
 
 /**
  * Адрес для корреспонденции
@@ -3654,6 +4094,11 @@ export class CustomerService extends BaseService {
 'accountant_fio'?: string;
 
 /**
+ * Телефон главного бухгалтера
+ */
+'accountant_phone'?: string;
+
+/**
  * Наименование банка
  */
 'bank_name'?: string;
@@ -3689,32 +4134,32 @@ export class CustomerService extends BaseService {
 'group_id'?: number;
 
 /**
- * Источник (ID берем из запроса - customer_contact_source)
+ * Источник (ID берем из запроса - system_contact_source)
  */
 'source_id'?: number;
 
 /**
- * Тип клиента (ID берем из запроса - customer_type)
+ * Тип клиента (ID берем из запроса - system_counterparty)
  */
-'type_id'?: number;
+'counterparty_id'?: number;
 
 /**
- * Статус (ID берем из запроса - customer_status)
+ * Статус (ID берем из запроса - system_customer_status)
  */
 'status_id'?: number;
 
 /**
- * Привилегии (ID берем из запроса - customer_privilege)
+ * Взаимодействие (ID берем из запроса - system_interaction)
  */
-'privilege_id'?: number;
+'interaction_id'?: number;
 
 /**
- * Виды услуг (ID берем из запроса - customer_services)
+ * Виды услуг (ID берем из запроса - system_services)
  */
-'service_id'?: number;
+'service_ids'?: Array<number>;
 
 /**
- * Отрасль деятельности (ID берем из запроса - customer_business)
+ * Отрасль деятельности (ID берем из запроса - system_business)
  */
 'business_id'?: number;
 
@@ -3732,11 +4177,6 @@ export class CustomerService extends BaseService {
  * Менеджер продаж (ID берем из запроса - company_employee_list)
  */
 'manager_sale_id'?: number;
-
-/**
- * Менеджер создания (ID берем из запроса - company_employee_list)
- */
-'user_id'?: number;
 }
   }
 ): Observable<{
@@ -3804,14 +4244,14 @@ export class CustomerService extends BaseService {
 'id': number;
 
 /**
- * Наименование полное
+ * Наименование краткое
  */
 'name'?: string;
 
 /**
- * Наименование краткое
+ * Наименование полное
  */
-'name_short'?: string;
+'name_full'?: string;
 
 /**
  * Страна местонахождения (ID берем из запроса - direction_country)
@@ -3854,6 +4294,11 @@ export class CustomerService extends BaseService {
 'okpo'?: string;
 
 /**
+ * Контактное лицо
+ */
+'contact_fio'?: string;
+
+/**
  * Номер телефона
  */
 'phone'?: string;
@@ -3879,14 +4324,9 @@ export class CustomerService extends BaseService {
 'head_position_id'?: string;
 
 /**
- * Документы (файл)
- */
-'documents_file'?: string;
-
-/**
  * Документы (ссылка)
  */
-'documents_url'?: string;
+'documents_path'?: string;
 
 /**
  * Адрес для корреспонденции
@@ -3944,6 +4384,11 @@ export class CustomerService extends BaseService {
 'accountant_fio'?: string;
 
 /**
+ * Телефон главного бухгалтера
+ */
+'accountant_phone'?: string;
+
+/**
  * Наименование банка
  */
 'bank_name'?: string;
@@ -3979,32 +4424,32 @@ export class CustomerService extends BaseService {
 'group_id'?: number;
 
 /**
- * Источник (ID берем из запроса - customer_contact_source)
+ * Источник (ID берем из запроса - system_contact_source)
  */
 'source_id'?: number;
 
 /**
- * Тип клиента (ID берем из запроса - customer_type)
+ * Тип клиента (ID берем из запроса - system_counterparty)
  */
-'type_id'?: number;
+'counterparty_id'?: number;
 
 /**
- * Статус (ID берем из запроса - customer_status)
+ * Статус (ID берем из запроса - system_customer_status)
  */
 'status_id'?: number;
 
 /**
- * Привилегии (ID берем из запроса - customer_privilege)
+ * Взаимодействие (ID берем из запроса - system_interaction)
  */
-'privilege_id'?: number;
+'interaction_id'?: number;
 
 /**
- * Виды услуг (ID берем из запроса - customer_services)
+ * Виды услуг (ID берем из запроса - system_services)
  */
-'service_id'?: number;
+'service_ids'?: Array<number>;
 
 /**
- * Отрасль деятельности (ID берем из запроса - customer_business)
+ * Отрасль деятельности (ID берем из запроса - system_business)
  */
 'business_id'?: number;
 
@@ -4022,11 +4467,6 @@ export class CustomerService extends BaseService {
  * Менеджер продаж (ID берем из запроса - company_employee_list)
  */
 'manager_sale_id'?: number;
-
-/**
- * Менеджер создания (ID берем из запроса - company_employee_list)
- */
-'user_id'?: number;
 }
   }
 ): Observable<StrictHttpResponse<{
@@ -4080,14 +4520,14 @@ export class CustomerService extends BaseService {
 'id': number;
 
 /**
- * Наименование полное
+ * Наименование краткое
  */
 'name'?: string;
 
 /**
- * Наименование краткое
+ * Наименование полное
  */
-'name_short'?: string;
+'name_full'?: string;
 
 /**
  * Страна местонахождения (ID берем из запроса - direction_country)
@@ -4130,6 +4570,11 @@ export class CustomerService extends BaseService {
 'okpo'?: string;
 
 /**
+ * Контактное лицо
+ */
+'contact_fio'?: string;
+
+/**
  * Номер телефона
  */
 'phone'?: string;
@@ -4155,14 +4600,9 @@ export class CustomerService extends BaseService {
 'head_position_id'?: string;
 
 /**
- * Документы (файл)
- */
-'documents_file'?: string;
-
-/**
  * Документы (ссылка)
  */
-'documents_url'?: string;
+'documents_path'?: string;
 
 /**
  * Адрес для корреспонденции
@@ -4220,6 +4660,11 @@ export class CustomerService extends BaseService {
 'accountant_fio'?: string;
 
 /**
+ * Телефон главного бухгалтера
+ */
+'accountant_phone'?: string;
+
+/**
  * Наименование банка
  */
 'bank_name'?: string;
@@ -4255,32 +4700,32 @@ export class CustomerService extends BaseService {
 'group_id'?: number;
 
 /**
- * Источник (ID берем из запроса - customer_contact_source)
+ * Источник (ID берем из запроса - system_contact_source)
  */
 'source_id'?: number;
 
 /**
- * Тип клиента (ID берем из запроса - customer_type)
+ * Тип клиента (ID берем из запроса - system_counterparty)
  */
-'type_id'?: number;
+'counterparty_id'?: number;
 
 /**
- * Статус (ID берем из запроса - customer_status)
+ * Статус (ID берем из запроса - system_customer_status)
  */
 'status_id'?: number;
 
 /**
- * Привилегии (ID берем из запроса - customer_privilege)
+ * Взаимодействие (ID берем из запроса - system_interaction)
  */
-'privilege_id'?: number;
+'interaction_id'?: number;
 
 /**
- * Виды услуг (ID берем из запроса - customer_services)
+ * Виды услуг (ID берем из запроса - system_services)
  */
-'service_id'?: number;
+'service_ids'?: Array<number>;
 
 /**
- * Отрасль деятельности (ID берем из запроса - customer_business)
+ * Отрасль деятельности (ID берем из запроса - system_business)
  */
 'business_id'?: number;
 
@@ -4298,11 +4743,6 @@ export class CustomerService extends BaseService {
  * Менеджер продаж (ID берем из запроса - company_employee_list)
  */
 'manager_sale_id'?: number;
-
-/**
- * Менеджер создания (ID берем из запроса - company_employee_list)
- */
-'user_id'?: number;
 }
   }
 ): Observable<{
@@ -4415,6 +4855,581 @@ export class CustomerService extends BaseService {
 }> {
 
     return this.customerDelete$Response(params).pipe(
+      map((r: StrictHttpResponse<{
+
+/**
+ * Статус выполнения
+ */
+'result': 'OK';
+}>) => r.body as {
+
+/**
+ * Статус выполнения
+ */
+'result': 'OK';
+})
+    );
+  }
+
+  /**
+   * Path part for operation customerFiles
+   */
+  static readonly CustomerFilesPath = '/customer_files';
+
+  /**
+   * Список файлов.
+   *
+   *
+   *
+   * This method provides access to the full `HttpResponse`, allowing access to response headers.
+   * To access only the response body, use `customerFiles()` instead.
+   *
+   * This method doesn't expect any request body.
+   */
+  customerFiles$Response(params: {
+
+    /**
+     * ID элемента
+     */
+    item_id: number;
+
+    /**
+     * Переменная формы
+     */
+    var?: string;
+    context?: HttpContext
+  }
+): Observable<StrictHttpResponse<{
+
+/**
+ * ID
+ */
+'id': number;
+
+/**
+ * ID элемента
+ */
+'item_id': number;
+
+/**
+ * Переменная формы
+ */
+'var': string;
+
+/**
+ * Ссылка на файл
+ */
+'path'?: string;
+
+/**
+ * Информация по файлу
+ */
+'file_info'?: Array<string>;
+
+/**
+ * Время загрузки файла
+ */
+'file_time'?: string;
+
+/**
+ * Наименование файла
+ */
+'file_name'?: string;
+
+/**
+ * Время создания
+ */
+'time_add'?: string;
+
+/**
+ * Время изменения
+ */
+'time_edit'?: string;
+}>> {
+
+    const rb = new RequestBuilder(this.rootUrl, CustomerService.CustomerFilesPath, 'get');
+    if (params) {
+      rb.query('item_id', params.item_id, {});
+      rb.query('var', params.var, {});
+    }
+
+    return this.http.request(rb.build({
+      responseType: 'json',
+      accept: 'application/json',
+      context: params?.context
+    })).pipe(
+      filter((r: any) => r instanceof HttpResponse),
+      map((r: HttpResponse<any>) => {
+        return r as StrictHttpResponse<{
+        
+        /**
+         * ID
+         */
+        'id': number;
+        
+        /**
+         * ID элемента
+         */
+        'item_id': number;
+        
+        /**
+         * Переменная формы
+         */
+        'var': string;
+        
+        /**
+         * Ссылка на файл
+         */
+        'path'?: string;
+        
+        /**
+         * Информация по файлу
+         */
+        'file_info'?: Array<string>;
+        
+        /**
+         * Время загрузки файла
+         */
+        'file_time'?: string;
+        
+        /**
+         * Наименование файла
+         */
+        'file_name'?: string;
+        
+        /**
+         * Время создания
+         */
+        'time_add'?: string;
+        
+        /**
+         * Время изменения
+         */
+        'time_edit'?: string;
+        }>;
+      })
+    );
+  }
+
+  /**
+   * Список файлов.
+   *
+   *
+   *
+   * This method provides access to only to the response body.
+   * To access the full response (for headers, for example), `customerFiles$Response()` instead.
+   *
+   * This method doesn't expect any request body.
+   */
+  customerFiles(params: {
+
+    /**
+     * ID элемента
+     */
+    item_id: number;
+
+    /**
+     * Переменная формы
+     */
+    var?: string;
+    context?: HttpContext
+  }
+): Observable<{
+
+/**
+ * ID
+ */
+'id': number;
+
+/**
+ * ID элемента
+ */
+'item_id': number;
+
+/**
+ * Переменная формы
+ */
+'var': string;
+
+/**
+ * Ссылка на файл
+ */
+'path'?: string;
+
+/**
+ * Информация по файлу
+ */
+'file_info'?: Array<string>;
+
+/**
+ * Время загрузки файла
+ */
+'file_time'?: string;
+
+/**
+ * Наименование файла
+ */
+'file_name'?: string;
+
+/**
+ * Время создания
+ */
+'time_add'?: string;
+
+/**
+ * Время изменения
+ */
+'time_edit'?: string;
+}> {
+
+    return this.customerFiles$Response(params).pipe(
+      map((r: StrictHttpResponse<{
+
+/**
+ * ID
+ */
+'id': number;
+
+/**
+ * ID элемента
+ */
+'item_id': number;
+
+/**
+ * Переменная формы
+ */
+'var': string;
+
+/**
+ * Ссылка на файл
+ */
+'path'?: string;
+
+/**
+ * Информация по файлу
+ */
+'file_info'?: Array<string>;
+
+/**
+ * Время загрузки файла
+ */
+'file_time'?: string;
+
+/**
+ * Наименование файла
+ */
+'file_name'?: string;
+
+/**
+ * Время создания
+ */
+'time_add'?: string;
+
+/**
+ * Время изменения
+ */
+'time_edit'?: string;
+}>) => r.body as {
+
+/**
+ * ID
+ */
+'id': number;
+
+/**
+ * ID элемента
+ */
+'item_id': number;
+
+/**
+ * Переменная формы
+ */
+'var': string;
+
+/**
+ * Ссылка на файл
+ */
+'path'?: string;
+
+/**
+ * Информация по файлу
+ */
+'file_info'?: Array<string>;
+
+/**
+ * Время загрузки файла
+ */
+'file_time'?: string;
+
+/**
+ * Наименование файла
+ */
+'file_name'?: string;
+
+/**
+ * Время создания
+ */
+'time_add'?: string;
+
+/**
+ * Время изменения
+ */
+'time_edit'?: string;
+})
+    );
+  }
+
+  /**
+   * Path part for operation customerFileCreate
+   */
+  static readonly CustomerFileCreatePath = '/customer_file_create';
+
+  /**
+   * Файлы: добавление.
+   *
+   *
+   *
+   * This method provides access to the full `HttpResponse`, allowing access to response headers.
+   * To access only the response body, use `customerFileCreate()` instead.
+   *
+   * This method sends `application/json` and handles request body of type `application/json`.
+   */
+  customerFileCreate$Response(params?: {
+    context?: HttpContext
+    body?: {
+
+/**
+ * ID элемента
+ */
+'item_id': number;
+
+/**
+ * Переменная формы
+ */
+'var': string;
+
+/**
+ * Файл
+ */
+'file': Blob;
+}
+  }
+): Observable<StrictHttpResponse<{
+
+/**
+ * ID созданной записи
+ */
+'id': number;
+
+/**
+ * Статус выполнения
+ */
+'result': 'OK';
+}>> {
+
+    const rb = new RequestBuilder(this.rootUrl, CustomerService.CustomerFileCreatePath, 'post');
+    if (params) {
+      rb.body(params.body, 'application/json');
+    }
+
+    return this.http.request(rb.build({
+      responseType: 'json',
+      accept: 'application/json',
+      context: params?.context
+    })).pipe(
+      filter((r: any) => r instanceof HttpResponse),
+      map((r: HttpResponse<any>) => {
+        return r as StrictHttpResponse<{
+        
+        /**
+         * ID созданной записи
+         */
+        'id': number;
+        
+        /**
+         * Статус выполнения
+         */
+        'result': 'OK';
+        }>;
+      })
+    );
+  }
+
+  /**
+   * Файлы: добавление.
+   *
+   *
+   *
+   * This method provides access to only to the response body.
+   * To access the full response (for headers, for example), `customerFileCreate$Response()` instead.
+   *
+   * This method sends `application/json` and handles request body of type `application/json`.
+   */
+  customerFileCreate(params?: {
+    context?: HttpContext
+    body?: {
+
+/**
+ * ID элемента
+ */
+'item_id': number;
+
+/**
+ * Переменная формы
+ */
+'var': string;
+
+/**
+ * Файл
+ */
+'file': Blob;
+}
+  }
+): Observable<{
+
+/**
+ * ID созданной записи
+ */
+'id': number;
+
+/**
+ * Статус выполнения
+ */
+'result': 'OK';
+}> {
+
+    return this.customerFileCreate$Response(params).pipe(
+      map((r: StrictHttpResponse<{
+
+/**
+ * ID созданной записи
+ */
+'id': number;
+
+/**
+ * Статус выполнения
+ */
+'result': 'OK';
+}>) => r.body as {
+
+/**
+ * ID созданной записи
+ */
+'id': number;
+
+/**
+ * Статус выполнения
+ */
+'result': 'OK';
+})
+    );
+  }
+
+  /**
+   * Path part for operation customerFileDelete
+   */
+  static readonly CustomerFileDeletePath = '/customer_file_delete';
+
+  /**
+   * Файлы: удаление.
+   *
+   *
+   *
+   * This method provides access to the full `HttpResponse`, allowing access to response headers.
+   * To access only the response body, use `customerFileDelete()` instead.
+   *
+   * This method sends `application/json` and handles request body of type `application/json`.
+   */
+  customerFileDelete$Response(params?: {
+    context?: HttpContext
+    body?: {
+
+/**
+ * ID удаляемой записи
+ */
+'id': number;
+
+/**
+ * ID элемента
+ */
+'item_id': number;
+
+/**
+ * Переменная формы
+ */
+'var': string;
+}
+  }
+): Observable<StrictHttpResponse<{
+
+/**
+ * Статус выполнения
+ */
+'result': 'OK';
+}>> {
+
+    const rb = new RequestBuilder(this.rootUrl, CustomerService.CustomerFileDeletePath, 'post');
+    if (params) {
+      rb.body(params.body, 'application/json');
+    }
+
+    return this.http.request(rb.build({
+      responseType: 'json',
+      accept: 'application/json',
+      context: params?.context
+    })).pipe(
+      filter((r: any) => r instanceof HttpResponse),
+      map((r: HttpResponse<any>) => {
+        return r as StrictHttpResponse<{
+        
+        /**
+         * Статус выполнения
+         */
+        'result': 'OK';
+        }>;
+      })
+    );
+  }
+
+  /**
+   * Файлы: удаление.
+   *
+   *
+   *
+   * This method provides access to only to the response body.
+   * To access the full response (for headers, for example), `customerFileDelete$Response()` instead.
+   *
+   * This method sends `application/json` and handles request body of type `application/json`.
+   */
+  customerFileDelete(params?: {
+    context?: HttpContext
+    body?: {
+
+/**
+ * ID удаляемой записи
+ */
+'id': number;
+
+/**
+ * ID элемента
+ */
+'item_id': number;
+
+/**
+ * Переменная формы
+ */
+'var': string;
+}
+  }
+): Observable<{
+
+/**
+ * Статус выполнения
+ */
+'result': 'OK';
+}> {
+
+    return this.customerFileDelete$Response(params).pipe(
       map((r: StrictHttpResponse<{
 
 /**

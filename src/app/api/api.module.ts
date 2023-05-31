@@ -9,6 +9,7 @@ import { CompanyService } from './services/company.service';
 import { ContractorService } from './services/contractor.service';
 import { CustomerService } from './services/customer.service';
 import { DirectionService } from './services/direction.service';
+import { FileService } from './services/file.service';
 import { RequestService } from './services/request.service';
 import { SettingsService } from './services/settings.service';
 import { SystemService } from './services/system.service';
@@ -28,6 +29,7 @@ import { UserService } from './services/user.service';
     ContractorService,
     CustomerService,
     DirectionService,
+    FileService,
     RequestService,
     SettingsService,
     SystemService,

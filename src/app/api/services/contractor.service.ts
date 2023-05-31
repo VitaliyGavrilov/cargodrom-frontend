@@ -43,6 +43,11 @@ export class ContractorService extends BaseService {
   contractorList$Response(params?: {
 
     /**
+     * Наименование
+     */
+    name?: string;
+
+    /**
      * Специализация (ID берем из запроса - transport_kind)
      */
     specialization?: Array<string>;
@@ -407,6 +412,7 @@ export class ContractorService extends BaseService {
 
     const rb = new RequestBuilder(this.rootUrl, ContractorService.ContractorListPath, 'get');
     if (params) {
+      rb.query('name', params.name, {});
       rb.query('specialization', params.specialization, {"style":"form","explode":false});
       rb.query('rating', params.rating, {});
       rb.query('allow_trade', params.allow_trade, {});
@@ -749,6 +755,11 @@ export class ContractorService extends BaseService {
    * This method doesn't expect any request body.
    */
   contractorList(params?: {
+
+    /**
+     * Наименование
+     */
+    name?: string;
 
     /**
      * Специализация (ID берем из запроса - transport_kind)
