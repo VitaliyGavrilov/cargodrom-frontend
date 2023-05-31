@@ -16,6 +16,8 @@ import { CompanyComponent } from './components/company/company.component';
 import { CompanyEditorComponent } from './components/company-editor/company-editor.component';
 import { DepartmentEmployeeComponent } from './components/department-employee/department-employee.component';
 import { PersonalSettingsComponent } from './components/personal-settings/personal-settings.component';
+import { ClientGroupComponent } from './components/client-group/client-group.component';
+import { ClientGroupEditorComponent } from './components/client-group-editor/client-group-editor.component';
 
 
 @NgModule({
@@ -30,7 +32,9 @@ import { PersonalSettingsComponent } from './components/personal-settings/person
     CompanyComponent,
     CompanyEditorComponent,
     DepartmentEmployeeComponent,
-    PersonalSettingsComponent
+    PersonalSettingsComponent,
+    ClientGroupComponent,
+    ClientGroupEditorComponent
   ],
   imports: [
     CommonModule,

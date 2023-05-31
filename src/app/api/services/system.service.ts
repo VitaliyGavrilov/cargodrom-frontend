@@ -767,21 +767,21 @@ export class SystemService extends BaseService {
   }
 
   /**
-   * Path part for operation systemPrivilege
+   * Path part for operation systemInteraction
    */
-  static readonly SystemPrivilegePath = '/system_privilege';
+  static readonly SystemInteractionPath = '/system_interaction';
 
   /**
-   * Привилегии.
+   * Взаимодействие.
    *
    *
    *
    * This method provides access to the full `HttpResponse`, allowing access to response headers.
-   * To access only the response body, use `systemPrivilege()` instead.
+   * To access only the response body, use `systemInteraction()` instead.
    *
    * This method doesn't expect any request body.
    */
-  systemPrivilege$Response(params?: {
+  systemInteraction$Response(params?: {
     context?: HttpContext
   }
 ): Observable<StrictHttpResponse<Array<{
@@ -802,7 +802,7 @@ export class SystemService extends BaseService {
 'num'?: number;
 }>>> {
 
-    const rb = new RequestBuilder(this.rootUrl, SystemService.SystemPrivilegePath, 'get');
+    const rb = new RequestBuilder(this.rootUrl, SystemService.SystemInteractionPath, 'get');
     if (params) {
     }
 
@@ -835,16 +835,16 @@ export class SystemService extends BaseService {
   }
 
   /**
-   * Привилегии.
+   * Взаимодействие.
    *
    *
    *
    * This method provides access to only to the response body.
-   * To access the full response (for headers, for example), `systemPrivilege$Response()` instead.
+   * To access the full response (for headers, for example), `systemInteraction$Response()` instead.
    *
    * This method doesn't expect any request body.
    */
-  systemPrivilege(params?: {
+  systemInteraction(params?: {
     context?: HttpContext
   }
 ): Observable<Array<{
@@ -865,7 +865,7 @@ export class SystemService extends BaseService {
 'num'?: number;
 }>> {
 
-    return this.systemPrivilege$Response(params).pipe(
+    return this.systemInteraction$Response(params).pipe(
       map((r: StrictHttpResponse<Array<{
 
 /**

@@ -1,0 +1,48 @@
+<app-editor-header [title]="title" (save)="save()" (remove)="remove()" [isEditMode]="isEditMode" [name]="nameForHeader"></app-editor-header>
+
+<div class="edit-form">
+  <form class="form" [formGroup]="form" (ngSubmit)="save()">
+    <div class="form-placer">
+      <div class="form-items">
+        <div class="form-group" data-id="group_0">
+          <div class="form-group-title">Общая информация</div>
+          <div>
+            <div class="form-item form-inline-group">
+              <div class="form-title">
+              </div>
+              <input type="hidden" formControlName="id">
+              <div class="form-data">
+                <div class="form-group-row">
+                  <div class="form-item">
+                    <div class="form-title">
+                      <div>Название группы:<span class="req">*</span></div>
+                    </div>
+                    <div class="form-data">
+                      <div>
+                        <div class="form-input">
+                          <input class="text-control" type="text" formControlName="name" required appFocusInitial>
+                          <ng-container *ngTemplateOutlet="error; context: {name: 'name'}"></ng-container>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="form-button-placer">
+        <input type="submit" class="hidden">
+        <span class="btn v save button ico ico-floppy-disk2" (click)="save()"><span>Сохранить</span></span>
+        <span class="btn v del button" *ngIf="isEditMode" (click)="remove()"><span>Удалить</span></span>
+        <span class="btn v cancel button gray" (click)="goBack()"><span>Отмена</span>
+        </span>
+      </div>
+    </div>
+  </form>
+</div>
+
+<ng-template #error let-name="name">
+  <div class="error" *ngIf="isFormSubmitted && hasError(name)">{{ getError(name) }}</div>
+</ng-template>

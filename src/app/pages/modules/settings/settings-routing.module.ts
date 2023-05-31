@@ -10,6 +10,8 @@ import { PersonalSettingsComponent } from './components/personal-settings/person
 import { PositionEditorComponent } from './components/position-editor/position-editor.component';
 import { PositionComponent } from './components/position/position.component';
 import { SettingsComponent } from './settings.component';
+import { ClientGroupComponent } from './components/client-group/client-group.component';
+import { ClientGroupEditorComponent } from './components/client-group-editor/client-group-editor.component';
 
 const routes: Routes = [
   {
@@ -44,6 +46,11 @@ const routes: Routes = [
       {
         path: 'personal',
         component: PersonalSettingsComponent,
+        pathMatch: 'full',
+      },
+      {
+        path: 'client-group',
+        component: ClientGroupComponent,
         pathMatch: 'full',
       },
     ]
@@ -86,6 +93,16 @@ const routes: Routes = [
   {
     path: 'company/:id',
     component: CompanyEditorComponent,
+    pathMatch: 'full',
+  },
+  {
+    path: 'client-group/add',
+    component: ClientGroupEditorComponent,
+    pathMatch: 'full',
+  },
+  {
+    path: 'client-group/:id',
+    component: ClientGroupEditorComponent,
     pathMatch: 'full',
   },
 ];
