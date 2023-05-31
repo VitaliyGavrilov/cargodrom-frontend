@@ -1,3 +1,4 @@
+import { CustomerService } from './../../../../../api/services/customer.service';
 import { ClientGroup } from './../../../../../api/custom_models/client-group';
 import { Component} from '@angular/core';
 import { SettingsEditor } from '../../classes/settings-editor';
@@ -30,6 +31,7 @@ export class ClientGroupEditorComponent extends SettingsEditor<ClientGroup> {
     route: ActivatedRoute,
     location: Location,
     router: Router,
+    private customerService: CustomerService,
   ) {
     super(location, companyService, systemService, route, snackBar, router);
     this.form = this.fb.group({
@@ -39,19 +41,19 @@ export class ClientGroupEditorComponent extends SettingsEditor<ClientGroup> {
   }
 
   protected create(params: {body: Omit<ClientGroup, 'id'>}) {
-    return this.companyService.companyPositionCreate(params as any); 
+    return this.customerService.customerGroupCreate(params as any); 
    }
    
    protected read(params: { id: number; }): Observable<ClientGroup> {
-     return this.companyService.companyPositionInfo(params) as Observable<ClientGroup>;
+     return this.customerService.customerGroupInfo(params) as Observable<ClientGroup>;
    }
    
    protected update(params: { body: Partial<ClientGroup>; }): Observable<void> {
-     return this.companyService.companyPositionUpdate(params as any) as unknown as Observable<void>;
+     return this.customerService.customerGroupUpdate(params as any) as unknown as Observable<void>;
    }
    
    protected delete(params: {body: { id: number; }}): Observable<void> {
-     return this.companyService.companyPositionDelete(params) as unknown as Observable<void>;
+     return this.customerService.customerGroupDelete(params) as unknown as Observable<void>;
    }
    
    protected getNameForHeader(body: ClientGroup): string {

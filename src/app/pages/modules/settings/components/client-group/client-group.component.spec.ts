@@ -1,7 +1,7 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { ClientGroupComponent } from './client-group.component';
-import { CompanyService } from 'src/app/api/services';
+import { CompanyService, CustomerService } from 'src/app/api/services';
 import { MatDialog } from '@angular/material/dialog';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { ActivatedRoute, Router } from '@angular/router';
@@ -17,6 +17,7 @@ describe('ClientGroupComponent', () => {
       declarations: [ClientGroupComponent, PaginatorMockup],
       providers: [
         { provide: CompanyService, useValue: {} },
+        { provide: CustomerService, useValue: {} },
         { provide: MatDialog, useValue: {} },
         { provide: MatSnackBar, useValue: {} },
         { provide: Router, useValue: {} },

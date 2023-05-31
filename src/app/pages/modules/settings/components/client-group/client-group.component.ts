@@ -6,7 +6,7 @@ import { MatDialog } from '@angular/material/dialog';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { Observable } from 'rxjs';
 import { SortColumn } from 'src/app/api/custom_models/sort-column';
-import { CompanyService } from 'src/app/api/services';
+import { CustomerService } from 'src/app/api/services';
 
 @Component({
   selector: 'app-client-group',
@@ -22,7 +22,7 @@ export class ClientGroupComponent extends Table<ClientGroup> {
   sortField = 'name' as keyof ClientGroup;
 
   constructor(
-    private companyService: CompanyService,
+    private customerService: CustomerService,
     dialog: MatDialog,
     snackBar: MatSnackBar,
     route: ActivatedRoute,
@@ -32,12 +32,11 @@ export class ClientGroupComponent extends Table<ClientGroup> {
   }
 
   load<ClientGroup>(params: { start?: number; count?: number; sort?: SortColumn<ClientGroup>[]; }): Observable<{ total: number; items: ClientGroup[]; }> {
-    // TODO: Update with correct service name
-    return this.companyService.companyPositionList(params as any) as unknown as Observable<{ total: number; items: ClientGroup[]; }>;
+    return this.customerService.customerGroupList(params as any) as unknown as Observable<{ total: number; items: ClientGroup[]; }>;
   }
 
   override delete(params: { body: { id: number; } }): Observable<void> {
-    return this.companyService.companyPositionDelete(params) as unknown as Observable<void>;
+    return this.customerService.customerGroupDelete(params) as unknown as Observable<void>;
   }
 
 }

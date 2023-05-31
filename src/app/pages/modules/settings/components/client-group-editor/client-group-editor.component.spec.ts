@@ -3,11 +3,11 @@ import { ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { ClientGroupEditorComponent } from './client-group-editor.component';
 import { ReactiveFormsModule } from '@angular/forms';
-import { CompanyService, SystemService } from 'src/app/api/services';
+import { CompanyService, CustomerService, SystemService } from 'src/app/api/services';
 import { ActivatedRoute, Router } from '@angular/router';
 import { EditorHeaderMockup } from '@cargodrom/material/components/editor-header/editor-header.mockup';
 import { RouterTestingModule } from '@angular/router/testing';
-import { NEVER } from 'rxjs';
+import { NEVER, of } from 'rxjs';
 
 describe('ClientGroupEditorComponent', () => {
   let component: ClientGroupEditorComponent;
@@ -28,6 +28,11 @@ describe('ClientGroupEditorComponent', () => {
           }
         },
         { provide: SystemService, useValue: {} },
+        {
+          provide: CustomerService, useValue: <Partial<CustomerService>>{
+            customerGroupInfo: () => of({ id: 1, name: 'Группа' })
+          }
+        },
       ]
     })
       .compileComponents();
