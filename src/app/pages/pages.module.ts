@@ -21,6 +21,7 @@ import { ContactEditorComponent } from './components/contact-editor/contact-edit
 import { TradeDirectionComponent } from './components/trade-direction/trade-direction.component';
 import { ResponsibilityEditorComponent } from './components/responsibility-editor/responsibility-editor.component';
 import { MaterialModule } from '@cargodrom/material/material.module';
+import { ClientFilterComponent } from './components/client-filter/client-filter.component';
 
 
 @NgModule({
@@ -43,6 +44,7 @@ import { MaterialModule } from '@cargodrom/material/material.module';
     ContactEditorComponent,
     TradeDirectionComponent,
     ResponsibilityEditorComponent,
+    ClientFilterComponent,
   ],
   imports: [
     CommonModule,

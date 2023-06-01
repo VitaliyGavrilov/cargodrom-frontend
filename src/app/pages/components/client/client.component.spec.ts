@@ -1,6 +1,7 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { ClientComponent } from './client.component';
+import { ClientFilterMockup } from '../client-filter/client-filter.mockup';
 
 describe('ClientComponent', () => {
   let component: ClientComponent;
@@ -8,7 +9,7 @@ describe('ClientComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ ClientComponent ]
+      declarations: [ ClientComponent, ClientFilterMockup ]
     })
     .compileComponents();
 
