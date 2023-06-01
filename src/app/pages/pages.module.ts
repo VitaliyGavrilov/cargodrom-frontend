@@ -22,6 +22,7 @@ import { TradeDirectionComponent } from './components/trade-direction/trade-dire
 import { ResponsibilityEditorComponent } from './components/responsibility-editor/responsibility-editor.component';
 import { MaterialModule } from '@cargodrom/material/material.module';
 import { ClientFilterComponent } from './components/client-filter/client-filter.component';
+import { ClientEditorComponent } from './components/client-editor/client-editor.component';
 
 
 @NgModule({
@@ -45,6 +46,7 @@ import { ClientFilterComponent } from './components/client-filter/client-filter.
     TradeDirectionComponent,
     ResponsibilityEditorComponent,
     ClientFilterComponent,
+    ClientEditorComponent,
   ],
   imports: [
     CommonModule,
