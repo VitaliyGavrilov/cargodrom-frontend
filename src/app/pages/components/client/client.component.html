@@ -2,7 +2,7 @@
   <div class="placer">
     <div class="title">Клиенты</div>
     <div class="links">
-      <a class="link add" href="/erp/client/add"><svg width="14" height="14" viewBox="0 0 14 14" fill="none" xmlns="http://www.w3.org/2000/svg">
+      <a class="link add"[routerLink]="['add']"><svg width="14" height="14" viewBox="0 0 14 14" fill="none" xmlns="http://www.w3.org/2000/svg">
           <path d="M5 9H3V8H5V6H6V8H8V9H6V11H5V9ZM14 0V14H0V0H14ZM13 1H1V13H13V1Z" fill="#DB563B"></path>
         </svg><span>Новый клиент</span></a>
       <a class="link import"><svg width="14" height="14" viewBox="0 0 14 14" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -43,18 +43,18 @@
     <tbody>
       <tr>
         <th rowspan="2">№</th>
-        <th rowspan="2">Наименование клиент</th>
-        <th rowspan="2">ИНН</th>
-        <th rowspan="2" class="l">Страна</th>
-        <th rowspan="2">Город</th>
-        <th rowspan="2" class="l">Контактное лицо</th>
-        <th rowspan="2">Телефон</th>
+        <th rowspan="2" [attr.title]="getColTitle('name')" (click)="sort('name')" [ngClass]="getSortClass('name')">Наименование клиента</th>
+        <th rowspan="2" [attr.title]="getColTitle('inn')" (click)="sort('inn')" [ngClass]="getSortClass('inn')">ИНН</th>
+        <th rowspan="2" class="l" [attr.title]="getColTitle('country_name')" (click)="sort('country_name')" [ngClass]="getSortClass('country_name')">Страна</th>
+        <th rowspan="2" [attr.title]="getColTitle('city_name')" (click)="sort('city_name')" [ngClass]="getSortClass('city_name')">Город</th>
+        <th rowspan="2" class="l" [attr.title]="getColTitle('document_contact_fio')" (click)="sort('document_contact_fio')" [ngClass]="getSortClass('document_contact_fio')">Контактное лицо</th>
+        <th rowspan="2" [attr.title]="getColTitle('document_contact_phone')" (click)="sort('document_contact_phone')" [ngClass]="getSortClass('document_contact_phone')">Телефон</th>
         <th class="l c lb ch" colspan="3">Заказы</th>
-        <th class="l" rowspan="2">Взаимодействие</th>
-        <th rowspan="2">Статус</th>
-        <th class="l" rowspan="2">Менеджер</th>
-        <th rowspan="2">Менеджер продаж</th>
-        <th rowspan="2" class="l c clp"><img src="/templates/default/pic/pic-dot-white-h.svg"></th>
+        <th class="l" rowspan="2" [attr.title]="getColTitle('interaction_name')" (click)="sort('interaction_name')" [ngClass]="getSortClass('interaction_name')">Взаимодействие</th>
+        <th rowspan="2" [attr.title]="getColTitle('status_name')" (click)="sort('status_name')" [ngClass]="getSortClass('status_name')">Статус</th>
+        <th class="l" rowspan="2" [attr.title]="getColTitle('manager_name')" (click)="sort('manager_name')" [ngClass]="getSortClass('manager_name')">Менеджер</th>
+        <th rowspan="2" [attr.title]="getColTitle('manager_sale_name')" (click)="sort('manager_sale_name')" [ngClass]="getSortClass('manager_sale_name')">Менеджер продаж</th>
+        <th rowspan="2" class="l c clp"><img src="../../../../assets/pic-dot-white-h.svg"></th>
       </tr>
       <tr>
         <th class="l c ch">Кол-во</th>
@@ -62,108 +62,25 @@
         <th class="c ch">Просрочка</th>
       </tr>
 
-      <tr>
-        <td>1</td>
-        <td></td>
-        <td></td>
-        <td class="l"></td>
-        <td></td>
-        <td class="l"></td>
-        <td></td>
-        <td class="l c profit">897</td>
-        <td class="c profit">18 дней</td>
-        <td class="c profit">53%</td>
-        <td class="l"></td>
-        <td></td>
-        <td class="l"></td>
-        <td></td>
-        <td class="gray"></td>
-      </tr>
-      <tr class="odd">
-        <td>3</td>
-        <td></td>
-        <td></td>
-        <td class="l">Россия</td>
-        <td>Екатеринбург</td>
-        <td class="l"></td>
-        <td></td>
-        <td class="l c profit">296</td>
-        <td class="c profit">311 дней</td>
-        <td class="c profit">59%</td>
-        <td class="l">Разовый</td>
-        <td>Текущий</td>
-        <td class="l">Программист</td>
-        <td></td>
-        <td class="gray"></td>
-      </tr>
-      <tr>
-        <td>4</td>
-        <td>string2</td>
-        <td>string</td>
-        <td class="l"></td>
-        <td></td>
-        <td class="l">string</td>
-        <td>string</td>
-        <td class="l c profit">760</td>
-        <td class="c profit">115 дней</td>
-        <td class="c profit">5%</td>
-        <td class="l"></td>
-        <td></td>
-        <td class="l"></td>
-        <td></td>
-        <td class="gray"></td>
-      </tr>
-      <tr class="odd">
-        <td>6</td>
-        <td>string</td>
-        <td>string</td>
-        <td class="l"></td>
-        <td></td>
-        <td class="l">string</td>
-        <td>string</td>
-        <td class="l c profit">406</td>
-        <td class="c profit">226 дней</td>
-        <td class="c profit">1%</td>
-        <td class="l"></td>
-        <td></td>
-        <td class="l"></td>
-        <td></td>
-        <td class="gray"></td>
-      </tr>
-      <tr>
-        <td>7</td>
-        <td>string</td>
-        <td>string</td>
-        <td class="l"></td>
-        <td></td>
-        <td class="l">string</td>
-        <td>string</td>
-        <td class="l c profit">923</td>
-        <td class="c profit">68 дней</td>
-        <td class="c profit">19%</td>
-        <td class="l"></td>
-        <td></td>
-        <td class="l"></td>
-        <td></td>
-        <td class="gray"></td>
-      </tr>
-      <tr class="odd">
-        <td>8</td>
-        <td>Тест</td>
-        <td>15151515</td>
-        <td class="l">Россия</td>
-        <td>Москва</td>
-        <td class="l">document_contact_fio</td>
-        <td>document_contact_phone</td>
-        <td class="l c profit">535</td>
-        <td class="c profit">171 день</td>
-        <td class="c profit">5%</td>
-        <td class="l">Разовый</td>
-        <td>Текущий</td>
-        <td class="l">Берсенев Антошка Иванович</td>
-        <td>Берсенев Антошка Иванович</td>
+      <tr *ngFor="let client of rows; index as i; trackBy:trackById" [ngClass]="{'odd': i % 2 == 1}">
+        <td>{{ start + i + 1 }}</td>
+        <td>{{ client.name }}</td>
+        <td>{{ client.inn }}</td>
+        <td class="l">{{ client.country_name }}</td>
+        <td>{{ client.city_name }}</td>
+        <td class="l">{{ client.document_contact_fio }}</td>
+        <td>{{ client.document_contact_phone }}</td>
+        <td class="l c profit">{{ client.order_data?.count }}</td>
+        <td class="c profit">{{ client.order_data?.days_string }}</td>
+        <td class="c profit">{{ client.order_data?.delay_payment_string }}</td>
+        <td class="l">{{ client.interaction_name }}</td>
+        <td>{{ client.status_name }}</td>
+        <td class="l">{{ client.manager_name }}</td>
+        <td>{{ client.manager_sale_name}}</td>
         <td class="gray"></td>
       </tr>
     </tbody>
   </table>
 </div>
+<app-paginator [total]="total" [count]="count" [start]="start" [limits]="limits" (startChange)="onStartChange($event)"
+  (countChange)="onCountChange($event)"></app-paginator>

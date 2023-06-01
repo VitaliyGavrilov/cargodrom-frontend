@@ -12,3 +12,7 @@ export * from './company';
 export * from './tax-system';
 export * from './currency';
 export * from './client-group';
+export * from './client-filter';
+export * from './client';
+export * from './customer';
+export * from './customer-filter';
