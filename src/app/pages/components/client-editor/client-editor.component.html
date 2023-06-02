@@ -1,1 +1,468 @@
-<p>client-editor works!</p>
+<app-editor-header [title]="title" (save)="save()" (remove)="remove()" [isEditMode]="isEditMode"  [name]="nameForHeader"></app-editor-header>
+
+<div class="edit-form">
+  <form class="form" [formGroup]="form" (ngSubmit)="save()">
+  <div class="form-block-title">Регистрационные</div>
+
+  <div class="form-block">
+
+      <div class="form-row">
+          <div class="form-item-layout">
+
+              <div class="form-item">
+                  <div class="form-label">Наименование краткое: <span class="req">•</span></div>
+                  <div class="form-data">
+                      <input type="text" formControlName="name">
+                  </div>
+              </div>
+
+              <div class="form-item">
+                  <div class="form-label">Наименование полное: <span class="req">•</span></div>
+                  <div class="form-data">
+                      <input type="text" formControlName="name_full">
+                  </div>
+              </div>
+
+          </div>
+
+          <div class="form-item-layout">
+              <div class="form-item">
+                  <div class="form-label">Страна нахождения: <span class="req">•</span></div>
+                  <div class="form-data">
+                      <span class="ui-select" contenteditable="false" style="margin-bottom: 0px; margin-top: 0px; margin-right: 0px; width: 519px;"><span class="ui-select-width" style="padding-left: 66px; font-size: 15px; font-family: regular, arial, &quot;sans-serif&quot;; display: block; overflow: hidden; height: 0px; line-height: 0; visibility: hidden; position: relative;">Тайвань</span><select name="var[country_id]" class="init" style="display: none;">
+                          <option value="1">Россия</option>
+                          <option value="2">Китай</option>
+                          <option value="3">Тайвань</option>
+                      </select><span class="ui-select-input">Россия</span><span class="ui-select-button">&nbsp;</span><span class="ui-select-fader">&nbsp;</span><span class="ui-select-layer" style="display: none; height: auto; visibility: visible;"><span class="ui-select-list-scroller"><span class="ui-select-list"><span class="ui-select-item selected">Россия</span><span class="ui-select-item odd">Китай</span><span class="ui-select-item">Тайвань</span></span></span><div class="scrollbar-track"><div class="scrollbar-track-btn scrollbar-up"></div><div class="scrollbar-track-free"><div class="scrollbar-bar"></div></div><div class="scrollbar-track-btn scrollbar-down"></div></div></span></span>
+                  </div>
+              </div>
+
+              <div class="form-item">
+                  <div class="form-label">Город нахождения: <span class="req">•</span></div>
+                  <div class="form-data">
+                      <span class="ui-select" contenteditable="false" style="margin-bottom: 0px; margin-top: 0px; margin-right: 0px; width: 519px;"><span class="ui-select-width" style="padding-left: 66px; font-size: 15px; font-family: regular, arial, &quot;sans-serif&quot;; display: block; overflow: hidden; height: 0px; line-height: 0; visibility: hidden; position: relative;">Богульма</span><select name="var[city_id]" class="init" style="display: none;">
+                          <option value="1">Москва</option>
+                          <option value="2">Богульма</option>
+                          <option value="3">Сысерть</option>
+                      </select><span class="ui-select-input">Москва</span><span class="ui-select-button">&nbsp;</span><span class="ui-select-fader">&nbsp;</span><span class="ui-select-layer" style="display: none; height: auto; visibility: visible;"><span class="ui-select-list-scroller"><span class="ui-select-list"><span class="ui-select-item selected">Москва</span><span class="ui-select-item odd">Богульма</span><span class="ui-select-item">Сысерть</span></span></span><div class="scrollbar-track"><div class="scrollbar-track-btn scrollbar-up"></div><div class="scrollbar-track-free"><div class="scrollbar-bar"></div></div><div class="scrollbar-track-btn scrollbar-down"></div></div></span></span>
+                  </div>
+              </div>
+
+          </div>
+
+
+
+      </div>
+
+
+      <div class="form-row">
+          <div class="form-item-layout">
+
+              <div class="form-item">
+                  <div class="form-label">ИНН:</div>
+                  <div class="form-data">
+                      <input type="text" name="var[inn]" value="">
+                  </div>
+              </div>
+
+              <div class="form-item">
+                  <div class="form-label">КПП:</div>
+                  <div class="form-data">
+                      <input type="text" name="var[kpp]" value="">
+                  </div>
+              </div>
+
+              <div class="form-item">
+                  <div class="form-label">ОГРН:</div>
+                  <div class="form-data">
+                      <input type="text" name="var[ogrn]" value="">
+                  </div>
+              </div>
+
+              <div class="form-item">
+                  <div class="form-label">ОКПО:</div>
+                  <div class="form-data">
+                      <input type="text" name="var[okpo]" value="">
+                  </div>
+              </div>
+
+          </div>
+
+      </div>
+
+  </div>
+
+
+  <div class="form-block-title">Документы</div>
+  <div class="form-block">
+
+      <div class="form-row">
+          <div class="form-item-layout">
+              <div class="form-item">
+                  <div class="form-label">Руководитель ФИО:</div>
+                  <div class="form-data">
+                      <input type="text" name="var[head_name]" value="">
+                  </div>
+              </div>
+              <div class="form-item">
+                  <div class="form-label">Должность руководителя:</div>
+                  <div class="form-data">
+                      <span class="ui-select" contenteditable="false" style="margin-bottom: 0px; margin-top: 0px; margin-right: 0px; width: 519px;"><span class="ui-select-width" style="padding-left: 66px; font-size: 15px; font-family: regular, arial, &quot;sans-serif&quot;; display: block; overflow: hidden; height: 0px; line-height: 0; visibility: hidden; position: relative;">Генеральный директор</span><select name="var[head_position_id]" class="init" style="display: none;">
+                          <option value="1">Директор</option>
+                          <option value="2">Генеральный директор</option>
+                      </select><span class="ui-select-input">Директор</span><span class="ui-select-button">&nbsp;</span><span class="ui-select-fader">&nbsp;</span><span class="ui-select-layer" style="display: none; height: auto; visibility: visible;"><span class="ui-select-list-scroller"><span class="ui-select-list"><span class="ui-select-item selected">Директор</span><span class="ui-select-item odd">Генеральный директор</span></span></span><div class="scrollbar-track"><div class="scrollbar-track-btn scrollbar-up"></div><div class="scrollbar-track-free"><div class="scrollbar-bar"></div></div><div class="scrollbar-track-btn scrollbar-down"></div></div></span></span>
+                  </div>
+              </div>
+          </div>
+      </div>
+
+
+      <div class="form-row">
+          <div class="form-item-layout">
+              <div class="form-item">
+                  <div class="form-label">ФИО уполномоченного подписанта:</div>
+                  <div class="form-data">
+                      <input type="text" name="var[signature_fio]" value="">
+                  </div>
+              </div>
+              <div class="form-item">
+                  <div class="form-label">Должность подписанта:</div>
+                  <div class="form-data">
+                      <input type="text" name="var[signature_position]" value="">
+                  </div>
+              </div>
+          </div>
+
+          <div class="form-item-layout">
+              <div class="form-item">
+                  <div class="form-label">Основание для действий подписанта:</div>
+                  <div class="form-data">
+                      <input type="text" name="var[signature_basis]" value="">
+                  </div>
+              </div>
+          </div>
+      </div>
+
+      <div class="form-row">
+          <div class="form-item-layout">
+              <div class="form-item">
+
+                  <div class="form-block-sub-title">Прикрепить документы:</div>
+                  <div class="file-list">
+                      <div>
+                          <span>SecurityPass(AquaIsol445K)@2020.pdf</span>
+                          <span class="del"></span>
+                      </div>
+                  </div>
+                  <span class="btn add-file">Прикрепить файл</span>
+
+              </div>
+              <div class="form-item">
+                  <div class="form-label">Ссылка на файл:</div>
+                  <div class="form-data">
+                      <input type="text" name="var[documents_path]" value="">
+                  </div>
+              </div>
+
+          </div>
+      </div>
+
+
+  </div>
+
+
+
+  <div class="form-block-title">Контакты и адреса</div>
+  <div class="form-block">
+
+      <div class="form-row">
+          <div class="form-item-layout">
+              <div class="form-item">
+                  <div class="form-label">Юридический адрес:</div>
+                  <div class="form-data">
+                      <input type="text" name="var[address_legal]" value="">
+                  </div>
+              </div>
+              <div class="form-item">
+                  <div class="form-label">Почтовый адрес:</div>
+                  <div class="form-data">
+                      <input type="text" name="var[address_post]" value="">
+                  </div>
+              </div>
+          </div>
+
+          <div class="form-item-layout">
+              <div class="form-item">
+                  <div class="form-label">Контактное лицо:</div>
+                  <div class="form-data">
+                      <input type="text" name="var[contact_fio]" value="">
+                  </div>
+              </div>
+              <div class="form-item">
+                  <div class="form-label">Номер телефона:</div>
+                  <div class="form-data">
+                      <input type="text" name="var[phone]" value="">
+                  </div>
+              </div>
+              <div class="form-item">
+                  <div class="form-label">E-mail:</div>
+                  <div class="form-data">
+                      <input type="text" name="var[email]" value="">
+                  </div>
+              </div>
+              <div class="form-item">
+                  <div class="form-label">Сайт:</div>
+                  <div class="form-data">
+                      <input type="text" name="var[web]" value="">
+                  </div>
+              </div>
+          </div>
+      </div>
+
+      <div class="form-block-sub-title">Корреспонденция</div>
+      <div class="form-row">
+          <div class="form-item-layout">
+              <div class="form-item w50">
+                  <div class="form-label">Адрес для корреспонденции:</div>
+                  <div class="form-data">
+                      <input type="text" name="var[document_address]" value="">
+                  </div>
+              </div>
+              <div class="form-item">
+                  <div class="form-label">Контактное лицо:</div>
+                  <div class="form-data">
+                      <input type="text" name="var[document_contact_fio]" value="">
+                  </div>
+              </div>
+              <div class="form-item">
+                  <div class="form-label">Телефон получателя:</div>
+                  <div class="form-data">
+                      <input type="text" name="var[document_contact_phone]" value="">
+                  </div>
+              </div>
+          </div>
+      </div>
+
+
+      <div class="form-block-sub-title">Доставка груза</div>
+      <div class="form-row">
+          <div class="form-item-layout">
+              <div class="form-item w50">
+                  <div class="form-label">Адрес для доставки груза:</div>
+                  <div class="form-data">
+                      <input type="text" name="var[delivery_address]" value="">
+                  </div>
+              </div>
+              <div class="form-item">
+                  <div class="form-label">Контактное лицо:</div>
+                  <div class="form-data">
+                      <input type="text" name="var[delivery_contact_fio]" value="">
+                  </div>
+              </div>
+
+              <div class="form-item">
+                  <div class="form-label">Телефон получателя:</div>
+                  <div class="form-data">
+                      <input type="text" name="var[delivery_contact_phone]" value="">
+                  </div>
+              </div>
+
+          </div>
+
+          <div class="form-item-layout">
+
+              <div class="form-item">
+                  <div class="form-label">График работы получателя:</div>
+                  <div class="form-data">
+                      <input type="text" name="var[warehouse_schedule]" value="">
+                  </div>
+              </div>
+          </div>
+      </div>
+
+  </div>
+
+  <div class="form-block-title">Финансы</div>
+  <div class="form-block">
+
+      <div class="form-row">
+          <div class="form-item-layout">
+              <div class="form-item w50">
+                  <div class="form-label">Наименование банка:</div>
+                  <div class="form-data">
+                      <input type="text" name="var[bank_name]" value="">
+                  </div>
+              </div>
+              <div class="form-item">
+                  <div class="form-label">БИК банка:</div>
+                  <div class="form-data">
+                      <input type="text" name="var[bank_bik]" value="">
+                  </div>
+              </div>
+              <div class="form-item">
+                  <div class="form-label">КПП банка:</div>
+                  <div class="form-data">
+                      <input type="text" name="var[bank_kpp]" value="">
+                  </div>
+              </div>
+          </div>
+
+          <div class="form-item-layout">
+              <div class="form-item w50">
+                  <div class="form-label">Расчетный счет:</div>
+                  <div class="form-data">
+                      <input type="text" name="var[bank_payment_account]" value="">
+                  </div>
+              </div>
+              <div class="form-item">
+                  <div class="form-label">Корреспондентный счет:</div>
+                  <div class="form-data">
+                      <input type="text" name="var[bank_correspondent_account]" value="">
+                  </div>
+              </div>
+              <div class="form-item">
+                  <div class="form-label">Валюта счета:</div>
+                  <span class="ui-select" contenteditable="false" style="margin-bottom: 0px; margin-top: 0px; margin-right: 0px; width: 247.312px;"><span class="ui-select-width" style="padding-left: 66px; font-size: 15px; font-family: regular, arial, &quot;sans-serif&quot;; display: block; overflow: hidden; height: 0px; line-height: 0; visibility: hidden; position: relative;">USD</span><select name="var[currency]" class="init" style="display: none;">
+                      <option value="1">USD</option>
+                      <option value="2">EUR</option>
+                  </select><span class="ui-select-input">USD</span><span class="ui-select-button">&nbsp;</span><span class="ui-select-fader">&nbsp;</span><span class="ui-select-layer" style="display: none; height: auto; visibility: visible;"><span class="ui-select-list-scroller"><span class="ui-select-list"><span class="ui-select-item selected">USD</span><span class="ui-select-item odd">EUR</span></span></span><div class="scrollbar-track"><div class="scrollbar-track-btn scrollbar-up"></div><div class="scrollbar-track-free"><div class="scrollbar-bar"></div></div><div class="scrollbar-track-btn scrollbar-down"></div></div></span></span>
+              </div>
+          </div>
+
+      </div>
+
+      <div class="form-row">
+          <div class="form-item-layout">
+              <div class="form-item">
+                  <div class="form-label">Главный бухгалтер:</div>
+                  <div class="form-data">
+                      <input type="text" name="var[accountant_fio]" value="">
+                  </div>
+              </div>
+              <div class="form-item">
+                  <div class="form-label">Телефон Главного бухгалтера:</div>
+                  <div class="form-data">
+                      <input type="text" name="var[accountant_phone]" value="">
+                  </div>
+              </div>
+
+          </div>
+      </div>
+
+  </div>
+
+  <div class="form-block-title">Сведения</div>
+  <div class="form-block">
+
+      <div class="form-row">
+          <div class="form-item-layout">
+              <div class="form-item w50">
+                  <div class="form-label">Группа:</div>
+                  <span class="ui-select" contenteditable="false" style="margin-bottom: 0px; margin-top: 0px; margin-right: 0px; width: 519.359px;"><span class="ui-select-width" style="padding-left: 66px; font-size: 15px; font-family: regular, arial, &quot;sans-serif&quot;; display: block; overflow: hidden; height: 0px; line-height: 0; visibility: hidden; position: relative;">Странные странники</span><select name="var[group_id]" class="init" style="display: none;">
+                      <option value="1">Удивительные люди</option>
+                      <option value="2">Странные странники</option>
+                  </select><span class="ui-select-input">Удивительные люди</span><span class="ui-select-button">&nbsp;</span><span class="ui-select-fader">&nbsp;</span><span class="ui-select-layer" style="display: none; height: auto; visibility: visible;"><span class="ui-select-list-scroller"><span class="ui-select-list"><span class="ui-select-item selected">Удивительные люди</span><span class="ui-select-item odd">Странные странники</span></span></span><div class="scrollbar-track"><div class="scrollbar-track-btn scrollbar-up"></div><div class="scrollbar-track-free"><div class="scrollbar-bar"></div></div><div class="scrollbar-track-btn scrollbar-down"></div></div></span></span>
+              </div>
+
+              <div class="form-item">
+                  <div class="form-label">Статус:</div>
+                  <span class="ui-select" contenteditable="false" style="margin-bottom: 0px; margin-top: 0px; margin-right: 0px; width: 247.312px;"><span class="ui-select-width" style="padding-left: 66px; font-size: 15px; font-family: regular, arial, &quot;sans-serif&quot;; display: block; overflow: hidden; height: 0px; line-height: 0; visibility: hidden; position: relative;">Блокирован</span><select name="var[status_id]" class="init" style="display: none;">
+                      <option value="1">Текущий</option>
+                      <option value="2">Блокирован</option>
+                      <option value="3">Ушедший</option>
+                  </select><span class="ui-select-input">Текущий</span><span class="ui-select-button">&nbsp;</span><span class="ui-select-fader">&nbsp;</span><span class="ui-select-layer" style="display: none; height: auto; visibility: visible;"><span class="ui-select-list-scroller"><span class="ui-select-list"><span class="ui-select-item selected">Текущий</span><span class="ui-select-item odd">Блокирован</span><span class="ui-select-item">Ушедший</span></span></span><div class="scrollbar-track"><div class="scrollbar-track-btn scrollbar-up"></div><div class="scrollbar-track-free"><div class="scrollbar-bar"></div></div><div class="scrollbar-track-btn scrollbar-down"></div></div></span></span>
+              </div>
+
+              <div class="form-item">
+                  <div class="form-label">Тип контрагента:</div>
+                  <span class="ui-select" contenteditable="false" style="margin-bottom: 0px; margin-top: 0px; margin-right: 0px; width: 247.312px;"><span class="ui-select-width" style="padding-left: 66px; font-size: 15px; font-family: regular, arial, &quot;sans-serif&quot;; display: block; overflow: hidden; height: 0px; line-height: 0; visibility: hidden; position: relative;">Экспедитор</span><select name="var[counterparty_id]" class="init" style="display: none;">
+                      <option value="1">Импортер</option>
+                      <option value="2">Экспортер</option>
+                      <option value="3">Экспедитор</option>
+                  </select><span class="ui-select-input">Импортер</span><span class="ui-select-button">&nbsp;</span><span class="ui-select-fader">&nbsp;</span><span class="ui-select-layer" style="display: none; height: auto; visibility: visible;"><span class="ui-select-list-scroller"><span class="ui-select-list"><span class="ui-select-item selected">Импортер</span><span class="ui-select-item odd">Экспортер</span><span class="ui-select-item">Экспедитор</span></span></span><div class="scrollbar-track"><div class="scrollbar-track-btn scrollbar-up"></div><div class="scrollbar-track-free"><div class="scrollbar-bar"></div></div><div class="scrollbar-track-btn scrollbar-down"></div></div></span></span>
+              </div>
+
+
+          </div>
+
+          <div class="form-item-layout">
+
+              <div class="form-item w50">
+                  <div class="form-label">Отрасль деятельности:</div>
+                  <span class="ui-select" contenteditable="false" style="margin-bottom: 0px; margin-top: 0px; margin-right: 0px; width: 519.359px;"><span class="ui-select-width" style="padding-left: 66px; font-size: 15px; font-family: regular, arial, &quot;sans-serif&quot;; display: block; overflow: hidden; height: 0px; line-height: 0; visibility: hidden; position: relative;">Производство машиностроительное</span><select name="var[business_id]" class="init" style="display: none;">
+                      <option value="1">Услуги связи</option>
+                      <option value="2">Производство электроники</option>
+                      <option value="3">Производство машиностроительное</option>
+                  </select><span class="ui-select-input">Услуги связи</span><span class="ui-select-button">&nbsp;</span><span class="ui-select-fader">&nbsp;</span><span class="ui-select-layer" style="display: none; height: auto; visibility: visible;"><span class="ui-select-list-scroller"><span class="ui-select-list"><span class="ui-select-item selected">Услуги связи</span><span class="ui-select-item odd">Производство электроники</span><span class="ui-select-item">Производство машиностроительное</span></span></span><div class="scrollbar-track"><div class="scrollbar-track-btn scrollbar-up"></div><div class="scrollbar-track-free"><div class="scrollbar-bar"></div></div><div class="scrollbar-track-btn scrollbar-down"></div></div></span></span>
+              </div>
+
+              <div class="form-item">
+                  <div class="form-label">Взаимодействие:</div>
+                  <span class="ui-select" contenteditable="false" style="margin-bottom: 0px; margin-top: 0px; margin-right: 0px; width: 247.312px;"><span class="ui-select-width" style="padding-left: 66px; font-size: 15px; font-family: regular, arial, &quot;sans-serif&quot;; display: block; overflow: hidden; height: 0px; line-height: 0; visibility: hidden; position: relative;">Постоянный</span><select name="var[interaction_id]" class="init" style="display: none;">
+                      <option value="1">Разовый</option>
+                      <option value="2">Постоянный</option>
+                      <option value="3">VIP</option>
+                  </select><span class="ui-select-input">Разовый</span><span class="ui-select-button">&nbsp;</span><span class="ui-select-fader">&nbsp;</span><span class="ui-select-layer" style="display: none; height: auto; visibility: visible;"><span class="ui-select-list-scroller"><span class="ui-select-list"><span class="ui-select-item selected">Разовый</span><span class="ui-select-item odd">Постоянный</span><span class="ui-select-item">VIP</span></span></span><div class="scrollbar-track"><div class="scrollbar-track-btn scrollbar-up"></div><div class="scrollbar-track-free"><div class="scrollbar-bar"></div></div><div class="scrollbar-track-btn scrollbar-down"></div></div></span></span>
+              </div>
+
+              <div class="form-item">
+                  <div class="form-label">Источник:</div>
+                  <span class="ui-select" contenteditable="false" style="margin-bottom: 0px; margin-top: 0px; margin-right: 0px; width: 247.312px;"><span class="ui-select-width" style="padding-left: 66px; font-size: 15px; font-family: regular, arial, &quot;sans-serif&quot;; display: block; overflow: hidden; height: 0px; line-height: 0; visibility: hidden; position: relative;">Выборка из базы ДТ</span><select name="var[source_id]" class="init" style="display: none;">
+                      <option value="1">Выборка из базы ДТ</option>
+                      <option value="2">Входящий контакт</option>
+                      <option value="3">Выставки (участие)</option>
+                  </select><span class="ui-select-input">Выборка из базы ДТ</span><span class="ui-select-button">&nbsp;</span><span class="ui-select-fader">&nbsp;</span><span class="ui-select-layer" style="display: none; height: auto; visibility: visible;"><span class="ui-select-list-scroller"><span class="ui-select-list"><span class="ui-select-item selected">Выборка из базы ДТ</span><span class="ui-select-item odd">Входящий контакт</span><span class="ui-select-item">Выставки (участие)</span></span></span><div class="scrollbar-track"><div class="scrollbar-track-btn scrollbar-up"></div><div class="scrollbar-track-free"><div class="scrollbar-bar"></div></div><div class="scrollbar-track-btn scrollbar-down"></div></div></span></span>
+              </div>
+
+          </div>
+
+      </div>
+
+
+      <div class="form-row">
+          <div class="form-item-layout sep">
+              <span>Виды услуг:</span>
+              <label><input type="checkbox" name="var[service_ids][]" value="1"><i></i><span>Таможня</span></label>
+              <label><input type="checkbox" name="var[service_ids][]" value="2"><i></i><span>Логистика</span></label>
+              <label><input type="checkbox" name="var[service_ids][]" value="3"><i></i><span>Финансовые</span></label>
+              <label><input type="checkbox" name="var[service_ids][]" value="3"><i></i><span>Другие</span></label>
+          </div>
+          <div></div></div>
+
+      <div class="form-row">
+          <div class="form-item-layout">
+              <div class="form-item w50">
+                  <div class="form-label">Примечение:</div>
+                  <div class="form-data">
+                      <textarea name="var[note]"></textarea>
+                  </div>
+              </div>
+
+              <div class="form-item">
+                  <div class="form-label">Менеджер по работе с клиентом:</div>
+                  <span class="ui-select" contenteditable="false" style="margin-bottom: 0px; margin-top: 0px; margin-right: 0px; width: 247.312px;"><span class="ui-select-width" style="padding-left: 66px; font-size: 15px; font-family: regular, arial, &quot;sans-serif&quot;; display: block; overflow: hidden; height: 0px; line-height: 0; visibility: hidden; position: relative;">Семен</span><select name="var[manager_id]" class="init" style="display: none;">
+                      <option value="1">Петр</option>
+                      <option value="2">Семен</option>
+                  </select><span class="ui-select-input">Петр</span><span class="ui-select-button">&nbsp;</span><span class="ui-select-fader">&nbsp;</span><span class="ui-select-layer" style="display: none; height: auto; visibility: visible;"><span class="ui-select-list-scroller"><span class="ui-select-list"><span class="ui-select-item selected">Петр</span><span class="ui-select-item odd">Семен</span></span></span><div class="scrollbar-track"><div class="scrollbar-track-btn scrollbar-up"></div><div class="scrollbar-track-free"><div class="scrollbar-bar"></div></div><div class="scrollbar-track-btn scrollbar-down"></div></div></span></span>
+              </div>
+
+              <div class="form-item">
+                  <div class="form-label">Менеджер приведший клиента:</div>
+                  <span class="ui-select" contenteditable="false" style="margin-bottom: 0px; margin-top: 0px; margin-right: 0px; width: 247.312px;"><span class="ui-select-width" style="padding-left: 66px; font-size: 15px; font-family: regular, arial, &quot;sans-serif&quot;; display: block; overflow: hidden; height: 0px; line-height: 0; visibility: hidden; position: relative;">Семен</span><select name="var[manager_sale_id]" class="init" style="display: none;">
+                      <option value="1">Петр</option>
+                      <option value="2">Семен</option>
+                  </select><span class="ui-select-input">Петр</span><span class="ui-select-button">&nbsp;</span><span class="ui-select-fader">&nbsp;</span><span class="ui-select-layer" style="display: none; height: auto; visibility: visible;"><span class="ui-select-list-scroller"><span class="ui-select-list"><span class="ui-select-item selected">Петр</span><span class="ui-select-item odd">Семен</span></span></span><div class="scrollbar-track"><div class="scrollbar-track-btn scrollbar-up"></div><div class="scrollbar-track-free"><div class="scrollbar-bar"></div></div><div class="scrollbar-track-btn scrollbar-down"></div></div></span></span>
+              </div>
+
+          </div>
+
+      </div>
+
+  </div>
+  </form>
+  <div class="form-button-right">
+      <span class="btn v save" (click)="save()"><span>сохранить</span></span>
+      <span class="btn v del" (click)="remove()"><span>Удалить</span></span>
+      <span class="btn v cancel" (click)="goBack()"><span>отмена</span></span>
+  </div>
+</div>
