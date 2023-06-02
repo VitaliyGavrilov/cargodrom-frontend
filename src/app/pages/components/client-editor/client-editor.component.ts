@@ -5,12 +5,13 @@ import { FormBuilder } from '@angular/forms';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Observable, tap } from 'rxjs';
-import { City, Client, Country } from 'src/app/api/custom_models';
+import { City, Client, ClientGroup, Country } from 'src/app/api/custom_models';
 import { CustomerService, SystemService } from 'src/app/api/services';
 import { Editor } from 'src/app/classes/editor';
 import { Location } from '@angular/common';
 import { CityService } from '../../services/city.service';
 import { CountryService } from '../../services/country.service';
+import { byField } from 'src/app/constants';
 
 @Component({
   selector: 'app-client-editor',
@@ -18,7 +19,7 @@ import { CountryService } from '../../services/country.service';
   styleUrls: ['./client-editor.component.scss'],
   encapsulation: ViewEncapsulation.None,
 })
-export class ClientEditorComponent extends Editor<Client> implements OnInit{
+export class ClientEditorComponent extends Editor<Client> implements OnInit {
   private entity = 'Клиент';
   editTitle = 'Информация о клиенте';
   newTitle = 'Добавление клиента';
@@ -29,6 +30,7 @@ export class ClientEditorComponent extends Editor<Client> implements OnInit{
 
   countries: Country[] = [];
   cities: City[] = [];
+  clientGroups: ClientGroup[] = [];
 
   constructor(
     private fb: FormBuilder,
@@ -64,21 +66,23 @@ export class ClientEditorComponent extends Editor<Client> implements OnInit{
       email: ['', [emailValidator]],
       web: ['', []],
       
+      group_id: ['', []],
+
       document_address: ['', []],
       document_path: ['', []],
       documents_path: ['', []],
       document_contact_fio: ['', []],
       document_contact_phone: ['', []],
-      
+
       bank_name: ['', []],
       bank_bik: ['', []],
       bank_kpp: ['', []],
       bank_payment_account: ['', []],
       bank_correspondent_account: ['', []],
-      
+
       accountant_fio: ['', []],
       accountant_phone: ['', []],
-      
+
       delivery_address: ['', []],
       delivery_contact_fio: ['', []],
       delivery_contact_phone: ['', []],
@@ -86,11 +90,12 @@ export class ClientEditorComponent extends Editor<Client> implements OnInit{
       warehouse_schedule: ['', []],
     });
   }
-  
+
   override ngOnInit(): void {
     super.ngOnInit();
     this.getCountries();
     this.loadHeadPositions();
+    this.loadClientGroups();
   }
 
   protected override create(params: { body: Omit<Client, 'id'>; }): Observable<{ id: number; }> {
@@ -98,7 +103,7 @@ export class ClientEditorComponent extends Editor<Client> implements OnInit{
   }
 
   protected override read(params: { id: number; }): Observable<Client> {
-    return this.customerService.customerInfo(params).pipe(tap(({country_id}) => this.getCities(country_id!))) as Observable<Client>
+    return this.customerService.customerInfo(params).pipe(tap(({ country_id }) => this.getCities(country_id!))) as Observable<Client>
   }
 
   protected override update(params: { body: Partial<Client>; }): Observable<void> {
@@ -112,7 +117,7 @@ export class ClientEditorComponent extends Editor<Client> implements OnInit{
   protected override getNameForHeader(body: Client): string {
     return `${body.name}`;
   }
-  
+
   private getCountries() {
     this.countryService.getCountries()
       .subscribe(countries => this.countries = countries);
@@ -126,5 +131,11 @@ export class ClientEditorComponent extends Editor<Client> implements OnInit{
   onCountryChange(countryId: number): void {
     this.form.controls['city_id'].reset(undefined);
     this.getCities(countryId);
+  }
+
+  loadClientGroups(): void {
+    this.customerService.customerGroupList().subscribe(
+      groups => this.clientGroups = groups.items ? (groups.items as ClientGroup[]).sort(byField('name', 'asc', 'case-insensitive')) : []
+    );
   }
 }

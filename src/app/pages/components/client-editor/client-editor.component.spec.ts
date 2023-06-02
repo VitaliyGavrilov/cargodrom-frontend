@@ -35,7 +35,8 @@ describe('ClientEditorComponent', () => {
         { provide: SystemService, useValue: {} },
         {
           provide: CustomerService, useValue: <Partial<CustomerService>>{
-            customerInfo: () => of({ id: 1, name: 'hello' })
+            customerInfo: () => of({ id: 1, name: 'hello' }),
+            customerGroupList: () => of([]),
           }
         },
         {
