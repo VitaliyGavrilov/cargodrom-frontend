@@ -1,4 +1,4 @@
-import { innValidator } from './../../../validators/pattern-validator';
+import { emailValidator, innValidator } from './../../../validators/pattern-validator';
 import { Validators } from '@angular/forms';
 import { Component, OnInit, ViewEncapsulation } from '@angular/core';
 import { FormBuilder } from '@angular/forms';
@@ -52,12 +52,45 @@ export class ClientEditorComponent extends Editor<Client> implements OnInit{
       kpp: ['', []],
       ogrn: ['', []],
       okpo: ['', []],
+      head_name: ['', []],
+      head_position_id: ['', []],
+      signature_fio: ['', []],
+      signature_position: ['', []],
+      signature_basis: ['', []],
+      address_legal: ['', []],
+      address_post: ['', []],
+      contact_fio: ['', []],
+      phone: ['', []],
+      email: ['', [emailValidator]],
+      web: ['', []],
+      
+      document_address: ['', []],
+      document_path: ['', []],
+      documents_path: ['', []],
+      document_contact_fio: ['', []],
+      document_contact_phone: ['', []],
+      
+      bank_name: ['', []],
+      bank_bik: ['', []],
+      bank_kpp: ['', []],
+      bank_payment_account: ['', []],
+      bank_correspondent_account: ['', []],
+      
+      accountant_fio: ['', []],
+      accountant_phone: ['', []],
+      
+      delivery_address: ['', []],
+      delivery_contact_fio: ['', []],
+      delivery_contact_phone: ['', []],
+
+      warehouse_schedule: ['', []],
     });
   }
   
   override ngOnInit(): void {
     super.ngOnInit();
     this.getCountries();
+    this.loadHeadPositions();
   }
 
   protected override create(params: { body: Omit<Client, 'id'>; }): Observable<{ id: number; }> {

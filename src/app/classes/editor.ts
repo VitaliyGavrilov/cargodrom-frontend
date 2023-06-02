@@ -4,7 +4,7 @@ import { Observable, tap } from 'rxjs';
 import { ActivatedRoute, Router } from '@angular/router';
 import { FormControl, FormGroup } from "@angular/forms";
 import { MatSnackBar, MatSnackBarConfig } from "@angular/material/snack-bar";
-import { Currency, TaxSystem } from "src/app/api/custom_models";
+import { Currency, HeadPosition, TaxSystem } from "src/app/api/custom_models";
 import { Location } from '@angular/common';
 import { phoneMask } from 'src/app/constants';
 import { SystemService } from 'src/app/api/services';
@@ -18,6 +18,7 @@ export abstract class Editor<T> implements OnInit {
   snackBarWithLongDuration: MatSnackBarConfig = { duration: 5000 };
   taxSystems: TaxSystem[] = [];
   currencies: Currency[] = [];
+  headPositions: HeadPosition[] = [];
   isFormSubmitted = false;
   phoneMask = phoneMask;
   data: Partial<T> = {};
@@ -30,6 +31,7 @@ export abstract class Editor<T> implements OnInit {
   nameForHeader?: string;
 
   private currentTitle = '';
+  
   protected abstract create(params: { body: Omit<T, 'id'> }): Observable<{id: number}>;
   protected abstract read(params: { id: number }): Observable<T>;
   protected abstract update(params: { body: Partial<T> }): Observable<void>;
@@ -70,6 +72,12 @@ export abstract class Editor<T> implements OnInit {
   loadCurrencies(): void {
     this.systemService.systemCurrency().subscribe(
       currencies => this.currencies = currencies ? (currencies as Currency[]).sort(byField('code', 'asc', 'case-insensitive')) : []
+    );
+  }
+  
+  loadHeadPositions(): void {
+    this.systemService.systemHeadPosition().subscribe(
+      positions => this.headPositions = positions ? (positions as HeadPosition[]).sort(byField('name', 'asc', 'case-insensitive')) : []
     );
   }
 

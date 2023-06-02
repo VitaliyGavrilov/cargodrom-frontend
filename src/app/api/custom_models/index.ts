@@ -16,3 +16,4 @@ export * from './client-filter';
 export * from './client';
 export * from './customer';
 export * from './customer-filter';
+export * from './head-position';
