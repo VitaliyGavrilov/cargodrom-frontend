@@ -25,6 +25,7 @@ import { ClientFilterComponent } from './components/client-filter/client-filter.
 import { ClientEditorComponent } from './components/client-editor/client-editor.component';
 import { ServicesComponent } from './components/services/services.component';
 import { NgxMaskModule } from 'ngx-mask';
+import { FileListComponent } from './components/file-list/file-list.component';
 
 
 @NgModule({
@@ -50,6 +51,7 @@ import { NgxMaskModule } from 'ngx-mask';
     ClientFilterComponent,
     ClientEditorComponent,
     ServicesComponent,
+    FileListComponent,
   ],
   imports: [
     CommonModule,

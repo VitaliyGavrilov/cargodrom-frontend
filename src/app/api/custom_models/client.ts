@@ -1,3 +1,5 @@
+import { FileDocument } from "./file-document";
+
 export interface Client {
   /**
    * ID
@@ -338,5 +340,7 @@ export interface Client {
      * Просрочка платежей (расширенная строка)
      */
     'delay_payment_string'?: string;
+    
   }
+  documents_file?: FileDocument[];
 }

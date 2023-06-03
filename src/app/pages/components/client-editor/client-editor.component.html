@@ -157,30 +157,8 @@
       </div>
 
       <div class="form-row">
-        <div class="form-item-layout">
-          <div class="form-item">
-
-            <div class="form-block-sub-title">Прикрепить документы:</div>
-            <div class="file-list">
-              <div>
-                <span>SecurityPass(AquaIsol445K)@2020.pdf</span>
-                <span class="del"></span>
-              </div>
-            </div>
-            <span class="btn add-file">Прикрепить файл</span>
-
-          </div>
-          <div class="form-item">
-            <div class="form-label">Ссылка на файл:</div>
-            <div class="form-data">
-              <input type="text" formControlName="documents_path">
-            </div>
-          </div>
-
-        </div>
+        <app-file-list [documents]="documents"></app-file-list>
       </div>
-
-
     </div>
 
 

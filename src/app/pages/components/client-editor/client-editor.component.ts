@@ -5,8 +5,8 @@ import { FormBuilder } from '@angular/forms';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Observable, tap } from 'rxjs';
-import { City, Client, ClientGroup, Country, Employee } from 'src/app/api/custom_models';
-import { CompanyService, CustomerService, SystemService } from 'src/app/api/services';
+import { City, Client, ClientGroup, Country, Employee, FileDocument } from 'src/app/api/custom_models';
+import { CompanyService, CustomerService, FileService, SystemService } from 'src/app/api/services';
 import { Editor } from 'src/app/classes/editor';
 import { Location } from '@angular/common';
 import { CityService } from '../../services/city.service';
@@ -32,6 +32,7 @@ export class ClientEditorComponent extends Editor<Client> implements OnInit {
   cities: City[] = [];
   clientGroups: ClientGroup[] = [];
   employees: Employee[] = [];
+  documents: FileDocument[] = [];
 
   constructor(
     private fb: FormBuilder,
@@ -67,14 +68,14 @@ export class ClientEditorComponent extends Editor<Client> implements OnInit {
       phone: ['', []],
       email: ['', [emailValidator]],
       web: ['', []],
-      
+
       group_id: ['', []],
       business_id: ['', []],
       interaction_id: ['', []],
       source_id: ['', []],
       status_id: ['', []],
       counterparty_id: ['', []],
-      
+
       service_ids: [[], []],
 
       document_address: ['', []],
@@ -118,13 +119,18 @@ export class ClientEditorComponent extends Editor<Client> implements OnInit {
     this.loadEmployees();
     this.loadCurrencies();
   }
+  
+  private afterRead(client: Client): void {
+    this.getCities(client.country_id!);
+    this.documents = client.documents_file || [];
+  }
 
   protected override create(params: { body: Omit<Client, 'id'>; }): Observable<{ id: number; }> {
     return this.customerService.customerCreate(params as any);
   }
 
   protected override read(params: { id: number; }): Observable<Client> {
-    return this.customerService.customerInfo(params).pipe(tap(({ country_id }) => this.getCities(country_id!))) as Observable<Client>
+    return this.customerService.customerInfo(params).pipe(tap((client: any) => this.afterRead(client))) as Observable<Client>
   }
 
   protected override update(params: { body: Partial<Client>; }): Observable<void> {
@@ -148,7 +154,7 @@ export class ClientEditorComponent extends Editor<Client> implements OnInit {
     this.cityService.getCities(countryId)
       .subscribe(cities => this.cities = cities);
   }
-  
+
   loadEmployees(): void {
     this.companyService.companyEmployeeList().subscribe(employees => {
       this.employees = employees ? employees.items as Employee[] : [];

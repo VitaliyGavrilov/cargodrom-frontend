@@ -24,3 +24,4 @@ export * from './client-status';
 export * from './customer-status';
 export * from './client-kind';
 export * from './service-kind';
+export * from './file-document';

@@ -15,6 +15,7 @@ import { MatSelectModule } from '@angular/material/select';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 import { ServicesComponent } from '../services/services.component';
 import { NgxMaskModule } from 'ngx-mask';
+import { FileListComponent } from '../file-list/file-list.component';
 
 describe('ClientEditorComponent', () => {
   let component: ClientEditorComponent;
@@ -31,7 +32,7 @@ describe('ClientEditorComponent', () => {
         NoopAnimationsModule,
         NgxMaskModule.forRoot(),
       ],
-      declarations: [ClientEditorComponent, EditorHeaderMockup, ServicesComponent],
+      declarations: [ClientEditorComponent, EditorHeaderMockup, ServicesComponent, FileListComponent],
       providers: [
         { provide: MatSnackBar, useValue: {} },
         { provide: MatDialog, useValue: {} },
