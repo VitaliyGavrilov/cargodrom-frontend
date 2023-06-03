@@ -5,8 +5,8 @@ import { FormBuilder } from '@angular/forms';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Observable, tap } from 'rxjs';
-import { City, Client, ClientGroup, Country } from 'src/app/api/custom_models';
-import { CustomerService, SystemService } from 'src/app/api/services';
+import { City, Client, ClientGroup, Country, Employee } from 'src/app/api/custom_models';
+import { CompanyService, CustomerService, SystemService } from 'src/app/api/services';
 import { Editor } from 'src/app/classes/editor';
 import { Location } from '@angular/common';
 import { CityService } from '../../services/city.service';
@@ -31,6 +31,7 @@ export class ClientEditorComponent extends Editor<Client> implements OnInit {
   countries: Country[] = [];
   cities: City[] = [];
   clientGroups: ClientGroup[] = [];
+  employees: Employee[] = [];
 
   constructor(
     private fb: FormBuilder,
@@ -40,6 +41,7 @@ export class ClientEditorComponent extends Editor<Client> implements OnInit {
     location: Location,
     router: Router,
     private customerService: CustomerService,
+    private companyService: CompanyService,
     private cityService: CityService,
     private countryService: CountryService,
   ) {
@@ -96,6 +98,8 @@ export class ClientEditorComponent extends Editor<Client> implements OnInit {
 
       note: ['', []],
       warehouse_schedule: ['', []],
+      manager_id: ['', []],
+      manager_sale_id: ['', []],
     });
   }
 
@@ -110,6 +114,7 @@ export class ClientEditorComponent extends Editor<Client> implements OnInit {
     this.loadClientStatuses();
     this.loadClientKinds();
     this.loadServiceKinds();
+    this.loadEmployees();
   }
 
   protected override create(params: { body: Omit<Client, 'id'>; }): Observable<{ id: number; }> {
@@ -140,6 +145,12 @@ export class ClientEditorComponent extends Editor<Client> implements OnInit {
   private getCities(countryId: number) {
     this.cityService.getCities(countryId)
       .subscribe(cities => this.cities = cities);
+  }
+  
+  loadEmployees(): void {
+    this.companyService.companyEmployeeList().subscribe(employees => {
+      this.employees = employees ? employees.items as Employee[] : [];
+    });
   }
 
   onCountryChange(countryId: number): void {

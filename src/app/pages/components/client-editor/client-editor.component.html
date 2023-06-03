@@ -480,46 +480,26 @@
 
           <div class="form-item">
             <div class="form-label">Менеджер по работе с клиентом:</div>
-            <span class="ui-select" contenteditable="false" style="margin-bottom: 0px; margin-top: 0px; margin-right: 0px; width: 247.312px;"><span
-                class="ui-select-width"
-                style="padding-left: 66px; font-size: 15px; font-family: regular, arial, &quot;sans-serif&quot;; display: block; overflow: hidden; height: 0px; line-height: 0; visibility: hidden; position: relative;">Семен</span><select
-                name="var[manager_id]" class="init" style="display: none;">
-                <option value="1">Петр</option>
-                <option value="2">Семен</option>
-              </select><span class="ui-select-input">Петр</span><span class="ui-select-button">&nbsp;</span><span
-                class="ui-select-fader">&nbsp;</span><span class="ui-select-layer" style="display: none; height: auto; visibility: visible;"><span
-                  class="ui-select-list-scroller"><span class="ui-select-list"><span class="ui-select-item selected">Петр</span><span
-                      class="ui-select-item odd">Семен</span></span></span>
-                <div class="scrollbar-track">
-                  <div class="scrollbar-track-btn scrollbar-up"></div>
-                  <div class="scrollbar-track-free">
-                    <div class="scrollbar-bar"></div>
-                  </div>
-                  <div class="scrollbar-track-btn scrollbar-down"></div>
-                </div>
-              </span></span>
+            <mat-form-field appearance="outline" class="ui-select">
+              <mat-select formControlName="manager_id">
+                <mat-option *ngFor="let employee of employees;" [value]="employee.id">{{ employee.name_i }}</mat-option>
+              </mat-select>
+              <mat-error *ngIf="form.controls['manager_id'].hasError('required')">
+                Это поле обязательно
+              </mat-error>
+            </mat-form-field>
           </div>
 
           <div class="form-item">
             <div class="form-label">Менеджер приведший клиента:</div>
-            <span class="ui-select" contenteditable="false" style="margin-bottom: 0px; margin-top: 0px; margin-right: 0px; width: 247.312px;"><span
-                class="ui-select-width"
-                style="padding-left: 66px; font-size: 15px; font-family: regular, arial, &quot;sans-serif&quot;; display: block; overflow: hidden; height: 0px; line-height: 0; visibility: hidden; position: relative;">Семен</span><select
-                name="var[manager_sale_id]" class="init" style="display: none;">
-                <option value="1">Петр</option>
-                <option value="2">Семен</option>
-              </select><span class="ui-select-input">Петр</span><span class="ui-select-button">&nbsp;</span><span
-                class="ui-select-fader">&nbsp;</span><span class="ui-select-layer" style="display: none; height: auto; visibility: visible;"><span
-                  class="ui-select-list-scroller"><span class="ui-select-list"><span class="ui-select-item selected">Петр</span><span
-                      class="ui-select-item odd">Семен</span></span></span>
-                <div class="scrollbar-track">
-                  <div class="scrollbar-track-btn scrollbar-up"></div>
-                  <div class="scrollbar-track-free">
-                    <div class="scrollbar-bar"></div>
-                  </div>
-                  <div class="scrollbar-track-btn scrollbar-down"></div>
-                </div>
-              </span></span>
+            <mat-form-field appearance="outline" class="ui-select">
+              <mat-select formControlName="manager_sale_id">
+                <mat-option *ngFor="let employee of employees;" [value]="employee.id">{{ employee.name_i }}</mat-option>
+              </mat-select>
+              <mat-error *ngIf="form.controls['manager_sale_id'].hasError('required')">
+                Это поле обязательно
+              </mat-error>
+            </mat-form-field>
           </div>
 
         </div>
