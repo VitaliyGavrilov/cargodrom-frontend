@@ -466,14 +466,7 @@
 
 
       <div class="form-row">
-        <div class="form-item-layout sep">
-          <span>Виды услуг:</span>
-          <label><input type="checkbox" name="var[service_ids][]" value="1"><i></i><span>Таможня</span></label>
-          <label><input type="checkbox" name="var[service_ids][]" value="2"><i></i><span>Логистика</span></label>
-          <label><input type="checkbox" name="var[service_ids][]" value="3"><i></i><span>Финансовые</span></label>
-          <label><input type="checkbox" name="var[service_ids][]" value="3"><i></i><span>Другие</span></label>
-        </div>
-        <div></div>
+        <app-services [services]="serviceKinds" formControlName="service_ids"></app-services>
       </div>
 
       <div class="form-row">

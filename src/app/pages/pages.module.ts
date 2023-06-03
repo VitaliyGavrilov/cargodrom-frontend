@@ -23,6 +23,7 @@ import { ResponsibilityEditorComponent } from './components/responsibility-edito
 import { MaterialModule } from '@cargodrom/material/material.module';
 import { ClientFilterComponent } from './components/client-filter/client-filter.component';
 import { ClientEditorComponent } from './components/client-editor/client-editor.component';
+import { ServicesComponent } from './components/services/services.component';
 
 
 @NgModule({
@@ -47,6 +48,7 @@ import { ClientEditorComponent } from './components/client-editor/client-editor.
     ResponsibilityEditorComponent,
     ClientFilterComponent,
     ClientEditorComponent,
+    ServicesComponent,
   ],
   imports: [
     CommonModule,

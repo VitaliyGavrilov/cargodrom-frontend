@@ -13,6 +13,7 @@ import { CountryService } from '../../services/country.service';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatSelectModule } from '@angular/material/select';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
+import { ServicesComponent } from '../services/services.component';
 
 describe('ClientEditorComponent', () => {
   let component: ClientEditorComponent;
@@ -28,7 +29,7 @@ describe('ClientEditorComponent', () => {
         MatSelectModule,
         NoopAnimationsModule,
       ],
-      declarations: [ClientEditorComponent, EditorHeaderMockup],
+      declarations: [ClientEditorComponent, EditorHeaderMockup, ServicesComponent],
       providers: [
         { provide: MatSnackBar, useValue: {} },
         { provide: MatDialog, useValue: {} },
@@ -57,6 +58,7 @@ describe('ClientEditorComponent', () => {
             systemContactSource: () => of([]),
             systemCustomerStatus: () => of([]),
             systemCounterparty: () => of(),
+            systemServices: () => of(),
           }
         },
       ]
