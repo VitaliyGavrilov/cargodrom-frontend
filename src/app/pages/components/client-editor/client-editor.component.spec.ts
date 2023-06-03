@@ -54,6 +54,7 @@ describe('ClientEditorComponent', () => {
             systemHeadPosition: () => of([]),
             systemBusiness: () => of([]),
             systemInteraction: () => of([]),
+            systemContactSource: () => of([]),
           }
         },
       ]
