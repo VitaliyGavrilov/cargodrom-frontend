@@ -1,6 +1,7 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { FileListComponent } from './file-list.component';
+import { MatDialog } from '@angular/material/dialog';
 
 describe('FileListComponent', () => {
   let component: FileListComponent;
@@ -8,9 +9,12 @@ describe('FileListComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ FileListComponent ]
+      declarations: [FileListComponent],
+      providers: [
+        { provide: MatDialog, useValue: {} }
+      ]
     })
-    .compileComponents();
+      .compileComponents();
 
     fixture = TestBed.createComponent(FileListComponent);
     component = fixture.componentInstance;

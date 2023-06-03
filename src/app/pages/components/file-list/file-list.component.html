@@ -2,9 +2,9 @@
   <div class="form-item">
     <div class="form-block-sub-title">Прикрепить документы:</div>
     <div class="file-list">
-      <div  *ngFor="let doc of documents">
+      <div *ngFor="let doc of filteredDocuments">
         <span>{{ doc.file_name }}</span>
-        <span class="del"></span>
+        <span class="del" (click)="confirmRemove(doc)"></span>
       </div>
     </div>
     <input type="file" class="file-input" (change)="onFileSelected($event)" #fileUpload>
@@ -17,3 +17,14 @@
     </div>
   </div>
 </div>
+
+<ng-template #removeDialogRef let-data>
+  <h1 mat-dialog-title>Удалить прикрепленный документ</h1>
+  <div mat-dialog-content>
+    Вы действительно хотите удалить прикрепленный документ <b>{{ data.file_name }}</b> ?
+  </div>
+  <div mat-dialog-actions align="end">
+    <button mat-button [mat-dialog-close]="true" cdkFocusInitial>Да</button>
+    <button mat-button mat-dialog-close>Нет</button>
+  </div>
+</ng-template>
