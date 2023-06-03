@@ -59,6 +59,7 @@ describe('ClientEditorComponent', () => {
             systemCustomerStatus: () => of([]),
             systemCounterparty: () => of(),
             systemServices: () => of(),
+            systemCurrency: () => of(),
           }
         },
         {

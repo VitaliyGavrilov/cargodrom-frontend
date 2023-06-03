@@ -88,6 +88,7 @@ export class ClientEditorComponent extends Editor<Client> implements OnInit {
       bank_kpp: ['', []],
       bank_payment_account: ['', []],
       bank_correspondent_account: ['', []],
+      currency: ['', []],
 
       accountant_fio: ['', []],
       accountant_phone: ['', []],
@@ -115,6 +116,7 @@ export class ClientEditorComponent extends Editor<Client> implements OnInit {
     this.loadClientKinds();
     this.loadServiceKinds();
     this.loadEmployees();
+    this.loadCurrencies();
   }
 
   protected override create(params: { body: Omit<Client, 'id'>; }): Observable<{ id: number; }> {
