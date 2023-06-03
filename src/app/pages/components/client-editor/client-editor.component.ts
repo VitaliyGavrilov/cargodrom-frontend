@@ -92,6 +92,7 @@ export class ClientEditorComponent extends Editor<Client> implements OnInit {
       delivery_contact_fio: ['', []],
       delivery_contact_phone: ['', []],
 
+      note: ['', []],
       warehouse_schedule: ['', []],
     });
   }
