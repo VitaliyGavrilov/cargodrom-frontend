@@ -17,3 +17,4 @@ export * from './client';
 export * from './customer';
 export * from './customer-filter';
 export * from './head-position';
+export * from './business-kind';

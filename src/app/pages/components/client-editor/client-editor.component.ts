@@ -67,6 +67,7 @@ export class ClientEditorComponent extends Editor<Client> implements OnInit {
       web: ['', []],
       
       group_id: ['', []],
+      business_id: ['', []],
 
       document_address: ['', []],
       document_path: ['', []],
@@ -96,6 +97,7 @@ export class ClientEditorComponent extends Editor<Client> implements OnInit {
     this.getCountries();
     this.loadHeadPositions();
     this.loadClientGroups();
+    this.loadBusinessKinds();
   }
 
   protected override create(params: { body: Omit<Client, 'id'>; }): Observable<{ id: number; }> {
@@ -138,4 +140,5 @@ export class ClientEditorComponent extends Editor<Client> implements OnInit {
       groups => this.clientGroups = groups.items ? (groups.items as ClientGroup[]).sort(byField('name', 'asc', 'case-insensitive')) : []
     );
   }
+  
 }

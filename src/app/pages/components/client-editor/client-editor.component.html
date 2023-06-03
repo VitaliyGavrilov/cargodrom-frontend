@@ -448,27 +448,15 @@
 
           <div class="form-item w50">
             <div class="form-label">Отрасль деятельности:</div>
-            <span class="ui-select" contenteditable="false" style="margin-bottom: 0px; margin-top: 0px; margin-right: 0px; width: 519.359px;"><span
-                class="ui-select-width"
-                style="padding-left: 66px; font-size: 15px; font-family: regular, arial, &quot;sans-serif&quot;; display: block; overflow: hidden; height: 0px; line-height: 0; visibility: hidden; position: relative;">Производство
-                машиностроительное</span><select name="var[business_id]" class="init" style="display: none;">
-                <option value="1">Услуги связи</option>
-                <option value="2">Производство электроники</option>
-                <option value="3">Производство машиностроительное</option>
-              </select><span class="ui-select-input">Услуги связи</span><span class="ui-select-button">&nbsp;</span><span
-                class="ui-select-fader">&nbsp;</span><span class="ui-select-layer" style="display: none; height: auto; visibility: visible;"><span
-                  class="ui-select-list-scroller"><span class="ui-select-list"><span class="ui-select-item selected">Услуги связи</span><span
-                      class="ui-select-item odd">Производство электроники</span><span class="ui-select-item">Производство
-                      машиностроительное</span></span></span>
-                <div class="scrollbar-track">
-                  <div class="scrollbar-track-btn scrollbar-up"></div>
-                  <div class="scrollbar-track-free">
-                    <div class="scrollbar-bar"></div>
-                  </div>
-                  <div class="scrollbar-track-btn scrollbar-down"></div>
-                </div>
-              </span></span>
-          </div>
+              <mat-form-field appearance="outline" class="ui-select">
+                <mat-select formControlName="business_id">
+                  <mat-option *ngFor="let kind of businessKinds;" [value]="kind.id">{{ kind.name }}</mat-option>
+                </mat-select>
+                <mat-error *ngIf="form.controls['business_id'].hasError('required')">
+                  Это поле обязательно
+                </mat-error>
+              </mat-form-field>
+            </div>
 
           <div class="form-item">
             <div class="form-label">Взаимодействие:</div>
