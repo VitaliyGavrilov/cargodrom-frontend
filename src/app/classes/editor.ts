@@ -4,7 +4,7 @@ import { Observable, tap } from 'rxjs';
 import { ActivatedRoute, Router } from '@angular/router';
 import { FormControl, FormGroup } from "@angular/forms";
 import { MatSnackBar, MatSnackBarConfig } from "@angular/material/snack-bar";
-import { BusinessKind, ClientStatus, ContactSource, Currency, HeadPosition, InteractionKind, TaxSystem } from "src/app/api/custom_models";
+import { BusinessKind, ClientKind, ClientStatus, ContactSource, Currency, HeadPosition, InteractionKind, TaxSystem } from "src/app/api/custom_models";
 import { Location } from '@angular/common';
 import { phoneMask } from 'src/app/constants';
 import { SystemService } from 'src/app/api/services';
@@ -23,6 +23,7 @@ export abstract class Editor<T> implements OnInit {
   interactionKinds: InteractionKind[] = [];
   contactSources: ContactSource[] = [];
   clientStatuses: ClientStatus[] = [];
+  clientKinds: ClientKind[] = [];
   isFormSubmitted = false;
   phoneMask = phoneMask;
   data: Partial<T> = {};
@@ -106,6 +107,12 @@ export abstract class Editor<T> implements OnInit {
   loadClientStatuses(): void {
     this.systemService.systemCustomerStatus().subscribe(
       kinds => this.clientStatuses = kinds ? (kinds as ClientStatus[]).sort(byField('name', 'asc', 'case-insensitive')) : []
+    );
+  }
+
+  loadClientKinds(): void {
+    this.systemService.systemCounterparty().subscribe(
+      kinds => this.clientKinds = kinds ? (kinds as ClientKind[]).sort(byField('num', 'asc', 'numeric')) : []
     );
   }
 

@@ -56,6 +56,7 @@ describe('ClientEditorComponent', () => {
             systemInteraction: () => of([]),
             systemContactSource: () => of([]),
             systemCustomerStatus: () => of([]),
+            systemCounterparty: () => of(),
           }
         },
       ]

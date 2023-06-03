@@ -409,25 +409,14 @@
 
           <div class="form-item">
             <div class="form-label">Тип контрагента:</div>
-            <span class="ui-select" contenteditable="false" style="margin-bottom: 0px; margin-top: 0px; margin-right: 0px; width: 247.312px;"><span
-                class="ui-select-width"
-                style="padding-left: 66px; font-size: 15px; font-family: regular, arial, &quot;sans-serif&quot;; display: block; overflow: hidden; height: 0px; line-height: 0; visibility: hidden; position: relative;">Экспедитор</span><select
-                name="var[counterparty_id]" class="init" style="display: none;">
-                <option value="1">Импортер</option>
-                <option value="2">Экспортер</option>
-                <option value="3">Экспедитор</option>
-              </select><span class="ui-select-input">Импортер</span><span class="ui-select-button">&nbsp;</span><span
-                class="ui-select-fader">&nbsp;</span><span class="ui-select-layer" style="display: none; height: auto; visibility: visible;"><span
-                  class="ui-select-list-scroller"><span class="ui-select-list"><span class="ui-select-item selected">Импортер</span><span
-                      class="ui-select-item odd">Экспортер</span><span class="ui-select-item">Экспедитор</span></span></span>
-                <div class="scrollbar-track">
-                  <div class="scrollbar-track-btn scrollbar-up"></div>
-                  <div class="scrollbar-track-free">
-                    <div class="scrollbar-bar"></div>
-                  </div>
-                  <div class="scrollbar-track-btn scrollbar-down"></div>
-                </div>
-              </span></span>
+            <mat-form-field appearance="outline" class="ui-select">
+              <mat-select formControlName="counterparty_id">
+                <mat-option *ngFor="let kind of clientKinds;" [value]="kind.id">{{ kind.name }}</mat-option>
+              </mat-select>
+              <mat-error *ngIf="form.controls['counterparty_id'].hasError('required')">
+                Это поле обязательно
+              </mat-error>
+            </mat-form-field>
           </div>
 
 
