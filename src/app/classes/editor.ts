@@ -4,7 +4,7 @@ import { Observable, tap } from 'rxjs';
 import { ActivatedRoute, Router } from '@angular/router';
 import { FormControl, FormGroup } from "@angular/forms";
 import { MatSnackBar, MatSnackBarConfig } from "@angular/material/snack-bar";
-import { BusinessKind, Currency, HeadPosition, TaxSystem } from "src/app/api/custom_models";
+import { BusinessKind, Currency, HeadPosition, InteractionKind, TaxSystem } from "src/app/api/custom_models";
 import { Location } from '@angular/common';
 import { phoneMask } from 'src/app/constants';
 import { SystemService } from 'src/app/api/services';
@@ -20,6 +20,7 @@ export abstract class Editor<T> implements OnInit {
   currencies: Currency[] = [];
   headPositions: HeadPosition[] = [];
   businessKinds: BusinessKind[] = [];
+  interactionKinds: InteractionKind[] = [];
   isFormSubmitted = false;
   phoneMask = phoneMask;
   data: Partial<T> = {};
@@ -85,6 +86,12 @@ export abstract class Editor<T> implements OnInit {
   loadBusinessKinds(): void {
     this.systemService.systemBusiness().subscribe(
       kinds => this.businessKinds = kinds ? (kinds as BusinessKind[]).sort(byField('num', 'asc', 'numeric')) : []
+    );
+  }
+  
+  loadInteractionKinds(): void {
+    this.systemService.systemInteraction().subscribe(
+      kinds => this.interactionKinds = kinds ? (kinds as InteractionKind[]).sort(byField('num', 'asc', 'numeric')) : []
     );
   }
 

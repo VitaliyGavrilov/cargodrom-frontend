@@ -53,6 +53,7 @@ describe('ClientEditorComponent', () => {
           provide: SystemService, useValue: <Partial<SystemService>>{
             systemHeadPosition: () => of([]),
             systemBusiness: () => of([]),
+            systemInteraction: () => of([]),
           }
         },
       ]
