@@ -70,6 +70,7 @@ export class ClientEditorComponent extends Editor<Client> implements OnInit {
       business_id: ['', []],
       interaction_id: ['', []],
       source_id: ['', []],
+      status_id: ['', []],
 
       document_address: ['', []],
       document_path: ['', []],
@@ -102,6 +103,7 @@ export class ClientEditorComponent extends Editor<Client> implements OnInit {
     this.loadBusinessKinds();
     this.loadInteractionKinds();
     this.loadContactSources();
+    this.loadClientStatuses();
   }
 
   protected override create(params: { body: Omit<Client, 'id'>; }): Observable<{ id: number; }> {

@@ -20,3 +20,5 @@ export * from './head-position';
 export * from './business-kind';
 export * from './interaction-kind';
 export * from './contact-source';
+export * from './client-status';
+export * from './customer-status';
