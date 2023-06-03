@@ -14,6 +14,7 @@ import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatSelectModule } from '@angular/material/select';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 import { ServicesComponent } from '../services/services.component';
+import { NgxMaskModule } from 'ngx-mask';
 
 describe('ClientEditorComponent', () => {
   let component: ClientEditorComponent;
@@ -28,6 +29,7 @@ describe('ClientEditorComponent', () => {
         MatFormFieldModule,
         MatSelectModule,
         NoopAnimationsModule,
+        NgxMaskModule.forRoot(),
       ],
       declarations: [ClientEditorComponent, EditorHeaderMockup, ServicesComponent],
       providers: [
