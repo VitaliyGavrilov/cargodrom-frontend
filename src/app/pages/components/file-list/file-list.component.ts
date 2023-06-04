@@ -1,7 +1,8 @@
+import { FileService } from './../../../api/services/file.service';
 import { FileDocument } from './../../../api/custom_models';
 import { Component, Input, OnInit, TemplateRef, ViewChild, ViewEncapsulation } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
-import { Observable, of } from 'rxjs';
+import { Observable, map, of, zip } from 'rxjs';
 
 export type FileDocumentExtended = Partial<FileDocument> & { formData?: FormData, removed?: true };
 
@@ -24,6 +25,7 @@ export class FileListComponent implements OnInit {
 
   constructor(
     private dialog: MatDialog,
+    private fileService: FileService,
   ) {
 
   }
@@ -40,7 +42,7 @@ export class FileListComponent implements OnInit {
       formData.append('var', this.var);
       formData.append('component', this.component);
       formData.append('item_id', String(this.itemId));
-      this.documents.push({ file_name: file.name, formData });
+      this.documents.push({ file_name: file.name, formData, item_id: this.itemId });
     }
   }
 
@@ -59,8 +61,43 @@ export class FileListComponent implements OnInit {
   get filteredDocuments(): FileDocumentExtended[] {
     return this.documents.filter(doc => !doc.removed);
   }
-  
-  save(id?: number): Observable<void> {
-    return of();
+
+  update(): Observable<void> {
+    const removedDocs = this.documents.filter(doc => doc.removed);
+    const createdDocs = this.documents.filter(doc => !!doc.formData);
+    const create$ = createdDocs.map(doc => this.fileService.fileCreate({
+      body: {
+        component: this.component, var: this.var, item_id: doc.item_id!, file: doc.formData as any
+      }
+    }));
+    const remove$ = removedDocs.map(doc => this.fileService.fileDelete({
+      body: {
+        component: this.component, var: this.var, item_id: doc.item_id!, id: doc.id!,
+      }
+    }));
+    const actions$ = [...remove$, ...create$];
+    if (actions$.length === 0) {
+      return of(undefined);
+    }
+    return zip(...actions$).pipe(map(() => undefined));
+  }
+
+  create(id: number): Observable<void> {
+    const create$ = this.filteredDocuments.map(doc => this.fileService.fileCreate({
+      body: {
+        component: this.component, var: this.var, item_id: id, file: doc.formData as any
+      }
+    }));
+    return zip(create$).pipe(map(() => undefined))
+  }
+
+  delete(): Observable<void> {
+    const docsWithId = this.documents.filter(doc => typeof doc.id === 'number');
+    const remove$ = docsWithId.map(doc => this.fileService.fileDelete({
+      body: {
+        component: this.component, var: this.var, item_id: doc.item_id!, id: doc.id!,
+      }
+    }));
+    return zip(remove$).pipe(map(() => undefined))
   }
 }

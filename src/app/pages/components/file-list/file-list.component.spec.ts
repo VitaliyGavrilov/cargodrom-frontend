@@ -2,6 +2,7 @@ import { ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { FileListComponent } from './file-list.component';
 import { MatDialog } from '@angular/material/dialog';
+import { FileService } from 'src/app/api/services';
 
 describe('FileListComponent', () => {
   let component: FileListComponent;
@@ -11,7 +12,8 @@ describe('FileListComponent', () => {
     await TestBed.configureTestingModule({
       declarations: [FileListComponent],
       providers: [
-        { provide: MatDialog, useValue: {} }
+        { provide: MatDialog, useValue: {} },
+        { provide: FileService, useValue: {} },
       ]
     })
       .compileComponents();
