@@ -1,106 +1,58 @@
-<div class="filter extend">
+<form class="filter extend" [formGroup]="filterForm">
   <div class="base">
     <div class="item">
       <div>
         <div class="title">Страна:</div>
-        <div class="data select"><span class="ui-select" contenteditable="false"
-            style="margin-bottom: 0px; margin-top: 0px; margin-right: 0px; width: 103px;"><span class="ui-select-width"
-              style="padding-left: 0px; font-size: 13px; font-family: regular, arial, &quot;sans-serif&quot;; display: block; overflow: hidden; height: 0px; line-height: 0; visibility: hidden; position: relative;">Не
-              выбрано</span><select name="filter[country]" class="init" style="display: none;">
-              <option value="">Не выбрано</option>
-              <option value="1">Россия</option>
-              <option value="5">Китай</option>
-              <option value="9">Монголия</option>
-              <option value="8">Беларусь</option>
-              <option value="10">Корея</option>
-              <option value="11">Тайвань</option>
-              <option value="12">Япония</option>
-              <option value="13">Малайзия</option>
-              <option value="14">Вьетнам</option>
-              <option value="15">Казахстан</option>
-              <option value="16">Германия</option>
-              <option value="17">Литва</option>
-              <option value="18">Италия</option>
-              <option value="19">Испания</option>
-            </select><span class="ui-select-input ui-select-input-def">Не выбрано</span><span
-              class="ui-select-button ui-select-button-def">&nbsp;</span><span class="ui-select-fader">&nbsp;</span><span class="ui-select-layer"
-              style="display: none; height: auto; visibility: visible;"><span class="ui-select-list-scroller"><span class="ui-select-list"><span
-                    class="ui-select-item selected">Не выбрано</span><span class="ui-select-item odd">Россия</span><span
-                    class="ui-select-item">Китай</span><span class="ui-select-item odd">Монголия</span><span
-                    class="ui-select-item">Беларусь</span><span class="ui-select-item odd">Корея</span><span
-                    class="ui-select-item">Тайвань</span><span class="ui-select-item odd">Япония</span><span
-                    class="ui-select-item">Малайзия</span><span class="ui-select-item odd">Вьетнам</span><span
-                    class="ui-select-item">Казахстан</span><span class="ui-select-item odd">Германия</span><span
-                    class="ui-select-item">Литва</span><span class="ui-select-item odd">Италия</span><span
-                    class="ui-select-item">Испания</span></span></span>
-              <div class="scrollbar-track">
-                <div class="scrollbar-track-btn scrollbar-up"></div>
-                <div class="scrollbar-track-free">
-                  <div class="scrollbar-bar"></div>
-                </div>
-                <div class="scrollbar-track-btn scrollbar-down"></div>
-              </div>
-            </span></span></div>
+        <div class="data select">
+          <mat-form-field appearance="outline" class="ui-select">
+            <mat-select formControlName="country_id">
+              <mat-option *ngFor="let country of countries;" [value]="country.id">{{ country.name }}</mat-option>
+            </mat-select>
+          </mat-form-field>
+        </div>
       </div>
     </div>
     <div class="item">
       <div>
         <div class="title">Группа:</div>
-        <div class="data select"><span class="ui-select" contenteditable="false"
-            style="margin-bottom: 0px; margin-top: 0px; margin-right: 0px; width: 155px;"><span class="ui-select-width"
-              style="padding-left: 0px; font-size: 13px; font-family: regular, arial, &quot;sans-serif&quot;; display: block; overflow: hidden; height: 0px; line-height: 0; visibility: hidden; position: relative;">Ивашка
-              сотоварищи</span><select name="filter[group]" class="init" style="display: none;">
-              <option value="">Не выбрано</option>
-              <option value="1">GR1</option>
-              <option value="6">Ивашка сотоварищи</option>
-              <option value="7">Товарищи</option>
-              <option value="8">The Group</option>
-              <option value="9">The Beatles</option>
-            </select><span class="ui-select-input ui-select-input-def">Не выбрано</span><span
-              class="ui-select-button ui-select-button-def">&nbsp;</span><span class="ui-select-fader">&nbsp;</span><span class="ui-select-layer"
-              style="display: none; height: auto; visibility: visible;"><span class="ui-select-list-scroller"><span class="ui-select-list"><span
-                    class="ui-select-item selected">Не выбрано</span><span class="ui-select-item odd">GR1</span><span class="ui-select-item">Ивашка
-                    сотоварищи</span><span class="ui-select-item odd">Товарищи</span><span class="ui-select-item">The Group</span><span
-                    class="ui-select-item odd">The Beatles</span></span></span>
-              <div class="scrollbar-track">
-                <div class="scrollbar-track-btn scrollbar-up"></div>
-                <div class="scrollbar-track-free">
-                  <div class="scrollbar-bar"></div>
-                </div>
-                <div class="scrollbar-track-btn scrollbar-down"></div>
-              </div>
-            </span></span></div>
+        <div class="data select">
+          <mat-form-field appearance="outline" class="ui-select">
+            <mat-select formControlName="group_id">
+              <mat-option *ngFor="let group of clientGroups;" [value]="group.id">{{ group.name }}</mat-option>
+            </mat-select>
+          </mat-form-field>
+        </div>
       </div>
     </div>
-    <div class="item open">
+    <div class="item" [ngClass]="{'open': showMore}">
       <div>
         <div class="title">&nbsp;</div>
-        <div class="data"><span class="addition-filter">Дополнительно</span></div>
-
+        <div class="data"><span class="addition-filter" (click)="toggleMore()">Дополнительно</span></div>
       </div>
     </div>
     <div class="item func">
       <div>
-        <span class="btn apply"><span>Применить</span></span> <span class="btn reset"><span></span></span>
+        <span class="btn apply" (click)="apply()"><span>Применить</span></span>
+        <span class="btn reset" (click)="reset()"><span></span></span>
       </div>
     </div>
 
   </div>
-  <div class="add show" style="">
+  <div class="add show" [ngClass]="{'hidden': !showMore}">
 
     <div class="row">
       <div class="item">
         <div>
           <div class="title">ИНН:</div>
-          <div class="data text"><input type="text" name="filter[inn]" value=""></div>
+          <div class="data text"><input type="text" formControlName="inn"></div>
         </div>
       </div>
       <div class="item">
         <div>
           <div class="title">Контактное лицо:</div>
-          <div class="data autocomplete"><input type="text" name="filter[inn]" value=""><span class="arrow"></span></div>
+          <div class="data autocomplete"><input type="text" formControlName="contact_id"><span class="arrow"></span></div>
         </div>
       </div>
     </div>
   </div>
-</div>
+</form>
