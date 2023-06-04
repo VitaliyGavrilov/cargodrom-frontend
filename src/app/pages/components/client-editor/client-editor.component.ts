@@ -1,10 +1,10 @@
 import { emailValidator, innValidator } from './../../../validators/pattern-validator';
 import { Validators } from '@angular/forms';
-import { Component, OnInit, ViewEncapsulation } from '@angular/core';
+import { Component, OnInit, ViewChild, ViewEncapsulation } from '@angular/core';
 import { FormBuilder } from '@angular/forms';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { ActivatedRoute, Router } from '@angular/router';
-import { Observable, tap } from 'rxjs';
+import { Observable, map, tap } from 'rxjs';
 import { City, Client, ClientGroup, Country, Employee, FileDocument } from 'src/app/api/custom_models';
 import { CompanyService, CustomerService, SystemService } from 'src/app/api/services';
 import { Editor } from 'src/app/classes/editor';
@@ -12,6 +12,7 @@ import { Location } from '@angular/common';
 import { CityService } from '../../services/city.service';
 import { CountryService } from '../../services/country.service';
 import { byField } from 'src/app/constants';
+import { FileListComponent } from '../file-list/file-list.component';
 
 @Component({
   selector: 'app-client-editor',
@@ -33,6 +34,8 @@ export class ClientEditorComponent extends Editor<Client> implements OnInit {
   clientGroups: ClientGroup[] = [];
   employees: Employee[] = [];
   documents: FileDocument[] = [];
+
+  @ViewChild('fileList', { static: true }) fileList!: FileListComponent;
 
   constructor(
     private fb: FormBuilder,
@@ -119,7 +122,7 @@ export class ClientEditorComponent extends Editor<Client> implements OnInit {
     this.loadEmployees();
     this.loadCurrencies();
   }
-  
+
   private afterRead(client: Client): void {
     this.getCities(client.country_id!);
     this.documents = client.documents_file || [];
@@ -127,6 +130,10 @@ export class ClientEditorComponent extends Editor<Client> implements OnInit {
 
   protected override create(params: { body: Omit<Client, 'id'>; }): Observable<{ id: number; }> {
     return this.customerService.customerCreate(params as any);
+  }
+  
+  protected override afterCreate(body: { id: number; }): Observable<{ id: number; }> {
+    return this.fileList.create(body.id).pipe(map(() => ({id: body.id})));
   }
 
   protected override read(params: { id: number; }): Observable<Client> {
@@ -136,9 +143,17 @@ export class ClientEditorComponent extends Editor<Client> implements OnInit {
   protected override update(params: { body: Partial<Client>; }): Observable<void> {
     return this.customerService.customerUpdate(params as any) as unknown as Observable<void>;
   }
+  
+  protected override afterUpdate(): Observable<void> {
+    return this.fileList.update();
+  }
 
   protected override delete(params: { body: { id: number; }; }): Observable<void> {
     return this.customerService.customerDelete(params as any) as unknown as Observable<void>;
+  }
+  
+  protected override afterDelete(): Observable<void> {
+    return this.fileList.delete();
   }
 
   protected override getNameForHeader(body: Client): string {
@@ -171,5 +186,5 @@ export class ClientEditorComponent extends Editor<Client> implements OnInit {
       groups => this.clientGroups = groups.items ? (groups.items as ClientGroup[]).sort(byField('name', 'asc', 'case-insensitive')) : []
     );
   }
-  
+
 }

@@ -5,7 +5,7 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { RouterTestingModule } from '@angular/router/testing';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { MatDialog } from '@angular/material/dialog';
-import { CompanyService, CustomerService, SystemService } from 'src/app/api/services';
+import { CompanyService, CustomerService, FileService, SystemService } from 'src/app/api/services';
 import { of } from 'rxjs';
 import { EditorHeaderMockup } from '@cargodrom/material/components/editor-header/editor-header.mockup';
 import { CityService } from '../../services/city.service';
@@ -68,6 +68,10 @@ describe('ClientEditorComponent', () => {
         {
           provide: CompanyService, useValue: <Partial<CompanyService>>{
             companyEmployeeList: () => of([]),
+          }
+        },
+        {
+          provide: FileService, useValue: <Partial<FileService>>{
           }
         },
       ]

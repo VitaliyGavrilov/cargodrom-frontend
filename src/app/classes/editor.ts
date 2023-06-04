@@ -1,6 +1,6 @@
 import { byField } from '../constants/sort-predicate';
 import { Directive, OnInit } from '@angular/core';
-import { Observable, tap } from 'rxjs';
+import { Observable, of, switchMap, tap } from 'rxjs';
 import { ActivatedRoute, Router } from '@angular/router';
 import { FormControl, FormGroup } from "@angular/forms";
 import { MatSnackBar, MatSnackBarConfig } from "@angular/material/snack-bar";
@@ -220,21 +220,38 @@ export abstract class Editor<T> implements OnInit {
   remove(): void {
     const body = { id: (this.data as any).id as number };
     this.delete({ body })
+      .pipe(switchMap(() => this.afterDelete()))
       .subscribe({
         next: () => this.showMessageAndGoBack(this.removedMessage),
         error: (err) => this.showError('Ошибка', err)
       });
   }
+  
+  protected afterCreate(body: {id: number}): Observable<{id: number}> {
+    return of ({id: body.id});
+  }
+
+  protected afterUpdate(): Observable<void> {
+    return of (undefined);
+  }
+  
+  protected afterDelete(): Observable<void> {
+    return of(undefined);
+  }
 
   private createData(body: any) {
-    this.create({ body }).pipe().subscribe({
-      next: ({id}) => this.showMessageAndSwitchToEditMode(this.createdMessage, id),
-      error: (err) => this.showError(`Ошибка`, err)
-    });
+    this.create({ body })
+      .pipe(switchMap(body => this.afterCreate(body)))
+      .subscribe({
+        next: ({ id }) => this.showMessageAndSwitchToEditMode(this.createdMessage, id),
+        error: (err) => this.showError(`Ошибка`, err)
+      });
   }
 
   private updateData(body: any) {
-    this.update({ body }).pipe().subscribe({
+    this.update({ body })
+    .pipe(switchMap(() => this.afterUpdate()))
+    .subscribe({
       next: () => this.showMessageAndReload(this.savedMessage),
       error: (err) => this.showError(`Ошибка`, err)
     });
