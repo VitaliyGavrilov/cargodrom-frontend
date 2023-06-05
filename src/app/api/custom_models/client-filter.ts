@@ -2,12 +2,31 @@ import { SortColumn } from "./sort-column";
 import { Client } from "./client";
 
 export interface ClientFilter {
-  
+  /**
+  * Поиск клиента по названию...
+  */
+  name?: string;
+
+  /**
+   * Страна (ID берем из запроса - direction_country)
+   */
   country_id?: number;
-  group_id: number;
+
+  /**
+   * ИНН
+   */
   inn?: string;
-  contact_id?: number;
-  
+
+  /**
+   * Контактное лицо
+   */
+  contact_fio?: string;
+
+  /**
+   * Группа (ID берем из запроса - customer_group_list)
+   */
+  group_id?: number;
+
   /**
    * Начальная позиция
    */

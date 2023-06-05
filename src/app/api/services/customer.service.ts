@@ -43,6 +43,31 @@ export class CustomerService extends BaseService {
   customerList$Response(params?: {
 
     /**
+     * Поиск клиента по названию...
+     */
+    name?: string;
+
+    /**
+     * Страна (ID берем из запроса - direction_country)
+     */
+    country_id?: number;
+
+    /**
+     * ИНН
+     */
+    inn?: string;
+
+    /**
+     * Контактное лицо
+     */
+    contact_fio?: string;
+
+    /**
+     * Группа (ID берем из запроса - customer_group_list)
+     */
+    group_id?: number;
+
+    /**
      * Начальная позиция
      */
     start?: number;
@@ -60,7 +85,7 @@ export class CustomerService extends BaseService {
 /**
  * Поле
  */
-'field': string;
+'field': 'id' | 'name' | 'order_count' | 'order_day_last' | 'order_delay_payment';
 
 /**
  * Направление сортировки
@@ -70,6 +95,11 @@ export class CustomerService extends BaseService {
     context?: HttpContext
   }
 ): Observable<StrictHttpResponse<Array<{
+
+/**
+ * Позиции
+ */
+'items'?: Array<{
 
 /**
  * ID
@@ -389,32 +419,154 @@ export class CustomerService extends BaseService {
 /**
  * Количество заказов
  */
-'count'?: number;
+'order_count'?: string;
 
 /**
  * Дней с последнего заказа
  */
-'days'?: number;
-
-/**
- * Дней с последнего заказа (расширенная строка)
- */
-'days_string'?: string;
+'order_day_last'?: string;
 
 /**
  * Просрочка платежей
  */
-'delay_payment'?: number;
+'order_delay_payment'?: string;
+};
+}>;
 
 /**
- * Просрочка платежей (расширенная строка)
+ * Всего позиций
  */
-'delay_payment_string'?: string;
-};
+'total'?: number;
+
+/**
+ * Параметры таблицы
+ */
+'listing'?: Array<{
+
+/**
+ * Выводимая переменая
+ */
+'field'?: string;
+
+/**
+ * Наименование столбца
+ */
+'name'?: string;
+
+/**
+ * Ширина столбца
+ */
+'width'?: string;
+
+/**
+ * Разрешение сортировки
+ */
+'sort'?: boolean;
+
+/**
+ * Вложенные столбцы
+ */
+'columns'?: Array<{
+
+/**
+ * Переменая
+ */
+'field'?: string;
+
+/**
+ * Наименование столбца
+ */
+'name'?: string;
+
+/**
+ * Ширина столбца
+ */
+'width'?: string;
+
+/**
+ * Разрешение сортировки
+ */
+'sort'?: boolean;
+}>;
+}>;
+
+/**
+ * Параметры поиска
+ */
+'search'?: Array<{
+
+/**
+ * Поиск в заголовке
+ */
+'header'?: Array<{
+
+/**
+ * Переменая
+ */
+'field'?: string;
+
+/**
+ * Тип запроса
+ */
+'type'?: string;
+
+/**
+ * Наименование
+ */
+'name'?: string;
+}>;
+
+/**
+ * Поиск основной
+ */
+'main'?: Array<{
+
+/**
+ * Переменая
+ */
+'field'?: string;
+
+/**
+ * Тип запроса
+ */
+'type'?: string;
+
+/**
+ * Наименование
+ */
+'name'?: string;
+}>;
+
+/**
+ * Поиск расширенный
+ */
+'additional'?: Array<{
+
+/**
+ * Переменая
+ */
+'field'?: string;
+
+/**
+ * Тип запроса
+ */
+'type'?: string;
+
+/**
+ * Наименование
+ */
+'name'?: string;
+}>;
+}>;
 }>>> {
 
     const rb = new RequestBuilder(this.rootUrl, CustomerService.CustomerListPath, 'get');
     if (params) {
+      rb.query('name', params.name, {});
+      rb.query('country_id', params.country_id, {});
+      rb.query('inn', params.inn, {});
+      rb.query('contact_fio', params.contact_fio, {});
+      rb.query('group_id', params.group_id, {});
       rb.query('start', params.start, {});
       rb.query('count', params.count, {});
       rb.query('sort', params.sort, {"style":"form","explode":false});
@@ -428,6 +580,11 @@ export class CustomerService extends BaseService {
       filter((r: any) => r instanceof HttpResponse),
       map((r: HttpResponse<any>) => {
         return r as StrictHttpResponse<Array<{
+        
+        /**
+         * Позиции
+         */
+        'items'?: Array<{
         
         /**
          * ID
@@ -747,28 +904,145 @@ export class CustomerService extends BaseService {
         /**
          * Количество заказов
          */
-        'count'?: number;
+        'order_count'?: string;
         
         /**
          * Дней с последнего заказа
          */
-        'days'?: number;
-        
-        /**
-         * Дней с последнего заказа (расширенная строка)
-         */
-        'days_string'?: string;
+        'order_day_last'?: string;
         
         /**
          * Просрочка платежей
          */
-        'delay_payment'?: number;
+        'order_delay_payment'?: string;
+        };
+        }>;
         
         /**
-         * Просрочка платежей (расширенная строка)
+         * Всего позиций
          */
-        'delay_payment_string'?: string;
-        };
+        'total'?: number;
+        
+        /**
+         * Параметры таблицы
+         */
+        'listing'?: Array<{
+        
+        /**
+         * Выводимая переменая
+         */
+        'field'?: string;
+        
+        /**
+         * Наименование столбца
+         */
+        'name'?: string;
+        
+        /**
+         * Ширина столбца
+         */
+        'width'?: string;
+        
+        /**
+         * Разрешение сортировки
+         */
+        'sort'?: boolean;
+        
+        /**
+         * Вложенные столбцы
+         */
+        'columns'?: Array<{
+        
+        /**
+         * Переменая
+         */
+        'field'?: string;
+        
+        /**
+         * Наименование столбца
+         */
+        'name'?: string;
+        
+        /**
+         * Ширина столбца
+         */
+        'width'?: string;
+        
+        /**
+         * Разрешение сортировки
+         */
+        'sort'?: boolean;
+        }>;
+        }>;
+        
+        /**
+         * Параметры поиска
+         */
+        'search'?: Array<{
+        
+        /**
+         * Поиск в заголовке
+         */
+        'header'?: Array<{
+        
+        /**
+         * Переменая
+         */
+        'field'?: string;
+        
+        /**
+         * Тип запроса
+         */
+        'type'?: string;
+        
+        /**
+         * Наименование
+         */
+        'name'?: string;
+        }>;
+        
+        /**
+         * Поиск основной
+         */
+        'main'?: Array<{
+        
+        /**
+         * Переменая
+         */
+        'field'?: string;
+        
+        /**
+         * Тип запроса
+         */
+        'type'?: string;
+        
+        /**
+         * Наименование
+         */
+        'name'?: string;
+        }>;
+        
+        /**
+         * Поиск расширенный
+         */
+        'additional'?: Array<{
+        
+        /**
+         * Переменая
+         */
+        'field'?: string;
+        
+        /**
+         * Тип запроса
+         */
+        'type'?: string;
+        
+        /**
+         * Наименование
+         */
+        'name'?: string;
+        }>;
+        }>;
         }>>;
       })
     );
@@ -785,6 +1059,31 @@ export class CustomerService extends BaseService {
    * This method doesn't expect any request body.
    */
   customerList(params?: {
+
+    /**
+     * Поиск клиента по названию...
+     */
+    name?: string;
+
+    /**
+     * Страна (ID берем из запроса - direction_country)
+     */
+    country_id?: number;
+
+    /**
+     * ИНН
+     */
+    inn?: string;
+
+    /**
+     * Контактное лицо
+     */
+    contact_fio?: string;
+
+    /**
+     * Группа (ID берем из запроса - customer_group_list)
+     */
+    group_id?: number;
 
     /**
      * Начальная позиция
@@ -804,7 +1103,7 @@ export class CustomerService extends BaseService {
 /**
  * Поле
  */
-'field': string;
+'field': 'id' | 'name' | 'order_count' | 'order_day_last' | 'order_delay_payment';
 
 /**
  * Направление сортировки
@@ -816,6 +1115,11 @@ export class CustomerService extends BaseService {
 ): Observable<Array<{
 
 /**
+ * Позиции
+ */
+'items'?: Array<{
+
+/**
  * ID
  */
 'id': number;
@@ -1133,34 +1437,156 @@ export class CustomerService extends BaseService {
 /**
  * Количество заказов
  */
-'count'?: number;
+'order_count'?: string;
 
 /**
  * Дней с последнего заказа
  */
-'days'?: number;
-
-/**
- * Дней с последнего заказа (расширенная строка)
- */
-'days_string'?: string;
+'order_day_last'?: string;
 
 /**
  * Просрочка платежей
  */
-'delay_payment'?: number;
+'order_delay_payment'?: string;
+};
+}>;
 
 /**
- * Просрочка платежей (расширенная строка)
+ * Всего позиций
  */
-'delay_payment_string'?: string;
-};
+'total'?: number;
+
+/**
+ * Параметры таблицы
+ */
+'listing'?: Array<{
+
+/**
+ * Выводимая переменая
+ */
+'field'?: string;
+
+/**
+ * Наименование столбца
+ */
+'name'?: string;
+
+/**
+ * Ширина столбца
+ */
+'width'?: string;
+
+/**
+ * Разрешение сортировки
+ */
+'sort'?: boolean;
+
+/**
+ * Вложенные столбцы
+ */
+'columns'?: Array<{
+
+/**
+ * Переменая
+ */
+'field'?: string;
+
+/**
+ * Наименование столбца
+ */
+'name'?: string;
+
+/**
+ * Ширина столбца
+ */
+'width'?: string;
+
+/**
+ * Разрешение сортировки
+ */
+'sort'?: boolean;
+}>;
+}>;
+
+/**
+ * Параметры поиска
+ */
+'search'?: Array<{
+
+/**
+ * Поиск в заголовке
+ */
+'header'?: Array<{
+
+/**
+ * Переменая
+ */
+'field'?: string;
+
+/**
+ * Тип запроса
+ */
+'type'?: string;
+
+/**
+ * Наименование
+ */
+'name'?: string;
+}>;
+
+/**
+ * Поиск основной
+ */
+'main'?: Array<{
+
+/**
+ * Переменая
+ */
+'field'?: string;
+
+/**
+ * Тип запроса
+ */
+'type'?: string;
+
+/**
+ * Наименование
+ */
+'name'?: string;
+}>;
+
+/**
+ * Поиск расширенный
+ */
+'additional'?: Array<{
+
+/**
+ * Переменая
+ */
+'field'?: string;
+
+/**
+ * Тип запроса
+ */
+'type'?: string;
+
+/**
+ * Наименование
+ */
+'name'?: string;
+}>;
+}>;
 }>> {
 
     return this.customerList$Response(params).pipe(
       map((r: StrictHttpResponse<Array<{
 
 /**
+ * Позиции
+ */
+'items'?: Array<{
+
+/**
  * ID
  */
 'id': number;
@@ -1478,31 +1904,153 @@ export class CustomerService extends BaseService {
 /**
  * Количество заказов
  */
-'count'?: number;
+'order_count'?: string;
 
 /**
  * Дней с последнего заказа
  */
-'days'?: number;
-
-/**
- * Дней с последнего заказа (расширенная строка)
- */
-'days_string'?: string;
+'order_day_last'?: string;
 
 /**
  * Просрочка платежей
  */
-'delay_payment'?: number;
+'order_delay_payment'?: string;
+};
+}>;
 
 /**
- * Просрочка платежей (расширенная строка)
+ * Всего позиций
  */
-'delay_payment_string'?: string;
-};
+'total'?: number;
+
+/**
+ * Параметры таблицы
+ */
+'listing'?: Array<{
+
+/**
+ * Выводимая переменая
+ */
+'field'?: string;
+
+/**
+ * Наименование столбца
+ */
+'name'?: string;
+
+/**
+ * Ширина столбца
+ */
+'width'?: string;
+
+/**
+ * Разрешение сортировки
+ */
+'sort'?: boolean;
+
+/**
+ * Вложенные столбцы
+ */
+'columns'?: Array<{
+
+/**
+ * Переменая
+ */
+'field'?: string;
+
+/**
+ * Наименование столбца
+ */
+'name'?: string;
+
+/**
+ * Ширина столбца
+ */
+'width'?: string;
+
+/**
+ * Разрешение сортировки
+ */
+'sort'?: boolean;
+}>;
+}>;
+
+/**
+ * Параметры поиска
+ */
+'search'?: Array<{
+
+/**
+ * Поиск в заголовке
+ */
+'header'?: Array<{
+
+/**
+ * Переменая
+ */
+'field'?: string;
+
+/**
+ * Тип запроса
+ */
+'type'?: string;
+
+/**
+ * Наименование
+ */
+'name'?: string;
+}>;
+
+/**
+ * Поиск основной
+ */
+'main'?: Array<{
+
+/**
+ * Переменая
+ */
+'field'?: string;
+
+/**
+ * Тип запроса
+ */
+'type'?: string;
+
+/**
+ * Наименование
+ */
+'name'?: string;
+}>;
+
+/**
+ * Поиск расширенный
+ */
+'additional'?: Array<{
+
+/**
+ * Переменая
+ */
+'field'?: string;
+
+/**
+ * Тип запроса
+ */
+'type'?: string;
+
+/**
+ * Наименование
+ */
+'name'?: string;
+}>;
+}>;
 }>>) => r.body as Array<{
 
 /**
+ * Позиции
+ */
+'items'?: Array<{
+
+/**
  * ID
  */
 'id': number;
@@ -1820,28 +2368,145 @@ export class CustomerService extends BaseService {
 /**
  * Количество заказов
  */
-'count'?: number;
+'order_count'?: string;
 
 /**
  * Дней с последнего заказа
  */
-'days'?: number;
-
-/**
- * Дней с последнего заказа (расширенная строка)
- */
-'days_string'?: string;
+'order_day_last'?: string;
 
 /**
  * Просрочка платежей
  */
-'delay_payment'?: number;
+'order_delay_payment'?: string;
+};
+}>;
 
 /**
- * Просрочка платежей (расширенная строка)
+ * Всего позиций
  */
-'delay_payment_string'?: string;
-};
+'total'?: number;
+
+/**
+ * Параметры таблицы
+ */
+'listing'?: Array<{
+
+/**
+ * Выводимая переменая
+ */
+'field'?: string;
+
+/**
+ * Наименование столбца
+ */
+'name'?: string;
+
+/**
+ * Ширина столбца
+ */
+'width'?: string;
+
+/**
+ * Разрешение сортировки
+ */
+'sort'?: boolean;
+
+/**
+ * Вложенные столбцы
+ */
+'columns'?: Array<{
+
+/**
+ * Переменая
+ */
+'field'?: string;
+
+/**
+ * Наименование столбца
+ */
+'name'?: string;
+
+/**
+ * Ширина столбца
+ */
+'width'?: string;
+
+/**
+ * Разрешение сортировки
+ */
+'sort'?: boolean;
+}>;
+}>;
+
+/**
+ * Параметры поиска
+ */
+'search'?: Array<{
+
+/**
+ * Поиск в заголовке
+ */
+'header'?: Array<{
+
+/**
+ * Переменая
+ */
+'field'?: string;
+
+/**
+ * Тип запроса
+ */
+'type'?: string;
+
+/**
+ * Наименование
+ */
+'name'?: string;
+}>;
+
+/**
+ * Поиск основной
+ */
+'main'?: Array<{
+
+/**
+ * Переменая
+ */
+'field'?: string;
+
+/**
+ * Тип запроса
+ */
+'type'?: string;
+
+/**
+ * Наименование
+ */
+'name'?: string;
+}>;
+
+/**
+ * Поиск расширенный
+ */
+'additional'?: Array<{
+
+/**
+ * Переменая
+ */
+'field'?: string;
+
+/**
+ * Тип запроса
+ */
+'type'?: string;
+
+/**
+ * Наименование
+ */
+'name'?: string;
+}>;
+}>;
 }>)
     );
   }
@@ -2189,27 +2854,17 @@ export class CustomerService extends BaseService {
 /**
  * Количество заказов
  */
-'count'?: number;
+'order_count'?: string;
 
 /**
  * Дней с последнего заказа
  */
-'days'?: number;
-
-/**
- * Дней с последнего заказа (расширенная строка)
- */
-'days_string'?: string;
+'order_day_last'?: string;
 
 /**
  * Просрочка платежей
  */
-'delay_payment'?: number;
-
-/**
- * Просрочка платежей (расширенная строка)
- */
-'delay_payment_string'?: string;
+'order_delay_payment'?: string;
 };
 
 /**
@@ -2551,27 +3206,17 @@ export class CustomerService extends BaseService {
         /**
          * Количество заказов
          */
-        'count'?: number;
+        'order_count'?: string;
         
         /**
          * Дней с последнего заказа
          */
-        'days'?: number;
-        
-        /**
-         * Дней с последнего заказа (расширенная строка)
-         */
-        'days_string'?: string;
+        'order_day_last'?: string;
         
         /**
          * Просрочка платежей
          */
-        'delay_payment'?: number;
-        
-        /**
-         * Просрочка платежей (расширенная строка)
-         */
-        'delay_payment_string'?: string;
+        'order_delay_payment'?: string;
         };
         
         /**
@@ -2922,27 +3567,17 @@ export class CustomerService extends BaseService {
 /**
  * Количество заказов
  */
-'count'?: number;
+'order_count'?: string;
 
 /**
  * Дней с последнего заказа
  */
-'days'?: number;
-
-/**
- * Дней с последнего заказа (расширенная строка)
- */
-'days_string'?: string;
+'order_day_last'?: string;
 
 /**
  * Просрочка платежей
  */
-'delay_payment'?: number;
-
-/**
- * Просрочка платежей (расширенная строка)
- */
-'delay_payment_string'?: string;
+'order_delay_payment'?: string;
 };
 
 /**
@@ -3273,27 +3908,17 @@ export class CustomerService extends BaseService {
 /**
  * Количество заказов
  */
-'count'?: number;
+'order_count'?: string;
 
 /**
  * Дней с последнего заказа
  */
-'days'?: number;
-
-/**
- * Дней с последнего заказа (расширенная строка)
- */
-'days_string'?: string;
+'order_day_last'?: string;
 
 /**
  * Просрочка платежей
  */
-'delay_payment'?: number;
-
-/**
- * Просрочка платежей (расширенная строка)
- */
-'delay_payment_string'?: string;
+'order_delay_payment'?: string;
 };
 
 /**
@@ -3621,27 +4246,17 @@ export class CustomerService extends BaseService {
 /**
  * Количество заказов
  */
-'count'?: number;
+'order_count'?: string;
 
 /**
  * Дней с последнего заказа
  */
-'days'?: number;
-
-/**
- * Дней с последнего заказа (расширенная строка)
- */
-'days_string'?: string;
+'order_day_last'?: string;
 
 /**
  * Просрочка платежей
  */
-'delay_payment'?: number;
-
-/**
- * Просрочка платежей (расширенная строка)
- */
-'delay_payment_string'?: string;
+'order_delay_payment'?: string;
 };
 
 /**

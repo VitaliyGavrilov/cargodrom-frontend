@@ -67,7 +67,7 @@ export class ClientEditorComponent extends Editor<Client> implements OnInit {
       signature_basis: ['', []],
       address_legal: ['', []],
       address_post: ['', []],
-      contact_fio: ['', []],
+      contact_fio: ['', [Validators.required]],
       phone: ['', []],
       email: ['', [emailValidator]],
       web: ['', []],

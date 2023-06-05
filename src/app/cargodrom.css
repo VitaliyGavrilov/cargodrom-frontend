@@ -868,3 +868,8 @@ app-settings { display: flex; flex-direction: column; flex: 1 1 auto; }
 .sort-dir-asc::after { content: "↓"; position: relative; left: 0.5rem; }
 .sort-dir-desc::after { content: "↑"; position: relative; left: 0.5rem; }
 
+.form-button-right {
+  padding-top: 40px;
+  padding-bottom: 40px;
+  text-align: right;
+}

@@ -187,6 +187,7 @@
             <div class="form-label">Контактное лицо:</div>
             <div class="form-data">
               <input type="text" formControlName="contact_fio">
+              <ng-container *ngTemplateOutlet="error; context: {name: 'contact_fio'}"></ng-container>
             </div>
           </div>
           <div class="form-item">
