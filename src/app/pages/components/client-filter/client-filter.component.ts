@@ -24,10 +24,10 @@ export class ClientFilterComponent implements OnInit, OnChanges {
     fb: FormBuilder,
   ) {
     this.filterForm = fb.group<ClientFilter>({
-      country_id: 0,
-      group_id: 0,
+      country_id: undefined,
+      group_id: undefined,
       inn: '',
-      contact_id: 0,
+      contact_fio: '',
     });
   }
 
