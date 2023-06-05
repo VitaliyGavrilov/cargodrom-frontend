@@ -1,6 +1,12 @@
+import { of } from 'rxjs';
 import { ComponentFixture, TestBed } from '@angular/core/testing';
-
 import { ClientComponent } from './client.component';
+import { ClientFilterMockup } from '../client-filter/client-filter.mockup';
+import { CustomerService } from 'src/app/api/services';
+import { MatDialog } from '@angular/material/dialog';
+import { MatSnackBar } from '@angular/material/snack-bar';
+import { PaginatorMockup } from '@cargodrom/material/components/paginator/paginator.mockup';
+import { RouterTestingModule } from '@angular/router/testing';
 
 describe('ClientComponent', () => {
   let component: ClientComponent;
@@ -8,9 +14,21 @@ describe('ClientComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ ClientComponent ]
+      imports: [
+        RouterTestingModule
+      ],
+      declarations: [ClientComponent, ClientFilterMockup, PaginatorMockup],
+      providers: [
+        {
+          provide: CustomerService, useValue: <Partial<CustomerService>>{
+            customerList: () => of({})
+          }
+        },
+        { provide: MatDialog, useValue: {} },
+        { provide: MatSnackBar, useValue: {} },
+      ]
     })
-    .compileComponents();
+      .compileComponents();
 
     fixture = TestBed.createComponent(ClientComponent);
     component = fixture.componentInstance;

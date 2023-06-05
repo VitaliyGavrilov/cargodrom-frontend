@@ -21,6 +21,11 @@ import { ContactEditorComponent } from './components/contact-editor/contact-edit
 import { TradeDirectionComponent } from './components/trade-direction/trade-direction.component';
 import { ResponsibilityEditorComponent } from './components/responsibility-editor/responsibility-editor.component';
 import { MaterialModule } from '@cargodrom/material/material.module';
+import { ClientFilterComponent } from './components/client-filter/client-filter.component';
+import { ClientEditorComponent } from './components/client-editor/client-editor.component';
+import { ServicesComponent } from './components/services/services.component';
+import { NgxMaskModule } from 'ngx-mask';
+import { FileListComponent } from './components/file-list/file-list.component';
 
 
 @NgModule({
@@ -43,6 +48,10 @@ import { MaterialModule } from '@cargodrom/material/material.module';
     ContactEditorComponent,
     TradeDirectionComponent,
     ResponsibilityEditorComponent,
+    ClientFilterComponent,
+    ClientEditorComponent,
+    ServicesComponent,
+    FileListComponent,
   ],
   imports: [
     CommonModule,
@@ -50,6 +59,7 @@ import { MaterialModule } from '@cargodrom/material/material.module';
     FormsModule,
     ReactiveFormsModule,
     MaterialModule,
+    NgxMaskModule.forChild(),
   ]
 })
 export class PagesModule { }

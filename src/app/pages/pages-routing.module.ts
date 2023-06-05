@@ -11,6 +11,7 @@ import { ReportComponent } from './components/report/report.component';
 import { RequestComponent } from './components/request/request.component';
 import { TariffComponent } from './components/tariff/tariff.component';
 import { PagesComponent } from './pages.component';
+import { ClientEditorComponent } from './components/client-editor/client-editor.component';
 
 
 const routes: Routes = [
@@ -71,6 +72,16 @@ const routes: Routes = [
       {
         path: 'client',
         component: ClientComponent,
+        pathMatch: 'full',
+      },
+      {
+        path: 'client/:id',
+        component: ClientEditorComponent,
+        pathMatch: 'full',
+      },
+      {
+        path: 'client/add',
+        component: ClientEditorComponent,
         pathMatch: 'full',
       },
       {

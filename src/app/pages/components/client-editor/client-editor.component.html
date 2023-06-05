@@ -1,0 +1,493 @@
+<app-editor-header [title]="title" (save)="save()" (remove)="remove()" [isEditMode]="isEditMode" [name]="nameForHeader"></app-editor-header>
+
+<div class="edit-form">
+  <form class="form" [formGroup]="form" (ngSubmit)="save()">
+    <div class="form-block-title">Регистрационные</div>
+
+    <div class="form-block">
+
+      <div class="form-row">
+        <div class="form-item-layout">
+
+          <div class="form-item">
+            <div class="form-label">Наименование краткое: <span class="req">•</span></div>
+            <div class="form-data">
+              <input type="text" formControlName="name">
+              <ng-container *ngTemplateOutlet="error; context: {name: 'name'}"></ng-container>
+            </div>
+          </div>
+
+          <div class="form-item">
+            <div class="form-label">Наименование полное: <span class="req">•</span></div>
+            <div class="form-data">
+              <input type="text" formControlName="name_full">
+              <ng-container *ngTemplateOutlet="error; context: {name: 'name_full'}"></ng-container>
+            </div>
+          </div>
+
+        </div>
+
+        <div class="form-item-layout">
+          <div class="form-item">
+            <div class="form-label">Страна нахождения: <span class="req">•</span></div>
+            <div class="form-data">
+              <mat-form-field appearance="outline" class="ui-select">
+                <mat-select formControlName="country_id" (valueChange)="onCountryChange($event)">
+                  <mat-option *ngFor="let country of countries;" [value]="country.id">{{ country.name }}</mat-option>
+                </mat-select>
+                <mat-error *ngIf="form.controls['country_id'].hasError('required')">
+                  Это поле обязательно
+                </mat-error>
+              </mat-form-field>
+            </div>
+          </div>
+
+          <div class="form-item">
+            <div class="form-label">Город нахождения: <span class="req">•</span></div>
+            <div class="form-data">
+              <mat-form-field appearance="outline" class="ui-select">
+                <mat-select formControlName="city_id">
+                  <mat-option *ngFor="let city of cities;" [value]="city.id">{{ city.name }}</mat-option>
+                </mat-select>
+                <mat-error *ngIf="form.controls['city_id'].hasError('required')">
+                  Это поле обязательно
+                </mat-error>
+              </mat-form-field>
+            </div>
+          </div>
+
+        </div>
+
+
+
+      </div>
+
+
+      <div class="form-row">
+        <div class="form-item-layout">
+
+          <div class="form-item">
+            <div class="form-label">ИНН:</div>
+            <div class="form-data">
+              <input type="text" formControlName="inn">
+              <ng-container *ngTemplateOutlet="error; context: {name: 'inn'}"></ng-container>
+            </div>
+          </div>
+
+          <div class="form-item">
+            <div class="form-label">КПП:</div>
+            <div class="form-data">
+              <input type="text" formControlName="kpp">
+            </div>
+          </div>
+
+          <div class="form-item">
+            <div class="form-label">ОГРН:</div>
+            <div class="form-data">
+              <input type="text" formControlName="ogrn">
+            </div>
+          </div>
+
+          <div class="form-item">
+            <div class="form-label">ОКПО:</div>
+            <div class="form-data">
+              <input type="text" formControlName="okpo">
+            </div>
+          </div>
+
+        </div>
+
+      </div>
+
+    </div>
+
+
+    <div class="form-block-title">Документы</div>
+    <div class="form-block">
+
+      <div class="form-row">
+        <div class="form-item-layout">
+          <div class="form-item">
+            <div class="form-label">Руководитель ФИО:</div>
+            <div class="form-data">
+              <input type="text" formControlName="head_name">
+            </div>
+          </div>
+          <div class="form-item">
+            <div class="form-label">Должность руководителя:</div>
+            <div class="form-data">
+              <mat-form-field appearance="outline" class="ui-select">
+                <mat-select formControlName="head_position_id">
+                  <mat-option *ngFor="let pos of headPositions;" [value]="pos.id">{{ pos.name }}</mat-option>
+                </mat-select>
+                <!-- <mat-error *ngIf="form.controls['head_position_id].hasError('required')">
+                  Это поле обязательно
+                </mat-error> -->
+              </mat-form-field>
+            </div>
+          </div>
+        </div>
+      </div>
+
+
+      <div class="form-row">
+        <div class="form-item-layout">
+          <div class="form-item">
+            <div class="form-label">ФИО уполномоченного подписанта:</div>
+            <div class="form-data">
+              <input type="text" formControlName="signature_fio">
+            </div>
+          </div>
+          <div class="form-item">
+            <div class="form-label">Должность подписанта:</div>
+            <div class="form-data">
+              <input type="text" formControlName="signature_position">
+            </div>
+          </div>
+        </div>
+
+        <div class="form-item-layout">
+          <div class="form-item">
+            <div class="form-label">Основание для действий подписанта:</div>
+            <div class="form-data">
+              <input type="text" formControlName="signature_basis">
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="form-row">
+        <app-file-list [documents]="documents" component="customer" var="documents_file" [itemId]="id!" #fileList></app-file-list>
+      </div>
+    </div>
+
+
+
+    <div class="form-block-title">Контакты и адреса</div>
+    <div class="form-block">
+
+      <div class="form-row">
+        <div class="form-item-layout">
+          <div class="form-item">
+            <div class="form-label">Юридический адрес:</div>
+            <div class="form-data">
+              <input type="text" formControlName="address_legal">
+            </div>
+          </div>
+          <div class="form-item">
+            <div class="form-label">Почтовый адрес:</div>
+            <div class="form-data">
+              <input type="text" formControlName="address_post">
+            </div>
+          </div>
+        </div>
+
+        <div class="form-item-layout">
+          <div class="form-item">
+            <div class="form-label">Контактное лицо:</div>
+            <div class="form-data">
+              <input type="text" formControlName="contact_fio">
+            </div>
+          </div>
+          <div class="form-item">
+            <div class="form-label">Номер телефона:</div>
+            <div class="form-data">
+              <input type="text" formControlName="phone" [mask]="phoneMask">
+              <ng-container *ngTemplateOutlet="error; context: {name: 'phone'}"></ng-container>
+            </div>
+          </div>
+          <div class="form-item">
+            <div class="form-label">E-mail:</div>
+            <div class="form-data">
+              <input type="text" formControlName="email">
+              <ng-container *ngTemplateOutlet="error; context: {name: 'email'}"></ng-container>
+            </div>
+          </div>
+          <div class="form-item">
+            <div class="form-label">Сайт:</div>
+            <div class="form-data">
+              <input type="text" formControlName="web">
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="form-block-sub-title">Корреспонденция</div>
+      <div class="form-row">
+        <div class="form-item-layout">
+          <div class="form-item w50">
+            <div class="form-label">Адрес для корреспонденции:</div>
+            <div class="form-data">
+              <input type="text" formControlName="document_address">
+            </div>
+          </div>
+          <div class="form-item">
+            <div class="form-label">Контактное лицо:</div>
+            <div class="form-data">
+              <input type="text" formControlName="document_contact_fio">
+            </div>
+          </div>
+          <div class="form-item">
+            <div class="form-label">Телефон получателя:</div>
+            <div class="form-data">
+              <input type="text" formControlName="document_contact_phone" [mask]="phoneMask">
+              <ng-container *ngTemplateOutlet="error; context: {name: 'document_contact_phone'}"></ng-container>
+            </div>
+          </div>
+        </div>
+      </div>
+
+
+      <div class="form-block-sub-title">Доставка груза</div>
+      <div class="form-row">
+        <div class="form-item-layout">
+          <div class="form-item w50">
+            <div class="form-label">Адрес для доставки груза:</div>
+            <div class="form-data">
+              <input type="text" formControlName="delivery_address">
+            </div>
+          </div>
+          <div class="form-item">
+            <div class="form-label">Контактное лицо:</div>
+            <div class="form-data">
+              <input type="text" formControlName="delivery_contact_fio">
+            </div>
+          </div>
+
+          <div class="form-item">
+            <div class="form-label">Телефон получателя:</div>
+            <div class="form-data">
+              <input type="text" formControlName="delivery_contact_phone" [mask]="phoneMask">
+              <ng-container *ngTemplateOutlet="error; context: {name: 'delivery_contact_phone'}"></ng-container>
+            </div>
+          </div>
+
+        </div>
+
+        <div class="form-item-layout">
+
+          <div class="form-item">
+            <div class="form-label">График работы получателя:</div>
+            <div class="form-data">
+              <input type="text" formControlName="warehouse_schedule">
+            </div>
+          </div>
+        </div>
+      </div>
+
+    </div>
+
+    <div class="form-block-title">Финансы</div>
+    <div class="form-block">
+
+      <div class="form-row">
+        <div class="form-item-layout">
+          <div class="form-item w50">
+            <div class="form-label">Наименование банка:</div>
+            <div class="form-data">
+              <input type="text" formControlName="bank_name">
+            </div>
+          </div>
+          <div class="form-item">
+            <div class="form-label">БИК банка:</div>
+            <div class="form-data">
+              <input type="text" formControlName="bank_bik">
+            </div>
+          </div>
+          <div class="form-item">
+            <div class="form-label">КПП банка:</div>
+            <div class="form-data">
+              <input type="text" formControlName="bank_kpp">
+            </div>
+          </div>
+        </div>
+
+        <div class="form-item-layout">
+          <div class="form-item w50">
+            <div class="form-label">Расчетный счет:</div>
+            <div class="form-data">
+              <input type="text" formControlName="bank_payment_account">
+            </div>
+          </div>
+          <div class="form-item">
+            <div class="form-label">Корреспондентный счет:</div>
+            <div class="form-data">
+              <input type="text" formControlName="bank_correspondent_account">
+            </div>
+          </div>
+          <div class="form-item">
+            <div class="form-label">Валюта счета:</div>
+            <mat-form-field appearance="outline" class="ui-select">
+              <mat-select formControlName="currency">
+                <mat-option *ngFor="let currency of currencies;" [value]="currency.code">{{ currency.name }}</mat-option>
+              </mat-select>
+              <mat-error *ngIf="form.controls['manager_id'].hasError('required')">
+                Это поле обязательно
+              </mat-error>
+            </mat-form-field>
+          </div>
+        </div>
+
+      </div>
+
+      <div class="form-row">
+        <div class="form-item-layout">
+          <div class="form-item">
+            <div class="form-label">Главный бухгалтер:</div>
+            <div class="form-data">
+              <input type="text" formControlName="accountant_fio">
+            </div>
+          </div>
+          <div class="form-item">
+            <div class="form-label">Телефон Главного бухгалтера:</div>
+            <div class="form-data">
+              <input type="text" formControlName="accountant_phone" [mask]="phoneMask">
+              <ng-container *ngTemplateOutlet="error; context: {name: 'accountant_phone'}"></ng-container>
+            </div>
+          </div>
+
+        </div>
+      </div>
+
+    </div>
+
+    <div class="form-block-title">Сведения</div>
+    <div class="form-block">
+
+      <div class="form-row">
+        <div class="form-item-layout">
+          <div class="form-item w50">
+            <div class="form-label">Группа:</div>
+            <mat-form-field appearance="outline" class="ui-select">
+              <mat-select formControlName="group_id">
+                <mat-option *ngFor="let group of clientGroups;" [value]="group.id">{{ group.name }}</mat-option>
+              </mat-select>
+              <mat-error *ngIf="form.controls['group_id'].hasError('required')">
+                Это поле обязательно
+              </mat-error>
+            </mat-form-field>
+          </div>
+
+          <div class="form-item">
+            <div class="form-label">Статус:</div>
+            <mat-form-field appearance="outline" class="ui-select">
+              <mat-select formControlName="status_id">
+                <mat-option *ngFor="let status of clientStatuses;" [value]="status.id">{{ status.name }}</mat-option>
+              </mat-select>
+              <mat-error *ngIf="form.controls['status_id'].hasError('required')">
+                Это поле обязательно
+              </mat-error>
+            </mat-form-field>
+          </div>
+
+          <div class="form-item">
+            <div class="form-label">Тип контрагента:</div>
+            <mat-form-field appearance="outline" class="ui-select">
+              <mat-select formControlName="counterparty_id">
+                <mat-option *ngFor="let kind of clientKinds;" [value]="kind.id">{{ kind.name }}</mat-option>
+              </mat-select>
+              <mat-error *ngIf="form.controls['counterparty_id'].hasError('required')">
+                Это поле обязательно
+              </mat-error>
+            </mat-form-field>
+          </div>
+
+
+        </div>
+
+        <div class="form-item-layout">
+
+          <div class="form-item w50">
+            <div class="form-label">Отрасль деятельности:</div>
+              <mat-form-field appearance="outline" class="ui-select">
+                <mat-select formControlName="business_id">
+                  <mat-option *ngFor="let kind of businessKinds;" [value]="kind.id">{{ kind.name }}</mat-option>
+                </mat-select>
+                <mat-error *ngIf="form.controls['business_id'].hasError('required')">
+                  Это поле обязательно
+                </mat-error>
+              </mat-form-field>
+            </div>
+
+          <div class="form-item">
+            <div class="form-label">Взаимодействие:</div>
+            <mat-form-field appearance="outline" class="ui-select">
+              <mat-select formControlName="interaction_id">
+                <mat-option *ngFor="let kind of interactionKinds;" [value]="kind.id">{{ kind.name }}</mat-option>
+              </mat-select>
+              <mat-error *ngIf="form.controls['interaction_id'].hasError('required')">
+                Это поле обязательно
+              </mat-error>
+            </mat-form-field>
+          </div>
+
+          <div class="form-item">
+            <div class="form-label">Источник:</div>
+            <mat-form-field appearance="outline" class="ui-select">
+              <mat-select formControlName="source_id">
+                <mat-option *ngFor="let source of contactSources;" [value]="source.id">{{ source.name }}</mat-option>
+              </mat-select>
+              <mat-error *ngIf="form.controls['source_id'].hasError('required')">
+                Это поле обязательно
+              </mat-error>
+            </mat-form-field>
+          </div>
+
+        </div>
+
+      </div>
+
+
+      <div class="form-row">
+        <app-services [services]="serviceKinds" formControlName="service_ids"></app-services>
+      </div>
+
+      <div class="form-row">
+        <div class="form-item-layout">
+          <div class="form-item w50">
+            <div class="form-label">Примечение:</div>
+            <div class="form-data">
+              <textarea formControlName="note"></textarea>
+            </div>
+          </div>
+
+          <div class="form-item">
+            <div class="form-label">Менеджер по работе с клиентом:</div>
+            <mat-form-field appearance="outline" class="ui-select">
+              <mat-select formControlName="manager_id">
+                <mat-option *ngFor="let employee of employees;" [value]="employee.id">{{ employee.name_i }}</mat-option>
+              </mat-select>
+              <mat-error *ngIf="form.controls['manager_id'].hasError('required')">
+                Это поле обязательно
+              </mat-error>
+            </mat-form-field>
+          </div>
+
+          <div class="form-item">
+            <div class="form-label">Менеджер приведший клиента:</div>
+            <mat-form-field appearance="outline" class="ui-select">
+              <mat-select formControlName="manager_sale_id">
+                <mat-option *ngFor="let employee of employees;" [value]="employee.id">{{ employee.name_i }}</mat-option>
+              </mat-select>
+              <mat-error *ngIf="form.controls['manager_sale_id'].hasError('required')">
+                Это поле обязательно
+              </mat-error>
+            </mat-form-field>
+          </div>
+
+        </div>
+
+      </div>
+
+    </div>
+  </form>
+  <div class="form-button-right">
+    <span class="btn v save" (click)="save()"><span>сохранить</span></span>
+    <span class="btn v del" (click)="remove()"><span>Удалить</span></span>
+    <span class="btn v cancel" (click)="goBack()"><span>отмена</span></span>
+  </div>
+</div>
+
+<ng-template #error let-name="name">
+  <div class="error" *ngIf="isFormSubmitted && hasError(name)">{{ getError(name) }}</div>
+</ng-template>
