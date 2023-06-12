@@ -38,31 +38,87 @@
   </div>
 </div>
 <app-client-filter [filter]="filter" (filterChange)="onFilterChange($event)"></app-client-filter>
-<div class="table">
+<div class="table-list">
   <table>
     <tbody>
-      <tr>
+      <!-- <tr>
         <th rowspan="2">№</th>
         <th rowspan="2" [attr.title]="getColTitle('name')" (click)="sort('name')" [ngClass]="getSortClass('name')">Наименование клиента</th>
         <th rowspan="2" [attr.title]="getColTitle('inn')" (click)="sort('inn')" [ngClass]="getSortClass('inn')">ИНН</th>
-        <th rowspan="2" class="l" [attr.title]="getColTitle('country_name')" (click)="sort('country_name')" [ngClass]="getSortClass('country_name')">Страна</th>
+        <th rowspan="2" class="l" [attr.title]="getColTitle('country_name')" (click)="sort('country_name')" [ngClass]="getSortClass('country_name')">
+          Страна</th>
         <th rowspan="2" [attr.title]="getColTitle('city_name')" (click)="sort('city_name')" [ngClass]="getSortClass('city_name')">Город</th>
-        <th rowspan="2" class="l" [attr.title]="getColTitle('document_contact_fio')" (click)="sort('document_contact_fio')" [ngClass]="getSortClass('document_contact_fio')">Контактное лицо</th>
-        <th rowspan="2" [attr.title]="getColTitle('document_contact_phone')" (click)="sort('document_contact_phone')" [ngClass]="getSortClass('document_contact_phone')">Телефон</th>
+        <th rowspan="2" class="l" [attr.title]="getColTitle('document_contact_fio')" (click)="sort('document_contact_fio')"
+          [ngClass]="getSortClass('document_contact_fio')">Контактное лицо</th>
+        <th rowspan="2" [attr.title]="getColTitle('document_contact_phone')" (click)="sort('document_contact_phone')"
+          [ngClass]="getSortClass('document_contact_phone')">Телефон</th>
         <th class="l c lb ch" colspan="3">Заказы</th>
-        <th class="l" rowspan="2" [attr.title]="getColTitle('interaction_name')" (click)="sort('interaction_name')" [ngClass]="getSortClass('interaction_name')">Взаимодействие</th>
+        <th class="l" rowspan="2" [attr.title]="getColTitle('interaction_name')" (click)="sort('interaction_name')"
+          [ngClass]="getSortClass('interaction_name')">Взаимодействие</th>
         <th rowspan="2" [attr.title]="getColTitle('status_name')" (click)="sort('status_name')" [ngClass]="getSortClass('status_name')">Статус</th>
-        <th class="l" rowspan="2" [attr.title]="getColTitle('manager_name')" (click)="sort('manager_name')" [ngClass]="getSortClass('manager_name')">Менеджер</th>
-        <th rowspan="2" [attr.title]="getColTitle('manager_sale_name')" (click)="sort('manager_sale_name')" [ngClass]="getSortClass('manager_sale_name')">Менеджер продаж</th>
+        <th class="l" rowspan="2" [attr.title]="getColTitle('manager_name')" (click)="sort('manager_name')" [ngClass]="getSortClass('manager_name')">
+          Менеджер</th>
+        <th rowspan="2" [attr.title]="getColTitle('manager_sale_name')" (click)="sort('manager_sale_name')"
+          [ngClass]="getSortClass('manager_sale_name')">Менеджер продаж</th>
         <th rowspan="2" class="l c clp"><img src="../../../../assets/pic-dot-white-h.svg"></th>
-      </tr>
+      </tr> -->
       <tr>
+        <th>
+          <div class="td-block">
+            <div class="column w10">№</div>
+            <div class="column">
+              Наименование клиента
+            </div>
+            <div class="column w40 ">ИНН</div>
+          </div>
+
+        </th>
+        <th class="w15">
+          <div class="td-block">
+            <div class="column w50">Страна</div>
+            <div class="column w50">Город</div>
+          </div>
+        </th>
+        <th class="">
+          <div class="td-block">
+            <div class="column w60">Контактное лицо</div>
+            <div class="column w40">Телефон</div>
+          </div>
+        </th>
+        <th class="w15">
+          <div class="td-block-column">
+            <div class="td-block-title">Заказы</div>
+            <div class="td-block-line">
+              <div class="column center w30">Кол-во</div>
+              <div class="column center">С последнего</div>
+              <div class="column center w30">Просрочка</div>
+            </div>
+          </div>
+        </th>
+
+        <th class="w15">
+          <div class="td-block">
+            <div class="column w50">Взаимодействие</div>
+            <div class="column w50">Статус</div>
+          </div>
+        </th>
+        <th class="w15">
+          <div class="td-block">
+            <div class="column w50">Менеджер</div>
+            <div class="column w50">Менеджер продаж</div>
+          </div>
+        </th>
+        <th class="setting">
+          <div class="setting-link"></div>
+        </th>
+      </tr>
+      <!-- <tr>
         <th class="l c ch">Кол-во</th>
         <th class="c ch">С последнего</th>
         <th class="c ch">Просрочка</th>
-      </tr>
+      </tr> -->
 
-      <tr *ngFor="let client of rows; index as i; trackBy:trackById" [ngClass]="{'odd': i % 2 == 1}">
+      <!-- <tr *ngFor="let client of rows; index as i; trackBy:trackById" [ngClass]="{'odd': i % 2 == 1}">
         <td>{{ start + i + 1 }}</td>
         <td><a [routerLink]="[client.id]">{{ client.name }}</a></td>
         <td>{{ client.inn }}</td>
@@ -78,6 +134,49 @@
         <td class="l">{{ client.manager_name }}</td>
         <td>{{ client.manager_sale_name}}</td>
         <td class="gray"></td>
+      </tr> -->
+      <tr *ngFor="let client of rows; index as i; trackBy:trackById" [ngClass]="{'odd': i % 2 == 1}">
+        <td>
+          <div class="td-block">
+            <div class="column w10">{{ client.id }}</div>
+            <div class="column">{{ client.name }}</div>
+            <div class="column w40">{{ client.inn }}</div>
+          </div>
+
+        </td>
+        <td>
+          <div class="td-block">
+            <div class="column w50">{{ client.country_name }}</div>
+            <div class="column w50">{{ client.city_name }}</div>
+          </div>
+        </td>
+        <td>
+          <div class="td-block">
+            <div class="column w60">{{ client.document_contact_fio }}</div>
+            <div class="column w40">{{ client.document_contact_phone }}</div>
+          </div>
+        </td>
+        <td>
+          <div class="td-block-line">
+            <div class="column center w30 bold gray">{{ client.order_data?.order_count }}</div>
+            <div class="column center bold gray">{{ client.order_data?.order_day_last }}</div>
+            <div class="column center w30 bold gray">{{ client.order_data?.order_delay_payment }}</div>
+          </div>
+        </td>
+        <td>
+          <div class="td-block">
+            <div class="column w50">{{ client.interaction_name }}</div>
+            <div class="column w50">{{ client.status_name }}</div>
+          </div>
+        </td>
+        <td>
+          <div class="td-block">
+            <div class="column w50">{{ client.manager_name }}</div>
+            <div class="column w50">{{ client.manager_sale_name }}</div>
+          </div>
+        </td>
+        <td class="setting">
+        </td>
       </tr>
     </tbody>
   </table>

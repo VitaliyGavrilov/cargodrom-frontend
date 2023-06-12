@@ -319,28 +319,17 @@ export interface Client {
     /**
      * Количество заказов
      */
-    'count'?: number;
+    'order_count'?: string;
 
     /**
      * Дней с последнего заказа
      */
-    'days'?: number;
-
-    /**
-     * Дней с последнего заказа (расширенная строка)
-     */
-    'days_string'?: string;
+    'order_day_last'?: string;
 
     /**
      * Просрочка платежей
      */
-    'delay_payment'?: number;
-
-    /**
-     * Просрочка платежей (расширенная строка)
-     */
-    'delay_payment_string'?: string;
-    
+    'order_delay_payment'?: string;
   }
   documents_file?: FileDocument[];
 }
