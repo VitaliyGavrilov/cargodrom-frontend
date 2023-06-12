@@ -13,7 +13,7 @@ import localeRu from '@angular/common/locales/ru';
 import { NgxMaskModule, IConfig } from 'ngx-mask';
 
 const maskConfig: Partial<IConfig> = {
-  showMaskTyped: true,
+  showMaskTyped: false,
 };
 @NgModule({
   declarations: [
