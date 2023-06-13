@@ -5807,7 +5807,7 @@ export class CustomerService extends BaseService {
    * This method provides access to the full `HttpResponse`, allowing access to response headers.
    * To access only the response body, use `customerFileCreate()` instead.
    *
-   * This method sends `application/json` and handles request body of type `application/json`.
+   * This method sends `multipart/form-data` and handles request body of type `multipart/form-data`.
    */
   customerFileCreate$Response(params?: {
     context?: HttpContext
@@ -5826,7 +5826,7 @@ export class CustomerService extends BaseService {
 /**
  * Файл
  */
-'file': Blob;
+'file': file;
 }
   }
 ): Observable<StrictHttpResponse<{
@@ -5844,7 +5844,7 @@ export class CustomerService extends BaseService {
 
     const rb = new RequestBuilder(this.rootUrl, CustomerService.CustomerFileCreatePath, 'post');
     if (params) {
-      rb.body(params.body, 'application/json');
+      rb.body(params.body, 'multipart/form-data');
     }
 
     return this.http.request(rb.build({
@@ -5878,7 +5878,7 @@ export class CustomerService extends BaseService {
    * This method provides access to only to the response body.
    * To access the full response (for headers, for example), `customerFileCreate$Response()` instead.
    *
-   * This method sends `application/json` and handles request body of type `application/json`.
+   * This method sends `multipart/form-data` and handles request body of type `multipart/form-data`.
    */
   customerFileCreate(params?: {
     context?: HttpContext
@@ -5897,7 +5897,7 @@ export class CustomerService extends BaseService {
 /**
  * Файл
  */
-'file': Blob;
+'file': file;
 }
   }
 ): Observable<{

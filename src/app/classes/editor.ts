@@ -56,6 +56,7 @@ export abstract class Editor<T> implements OnInit {
   ngOnInit(): void {
     this.detectEditMode();
     if (this.isEditMode) {
+      this.id = this.getIdParam();
       this.load();
     }
     this.currentTitle = this.isEditMode ? this.editTitle : this.newTitle;

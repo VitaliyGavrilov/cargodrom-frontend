@@ -4,7 +4,7 @@ export interface FileDocument {
   item_id: number;
   component: string;
   var: string;
-  file: string;
+  file: File;
   file_info: FileInfo;
   file_time: number;
   file_name: string;
