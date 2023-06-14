@@ -48,7 +48,7 @@ export class CustomerService extends BaseService {
     name?: string;
 
     /**
-     * Страна (ID берем из запроса - direction_country)
+     * Страна
      */
     country_id?: number;
 
@@ -63,7 +63,7 @@ export class CustomerService extends BaseService {
     contact_fio?: string;
 
     /**
-     * Группа (ID берем из запроса - customer_group_list)
+     * Группа
      */
     group_id?: number;
 
@@ -95,6 +95,11 @@ export class CustomerService extends BaseService {
     context?: HttpContext
   }
 ): Observable<StrictHttpResponse<Array<{
+
+/**
+ * Всего позиций
+ */
+'total'?: number;
 
 /**
  * Позиции
@@ -412,11 +417,6 @@ export class CustomerService extends BaseService {
 'time_edit'?: string;
 
 /**
- * Заказы
- */
-'order_data'?: {
-
-/**
  * Количество заказов
  */
 'order_count'?: string;
@@ -430,65 +430,12 @@ export class CustomerService extends BaseService {
  * Просрочка платежей
  */
 'order_delay_payment'?: string;
-};
 }>;
-
-/**
- * Всего позиций
- */
-'total'?: number;
 
 /**
  * Параметры таблицы
  */
-'listing'?: Array<{
-
-/**
- * Выводимая переменая
- */
-'field'?: string;
-
-/**
- * Наименование столбца
- */
-'name'?: string;
-
-/**
- * Ширина столбца
- */
-'width'?: string;
-
-/**
- * Разрешение сортировки
- */
-'sort'?: boolean;
-
-/**
- * Вложенные столбцы
- */
-'columns'?: Array<{
-
-/**
- * Переменая
- */
-'field'?: string;
-
-/**
- * Наименование столбца
- */
-'name'?: string;
-
-/**
- * Ширина столбца
- */
-'width'?: string;
-
-/**
- * Разрешение сортировки
- */
-'sort'?: boolean;
-}>;
-}>;
+'column'?: Array<string>;
 
 /**
  * Параметры поиска
@@ -498,17 +445,17 @@ export class CustomerService extends BaseService {
 /**
  * Поиск в заголовке
  */
-'header'?: Array<{
+'search_header'?: Array<{
 
 /**
- * Переменая
+ * Переменная
  */
 'field'?: string;
 
 /**
- * Тип запроса
+ * Элемент формы
  */
-'type'?: string;
+'form'?: string;
 
 /**
  * Наименование
@@ -519,17 +466,17 @@ export class CustomerService extends BaseService {
 /**
  * Поиск основной
  */
-'main'?: Array<{
+'search_main'?: Array<{
 
 /**
- * Переменая
+ * Переменная
  */
 'field'?: string;
 
 /**
- * Тип запроса
+ * Элемент формы
  */
-'type'?: string;
+'form'?: string;
 
 /**
  * Наименование
@@ -540,17 +487,17 @@ export class CustomerService extends BaseService {
 /**
  * Поиск расширенный
  */
-'additional'?: Array<{
+'search_additional'?: Array<{
 
 /**
- * Переменая
+ * Переменная
  */
 'field'?: string;
 
 /**
- * Тип запроса
+ * Элемент формы
  */
-'type'?: string;
+'form'?: string;
 
 /**
  * Наименование
@@ -558,6 +505,11 @@ export class CustomerService extends BaseService {
 'name'?: string;
 }>;
 }>;
+
+/**
+ * Поля сортировки
+ */
+'sort'?: Array<string>;
 }>>> {
 
     const rb = new RequestBuilder(this.rootUrl, CustomerService.CustomerListPath, 'get');
@@ -580,6 +532,11 @@ export class CustomerService extends BaseService {
       filter((r: any) => r instanceof HttpResponse),
       map((r: HttpResponse<any>) => {
         return r as StrictHttpResponse<Array<{
+        
+        /**
+         * Всего позиций
+         */
+        'total'?: number;
         
         /**
          * Позиции
@@ -897,11 +854,6 @@ export class CustomerService extends BaseService {
         'time_edit'?: string;
         
         /**
-         * Заказы
-         */
-        'order_data'?: {
-        
-        /**
          * Количество заказов
          */
         'order_count'?: string;
@@ -915,65 +867,12 @@ export class CustomerService extends BaseService {
          * Просрочка платежей
          */
         'order_delay_payment'?: string;
-        };
         }>;
-        
-        /**
-         * Всего позиций
-         */
-        'total'?: number;
         
         /**
          * Параметры таблицы
          */
-        'listing'?: Array<{
-        
-        /**
-         * Выводимая переменая
-         */
-        'field'?: string;
-        
-        /**
-         * Наименование столбца
-         */
-        'name'?: string;
-        
-        /**
-         * Ширина столбца
-         */
-        'width'?: string;
-        
-        /**
-         * Разрешение сортировки
-         */
-        'sort'?: boolean;
-        
-        /**
-         * Вложенные столбцы
-         */
-        'columns'?: Array<{
-        
-        /**
-         * Переменая
-         */
-        'field'?: string;
-        
-        /**
-         * Наименование столбца
-         */
-        'name'?: string;
-        
-        /**
-         * Ширина столбца
-         */
-        'width'?: string;
-        
-        /**
-         * Разрешение сортировки
-         */
-        'sort'?: boolean;
-        }>;
-        }>;
+        'column'?: Array<string>;
         
         /**
          * Параметры поиска
@@ -983,17 +882,17 @@ export class CustomerService extends BaseService {
         /**
          * Поиск в заголовке
          */
-        'header'?: Array<{
+        'search_header'?: Array<{
         
         /**
-         * Переменая
+         * Переменная
          */
         'field'?: string;
         
         /**
-         * Тип запроса
+         * Элемент формы
          */
-        'type'?: string;
+        'form'?: string;
         
         /**
          * Наименование
@@ -1004,17 +903,17 @@ export class CustomerService extends BaseService {
         /**
          * Поиск основной
          */
-        'main'?: Array<{
+        'search_main'?: Array<{
         
         /**
-         * Переменая
+         * Переменная
          */
         'field'?: string;
         
         /**
-         * Тип запроса
+         * Элемент формы
          */
-        'type'?: string;
+        'form'?: string;
         
         /**
          * Наименование
@@ -1025,17 +924,17 @@ export class CustomerService extends BaseService {
         /**
          * Поиск расширенный
          */
-        'additional'?: Array<{
+        'search_additional'?: Array<{
         
         /**
-         * Переменая
+         * Переменная
          */
         'field'?: string;
         
         /**
-         * Тип запроса
+         * Элемент формы
          */
-        'type'?: string;
+        'form'?: string;
         
         /**
          * Наименование
@@ -1043,6 +942,11 @@ export class CustomerService extends BaseService {
         'name'?: string;
         }>;
         }>;
+        
+        /**
+         * Поля сортировки
+         */
+        'sort'?: Array<string>;
         }>>;
       })
     );
@@ -1066,7 +970,7 @@ export class CustomerService extends BaseService {
     name?: string;
 
     /**
-     * Страна (ID берем из запроса - direction_country)
+     * Страна
      */
     country_id?: number;
 
@@ -1081,7 +985,7 @@ export class CustomerService extends BaseService {
     contact_fio?: string;
 
     /**
-     * Группа (ID берем из запроса - customer_group_list)
+     * Группа
      */
     group_id?: number;
 
@@ -1115,6 +1019,11 @@ export class CustomerService extends BaseService {
 ): Observable<Array<{
 
 /**
+ * Всего позиций
+ */
+'total'?: number;
+
+/**
  * Позиции
  */
 'items'?: Array<{
@@ -1430,11 +1339,6 @@ export class CustomerService extends BaseService {
 'time_edit'?: string;
 
 /**
- * Заказы
- */
-'order_data'?: {
-
-/**
  * Количество заказов
  */
 'order_count'?: string;
@@ -1448,65 +1352,12 @@ export class CustomerService extends BaseService {
  * Просрочка платежей
  */
 'order_delay_payment'?: string;
-};
 }>;
-
-/**
- * Всего позиций
- */
-'total'?: number;
 
 /**
  * Параметры таблицы
  */
-'listing'?: Array<{
-
-/**
- * Выводимая переменая
- */
-'field'?: string;
-
-/**
- * Наименование столбца
- */
-'name'?: string;
-
-/**
- * Ширина столбца
- */
-'width'?: string;
-
-/**
- * Разрешение сортировки
- */
-'sort'?: boolean;
-
-/**
- * Вложенные столбцы
- */
-'columns'?: Array<{
-
-/**
- * Переменая
- */
-'field'?: string;
-
-/**
- * Наименование столбца
- */
-'name'?: string;
-
-/**
- * Ширина столбца
- */
-'width'?: string;
-
-/**
- * Разрешение сортировки
- */
-'sort'?: boolean;
-}>;
-}>;
+'column'?: Array<string>;
 
 /**
  * Параметры поиска
@@ -1516,17 +1367,17 @@ export class CustomerService extends BaseService {
 /**
  * Поиск в заголовке
  */
-'header'?: Array<{
+'search_header'?: Array<{
 
 /**
- * Переменая
+ * Переменная
  */
 'field'?: string;
 
 /**
- * Тип запроса
+ * Элемент формы
  */
-'type'?: string;
+'form'?: string;
 
 /**
  * Наименование
@@ -1537,17 +1388,17 @@ export class CustomerService extends BaseService {
 /**
  * Поиск основной
  */
-'main'?: Array<{
+'search_main'?: Array<{
 
 /**
- * Переменая
+ * Переменная
  */
 'field'?: string;
 
 /**
- * Тип запроса
+ * Элемент формы
  */
-'type'?: string;
+'form'?: string;
 
 /**
  * Наименование
@@ -1558,17 +1409,17 @@ export class CustomerService extends BaseService {
 /**
  * Поиск расширенный
  */
-'additional'?: Array<{
+'search_additional'?: Array<{
 
 /**
- * Переменая
+ * Переменная
  */
 'field'?: string;
 
 /**
- * Тип запроса
+ * Элемент формы
  */
-'type'?: string;
+'form'?: string;
 
 /**
  * Наименование
@@ -1576,12 +1427,22 @@ export class CustomerService extends BaseService {
 'name'?: string;
 }>;
 }>;
+
+/**
+ * Поля сортировки
+ */
+'sort'?: Array<string>;
 }>> {
 
     return this.customerList$Response(params).pipe(
       map((r: StrictHttpResponse<Array<{
 
 /**
+ * Всего позиций
+ */
+'total'?: number;
+
+/**
  * Позиции
  */
 'items'?: Array<{
@@ -1897,11 +1758,6 @@ export class CustomerService extends BaseService {
 'time_edit'?: string;
 
 /**
- * Заказы
- */
-'order_data'?: {
-
-/**
  * Количество заказов
  */
 'order_count'?: string;
@@ -1915,65 +1771,12 @@ export class CustomerService extends BaseService {
  * Просрочка платежей
  */
 'order_delay_payment'?: string;
-};
 }>;
-
-/**
- * Всего позиций
- */
-'total'?: number;
 
 /**
  * Параметры таблицы
  */
-'listing'?: Array<{
-
-/**
- * Выводимая переменая
- */
-'field'?: string;
-
-/**
- * Наименование столбца
- */
-'name'?: string;
-
-/**
- * Ширина столбца
- */
-'width'?: string;
-
-/**
- * Разрешение сортировки
- */
-'sort'?: boolean;
-
-/**
- * Вложенные столбцы
- */
-'columns'?: Array<{
-
-/**
- * Переменая
- */
-'field'?: string;
-
-/**
- * Наименование столбца
- */
-'name'?: string;
-
-/**
- * Ширина столбца
- */
-'width'?: string;
-
-/**
- * Разрешение сортировки
- */
-'sort'?: boolean;
-}>;
-}>;
+'column'?: Array<string>;
 
 /**
  * Параметры поиска
@@ -1983,17 +1786,17 @@ export class CustomerService extends BaseService {
 /**
  * Поиск в заголовке
  */
-'header'?: Array<{
+'search_header'?: Array<{
 
 /**
- * Переменая
+ * Переменная
  */
 'field'?: string;
 
 /**
- * Тип запроса
+ * Элемент формы
  */
-'type'?: string;
+'form'?: string;
 
 /**
  * Наименование
@@ -2004,17 +1807,17 @@ export class CustomerService extends BaseService {
 /**
  * Поиск основной
  */
-'main'?: Array<{
+'search_main'?: Array<{
 
 /**
- * Переменая
+ * Переменная
  */
 'field'?: string;
 
 /**
- * Тип запроса
+ * Элемент формы
  */
-'type'?: string;
+'form'?: string;
 
 /**
  * Наименование
@@ -2025,17 +1828,17 @@ export class CustomerService extends BaseService {
 /**
  * Поиск расширенный
  */
-'additional'?: Array<{
+'search_additional'?: Array<{
 
 /**
- * Переменая
+ * Переменная
  */
 'field'?: string;
 
 /**
- * Тип запроса
+ * Элемент формы
  */
-'type'?: string;
+'form'?: string;
 
 /**
  * Наименование
@@ -2043,9 +1846,19 @@ export class CustomerService extends BaseService {
 'name'?: string;
 }>;
 }>;
+
+/**
+ * Поля сортировки
+ */
+'sort'?: Array<string>;
 }>>) => r.body as Array<{
 
 /**
+ * Всего позиций
+ */
+'total'?: number;
+
+/**
  * Позиции
  */
 'items'?: Array<{
@@ -2361,11 +2174,6 @@ export class CustomerService extends BaseService {
 'time_edit'?: string;
 
 /**
- * Заказы
- */
-'order_data'?: {
-
-/**
  * Количество заказов
  */
 'order_count'?: string;
@@ -2379,65 +2187,12 @@ export class CustomerService extends BaseService {
  * Просрочка платежей
  */
 'order_delay_payment'?: string;
-};
 }>;
-
-/**
- * Всего позиций
- */
-'total'?: number;
 
 /**
  * Параметры таблицы
  */
-'listing'?: Array<{
-
-/**
- * Выводимая переменая
- */
-'field'?: string;
-
-/**
- * Наименование столбца
- */
-'name'?: string;
-
-/**
- * Ширина столбца
- */
-'width'?: string;
-
-/**
- * Разрешение сортировки
- */
-'sort'?: boolean;
-
-/**
- * Вложенные столбцы
- */
-'columns'?: Array<{
-
-/**
- * Переменая
- */
-'field'?: string;
-
-/**
- * Наименование столбца
- */
-'name'?: string;
-
-/**
- * Ширина столбца
- */
-'width'?: string;
-
-/**
- * Разрешение сортировки
- */
-'sort'?: boolean;
-}>;
-}>;
+'column'?: Array<string>;
 
 /**
  * Параметры поиска
@@ -2447,17 +2202,17 @@ export class CustomerService extends BaseService {
 /**
  * Поиск в заголовке
  */
-'header'?: Array<{
+'search_header'?: Array<{
 
 /**
- * Переменая
+ * Переменная
  */
 'field'?: string;
 
 /**
- * Тип запроса
+ * Элемент формы
  */
-'type'?: string;
+'form'?: string;
 
 /**
  * Наименование
@@ -2468,17 +2223,17 @@ export class CustomerService extends BaseService {
 /**
  * Поиск основной
  */
-'main'?: Array<{
+'search_main'?: Array<{
 
 /**
- * Переменая
+ * Переменная
  */
 'field'?: string;
 
 /**
- * Тип запроса
+ * Элемент формы
  */
-'type'?: string;
+'form'?: string;
 
 /**
  * Наименование
@@ -2489,17 +2244,17 @@ export class CustomerService extends BaseService {
 /**
  * Поиск расширенный
  */
-'additional'?: Array<{
+'search_additional'?: Array<{
 
 /**
- * Переменая
+ * Переменная
  */
 'field'?: string;
 
 /**
- * Тип запроса
+ * Элемент формы
  */
-'type'?: string;
+'form'?: string;
 
 /**
  * Наименование
@@ -2507,6 +2262,11 @@ export class CustomerService extends BaseService {
 'name'?: string;
 }>;
 }>;
+
+/**
+ * Поля сортировки
+ */
+'sort'?: Array<string>;
 }>)
     );
   }
@@ -2847,11 +2607,6 @@ export class CustomerService extends BaseService {
 'time_edit'?: string;
 
 /**
- * Заказы
- */
-'order_data'?: {
-
-/**
  * Количество заказов
  */
 'order_count'?: string;
@@ -2865,7 +2620,6 @@ export class CustomerService extends BaseService {
  * Просрочка платежей
  */
 'order_delay_payment'?: string;
-};
 
 /**
  * Документы (файлы)
@@ -3199,11 +2953,6 @@ export class CustomerService extends BaseService {
         'time_edit'?: string;
         
         /**
-         * Заказы
-         */
-        'order_data'?: {
-        
-        /**
          * Количество заказов
          */
         'order_count'?: string;
@@ -3217,7 +2966,6 @@ export class CustomerService extends BaseService {
          * Просрочка платежей
          */
         'order_delay_payment'?: string;
-        };
         
         /**
          * Документы (файлы)
@@ -3560,11 +3308,6 @@ export class CustomerService extends BaseService {
 'time_edit'?: string;
 
 /**
- * Заказы
- */
-'order_data'?: {
-
-/**
  * Количество заказов
  */
 'order_count'?: string;
@@ -3578,7 +3321,6 @@ export class CustomerService extends BaseService {
  * Просрочка платежей
  */
 'order_delay_payment'?: string;
-};
 
 /**
  * Документы (файлы)
@@ -3901,11 +3643,6 @@ export class CustomerService extends BaseService {
 'time_edit'?: string;
 
 /**
- * Заказы
- */
-'order_data'?: {
-
-/**
  * Количество заказов
  */
 'order_count'?: string;
@@ -3919,7 +3656,6 @@ export class CustomerService extends BaseService {
  * Просрочка платежей
  */
 'order_delay_payment'?: string;
-};
 
 /**
  * Документы (файлы)
@@ -4239,11 +3975,6 @@ export class CustomerService extends BaseService {
 'time_edit'?: string;
 
 /**
- * Заказы
- */
-'order_data'?: {
-
-/**
  * Количество заказов
  */
 'order_count'?: string;
@@ -4257,7 +3988,6 @@ export class CustomerService extends BaseService {
  * Просрочка платежей
  */
 'order_delay_payment'?: string;
-};
 
 /**
  * Документы (файлы)
@@ -5807,7 +5537,7 @@ export class CustomerService extends BaseService {
    * This method provides access to the full `HttpResponse`, allowing access to response headers.
    * To access only the response body, use `customerFileCreate()` instead.
    *
-   * This method sends `application/json` and handles request body of type `application/json`.
+   * This method sends `multipart/form-data` and handles request body of type `multipart/form-data`.
    */
   customerFileCreate$Response(params?: {
     context?: HttpContext
@@ -5826,7 +5556,7 @@ export class CustomerService extends BaseService {
 /**
  * Файл
  */
-'file': Blob;
+'file': file;
 }
   }
 ): Observable<StrictHttpResponse<{
@@ -5844,7 +5574,7 @@ export class CustomerService extends BaseService {
 
     const rb = new RequestBuilder(this.rootUrl, CustomerService.CustomerFileCreatePath, 'post');
     if (params) {
-      rb.body(params.body, 'application/json');
+      rb.body(params.body, 'multipart/form-data');
     }
 
     return this.http.request(rb.build({
@@ -5878,7 +5608,7 @@ export class CustomerService extends BaseService {
    * This method provides access to only to the response body.
    * To access the full response (for headers, for example), `customerFileCreate$Response()` instead.
    *
-   * This method sends `application/json` and handles request body of type `application/json`.
+   * This method sends `multipart/form-data` and handles request body of type `multipart/form-data`.
    */
   customerFileCreate(params?: {
     context?: HttpContext
@@ -5897,7 +5627,7 @@ export class CustomerService extends BaseService {
 /**
  * Файл
  */
-'file': Blob;
+'file': file;
 }
   }
 ): Observable<{

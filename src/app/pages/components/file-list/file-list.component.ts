@@ -4,7 +4,7 @@ import { Component, Input, OnInit, TemplateRef, ViewChild, ViewEncapsulation } f
 import { MatDialog } from '@angular/material/dialog';
 import { Observable, map, of, zip } from 'rxjs';
 
-export type FileDocumentExtended = Partial<FileDocument> & { formData?: FormData, removed?: true };
+export type FileDocumentExtended = Partial<FileDocument> & { added?: true, removed?: true };
 
 @Component({
   selector: 'app-file-list',
@@ -37,17 +37,19 @@ export class FileListComponent implements OnInit {
   onFileSelected(event: Event) {
     const file: File = (event.target! as HTMLInputElement).files![0];
     if (file) {
-      const formData = new FormData();
-      formData.append('file', file, file.name);
-      formData.append('var', this.var);
-      formData.append('component', this.component);
-      formData.append('item_id', String(this.itemId));
-      this.documents.push({ file_name: file.name, formData, item_id: this.itemId });
+      this.documents.push({ file_name: file.name, file: file, item_id: this.itemId, component: this.component, var: this.var, added: true });
     }
   }
 
   remove(doc: FileDocumentExtended): void {
-    doc.removed = true;
+    if (doc.added) {
+      const index = this.documents.indexOf(doc);
+      if (index >= 0) {
+        this.documents.splice(index, 1);
+      }
+    } else {
+      doc.removed = true;
+    }
   }
 
   confirmRemove(doc: FileDocumentExtended): void {
@@ -64,10 +66,10 @@ export class FileListComponent implements OnInit {
 
   update(): Observable<void> {
     const removedDocs = this.documents.filter(doc => doc.removed);
-    const createdDocs = this.documents.filter(doc => !!doc.formData);
+    const createdDocs = this.documents.filter(doc => doc.added);
     const create$ = createdDocs.map(doc => this.fileService.fileCreate({
       body: {
-        component: this.component, var: this.var, item_id: doc.item_id!, file: doc.formData as any
+        component: this.component, var: this.var, item_id: doc.item_id!, file: doc.file!
       }
     }));
     const remove$ = removedDocs.map(doc => this.fileService.fileDelete({
@@ -85,7 +87,7 @@ export class FileListComponent implements OnInit {
   create(id: number): Observable<void> {
     const create$ = this.filteredDocuments.map(doc => this.fileService.fileCreate({
       body: {
-        component: this.component, var: this.var, item_id: id, file: doc.formData as any
+        component: this.component, var: this.var, item_id: id, file: doc.file!
       }
     }));
     return zip(create$).pipe(map(() => undefined))

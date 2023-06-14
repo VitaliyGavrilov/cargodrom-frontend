@@ -873,3 +873,75 @@ app-settings { display: flex; flex-direction: column; flex: 1 1 auto; }
   padding-bottom: 40px;
   text-align: right;
 }
+
+
+/* table list begin */
+.nowrap { white-space: nowrap; }
+
+.table-list table { width: 100%; font-size: 13px; border-collapse: collapse; line-height: 16px; height: 100%; }
+
+.table-list th {  background: #83909E;  color: #fff;  font-weight: normal; border-left: 1px solid #9ca6b1; padding: 0; text-align: left; height: 100%;  }
+.table-list th:first-child { border-left: none; }
+
+.table-list td {  background: #fff; font-weight: normal; border-left: 1px solid #E0E5EB; border-bottom: 1px solid #e0e5eb; padding: 0; box-sizing: border-box; height: 100%;  }
+.table-list td:first-child { border-left: none; }
+.table-list table tr:nth-child(odd) td {  background: #F7F9FC;  }
+
+.table-list .td-block {  display: flex; flex-direction: row; width: 100%; align-items: center; box-sizing: border-box; padding: 9px 8px 7px; min-height: 48px; height: 100%;    }
+.table-list .td-block .column { flex-grow: 1; box-sizing: border-box; padding: 0 8px; }
+
+.table-list .td-block-column { display: flex; flex-direction: column; height: 100%;   }
+.table-list .td-block-title { padding: 5px 13px 3px; border-bottom: 1px solid #9ca6b1;  flex-grow: 1; display: flex; align-items: center; justify-content: center;  }
+.table-list .td-block-line {  display: flex; flex-direction: row; width: 100%; align-items: center;  flex-grow: 1; gap: 1px; width: 100%; }
+.table-list .td-block-line .column { padding: 5px 13px 3px; text-align: center; box-sizing: border-box; display: flex;  flex-grow: 1; align-items: center; }
+
+.table-list th .td-block-line { background: #9ca6b1;  }
+.table-list th .td-block-line .column { background: #83909E; height: 100%; }
+
+.table-list .w5 { width: 5%; flex-grow: 0 !important; }
+.table-list .w10 { width: 10%; flex-grow: 0 !important; }
+.table-list .w15 { width: 15%; flex-grow: 0 !important; }
+.table-list .w20 { width: 20%; flex-grow: 0 !important; }
+.table-list .w25 { width: 25%; flex-grow: 0 !important; }
+.table-list .w30 { width: 30%; flex-grow: 0 !important; }
+.table-list .w33 { width: 33%; flex-grow: 0 !important; }
+.table-list .w40 { width: 40%; flex-grow: 0 !important; }
+.table-list .w50 { width: 50%; flex-grow: 0 !important; }
+.table-list .w60 { width: 60%; flex-grow: 0 !important; }
+.table-list .w70 { width: 70%; flex-grow: 0 !important; }
+.table-list .w80 { width: 80%; flex-grow: 0 !important; }
+.table-list .w90 { width: 90%; flex-grow: 0 !important; }
+
+.table-list .center {  text-align: center; justify-content: center;  }
+.table-list .left {  text-align: left; justify-content: left;  }
+.table-list .right {  text-align: right; justify-content: right;  }
+.table-list .bold { font-weight: bold; }
+.table-list .gray { color: #83909E; }
+.table-list .bg_gray { background-color: #AAB7C5; color: #fff; }
+.table-list .red { color: #FD7171; }
+.table-list .bg_red { background-color: #FD7171; color: #fff; }
+.table-list .green { color: #61BA5D; }
+.table-list .bg_green { background-color: #81DD7C; color: #fff; }
+
+
+.table-list td.setting, .table-list th.setting { width: 32px; border-left: none; }
+.table-list .setting-link { width: 100%; height: 100%; background: #606A74 url("../assets/pic-dot-white-h.svg") center no-repeat; cursor: pointer; }
+
+.table-list .kso { white-space: nowrap; }
+.table-list .kso span { display: inline-block; background: #FD7171; width: 8px; height: 28px; margin: 0 1px 0 1px; }
+.table-list .kso span.sel { background: #81DD7C;  }
+
+.table-list .transport { white-space: nowrap; display: flex; align-items: center; gap: 8px; }
+
+.table-list .type { display: inline-block; width: 26px; height: 26px; }
+.table-list .type + .type { margin-left: 7px; }
+.table-list .type.air { background: url('../assets/pic-service-air.svg') no-repeat 50% 50%; }
+.table-list .type.road { background: url('../assets/pic-service-road.svg') no-repeat 50% 50%; }
+.table-list .type.rail { background: url('../assets/pic-service-rail.svg') no-repeat 50% 50%; }
+.table-list .type.sea { background: url('../assets/pic-service-sea.svg') no-repeat 50% 50%; }
+.table-list .type2 {  margin: -6px 9px -12px 0;}
+
+.table-list sup { line-height: 0; }
+
+
+/* table list end */

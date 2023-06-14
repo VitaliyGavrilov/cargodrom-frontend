@@ -18,7 +18,9 @@ export abstract class Table<T extends { id: number }, A = never, F = never> impl
   snackBarWithShortDuration: MatSnackBarConfig = { duration: 1000 };
   snackBarWithLongDuration: MatSnackBarConfig = { duration: 5000 };
   filter?: F;
-  protected abstract load<T>(params: LoadParams<T, F>): Observable<{ total: number, items: T[] }>;
+  column?: string[];
+  sortableColumns?: string[];
+  protected abstract load<T>(params: LoadParams<T, F>): Observable<{ total: number, items: T[], column?: string[], sort?: string[] }>;
 
   protected removedMessage: string = 'Запись удалена';
 
@@ -60,6 +62,8 @@ export abstract class Table<T extends { id: number }, A = never, F = never> impl
     this.load({ start: this.start, count: this.count, sort: JSON.stringify(sortCol) as unknown as SortColumn<T>[], ...this.filter }).subscribe(rows => {
       this.rows = rows ? rows.items as T[] : [];
       this.total = rows.total;
+      this.column = rows.column;
+      this.sortableColumns = rows.sort;
     });
   }
   
@@ -150,6 +154,9 @@ export abstract class Table<T extends { id: number }, A = never, F = never> impl
   }
 
   sort(field: keyof T | A): void {
+    if (Array.isArray(this.sortableColumns) && !this.sortableColumns.includes(field as string)) {
+      return;
+    }
     this.start = 0;
     if (this.sortField === field) {
       this.sortDir = this.sortDir === 'asc' ? 'desc' : 'asc';
