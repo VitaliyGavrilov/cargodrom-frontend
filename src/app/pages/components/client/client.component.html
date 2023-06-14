@@ -118,23 +118,6 @@
         <th class="c ch">Просрочка</th>
       </tr> -->
 
-      <!-- <tr *ngFor="let client of rows; index as i; trackBy:trackById" [ngClass]="{'odd': i % 2 == 1}">
-        <td>{{ start + i + 1 }}</td>
-        <td><a [routerLink]="[client.id]">{{ client.name }}</a></td>
-        <td>{{ client.inn }}</td>
-        <td class="l">{{ client.country_name }}</td>
-        <td>{{ client.city_name }}</td>
-        <td class="l">{{ client.document_contact_fio }}</td>
-        <td>{{ client.document_contact_phone }}</td>
-        <td class="l c profit">{{ client.order_data?.count }}</td>
-        <td class="c profit">{{ client.order_data?.days_string }}</td>
-        <td class="c profit">{{ client.order_data?.delay_payment_string }}</td>
-        <td class="l">{{ client.interaction_name }}</td>
-        <td>{{ client.status_name }}</td>
-        <td class="l">{{ client.manager_name }}</td>
-        <td>{{ client.manager_sale_name}}</td>
-        <td class="gray"></td>
-      </tr> -->
       <tr *ngFor="let client of rows; index as i; trackBy:trackById" [ngClass]="{'odd': i % 2 == 1}">
         <td>
           <div class="td-block">
@@ -158,9 +141,9 @@
         </td>
         <td>
           <div class="td-block-line">
-            <div class="column center w30 bold gray">{{ client.order_data?.order_count }}</div>
-            <div class="column center bold gray">{{ client.order_data?.order_day_last }}</div>
-            <div class="column center w30 bold gray">{{ client.order_data?.order_delay_payment }}</div>
+            <div class="column center w30 bold gray">{{ client.order_count }}</div>
+            <div class="column center bold gray">{{ client.order_day_last }}</div>
+            <div class="column center w30 bold gray">{{ client.order_delay_payment }}</div>
           </div>
         </td>
         <td>

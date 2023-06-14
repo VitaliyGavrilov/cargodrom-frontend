@@ -805,7 +805,7 @@ export class FileService extends BaseService {
 /**
  * Файл
  */
-'file': File;
+'file': file;
 }
   }
 ): Observable<StrictHttpResponse<{

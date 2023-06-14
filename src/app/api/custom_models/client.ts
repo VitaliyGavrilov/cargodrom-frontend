@@ -312,24 +312,19 @@ export interface Client {
   'time_edit'?: string;
 
   /**
-   * Заказы
+   * Количество заказов
    */
-  'order_data'?: {
+  'order_count'?: string;
 
-    /**
-     * Количество заказов
-     */
-    'order_count'?: string;
+  /**
+   * Дней с последнего заказа
+   */
+  'order_day_last'?: string;
 
-    /**
-     * Дней с последнего заказа
-     */
-    'order_day_last'?: string;
+  /**
+   * Просрочка платежей
+   */
+  'order_delay_payment'?: string;
 
-    /**
-     * Просрочка платежей
-     */
-    'order_delay_payment'?: string;
-  }
   documents_file?: FileDocument[];
 }
