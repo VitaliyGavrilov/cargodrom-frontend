@@ -945,3 +945,11 @@ app-settings { display: flex; flex-direction: column; flex: 1 1 auto; }
 
 
 /* table list end */
+
+th.mat-header-cell:last-of-type, td.mat-cell:last-of-type, td.mat-footer-cell:last-of-type {
+  padding-right: unset !important;
+}
+
+.mat-table {
+  font-family: unset !important;
+}
