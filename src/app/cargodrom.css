@@ -950,6 +950,15 @@ th.mat-header-cell:last-of-type, td.mat-cell:last-of-type, td.mat-footer-cell:la
   padding-right: unset !important;
 }
 
+th.mat-header-cell:first-of-type, td.mat-cell:first-of-type, td.mat-footer-cell:first-of-type {
+  padding-left: 0  !important;;
+}
+
 .mat-table {
   font-family: unset !important;
+}
+
+.mat-header-cell {
+  font-size: 13px  !important;
+  font-weight: normal  !important;
 }
