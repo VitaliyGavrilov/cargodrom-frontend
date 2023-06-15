@@ -16,6 +16,8 @@ import { EditorHeaderComponent } from './components/editor-header/editor-header.
 import { MatButtonModule } from '@angular/material/button';
 import { MatDatepickerModule } from '@angular/material/datepicker';
 import { FocusInitialDirective } from './directives/focus-initial.directive';
+import {MatTableModule} from '@angular/material/table';
+
 
 @NgModule({
   declarations: [
@@ -39,6 +41,7 @@ import { FocusInitialDirective } from './directives/focus-initial.directive';
     MatButtonModule,
     MatDatepickerModule,
     MatNativeDateModule,
+    MatTableModule,
   ],
   exports: [
     MatDialogModule,
@@ -56,6 +59,7 @@ import { FocusInitialDirective } from './directives/focus-initial.directive';
     MatDatepickerModule,
     MatNativeDateModule,
     FocusInitialDirective,
+    MatTableModule,
   ]
 })
 export class MaterialModule { }
