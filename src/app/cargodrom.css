@@ -892,7 +892,7 @@ app-settings { display: flex; flex-direction: column; flex: 1 1 auto; }
 
 .table-list .td-block-column { display: flex; flex-direction: column; height: 100%;   }
 .table-list .td-block-title { padding: 5px 13px 3px; border-bottom: 1px solid #9ca6b1;  flex-grow: 1; display: flex; align-items: center; justify-content: center;  }
-.table-list .td-block-line {  display: flex; flex-direction: row; width: 100%; align-items: center;  flex-grow: 1; gap: 1px; width: 100%; }
+.table-list .td-block-line {  display: flex; flex-direction: row; height: 100%; align-items: center;  flex-grow: 1; gap: 1px; width: 100%; }
 .table-list .td-block-line .column { padding: 5px 13px 3px; text-align: center; box-sizing: border-box; display: flex;  flex-grow: 1; align-items: center; }
 
 .table-list th .td-block-line { background: #9ca6b1;  }
@@ -923,7 +923,6 @@ app-settings { display: flex; flex-direction: column; flex: 1 1 auto; }
 .table-list .green { color: #61BA5D; }
 .table-list .bg_green { background-color: #81DD7C; color: #fff; }
 
-
 .table-list td.setting, .table-list th.setting { width: 32px; border-left: none; }
 .table-list .setting-link { width: 100%; height: 100%; background: #606A74 url("../assets/pic-dot-white-h.svg") center no-repeat; cursor: pointer; }
 
@@ -944,7 +943,34 @@ app-settings { display: flex; flex-direction: column; flex: 1 1 auto; }
 .table-list sup { line-height: 0; }
 
 
+/*РґРѕРїРёСЃР°С‚СЊ*/
+.subheader .search-box { display: flex; }
+.subheader .search-box:before { content: ""; width: 20px; background: url('../assets/submenu-search.svg') no-repeat 50% 50%; margin-right: 6px; margin-top: -2px; }
+/* .subheader .search-box .holder {  } */
+.subheader .search-box input { border: none; font-size: 13px; line-height: 22px; color: #4B66AD; border: 1px solid #fff; }
+.subheader .search-box input:focus { border: 1px solid #4b66ad; }
+.subheader .search-box input:not(:placeholder-shown){ border: 1px solid #4b66ad; }
+
+
 /* table list end */
+
+.table-list .link-edit {
+  background: url('../assets/pic-btn-edit.svg') no-repeat center center;
+}
+
+.table-list .link-del {
+  background: url('../assets/pic-btn-del-gray.svg') no-repeat center center;
+}
+
+.table-list .link-pic {
+  display: inline-block;
+  width: 36px;
+  height: 36px;
+  cursor: pointer;
+  text-decoration: none;
+  text-align: center;
+  vertical-align: top;
+}
 
 th.mat-header-cell:last-of-type, td.mat-cell:last-of-type, td.mat-footer-cell:last-of-type {
   padding-right: unset !important;
