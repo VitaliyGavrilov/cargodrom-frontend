@@ -7,6 +7,7 @@ import { MatDialog } from '@angular/material/dialog';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { PaginatorMockup } from '@cargodrom/material/components/paginator/paginator.mockup';
 import { RouterTestingModule } from '@angular/router/testing';
+import { MatTableModule } from '@angular/material/table';
 
 describe('ClientComponent', () => {
   let component: ClientComponent;
@@ -15,7 +16,8 @@ describe('ClientComponent', () => {
   beforeEach(async () => {
     await TestBed.configureTestingModule({
       imports: [
-        RouterTestingModule
+        RouterTestingModule,
+        MatTableModule,
       ],
       declarations: [ClientComponent, ClientFilterMockup, PaginatorMockup],
       providers: [
