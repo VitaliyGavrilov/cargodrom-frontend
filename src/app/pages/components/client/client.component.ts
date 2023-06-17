@@ -5,7 +5,7 @@ import { LoadParams, Table } from '../../../classes';
 import { MatDialog } from '@angular/material/dialog';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { ActivatedRoute, Router } from '@angular/router';
-import { Observable } from 'rxjs';
+import { Observable, map } from 'rxjs';
 
 @Component({
   selector: 'app-client',
@@ -18,6 +18,7 @@ export class ClientComponent extends Table<Client, 'name', ClientFilter> {
   
   
   trackById = (_index: number, client: Client) => client.id!;
+  search$: Observable<any>;
 
   constructor(
     private customerService: CustomerService,
@@ -27,6 +28,7 @@ export class ClientComponent extends Table<Client, 'name', ClientFilter> {
     router: Router,
   ) {
     super(route, router, dialog, snackBar);
+    this.search$ = this.customerService.customerListSearch();
   }
   
   load<Client>(params: LoadParams<Client, ClientFilter>): Observable<{ total: number; items: Client[]; }> {

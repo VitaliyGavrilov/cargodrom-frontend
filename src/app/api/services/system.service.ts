@@ -1147,7 +1147,7 @@ export class SystemService extends BaseService {
 /**
  * ID
  */
-'id'?: number;
+'id'?: string;
 
 /**
  * Наименование
@@ -1171,7 +1171,7 @@ export class SystemService extends BaseService {
         /**
          * ID
          */
-        'id'?: number;
+        'id'?: string;
         
         /**
          * Наименование
@@ -1200,7 +1200,7 @@ export class SystemService extends BaseService {
 /**
  * ID
  */
-'id'?: number;
+'id'?: string;
 
 /**
  * Наименование
@@ -1214,7 +1214,7 @@ export class SystemService extends BaseService {
 /**
  * ID
  */
-'id'?: number;
+'id'?: string;
 
 /**
  * Наименование
@@ -1225,7 +1225,7 @@ export class SystemService extends BaseService {
 /**
  * ID
  */
-'id'?: number;
+'id'?: string;
 
 /**
  * Наименование

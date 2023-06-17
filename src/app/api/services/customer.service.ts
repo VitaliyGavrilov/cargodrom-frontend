@@ -438,75 +438,6 @@ export class CustomerService extends BaseService {
 'column'?: Array<string>;
 
 /**
- * Параметры поиска
- */
-'search'?: Array<{
-
-/**
- * Поиск в заголовке
- */
-'search_header'?: Array<{
-
-/**
- * Переменная
- */
-'field'?: string;
-
-/**
- * Элемент формы
- */
-'form'?: string;
-
-/**
- * Наименование
- */
-'name'?: string;
-}>;
-
-/**
- * Поиск основной
- */
-'search_main'?: Array<{
-
-/**
- * Переменная
- */
-'field'?: string;
-
-/**
- * Элемент формы
- */
-'form'?: string;
-
-/**
- * Наименование
- */
-'name'?: string;
-}>;
-
-/**
- * Поиск расширенный
- */
-'search_additional'?: Array<{
-
-/**
- * Переменная
- */
-'field'?: string;
-
-/**
- * Элемент формы
- */
-'form'?: string;
-
-/**
- * Наименование
- */
-'name'?: string;
-}>;
-}>;
-
-/**
  * Поля сортировки
  */
 'sort'?: Array<string>;
@@ -873,75 +804,6 @@ export class CustomerService extends BaseService {
          * Параметры таблицы
          */
         'column'?: Array<string>;
-        
-        /**
-         * Параметры поиска
-         */
-        'search'?: Array<{
-        
-        /**
-         * Поиск в заголовке
-         */
-        'search_header'?: Array<{
-        
-        /**
-         * Переменная
-         */
-        'field'?: string;
-        
-        /**
-         * Элемент формы
-         */
-        'form'?: string;
-        
-        /**
-         * Наименование
-         */
-        'name'?: string;
-        }>;
-        
-        /**
-         * Поиск основной
-         */
-        'search_main'?: Array<{
-        
-        /**
-         * Переменная
-         */
-        'field'?: string;
-        
-        /**
-         * Элемент формы
-         */
-        'form'?: string;
-        
-        /**
-         * Наименование
-         */
-        'name'?: string;
-        }>;
-        
-        /**
-         * Поиск расширенный
-         */
-        'search_additional'?: Array<{
-        
-        /**
-         * Переменная
-         */
-        'field'?: string;
-        
-        /**
-         * Элемент формы
-         */
-        'form'?: string;
-        
-        /**
-         * Наименование
-         */
-        'name'?: string;
-        }>;
-        }>;
         
         /**
          * Поля сортировки
@@ -1360,75 +1222,6 @@ export class CustomerService extends BaseService {
 'column'?: Array<string>;
 
 /**
- * Параметры поиска
- */
-'search'?: Array<{
-
-/**
- * Поиск в заголовке
- */
-'search_header'?: Array<{
-
-/**
- * Переменная
- */
-'field'?: string;
-
-/**
- * Элемент формы
- */
-'form'?: string;
-
-/**
- * Наименование
- */
-'name'?: string;
-}>;
-
-/**
- * Поиск основной
- */
-'search_main'?: Array<{
-
-/**
- * Переменная
- */
-'field'?: string;
-
-/**
- * Элемент формы
- */
-'form'?: string;
-
-/**
- * Наименование
- */
-'name'?: string;
-}>;
-
-/**
- * Поиск расширенный
- */
-'search_additional'?: Array<{
-
-/**
- * Переменная
- */
-'field'?: string;
-
-/**
- * Элемент формы
- */
-'form'?: string;
-
-/**
- * Наименование
- */
-'name'?: string;
-}>;
-}>;
-
-/**
  * Поля сортировки
  */
 'sort'?: Array<string>;
@@ -1779,75 +1572,6 @@ export class CustomerService extends BaseService {
 'column'?: Array<string>;
 
 /**
- * Параметры поиска
- */
-'search'?: Array<{
-
-/**
- * Поиск в заголовке
- */
-'search_header'?: Array<{
-
-/**
- * Переменная
- */
-'field'?: string;
-
-/**
- * Элемент формы
- */
-'form'?: string;
-
-/**
- * Наименование
- */
-'name'?: string;
-}>;
-
-/**
- * Поиск основной
- */
-'search_main'?: Array<{
-
-/**
- * Переменная
- */
-'field'?: string;
-
-/**
- * Элемент формы
- */
-'form'?: string;
-
-/**
- * Наименование
- */
-'name'?: string;
-}>;
-
-/**
- * Поиск расширенный
- */
-'search_additional'?: Array<{
-
-/**
- * Переменная
- */
-'field'?: string;
-
-/**
- * Элемент формы
- */
-'form'?: string;
-
-/**
- * Наименование
- */
-'name'?: string;
-}>;
-}>;
-
-/**
  * Поля сортировки
  */
 'sort'?: Array<string>;
@@ -2195,6 +1919,34 @@ export class CustomerService extends BaseService {
 'column'?: Array<string>;
 
 /**
+ * Поля сортировки
+ */
+'sort'?: Array<string>;
+}>)
+    );
+  }
+
+  /**
+   * Path part for operation customerListSearch
+   */
+  static readonly CustomerListSearchPath = '/customer_list_search';
+
+  /**
+   * Параметры формы поиска.
+   *
+   *
+   *
+   * This method provides access to the full `HttpResponse`, allowing access to response headers.
+   * To access only the response body, use `customerListSearch()` instead.
+   *
+   * This method doesn't expect any request body.
+   */
+  customerListSearch$Response(params?: {
+    context?: HttpContext
+  }
+): Observable<StrictHttpResponse<Array<{
+
+/**
  * Параметры поиска
  */
 'search'?: Array<{
@@ -2212,12 +1964,33 @@ export class CustomerService extends BaseService {
 /**
  * Элемент формы
  */
-'form'?: string;
+'form'?: 'autocomplete' | 'period' | 'select' | 'text' | 'checkbox' | 'checkbox_reset';
 
 /**
  * Наименование
  */
 'name'?: string;
+
+/**
+ * Источник
+ */
+'source'?: string;
+
+/**
+ * Массив данных
+ */
+'array'?: Array<{
+
+/**
+ * ID
+ */
+'id'?: string;
+
+/**
+ * Наименование
+ */
+'name'?: string;
+}>;
 }>;
 
 /**
@@ -2233,12 +2006,33 @@ export class CustomerService extends BaseService {
 /**
  * Элемент формы
  */
-'form'?: string;
+'form'?: 'autocomplete' | 'period' | 'select' | 'text' | 'checkbox' | 'checkbox_reset';
 
 /**
  * Наименование
  */
 'name'?: string;
+
+/**
+ * Источник
+ */
+'source'?: string;
+
+/**
+ * Массив данных
+ */
+'array'?: Array<{
+
+/**
+ * ID
+ */
+'id'?: string;
+
+/**
+ * Наименование
+ */
+'name'?: string;
+}>;
 }>;
 
 /**
@@ -2254,7 +2048,240 @@ export class CustomerService extends BaseService {
 /**
  * Элемент формы
  */
-'form'?: string;
+'form'?: 'autocomplete' | 'period' | 'select' | 'text' | 'checkbox' | 'checkbox_reset';
+
+/**
+ * Наименование
+ */
+'name'?: string;
+
+/**
+ * Источник
+ */
+'source'?: string;
+
+/**
+ * Массив данных
+ */
+'array'?: Array<{
+
+/**
+ * ID
+ */
+'id'?: string;
+
+/**
+ * Наименование
+ */
+'name'?: string;
+}>;
+}>;
+}>;
+}>>> {
+
+    const rb = new RequestBuilder(this.rootUrl, CustomerService.CustomerListSearchPath, 'get');
+    if (params) {
+    }
+
+    return this.http.request(rb.build({
+      responseType: 'json',
+      accept: 'application/json',
+      context: params?.context
+    })).pipe(
+      filter((r: any) => r instanceof HttpResponse),
+      map((r: HttpResponse<any>) => {
+        return r as StrictHttpResponse<Array<{
+        
+        /**
+         * Параметры поиска
+         */
+        'search'?: Array<{
+        
+        /**
+         * Поиск в заголовке
+         */
+        'search_header'?: Array<{
+        
+        /**
+         * Переменная
+         */
+        'field'?: string;
+        
+        /**
+         * Элемент формы
+         */
+        'form'?: 'autocomplete' | 'period' | 'select' | 'text' | 'checkbox' | 'checkbox_reset';
+        
+        /**
+         * Наименование
+         */
+        'name'?: string;
+        
+        /**
+         * Источник
+         */
+        'source'?: string;
+        
+        /**
+         * Массив данных
+         */
+        'array'?: Array<{
+        
+        /**
+         * ID
+         */
+        'id'?: string;
+        
+        /**
+         * Наименование
+         */
+        'name'?: string;
+        }>;
+        }>;
+        
+        /**
+         * Поиск основной
+         */
+        'search_main'?: Array<{
+        
+        /**
+         * Переменная
+         */
+        'field'?: string;
+        
+        /**
+         * Элемент формы
+         */
+        'form'?: 'autocomplete' | 'period' | 'select' | 'text' | 'checkbox' | 'checkbox_reset';
+        
+        /**
+         * Наименование
+         */
+        'name'?: string;
+        
+        /**
+         * Источник
+         */
+        'source'?: string;
+        
+        /**
+         * Массив данных
+         */
+        'array'?: Array<{
+        
+        /**
+         * ID
+         */
+        'id'?: string;
+        
+        /**
+         * Наименование
+         */
+        'name'?: string;
+        }>;
+        }>;
+        
+        /**
+         * Поиск расширенный
+         */
+        'search_additional'?: Array<{
+        
+        /**
+         * Переменная
+         */
+        'field'?: string;
+        
+        /**
+         * Элемент формы
+         */
+        'form'?: 'autocomplete' | 'period' | 'select' | 'text' | 'checkbox' | 'checkbox_reset';
+        
+        /**
+         * Наименование
+         */
+        'name'?: string;
+        
+        /**
+         * Источник
+         */
+        'source'?: string;
+        
+        /**
+         * Массив данных
+         */
+        'array'?: Array<{
+        
+        /**
+         * ID
+         */
+        'id'?: string;
+        
+        /**
+         * Наименование
+         */
+        'name'?: string;
+        }>;
+        }>;
+        }>;
+        }>>;
+      })
+    );
+  }
+
+  /**
+   * Параметры формы поиска.
+   *
+   *
+   *
+   * This method provides access to only to the response body.
+   * To access the full response (for headers, for example), `customerListSearch$Response()` instead.
+   *
+   * This method doesn't expect any request body.
+   */
+  customerListSearch(params?: {
+    context?: HttpContext
+  }
+): Observable<Array<{
+
+/**
+ * Параметры поиска
+ */
+'search'?: Array<{
+
+/**
+ * Поиск в заголовке
+ */
+'search_header'?: Array<{
+
+/**
+ * Переменная
+ */
+'field'?: string;
+
+/**
+ * Элемент формы
+ */
+'form'?: 'autocomplete' | 'period' | 'select' | 'text' | 'checkbox' | 'checkbox_reset';
+
+/**
+ * Наименование
+ */
+'name'?: string;
+
+/**
+ * Источник
+ */
+'source'?: string;
+
+/**
+ * Массив данных
+ */
+'array'?: Array<{
+
+/**
+ * ID
+ */
+'id'?: string;
 
 /**
  * Наименование
@@ -2264,9 +2291,358 @@ export class CustomerService extends BaseService {
 }>;
 
 /**
- * Поля сортировки
+ * Поиск основной
  */
-'sort'?: Array<string>;
+'search_main'?: Array<{
+
+/**
+ * Переменная
+ */
+'field'?: string;
+
+/**
+ * Элемент формы
+ */
+'form'?: 'autocomplete' | 'period' | 'select' | 'text' | 'checkbox' | 'checkbox_reset';
+
+/**
+ * Наименование
+ */
+'name'?: string;
+
+/**
+ * Источник
+ */
+'source'?: string;
+
+/**
+ * Массив данных
+ */
+'array'?: Array<{
+
+/**
+ * ID
+ */
+'id'?: string;
+
+/**
+ * Наименование
+ */
+'name'?: string;
+}>;
+}>;
+
+/**
+ * Поиск расширенный
+ */
+'search_additional'?: Array<{
+
+/**
+ * Переменная
+ */
+'field'?: string;
+
+/**
+ * Элемент формы
+ */
+'form'?: 'autocomplete' | 'period' | 'select' | 'text' | 'checkbox' | 'checkbox_reset';
+
+/**
+ * Наименование
+ */
+'name'?: string;
+
+/**
+ * Источник
+ */
+'source'?: string;
+
+/**
+ * Массив данных
+ */
+'array'?: Array<{
+
+/**
+ * ID
+ */
+'id'?: string;
+
+/**
+ * Наименование
+ */
+'name'?: string;
+}>;
+}>;
+}>;
+}>> {
+
+    return this.customerListSearch$Response(params).pipe(
+      map((r: StrictHttpResponse<Array<{
+
+/**
+ * Параметры поиска
+ */
+'search'?: Array<{
+
+/**
+ * Поиск в заголовке
+ */
+'search_header'?: Array<{
+
+/**
+ * Переменная
+ */
+'field'?: string;
+
+/**
+ * Элемент формы
+ */
+'form'?: 'autocomplete' | 'period' | 'select' | 'text' | 'checkbox' | 'checkbox_reset';
+
+/**
+ * Наименование
+ */
+'name'?: string;
+
+/**
+ * Источник
+ */
+'source'?: string;
+
+/**
+ * Массив данных
+ */
+'array'?: Array<{
+
+/**
+ * ID
+ */
+'id'?: string;
+
+/**
+ * Наименование
+ */
+'name'?: string;
+}>;
+}>;
+
+/**
+ * Поиск основной
+ */
+'search_main'?: Array<{
+
+/**
+ * Переменная
+ */
+'field'?: string;
+
+/**
+ * Элемент формы
+ */
+'form'?: 'autocomplete' | 'period' | 'select' | 'text' | 'checkbox' | 'checkbox_reset';
+
+/**
+ * Наименование
+ */
+'name'?: string;
+
+/**
+ * Источник
+ */
+'source'?: string;
+
+/**
+ * Массив данных
+ */
+'array'?: Array<{
+
+/**
+ * ID
+ */
+'id'?: string;
+
+/**
+ * Наименование
+ */
+'name'?: string;
+}>;
+}>;
+
+/**
+ * Поиск расширенный
+ */
+'search_additional'?: Array<{
+
+/**
+ * Переменная
+ */
+'field'?: string;
+
+/**
+ * Элемент формы
+ */
+'form'?: 'autocomplete' | 'period' | 'select' | 'text' | 'checkbox' | 'checkbox_reset';
+
+/**
+ * Наименование
+ */
+'name'?: string;
+
+/**
+ * Источник
+ */
+'source'?: string;
+
+/**
+ * Массив данных
+ */
+'array'?: Array<{
+
+/**
+ * ID
+ */
+'id'?: string;
+
+/**
+ * Наименование
+ */
+'name'?: string;
+}>;
+}>;
+}>;
+}>>) => r.body as Array<{
+
+/**
+ * Параметры поиска
+ */
+'search'?: Array<{
+
+/**
+ * Поиск в заголовке
+ */
+'search_header'?: Array<{
+
+/**
+ * Переменная
+ */
+'field'?: string;
+
+/**
+ * Элемент формы
+ */
+'form'?: 'autocomplete' | 'period' | 'select' | 'text' | 'checkbox' | 'checkbox_reset';
+
+/**
+ * Наименование
+ */
+'name'?: string;
+
+/**
+ * Источник
+ */
+'source'?: string;
+
+/**
+ * Массив данных
+ */
+'array'?: Array<{
+
+/**
+ * ID
+ */
+'id'?: string;
+
+/**
+ * Наименование
+ */
+'name'?: string;
+}>;
+}>;
+
+/**
+ * Поиск основной
+ */
+'search_main'?: Array<{
+
+/**
+ * Переменная
+ */
+'field'?: string;
+
+/**
+ * Элемент формы
+ */
+'form'?: 'autocomplete' | 'period' | 'select' | 'text' | 'checkbox' | 'checkbox_reset';
+
+/**
+ * Наименование
+ */
+'name'?: string;
+
+/**
+ * Источник
+ */
+'source'?: string;
+
+/**
+ * Массив данных
+ */
+'array'?: Array<{
+
+/**
+ * ID
+ */
+'id'?: string;
+
+/**
+ * Наименование
+ */
+'name'?: string;
+}>;
+}>;
+
+/**
+ * Поиск расширенный
+ */
+'search_additional'?: Array<{
+
+/**
+ * Переменная
+ */
+'field'?: string;
+
+/**
+ * Элемент формы
+ */
+'form'?: 'autocomplete' | 'period' | 'select' | 'text' | 'checkbox' | 'checkbox_reset';
+
+/**
+ * Наименование
+ */
+'name'?: string;
+
+/**
+ * Источник
+ */
+'source'?: string;
+
+/**
+ * Массив данных
+ */
+'array'?: Array<{
+
+/**
+ * ID
+ */
+'id'?: string;
+
+/**
+ * Наименование
+ */
+'name'?: string;
+}>;
+}>;
+}>;
 }>)
     );
   }
