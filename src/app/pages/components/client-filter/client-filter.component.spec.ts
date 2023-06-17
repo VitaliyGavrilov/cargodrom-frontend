@@ -9,6 +9,7 @@ import { FormsModule } from '@angular/forms';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatSelectModule } from '@angular/material/select';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
+import { FilterModule } from 'src/app/filter/filter.module';
 
 describe('ClientFilterComponent', () => {
   let component: ClientFilterComponent;
@@ -22,6 +23,7 @@ describe('ClientFilterComponent', () => {
         MatFormFieldModule,
         MatSelectModule,
         NoopAnimationsModule,
+        FilterModule,
       ],
       declarations: [ClientFilterComponent],
       providers: [

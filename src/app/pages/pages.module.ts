@@ -26,6 +26,7 @@ import { ClientEditorComponent } from './components/client-editor/client-editor.
 import { ServicesComponent } from './components/services/services.component';
 import { NgxMaskModule } from 'ngx-mask';
 import { FileListComponent } from './components/file-list/file-list.component';
+import { FilterModule } from '../filter/filter.module';
 
 
 @NgModule({
@@ -60,6 +61,7 @@ import { FileListComponent } from './components/file-list/file-list.component';
     ReactiveFormsModule,
     MaterialModule,
     NgxMaskModule.forChild(),
+    FilterModule,
   ]
 })
 export class PagesModule { }

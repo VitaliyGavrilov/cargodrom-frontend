@@ -18,7 +18,6 @@ export class ClientComponent extends Table<Client, 'name', ClientFilter> {
   
   
   trackById = (_index: number, client: Client) => client.id!;
-  search$: Observable<any>;
 
   constructor(
     private customerService: CustomerService,
@@ -28,7 +27,6 @@ export class ClientComponent extends Table<Client, 'name', ClientFilter> {
     router: Router,
   ) {
     super(route, router, dialog, snackBar);
-    this.search$ = this.customerService.customerListSearch();
   }
   
   load<Client>(params: LoadParams<Client, ClientFilter>): Observable<{ total: number; items: Client[]; }> {

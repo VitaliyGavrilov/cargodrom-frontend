@@ -1,0 +1,13 @@
+<div class="item">
+  <div>
+    <div class="title">{{ filterControl.name }}:</div>
+    <div class="data select">
+      <mat-form-field appearance="outline" class="ui-select">
+        <!-- <mat-select formControlName="country_id"> -->
+        <mat-select>
+          <mat-option *ngFor="let item of filterControl.array;" [value]="item.id">{{ item.name }}</mat-option>
+        </mat-select>
+      </mat-form-field>
+    </div>
+  </div>
+</div>

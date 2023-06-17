@@ -1,5 +1,8 @@
 <form class="filter extend" [formGroup]="filterForm">
   <div class="base">
+    <div class="item" *ngFor="let control of searchFilter.main">
+      <app-universal-filter [filterControl]="control"></app-universal-filter>
+    </div>
     <div class="item">
       <div>
         <div class="title">Страна:</div>
