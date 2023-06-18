@@ -1,7 +1,6 @@
 import { of } from 'rxjs';
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { ClientComponent } from './client.component';
-import { ClientFilterMockup } from '../client-filter/client-filter.mockup';
 import { CustomerService } from 'src/app/api/services';
 import { MatDialog } from '@angular/material/dialog';
 import { MatSnackBar } from '@angular/material/snack-bar';
@@ -21,7 +20,7 @@ describe('ClientComponent', () => {
         MatTableModule,
         FilterModule,
       ],
-      declarations: [ClientComponent, ClientFilterMockup, PaginatorMockup],
+      declarations: [ClientComponent, PaginatorMockup],
       providers: [
         {
           provide: CustomerService, useValue: <Partial<CustomerService>>{

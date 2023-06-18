@@ -31,7 +31,6 @@
     <app-universal-filter *ngFor="let control of filterService.searchFilterSchema?.header" [filterControl]="control"></app-universal-filter>
   </div>
 </div>
-<app-client-filter [filter]="filter" (filterChange)="onFilterChange($event)"></app-client-filter>
 <app-table-filter></app-table-filter>
 <div class="table-list">
   <table mat-table [dataSource]="rows">
