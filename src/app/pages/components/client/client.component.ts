@@ -1,5 +1,5 @@
 import { CustomerService } from './../../../api/services/customer.service';
-import { Client, ClientFilter, FilterSelectControl, SearchFilterSchema } from './../../../api/custom_models';
+import { Client, ClientFilter, FilterCheckboxControl, FilterSelectControl, SearchFilterSchema } from './../../../api/custom_models';
 import { Component, ViewEncapsulation } from '@angular/core';
 import { LoadParams, Table } from '../../../classes';
 import { MatDialog } from '@angular/material/dialog';
@@ -46,6 +46,16 @@ export class ClientComponent extends Table<Client, 'name', ClientFilter> {
         }
       ],
       "main": [
+        {
+          "field": "bla",
+          "name": "Перевозка",
+          "form": "checkbox",
+          array: [
+            { id: "1", name: 'А' },
+            { id: "2", name: 'И' },
+            { id: "3", name: 'С' },
+          ]
+        } as FilterCheckboxControl,
         {
           "field": "country_id",
           "name": "Страна",

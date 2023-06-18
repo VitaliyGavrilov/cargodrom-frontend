@@ -1,6 +1,6 @@
 import { Injectable, OnDestroy } from '@angular/core';
 import { Observable, Subject, map } from 'rxjs';
-import { SearchFilterSchema } from 'src/app/api/custom_models';
+import { FilterControl, SearchFilterSchema } from 'src/app/api/custom_models';
 
 @Injectable()
 export class FilterService implements OnDestroy {
@@ -29,20 +29,27 @@ export class FilterService implements OnDestroy {
       allControls.forEach(control => {
         if (control.field in this.value) {
           if (overwrite) {
-            this.value[control.field] = '';
+            this.value[control.field] = this.getDefault(control);
           }
         } else {
-          this.value[control.field] = '';
+          this.value[control.field] = this.getDefault(control);
         }
       });
     }
+  }
+  
+  private getDefault(control: FilterControl): any {
+    if (control.form === 'checkbox' || control.form === 'checkbox_reset') {
+      return [];
+    }
+    return '';
   }
 
   reset(): void {
     if (this.searchFilterSchema) {
       const allControls = [...this.searchFilterSchema.header, ...this.searchFilterSchema.main, ...this.searchFilterSchema.additional];
       allControls.forEach(control => {
-        this.value[control.field] = '';
+        this.value[control.field] = this.getDefault(control);
       });
     }
   }
@@ -62,7 +69,7 @@ export class FilterService implements OnDestroy {
         if (control.field in value) {
           this.value[control.field] = value[control.field];
         } else {
-          this.value[control.field] = '';
+          this.value[control.field] = this.getDefault(control);
         }
       });
     }

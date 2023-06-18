@@ -28,6 +28,10 @@ export interface FilterAutocompleteControl extends FilterControl {
 
 export interface FilterCheckboxControl extends FilterControl {
   form: 'checkbox' | 'checkbox_reset';
+  array: {
+    id: string;
+    name: string;
+  }[];
 }
 
 export interface FilterPeriodControl extends FilterControl {
