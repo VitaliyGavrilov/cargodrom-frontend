@@ -11,6 +11,8 @@ export class FilterService implements OnDestroy {
     };
 
   searchFilterSchema?: SearchFilterSchema;
+  
+  hasAdditional = false;
 
   private search$ = new Subject<void>();
 
@@ -20,6 +22,7 @@ export class FilterService implements OnDestroy {
 
   setSearchFilterSchema(filter: SearchFilterSchema) {
     this.searchFilterSchema = filter;
+    this.hasAdditional = Array.isArray(this.searchFilterSchema.additional) && this.searchFilterSchema.additional.length > 0;
     this.softReset();
   }
 

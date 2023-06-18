@@ -1,7 +1,7 @@
 <div class="filter extend">
   <div class="base">
     <app-universal-filter class="item" *ngFor="let control of filterService.searchFilterSchema?.main" [filterControl]="control"></app-universal-filter>
-    <div class="item" [ngClass]="{'open': showMore}">
+    <div class="item" [ngClass]="{'open': showMore}" *ngIf="filterService.hasAdditional">
       <div>
         <div class="title">&nbsp;</div>
         <div class="data"><span class="addition-filter" (click)="toggleMore()">Дополнительно</span></div>

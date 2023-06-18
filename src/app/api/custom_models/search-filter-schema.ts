@@ -13,7 +13,7 @@ export interface FilterControl {
 export interface FilterSelectControl extends FilterControl {
   form: 'select';
   array: {
-    id: number;
+    id: number | '' | boolean;
     name: string;
   }[];
 }

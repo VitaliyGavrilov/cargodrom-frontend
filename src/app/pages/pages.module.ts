@@ -14,7 +14,6 @@ import { ClientComponent } from './components/client/client.component';
 import { GuideComponent } from './components/guide/guide.component';
 import { CurrencyComponent } from './components/currency/currency.component';
 import { ContractorComponent } from './components/contractor/contractor.component';
-import { ContractorFilterComponent } from './components/contractor-filter/contractor-filter.component';
 import { ContractorEditorComponent } from './components/contractor-editor/contractor-editor.component';
 import { RatingComponent } from './components/rating/rating.component';
 import { ContactEditorComponent } from './components/contact-editor/contact-editor.component';
@@ -42,7 +41,6 @@ import { FilterModule } from '../filter/filter.module';
     GuideComponent,
     CurrencyComponent,
     ContractorComponent,
-    ContractorFilterComponent,
     ContractorEditorComponent,
     RatingComponent,
     ContactEditorComponent,
