@@ -5,6 +5,8 @@ import { Directive, OnInit, OnDestroy, ViewChild, TemplateRef } from '@angular/c
 import { Observable, of, Subject, takeUntil } from 'rxjs';
 import { MatSnackBarConfig } from '@angular/material/snack-bar';
 import { MatDialog } from '@angular/material/dialog';
+import { FilterService } from '../filter/services/filter.service';
+import { SearchFilterSchema } from '../api/custom_models';
 
 export interface LoadParams<T, F> {
   start?: number;
@@ -41,6 +43,7 @@ export abstract class Table<T extends { id: number }, A = never, F = never> impl
     private router: Router,
     private dialog: MatDialog,
     protected snackBar: MatSnackBar,
+    protected filterService: FilterService,
   ) {
   }
 
@@ -53,8 +56,11 @@ export abstract class Table<T extends { id: number }, A = never, F = never> impl
         this.sortField = this.getStringParamSafely(queryParamMap, 'sortCol', this.sortField as string) as keyof T;
         this.sortDir = this.getEnumParamSafely(queryParamMap, 'sortDir', ['asc', 'desc'], this.sortDir) as 'asc' | 'desc';
         this.filter = this.getJsonParamSafely(queryParamMap, 'filter', {}) as F;
+        this.filterService.setValue(this.filter as any);
         this.loadRows();
       });
+    this.loadFilterSchema().subscribe(schema => this.filterService.setSearchFilterSchema(schema));
+    this.filterService.onApply().subscribe(filter => this.onFilterChange(filter as F));
   }
 
   protected loadRows(): void {
@@ -70,6 +76,11 @@ export abstract class Table<T extends { id: number }, A = never, F = never> impl
   protected delete(params: { body: { id: number } }): Observable<void> {
     return of();
   }
+  
+  protected loadFilterSchema(): Observable<SearchFilterSchema> {
+    return of ({header: [], main: [], additional: []});
+  }
+
 
 
   getIntParamSafely(queryParamMap: ParamMap, name: string, fallback: number): number {
@@ -139,7 +150,7 @@ export abstract class Table<T extends { id: number }, A = never, F = never> impl
     const filterWithNonEmptyValue: any = {};
     for (const key in filter) {
       const value = filter[key];
-      if (value != null) {
+      if (value != null &&  (value as any) !== '') {
         if (!Array.isArray(value) || value.length > 0) {
           filterWithNonEmptyValue[key] = value;
         }

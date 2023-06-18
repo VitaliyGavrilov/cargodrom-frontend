@@ -10,6 +10,7 @@ import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatSelectModule } from '@angular/material/select';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 import { FilterModule } from 'src/app/filter/filter.module';
+import { FilterService } from 'src/app/filter/services/filter.service';
 
 describe('ClientFilterComponent', () => {
   let component: ClientFilterComponent;
@@ -37,6 +38,7 @@ describe('ClientFilterComponent', () => {
             customerGroupList: () => of([]),
           }
         },
+        FilterService,
       ]
     })
       .compileComponents();

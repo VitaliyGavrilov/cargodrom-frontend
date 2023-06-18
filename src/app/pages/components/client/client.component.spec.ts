@@ -8,6 +8,7 @@ import { MatSnackBar } from '@angular/material/snack-bar';
 import { PaginatorMockup } from '@cargodrom/material/components/paginator/paginator.mockup';
 import { RouterTestingModule } from '@angular/router/testing';
 import { MatTableModule } from '@angular/material/table';
+import { FilterModule } from 'src/app/filter/filter.module';
 
 describe('ClientComponent', () => {
   let component: ClientComponent;
@@ -18,6 +19,7 @@ describe('ClientComponent', () => {
       imports: [
         RouterTestingModule,
         MatTableModule,
+        FilterModule,
       ],
       declarations: [ClientComponent, ClientFilterMockup, PaginatorMockup],
       providers: [

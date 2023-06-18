@@ -7,6 +7,7 @@ import { Table } from '../../../../../classes';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Observable } from 'rxjs';
 import { SortColumn } from 'src/app/api/custom_models/sort-column';
+import { FilterService } from 'src/app/filter/services/filter.service';
 
 @Component({
   selector: 'app-position',
@@ -14,7 +15,8 @@ import { SortColumn } from 'src/app/api/custom_models/sort-column';
   styleUrls: [
     './position.component.scss',
     '../../main-table.scss'
-  ]
+  ],
+  providers: [FilterService]
 })
 export class PositionComponent extends Table<Position> {
   
@@ -27,8 +29,10 @@ export class PositionComponent extends Table<Position> {
     snackBar: MatSnackBar,
     route: ActivatedRoute,
     router: Router,
+    filter: FilterService,
+
   ) {
-    super(route, router, dialog, snackBar);
+    super(route, router, dialog, snackBar, filter);
   }
 
   load<Position>(params: { start?: number; count?: number; sort?: SortColumn<Position>[]; }): Observable<{ total: number; items: Position[]; }> {

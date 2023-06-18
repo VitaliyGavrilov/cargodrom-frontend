@@ -5,6 +5,8 @@ import { FilterSelectControl } from 'src/app/api/custom_models';
 import { MatSelectModule } from '@angular/material/select';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
+import { FilterService } from '../../services/filter.service';
+import { FormsModule } from '@angular/forms';
 
 describe('SelectFilterComponent', () => {
   let component: SelectFilterComponent;
@@ -12,8 +14,9 @@ describe('SelectFilterComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [MatSelectModule, MatFormFieldModule, NoopAnimationsModule],
-      declarations: [ SelectFilterComponent ]
+      imports: [MatSelectModule, MatFormFieldModule, NoopAnimationsModule, FormsModule],
+      declarations: [ SelectFilterComponent ],
+      providers: [FilterService],
     })
     .compileComponents();
 

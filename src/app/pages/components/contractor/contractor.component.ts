@@ -7,10 +7,12 @@ import { MatDialog } from '@angular/material/dialog';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Observable } from 'rxjs';
+import { FilterService } from 'src/app/filter/services/filter.service';
 @Component({
   selector: 'app-contractor',
   templateUrl: './contractor.component.html',
-  styleUrls: ['./contractor.component.scss']
+  styleUrls: ['./contractor.component.scss'],
+  providers: [FilterService]
 })
 
 export class ContractorComponent extends Table<Contractor, 'trade_rating', ContractorFilter> {
@@ -25,8 +27,9 @@ export class ContractorComponent extends Table<Contractor, 'trade_rating', Contr
     snackBar: MatSnackBar,
     route: ActivatedRoute,
     router: Router,
+    filter: FilterService,
   ) {
-    super(route, router, dialog, snackBar);
+    super(route, router, dialog, snackBar, filter);
     this.registerAlias('trade_rating', ['trade_count', 'trade_success_count', 'trade_fail_count']);
   }
   

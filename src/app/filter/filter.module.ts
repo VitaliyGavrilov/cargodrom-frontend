@@ -7,6 +7,8 @@ import { TextFilterComponent } from './components/text-filter/text-filter.compon
 import { CheckboxFilterComponent } from './components/checkbox-filter/checkbox-filter.component';
 import { UniversalFilterComponent } from './components/universal-filter/universal-filter.component';
 import { MaterialModule } from '@cargodrom/material/material.module';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { TableFilterComponent } from './table-filter/table-filter.component';
 
 
 
@@ -18,13 +20,17 @@ import { MaterialModule } from '@cargodrom/material/material.module';
     TextFilterComponent,
     CheckboxFilterComponent,
     UniversalFilterComponent,
+    TableFilterComponent,
   ],
   imports: [
     CommonModule,
+    FormsModule,
+    ReactiveFormsModule,
     MaterialModule,
   ],
   exports: [
     UniversalFilterComponent,
+    TableFilterComponent,
   ]
 })
 export class FilterModule { }

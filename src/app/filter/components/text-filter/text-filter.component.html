@@ -1,1 +1,4 @@
-<p>text-filter works!</p>
+<div>
+  <div class="title">{{ filterControl.name }}:</div>
+  <div class="data text"><input type="text" [(ngModel)]="filter.value[filterControl.field]"></div>
+</div>

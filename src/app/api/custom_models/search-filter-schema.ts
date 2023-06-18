@@ -1,4 +1,4 @@
-export interface SearchFilter {
+export interface SearchFilterSchema {
   header:     FilterControl[];
   main:       FilterControl[];
   additional: FilterControl[];

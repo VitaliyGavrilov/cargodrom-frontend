@@ -1,0 +1,26 @@
+<div class="filter extend">
+  <div class="base">
+    <app-universal-filter class="item" *ngFor="let control of filterService.searchFilterSchema?.main" [filterControl]="control"></app-universal-filter>
+    <div class="item" [ngClass]="{'open': showMore}">
+      <div>
+        <div class="title">&nbsp;</div>
+        <div class="data"><span class="addition-filter" (click)="toggleMore()">Дополнительно</span></div>
+      </div>
+    </div>
+    <div class="item func">
+      <div>
+        <span class="btn apply" (click)="filterService.apply()"><span>Применить</span></span>
+        <span class="btn reset" (click)="filterService.reset()"><span></span></span>
+      </div>
+    </div>
+
+  </div>
+  <div class="add show" [ngClass]="{'hidden': !showMore}">
+    <div class="row">
+      <app-universal-filter class="item" *ngFor="let control of filterService.searchFilterSchema?.additional" [filterControl]="control"></app-universal-filter>
+    </div>
+  </div>
+</div>
+
+<pre>{{ filterService.value | json }}</pre>
+<pre>showMore: {{ showMore | json }}</pre>

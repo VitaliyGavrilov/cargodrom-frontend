@@ -1,5 +1,6 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { FilterTextControl } from 'src/app/api/custom_models';
+import { FilterService } from '../../services/filter.service';
 
 @Component({
   selector: 'app-text-filter',
@@ -9,7 +10,9 @@ import { FilterTextControl } from 'src/app/api/custom_models';
 export class TextFilterComponent implements OnInit {
   @Input() filterControl!: FilterTextControl;
    
-  constructor() { }
+  constructor(
+    public filter: FilterService,
+  ) { }
 
   ngOnInit(): void {
   }

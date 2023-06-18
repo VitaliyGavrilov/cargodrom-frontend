@@ -7,6 +7,7 @@ import { Table } from '../../../../../classes';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Observable } from 'rxjs';
 import { SortColumn } from 'src/app/api/custom_models/sort-column';
+import { FilterService } from 'src/app/filter/services/filter.service';
 
 @Component({
   selector: 'app-department-employee',
@@ -14,7 +15,8 @@ import { SortColumn } from 'src/app/api/custom_models/sort-column';
   styleUrls: [
     './department-employee.component.scss',
     '../../main-table.scss'
-  ]
+  ],
+  providers: [FilterService]
 })
 export class DepartmentEmployeeComponent extends Table<Employee, 'fio'> {
   @Input() departmentId!: number;
@@ -28,8 +30,9 @@ export class DepartmentEmployeeComponent extends Table<Employee, 'fio'> {
     snackBar: MatSnackBar,
     route: ActivatedRoute,
     router: Router,
+    filter: FilterService,
   ) {
-    super(route, router, dialog, snackBar);
+    super(route, router, dialog, snackBar, filter);
     this.registerAlias('fio', ['name_f', 'name_i', 'name_o']);
   }
 

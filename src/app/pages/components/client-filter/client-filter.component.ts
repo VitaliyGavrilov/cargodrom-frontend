@@ -1,8 +1,9 @@
+import { FilterService } from './../../../filter/services/filter.service';
 import { CustomerService } from './../../../api/services/customer.service';
 import { FormBuilder, FormGroup } from '@angular/forms';
 import { ClientFilter } from './../../../api/custom_models/client-filter';
 import { Component, EventEmitter, Input, OnChanges, OnInit, Output, SimpleChanges } from '@angular/core';
-import { ClientGroup, Country, FilterSelectControl, SearchFilter } from 'src/app/api/custom_models';
+import { ClientGroup, Country } from 'src/app/api/custom_models';
 import { CountryService } from '../../services/country.service';
 
 @Component({
@@ -18,49 +19,10 @@ export class ClientFilterComponent implements OnInit, OnChanges {
   clientGroups: ClientGroup[] = [];
   showMore = false;
 
-  searchFilter: SearchFilter = {
-    "header": [
-      {
-        "field": "name",
-        "name": "Поиск клиента по названию...",
-        "form": "text"
-      }
-    ],
-    "main": [
-      {
-        "field": "country_id",
-        "name": "Страна",
-        "form": "select",
-        array: [
-          { id: 1, name: 'Россия' }
-        ]
-      } as FilterSelectControl,
-      {
-        "field": "group_id",
-        "name": "Группа",
-        "form": "select",
-        array: [
-          { id: 1, name: 'Россия' }
-        ]
-      } as FilterSelectControl
-    ],
-    "additional": [
-      {
-        "field": "inn",
-        "name": "ИНН",
-        "form": "text"
-      },
-      {
-        "field": "contact_fio",
-        "name": "Контактное лицо",
-        "form": "text"
-      }
-    ]
-  }
-
   constructor(
     private countryService: CountryService,
     private customerService: CustomerService,
+    public filterService: FilterService,
     fb: FormBuilder,
   ) {
     this.filterForm = fb.group<ClientFilter>({

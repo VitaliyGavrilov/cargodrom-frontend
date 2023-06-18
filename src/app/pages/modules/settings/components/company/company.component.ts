@@ -7,11 +7,13 @@ import { Table } from '../../../../../classes';
 import { ActivatedRoute, Router } from '@angular/router';
 import { SortColumn } from 'src/app/api/custom_models/sort-column';
 import { Observable } from 'rxjs';
+import { FilterService } from 'src/app/filter/services/filter.service';
 
 @Component({
   selector: 'app-company',
   templateUrl: './company.component.html',
-  styleUrls: ['./company.component.scss', '../../main-table.scss']
+  styleUrls: ['./company.component.scss', '../../main-table.scss'],
+  providers: [FilterService]
 })
 export class CompanyComponent extends Table<Company> {
   override removedMessage = `Компания удалена`;
@@ -23,8 +25,9 @@ export class CompanyComponent extends Table<Company> {
     snackBar: MatSnackBar,
     route: ActivatedRoute,
     router: Router,
+    filter: FilterService,
   ) {
-    super(route, router, dialog, snackBar);
+    super(route, router, dialog, snackBar, filter);
   }
 
   load<Company>(params: { start?: number; count?: number; sort?: SortColumn<Company>[]; }): Observable<{ total: number; items: Company[]; }> {
