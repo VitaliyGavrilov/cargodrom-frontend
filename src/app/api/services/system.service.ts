@@ -1130,7 +1130,7 @@ export class SystemService extends BaseService {
   static readonly SystemAssociationPath = '/system_association';
 
   /**
-   * Ассоциации подрядчиков.
+   * Рейтинг подрядчиков.
    *
    *
    *
@@ -1183,7 +1183,7 @@ export class SystemService extends BaseService {
   }
 
   /**
-   * Ассоциации подрядчиков.
+   * Рейтинг подрядчиков.
    *
    *
    *
@@ -1226,6 +1226,117 @@ export class SystemService extends BaseService {
  * ID
  */
 'id'?: string;
+
+/**
+ * Наименование
+ */
+'name'?: string;
+}>)
+    );
+  }
+
+  /**
+   * Path part for operation systemRating
+   */
+  static readonly SystemRatingPath = '/system_rating';
+
+  /**
+   * Ассоциации подрядчиков.
+   *
+   *
+   *
+   * This method provides access to the full `HttpResponse`, allowing access to response headers.
+   * To access only the response body, use `systemRating()` instead.
+   *
+   * This method doesn't expect any request body.
+   */
+  systemRating$Response(params?: {
+    context?: HttpContext
+  }
+): Observable<StrictHttpResponse<Array<{
+
+/**
+ * ID
+ */
+'id'?: number;
+
+/**
+ * Наименование
+ */
+'name'?: string;
+}>>> {
+
+    const rb = new RequestBuilder(this.rootUrl, SystemService.SystemRatingPath, 'get');
+    if (params) {
+    }
+
+    return this.http.request(rb.build({
+      responseType: 'json',
+      accept: 'application/json',
+      context: params?.context
+    })).pipe(
+      filter((r: any) => r instanceof HttpResponse),
+      map((r: HttpResponse<any>) => {
+        return r as StrictHttpResponse<Array<{
+        
+        /**
+         * ID
+         */
+        'id'?: number;
+        
+        /**
+         * Наименование
+         */
+        'name'?: string;
+        }>>;
+      })
+    );
+  }
+
+  /**
+   * Ассоциации подрядчиков.
+   *
+   *
+   *
+   * This method provides access to only to the response body.
+   * To access the full response (for headers, for example), `systemRating$Response()` instead.
+   *
+   * This method doesn't expect any request body.
+   */
+  systemRating(params?: {
+    context?: HttpContext
+  }
+): Observable<Array<{
+
+/**
+ * ID
+ */
+'id'?: number;
+
+/**
+ * Наименование
+ */
+'name'?: string;
+}>> {
+
+    return this.systemRating$Response(params).pipe(
+      map((r: StrictHttpResponse<Array<{
+
+/**
+ * ID
+ */
+'id'?: number;
+
+/**
+ * Наименование
+ */
+'name'?: string;
+}>>) => r.body as Array<{
+
+/**
+ * ID
+ */
+'id'?: number;
 
 /**
  * Наименование

@@ -6,7 +6,7 @@ import { LoadParams, Table } from '../../../classes';
 import { MatDialog } from '@angular/material/dialog';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { ActivatedRoute, Router } from '@angular/router';
-import { Observable, delay, of } from 'rxjs';
+import { Observable, delay, of, map } from 'rxjs';
 import { FilterService } from 'src/app/filter/services/filter.service';
 @Component({
   selector: 'app-contractor',
@@ -96,7 +96,7 @@ export class ContractorComponent extends Table<Contractor, 'trade_rating', Contr
       "additional": [
       ]
     };
-    return of(searchFilter).pipe(delay(400));
+    return this.contractorService.contractorListSearch().pipe(map(val => val as any));
   }
 
 }

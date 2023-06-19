@@ -5,7 +5,7 @@ import { LoadParams, Table } from '../../../classes';
 import { MatDialog } from '@angular/material/dialog';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { ActivatedRoute, Router } from '@angular/router';
-import { Observable, delay, of } from 'rxjs';
+import { Observable, delay, map, of } from 'rxjs';
 import { FilterService } from 'src/app/filter/services/filter.service';
 
 @Component({
@@ -86,7 +86,7 @@ export class ClientComponent extends Table<Client, 'name', ClientFilter> {
         }
       ]
     };
-    return of(searchFilter).pipe(delay(400));
+    return this.customerService.customerListSearch().pipe(map(val => val as any));
   }
 
 }

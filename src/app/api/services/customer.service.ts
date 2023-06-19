@@ -48,9 +48,14 @@ export class CustomerService extends BaseService {
     name?: string;
 
     /**
-     * Страна
+     * Страна (ID берем из запроса - direction_country)
      */
     country_id?: number;
+
+    /**
+     * Группа (ID берем из запроса - customer_group_list)
+     */
+    group_id?: number;
 
     /**
      * ИНН
@@ -61,11 +66,6 @@ export class CustomerService extends BaseService {
      * Контактное лицо
      */
     contact_fio?: string;
-
-    /**
-     * Группа
-     */
-    group_id?: number;
 
     /**
      * Начальная позиция
@@ -94,7 +94,7 @@ export class CustomerService extends BaseService {
 }>;
     context?: HttpContext
   }
-): Observable<StrictHttpResponse<Array<{
+): Observable<StrictHttpResponse<{
 
 /**
  * Всего позиций
@@ -441,15 +441,15 @@ export class CustomerService extends BaseService {
  * Поля сортировки
  */
 'sort'?: Array<string>;
-}>>> {
+}>> {
 
     const rb = new RequestBuilder(this.rootUrl, CustomerService.CustomerListPath, 'get');
     if (params) {
       rb.query('name', params.name, {});
       rb.query('country_id', params.country_id, {});
+      rb.query('group_id', params.group_id, {});
       rb.query('inn', params.inn, {});
       rb.query('contact_fio', params.contact_fio, {});
-      rb.query('group_id', params.group_id, {});
       rb.query('start', params.start, {});
       rb.query('count', params.count, {});
       rb.query('sort', params.sort, {"style":"form","explode":false});
@@ -462,7 +462,7 @@ export class CustomerService extends BaseService {
     })).pipe(
       filter((r: any) => r instanceof HttpResponse),
       map((r: HttpResponse<any>) => {
-        return r as StrictHttpResponse<Array<{
+        return r as StrictHttpResponse<{
         
         /**
          * Всего позиций
@@ -809,7 +809,7 @@ export class CustomerService extends BaseService {
          * Поля сортировки
          */
         'sort'?: Array<string>;
-        }>>;
+        }>;
       })
     );
   }
@@ -832,9 +832,14 @@ export class CustomerService extends BaseService {
     name?: string;
 
     /**
-     * Страна
+     * Страна (ID берем из запроса - direction_country)
      */
     country_id?: number;
+
+    /**
+     * Группа (ID берем из запроса - customer_group_list)
+     */
+    group_id?: number;
 
     /**
      * ИНН
@@ -845,11 +850,6 @@ export class CustomerService extends BaseService {
      * Контактное лицо
      */
     contact_fio?: string;
-
-    /**
-     * Группа
-     */
-    group_id?: number;
 
     /**
      * Начальная позиция
@@ -878,7 +878,7 @@ export class CustomerService extends BaseService {
 }>;
     context?: HttpContext
   }
-): Observable<Array<{
+): Observable<{
 
 /**
  * Всего позиций
@@ -1225,10 +1225,10 @@ export class CustomerService extends BaseService {
  * Поля сортировки
  */
 'sort'?: Array<string>;
-}>> {
+}> {
 
     return this.customerList$Response(params).pipe(
-      map((r: StrictHttpResponse<Array<{
+      map((r: StrictHttpResponse<{
 
 /**
  * Всего позиций
@@ -1575,7 +1575,7 @@ export class CustomerService extends BaseService {
  * Поля сортировки
  */
 'sort'?: Array<string>;
-}>>) => r.body as Array<{
+}>) => r.body as {
 
 /**
  * Всего позиций
@@ -1922,7 +1922,7 @@ export class CustomerService extends BaseService {
  * Поля сортировки
  */
 'sort'?: Array<string>;
-}>)
+})
     );
   }
 
@@ -1945,11 +1945,6 @@ export class CustomerService extends BaseService {
     context?: HttpContext
   }
 ): Observable<StrictHttpResponse<Array<{
-
-/**
- * Параметры поиска
- */
-'search'?: Array<{
 
 /**
  * Поиск в заголовке
@@ -2076,7 +2071,6 @@ export class CustomerService extends BaseService {
 'name'?: string;
 }>;
 }>;
-}>;
 }>>> {
 
     const rb = new RequestBuilder(this.rootUrl, CustomerService.CustomerListSearchPath, 'get');
@@ -2091,11 +2085,6 @@ export class CustomerService extends BaseService {
       filter((r: any) => r instanceof HttpResponse),
       map((r: HttpResponse<any>) => {
         return r as StrictHttpResponse<Array<{
-        
-        /**
-         * Параметры поиска
-         */
-        'search'?: Array<{
         
         /**
          * Поиск в заголовке
@@ -2222,7 +2211,6 @@ export class CustomerService extends BaseService {
         'name'?: string;
         }>;
         }>;
-        }>;
         }>>;
       })
     );
@@ -2244,11 +2232,6 @@ export class CustomerService extends BaseService {
 ): Observable<Array<{
 
 /**
- * Параметры поиска
- */
-'search'?: Array<{
-
-/**
  * Поиск в заголовке
  */
 'search_header'?: Array<{
@@ -2371,7 +2354,6 @@ export class CustomerService extends BaseService {
  * Наименование
  */
 'name'?: string;
-}>;
 }>;
 }>;
 }>> {
@@ -2380,11 +2362,6 @@ export class CustomerService extends BaseService {
       map((r: StrictHttpResponse<Array<{
 
 /**
- * Параметры поиска
- */
-'search'?: Array<{
-
-/**
  * Поиск в заголовке
  */
 'search_header'?: Array<{
@@ -2507,17 +2484,11 @@ export class CustomerService extends BaseService {
  * Наименование
  */
 'name'?: string;
-}>;
 }>;
 }>;
 }>>) => r.body as Array<{
 
 /**
- * Параметры поиска
- */
-'search'?: Array<{
-
-/**
  * Поиск в заголовке
  */
 'search_header'?: Array<{
@@ -2640,7 +2611,6 @@ export class CustomerService extends BaseService {
  * Наименование
  */
 'name'?: string;
-}>;
 }>;
 }>;
 }>)
@@ -5620,7 +5590,142 @@ export class CustomerService extends BaseService {
     var?: string;
     context?: HttpContext
   }
-): Observable<StrictHttpResponse<{
+): Observable<StrictHttpResponse<Array<{
+
+/**
+ * ID
+ */
+'id': number;
+
+/**
+ * ID элемента
+ */
+'item_id': number;
+
+/**
+ * Переменная формы
+ */
+'var': string;
+
+/**
+ * Ссылка на файл
+ */
+'path'?: string;
+
+/**
+ * Информация по файлу
+ */
+'file_info'?: Array<string>;
+
+/**
+ * Время загрузки файла
+ */
+'file_time'?: string;
+
+/**
+ * Наименование файла
+ */
+'file_name'?: string;
+
+/**
+ * Время создания
+ */
+'time_add'?: string;
+
+/**
+ * Время изменения
+ */
+'time_edit'?: string;
+}>>> {
+
+    const rb = new RequestBuilder(this.rootUrl, CustomerService.CustomerFilesPath, 'get');
+    if (params) {
+      rb.query('item_id', params.item_id, {});
+      rb.query('var', params.var, {});
+    }
+
+    return this.http.request(rb.build({
+      responseType: 'json',
+      accept: 'application/json',
+      context: params?.context
+    })).pipe(
+      filter((r: any) => r instanceof HttpResponse),
+      map((r: HttpResponse<any>) => {
+        return r as StrictHttpResponse<Array<{
+        
+        /**
+         * ID
+         */
+        'id': number;
+        
+        /**
+         * ID элемента
+         */
+        'item_id': number;
+        
+        /**
+         * Переменная формы
+         */
+        'var': string;
+        
+        /**
+         * Ссылка на файл
+         */
+        'path'?: string;
+        
+        /**
+         * Информация по файлу
+         */
+        'file_info'?: Array<string>;
+        
+        /**
+         * Время загрузки файла
+         */
+        'file_time'?: string;
+        
+        /**
+         * Наименование файла
+         */
+        'file_name'?: string;
+        
+        /**
+         * Время создания
+         */
+        'time_add'?: string;
+        
+        /**
+         * Время изменения
+         */
+        'time_edit'?: string;
+        }>>;
+      })
+    );
+  }
+
+  /**
+   * Список файлов.
+   *
+   *
+   *
+   * This method provides access to only to the response body.
+   * To access the full response (for headers, for example), `customerFiles$Response()` instead.
+   *
+   * This method doesn't expect any request body.
+   */
+  customerFiles(params: {
+
+    /**
+     * ID элемента
+     */
+    item_id: number;
+
+    /**
+     * Переменная формы
+     */
+    var?: string;
+    context?: HttpContext
+  }
+): Observable<Array<{
 
 /**
  * ID
@@ -5668,143 +5773,8 @@ export class CustomerService extends BaseService {
 'time_edit'?: string;
 }>> {
 
-    const rb = new RequestBuilder(this.rootUrl, CustomerService.CustomerFilesPath, 'get');
-    if (params) {
-      rb.query('item_id', params.item_id, {});
-      rb.query('var', params.var, {});
-    }
-
-    return this.http.request(rb.build({
-      responseType: 'json',
-      accept: 'application/json',
-      context: params?.context
-    })).pipe(
-      filter((r: any) => r instanceof HttpResponse),
-      map((r: HttpResponse<any>) => {
-        return r as StrictHttpResponse<{
-        
-        /**
-         * ID
-         */
-        'id': number;
-        
-        /**
-         * ID элемента
-         */
-        'item_id': number;
-        
-        /**
-         * Переменная формы
-         */
-        'var': string;
-        
-        /**
-         * Ссылка на файл
-         */
-        'path'?: string;
-        
-        /**
-         * Информация по файлу
-         */
-        'file_info'?: Array<string>;
-        
-        /**
-         * Время загрузки файла
-         */
-        'file_time'?: string;
-        
-        /**
-         * Наименование файла
-         */
-        'file_name'?: string;
-        
-        /**
-         * Время создания
-         */
-        'time_add'?: string;
-        
-        /**
-         * Время изменения
-         */
-        'time_edit'?: string;
-        }>;
-      })
-    );
-  }
-
-  /**
-   * Список файлов.
-   *
-   *
-   *
-   * This method provides access to only to the response body.
-   * To access the full response (for headers, for example), `customerFiles$Response()` instead.
-   *
-   * This method doesn't expect any request body.
-   */
-  customerFiles(params: {
-
-    /**
-     * ID элемента
-     */
-    item_id: number;
-
-    /**
-     * Переменная формы
-     */
-    var?: string;
-    context?: HttpContext
-  }
-): Observable<{
-
-/**
- * ID
- */
-'id': number;
-
-/**
- * ID элемента
- */
-'item_id': number;
-
-/**
- * Переменная формы
- */
-'var': string;
-
-/**
- * Ссылка на файл
- */
-'path'?: string;
-
-/**
- * Информация по файлу
- */
-'file_info'?: Array<string>;
-
-/**
- * Время загрузки файла
- */
-'file_time'?: string;
-
-/**
- * Наименование файла
- */
-'file_name'?: string;
-
-/**
- * Время создания
- */
-'time_add'?: string;
-
-/**
- * Время изменения
- */
-'time_edit'?: string;
-}> {
-
     return this.customerFiles$Response(params).pipe(
-      map((r: StrictHttpResponse<{
+      map((r: StrictHttpResponse<Array<{
 
 /**
  * ID
@@ -5850,7 +5820,7 @@ export class CustomerService extends BaseService {
  * Время изменения
  */
 'time_edit'?: string;
-}>) => r.body as {
+}>>) => r.body as Array<{
 
 /**
  * ID
@@ -5896,7 +5866,7 @@ export class CustomerService extends BaseService {
  * Время изменения
  */
 'time_edit'?: string;
-})
+}>)
     );
   }
 
