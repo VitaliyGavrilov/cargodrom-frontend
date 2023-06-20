@@ -64,7 +64,7 @@
         <td></td>
         <td class="l">
           <ng-container *ngFor="let contact of contractor.contacts">
-            {{ contact.name_f }} <span class="gray">({{contact.city_name}})</span>
+            {{ contact.name_f }} <span class="gray" *ngIf="contact.city_name">({{contact.city_name}})</span>
           </ng-container>
         </td>
         <td class="gray">
