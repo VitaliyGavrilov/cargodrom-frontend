@@ -282,7 +282,7 @@ input, textarea, a:focus{outline-width:0;outline:none;}
 .edit-form .hdr .req-fields { font-size: 13px; line-height: 13px; margin-top: 10px; }
 .edit-form .req { font-size: 10px; line-height: 10px; color: #DB563B; }
 
-.btn:before { content: ""; display: inline-block; vertical-align: top; height: 20px; width: 20px; margin-right: 8px; background: no-repeat 50% 50%;  }
+.btn:before { content: ""; display: inline-block; vertical-align: top; height: 20px; width: 20px; /* margin-right: 8px; */ background: no-repeat 50% 50%;  }
 .btn > span { display: inline-block; vertical-align: top; margin-top: 2px; }
 .btn.send { background: #DB563B; color: rgb(111, 77, 77); padding: 11px 17px; }
 .btn.send:before { background-image: url('../assets/pic-btn-send-white.svg'); }
