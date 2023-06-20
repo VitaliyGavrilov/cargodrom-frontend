@@ -1,11 +1,11 @@
 import { CustomerService } from './../../../api/services/customer.service';
-import { Client, ClientFilter, FilterCheckboxControl, FilterSelectControl, SearchFilterSchema } from './../../../api/custom_models';
+import { Client, ClientFilter, SearchFilterSchema } from './../../../api/custom_models';
 import { Component, ViewEncapsulation } from '@angular/core';
 import { LoadParams, Table } from '../../../classes';
 import { MatDialog } from '@angular/material/dialog';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { ActivatedRoute, Router } from '@angular/router';
-import { Observable, delay, map, of } from 'rxjs';
+import { Observable, map } from 'rxjs';
 import { FilterService } from 'src/app/filter/services/filter.service';
 
 @Component({
@@ -37,55 +37,6 @@ export class ClientComponent extends Table<Client, 'name', ClientFilter> {
   }
   
   protected override loadFilterSchema<T>(): Observable<SearchFilterSchema> {
-    const searchFilter = <SearchFilterSchema> {
-      "header": [
-        {
-          "field": "name",
-          "name": "Поиск клиента по названию...",
-          "form": "autocomplete"
-        }
-      ],
-      "main": [
-        {
-          "field": "bla",
-          "name": "Перевозка",
-          "form": "checkbox",
-          array: [
-            { id: "1", name: 'А' },
-            { id: "2", name: 'И' },
-            { id: "3", name: 'С' },
-          ]
-        } as FilterCheckboxControl,
-        {
-          "field": "country_id",
-          "name": "Страна",
-          "form": "select",
-          array: [
-            { id: 1, name: 'Россия' }
-          ]
-        } as FilterSelectControl,
-        {
-          "field": "group_id",
-          "name": "Группа",
-          "form": "select",
-          array: [
-            { id: 1, name: 'ГРуппа' }
-          ]
-        } as FilterSelectControl
-      ],
-      "additional": [
-        {
-          "field": "inn",
-          "name": "ИНН",
-          "form": "text"
-        },
-        {
-          "field": "contact_fio",
-          "name": "Контактное лицо",
-          "form": "text"
-        }
-      ]
-    };
     return this.customerService.customerListSearch().pipe(map(val => val as any));
   }
 
