@@ -1944,12 +1944,12 @@ export class CustomerService extends BaseService {
   customerListSearch$Response(params?: {
     context?: HttpContext
   }
-): Observable<StrictHttpResponse<Array<{
+): Observable<StrictHttpResponse<{
 
 /**
  * Поиск в заголовке
  */
-'search_header'?: Array<{
+'header'?: Array<{
 
 /**
  * Переменная
@@ -1991,7 +1991,7 @@ export class CustomerService extends BaseService {
 /**
  * Поиск основной
  */
-'search_main'?: Array<{
+'main'?: Array<{
 
 /**
  * Переменная
@@ -2033,7 +2033,7 @@ export class CustomerService extends BaseService {
 /**
  * Поиск расширенный
  */
-'search_additional'?: Array<{
+'additional'?: Array<{
 
 /**
  * Переменная
@@ -2071,7 +2071,7 @@ export class CustomerService extends BaseService {
 'name'?: string;
 }>;
 }>;
-}>>> {
+}>> {
 
     const rb = new RequestBuilder(this.rootUrl, CustomerService.CustomerListSearchPath, 'get');
     if (params) {
@@ -2084,12 +2084,12 @@ export class CustomerService extends BaseService {
     })).pipe(
       filter((r: any) => r instanceof HttpResponse),
       map((r: HttpResponse<any>) => {
-        return r as StrictHttpResponse<Array<{
+        return r as StrictHttpResponse<{
         
         /**
          * Поиск в заголовке
          */
-        'search_header'?: Array<{
+        'header'?: Array<{
         
         /**
          * Переменная
@@ -2131,7 +2131,7 @@ export class CustomerService extends BaseService {
         /**
          * Поиск основной
          */
-        'search_main'?: Array<{
+        'main'?: Array<{
         
         /**
          * Переменная
@@ -2173,7 +2173,7 @@ export class CustomerService extends BaseService {
         /**
          * Поиск расширенный
          */
-        'search_additional'?: Array<{
+        'additional'?: Array<{
         
         /**
          * Переменная
@@ -2211,7 +2211,7 @@ export class CustomerService extends BaseService {
         'name'?: string;
         }>;
         }>;
-        }>>;
+        }>;
       })
     );
   }
@@ -2229,12 +2229,12 @@ export class CustomerService extends BaseService {
   customerListSearch(params?: {
     context?: HttpContext
   }
-): Observable<Array<{
+): Observable<{
 
 /**
  * Поиск в заголовке
  */
-'search_header'?: Array<{
+'header'?: Array<{
 
 /**
  * Переменная
@@ -2276,7 +2276,7 @@ export class CustomerService extends BaseService {
 /**
  * Поиск основной
  */
-'search_main'?: Array<{
+'main'?: Array<{
 
 /**
  * Переменная
@@ -2318,7 +2318,7 @@ export class CustomerService extends BaseService {
 /**
  * Поиск расширенный
  */
-'search_additional'?: Array<{
+'additional'?: Array<{
 
 /**
  * Переменная
@@ -2356,15 +2356,15 @@ export class CustomerService extends BaseService {
 'name'?: string;
 }>;
 }>;
-}>> {
+}> {
 
     return this.customerListSearch$Response(params).pipe(
-      map((r: StrictHttpResponse<Array<{
+      map((r: StrictHttpResponse<{
 
 /**
  * Поиск в заголовке
  */
-'search_header'?: Array<{
+'header'?: Array<{
 
 /**
  * Переменная
@@ -2406,7 +2406,7 @@ export class CustomerService extends BaseService {
 /**
  * Поиск основной
  */
-'search_main'?: Array<{
+'main'?: Array<{
 
 /**
  * Переменная
@@ -2448,7 +2448,7 @@ export class CustomerService extends BaseService {
 /**
  * Поиск расширенный
  */
-'search_additional'?: Array<{
+'additional'?: Array<{
 
 /**
  * Переменная
@@ -2486,12 +2486,12 @@ export class CustomerService extends BaseService {
 'name'?: string;
 }>;
 }>;
-}>>) => r.body as Array<{
+}>) => r.body as {
 
 /**
  * Поиск в заголовке
  */
-'search_header'?: Array<{
+'header'?: Array<{
 
 /**
  * Переменная
@@ -2533,7 +2533,7 @@ export class CustomerService extends BaseService {
 /**
  * Поиск основной
  */
-'search_main'?: Array<{
+'main'?: Array<{
 
 /**
  * Переменная
@@ -2575,7 +2575,7 @@ export class CustomerService extends BaseService {
 /**
  * Поиск расширенный
  */
-'search_additional'?: Array<{
+'additional'?: Array<{
 
 /**
  * Переменная
@@ -2613,7 +2613,7 @@ export class CustomerService extends BaseService {
 'name'?: string;
 }>;
 }>;
-}>)
+})
     );
   }
 

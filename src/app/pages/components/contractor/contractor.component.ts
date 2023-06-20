@@ -38,7 +38,7 @@ export class ContractorComponent extends Table<Contractor, 'trade_rating', Contr
   }
 
   protected override loadFilterSchema(): Observable<SearchFilterSchema> {
-    return this.contractorService.contractorListSearch().pipe(map(val => val as any));
+    return this.contractorService.contractorListSearch().pipe(map(val => val as SearchFilterSchema));
   }
 
 }
