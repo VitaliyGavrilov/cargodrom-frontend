@@ -11,7 +11,7 @@ export class FilterService implements OnDestroy {
     };
 
   searchFilterSchema?: SearchFilterSchema;
-  
+
   hasAdditional = false;
 
   private search$ = new Subject<void>();
@@ -28,7 +28,7 @@ export class FilterService implements OnDestroy {
 
   private softReset(overwrite = false): void {
     if (this.searchFilterSchema) {
-      const allControls = [...this.searchFilterSchema.header, ...this.searchFilterSchema.main, ...this.searchFilterSchema.additional];
+      const allControls = this.getAllControls(this.searchFilterSchema);
       allControls.forEach(control => {
         if (control.field in this.value) {
           if (overwrite) {
@@ -40,7 +40,7 @@ export class FilterService implements OnDestroy {
       });
     }
   }
-  
+
   private getDefault(control: FilterControl): any {
     if (control.form === 'checkbox' || control.form === 'checkbox_reset') {
       return [];
@@ -50,7 +50,7 @@ export class FilterService implements OnDestroy {
 
   reset(): void {
     if (this.searchFilterSchema) {
-      const allControls = [...this.searchFilterSchema.header, ...this.searchFilterSchema.main, ...this.searchFilterSchema.additional];
+      const allControls = this.getAllControls(this.searchFilterSchema);
       allControls.forEach(control => {
         this.value[control.field] = this.getDefault(control);
       });
@@ -67,7 +67,7 @@ export class FilterService implements OnDestroy {
 
   setValue(value: { [field: string]: any }): void {
     if (this.searchFilterSchema) {
-      const allControls = [...this.searchFilterSchema.header, ...this.searchFilterSchema.main, ...this.searchFilterSchema.additional];
+      const allControls = this.getAllControls(this.searchFilterSchema);
       allControls.forEach(control => {
         if (control.field in value) {
           this.value[control.field] = value[control.field];
@@ -78,6 +78,15 @@ export class FilterService implements OnDestroy {
     }
   }
   
+  private getAllControls(searchFilterSchema: SearchFilterSchema): FilterControl[] {
+    const allControls = [
+      ...(searchFilterSchema.header || []),
+      ...(searchFilterSchema.main || []),
+      ...(searchFilterSchema.additional || []),
+    ];
+    return allControls;
+  }
+
   ngOnDestroy(): void {
     this.search$.complete();
   }

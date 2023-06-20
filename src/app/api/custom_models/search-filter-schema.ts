@@ -1,7 +1,7 @@
 export interface SearchFilterSchema {
-  header:     FilterControl[];
-  main:       FilterControl[];
-  additional: FilterControl[];
+  header?:     FilterControl[];
+  main?:       FilterControl[];
+  additional?: FilterControl[];
 }
 
 export interface FilterControl {
