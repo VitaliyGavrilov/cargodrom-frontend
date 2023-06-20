@@ -1,0 +1,8 @@
+<div>
+  <div class="title">{{ filterControl.name }}:</div>
+  <div class="data checkbox">
+    <label *ngFor="let choice of filterControl.array">
+      <input type="checkbox" [value]="choice.id" [checked]="checked(choice.id)" (change)="change(choice.id)"><span>{{ choice.name }}</span>
+    </label>
+  </div>
+</div>

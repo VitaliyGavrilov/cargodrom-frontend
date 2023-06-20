@@ -1,0 +1,8 @@
+<ng-container [ngSwitch]="filterControl.form">
+  <app-checkbox-filter *ngSwitchCase="'checkbox'" [filterControl]="$any(filterControl)" class="filter-item"></app-checkbox-filter>
+  <app-checkbox-filter *ngSwitchCase="'checkbox_reset'" [filterControl]="$any(filterControl)" class="filter-item"></app-checkbox-filter>
+  <app-autocomplete-filter *ngSwitchCase="'autocomplete'" [filterControl]="$any(filterControl)" class="filter-item"></app-autocomplete-filter>
+  <app-text-filter *ngSwitchCase="'text'" [filterControl]="$any(filterControl)" class="filter-item"></app-text-filter>
+  <app-period-filter *ngSwitchCase="'period'" [filterControl]="$any(filterControl)" class="filter-item"></app-period-filter>
+  <app-select-filter *ngSwitchCase="'select'" [filterControl]="$any(filterControl)" class="filter-item"></app-select-filter>
+</ng-container>

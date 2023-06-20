@@ -48,7 +48,7 @@ export class TransportService extends BaseService {
 /**
  * ID
  */
-'id'?: number;
+'id'?: string;
 
 /**
  * Наименование
@@ -72,7 +72,7 @@ export class TransportService extends BaseService {
         /**
          * ID
          */
-        'id'?: number;
+        'id'?: string;
         
         /**
          * Наименование
@@ -101,7 +101,7 @@ export class TransportService extends BaseService {
 /**
  * ID
  */
-'id'?: number;
+'id'?: string;
 
 /**
  * Наименование
@@ -115,7 +115,7 @@ export class TransportService extends BaseService {
 /**
  * ID
  */
-'id'?: number;
+'id'?: string;
 
 /**
  * Наименование
@@ -126,7 +126,7 @@ export class TransportService extends BaseService {
 /**
  * ID
  */
-'id'?: number;
+'id'?: string;
 
 /**
  * Наименование

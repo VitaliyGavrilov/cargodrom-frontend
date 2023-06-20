@@ -7,6 +7,7 @@ import { MatSnackBar } from '@angular/material/snack-bar';
 import { Observable } from 'rxjs';
 import { SortColumn } from 'src/app/api/custom_models/sort-column';
 import { CustomerService } from 'src/app/api/services';
+import { FilterService } from 'src/app/filter/services/filter.service';
 
 @Component({
   selector: 'app-client-group',
@@ -14,7 +15,8 @@ import { CustomerService } from 'src/app/api/services';
   styleUrls: [
     './client-group.component.scss',
     '../../main-table.scss'
-  ]
+  ],
+  providers: [FilterService]
 })
 export class ClientGroupComponent extends Table<ClientGroup> {
 
@@ -27,8 +29,9 @@ export class ClientGroupComponent extends Table<ClientGroup> {
     snackBar: MatSnackBar,
     route: ActivatedRoute,
     router: Router,
+    filter: FilterService,
   ) {
-    super(route, router, dialog, snackBar);
+    super(route, router, dialog, snackBar, filter);
   }
 
   load<ClientGroup>(params: { start?: number; count?: number; sort?: SortColumn<ClientGroup>[]; }): Observable<{ total: number; items: ClientGroup[]; }> {

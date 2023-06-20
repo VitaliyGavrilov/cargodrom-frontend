@@ -7,6 +7,7 @@ import { SortColumn } from '../../../../../api/custom_models/sort-column';
 import { Table } from '../../../../../classes';
 import { Employee } from './../../../../../api/custom_models';
 import { CompanyService } from './../../../../../api/services/company.service';
+import { FilterService } from 'src/app/filter/services/filter.service';
 
 @Component({
   selector: 'app-employee',
@@ -16,6 +17,7 @@ import { CompanyService } from './../../../../../api/services/company.service';
     '../../main-table.scss'
   ],
   encapsulation: ViewEncapsulation.None,
+  providers: [FilterService]
 })
 export class EmployeeComponent extends Table<Employee, 'fio'> {
   trackById = (_index: number, employee: Employee) => employee.id;
@@ -30,8 +32,9 @@ export class EmployeeComponent extends Table<Employee, 'fio'> {
     snackBar: MatSnackBar,
     route: ActivatedRoute,
     router: Router,
+    filter: FilterService,
   ) {
-    super(route, router, dialog, snackBar);
+    super(route, router, dialog, snackBar, filter);
     this.registerAlias('fio', ['name_f', 'name_i', 'name_o']);
   }
 

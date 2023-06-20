@@ -7,6 +7,7 @@ import { Component, ViewEncapsulation } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { Observable } from 'rxjs';
 import { Table } from '../../../../../classes';
+import { FilterService } from 'src/app/filter/services/filter.service';
 
 interface Column<T> extends Omit<SortColumn<T>, 'dir'> {
   title: string;
@@ -20,6 +21,7 @@ interface Column<T> extends Omit<SortColumn<T>, 'dir'> {
     '../../main-table.scss'
   ],
   encapsulation: ViewEncapsulation.None,
+  providers: [FilterService],
 })
 export class DepartmentComponent extends Table<Department> {
   columns: Column<Department>[] = [
@@ -39,8 +41,9 @@ export class DepartmentComponent extends Table<Department> {
     snackBar: MatSnackBar,
     route: ActivatedRoute,
     router: Router,
+    filter: FilterService,
   ) {
-    super(route, router, dialog, snackBar);
+    super(route, router, dialog, snackBar, filter);
   }
 
   load<Department>(params: { start?: number; count?: number; sort?: SortColumn<Department>[]; }): Observable<{ total: number; items: Department[]; }> {

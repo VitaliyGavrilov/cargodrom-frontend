@@ -14,18 +14,17 @@ import { ClientComponent } from './components/client/client.component';
 import { GuideComponent } from './components/guide/guide.component';
 import { CurrencyComponent } from './components/currency/currency.component';
 import { ContractorComponent } from './components/contractor/contractor.component';
-import { ContractorFilterComponent } from './components/contractor-filter/contractor-filter.component';
 import { ContractorEditorComponent } from './components/contractor-editor/contractor-editor.component';
 import { RatingComponent } from './components/rating/rating.component';
 import { ContactEditorComponent } from './components/contact-editor/contact-editor.component';
 import { TradeDirectionComponent } from './components/trade-direction/trade-direction.component';
 import { ResponsibilityEditorComponent } from './components/responsibility-editor/responsibility-editor.component';
 import { MaterialModule } from '@cargodrom/material/material.module';
-import { ClientFilterComponent } from './components/client-filter/client-filter.component';
 import { ClientEditorComponent } from './components/client-editor/client-editor.component';
 import { ServicesComponent } from './components/services/services.component';
 import { NgxMaskModule } from 'ngx-mask';
 import { FileListComponent } from './components/file-list/file-list.component';
+import { FilterModule } from '../filter/filter.module';
 
 
 @NgModule({
@@ -42,13 +41,11 @@ import { FileListComponent } from './components/file-list/file-list.component';
     GuideComponent,
     CurrencyComponent,
     ContractorComponent,
-    ContractorFilterComponent,
     ContractorEditorComponent,
     RatingComponent,
     ContactEditorComponent,
     TradeDirectionComponent,
     ResponsibilityEditorComponent,
-    ClientFilterComponent,
     ClientEditorComponent,
     ServicesComponent,
     FileListComponent,
@@ -60,6 +57,7 @@ import { FileListComponent } from './components/file-list/file-list.component';
     ReactiveFormsModule,
     MaterialModule,
     NgxMaskModule.forChild(),
+    FilterModule,
   ]
 })
 export class PagesModule { }

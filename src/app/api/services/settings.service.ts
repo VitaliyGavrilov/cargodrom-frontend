@@ -175,7 +175,7 @@ export class SettingsService extends BaseService {
 /**
  * ID
  */
-'id'?: number;
+'id'?: string;
 
 /**
  * Наименование
@@ -380,7 +380,7 @@ export class SettingsService extends BaseService {
         /**
          * ID
          */
-        'id'?: number;
+        'id'?: string;
         
         /**
          * Наименование
@@ -590,7 +590,7 @@ export class SettingsService extends BaseService {
 /**
  * ID
  */
-'id'?: number;
+'id'?: string;
 
 /**
  * Наименование
@@ -785,7 +785,7 @@ export class SettingsService extends BaseService {
 /**
  * ID
  */
-'id'?: number;
+'id'?: string;
 
 /**
  * Наименование
@@ -977,7 +977,7 @@ export class SettingsService extends BaseService {
 /**
  * ID
  */
-'id'?: number;
+'id'?: string;
 
 /**
  * Наименование

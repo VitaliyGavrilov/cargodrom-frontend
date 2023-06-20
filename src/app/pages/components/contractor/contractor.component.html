@@ -16,13 +16,10 @@
           fill="#DB563B"></path>
       </svg><span>Экспорт данных</span></a>
     <div class="div"></div>
-    <div class="search-box">
-      <span class="holder">Поиск подрядчика по названию...</span>
-      <input type="text">
-    </div>
+    <app-universal-filter *ngFor="let control of filterService.searchFilterSchema?.header" [filterControl]="control"></app-universal-filter>
   </div>
 </div>
-<app-contractor-filter [filter]="filter" (filterChange)="onFilterChange($event)"></app-contractor-filter>
+<app-table-filter></app-table-filter>
 <div class="table">
   <table>
     <tbody>
@@ -67,7 +64,7 @@
         <td></td>
         <td class="l">
           <ng-container *ngFor="let contact of contractor.contacts">
-            {{ contact.name_f }} <span class="gray">({{contact.city_name}})</span>
+            {{ contact.name_f }} <span class="gray" *ngIf="contact.city_name">({{contact.city_name}})</span>
           </ng-container>
         </td>
         <td class="gray">

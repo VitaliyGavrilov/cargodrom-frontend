@@ -5,6 +5,8 @@ import { Directive, OnInit, OnDestroy, ViewChild, TemplateRef } from '@angular/c
 import { Observable, of, Subject, takeUntil } from 'rxjs';
 import { MatSnackBarConfig } from '@angular/material/snack-bar';
 import { MatDialog } from '@angular/material/dialog';
+import { FilterService } from '../filter/services/filter.service';
+import { SearchFilterSchema } from '../api/custom_models';
 
 export interface LoadParams<T, F> {
   start?: number;
@@ -41,6 +43,7 @@ export abstract class Table<T extends { id: number }, A = never, F = never> impl
     private router: Router,
     private dialog: MatDialog,
     protected snackBar: MatSnackBar,
+    protected filterService: FilterService,
   ) {
   }
 
@@ -53,8 +56,13 @@ export abstract class Table<T extends { id: number }, A = never, F = never> impl
         this.sortField = this.getStringParamSafely(queryParamMap, 'sortCol', this.sortField as string) as keyof T;
         this.sortDir = this.getEnumParamSafely(queryParamMap, 'sortDir', ['asc', 'desc'], this.sortDir) as 'asc' | 'desc';
         this.filter = this.getJsonParamSafely(queryParamMap, 'filter', {}) as F;
+        this.loadFilterSchema().subscribe(schema => {
+          this.filterService.setSearchFilterSchema(schema);
+          this.filterService.setValue(this.filter as any);
+        });
         this.loadRows();
       });
+    this.filterService.onApply().subscribe(filter => this.onFilterChange(filter as F));
   }
 
   protected loadRows(): void {
@@ -66,10 +74,15 @@ export abstract class Table<T extends { id: number }, A = never, F = never> impl
       this.sortableColumns = rows.sort;
     });
   }
-  
+
   protected delete(params: { body: { id: number } }): Observable<void> {
     return of();
   }
+
+  protected loadFilterSchema(): Observable<SearchFilterSchema> {
+    return of({ header: [], main: [], additional: [] });
+  }
+
 
 
   getIntParamSafely(queryParamMap: ParamMap, name: string, fallback: number): number {
@@ -105,7 +118,7 @@ export abstract class Table<T extends { id: number }, A = never, F = never> impl
     }
     return fallback;
   }
-  
+
   getJsonParamSafely(queryParamMap: ParamMap, name: string, fallback: any): unknown {
     const value = queryParamMap.get(name);
     if (value != null) {
@@ -134,12 +147,12 @@ export abstract class Table<T extends { id: number }, A = never, F = never> impl
       relativeTo: this.route,
     });
   }
-  
-  onFilterChange(filter: F): void {
+
+  private onFilterChange(filter: F): void {
     const filterWithNonEmptyValue: any = {};
     for (const key in filter) {
       const value = filter[key];
-      if (value != null) {
+      if (value != null && (value as any) !== '') {
         if (!Array.isArray(value) || value.length > 0) {
           filterWithNonEmptyValue[key] = value;
         }
@@ -147,7 +160,7 @@ export abstract class Table<T extends { id: number }, A = never, F = never> impl
     }
     const hasKeys = Object.keys(filterWithNonEmptyValue).length > 0;
     this.router.navigate(['.'], {
-      queryParams: { start: 0, filter: hasKeys? JSON.stringify(filterWithNonEmptyValue) : null},
+      queryParams: { start: 0, filter: hasKeys ? JSON.stringify(filterWithNonEmptyValue) : null },
       queryParamsHandling: 'merge',
       relativeTo: this.route,
     });
@@ -170,7 +183,7 @@ export abstract class Table<T extends { id: number }, A = never, F = never> impl
       relativeTo: this.route,
     });
   }
-  
+
   getSortClass(field: keyof T | A): string {
     if (this.sortField === field) {
       return this.sortDir === 'asc' ? 'sort-dir-asc' : 'sort-dir-desc';

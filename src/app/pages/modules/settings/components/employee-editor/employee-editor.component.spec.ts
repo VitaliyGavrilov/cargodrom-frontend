@@ -40,7 +40,7 @@ describe('EmployeeEditorComponent', () => {
         },
         {
           provide: SystemService, useValue: <Partial<SystemService>>{
-            systemAssociation: () => of([{name: 'ABC', id: 1}]),
+            systemAssociation: () => of([{name: 'ABC', id: '1'}]),
           }
         }
       ]

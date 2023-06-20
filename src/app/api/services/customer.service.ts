@@ -48,9 +48,14 @@ export class CustomerService extends BaseService {
     name?: string;
 
     /**
-     * Страна
+     * Страна (ID берем из запроса - direction_country)
      */
     country_id?: number;
+
+    /**
+     * Группа (ID берем из запроса - customer_group_list)
+     */
+    group_id?: number;
 
     /**
      * ИНН
@@ -61,11 +66,6 @@ export class CustomerService extends BaseService {
      * Контактное лицо
      */
     contact_fio?: string;
-
-    /**
-     * Группа
-     */
-    group_id?: number;
 
     /**
      * Начальная позиция
@@ -94,7 +94,7 @@ export class CustomerService extends BaseService {
 }>;
     context?: HttpContext
   }
-): Observable<StrictHttpResponse<Array<{
+): Observable<StrictHttpResponse<{
 
 /**
  * Всего позиций
@@ -438,87 +438,18 @@ export class CustomerService extends BaseService {
 'column'?: Array<string>;
 
 /**
- * Параметры поиска
- */
-'search'?: Array<{
-
-/**
- * Поиск в заголовке
- */
-'search_header'?: Array<{
-
-/**
- * Переменная
- */
-'field'?: string;
-
-/**
- * Элемент формы
- */
-'form'?: string;
-
-/**
- * Наименование
- */
-'name'?: string;
-}>;
-
-/**
- * Поиск основной
- */
-'search_main'?: Array<{
-
-/**
- * Переменная
- */
-'field'?: string;
-
-/**
- * Элемент формы
- */
-'form'?: string;
-
-/**
- * Наименование
- */
-'name'?: string;
-}>;
-
-/**
- * Поиск расширенный
- */
-'search_additional'?: Array<{
-
-/**
- * Переменная
- */
-'field'?: string;
-
-/**
- * Элемент формы
- */
-'form'?: string;
-
-/**
- * Наименование
- */
-'name'?: string;
-}>;
-}>;
-
-/**
  * Поля сортировки
  */
 'sort'?: Array<string>;
-}>>> {
+}>> {
 
     const rb = new RequestBuilder(this.rootUrl, CustomerService.CustomerListPath, 'get');
     if (params) {
       rb.query('name', params.name, {});
       rb.query('country_id', params.country_id, {});
+      rb.query('group_id', params.group_id, {});
       rb.query('inn', params.inn, {});
       rb.query('contact_fio', params.contact_fio, {});
-      rb.query('group_id', params.group_id, {});
       rb.query('start', params.start, {});
       rb.query('count', params.count, {});
       rb.query('sort', params.sort, {"style":"form","explode":false});
@@ -531,7 +462,7 @@ export class CustomerService extends BaseService {
     })).pipe(
       filter((r: any) => r instanceof HttpResponse),
       map((r: HttpResponse<any>) => {
-        return r as StrictHttpResponse<Array<{
+        return r as StrictHttpResponse<{
         
         /**
          * Всего позиций
@@ -875,79 +806,10 @@ export class CustomerService extends BaseService {
         'column'?: Array<string>;
         
         /**
-         * Параметры поиска
-         */
-        'search'?: Array<{
-        
-        /**
-         * Поиск в заголовке
-         */
-        'search_header'?: Array<{
-        
-        /**
-         * Переменная
-         */
-        'field'?: string;
-        
-        /**
-         * Элемент формы
-         */
-        'form'?: string;
-        
-        /**
-         * Наименование
-         */
-        'name'?: string;
-        }>;
-        
-        /**
-         * Поиск основной
-         */
-        'search_main'?: Array<{
-        
-        /**
-         * Переменная
-         */
-        'field'?: string;
-        
-        /**
-         * Элемент формы
-         */
-        'form'?: string;
-        
-        /**
-         * Наименование
-         */
-        'name'?: string;
-        }>;
-        
-        /**
-         * Поиск расширенный
-         */
-        'search_additional'?: Array<{
-        
-        /**
-         * Переменная
-         */
-        'field'?: string;
-        
-        /**
-         * Элемент формы
-         */
-        'form'?: string;
-        
-        /**
-         * Наименование
-         */
-        'name'?: string;
-        }>;
-        }>;
-        
-        /**
          * Поля сортировки
          */
         'sort'?: Array<string>;
-        }>>;
+        }>;
       })
     );
   }
@@ -970,9 +832,14 @@ export class CustomerService extends BaseService {
     name?: string;
 
     /**
-     * Страна
+     * Страна (ID берем из запроса - direction_country)
      */
     country_id?: number;
+
+    /**
+     * Группа (ID берем из запроса - customer_group_list)
+     */
+    group_id?: number;
 
     /**
      * ИНН
@@ -983,11 +850,6 @@ export class CustomerService extends BaseService {
      * Контактное лицо
      */
     contact_fio?: string;
-
-    /**
-     * Группа
-     */
-    group_id?: number;
 
     /**
      * Начальная позиция
@@ -1016,7 +878,7 @@ export class CustomerService extends BaseService {
 }>;
     context?: HttpContext
   }
-): Observable<Array<{
+): Observable<{
 
 /**
  * Всего позиций
@@ -1360,82 +1222,13 @@ export class CustomerService extends BaseService {
 'column'?: Array<string>;
 
 /**
- * Параметры поиска
- */
-'search'?: Array<{
-
-/**
- * Поиск в заголовке
- */
-'search_header'?: Array<{
-
-/**
- * Переменная
- */
-'field'?: string;
-
-/**
- * Элемент формы
- */
-'form'?: string;
-
-/**
- * Наименование
- */
-'name'?: string;
-}>;
-
-/**
- * Поиск основной
- */
-'search_main'?: Array<{
-
-/**
- * Переменная
- */
-'field'?: string;
-
-/**
- * Элемент формы
- */
-'form'?: string;
-
-/**
- * Наименование
- */
-'name'?: string;
-}>;
-
-/**
- * Поиск расширенный
- */
-'search_additional'?: Array<{
-
-/**
- * Переменная
- */
-'field'?: string;
-
-/**
- * Элемент формы
- */
-'form'?: string;
-
-/**
- * Наименование
- */
-'name'?: string;
-}>;
-}>;
-
-/**
  * Поля сортировки
  */
 'sort'?: Array<string>;
-}>> {
+}> {
 
     return this.customerList$Response(params).pipe(
-      map((r: StrictHttpResponse<Array<{
+      map((r: StrictHttpResponse<{
 
 /**
  * Всего позиций
@@ -1779,79 +1572,10 @@ export class CustomerService extends BaseService {
 'column'?: Array<string>;
 
 /**
- * Параметры поиска
- */
-'search'?: Array<{
-
-/**
- * Поиск в заголовке
- */
-'search_header'?: Array<{
-
-/**
- * Переменная
- */
-'field'?: string;
-
-/**
- * Элемент формы
- */
-'form'?: string;
-
-/**
- * Наименование
- */
-'name'?: string;
-}>;
-
-/**
- * Поиск основной
- */
-'search_main'?: Array<{
-
-/**
- * Переменная
- */
-'field'?: string;
-
-/**
- * Элемент формы
- */
-'form'?: string;
-
-/**
- * Наименование
- */
-'name'?: string;
-}>;
-
-/**
- * Поиск расширенный
- */
-'search_additional'?: Array<{
-
-/**
- * Переменная
- */
-'field'?: string;
-
-/**
- * Элемент формы
- */
-'form'?: string;
-
-/**
- * Наименование
- */
-'name'?: string;
-}>;
-}>;
-
-/**
  * Поля сортировки
  */
 'sort'?: Array<string>;
-}>>) => r.body as Array<{
+}>) => r.body as {
 
 /**
  * Всего позиций
@@ -2195,14 +1919,37 @@ export class CustomerService extends BaseService {
 'column'?: Array<string>;
 
 /**
- * Параметры поиска
+ * Поля сортировки
  */
-'search'?: Array<{
+'sort'?: Array<string>;
+})
+    );
+  }
+
+  /**
+   * Path part for operation customerListSearch
+   */
+  static readonly CustomerListSearchPath = '/customer_list_search';
+
+  /**
+   * Параметры формы поиска.
+   *
+   *
+   *
+   * This method provides access to the full `HttpResponse`, allowing access to response headers.
+   * To access only the response body, use `customerListSearch()` instead.
+   *
+   * This method doesn't expect any request body.
+   */
+  customerListSearch$Response(params?: {
+    context?: HttpContext
+  }
+): Observable<StrictHttpResponse<{
 
 /**
  * Поиск в заголовке
  */
-'search_header'?: Array<{
+'header'?: Array<{
 
 /**
  * Переменная
@@ -2212,18 +1959,39 @@ export class CustomerService extends BaseService {
 /**
  * Элемент формы
  */
-'form'?: string;
+'form'?: 'autocomplete' | 'period' | 'select' | 'text' | 'checkbox' | 'checkbox_reset';
 
 /**
  * Наименование
  */
 'name'?: string;
+
+/**
+ * Источник
+ */
+'source'?: string;
+
+/**
+ * Массив данных
+ */
+'array'?: Array<{
+
+/**
+ * ID
+ */
+'id'?: string;
+
+/**
+ * Наименование
+ */
+'name'?: string;
+}>;
 }>;
 
 /**
  * Поиск основной
  */
-'search_main'?: Array<{
+'main'?: Array<{
 
 /**
  * Переменная
@@ -2233,18 +2001,39 @@ export class CustomerService extends BaseService {
 /**
  * Элемент формы
  */
-'form'?: string;
+'form'?: 'autocomplete' | 'period' | 'select' | 'text' | 'checkbox' | 'checkbox_reset';
 
 /**
  * Наименование
  */
 'name'?: string;
+
+/**
+ * Источник
+ */
+'source'?: string;
+
+/**
+ * Массив данных
+ */
+'array'?: Array<{
+
+/**
+ * ID
+ */
+'id'?: string;
+
+/**
+ * Наименование
+ */
+'name'?: string;
+}>;
 }>;
 
 /**
  * Поиск расширенный
  */
-'search_additional'?: Array<{
+'additional'?: Array<{
 
 /**
  * Переменная
@@ -2254,7 +2043,228 @@ export class CustomerService extends BaseService {
 /**
  * Элемент формы
  */
-'form'?: string;
+'form'?: 'autocomplete' | 'period' | 'select' | 'text' | 'checkbox' | 'checkbox_reset';
+
+/**
+ * Наименование
+ */
+'name'?: string;
+
+/**
+ * Источник
+ */
+'source'?: string;
+
+/**
+ * Массив данных
+ */
+'array'?: Array<{
+
+/**
+ * ID
+ */
+'id'?: string;
+
+/**
+ * Наименование
+ */
+'name'?: string;
+}>;
+}>;
+}>> {
+
+    const rb = new RequestBuilder(this.rootUrl, CustomerService.CustomerListSearchPath, 'get');
+    if (params) {
+    }
+
+    return this.http.request(rb.build({
+      responseType: 'json',
+      accept: 'application/json',
+      context: params?.context
+    })).pipe(
+      filter((r: any) => r instanceof HttpResponse),
+      map((r: HttpResponse<any>) => {
+        return r as StrictHttpResponse<{
+        
+        /**
+         * Поиск в заголовке
+         */
+        'header'?: Array<{
+        
+        /**
+         * Переменная
+         */
+        'field'?: string;
+        
+        /**
+         * Элемент формы
+         */
+        'form'?: 'autocomplete' | 'period' | 'select' | 'text' | 'checkbox' | 'checkbox_reset';
+        
+        /**
+         * Наименование
+         */
+        'name'?: string;
+        
+        /**
+         * Источник
+         */
+        'source'?: string;
+        
+        /**
+         * Массив данных
+         */
+        'array'?: Array<{
+        
+        /**
+         * ID
+         */
+        'id'?: string;
+        
+        /**
+         * Наименование
+         */
+        'name'?: string;
+        }>;
+        }>;
+        
+        /**
+         * Поиск основной
+         */
+        'main'?: Array<{
+        
+        /**
+         * Переменная
+         */
+        'field'?: string;
+        
+        /**
+         * Элемент формы
+         */
+        'form'?: 'autocomplete' | 'period' | 'select' | 'text' | 'checkbox' | 'checkbox_reset';
+        
+        /**
+         * Наименование
+         */
+        'name'?: string;
+        
+        /**
+         * Источник
+         */
+        'source'?: string;
+        
+        /**
+         * Массив данных
+         */
+        'array'?: Array<{
+        
+        /**
+         * ID
+         */
+        'id'?: string;
+        
+        /**
+         * Наименование
+         */
+        'name'?: string;
+        }>;
+        }>;
+        
+        /**
+         * Поиск расширенный
+         */
+        'additional'?: Array<{
+        
+        /**
+         * Переменная
+         */
+        'field'?: string;
+        
+        /**
+         * Элемент формы
+         */
+        'form'?: 'autocomplete' | 'period' | 'select' | 'text' | 'checkbox' | 'checkbox_reset';
+        
+        /**
+         * Наименование
+         */
+        'name'?: string;
+        
+        /**
+         * Источник
+         */
+        'source'?: string;
+        
+        /**
+         * Массив данных
+         */
+        'array'?: Array<{
+        
+        /**
+         * ID
+         */
+        'id'?: string;
+        
+        /**
+         * Наименование
+         */
+        'name'?: string;
+        }>;
+        }>;
+        }>;
+      })
+    );
+  }
+
+  /**
+   * Параметры формы поиска.
+   *
+   *
+   *
+   * This method provides access to only to the response body.
+   * To access the full response (for headers, for example), `customerListSearch$Response()` instead.
+   *
+   * This method doesn't expect any request body.
+   */
+  customerListSearch(params?: {
+    context?: HttpContext
+  }
+): Observable<{
+
+/**
+ * Поиск в заголовке
+ */
+'header'?: Array<{
+
+/**
+ * Переменная
+ */
+'field'?: string;
+
+/**
+ * Элемент формы
+ */
+'form'?: 'autocomplete' | 'period' | 'select' | 'text' | 'checkbox' | 'checkbox_reset';
+
+/**
+ * Наименование
+ */
+'name'?: string;
+
+/**
+ * Источник
+ */
+'source'?: string;
+
+/**
+ * Массив данных
+ */
+'array'?: Array<{
+
+/**
+ * ID
+ */
+'id'?: string;
 
 /**
  * Наименование
@@ -2264,10 +2274,346 @@ export class CustomerService extends BaseService {
 }>;
 
 /**
- * Поля сортировки
+ * Поиск основной
  */
-'sort'?: Array<string>;
-}>)
+'main'?: Array<{
+
+/**
+ * Переменная
+ */
+'field'?: string;
+
+/**
+ * Элемент формы
+ */
+'form'?: 'autocomplete' | 'period' | 'select' | 'text' | 'checkbox' | 'checkbox_reset';
+
+/**
+ * Наименование
+ */
+'name'?: string;
+
+/**
+ * Источник
+ */
+'source'?: string;
+
+/**
+ * Массив данных
+ */
+'array'?: Array<{
+
+/**
+ * ID
+ */
+'id'?: string;
+
+/**
+ * Наименование
+ */
+'name'?: string;
+}>;
+}>;
+
+/**
+ * Поиск расширенный
+ */
+'additional'?: Array<{
+
+/**
+ * Переменная
+ */
+'field'?: string;
+
+/**
+ * Элемент формы
+ */
+'form'?: 'autocomplete' | 'period' | 'select' | 'text' | 'checkbox' | 'checkbox_reset';
+
+/**
+ * Наименование
+ */
+'name'?: string;
+
+/**
+ * Источник
+ */
+'source'?: string;
+
+/**
+ * Массив данных
+ */
+'array'?: Array<{
+
+/**
+ * ID
+ */
+'id'?: string;
+
+/**
+ * Наименование
+ */
+'name'?: string;
+}>;
+}>;
+}> {
+
+    return this.customerListSearch$Response(params).pipe(
+      map((r: StrictHttpResponse<{
+
+/**
+ * Поиск в заголовке
+ */
+'header'?: Array<{
+
+/**
+ * Переменная
+ */
+'field'?: string;
+
+/**
+ * Элемент формы
+ */
+'form'?: 'autocomplete' | 'period' | 'select' | 'text' | 'checkbox' | 'checkbox_reset';
+
+/**
+ * Наименование
+ */
+'name'?: string;
+
+/**
+ * Источник
+ */
+'source'?: string;
+
+/**
+ * Массив данных
+ */
+'array'?: Array<{
+
+/**
+ * ID
+ */
+'id'?: string;
+
+/**
+ * Наименование
+ */
+'name'?: string;
+}>;
+}>;
+
+/**
+ * Поиск основной
+ */
+'main'?: Array<{
+
+/**
+ * Переменная
+ */
+'field'?: string;
+
+/**
+ * Элемент формы
+ */
+'form'?: 'autocomplete' | 'period' | 'select' | 'text' | 'checkbox' | 'checkbox_reset';
+
+/**
+ * Наименование
+ */
+'name'?: string;
+
+/**
+ * Источник
+ */
+'source'?: string;
+
+/**
+ * Массив данных
+ */
+'array'?: Array<{
+
+/**
+ * ID
+ */
+'id'?: string;
+
+/**
+ * Наименование
+ */
+'name'?: string;
+}>;
+}>;
+
+/**
+ * Поиск расширенный
+ */
+'additional'?: Array<{
+
+/**
+ * Переменная
+ */
+'field'?: string;
+
+/**
+ * Элемент формы
+ */
+'form'?: 'autocomplete' | 'period' | 'select' | 'text' | 'checkbox' | 'checkbox_reset';
+
+/**
+ * Наименование
+ */
+'name'?: string;
+
+/**
+ * Источник
+ */
+'source'?: string;
+
+/**
+ * Массив данных
+ */
+'array'?: Array<{
+
+/**
+ * ID
+ */
+'id'?: string;
+
+/**
+ * Наименование
+ */
+'name'?: string;
+}>;
+}>;
+}>) => r.body as {
+
+/**
+ * Поиск в заголовке
+ */
+'header'?: Array<{
+
+/**
+ * Переменная
+ */
+'field'?: string;
+
+/**
+ * Элемент формы
+ */
+'form'?: 'autocomplete' | 'period' | 'select' | 'text' | 'checkbox' | 'checkbox_reset';
+
+/**
+ * Наименование
+ */
+'name'?: string;
+
+/**
+ * Источник
+ */
+'source'?: string;
+
+/**
+ * Массив данных
+ */
+'array'?: Array<{
+
+/**
+ * ID
+ */
+'id'?: string;
+
+/**
+ * Наименование
+ */
+'name'?: string;
+}>;
+}>;
+
+/**
+ * Поиск основной
+ */
+'main'?: Array<{
+
+/**
+ * Переменная
+ */
+'field'?: string;
+
+/**
+ * Элемент формы
+ */
+'form'?: 'autocomplete' | 'period' | 'select' | 'text' | 'checkbox' | 'checkbox_reset';
+
+/**
+ * Наименование
+ */
+'name'?: string;
+
+/**
+ * Источник
+ */
+'source'?: string;
+
+/**
+ * Массив данных
+ */
+'array'?: Array<{
+
+/**
+ * ID
+ */
+'id'?: string;
+
+/**
+ * Наименование
+ */
+'name'?: string;
+}>;
+}>;
+
+/**
+ * Поиск расширенный
+ */
+'additional'?: Array<{
+
+/**
+ * Переменная
+ */
+'field'?: string;
+
+/**
+ * Элемент формы
+ */
+'form'?: 'autocomplete' | 'period' | 'select' | 'text' | 'checkbox' | 'checkbox_reset';
+
+/**
+ * Наименование
+ */
+'name'?: string;
+
+/**
+ * Источник
+ */
+'source'?: string;
+
+/**
+ * Массив данных
+ */
+'array'?: Array<{
+
+/**
+ * ID
+ */
+'id'?: string;
+
+/**
+ * Наименование
+ */
+'name'?: string;
+}>;
+}>;
+})
     );
   }
 
@@ -5244,7 +5590,142 @@ export class CustomerService extends BaseService {
     var?: string;
     context?: HttpContext
   }
-): Observable<StrictHttpResponse<{
+): Observable<StrictHttpResponse<Array<{
+
+/**
+ * ID
+ */
+'id': number;
+
+/**
+ * ID элемента
+ */
+'item_id': number;
+
+/**
+ * Переменная формы
+ */
+'var': string;
+
+/**
+ * Ссылка на файл
+ */
+'path'?: string;
+
+/**
+ * Информация по файлу
+ */
+'file_info'?: Array<string>;
+
+/**
+ * Время загрузки файла
+ */
+'file_time'?: string;
+
+/**
+ * Наименование файла
+ */
+'file_name'?: string;
+
+/**
+ * Время создания
+ */
+'time_add'?: string;
+
+/**
+ * Время изменения
+ */
+'time_edit'?: string;
+}>>> {
+
+    const rb = new RequestBuilder(this.rootUrl, CustomerService.CustomerFilesPath, 'get');
+    if (params) {
+      rb.query('item_id', params.item_id, {});
+      rb.query('var', params.var, {});
+    }
+
+    return this.http.request(rb.build({
+      responseType: 'json',
+      accept: 'application/json',
+      context: params?.context
+    })).pipe(
+      filter((r: any) => r instanceof HttpResponse),
+      map((r: HttpResponse<any>) => {
+        return r as StrictHttpResponse<Array<{
+        
+        /**
+         * ID
+         */
+        'id': number;
+        
+        /**
+         * ID элемента
+         */
+        'item_id': number;
+        
+        /**
+         * Переменная формы
+         */
+        'var': string;
+        
+        /**
+         * Ссылка на файл
+         */
+        'path'?: string;
+        
+        /**
+         * Информация по файлу
+         */
+        'file_info'?: Array<string>;
+        
+        /**
+         * Время загрузки файла
+         */
+        'file_time'?: string;
+        
+        /**
+         * Наименование файла
+         */
+        'file_name'?: string;
+        
+        /**
+         * Время создания
+         */
+        'time_add'?: string;
+        
+        /**
+         * Время изменения
+         */
+        'time_edit'?: string;
+        }>>;
+      })
+    );
+  }
+
+  /**
+   * Список файлов.
+   *
+   *
+   *
+   * This method provides access to only to the response body.
+   * To access the full response (for headers, for example), `customerFiles$Response()` instead.
+   *
+   * This method doesn't expect any request body.
+   */
+  customerFiles(params: {
+
+    /**
+     * ID элемента
+     */
+    item_id: number;
+
+    /**
+     * Переменная формы
+     */
+    var?: string;
+    context?: HttpContext
+  }
+): Observable<Array<{
 
 /**
  * ID
@@ -5292,143 +5773,8 @@ export class CustomerService extends BaseService {
 'time_edit'?: string;
 }>> {
 
-    const rb = new RequestBuilder(this.rootUrl, CustomerService.CustomerFilesPath, 'get');
-    if (params) {
-      rb.query('item_id', params.item_id, {});
-      rb.query('var', params.var, {});
-    }
-
-    return this.http.request(rb.build({
-      responseType: 'json',
-      accept: 'application/json',
-      context: params?.context
-    })).pipe(
-      filter((r: any) => r instanceof HttpResponse),
-      map((r: HttpResponse<any>) => {
-        return r as StrictHttpResponse<{
-        
-        /**
-         * ID
-         */
-        'id': number;
-        
-        /**
-         * ID элемента
-         */
-        'item_id': number;
-        
-        /**
-         * Переменная формы
-         */
-        'var': string;
-        
-        /**
-         * Ссылка на файл
-         */
-        'path'?: string;
-        
-        /**
-         * Информация по файлу
-         */
-        'file_info'?: Array<string>;
-        
-        /**
-         * Время загрузки файла
-         */
-        'file_time'?: string;
-        
-        /**
-         * Наименование файла
-         */
-        'file_name'?: string;
-        
-        /**
-         * Время создания
-         */
-        'time_add'?: string;
-        
-        /**
-         * Время изменения
-         */
-        'time_edit'?: string;
-        }>;
-      })
-    );
-  }
-
-  /**
-   * Список файлов.
-   *
-   *
-   *
-   * This method provides access to only to the response body.
-   * To access the full response (for headers, for example), `customerFiles$Response()` instead.
-   *
-   * This method doesn't expect any request body.
-   */
-  customerFiles(params: {
-
-    /**
-     * ID элемента
-     */
-    item_id: number;
-
-    /**
-     * Переменная формы
-     */
-    var?: string;
-    context?: HttpContext
-  }
-): Observable<{
-
-/**
- * ID
- */
-'id': number;
-
-/**
- * ID элемента
- */
-'item_id': number;
-
-/**
- * Переменная формы
- */
-'var': string;
-
-/**
- * Ссылка на файл
- */
-'path'?: string;
-
-/**
- * Информация по файлу
- */
-'file_info'?: Array<string>;
-
-/**
- * Время загрузки файла
- */
-'file_time'?: string;
-
-/**
- * Наименование файла
- */
-'file_name'?: string;
-
-/**
- * Время создания
- */
-'time_add'?: string;
-
-/**
- * Время изменения
- */
-'time_edit'?: string;
-}> {
-
     return this.customerFiles$Response(params).pipe(
-      map((r: StrictHttpResponse<{
+      map((r: StrictHttpResponse<Array<{
 
 /**
  * ID
@@ -5474,7 +5820,7 @@ export class CustomerService extends BaseService {
  * Время изменения
  */
 'time_edit'?: string;
-}>) => r.body as {
+}>>) => r.body as Array<{
 
 /**
  * ID
@@ -5520,7 +5866,7 @@ export class CustomerService extends BaseService {
  * Время изменения
  */
 'time_edit'?: string;
-})
+}>)
     );
   }
 

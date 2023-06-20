@@ -28,16 +28,10 @@
         </svg><span>Аналитика</span></a>
     </div>
     <div class="div"></div>
-    <div class="search-box">
-      <input type="text" placeholder="Поиск клиента по названию..." name="searchtext" value="" size="28">
-      <script>
-        let input = document.getElementsByName("searchtext")[0];
-        input.setAttribute('size', input.getAttribute('placeholder').length);
-      </script>
-    </div>
+    <app-universal-filter *ngFor="let control of filterService.searchFilterSchema?.header" [filterControl]="control"></app-universal-filter>
   </div>
 </div>
-<app-client-filter [filter]="filter" (filterChange)="onFilterChange($event)"></app-client-filter>
+<app-table-filter></app-table-filter>
 <div class="table-list">
   <table mat-table [dataSource]="rows">
     <ng-container matColumnDef="customer">
@@ -159,5 +153,3 @@
 </div>
 <app-paginator [total]="total" [count]="count" [start]="start" [limits]="limits" (startChange)="onStartChange($event)"
   (countChange)="onCountChange($event)"></app-paginator>
-
-<!-- <div [ngClass]="{'odd': index % 2 == 1}"></div> -->

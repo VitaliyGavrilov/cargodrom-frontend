@@ -43,7 +43,7 @@ export class ContractorService extends BaseService {
   contractorList$Response(params?: {
 
     /**
-     * Наименование
+     * Поиск подрядчика по названию...
      */
     name?: string;
 
@@ -53,14 +53,14 @@ export class ContractorService extends BaseService {
     specialization?: Array<string>;
 
     /**
-     * Минимальный рейтинг
+     * Рейтинг (ID берем из запроса - system_rating)
      */
     rating?: number;
 
     /**
      * Доступ к торгам
      */
-    allow_trade?: boolean;
+    allow_trade?: number;
 
     /**
      * Направление откуда (ID берем из запроса - direction_country)
@@ -90,7 +90,7 @@ export class ContractorService extends BaseService {
 /**
  * Поле
  */
-'field': string;
+'field': 'id' | 'name' | 'rating_nps_text' | 'trade_rating' | 'exclude_from_trade' | 'avg_answer_time';
 
 /**
  * Направление сортировки
@@ -100,6 +100,11 @@ export class ContractorService extends BaseService {
     context?: HttpContext
   }
 ): Observable<StrictHttpResponse<{
+
+/**
+ * Всего позиций
+ */
+'total'?: number;
 
 /**
  * Позиции
@@ -179,10 +184,10 @@ export class ContractorService extends BaseService {
 /**
  * Членство в ассоциациях
  */
-'association_name'?: string;
+'association_name'?: Array<string>;
 
 /**
- * Членство в ассоциациях (ID берем из запроса - contractor_association)
+ * Членство в ассоциациях (ID берем из запроса - system_association)
  */
 'association_id'?: Array<string>;
 
@@ -192,7 +197,7 @@ export class ContractorService extends BaseService {
 'tax_name'?: string;
 
 /**
- * Система налогообложения (ID берем из запроса - settings_get из поля tax)
+ * Система налогообложения (ID берем из запроса - system_tax_system)
  */
 'tax_id'?: number;
 
@@ -405,15 +410,20 @@ export class ContractorService extends BaseService {
 }>;
 
 /**
- * Всего позиций
+ * Параметры таблицы
  */
-'total'?: number;
+'column'?: Array<string>;
+
+/**
+ * Поля сортировки
+ */
+'sort'?: Array<string>;
 }>> {
 
     const rb = new RequestBuilder(this.rootUrl, ContractorService.ContractorListPath, 'get');
     if (params) {
       rb.query('name', params.name, {});
-      rb.query('specialization', params.specialization, {"style":"form","explode":false});
+      rb.query('specialization', params.specialization, {});
       rb.query('rating', params.rating, {});
       rb.query('allow_trade', params.allow_trade, {});
       rb.query('country_departure', params.country_departure, {});
@@ -431,6 +441,11 @@ export class ContractorService extends BaseService {
       filter((r: any) => r instanceof HttpResponse),
       map((r: HttpResponse<any>) => {
         return r as StrictHttpResponse<{
+        
+        /**
+         * Всего позиций
+         */
+        'total'?: number;
         
         /**
          * Позиции
@@ -510,10 +525,10 @@ export class ContractorService extends BaseService {
         /**
          * Членство в ассоциациях
          */
-        'association_name'?: string;
+        'association_name'?: Array<string>;
         
         /**
-         * Членство в ассоциациях (ID берем из запроса - contractor_association)
+         * Членство в ассоциациях (ID берем из запроса - system_association)
          */
         'association_id'?: Array<string>;
         
@@ -523,7 +538,7 @@ export class ContractorService extends BaseService {
         'tax_name'?: string;
         
         /**
-         * Система налогообложения (ID берем из запроса - settings_get из поля tax)
+         * Система налогообложения (ID берем из запроса - system_tax_system)
          */
         'tax_id'?: number;
         
@@ -736,9 +751,14 @@ export class ContractorService extends BaseService {
         }>;
         
         /**
-         * Всего позиций
+         * Параметры таблицы
          */
-        'total'?: number;
+        'column'?: Array<string>;
+        
+        /**
+         * Поля сортировки
+         */
+        'sort'?: Array<string>;
         }>;
       })
     );
@@ -757,7 +777,7 @@ export class ContractorService extends BaseService {
   contractorList(params?: {
 
     /**
-     * Наименование
+     * Поиск подрядчика по названию...
      */
     name?: string;
 
@@ -767,14 +787,14 @@ export class ContractorService extends BaseService {
     specialization?: Array<string>;
 
     /**
-     * Минимальный рейтинг
+     * Рейтинг (ID берем из запроса - system_rating)
      */
     rating?: number;
 
     /**
      * Доступ к торгам
      */
-    allow_trade?: boolean;
+    allow_trade?: number;
 
     /**
      * Направление откуда (ID берем из запроса - direction_country)
@@ -804,7 +824,7 @@ export class ContractorService extends BaseService {
 /**
  * Поле
  */
-'field': string;
+'field': 'id' | 'name' | 'rating_nps_text' | 'trade_rating' | 'exclude_from_trade' | 'avg_answer_time';
 
 /**
  * Направление сортировки
@@ -816,6 +836,11 @@ export class ContractorService extends BaseService {
 ): Observable<{
 
 /**
+ * Всего позиций
+ */
+'total'?: number;
+
+/**
  * Позиции
  */
 'items'?: Array<{
@@ -893,10 +918,10 @@ export class ContractorService extends BaseService {
 /**
  * Членство в ассоциациях
  */
-'association_name'?: string;
+'association_name'?: Array<string>;
 
 /**
- * Членство в ассоциациях (ID берем из запроса - contractor_association)
+ * Членство в ассоциациях (ID берем из запроса - system_association)
  */
 'association_id'?: Array<string>;
 
@@ -906,7 +931,7 @@ export class ContractorService extends BaseService {
 'tax_name'?: string;
 
 /**
- * Система налогообложения (ID берем из запроса - settings_get из поля tax)
+ * Система налогообложения (ID берем из запроса - system_tax_system)
  */
 'tax_id'?: number;
 
@@ -1119,15 +1144,25 @@ export class ContractorService extends BaseService {
 }>;
 
 /**
- * Всего позиций
+ * Параметры таблицы
  */
-'total'?: number;
+'column'?: Array<string>;
+
+/**
+ * Поля сортировки
+ */
+'sort'?: Array<string>;
 }> {
 
     return this.contractorList$Response(params).pipe(
       map((r: StrictHttpResponse<{
 
 /**
+ * Всего позиций
+ */
+'total'?: number;
+
+/**
  * Позиции
  */
 'items'?: Array<{
@@ -1205,10 +1240,10 @@ export class ContractorService extends BaseService {
 /**
  * Членство в ассоциациях
  */
-'association_name'?: string;
+'association_name'?: Array<string>;
 
 /**
- * Членство в ассоциациях (ID берем из запроса - contractor_association)
+ * Членство в ассоциациях (ID берем из запроса - system_association)
  */
 'association_id'?: Array<string>;
 
@@ -1218,7 +1253,7 @@ export class ContractorService extends BaseService {
 'tax_name'?: string;
 
 /**
- * Система налогообложения (ID берем из запроса - settings_get из поля tax)
+ * Система налогообложения (ID берем из запроса - system_tax_system)
  */
 'tax_id'?: number;
 
@@ -1431,12 +1466,22 @@ export class ContractorService extends BaseService {
 }>;
 
 /**
- * Всего позиций
+ * Параметры таблицы
  */
-'total'?: number;
+'column'?: Array<string>;
+
+/**
+ * Поля сортировки
+ */
+'sort'?: Array<string>;
 }>) => r.body as {
 
 /**
+ * Всего позиций
+ */
+'total'?: number;
+
+/**
  * Позиции
  */
 'items'?: Array<{
@@ -1514,10 +1559,10 @@ export class ContractorService extends BaseService {
 /**
  * Членство в ассоциациях
  */
-'association_name'?: string;
+'association_name'?: Array<string>;
 
 /**
- * Членство в ассоциациях (ID берем из запроса - contractor_association)
+ * Членство в ассоциациях (ID берем из запроса - system_association)
  */
 'association_id'?: Array<string>;
 
@@ -1527,7 +1572,7 @@ export class ContractorService extends BaseService {
 'tax_name'?: string;
 
 /**
- * Система налогообложения (ID берем из запроса - settings_get из поля tax)
+ * Система налогообложения (ID берем из запроса - system_tax_system)
  */
 'tax_id'?: number;
 
@@ -1740,9 +1785,705 @@ export class ContractorService extends BaseService {
 }>;
 
 /**
- * Всего позиций
+ * Параметры таблицы
  */
-'total'?: number;
+'column'?: Array<string>;
+
+/**
+ * Поля сортировки
+ */
+'sort'?: Array<string>;
+})
+    );
+  }
+
+  /**
+   * Path part for operation contractorListSearch
+   */
+  static readonly ContractorListSearchPath = '/contractor_list_search';
+
+  /**
+   * Параметры формы поиска.
+   *
+   *
+   *
+   * This method provides access to the full `HttpResponse`, allowing access to response headers.
+   * To access only the response body, use `contractorListSearch()` instead.
+   *
+   * This method doesn't expect any request body.
+   */
+  contractorListSearch$Response(params?: {
+    context?: HttpContext
+  }
+): Observable<StrictHttpResponse<{
+
+/**
+ * Поиск в заголовке
+ */
+'header'?: Array<{
+
+/**
+ * Переменная
+ */
+'field'?: string;
+
+/**
+ * Элемент формы
+ */
+'form'?: 'autocomplete' | 'period' | 'select' | 'text' | 'checkbox' | 'checkbox_reset';
+
+/**
+ * Наименование
+ */
+'name'?: string;
+
+/**
+ * Источник
+ */
+'source'?: string;
+
+/**
+ * Массив данных
+ */
+'array'?: Array<{
+
+/**
+ * ID
+ */
+'id'?: string;
+
+/**
+ * Наименование
+ */
+'name'?: string;
+}>;
+}>;
+
+/**
+ * Поиск основной
+ */
+'main'?: Array<{
+
+/**
+ * Переменная
+ */
+'field'?: string;
+
+/**
+ * Элемент формы
+ */
+'form'?: 'autocomplete' | 'period' | 'select' | 'text' | 'checkbox' | 'checkbox_reset';
+
+/**
+ * Наименование
+ */
+'name'?: string;
+
+/**
+ * Источник
+ */
+'source'?: string;
+
+/**
+ * Массив данных
+ */
+'array'?: Array<{
+
+/**
+ * ID
+ */
+'id'?: string;
+
+/**
+ * Наименование
+ */
+'name'?: string;
+}>;
+}>;
+
+/**
+ * Поиск расширенный
+ */
+'additional'?: Array<{
+
+/**
+ * Переменная
+ */
+'field'?: string;
+
+/**
+ * Элемент формы
+ */
+'form'?: 'autocomplete' | 'period' | 'select' | 'text' | 'checkbox' | 'checkbox_reset';
+
+/**
+ * Наименование
+ */
+'name'?: string;
+
+/**
+ * Источник
+ */
+'source'?: string;
+
+/**
+ * Массив данных
+ */
+'array'?: Array<{
+
+/**
+ * ID
+ */
+'id'?: string;
+
+/**
+ * Наименование
+ */
+'name'?: string;
+}>;
+}>;
+}>> {
+
+    const rb = new RequestBuilder(this.rootUrl, ContractorService.ContractorListSearchPath, 'get');
+    if (params) {
+    }
+
+    return this.http.request(rb.build({
+      responseType: 'json',
+      accept: 'application/json',
+      context: params?.context
+    })).pipe(
+      filter((r: any) => r instanceof HttpResponse),
+      map((r: HttpResponse<any>) => {
+        return r as StrictHttpResponse<{
+        
+        /**
+         * Поиск в заголовке
+         */
+        'header'?: Array<{
+        
+        /**
+         * Переменная
+         */
+        'field'?: string;
+        
+        /**
+         * Элемент формы
+         */
+        'form'?: 'autocomplete' | 'period' | 'select' | 'text' | 'checkbox' | 'checkbox_reset';
+        
+        /**
+         * Наименование
+         */
+        'name'?: string;
+        
+        /**
+         * Источник
+         */
+        'source'?: string;
+        
+        /**
+         * Массив данных
+         */
+        'array'?: Array<{
+        
+        /**
+         * ID
+         */
+        'id'?: string;
+        
+        /**
+         * Наименование
+         */
+        'name'?: string;
+        }>;
+        }>;
+        
+        /**
+         * Поиск основной
+         */
+        'main'?: Array<{
+        
+        /**
+         * Переменная
+         */
+        'field'?: string;
+        
+        /**
+         * Элемент формы
+         */
+        'form'?: 'autocomplete' | 'period' | 'select' | 'text' | 'checkbox' | 'checkbox_reset';
+        
+        /**
+         * Наименование
+         */
+        'name'?: string;
+        
+        /**
+         * Источник
+         */
+        'source'?: string;
+        
+        /**
+         * Массив данных
+         */
+        'array'?: Array<{
+        
+        /**
+         * ID
+         */
+        'id'?: string;
+        
+        /**
+         * Наименование
+         */
+        'name'?: string;
+        }>;
+        }>;
+        
+        /**
+         * Поиск расширенный
+         */
+        'additional'?: Array<{
+        
+        /**
+         * Переменная
+         */
+        'field'?: string;
+        
+        /**
+         * Элемент формы
+         */
+        'form'?: 'autocomplete' | 'period' | 'select' | 'text' | 'checkbox' | 'checkbox_reset';
+        
+        /**
+         * Наименование
+         */
+        'name'?: string;
+        
+        /**
+         * Источник
+         */
+        'source'?: string;
+        
+        /**
+         * Массив данных
+         */
+        'array'?: Array<{
+        
+        /**
+         * ID
+         */
+        'id'?: string;
+        
+        /**
+         * Наименование
+         */
+        'name'?: string;
+        }>;
+        }>;
+        }>;
+      })
+    );
+  }
+
+  /**
+   * Параметры формы поиска.
+   *
+   *
+   *
+   * This method provides access to only to the response body.
+   * To access the full response (for headers, for example), `contractorListSearch$Response()` instead.
+   *
+   * This method doesn't expect any request body.
+   */
+  contractorListSearch(params?: {
+    context?: HttpContext
+  }
+): Observable<{
+
+/**
+ * Поиск в заголовке
+ */
+'header'?: Array<{
+
+/**
+ * Переменная
+ */
+'field'?: string;
+
+/**
+ * Элемент формы
+ */
+'form'?: 'autocomplete' | 'period' | 'select' | 'text' | 'checkbox' | 'checkbox_reset';
+
+/**
+ * Наименование
+ */
+'name'?: string;
+
+/**
+ * Источник
+ */
+'source'?: string;
+
+/**
+ * Массив данных
+ */
+'array'?: Array<{
+
+/**
+ * ID
+ */
+'id'?: string;
+
+/**
+ * Наименование
+ */
+'name'?: string;
+}>;
+}>;
+
+/**
+ * Поиск основной
+ */
+'main'?: Array<{
+
+/**
+ * Переменная
+ */
+'field'?: string;
+
+/**
+ * Элемент формы
+ */
+'form'?: 'autocomplete' | 'period' | 'select' | 'text' | 'checkbox' | 'checkbox_reset';
+
+/**
+ * Наименование
+ */
+'name'?: string;
+
+/**
+ * Источник
+ */
+'source'?: string;
+
+/**
+ * Массив данных
+ */
+'array'?: Array<{
+
+/**
+ * ID
+ */
+'id'?: string;
+
+/**
+ * Наименование
+ */
+'name'?: string;
+}>;
+}>;
+
+/**
+ * Поиск расширенный
+ */
+'additional'?: Array<{
+
+/**
+ * Переменная
+ */
+'field'?: string;
+
+/**
+ * Элемент формы
+ */
+'form'?: 'autocomplete' | 'period' | 'select' | 'text' | 'checkbox' | 'checkbox_reset';
+
+/**
+ * Наименование
+ */
+'name'?: string;
+
+/**
+ * Источник
+ */
+'source'?: string;
+
+/**
+ * Массив данных
+ */
+'array'?: Array<{
+
+/**
+ * ID
+ */
+'id'?: string;
+
+/**
+ * Наименование
+ */
+'name'?: string;
+}>;
+}>;
+}> {
+
+    return this.contractorListSearch$Response(params).pipe(
+      map((r: StrictHttpResponse<{
+
+/**
+ * Поиск в заголовке
+ */
+'header'?: Array<{
+
+/**
+ * Переменная
+ */
+'field'?: string;
+
+/**
+ * Элемент формы
+ */
+'form'?: 'autocomplete' | 'period' | 'select' | 'text' | 'checkbox' | 'checkbox_reset';
+
+/**
+ * Наименование
+ */
+'name'?: string;
+
+/**
+ * Источник
+ */
+'source'?: string;
+
+/**
+ * Массив данных
+ */
+'array'?: Array<{
+
+/**
+ * ID
+ */
+'id'?: string;
+
+/**
+ * Наименование
+ */
+'name'?: string;
+}>;
+}>;
+
+/**
+ * Поиск основной
+ */
+'main'?: Array<{
+
+/**
+ * Переменная
+ */
+'field'?: string;
+
+/**
+ * Элемент формы
+ */
+'form'?: 'autocomplete' | 'period' | 'select' | 'text' | 'checkbox' | 'checkbox_reset';
+
+/**
+ * Наименование
+ */
+'name'?: string;
+
+/**
+ * Источник
+ */
+'source'?: string;
+
+/**
+ * Массив данных
+ */
+'array'?: Array<{
+
+/**
+ * ID
+ */
+'id'?: string;
+
+/**
+ * Наименование
+ */
+'name'?: string;
+}>;
+}>;
+
+/**
+ * Поиск расширенный
+ */
+'additional'?: Array<{
+
+/**
+ * Переменная
+ */
+'field'?: string;
+
+/**
+ * Элемент формы
+ */
+'form'?: 'autocomplete' | 'period' | 'select' | 'text' | 'checkbox' | 'checkbox_reset';
+
+/**
+ * Наименование
+ */
+'name'?: string;
+
+/**
+ * Источник
+ */
+'source'?: string;
+
+/**
+ * Массив данных
+ */
+'array'?: Array<{
+
+/**
+ * ID
+ */
+'id'?: string;
+
+/**
+ * Наименование
+ */
+'name'?: string;
+}>;
+}>;
+}>) => r.body as {
+
+/**
+ * Поиск в заголовке
+ */
+'header'?: Array<{
+
+/**
+ * Переменная
+ */
+'field'?: string;
+
+/**
+ * Элемент формы
+ */
+'form'?: 'autocomplete' | 'period' | 'select' | 'text' | 'checkbox' | 'checkbox_reset';
+
+/**
+ * Наименование
+ */
+'name'?: string;
+
+/**
+ * Источник
+ */
+'source'?: string;
+
+/**
+ * Массив данных
+ */
+'array'?: Array<{
+
+/**
+ * ID
+ */
+'id'?: string;
+
+/**
+ * Наименование
+ */
+'name'?: string;
+}>;
+}>;
+
+/**
+ * Поиск основной
+ */
+'main'?: Array<{
+
+/**
+ * Переменная
+ */
+'field'?: string;
+
+/**
+ * Элемент формы
+ */
+'form'?: 'autocomplete' | 'period' | 'select' | 'text' | 'checkbox' | 'checkbox_reset';
+
+/**
+ * Наименование
+ */
+'name'?: string;
+
+/**
+ * Источник
+ */
+'source'?: string;
+
+/**
+ * Массив данных
+ */
+'array'?: Array<{
+
+/**
+ * ID
+ */
+'id'?: string;
+
+/**
+ * Наименование
+ */
+'name'?: string;
+}>;
+}>;
+
+/**
+ * Поиск расширенный
+ */
+'additional'?: Array<{
+
+/**
+ * Переменная
+ */
+'field'?: string;
+
+/**
+ * Элемент формы
+ */
+'form'?: 'autocomplete' | 'period' | 'select' | 'text' | 'checkbox' | 'checkbox_reset';
+
+/**
+ * Наименование
+ */
+'name'?: string;
+
+/**
+ * Источник
+ */
+'source'?: string;
+
+/**
+ * Массив данных
+ */
+'array'?: Array<{
+
+/**
+ * ID
+ */
+'id'?: string;
+
+/**
+ * Наименование
+ */
+'name'?: string;
+}>;
+}>;
 })
     );
   }
@@ -1845,10 +2586,10 @@ export class ContractorService extends BaseService {
 /**
  * Членство в ассоциациях
  */
-'association_name'?: string;
+'association_name'?: Array<string>;
 
 /**
- * Членство в ассоциациях (ID берем из запроса - contractor_association)
+ * Членство в ассоциациях (ID берем из запроса - system_association)
  */
 'association_id'?: Array<string>;
 
@@ -1858,7 +2599,7 @@ export class ContractorService extends BaseService {
 'tax_name'?: string;
 
 /**
- * Система налогообложения (ID берем из запроса - settings_get из поля tax)
+ * Система налогообложения (ID берем из запроса - system_tax_system)
  */
 'tax_id'?: number;
 
@@ -2157,10 +2898,10 @@ export class ContractorService extends BaseService {
         /**
          * Членство в ассоциациях
          */
-        'association_name'?: string;
+        'association_name'?: Array<string>;
         
         /**
-         * Членство в ассоциациях (ID берем из запроса - contractor_association)
+         * Членство в ассоциациях (ID берем из запроса - system_association)
          */
         'association_id'?: Array<string>;
         
@@ -2170,7 +2911,7 @@ export class ContractorService extends BaseService {
         'tax_name'?: string;
         
         /**
-         * Система налогообложения (ID берем из запроса - settings_get из поля tax)
+         * Система налогообложения (ID берем из запроса - system_tax_system)
          */
         'tax_id'?: number;
         
@@ -2478,10 +3219,10 @@ export class ContractorService extends BaseService {
 /**
  * Членство в ассоциациях
  */
-'association_name'?: string;
+'association_name'?: Array<string>;
 
 /**
- * Членство в ассоциациях (ID берем из запроса - contractor_association)
+ * Членство в ассоциациях (ID берем из запроса - system_association)
  */
 'association_id'?: Array<string>;
 
@@ -2491,7 +3232,7 @@ export class ContractorService extends BaseService {
 'tax_name'?: string;
 
 /**
- * Система налогообложения (ID берем из запроса - settings_get из поля tax)
+ * Система налогообложения (ID берем из запроса - system_tax_system)
  */
 'tax_id'?: number;
 
@@ -2779,10 +3520,10 @@ export class ContractorService extends BaseService {
 /**
  * Членство в ассоциациях
  */
-'association_name'?: string;
+'association_name'?: Array<string>;
 
 /**
- * Членство в ассоциациях (ID берем из запроса - contractor_association)
+ * Членство в ассоциациях (ID берем из запроса - system_association)
  */
 'association_id'?: Array<string>;
 
@@ -2792,7 +3533,7 @@ export class ContractorService extends BaseService {
 'tax_name'?: string;
 
 /**
- * Система налогообложения (ID берем из запроса - settings_get из поля tax)
+ * Система налогообложения (ID берем из запроса - system_tax_system)
  */
 'tax_id'?: number;
 
@@ -3077,10 +3818,10 @@ export class ContractorService extends BaseService {
 /**
  * Членство в ассоциациях
  */
-'association_name'?: string;
+'association_name'?: Array<string>;
 
 /**
- * Членство в ассоциациях (ID берем из запроса - contractor_association)
+ * Членство в ассоциациях (ID берем из запроса - system_association)
  */
 'association_id'?: Array<string>;
 
@@ -3090,7 +3831,7 @@ export class ContractorService extends BaseService {
 'tax_name'?: string;
 
 /**
- * Система налогообложения (ID берем из запроса - settings_get из поля tax)
+ * Система налогообложения (ID берем из запроса - system_tax_system)
  */
 'tax_id'?: number;
 
@@ -3369,12 +4110,12 @@ export class ContractorService extends BaseService {
 'type_id': number;
 
 /**
- * Членство в ассоциациях (ID берем из запроса - contractor_association)
+ * Членство в ассоциациях (ID берем из запроса - system_association)
  */
 'association_id'?: Array<string>;
 
 /**
- * Система налогообложения (ID берем из запроса - settings_get из поля tax)
+ * Система налогообложения (ID берем из запроса - system_tax_system)
  */
 'tax_id': number;
 
@@ -3567,12 +4308,12 @@ export class ContractorService extends BaseService {
 'type_id': number;
 
 /**
- * Членство в ассоциациях (ID берем из запроса - contractor_association)
+ * Членство в ассоциациях (ID берем из запроса - system_association)
  */
 'association_id'?: Array<string>;
 
 /**
- * Система налогообложения (ID берем из запроса - settings_get из поля tax)
+ * Система налогообложения (ID берем из запроса - system_tax_system)
  */
 'tax_id': number;
 
@@ -3774,12 +4515,12 @@ export class ContractorService extends BaseService {
 'type_id'?: number;
 
 /**
- * Членство в ассоциациях (ID берем из запроса - contractor_association)
+ * Членство в ассоциациях (ID берем из запроса - system_association)
  */
 'association_id'?: Array<string>;
 
 /**
- * Система налогообложения (ID берем из запроса - settings_get из поля tax)
+ * Система налогообложения (ID берем из запроса - system_tax_system)
  */
 'tax_id'?: number;
 
@@ -3972,12 +4713,12 @@ export class ContractorService extends BaseService {
 'type_id'?: number;
 
 /**
- * Членство в ассоциациях (ID берем из запроса - contractor_association)
+ * Членство в ассоциациях (ID берем из запроса - system_association)
  */
 'association_id'?: Array<string>;
 
 /**
- * Система налогообложения (ID берем из запроса - settings_get из поля tax)
+ * Система налогообложения (ID берем из запроса - system_tax_system)
  */
 'tax_id'?: number;
 
