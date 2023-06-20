@@ -148,7 +148,7 @@ export abstract class Table<T extends { id: number }, A = never, F = never> impl
     });
   }
 
-  onFilterChange(filter: F): void {
+  private onFilterChange(filter: F): void {
     const filterWithNonEmptyValue: any = {};
     for (const key in filter) {
       const value = filter[key];
