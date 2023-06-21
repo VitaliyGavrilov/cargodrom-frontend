@@ -55,7 +55,7 @@ export class ContactEditorComponent implements OnInit, OnDestroy, ControlValueAc
       telegram: ['', []],
       wechat: ['', []],
       responsible_direction: [{}],
-      responsible_param: [{}],
+      responsible_param: [{import: [], export: [], local: []}],
       place: [''],
     });
   }

@@ -1,5 +1,5 @@
 import { TransportSubKinds, TransportSubKind } from './../../../api/custom_models/transport';
-import { Responsibilities } from './../../../api/custom_models/contact';
+import { AllResponsibilities, Responsibilities } from './../../../api/custom_models/contact';
 import { Country } from './../../../api/custom_models/country';
 import { Component, Input, OnChanges, OnInit, SimpleChanges, ViewEncapsulation } from '@angular/core';
 import { NG_VALUE_ACCESSOR, ControlValueAccessor } from '@angular/forms';
@@ -73,14 +73,14 @@ export class ResponsibilityEditorComponent implements OnInit, OnChanges, Control
     }
   }
 
-  writeValue(responsibilityParam: Responsibilities): void {
-    this.responsibilities = responsibilityParam;
-    this.destCountries = Object.keys(responsibilityParam)
+  writeValue(responsibilityParam: AllResponsibilities): void {
+    this.responsibilities = responsibilityParam.import;
+    this.destCountries = Object.keys(this.responsibilities)
       .filter(countryId => Number(countryId) !== this.homeCountryId)
       .map(countryId => this.getCountryById(countryId)!)
       .sort(byName);
-    if (this.homeCountryId && !Array.isArray(this.responsibilities[this.homeCountryId])) {
-      this.responsibilities[this.homeCountryId] = [];
+    if (this.homeCountryId) {
+      this.responsibilities[this.homeCountryId] = responsibilityParam.local;
     }
   }
 
@@ -210,8 +210,13 @@ export class ResponsibilityEditorComponent implements OnInit, OnChanges, Control
   }
   
   valueChanged(): void {
-    this.onChange(this.responsibilities);
-    this.onTouched();
+    if (this.homeCountryId) {
+      const rLocal = this.responsibilities[this.homeCountryId!] || [];
+      const rImport = {...this.responsibilities};
+      delete rImport[this.homeCountryId]; 
+      this.onChange({import: rImport, export: [], local: rLocal});
+      this.onTouched();
+    }
   }
 
 }

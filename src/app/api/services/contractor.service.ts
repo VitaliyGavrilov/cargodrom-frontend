@@ -375,6 +375,23 @@ export class ContractorService extends BaseService {
  * Ответственный за направления (distination_country_id: {departure_country_id: [array of transport_sub_kind]}, ...)
  */
 'responsible_param'?: {
+
+/**
+ * Импорт
+ */
+'import'?: {
+};
+
+/**
+ * Экспорт
+ */
+'export'?: {
+};
+
+/**
+ * Перевозки внутри страны
+ */
+'local'?: Array<string>;
 };
 
 /**
@@ -716,6 +733,23 @@ export class ContractorService extends BaseService {
          * Ответственный за направления (distination_country_id: {departure_country_id: [array of transport_sub_kind]}, ...)
          */
         'responsible_param'?: {
+        
+        /**
+         * Импорт
+         */
+        'import'?: {
+        };
+        
+        /**
+         * Экспорт
+         */
+        'export'?: {
+        };
+        
+        /**
+         * Перевозки внутри страны
+         */
+        'local'?: Array<string>;
         };
         
         /**
@@ -1109,6 +1143,23 @@ export class ContractorService extends BaseService {
  * Ответственный за направления (distination_country_id: {departure_country_id: [array of transport_sub_kind]}, ...)
  */
 'responsible_param'?: {
+
+/**
+ * Импорт
+ */
+'import'?: {
+};
+
+/**
+ * Экспорт
+ */
+'export'?: {
+};
+
+/**
+ * Перевозки внутри страны
+ */
+'local'?: Array<string>;
 };
 
 /**
@@ -1431,6 +1482,23 @@ export class ContractorService extends BaseService {
  * Ответственный за направления (distination_country_id: {departure_country_id: [array of transport_sub_kind]}, ...)
  */
 'responsible_param'?: {
+
+/**
+ * Импорт
+ */
+'import'?: {
+};
+
+/**
+ * Экспорт
+ */
+'export'?: {
+};
+
+/**
+ * Перевозки внутри страны
+ */
+'local'?: Array<string>;
 };
 
 /**
@@ -1750,6 +1818,23 @@ export class ContractorService extends BaseService {
  * Ответственный за направления (distination_country_id: {departure_country_id: [array of transport_sub_kind]}, ...)
  */
 'responsible_param'?: {
+
+/**
+ * Импорт
+ */
+'import'?: {
+};
+
+/**
+ * Экспорт
+ */
+'export'?: {
+};
+
+/**
+ * Перевозки внутри страны
+ */
+'local'?: Array<string>;
 };
 
 /**
@@ -2777,6 +2862,23 @@ export class ContractorService extends BaseService {
  * Ответственный за направления (distination_country_id: {departure_country_id: [array of transport_sub_kind]}, ...)
  */
 'responsible_param'?: {
+
+/**
+ * Импорт
+ */
+'import'?: {
+};
+
+/**
+ * Экспорт
+ */
+'export'?: {
+};
+
+/**
+ * Перевозки внутри страны
+ */
+'local'?: Array<string>;
 };
 
 /**
@@ -3089,6 +3191,23 @@ export class ContractorService extends BaseService {
          * Ответственный за направления (distination_country_id: {departure_country_id: [array of transport_sub_kind]}, ...)
          */
         'responsible_param'?: {
+        
+        /**
+         * Импорт
+         */
+        'import'?: {
+        };
+        
+        /**
+         * Экспорт
+         */
+        'export'?: {
+        };
+        
+        /**
+         * Перевозки внутри страны
+         */
+        'local'?: Array<string>;
         };
         
         /**
@@ -3410,6 +3529,23 @@ export class ContractorService extends BaseService {
  * Ответственный за направления (distination_country_id: {departure_country_id: [array of transport_sub_kind]}, ...)
  */
 'responsible_param'?: {
+
+/**
+ * Импорт
+ */
+'import'?: {
+};
+
+/**
+ * Экспорт
+ */
+'export'?: {
+};
+
+/**
+ * Перевозки внутри страны
+ */
+'local'?: Array<string>;
 };
 
 /**
@@ -3711,6 +3847,23 @@ export class ContractorService extends BaseService {
  * Ответственный за направления (distination_country_id: {departure_country_id: [array of transport_sub_kind]}, ...)
  */
 'responsible_param'?: {
+
+/**
+ * Импорт
+ */
+'import'?: {
+};
+
+/**
+ * Экспорт
+ */
+'export'?: {
+};
+
+/**
+ * Перевозки внутри страны
+ */
+'local'?: Array<string>;
 };
 
 /**
@@ -4009,6 +4162,23 @@ export class ContractorService extends BaseService {
  * Ответственный за направления (distination_country_id: {departure_country_id: [array of transport_sub_kind]}, ...)
  */
 'responsible_param'?: {
+
+/**
+ * Импорт
+ */
+'import'?: {
+};
+
+/**
+ * Экспорт
+ */
+'export'?: {
+};
+
+/**
+ * Перевозки внутри страны
+ */
+'local'?: Array<string>;
 };
 
 /**
@@ -5076,6 +5246,23 @@ export class ContractorService extends BaseService {
  * Ответственный за направления (distination_country_id: {departure_country_id: [array of transport_sub_kind]}, ...)
  */
 'responsible_param'?: {
+
+/**
+ * Импорт
+ */
+'import'?: {
+};
+
+/**
+ * Экспорт
+ */
+'export'?: {
+};
+
+/**
+ * Перевозки внутри страны
+ */
+'local'?: Array<string>;
 };
 
 /**
@@ -5190,6 +5377,23 @@ export class ContractorService extends BaseService {
          * Ответственный за направления (distination_country_id: {departure_country_id: [array of transport_sub_kind]}, ...)
          */
         'responsible_param'?: {
+        
+        /**
+         * Импорт
+         */
+        'import'?: {
+        };
+        
+        /**
+         * Экспорт
+         */
+        'export'?: {
+        };
+        
+        /**
+         * Перевозки внутри страны
+         */
+        'local'?: Array<string>;
         };
         
         /**
@@ -5336,6 +5540,23 @@ export class ContractorService extends BaseService {
  * Ответственный за направления (distination_country_id: {departure_country_id: [array of transport_sub_kind]}, ...)
  */
 'responsible_param'?: {
+
+/**
+ * Импорт
+ */
+'import'?: {
+};
+
+/**
+ * Экспорт
+ */
+'export'?: {
+};
+
+/**
+ * Перевозки внутри страны
+ */
+'local'?: Array<string>;
 };
 
 /**
@@ -5436,6 +5657,23 @@ export class ContractorService extends BaseService {
  * Ответственный за направления (distination_country_id: {departure_country_id: [array of transport_sub_kind]}, ...)
  */
 'responsible_param'?: {
+
+/**
+ * Импорт
+ */
+'import'?: {
+};
+
+/**
+ * Экспорт
+ */
+'export'?: {
+};
+
+/**
+ * Перевозки внутри страны
+ */
+'local'?: Array<string>;
 };
 
 /**
@@ -5533,6 +5771,23 @@ export class ContractorService extends BaseService {
  * Ответственный за направления (distination_country_id: {departure_country_id: [array of transport_sub_kind]}, ...)
  */
 'responsible_param'?: {
+
+/**
+ * Импорт
+ */
+'import'?: {
+};
+
+/**
+ * Экспорт
+ */
+'export'?: {
+};
+
+/**
+ * Перевозки внутри страны
+ */
+'local'?: Array<string>;
 };
 
 /**
@@ -5657,6 +5912,23 @@ export class ContractorService extends BaseService {
  * Ответственный за направления (distination_country_id: {departure_country_id: [array of transport_sub_kind]}, ...)
  */
 'responsible_param'?: {
+
+/**
+ * Импорт
+ */
+'import'?: {
+};
+
+/**
+ * Экспорт
+ */
+'export'?: {
+};
+
+/**
+ * Перевозки внутри страны
+ */
+'local'?: Array<string>;
 };
 
 /**
@@ -5768,6 +6040,23 @@ export class ContractorService extends BaseService {
          * Ответственный за направления (distination_country_id: {departure_country_id: [array of transport_sub_kind]}, ...)
          */
         'responsible_param'?: {
+        
+        /**
+         * Импорт
+         */
+        'import'?: {
+        };
+        
+        /**
+         * Экспорт
+         */
+        'export'?: {
+        };
+        
+        /**
+         * Перевозки внутри страны
+         */
+        'local'?: Array<string>;
         };
         
         /**
@@ -5888,6 +6177,23 @@ export class ContractorService extends BaseService {
  * Ответственный за направления (distination_country_id: {departure_country_id: [array of transport_sub_kind]}, ...)
  */
 'responsible_param'?: {
+
+/**
+ * Импорт
+ */
+'import'?: {
+};
+
+/**
+ * Экспорт
+ */
+'export'?: {
+};
+
+/**
+ * Перевозки внутри страны
+ */
+'local'?: Array<string>;
 };
 
 /**
@@ -5988,6 +6294,23 @@ export class ContractorService extends BaseService {
  * Ответственный за направления (distination_country_id: {departure_country_id: [array of transport_sub_kind]}, ...)
  */
 'responsible_param'?: {
+
+/**
+ * Импорт
+ */
+'import'?: {
+};
+
+/**
+ * Экспорт
+ */
+'export'?: {
+};
+
+/**
+ * Перевозки внутри страны
+ */
+'local'?: Array<string>;
 };
 
 /**
@@ -6085,6 +6408,23 @@ export class ContractorService extends BaseService {
  * Ответственный за направления (distination_country_id: {departure_country_id: [array of transport_sub_kind]}, ...)
  */
 'responsible_param'?: {
+
+/**
+ * Импорт
+ */
+'import'?: {
+};
+
+/**
+ * Экспорт
+ */
+'export'?: {
+};
+
+/**
+ * Перевозки внутри страны
+ */
+'local'?: Array<string>;
 };
 
 /**
