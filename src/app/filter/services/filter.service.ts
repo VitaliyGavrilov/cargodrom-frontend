@@ -55,6 +55,7 @@ export class FilterService implements OnDestroy {
         this.value[control.field] = this.getDefault(control);
       });
     }
+    this.search$.next();
   }
 
   onApply(): Observable<{ [field: string]: any }> {
