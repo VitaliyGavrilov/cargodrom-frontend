@@ -25,4 +25,9 @@ export interface Contact {
 }
 
 export type Responsibilities = { [toCountryId: string]: TransportSubKind[] }
+export interface AllResponsibilities {
+  import: Responsibilities;
+  export: Responsibilities;
+  local: TransportSubKind[];
+}
 
