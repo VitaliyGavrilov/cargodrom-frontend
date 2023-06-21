@@ -423,7 +423,7 @@ export class ContractorService extends BaseService {
     const rb = new RequestBuilder(this.rootUrl, ContractorService.ContractorListPath, 'get');
     if (params) {
       rb.query('name', params.name, {});
-      rb.query('specialization', params.specialization, {});
+      rb.query('specialization', params.specialization, {"style":"form","explode":false});
       rb.query('rating', params.rating, {});
       rb.query('allow_trade', params.allow_trade, {});
       rb.query('country_departure', params.country_departure, {});
