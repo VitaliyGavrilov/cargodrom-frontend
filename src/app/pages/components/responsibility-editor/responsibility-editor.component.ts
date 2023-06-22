@@ -76,7 +76,7 @@ export class ResponsibilityEditorComponent implements OnInit, OnChanges, Control
   }
 
   writeValue(responsibilityParam: AllResponsibilities): void {
-    this.responsibilities = responsibilityParam.import;
+    this.responsibilities = responsibilityParam.import || [];
     this.destCountries = Object.keys(this.responsibilities)
       .filter(countryId => Number(countryId) !== this.homeCountryId)
       .map(countryId => this.getCountryById(countryId)!)
