@@ -24,7 +24,8 @@ describe('ClientComponent', () => {
       providers: [
         {
           provide: CustomerService, useValue: <Partial<CustomerService>>{
-            customerList: () => of({})
+            customerList: () => of({}),
+            customerListSearch: () => of({}),
           }
         },
         { provide: MatDialog, useValue: {} },

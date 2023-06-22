@@ -49,6 +49,8 @@ export class ResponsibilityEditorComponent implements OnInit, OnChanges, Control
       { kind: 'rw_sp', type: 'rail', classes: ['bg', 'e'], name: 'СП' },
     ];
   responsibilities: Responsibilities = {};
+  local: TransportSubKind[] = [];
+
   destCountries: Country[] = [];
   homeCountry?: Country;
 
@@ -74,14 +76,12 @@ export class ResponsibilityEditorComponent implements OnInit, OnChanges, Control
   }
 
   writeValue(responsibilityParam: AllResponsibilities): void {
-    this.responsibilities = responsibilityParam.import;
+    this.responsibilities = responsibilityParam.import || [];
     this.destCountries = Object.keys(this.responsibilities)
       .filter(countryId => Number(countryId) !== this.homeCountryId)
       .map(countryId => this.getCountryById(countryId)!)
       .sort(byName);
-    if (this.homeCountryId) {
-      this.responsibilities[this.homeCountryId] = responsibilityParam.local;
-    }
+    this.local = responsibilityParam.local || [];
   }
 
   registerOnChange(fn: any): void {
@@ -175,43 +175,55 @@ export class ResponsibilityEditorComponent implements OnInit, OnChanges, Control
     this.valueChanged();
   }
 
-  allCheckedForCountry(countryId: number | string): boolean {
-    const kinds = this.responsibilities[countryId];
+  allCheckedForCountry(countryId?: number | string): boolean {
+    const kinds = countryId ? this.responsibilities[countryId] : this.local ;
     return kinds.length === TransportSubKinds.length;
   }
-
-  allCompleteForCountry(countryId: number | string): boolean {
-    const kinds = this.responsibilities[countryId];
+  
+  allCompleteForCountry(countryId?: number | string): boolean {
+    const kinds = countryId ? this.responsibilities[countryId] : this.local ;
     return kinds.length === TransportSubKinds.length || kinds.length === 0;
   }
 
-  allChangeForCountry(countryId: number | string, { checked }: MatCheckboxChange): void {
+  allChangeForCountry(countryId: number | string | undefined, { checked }: MatCheckboxChange): void {
     if (checked) {
-      this.responsibilities[countryId] = [...TransportSubKinds];
+      if (countryId) {
+        this.responsibilities[countryId] = [...TransportSubKinds];
+      } else {
+        this.local = [...TransportSubKinds];
+      }
     } else {
-      this.responsibilities[countryId] = [];
+      if (countryId) {
+        this.responsibilities[countryId] = [];
+      } else {
+        this.local = [];
+      }
     }
     this.valueChanged();
   }
 
-  checkedForCountryAndKind(countryId: number | string, kind: TransportSubKind): boolean {
-    const kinds = this.responsibilities[countryId];
+  checkedForCountryAndKind(countryId: number | string | undefined, kind: TransportSubKind): boolean {
+    const kinds = countryId ? this.responsibilities[countryId] : this.local;
     return kinds.includes(kind);
   }
 
-  changeForCountryAndKind(countryId: number | string, kind: TransportSubKind, { checked }: MatCheckboxChange): void {
-    const kinds = this.responsibilities[countryId];
+  changeForCountryAndKind(countryId: number | string | undefined, kind: TransportSubKind, { checked }: MatCheckboxChange): void {
+    const kinds = countryId ? this.responsibilities[countryId] : this.local;
     if (checked) {
       kinds.push(kind);
     } else {
-      this.responsibilities[countryId] = kinds.filter(aKind => kind !== aKind);
+      if (countryId) {
+        this.responsibilities[countryId] = kinds.filter(aKind => kind !== aKind);
+      } else {
+        this.local = kinds.filter(aKind => kind !== aKind);
+      }
     }
     this.valueChanged();
   }
   
   valueChanged(): void {
     if (this.homeCountryId) {
-      const rLocal = this.responsibilities[this.homeCountryId!] || [];
+      const rLocal = this.local;
       const rImport = {...this.responsibilities};
       delete rImport[this.homeCountryId]; 
       this.onChange({import: rImport, export: [], local: rLocal});

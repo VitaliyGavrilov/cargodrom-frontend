@@ -76,6 +76,10 @@ export class FilterService implements OnDestroy {
           this.value[control.field] = this.getDefault(control);
         }
       });
+    } else {
+      for (const field in value) {
+        this.value[field] = value[field];
+      }
     }
   }
   
