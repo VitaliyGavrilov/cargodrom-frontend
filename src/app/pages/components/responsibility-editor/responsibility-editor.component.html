@@ -70,14 +70,14 @@
       <th class="all bg s e">
         <div class="l">Все виды</div>
         <label>
-          <mat-checkbox class="show-all" [checked]="allCheckedForCountry(homeCountry.id)" [indeterminate]="!allCompleteForCountry(homeCountry.id)" (change)="allChangeForCountry(homeCountry.id, $event)"></mat-checkbox>
+          <mat-checkbox class="show-all" [checked]="allCheckedForCountry()" [indeterminate]="!allCompleteForCountry()" (change)="allChangeForCountry(undefined, $event)"></mat-checkbox>
           <i></i>
         </label>
       </th>
       <th *ngFor="let kind of kinds" [ngClass]="kind.classes">
         <div class="l"><span class="ico" [ngClass]="kind.type"></span><span>{{kind.name}}</span></div>
         <label>
-          <mat-checkbox class="show-all" [checked]="checkedForCountryAndKind(homeCountry.id, kind.kind)" (change)="changeForCountryAndKind(homeCountry.id, kind.kind, $event)"></mat-checkbox>
+          <mat-checkbox class="show-all" [checked]="checkedForCountryAndKind(undefined, kind.kind)" (change)="changeForCountryAndKind(undefined, kind.kind, $event)"></mat-checkbox>
           <i></i>
         </label>
       </th>
