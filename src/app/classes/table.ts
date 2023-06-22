@@ -48,6 +48,9 @@ export abstract class Table<T extends { id: number }, A = never, F = never> impl
   }
 
   ngOnInit(): void {
+    this.loadFilterSchema().subscribe(schema => {
+      this.filterService.setSearchFilterSchema(schema);
+    });
     this.route.queryParamMap
       .pipe(takeUntil(this.destroy$))
       .subscribe(queryParamMap => {
@@ -56,10 +59,7 @@ export abstract class Table<T extends { id: number }, A = never, F = never> impl
         this.sortField = this.getStringParamSafely(queryParamMap, 'sortCol', this.sortField as string) as keyof T;
         this.sortDir = this.getEnumParamSafely(queryParamMap, 'sortDir', ['asc', 'desc'], this.sortDir) as 'asc' | 'desc';
         this.filter = this.getJsonParamSafely(queryParamMap, 'filter', {}) as F;
-        this.loadFilterSchema().subscribe(schema => {
-          this.filterService.setSearchFilterSchema(schema);
-          this.filterService.setValue(this.filter as any);
-        });
+        this.filterService.setValue(this.filter as any);
         this.loadRows();
       });
     this.filterService.onApply().subscribe(filter => this.onFilterChange(filter as F));
