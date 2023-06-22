@@ -36,6 +36,9 @@
         <th>ФОЗ</th>
         <th class="l">Контактные лица</th>
         <th>Связь</th>
+        <th class="setting">
+          <div class="setting-link"></div>
+        </th>
       </tr>
       <tr *ngFor="let contractor of rows; index as i; trackBy:trackById" [ngClass]="{'odd': i % 2 == 1}">
         <td>{{ start + i + 1 }}</td>
@@ -71,6 +74,9 @@
           <ng-container *ngFor="let contact of contractor.contacts">
             Тел.: <span class="bk">{{contact.phone}}</span>, E-mail.: <span class="bk">{{contact.email}}</span>
           </ng-container>
+        </td>
+        <td class="setting">
+          <a class="link-pic link-edit ico ico-pencil fn-link" [routerLink]="[contractor.id]" title="Редактировать"></a>
         </td>
       </tr>
       <!--
