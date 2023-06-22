@@ -76,7 +76,7 @@ export class ResponsibilityEditorComponent implements OnInit, OnChanges, Control
   }
 
   writeValue(responsibilityParam: AllResponsibilities): void {
-    this.responsibilities = responsibilityParam.import || [];
+    this.responsibilities = responsibilityParam.export || [];
     this.destCountries = Object.keys(this.responsibilities)
       .filter(countryId => Number(countryId) !== this.homeCountryId)
       .map(countryId => this.getCountryById(countryId)!)
@@ -224,9 +224,9 @@ export class ResponsibilityEditorComponent implements OnInit, OnChanges, Control
   valueChanged(): void {
     if (this.homeCountryId) {
       const rLocal = this.local;
-      const rImport = {...this.responsibilities};
-      delete rImport[this.homeCountryId]; 
-      this.onChange({import: rImport, export: [], local: rLocal});
+      const rExport = {...this.responsibilities};
+      delete rExport[this.homeCountryId]; 
+      this.onChange({export: rExport, import: [], local: rLocal});
       this.onTouched();
     }
   }
