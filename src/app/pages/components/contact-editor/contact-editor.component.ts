@@ -1,5 +1,4 @@
 import { Country } from './../../../api/custom_models/country';
-import { environment } from './../../../../environments/environment';
 import { Contact } from './../../../api/custom_models/contact';
 import { FormBuilder, FormGroup, Validators, ControlValueAccessor, NG_VALUE_ACCESSOR, AbstractControl, ValidationErrors, Validator, NG_VALIDATORS } from '@angular/forms';
 import { Component, Input, OnChanges, OnDestroy, OnInit, SimpleChanges } from '@angular/core';
@@ -27,7 +26,7 @@ export class ContactEditorComponent implements OnInit, OnDestroy, OnChanges, Con
 
   @Input() countries: Country[] = [];
   @Input() homeCountryId?: number;
-  unknownCountry: Country = {
+  readonly unknownCountry: Country = {
     id: 12345678,
     name: 'Неизвестная страна',
     name_from: 'Неизвестной страны',
@@ -35,8 +34,7 @@ export class ContactEditorComponent implements OnInit, OnDestroy, OnChanges, Con
   };
   homeCountry: Country = this.unknownCountry;
   contactForm: FormGroup;
-  showResponsibilities = true;
-  production = environment.production;
+  showResponsibilities = false;
 
   onChange = (value: Partial<Contact>) => { };
   onTouched = () => { };

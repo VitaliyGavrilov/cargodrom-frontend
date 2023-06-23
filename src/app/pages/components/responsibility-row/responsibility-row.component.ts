@@ -1,4 +1,5 @@
-import { Component, Input, OnInit, SimpleChanges, ViewEncapsulation } from '@angular/core';
+import { transportSubKindTable } from './../../../constants';
+import { Component, Input, ViewEncapsulation } from '@angular/core';
 import { ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
 import { MatCheckboxChange } from '@angular/material/checkbox';
 import { Country } from 'src/app/api/custom_models';
@@ -27,25 +28,7 @@ export class ResponsibilityRowComponent implements ControlValueAccessor {
   country?: Country;
   filteredCountries: Country[] = [];
 
-  kinds: {
-    kind: TransportSubKind,
-    type: 'air' | 'road' | 'sea' | 'rail',
-    classes: string[];
-    name: string;
-  }[] = [
-      { kind: 'avia_lcl', type: 'air', classes: ['s'], name: 'LCL' },
-      { kind: 'avia_fcl', type: 'air', classes: ['e'], name: 'FCL' },
-      { kind: 'road_lcl', type: 'road', classes: ['s'], name: 'LCL' },
-      { kind: 'road_fcl', type: 'road', classes: ['bg', 's'], name: 'FCL' },
-      { kind: 'road_adr', type: 'road', classes: ['bg'], name: 'ADR' },
-      { kind: 'road_ref', type: 'road', classes: ['bg'], name: 'REF' },
-      { kind: 'sea_teus', type: 'sea', classes: ['bg', 'e'], name: 'TEUS' },
-      { kind: 'sea_lcl', type: 'sea', classes: ['s'], name: 'LCL' },
-      { kind: 'sea_sp', type: 'sea', classes: ['e'], name: 'СП' },
-      { kind: 'rw_teus', type: 'rail', classes: ['bg', 's'], name: 'TEUS' },
-      { kind: 'rw_lcl', type: 'rail', classes: ['bg'], name: 'LCL' },
-      { kind: 'rw_sp', type: 'rail', classes: ['bg', 'e'], name: 'СП' },
-    ];
+  kinds = transportSubKindTable;
   local: TransportSubKind[] = [];
   disabled: boolean = false;
 
