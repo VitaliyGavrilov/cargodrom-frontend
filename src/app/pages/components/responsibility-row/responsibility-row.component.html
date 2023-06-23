@@ -1,0 +1,23 @@
+<table class="t1" *ngIf="!disabled">
+  <tbody>
+    <tr>
+      <th class="name">
+        <div>Перевозки внутри {{homeCountry.name_from}}:</div>
+      </th>
+      <th class="all bg s e">
+        <div class="l">Все виды</div>
+        <label>
+          <mat-checkbox class="show-all" [checked]="allCheckedForCountry()" [indeterminate]="!allCompleteForCountry()" (change)="allChangeForCountry($event)"></mat-checkbox>
+          <i></i>
+        </label>
+      </th>
+      <th *ngFor="let kind of kinds" [ngClass]="kind.classes">
+        <div class="l"><span class="ico" [ngClass]="kind.type"></span><span>{{kind.name}}</span></div>
+        <label>
+          <mat-checkbox class="show-all" [checked]="checkedForCountryAndKind(kind.kind)" (change)="changeForCountryAndKind(kind.kind, $event)"></mat-checkbox>
+          <i></i>
+        </label>
+      </th>
+    </tr>
+  </tbody>
+</table>

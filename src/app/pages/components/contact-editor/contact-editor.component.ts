@@ -1,8 +1,7 @@
 import { Country } from './../../../api/custom_models/country';
-import { environment } from './../../../../environments/environment';
 import { Contact } from './../../../api/custom_models/contact';
 import { FormBuilder, FormGroup, Validators, ControlValueAccessor, NG_VALUE_ACCESSOR, AbstractControl, ValidationErrors, Validator, NG_VALIDATORS } from '@angular/forms';
-import { Component, Input, OnDestroy, OnInit } from '@angular/core';
+import { Component, Input, OnChanges, OnDestroy, OnInit, SimpleChanges } from '@angular/core';
 import { Subject } from 'rxjs';
 import { takeUntil } from 'rxjs/operators';
 
@@ -23,13 +22,19 @@ import { takeUntil } from 'rxjs/operators';
     },
   ]
 })
-export class ContactEditorComponent implements OnInit, OnDestroy, ControlValueAccessor, Validator {
+export class ContactEditorComponent implements OnInit, OnDestroy, OnChanges, ControlValueAccessor, Validator {
 
   @Input() countries: Country[] = [];
   @Input() homeCountryId?: number;
+  readonly unknownCountry: Country = {
+    id: 12345678,
+    name: 'Неизвестная страна',
+    name_from: 'Неизвестной страны',
+    name_to: 'Неизвестную страну',
+  };
+  homeCountry: Country = this.unknownCountry;
   contactForm: FormGroup;
   showResponsibilities = false;
-  production = environment.production;
 
   onChange = (value: Partial<Contact>) => { };
   onTouched = () => { };
@@ -55,13 +60,18 @@ export class ContactEditorComponent implements OnInit, OnDestroy, ControlValueAc
       telegram: ['', []],
       wechat: ['', []],
       responsible_direction: [{}],
-      responsible_param: [{import: [], export: [], local: []}],
       place: [''],
+      responsible_param: fb.group({
+        import: [{}, []],
+        export: [{}, []],
+        local: [[], []],
+      }),
     });
   }
 
   writeValue(contact: Partial<Contact>): void {
     this.contactForm.patchValue(contact);
+    this.onResponsibleDirectionChange(contact.responsible_direction || []);
   }
 
   registerOnChange(fn: any): void {
@@ -91,8 +101,28 @@ export class ContactEditorComponent implements OnInit, OnDestroy, ControlValueAc
     this.destroy$.next();
     this.destroy$.complete();
   }
+  
+  ngOnChanges(changes: SimpleChanges): void {
+    if (changes['homeCountryId']) {
+      if (typeof this.homeCountryId === 'number') {
+        this.homeCountry = this.countries.find(country => country.id === this.homeCountryId) || this.unknownCountry;
+      }
+    }
+  }
 
   validate(control: AbstractControl): ValidationErrors | null {
     return control.value && this.contactForm.valid ? null : { contact: true };
+  }
+  
+  onResponsibleDirectionChange(value: string[]) {
+    for (const dir of ['import', 'export', 'local']) {
+      const control = this.contactForm.get(['responsible_param', dir]);
+      const enabled  = value.includes(dir);
+      if (enabled) {
+        control?.enable();
+      } else {
+        control?.disable();
+      }
+    }
   }
 }

@@ -1,10 +1,8 @@
-
-<mat-error *ngIf="!homeCountry">Не выбрана страна подрядчика</mat-error>
-<table class="t1" *ngIf="homeCountry">
+<table class="t1" *ngIf="!disabled">
   <tbody>
     <tr>
       <th class="name">
-        <div>Отправление из {{homeCountry.name_from}}
+        <div *ngIf="type === 'export'">Отправление из {{homeCountry.name_from}}
           <span [ngPlural]="destCountries.length">
             <ng-template ngPluralCase="=0"></ng-template>
             <ng-template ngPluralCase="=1">в одну страну</ng-template>
@@ -14,8 +12,18 @@
             <ng-template ngPluralCase="other">в {{destCountries.length}} стран</ng-template>
           </span>:
         </div>
-        <input type="text" placeholder="Добавить страну или регион..." matInput [(ngModel)]="country"
-          (ngModelChange)="doFilter($event)" [matAutocomplete]="auto">
+        <div *ngIf="type === 'import'">Отправление в {{homeCountry.name_to}}
+          <span [ngPlural]="destCountries.length">
+            <ng-template ngPluralCase="=0"></ng-template>
+            <ng-template ngPluralCase="=1">из одной страны</ng-template>
+            <ng-template ngPluralCase="=2">из двух стран</ng-template>
+            <ng-template ngPluralCase="few">из {{destCountries.length}} стран</ng-template>
+            <ng-template ngPluralCase="many">из {{destCountries.length}} стран</ng-template>
+            <ng-template ngPluralCase="other">из {{destCountries.length}} стран</ng-template>
+          </span>:
+        </div>
+        <input type="text" placeholder="Добавить страну или регион..." matInput [(ngModel)]="country" (ngModelChange)="doFilter($event)"
+          [matAutocomplete]="auto">
         <mat-autocomplete #auto="matAutocomplete" [displayWith]="displayFn" (optionSelected)="addCountry()">
           <mat-option *ngFor="let country of filteredCountries" [value]="country">
             {{country.name}}
@@ -32,7 +40,8 @@
       <th *ngFor="let kind of kinds" [ngClass]="kind.classes">
         <div class="l"><span class="ico" [ngClass]="kind.type"></span><span>{{kind.name}}</span></div>
         <label>
-          <mat-checkbox class="show-all" [checked]="allCheckedForKind(kind.kind)" [indeterminate]="!allCompleteForKind(kind.kind)" (change)="allChangeForKind(kind.kind, $event)"></mat-checkbox>
+          <mat-checkbox class="show-all" [checked]="allCheckedForKind(kind.kind)" [indeterminate]="!allCompleteForKind(kind.kind)"
+            (change)="allChangeForKind(kind.kind, $event)"></mat-checkbox>
           <i></i>
         </label>
       </th>
@@ -47,40 +56,18 @@
       </td>
       <td class="bg s e">
         <label>
-          <mat-checkbox class="show-all" [checked]="allCheckedForCountry(country.id)" [indeterminate]="!allCompleteForCountry(country.id)" (change)="allChangeForCountry(country.id, $event)"></mat-checkbox>
+          <mat-checkbox class="show-all" [checked]="allCheckedForCountry(country.id)" [indeterminate]="!allCompleteForCountry(country.id)"
+            (change)="allChangeForCountry(country.id, $event)"></mat-checkbox>
           <i></i>
         </label>
       </td>
       <td *ngFor="let kind of kinds" [ngClass]="kind.classes">
         <label>
-          <mat-checkbox class="show-all" [checked]="checkedForCountryAndKind(country.id, kind.kind)" (change)="changeForCountryAndKind(country.id, kind.kind, $event)"></mat-checkbox>
+          <mat-checkbox class="show-all" [checked]="checkedForCountryAndKind(country.id, kind.kind)"
+            (change)="changeForCountryAndKind(country.id, kind.kind, $event)"></mat-checkbox>
           <i></i>
         </label>
       </td>
-    </tr>
-  </tbody>
-</table>
-
-<table class="t1" *ngIf="homeCountry">
-  <tbody>
-    <tr>
-      <th class="name">
-        <div>Перевозки внутри {{homeCountry.name_from}}:</div>
-      </th>
-      <th class="all bg s e">
-        <div class="l">Все виды</div>
-        <label>
-          <mat-checkbox class="show-all" [checked]="allCheckedForCountry()" [indeterminate]="!allCompleteForCountry()" (change)="allChangeForCountry(undefined, $event)"></mat-checkbox>
-          <i></i>
-        </label>
-      </th>
-      <th *ngFor="let kind of kinds" [ngClass]="kind.classes">
-        <div class="l"><span class="ico" [ngClass]="kind.type"></span><span>{{kind.name}}</span></div>
-        <label>
-          <mat-checkbox class="show-all" [checked]="checkedForCountryAndKind(undefined, kind.kind)" (change)="changeForCountryAndKind(undefined, kind.kind, $event)"></mat-checkbox>
-          <i></i>
-        </label>
-      </th>
     </tr>
   </tbody>
 </table>

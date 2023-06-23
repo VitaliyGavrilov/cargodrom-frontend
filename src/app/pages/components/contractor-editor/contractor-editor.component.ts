@@ -1,4 +1,3 @@
-import { CompanyService } from 'src/app/api/services/company.service';
 import { CountryService } from './../../services/country.service';
 import { environment } from './../../../../environments/environment';
 import { tap } from 'rxjs';
@@ -226,7 +225,7 @@ export class ContractorEditorComponent implements OnInit {
         }
       });
   }
-  
+
   getTaxSystems(): void {
     this.systemService.systemTaxSystem().subscribe(
       taxSystems => this.taxSystems = taxSystems ? taxSystems as TaxSystem[] : []
