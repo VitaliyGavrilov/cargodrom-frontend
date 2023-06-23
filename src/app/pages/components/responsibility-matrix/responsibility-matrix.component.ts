@@ -1,27 +1,26 @@
-import { TransportSubKinds, TransportSubKind } from './../../../api/custom_models/transport';
-import { AllResponsibilities, Responsibilities } from './../../../api/custom_models/contact';
-import { Country } from './../../../api/custom_models/country';
-import { Component, Input, OnChanges, OnInit, SimpleChanges, ViewEncapsulation } from '@angular/core';
-import { NG_VALUE_ACCESSOR, ControlValueAccessor } from '@angular/forms';
+import { Component, Input, OnInit, SimpleChanges, ViewEncapsulation } from '@angular/core';
+import { NG_VALUE_ACCESSOR } from '@angular/forms';
 import { MatCheckboxChange } from '@angular/material/checkbox';
+import { Country, Responsibilities } from 'src/app/api/custom_models';
+import { TransportSubKind, TransportSubKinds } from 'src/app/api/custom_models/transport';
 
 @Component({
-  selector: 'app-responsibility-editor',
-  templateUrl: './responsibility-editor.component.html',
-  styleUrls: ['./responsibility-editor.component.scss'],
+  selector: 'app-responsibility-matrix',
+  templateUrl: './responsibility-matrix.component.html',
+  styleUrls: ['./responsibility-matrix.component.scss'],
   encapsulation: ViewEncapsulation.None,
   providers: [
     {
       provide: NG_VALUE_ACCESSOR,
       multi: true,
-      useExisting: ResponsibilityEditorComponent
+      useExisting: ResponsibilityMatrixComponent
     }
   ]
 })
-export class ResponsibilityEditorComponent implements OnInit, OnChanges, ControlValueAccessor {
-
+export class ResponsibilityMatrixComponent implements OnInit {
   @Input() countries: Country[] = [];
-  @Input() homeCountryId?: number;
+  @Input() homeCountry!: Country;
+  @Input() type: 'import' | 'export' = 'export';
   onChange = (value: any) => { };
   onTouched = () => { };
 
@@ -49,39 +48,30 @@ export class ResponsibilityEditorComponent implements OnInit, OnChanges, Control
       { kind: 'rw_sp', type: 'rail', classes: ['bg', 'e'], name: 'СП' },
     ];
   responsibilities: Responsibilities = {};
-  local: TransportSubKind[] = [];
 
   destCountries: Country[] = [];
-  homeCountry?: Country;
-
-  constructor(
-  ) {
-  }
+  constructor() { }
 
   ngOnChanges(changes: SimpleChanges): void {
-    const homeCountryChange = changes['homeCountryId'];
+    const homeCountryChange = changes['homeCountry'];
     if (homeCountryChange) {
       if (homeCountryChange.previousValue) {
-        delete this.responsibilities[homeCountryChange.previousValue];
+        delete this.responsibilities[homeCountryChange.previousValue.id];
       }
       if (homeCountryChange.currentValue) {
-        this.homeCountry = this.getCountryById(homeCountryChange.currentValue);
-        if (this.homeCountry) {
-          const homeCountryId = this.homeCountry.id;
-          this.responsibilities[homeCountryId] = [];
-          this.destCountries = this.destCountries.filter(({ id }) => id !== homeCountryId);
-        }
+        const homeCountryId = this.homeCountry.id;
+        delete this.responsibilities[homeCountryChange.currentValue.id];
+        this.destCountries = this.destCountries.filter(({ id }) => id !== homeCountryId);
       }
     }
   }
 
-  writeValue(responsibilityParam: AllResponsibilities): void {
-    this.responsibilities = responsibilityParam.export || [];
+  writeValue(responsibilityParam: Responsibilities): void {
+    this.responsibilities = responsibilityParam || {};
     this.destCountries = Object.keys(this.responsibilities)
-      .filter(countryId => Number(countryId) !== this.homeCountryId)
+      .filter(countryId => Number(countryId) !== this.homeCountry.id)
       .map(countryId => this.getCountryById(countryId)!)
       .sort(byName);
-    this.local = responsibilityParam.local || [];
   }
 
   registerOnChange(fn: any): void {
@@ -175,58 +165,46 @@ export class ResponsibilityEditorComponent implements OnInit, OnChanges, Control
     this.valueChanged();
   }
 
-  allCheckedForCountry(countryId?: number | string): boolean {
-    const kinds = countryId ? this.responsibilities[countryId] : this.local ;
+  allCheckedForCountry(countryId: number | string): boolean {
+    const kinds = this.responsibilities[countryId];
     return kinds.length === TransportSubKinds.length;
   }
-  
-  allCompleteForCountry(countryId?: number | string): boolean {
-    const kinds = countryId ? this.responsibilities[countryId] : this.local ;
+
+  allCompleteForCountry(countryId: number | string): boolean {
+    const kinds = this.responsibilities[countryId];
     return kinds.length === TransportSubKinds.length || kinds.length === 0;
   }
 
-  allChangeForCountry(countryId: number | string | undefined, { checked }: MatCheckboxChange): void {
+  allChangeForCountry(countryId: number | string, { checked }: MatCheckboxChange): void {
     if (checked) {
-      if (countryId) {
-        this.responsibilities[countryId] = [...TransportSubKinds];
-      } else {
-        this.local = [...TransportSubKinds];
-      }
+      this.responsibilities[countryId] = [...TransportSubKinds];
     } else {
-      if (countryId) {
-        this.responsibilities[countryId] = [];
-      } else {
-        this.local = [];
-      }
+      this.responsibilities[countryId] = [];
     }
     this.valueChanged();
   }
 
-  checkedForCountryAndKind(countryId: number | string | undefined, kind: TransportSubKind): boolean {
-    const kinds = countryId ? this.responsibilities[countryId] : this.local;
+  checkedForCountryAndKind(countryId: number | string, kind: TransportSubKind): boolean {
+    const kinds = this.responsibilities[countryId];
     return kinds.includes(kind);
   }
 
-  changeForCountryAndKind(countryId: number | string | undefined, kind: TransportSubKind, { checked }: MatCheckboxChange): void {
-    const kinds = countryId ? this.responsibilities[countryId] : this.local;
+  changeForCountryAndKind(countryId: number | string, kind: TransportSubKind, { checked }: MatCheckboxChange): void {
+    const kinds = this.responsibilities[countryId];
     if (checked) {
       kinds.push(kind);
     } else {
-      if (countryId) {
-        this.responsibilities[countryId] = kinds.filter(aKind => kind !== aKind);
-      } else {
-        this.local = kinds.filter(aKind => kind !== aKind);
-      }
+      this.responsibilities[countryId] = kinds.filter(aKind => kind !== aKind);
     }
     this.valueChanged();
   }
-  
+
   valueChanged(): void {
-    if (this.homeCountryId) {
-      const rLocal = this.local;
-      const rExport = {...this.responsibilities};
-      delete rExport[this.homeCountryId]; 
-      this.onChange({export: rExport, import: [], local: rLocal});
+    if (this.homeCountry) {
+      const value = { ...this.responsibilities };
+      delete value[this.homeCountry.id];
+      console.log(`emit new value`, value);
+      this.onChange(value);
       this.onTouched();
     }
   }
@@ -234,4 +212,3 @@ export class ResponsibilityEditorComponent implements OnInit, OnChanges, Control
 }
 
 const byName = (a: Country, b: Country) => a.name!.localeCompare(b.name!);
-

@@ -18,13 +18,14 @@ import { ContractorEditorComponent } from './components/contractor-editor/contra
 import { RatingComponent } from './components/rating/rating.component';
 import { ContactEditorComponent } from './components/contact-editor/contact-editor.component';
 import { TradeDirectionComponent } from './components/trade-direction/trade-direction.component';
-import { ResponsibilityEditorComponent } from './components/responsibility-editor/responsibility-editor.component';
 import { MaterialModule } from '@cargodrom/material/material.module';
 import { ClientEditorComponent } from './components/client-editor/client-editor.component';
 import { ServicesComponent } from './components/services/services.component';
 import { NgxMaskModule } from 'ngx-mask';
 import { FileListComponent } from './components/file-list/file-list.component';
 import { FilterModule } from '../filter/filter.module';
+import { ResponsibilityMatrixComponent } from './components/responsibility-matrix/responsibility-matrix.component';
+import { ResponsibilityRowComponent } from './components/responsibility-row/responsibility-row.component';
 
 
 @NgModule({
@@ -45,10 +46,11 @@ import { FilterModule } from '../filter/filter.module';
     RatingComponent,
     ContactEditorComponent,
     TradeDirectionComponent,
-    ResponsibilityEditorComponent,
     ClientEditorComponent,
     ServicesComponent,
     FileListComponent,
+    ResponsibilityMatrixComponent,
+    ResponsibilityRowComponent,
   ],
   imports: [
     CommonModule,

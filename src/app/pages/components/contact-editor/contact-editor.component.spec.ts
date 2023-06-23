@@ -1,4 +1,3 @@
-import { ResponsibilityEditorComponent } from './../responsibility-editor/responsibility-editor.component';
 import { HttpClientTestingModule } from '@angular/common/http/testing';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { TradeDirectionComponent } from './../trade-direction/trade-direction.component';
@@ -9,6 +8,8 @@ import { MatAutocompleteModule } from '@angular/material/autocomplete';
 import { MatCheckboxModule } from '@angular/material/checkbox';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 import { MatFormFieldModule } from '@angular/material/form-field';
+import { ResponsibilityMatrixComponent } from '../responsibility-matrix/responsibility-matrix.component';
+import { ResponsibilityRowComponent } from '../responsibility-row/responsibility-row.component';
 
 describe('ContactEditorComponent', () => {
   let component: ContactEditorComponent;
@@ -28,7 +29,8 @@ describe('ContactEditorComponent', () => {
       declarations: [
         ContactEditorComponent,
         TradeDirectionComponent,
-        ResponsibilityEditorComponent,
+        ResponsibilityMatrixComponent,
+        ResponsibilityRowComponent,
       ]
     })
     .compileComponents();
