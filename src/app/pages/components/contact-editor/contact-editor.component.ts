@@ -73,6 +73,7 @@ export class ContactEditorComponent implements OnInit, OnDestroy, OnChanges, Con
 
   writeValue(contact: Partial<Contact>): void {
     this.contactForm.patchValue(contact);
+    this.onResponsibleDirectionChange(contact.responsible_direction || []);
   }
 
   registerOnChange(fn: any): void {
@@ -113,5 +114,17 @@ export class ContactEditorComponent implements OnInit, OnDestroy, OnChanges, Con
 
   validate(control: AbstractControl): ValidationErrors | null {
     return control.value && this.contactForm.valid ? null : { contact: true };
+  }
+  
+  onResponsibleDirectionChange(value: string[]) {
+    for (const dir of ['import', 'export', 'local']) {
+      const control = this.contactForm.get(['responsible_param', dir]);
+      const enabled  = value.includes(dir);
+      if (enabled) {
+        control?.enable();
+      } else {
+        control?.disable();
+      }
+    }
   }
 }

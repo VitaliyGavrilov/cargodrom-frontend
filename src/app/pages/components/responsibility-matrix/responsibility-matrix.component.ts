@@ -1,5 +1,5 @@
 import { Component, Input, OnInit, SimpleChanges, ViewEncapsulation } from '@angular/core';
-import { NG_VALUE_ACCESSOR } from '@angular/forms';
+import { ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
 import { MatCheckboxChange } from '@angular/material/checkbox';
 import { Country, Responsibilities } from 'src/app/api/custom_models';
 import { TransportSubKind, TransportSubKinds } from 'src/app/api/custom_models/transport';
@@ -17,7 +17,7 @@ import { TransportSubKind, TransportSubKinds } from 'src/app/api/custom_models/t
     }
   ]
 })
-export class ResponsibilityMatrixComponent implements OnInit {
+export class ResponsibilityMatrixComponent implements OnInit, ControlValueAccessor {
   @Input() countries: Country[] = [];
   @Input() homeCountry!: Country;
   @Input() type: 'import' | 'export' = 'export';
@@ -50,6 +50,7 @@ export class ResponsibilityMatrixComponent implements OnInit {
   responsibilities: Responsibilities = {};
 
   destCountries: Country[] = [];
+  disabled: boolean = false;
   constructor() { }
 
   ngOnChanges(changes: SimpleChanges): void {
@@ -203,10 +204,13 @@ export class ResponsibilityMatrixComponent implements OnInit {
     if (this.homeCountry) {
       const value = { ...this.responsibilities };
       delete value[this.homeCountry.id];
-      console.log(`emit new value`, value);
       this.onChange(value);
       this.onTouched();
     }
+  }
+  
+  setDisabledState(isDisabled: boolean): void {
+    this.disabled = isDisabled;
   }
 
 }

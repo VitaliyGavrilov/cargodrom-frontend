@@ -1,7 +1,7 @@
 import { Component, Input, OnInit, SimpleChanges, ViewEncapsulation } from '@angular/core';
-import { NG_VALUE_ACCESSOR } from '@angular/forms';
+import { ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
 import { MatCheckboxChange } from '@angular/material/checkbox';
-import { Country, Responsibilities, AllResponsibilities } from 'src/app/api/custom_models';
+import { Country } from 'src/app/api/custom_models';
 import { TransportSubKind, TransportSubKinds } from 'src/app/api/custom_models/transport';
 
 @Component({
@@ -17,7 +17,7 @@ import { TransportSubKind, TransportSubKinds } from 'src/app/api/custom_models/t
     }
   ]
 })
-export class ResponsibilityRowComponent implements OnInit {
+export class ResponsibilityRowComponent implements ControlValueAccessor {
 
   @Input() homeCountry!: Country;
   onChange = (value: any) => { };
@@ -47,13 +47,10 @@ export class ResponsibilityRowComponent implements OnInit {
       { kind: 'rw_sp', type: 'rail', classes: ['bg', 'e'], name: 'СП' },
     ];
   local: TransportSubKind[] = [];
+  disabled: boolean = false;
 
   constructor(
   ) {
-  }
-
-  ngOnChanges(changes: SimpleChanges): void {
-
   }
 
   writeValue(local?: TransportSubKind[]): void {
@@ -66,10 +63,6 @@ export class ResponsibilityRowComponent implements OnInit {
 
   registerOnTouched(fn: any): void {
     this.onTouched = fn;
-  }
-
-  ngOnInit(): void {
-
   }
 
   allCheckedForCountry(): boolean {
@@ -109,9 +102,11 @@ export class ResponsibilityRowComponent implements OnInit {
     this.onChange(this.local);
     this.onTouched();
   }
+  
+  setDisabledState(isDisabled: boolean): void {
+    this.disabled = isDisabled;
+  }
 
 }
-
-const byName = (a: Country, b: Country) => a.name!.localeCompare(b.name!);
 
 

@@ -55,7 +55,7 @@
       <div class="form-data"><input type="text" name="wechat" formControlName="wechat" placeholder="—"></div>
     </div>
   </div>
-  <app-trade-direction formControlName="responsible_direction"></app-trade-direction>
+  <app-trade-direction formControlName="responsible_direction" (ngModelChange)="onResponsibleDirectionChange($event)"></app-trade-direction>
   <div class="options">
     <div class="lnk">
       <div class="ttl">Зона ответственности</div>
@@ -70,6 +70,8 @@
     </div>
   </div>
 </form>
+<pre>{{ contactForm.value | json }}</pre>
+
 <!-- <pre *ngIf="!production">
   {{ contactForm.value | json }}
   valid: {{ contactForm.valid | json }}

@@ -17,7 +17,7 @@ export interface Contact {
   telegram: string;
   whatsapp: string;
   wechat: string;
-  responsible_direction: number[];
+  responsible_direction: string[];
   responsible_param: AllResponsibilities;
   time_add: string;
   time_edit: string;
