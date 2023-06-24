@@ -11,6 +11,8 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { registerLocaleData } from '@angular/common';
 import localeRu from '@angular/common/locales/ru';
 import { NgxMaskModule, IConfig } from 'ngx-mask';
+import { PageTitleService } from './page-title.service';
+import { TitleStrategy } from '@angular/router';
 
 const maskConfig: Partial<IConfig> = {
   showMaskTyped: false,
@@ -41,6 +43,10 @@ const maskConfig: Partial<IConfig> = {
     {
       provide: LOCALE_ID,
       useValue: 'ru'
+    },
+    {
+      provide: TitleStrategy,
+      useClass: PageTitleService
     }
   ],
   bootstrap: [AppComponent]
