@@ -18,12 +18,6 @@ describe('ResponsibilityRowComponent', () => {
 
     fixture = TestBed.createComponent(ResponsibilityRowComponent);
     component = fixture.componentInstance;
-    component.homeCountry = {
-      id: 1,
-      name: 'Страна',
-      name_from: 'Страны',
-      name_to: 'Страну',
-    }
     fixture.detectChanges();
   });
 

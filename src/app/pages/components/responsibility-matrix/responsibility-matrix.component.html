@@ -3,23 +3,23 @@
     <tr>
       <th class="name">
         <div *ngIf="type === 'export'">Отправление из {{homeCountry.name_from}}
-          <span [ngPlural]="destCountries.length">
+          <span [ngPlural]="targetCountries.length">
             <ng-template ngPluralCase="=0"></ng-template>
             <ng-template ngPluralCase="=1">в одну страну</ng-template>
             <ng-template ngPluralCase="=2">в две страны</ng-template>
-            <ng-template ngPluralCase="few">в {{destCountries.length}} страны</ng-template>
-            <ng-template ngPluralCase="many">в {{destCountries.length}} стран</ng-template>
-            <ng-template ngPluralCase="other">в {{destCountries.length}} стран</ng-template>
+            <ng-template ngPluralCase="few">в {{targetCountries.length}} страны</ng-template>
+            <ng-template ngPluralCase="many">в {{targetCountries.length}} стран</ng-template>
+            <ng-template ngPluralCase="other">в {{targetCountries.length}} стран</ng-template>
           </span>:
         </div>
         <div *ngIf="type === 'import'">Отправление в {{homeCountry.name_to}}
-          <span [ngPlural]="destCountries.length">
+          <span [ngPlural]="targetCountries.length">
             <ng-template ngPluralCase="=0"></ng-template>
             <ng-template ngPluralCase="=1">из одной страны</ng-template>
             <ng-template ngPluralCase="=2">из двух стран</ng-template>
-            <ng-template ngPluralCase="few">из {{destCountries.length}} стран</ng-template>
-            <ng-template ngPluralCase="many">из {{destCountries.length}} стран</ng-template>
-            <ng-template ngPluralCase="other">из {{destCountries.length}} стран</ng-template>
+            <ng-template ngPluralCase="few">из {{targetCountries.length}} стран</ng-template>
+            <ng-template ngPluralCase="many">из {{targetCountries.length}} стран</ng-template>
+            <ng-template ngPluralCase="other">из {{targetCountries.length}} стран</ng-template>
           </span>:
         </div>
         <input type="text" placeholder="Добавить страну или регион..." matInput [(ngModel)]="country" (ngModelChange)="doFilter($event)"
@@ -47,7 +47,7 @@
       </th>
     </tr>
 
-    <tr class="row" *ngFor="let country of destCountries; let i = index">
+    <tr class="row" *ngFor="let country of targetCountries; let i = index">
       <td class="name">
         <div>
           <span>{{ country.name }}</span>

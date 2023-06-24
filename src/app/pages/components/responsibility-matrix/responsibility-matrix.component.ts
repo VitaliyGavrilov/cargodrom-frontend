@@ -1,9 +1,9 @@
-import { Component, Input, OnInit, SimpleChanges, ViewEncapsulation } from '@angular/core';
+import { Component, Input, SimpleChanges, ViewEncapsulation } from '@angular/core';
 import { ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
 import { MatCheckboxChange } from '@angular/material/checkbox';
 import { Country, Responsibilities } from 'src/app/api/custom_models';
 import { TransportSubKind, TransportSubKinds } from 'src/app/api/custom_models/transport';
-import { transportSubKindTable } from '../../../constants';
+import { transportSubKindTable, unknownCountry } from '../../../constants';
 
 @Component({
   selector: 'app-responsibility-matrix',
@@ -18,9 +18,9 @@ import { transportSubKindTable } from '../../../constants';
     }
   ]
 })
-export class ResponsibilityMatrixComponent implements OnInit, ControlValueAccessor {
+export class ResponsibilityMatrixComponent implements ControlValueAccessor {
   @Input() countries: Country[] = [];
-  @Input() homeCountry!: Country;
+  @Input() homeCountry: Country = unknownCountry;
   @Input() type: 'import' | 'export' = 'export';
   onChange = (value: any) => { };
   onTouched = () => { };
@@ -32,27 +32,24 @@ export class ResponsibilityMatrixComponent implements OnInit, ControlValueAccess
   kinds = transportSubKindTable;
   responsibilities: Responsibilities = {};
 
-  destCountries: Country[] = [];
+  targetCountries: Country[] = [];
   disabled: boolean = false;
   constructor() { }
 
   ngOnChanges(changes: SimpleChanges): void {
     const homeCountryChange = changes['homeCountry'];
     if (homeCountryChange) {
-      if (homeCountryChange.previousValue) {
-        delete this.responsibilities[homeCountryChange.previousValue.id];
-      }
-      if (homeCountryChange.currentValue) {
+      if (this.homeCountry) {
         const homeCountryId = this.homeCountry.id;
-        delete this.responsibilities[homeCountryChange.currentValue.id];
-        this.destCountries = this.destCountries.filter(({ id }) => id !== homeCountryId);
+        delete this.responsibilities[homeCountryId];
+        this.targetCountries = this.targetCountries.filter(({ id }) => id !== homeCountryId);
       }
     }
   }
 
   writeValue(responsibilityParam: Responsibilities): void {
     this.responsibilities = responsibilityParam || {};
-    this.destCountries = Object.keys(this.responsibilities)
+    this.targetCountries = Object.keys(this.responsibilities)
       .filter(countryId => Number(countryId) !== this.homeCountry.id)
       .map(countryId => this.getCountryById(countryId)!)
       .sort(byName);
@@ -66,14 +63,10 @@ export class ResponsibilityMatrixComponent implements OnInit, ControlValueAccess
     this.onTouched = fn;
   }
 
-  ngOnInit(): void {
-
-  }
-
   doFilter(country: Country | string): void {
     this.filteredCountries = this.countries.filter(c => {
-      const value = typeof country === 'string' ? country : country.name!
-      return c.name!.toLowerCase().includes(value.toLowerCase()) && !(c.id in this.responsibilities);
+      const value = typeof country === 'string' ? country : country.name!;
+      return c.name!.toLowerCase().includes(value.toLowerCase()) && !(c.id in this.responsibilities && c.id === this.homeCountry.id);
     });
   }
 
@@ -82,8 +75,8 @@ export class ResponsibilityMatrixComponent implements OnInit, ControlValueAccess
   }
 
   addCountry(): void {
-    this.destCountries.push(this.country!);
-    this.destCountries.sort(byName);
+    this.targetCountries.push(this.country!);
+    this.targetCountries.sort(byName);
     this.responsibilities[this.country!.id] = [];
     this.country = undefined;
     this.valueChanged();
@@ -94,9 +87,9 @@ export class ResponsibilityMatrixComponent implements OnInit, ControlValueAccess
   }
 
   removeCountry(countryId: number | string): void {
-    const index = this.destCountries.findIndex(({ id }) => id === Number(countryId))
+    const index = this.targetCountries.findIndex(({ id }) => id === Number(countryId))
     if (index >= 0) {
-      this.destCountries.splice(index, 1);
+      this.targetCountries.splice(index, 1);
     }
     delete this.responsibilities[countryId];
     this.valueChanged();
@@ -105,38 +98,38 @@ export class ResponsibilityMatrixComponent implements OnInit, ControlValueAccess
 
   allChecked(): boolean {
     const countChecked = this.getCountChecked();
-    return this.destCountries.length > 0 && countChecked === this.destCountries.length * TransportSubKinds.length;
+    return this.targetCountries.length > 0 && countChecked === this.targetCountries.length * TransportSubKinds.length;
   }
 
   allComplete(): boolean {
     const countChecked = this.getCountChecked();
-    return countChecked === 0 || countChecked === this.destCountries.length * TransportSubKinds.length;
+    return countChecked === 0 || countChecked === this.targetCountries.length * TransportSubKinds.length;
   }
 
   private getCountChecked(): number {
-    return this.destCountries.map(({ id }) => this.responsibilities[id].length).reduce((sum, count) => sum + count, 0);
+    return this.targetCountries.map(({ id }) => this.responsibilities[id].length).reduce((sum, count) => sum + count, 0);
   }
 
   allChange({ checked }: MatCheckboxChange): void {
-    this.destCountries.forEach(({ id }) => this.responsibilities[id] = checked ? [...TransportSubKinds] : []);
+    this.targetCountries.forEach(({ id }) => this.responsibilities[id] = checked ? [...TransportSubKinds] : []);
     this.valueChanged();
   }
 
   allCheckedForKind(kind: TransportSubKind): boolean {
-    return this.destCountries.length > 0 && this.getCheckedForKind(kind) === this.destCountries.length;
+    return this.targetCountries.length > 0 && this.getCheckedForKind(kind) === this.targetCountries.length;
   }
 
   allCompleteForKind(kind: TransportSubKind): boolean {
     const checked = this.getCheckedForKind(kind);
-    return checked === 0 || checked === this.destCountries.length;
+    return checked === 0 || checked === this.targetCountries.length;
   }
 
   private getCheckedForKind(kind: TransportSubKind): number {
-    return this.destCountries.map(({ id }) => this.responsibilities[id].includes(kind)).reduce((sum, checked) => checked ? sum + 1 : sum, 0)
+    return this.targetCountries.map(({ id }) => this.responsibilities[id].includes(kind)).reduce((sum, checked) => checked ? sum + 1 : sum, 0)
   }
 
   allChangeForKind(kind: TransportSubKind, { checked }: MatCheckboxChange): void {
-    this.destCountries.forEach(({ id }) => {
+    this.targetCountries.forEach(({ id }) => {
       const kinds = this.responsibilities[id];
       if (checked) {
         if (!kinds.includes(kind)) {
@@ -184,12 +177,10 @@ export class ResponsibilityMatrixComponent implements OnInit, ControlValueAccess
   }
 
   valueChanged(): void {
-    if (this.homeCountry) {
-      const value = { ...this.responsibilities };
-      delete value[this.homeCountry.id];
-      this.onChange(value);
-      this.onTouched();
-    }
+    const value = { ...this.responsibilities };
+    delete value[this.homeCountry.id];
+    this.onChange(value);
+    this.onTouched();
   }
   
   setDisabledState(isDisabled: boolean): void {
