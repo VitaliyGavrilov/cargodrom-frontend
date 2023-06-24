@@ -24,6 +24,9 @@ export interface Contact {
   city_name: string;
 }
 
+export const responsibilityDirections = ['export', 'import', 'local'] as const;
+export type ResponsibilityDirection = typeof responsibilityDirections[number];
+
 export type Responsibilities = { [toCountryId: string]: TransportSubKind[] }
 export interface AllResponsibilities {
   import: Responsibilities;

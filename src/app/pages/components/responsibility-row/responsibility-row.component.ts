@@ -1,4 +1,4 @@
-import { transportSubKindTable } from './../../../constants';
+import { transportSubKindTable, unknownCountry } from './../../../constants';
 import { Component, Input, ViewEncapsulation } from '@angular/core';
 import { ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
 import { MatCheckboxChange } from '@angular/material/checkbox';
@@ -20,13 +20,9 @@ import { TransportSubKind, TransportSubKinds } from 'src/app/api/custom_models/t
 })
 export class ResponsibilityRowComponent implements ControlValueAccessor {
 
-  @Input() homeCountry!: Country;
+  @Input() homeCountry: Country = unknownCountry;
   onChange = (value: any) => { };
   onTouched = () => { };
-
-  // New country
-  country?: Country;
-  filteredCountries: Country[] = [];
 
   kinds = transportSubKindTable;
   local: TransportSubKind[] = [];
@@ -48,16 +44,16 @@ export class ResponsibilityRowComponent implements ControlValueAccessor {
     this.onTouched = fn;
   }
 
-  allCheckedForCountry(): boolean {
+  allChecked(): boolean {
     return this.local.length === TransportSubKinds.length;
   }
 
-  allCompleteForCountry(): boolean {
+  allComplete(): boolean {
     const kinds = this.local;
     return kinds.length === TransportSubKinds.length || kinds.length === 0;
   }
 
-  allChangeForCountry({ checked }: MatCheckboxChange): void {
+  onAllChange({ checked }: MatCheckboxChange): void {
     if (checked) {
       this.local = [...TransportSubKinds];
     } else {
@@ -66,12 +62,12 @@ export class ResponsibilityRowComponent implements ControlValueAccessor {
     this.valueChanged();
   }
 
-  checkedForCountryAndKind(kind: TransportSubKind): boolean {
+  isKindChecked(kind: TransportSubKind): boolean {
     const kinds = this.local;
     return kinds.includes(kind);
   }
 
-  changeForCountryAndKind(kind: TransportSubKind, { checked }: MatCheckboxChange): void {
+  onKindChange(kind: TransportSubKind, { checked }: MatCheckboxChange): void {
     const kinds = this.local;
     if (checked) {
       kinds.push(kind);

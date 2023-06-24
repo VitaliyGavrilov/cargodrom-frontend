@@ -25,12 +25,6 @@ describe('ResponsibilityMatrixComponent', () => {
 
     fixture = TestBed.createComponent(ResponsibilityMatrixComponent);
     component = fixture.componentInstance;
-    component.homeCountry = {
-      id: 1,
-      name: 'Страна',
-      name_from: 'Страны',
-      name_to: 'Страну',
-    };
     fixture.detectChanges();
   });
 

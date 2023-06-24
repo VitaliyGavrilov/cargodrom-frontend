@@ -465,7 +465,7 @@ input, textarea, a:focus{outline-width:0;outline:none;}
 .t1 th.bg { background: #778490; }
 .t1 th.s { border-left: 1px solid #9ca6b1; }
 .t1 th.name { border-left: 1px solid #83909e; }
-.t1 th.name div { font-size: 15px; line-height: 20px; font-weight: bold; height: 31px; margin-top: 4px; padding-left: 7px; }
+.t1 th.name div { font-size: 15px; line-height: 20px; font-weight: bold; height: 31px; margin-top: 4px; padding-left: 7px; white-space: nowrap;}
 
 .t1 th.name input::-webkit-input-placeholder { color: #606A74; }
 .t1 th.name input:-ms-input-placeholder { color: #606A74; }

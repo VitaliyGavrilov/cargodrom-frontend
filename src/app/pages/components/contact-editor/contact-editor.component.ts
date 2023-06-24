@@ -1,9 +1,10 @@
 import { Country } from './../../../api/custom_models/country';
-import { Contact } from './../../../api/custom_models/contact';
+import { Contact, responsibilityDirections } from './../../../api/custom_models';
 import { FormBuilder, FormGroup, Validators, ControlValueAccessor, NG_VALUE_ACCESSOR, AbstractControl, ValidationErrors, Validator, NG_VALIDATORS } from '@angular/forms';
 import { Component, Input, OnChanges, OnDestroy, OnInit, SimpleChanges } from '@angular/core';
 import { Subject } from 'rxjs';
 import { takeUntil } from 'rxjs/operators';
+import { unknownCountry } from 'src/app/constants';
 
 @Component({
   selector: 'app-contact-editor',
@@ -26,13 +27,8 @@ export class ContactEditorComponent implements OnInit, OnDestroy, OnChanges, Con
 
   @Input() countries: Country[] = [];
   @Input() homeCountryId?: number;
-  readonly unknownCountry: Country = {
-    id: 12345678,
-    name: 'Неизвестная страна',
-    name_from: 'Неизвестной страны',
-    name_to: 'Неизвестную страну',
-  };
-  homeCountry: Country = this.unknownCountry;
+  readonly unknownCountry = unknownCountry;
+  homeCountry: Country = unknownCountry;
   contactForm: FormGroup;
   showResponsibilities = false;
 
@@ -105,7 +101,7 @@ export class ContactEditorComponent implements OnInit, OnDestroy, OnChanges, Con
   ngOnChanges(changes: SimpleChanges): void {
     if (changes['homeCountryId']) {
       if (typeof this.homeCountryId === 'number') {
-        this.homeCountry = this.countries.find(country => country.id === this.homeCountryId) || this.unknownCountry;
+        this.homeCountry = this.countries.find(country => country.id === this.homeCountryId) || unknownCountry;
       }
     }
   }
@@ -115,7 +111,7 @@ export class ContactEditorComponent implements OnInit, OnDestroy, OnChanges, Con
   }
   
   onResponsibleDirectionChange(value: string[]) {
-    for (const dir of ['import', 'export', 'local']) {
+    for (const dir of responsibilityDirections) {
       const control = this.contactForm.get(['responsible_param', dir]);
       const enabled  = value.includes(dir);
       if (enabled) {
