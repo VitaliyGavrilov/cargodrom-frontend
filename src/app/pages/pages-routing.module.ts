@@ -28,66 +28,79 @@ const routes: Routes = [
         path: 'dashboard',
         component: DashboardComponent,
         pathMatch: 'full',
+        title: 'Дашбоард',
       },
       {
         path: 'request',
         component: RequestComponent,
         pathMatch: 'full',
+        title: 'Запросы',
+        
       },
       {
         path: 'bit',
         component: BitComponent,
         pathMatch: 'full',
+        title: 'Ставки',
       },
       {
         path: 'order',
         component: OrderComponent,
-        pathMatch: 'full',
+        title: 'Заказы',
       },
       {
         path: 'tariff',
         component: TariffComponent,
         pathMatch: 'full',
+        title: 'Тарифы',
       },
       {
         path: 'contractor',
         component: ContractorComponent,
         pathMatch: 'full',
-      },
-      {
-        path: 'contractor/:id',
-        component: ContractorEditorComponent,
-        pathMatch: 'full',
+        title: 'Подрядчики',
       },
       {
         path: 'contractor/add',
         component: ContractorEditorComponent,
         pathMatch: 'full',
+        title: 'Добавление подрядчика',
+      },
+      {
+        path: 'contractor/:id',
+        component: ContractorEditorComponent,
+        pathMatch: 'full',
+        title: 'Редактирование подрядчика',
       },
       {
         path: 'report',
         component: ReportComponent,
         pathMatch: 'full',
+        title: 'Отчеты',
       },
       {
         path: 'client',
         component: ClientComponent,
         pathMatch: 'full',
-      },
-      {
-        path: 'client/:id',
-        component: ClientEditorComponent,
-        pathMatch: 'full',
+        title: 'Клиенты',
       },
       {
         path: 'client/add',
         component: ClientEditorComponent,
         pathMatch: 'full',
+        title: 'Добавление клиента',
+      },
+      {
+        path: 'client/:id',
+        component: ClientEditorComponent,
+        pathMatch: 'full',
+        title: 'Редактирование клиента',
       },
       {
         path: 'guide',
         component: GuideComponent,
         pathMatch: 'full',
+        title: 'Справочник',
       },
       {
         path: 'settings',
@@ -95,8 +108,6 @@ const routes: Routes = [
       },
     ]
   },
-
-
 ];
 
 @NgModule({

@@ -17,11 +17,11 @@ const routes: Routes = [
     loadChildren: () => import('./pages/pages.module').then(m => m.PagesModule),
     canActivate: [AuthGuard]
   },
-  { path: 'login', component: LoginComponent, canActivate: [UserGuard], },
-  { path: 'logout', component: LogoutComponent,  },
-  { path: 'register', component: RegisterComponent, canActivate: [UserGuard], },
-  { path: 'confirm', component: ConfirmComponent, canActivate: [UserGuard], },
-  { path: 'confirm/:uid', component: ConfirmComponent, canActivate: [UserGuard], },
+  { path: 'login', component: LoginComponent, canActivate: [UserGuard], title: 'Вход в систему' },
+  { path: 'logout', component: LogoutComponent, title: 'Выход из системы'},
+  { path: 'register', component: RegisterComponent, canActivate: [UserGuard], title: 'Регистрация в системе'},
+  { path: 'confirm', component: ConfirmComponent, canActivate: [UserGuard], title: 'Код подтверждения'},
+  { path: 'confirm/:uid', component: ConfirmComponent, canActivate: [UserGuard], title: 'Код подтверждения' },
   { path: '', redirectTo: 'pages', pathMatch: 'full' },
   { path: '**', redirectTo: 'pages' },
 ];

@@ -27,31 +27,37 @@ const routes: Routes = [
         path: 'department',
         component: DepartmentComponent,
         pathMatch: 'full',
+        title: 'Подразделения',
       },
       {
         path: 'position',
         component: PositionComponent,
         pathMatch: 'full',
+        title: 'Должности',
       },
       {
         path: 'employee',
         component: EmployeeComponent,
         pathMatch: 'full',
+        title: 'Сотрудники',
       },
       {
         path: 'company',
         component: CompanyComponent,
         pathMatch: 'full',
+        title: 'Компании',
       },
       {
         path: 'personal',
         component: PersonalSettingsComponent,
         pathMatch: 'full',
+        title: 'Личные настройки',
       },
       {
         path: 'client-group',
         component: ClientGroupComponent,
         pathMatch: 'full',
+        title: 'Группы клиентов'
       },
     ]
   },
@@ -59,51 +65,61 @@ const routes: Routes = [
     path: 'position/add',
     component: PositionEditorComponent,
     pathMatch: 'full',
+    title: 'Добавление должности',
   },
   {
     path: 'position/:id',
     component: PositionEditorComponent,
     pathMatch: 'full',
+    title: 'Редактирование должности',
   },
   {
     path: 'department/add',
     component: DepartmentEditorComponent,
     pathMatch: 'full',
+    title: 'Добавление подразделения',
   },
   {
     path: 'department/:id',
     component: DepartmentEditorComponent,
     pathMatch: 'full',
+    title: 'Редактирование подразделения',
   },
   {
     path: 'employee/add',
     component: EmployeeEditorComponent,
     pathMatch: 'full',
+    title: 'Добавление сотрудника',
   },
   {
     path: 'employee/:id',
     component: EmployeeEditorComponent,
     pathMatch: 'full',
+    title: 'Редактирование сотрудника',
   },
   {
     path: 'company/add',
     component: CompanyEditorComponent,
     pathMatch: 'full',
+    title: 'Добавление компании',
   },
   {
     path: 'company/:id',
     component: CompanyEditorComponent,
     pathMatch: 'full',
+    title: 'Редактирование компании',
   },
   {
     path: 'client-group/add',
     component: ClientGroupEditorComponent,
     pathMatch: 'full',
+    title: 'Добавление группы клиентов',
   },
   {
     path: 'client-group/:id',
     component: ClientGroupEditorComponent,
     pathMatch: 'full',
+    title: 'Редактирование группы клиентов',
   },
 ];
 
