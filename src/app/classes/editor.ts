@@ -6,7 +6,6 @@ import { FormControl, FormGroup } from "@angular/forms";
 import { MatSnackBar, MatSnackBarConfig } from "@angular/material/snack-bar";
 import { BusinessKind, ClientKind, ClientStatus, ContactSource, Currency, HeadPosition, InteractionKind, ServiceKind, TaxSystem } from "src/app/api/custom_models";
 import { Location } from '@angular/common';
-import { phoneMask } from 'src/app/constants';
 import { SystemService } from 'src/app/api/services';
 
 @Directive()
@@ -26,7 +25,6 @@ export abstract class Editor<T> implements OnInit {
   clientKinds: ClientKind[] = [];
   serviceKinds: ServiceKind[] = [];
   isFormSubmitted = false;
-  phoneMask = phoneMask;
   data: Partial<T> = {};
   abstract editTitle: string;
   abstract newTitle: string;

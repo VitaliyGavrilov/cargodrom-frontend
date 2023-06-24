@@ -10,13 +10,9 @@ import { TokenInterceptor } from './token.interceptor';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { registerLocaleData } from '@angular/common';
 import localeRu from '@angular/common/locales/ru';
-import { NgxMaskModule, IConfig } from 'ngx-mask';
 import { PageTitleService } from './page-title.service';
 import { TitleStrategy } from '@angular/router';
 
-const maskConfig: Partial<IConfig> = {
-  showMaskTyped: false,
-};
 @NgModule({
   declarations: [
     AppComponent
@@ -27,7 +23,6 @@ const maskConfig: Partial<IConfig> = {
     AuthModule,
     HttpClientModule,
     BrowserAnimationsModule,
-    NgxMaskModule.forRoot(maskConfig),
   ],
   providers: [
     {

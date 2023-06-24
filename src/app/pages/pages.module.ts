@@ -21,7 +21,6 @@ import { TradeDirectionComponent } from './components/trade-direction/trade-dire
 import { MaterialModule } from '@cargodrom/material/material.module';
 import { ClientEditorComponent } from './components/client-editor/client-editor.component';
 import { ServicesComponent } from './components/services/services.component';
-import { NgxMaskModule } from 'ngx-mask';
 import { FileListComponent } from './components/file-list/file-list.component';
 import { FilterModule } from '../filter/filter.module';
 import { ResponsibilityMatrixComponent } from './components/responsibility-matrix/responsibility-matrix.component';
@@ -58,7 +57,6 @@ import { ResponsibilityRowComponent } from './components/responsibility-row/resp
     FormsModule,
     ReactiveFormsModule,
     MaterialModule,
-    NgxMaskModule.forChild(),
     FilterModule,
   ]
 })
