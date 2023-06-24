@@ -193,7 +193,7 @@
           <div class="form-item">
             <div class="form-label">Номер телефона:</div>
             <div class="form-data">
-              <input type="text" formControlName="phone" [mask]="phoneMask">
+              <input type="text" formControlName="phone" appPhoneMask>
               <ng-container *ngTemplateOutlet="error; context: {name: 'phone'}"></ng-container>
             </div>
           </div>
@@ -231,7 +231,7 @@
           <div class="form-item">
             <div class="form-label">Телефон получателя:</div>
             <div class="form-data">
-              <input type="text" formControlName="document_contact_phone" [mask]="phoneMask">
+              <input type="text" formControlName="document_contact_phone" appPhoneMask>
               <ng-container *ngTemplateOutlet="error; context: {name: 'document_contact_phone'}"></ng-container>
             </div>
           </div>
@@ -258,7 +258,7 @@
           <div class="form-item">
             <div class="form-label">Телефон получателя:</div>
             <div class="form-data">
-              <input type="text" formControlName="delivery_contact_phone" [mask]="phoneMask">
+              <input type="text" formControlName="delivery_contact_phone" appPhoneMask>
               <ng-container *ngTemplateOutlet="error; context: {name: 'delivery_contact_phone'}"></ng-container>
             </div>
           </div>
@@ -342,7 +342,7 @@
           <div class="form-item">
             <div class="form-label">Телефон Главного бухгалтера:</div>
             <div class="form-data">
-              <input type="text" formControlName="accountant_phone" [mask]="phoneMask">
+              <input type="text" formControlName="accountant_phone" appPhoneMask>
               <ng-container *ngTemplateOutlet="error; context: {name: 'accountant_phone'}"></ng-container>
             </div>
           </div>

@@ -30,7 +30,7 @@
   <tbody>
     <tr *ngFor="let company of rows; odd as isOdd" [ngClass]="{'odd': isOdd}">
       <td class="col">{{ company.name }}</td>
-      <td>{{ company.phone  | mask: '+0 (000) 000-00-00'}} </td>
+      <td>{{ company.phone }} </td>
       <td>{{ company.email }}</td>
       <td>{{ company.inn }}</td>
       <td>{{ company.responsible_person_fio }}</td>

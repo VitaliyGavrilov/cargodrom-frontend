@@ -136,7 +136,7 @@
                     <div class="form-data">
                       <div>
                         <div class="form-input">
-                          <input class="text-control" type="text" formControlName="phone"  [mask]="phoneMask">
+                          <input class="text-control" type="text" formControlName="phone"  appPhoneMask>
                           <ng-container *ngTemplateOutlet="error; context: {name: 'phone'}"></ng-container>
                         </div>
                       </div>
@@ -425,7 +425,7 @@
                     <div class="form-data">
                       <div>
                         <div class="form-input">
-                          <input class="text-control" type="text" formControlName="noresident_phone" [mask]="phoneMask">
+                          <input class="text-control" type="text" formControlName="noresident_phone" appPhoneMask>
                           <ng-container *ngTemplateOutlet="error; context: {name: 'noresident_phone'}"></ng-container>
                         </div>
                       </div>

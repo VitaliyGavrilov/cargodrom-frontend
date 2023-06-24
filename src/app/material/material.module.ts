@@ -17,6 +17,7 @@ import { MatButtonModule } from '@angular/material/button';
 import { MatDatepickerModule } from '@angular/material/datepicker';
 import { FocusInitialDirective } from './directives/focus-initial.directive';
 import {MatTableModule} from '@angular/material/table';
+import { PhoneMaskDirective } from './directives/phone-mask.directive';
 
 
 @NgModule({
@@ -25,6 +26,7 @@ import {MatTableModule} from '@angular/material/table';
     PaginatorComponent,
     EditorHeaderComponent,
     FocusInitialDirective,
+    PhoneMaskDirective,
   ],
   imports: [
     CommonModule,
@@ -60,6 +62,7 @@ import {MatTableModule} from '@angular/material/table';
     MatNativeDateModule,
     FocusInitialDirective,
     MatTableModule,
+    PhoneMaskDirective,
   ]
 })
 export class MaterialModule { }
