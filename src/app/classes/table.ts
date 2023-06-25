@@ -186,9 +186,15 @@ export abstract class Table<T extends { id: number }, A = never, F = never> impl
 
   getSortClass(field: keyof T | A): string {
     if (this.sortField === field) {
-      return this.sortDir === 'asc' ? 'sort-dir-asc' : 'sort-dir-desc';
+      return this.sortDir === 'asc' ? 'column-sortable sort-dir-asc' : 'column-sortable sort-dir-desc';
+    } else if (this.isSortable(field)) {
+      return 'column-sortable';
     }
     return '';
+  }
+
+  isSortable(name: keyof T | A): boolean {
+    return Array.isArray(this.sortableColumns) && this.sortableColumns.includes(name as any);
   }
 
   confirmRemove(row: T): void {
@@ -212,6 +218,9 @@ export abstract class Table<T extends { id: number }, A = never, F = never> impl
   }
 
   getColTitle(field: keyof T | A): string {
+    if (Array.isArray(this.sortableColumns) && !this.sortableColumns.includes(field as string)) {
+      return '';
+    }
     if (field === this.sortField) {
       return this.sortDir === 'asc' ? 'сортировать по убыванию' : 'сортировать по возрастанию'
     }

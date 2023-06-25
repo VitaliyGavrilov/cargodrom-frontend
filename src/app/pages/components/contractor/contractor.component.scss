@@ -1,0 +1,29 @@
+th.setting {
+  position: relative;
+}
+
+td.setting {
+  text-align: center;
+}
+
+.setting-link {
+  width: 100%;
+  height: 100%;
+  background: #606A74 url("../../../../assets/pic-dot-white-h.svg") center no-repeat;
+  cursor: pointer;
+  position: absolute;
+  left: 0;
+  top: 0;
+}
+
+
+.link-edit {
+  background: url('../../../../assets/pic-btn-edit.svg') no-repeat center center;
+  display: inline-block;
+  width: 24px;
+  height: 24px;
+  cursor: pointer;
+  text-decoration: none;
+  text-align: center;
+  vertical-align: top;
+}
