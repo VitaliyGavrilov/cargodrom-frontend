@@ -42,7 +42,7 @@
       </tr>
       <tr *ngFor="let contractor of rows; index as i; trackBy:trackById" [ngClass]="{'odd': i % 2 == 1}">
         <td>{{ start + i + 1 }}</td>
-        <td><a class="link" [routerLink]="[contractor.id]">{{ contractor.name }}</a></td>
+        <td>{{ contractor.name }}</td>
         <td>{{ contractor.country_name }} </td>
         <td class="l">
           <span class="type air"></span>
