@@ -212,6 +212,9 @@ export abstract class Table<T extends { id: number }, A = never, F = never> impl
   }
 
   getColTitle(field: keyof T | A): string {
+    if (Array.isArray(this.sortableColumns) && !this.sortableColumns.includes(field as string)) {
+      return '';
+    }
     if (field === this.sortField) {
       return this.sortDir === 'asc' ? 'сортировать по убыванию' : 'сортировать по возрастанию'
     }
