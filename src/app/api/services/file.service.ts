@@ -12,7 +12,7 @@ import { map, filter } from 'rxjs/operators';
 
 
 /**
- * Работа с файлами
+ * Работа со страни
  */
 @Injectable({
   providedIn: 'root',

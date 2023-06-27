@@ -55,6 +55,7 @@ export interface Contractor {
   contact_city: string;
   cargo: string;
   specialization: string[];
+  container: string[];
 }
 
 export interface ContractorType {

@@ -47,7 +47,7 @@
         <td class="l">
           <span class="type" *ngFor="let spec of contractor.specialization" [ngClass]="spec"></span>
         </td>
-        <td>FLC, LCL, REF</td>
+        <td>{{ contractor.container.join(', ') }}</td>
         <td class="l">{{ contractor.rating_nps_text }}</td>
         <td>{{contractor.trade_count }}
           <span class="gray">

@@ -369,7 +369,7 @@ export class ContractorService extends BaseService {
 /**
  * Ответственный за направления (ID берем из запроса - direction_type)
  */
-'responsible_direction'?: Array<number>;
+'responsible_direction'?: Array<string>;
 
 /**
  * Ответственный за направления (distination_country_id: {departure_country_id: [array of transport_sub_kind]}, ...)
@@ -411,9 +411,19 @@ export class ContractorService extends BaseService {
 'contact_name'?: string;
 
 /**
- * Контактнря информация
+ * Контактная информация
  */
 'contact_info'?: string;
+
+/**
+ * Специализация
+ */
+'specialization'?: Array<string>;
+
+/**
+ * Загрузка грузов
+ */
+'container'?: Array<string>;
 
 /**
  * Время создания
@@ -727,7 +737,7 @@ export class ContractorService extends BaseService {
         /**
          * Ответственный за направления (ID берем из запроса - direction_type)
          */
-        'responsible_direction'?: Array<number>;
+        'responsible_direction'?: Array<string>;
         
         /**
          * Ответственный за направления (distination_country_id: {departure_country_id: [array of transport_sub_kind]}, ...)
@@ -769,9 +779,19 @@ export class ContractorService extends BaseService {
         'contact_name'?: string;
         
         /**
-         * Контактнря информация
+         * Контактная информация
          */
         'contact_info'?: string;
+        
+        /**
+         * Специализация
+         */
+        'specialization'?: Array<string>;
+        
+        /**
+         * Загрузка грузов
+         */
+        'container'?: Array<string>;
         
         /**
          * Время создания
@@ -1137,7 +1157,7 @@ export class ContractorService extends BaseService {
 /**
  * Ответственный за направления (ID берем из запроса - direction_type)
  */
-'responsible_direction'?: Array<number>;
+'responsible_direction'?: Array<string>;
 
 /**
  * Ответственный за направления (distination_country_id: {departure_country_id: [array of transport_sub_kind]}, ...)
@@ -1179,9 +1199,19 @@ export class ContractorService extends BaseService {
 'contact_name'?: string;
 
 /**
- * Контактнря информация
+ * Контактная информация
  */
 'contact_info'?: string;
+
+/**
+ * Специализация
+ */
+'specialization'?: Array<string>;
+
+/**
+ * Загрузка грузов
+ */
+'container'?: Array<string>;
 
 /**
  * Время создания
@@ -1476,7 +1506,7 @@ export class ContractorService extends BaseService {
 /**
  * Ответственный за направления (ID берем из запроса - direction_type)
  */
-'responsible_direction'?: Array<number>;
+'responsible_direction'?: Array<string>;
 
 /**
  * Ответственный за направления (distination_country_id: {departure_country_id: [array of transport_sub_kind]}, ...)
@@ -1518,9 +1548,19 @@ export class ContractorService extends BaseService {
 'contact_name'?: string;
 
 /**
- * Контактнря информация
+ * Контактная информация
  */
 'contact_info'?: string;
+
+/**
+ * Специализация
+ */
+'specialization'?: Array<string>;
+
+/**
+ * Загрузка грузов
+ */
+'container'?: Array<string>;
 
 /**
  * Время создания
@@ -1812,7 +1852,7 @@ export class ContractorService extends BaseService {
 /**
  * Ответственный за направления (ID берем из запроса - direction_type)
  */
-'responsible_direction'?: Array<number>;
+'responsible_direction'?: Array<string>;
 
 /**
  * Ответственный за направления (distination_country_id: {departure_country_id: [array of transport_sub_kind]}, ...)
@@ -1854,9 +1894,19 @@ export class ContractorService extends BaseService {
 'contact_name'?: string;
 
 /**
- * Контактнря информация
+ * Контактная информация
  */
 'contact_info'?: string;
+
+/**
+ * Специализация
+ */
+'specialization'?: Array<string>;
+
+/**
+ * Загрузка грузов
+ */
+'container'?: Array<string>;
 
 /**
  * Время создания
@@ -2856,7 +2906,7 @@ export class ContractorService extends BaseService {
 /**
  * Ответственный за направления (ID берем из запроса - direction_type)
  */
-'responsible_direction'?: Array<number>;
+'responsible_direction'?: Array<string>;
 
 /**
  * Ответственный за направления (distination_country_id: {departure_country_id: [array of transport_sub_kind]}, ...)
@@ -2898,9 +2948,19 @@ export class ContractorService extends BaseService {
 'contact_name'?: string;
 
 /**
- * Контактнря информация
+ * Контактная информация
  */
 'contact_info'?: string;
+
+/**
+ * Специализация
+ */
+'specialization'?: Array<string>;
+
+/**
+ * Загрузка грузов
+ */
+'container'?: Array<string>;
 
 /**
  * Время создания
@@ -3185,7 +3245,7 @@ export class ContractorService extends BaseService {
         /**
          * Ответственный за направления (ID берем из запроса - direction_type)
          */
-        'responsible_direction'?: Array<number>;
+        'responsible_direction'?: Array<string>;
         
         /**
          * Ответственный за направления (distination_country_id: {departure_country_id: [array of transport_sub_kind]}, ...)
@@ -3227,9 +3287,19 @@ export class ContractorService extends BaseService {
         'contact_name'?: string;
         
         /**
-         * Контактнря информация
+         * Контактная информация
          */
         'contact_info'?: string;
+        
+        /**
+         * Специализация
+         */
+        'specialization'?: Array<string>;
+        
+        /**
+         * Загрузка грузов
+         */
+        'container'?: Array<string>;
         
         /**
          * Время создания
@@ -3523,7 +3593,7 @@ export class ContractorService extends BaseService {
 /**
  * Ответственный за направления (ID берем из запроса - direction_type)
  */
-'responsible_direction'?: Array<number>;
+'responsible_direction'?: Array<string>;
 
 /**
  * Ответственный за направления (distination_country_id: {departure_country_id: [array of transport_sub_kind]}, ...)
@@ -3565,9 +3635,19 @@ export class ContractorService extends BaseService {
 'contact_name'?: string;
 
 /**
- * Контактнря информация
+ * Контактная информация
  */
 'contact_info'?: string;
+
+/**
+ * Специализация
+ */
+'specialization'?: Array<string>;
+
+/**
+ * Загрузка грузов
+ */
+'container'?: Array<string>;
 
 /**
  * Время создания
@@ -3841,7 +3921,7 @@ export class ContractorService extends BaseService {
 /**
  * Ответственный за направления (ID берем из запроса - direction_type)
  */
-'responsible_direction'?: Array<number>;
+'responsible_direction'?: Array<string>;
 
 /**
  * Ответственный за направления (distination_country_id: {departure_country_id: [array of transport_sub_kind]}, ...)
@@ -3883,9 +3963,19 @@ export class ContractorService extends BaseService {
 'contact_name'?: string;
 
 /**
- * Контактнря информация
+ * Контактная информация
  */
 'contact_info'?: string;
+
+/**
+ * Специализация
+ */
+'specialization'?: Array<string>;
+
+/**
+ * Загрузка грузов
+ */
+'container'?: Array<string>;
 
 /**
  * Время создания
@@ -4156,7 +4246,7 @@ export class ContractorService extends BaseService {
 /**
  * Ответственный за направления (ID берем из запроса - direction_type)
  */
-'responsible_direction'?: Array<number>;
+'responsible_direction'?: Array<string>;
 
 /**
  * Ответственный за направления (distination_country_id: {departure_country_id: [array of transport_sub_kind]}, ...)
@@ -4198,9 +4288,19 @@ export class ContractorService extends BaseService {
 'contact_name'?: string;
 
 /**
- * Контактнря информация
+ * Контактная информация
  */
 'contact_info'?: string;
+
+/**
+ * Специализация
+ */
+'specialization'?: Array<string>;
+
+/**
+ * Загрузка грузов
+ */
+'container'?: Array<string>;
 
 /**
  * Время создания
@@ -4367,7 +4467,7 @@ export class ContractorService extends BaseService {
 /**
  * Ответственный за направления (ID берем из запроса - direction_type)
  */
-'responsible_direction'?: Array<number>;
+'responsible_direction'?: Array<string>;
 
 /**
  * Ответственный за направления (distination_country_id: {departure_country_id: [array of transport_sub_kind]}, ...)
@@ -4565,7 +4665,7 @@ export class ContractorService extends BaseService {
 /**
  * Ответственный за направления (ID берем из запроса - direction_type)
  */
-'responsible_direction'?: Array<number>;
+'responsible_direction'?: Array<string>;
 
 /**
  * Ответственный за направления (distination_country_id: {departure_country_id: [array of transport_sub_kind]}, ...)
@@ -4777,7 +4877,7 @@ export class ContractorService extends BaseService {
 /**
  * Ответственный за направления (ID берем из запроса - direction_type)
  */
-'responsible_direction'?: Array<number>;
+'responsible_direction'?: Array<string>;
 
 /**
  * Ответственный за направления (distination_country_id: {departure_country_id: [array of transport_sub_kind]}, ...)
@@ -4975,7 +5075,7 @@ export class ContractorService extends BaseService {
 /**
  * Ответственный за направления (ID берем из запроса - direction_type)
  */
-'responsible_direction'?: Array<number>;
+'responsible_direction'?: Array<string>;
 
 /**
  * Ответственный за направления (distination_country_id: {departure_country_id: [array of transport_sub_kind]}, ...)
@@ -5240,7 +5340,7 @@ export class ContractorService extends BaseService {
 /**
  * Ответственный за направления (ID берем из запроса - direction_type)
  */
-'responsible_direction'?: Array<number>;
+'responsible_direction'?: Array<string>;
 
 /**
  * Ответственный за направления (distination_country_id: {departure_country_id: [array of transport_sub_kind]}, ...)
@@ -5371,7 +5471,7 @@ export class ContractorService extends BaseService {
         /**
          * Ответственный за направления (ID берем из запроса - direction_type)
          */
-        'responsible_direction'?: Array<number>;
+        'responsible_direction'?: Array<string>;
         
         /**
          * Ответственный за направления (distination_country_id: {departure_country_id: [array of transport_sub_kind]}, ...)
@@ -5534,7 +5634,7 @@ export class ContractorService extends BaseService {
 /**
  * Ответственный за направления (ID берем из запроса - direction_type)
  */
-'responsible_direction'?: Array<number>;
+'responsible_direction'?: Array<string>;
 
 /**
  * Ответственный за направления (distination_country_id: {departure_country_id: [array of transport_sub_kind]}, ...)
@@ -5651,7 +5751,7 @@ export class ContractorService extends BaseService {
 /**
  * Ответственный за направления (ID берем из запроса - direction_type)
  */
-'responsible_direction'?: Array<number>;
+'responsible_direction'?: Array<string>;
 
 /**
  * Ответственный за направления (distination_country_id: {departure_country_id: [array of transport_sub_kind]}, ...)
@@ -5765,7 +5865,7 @@ export class ContractorService extends BaseService {
 /**
  * Ответственный за направления (ID берем из запроса - direction_type)
  */
-'responsible_direction'?: Array<number>;
+'responsible_direction'?: Array<string>;
 
 /**
  * Ответственный за направления (distination_country_id: {departure_country_id: [array of transport_sub_kind]}, ...)
@@ -5906,7 +6006,7 @@ export class ContractorService extends BaseService {
 /**
  * Ответственный за направления (ID берем из запроса - direction_type)
  */
-'responsible_direction'?: Array<number>;
+'responsible_direction'?: Array<string>;
 
 /**
  * Ответственный за направления (distination_country_id: {departure_country_id: [array of transport_sub_kind]}, ...)
@@ -6034,7 +6134,7 @@ export class ContractorService extends BaseService {
         /**
          * Ответственный за направления (ID берем из запроса - direction_type)
          */
-        'responsible_direction'?: Array<number>;
+        'responsible_direction'?: Array<string>;
         
         /**
          * Ответственный за направления (distination_country_id: {departure_country_id: [array of transport_sub_kind]}, ...)
@@ -6171,7 +6271,7 @@ export class ContractorService extends BaseService {
 /**
  * Ответственный за направления (ID берем из запроса - direction_type)
  */
-'responsible_direction'?: Array<number>;
+'responsible_direction'?: Array<string>;
 
 /**
  * Ответственный за направления (distination_country_id: {departure_country_id: [array of transport_sub_kind]}, ...)
@@ -6288,7 +6388,7 @@ export class ContractorService extends BaseService {
 /**
  * Ответственный за направления (ID берем из запроса - direction_type)
  */
-'responsible_direction'?: Array<number>;
+'responsible_direction'?: Array<string>;
 
 /**
  * Ответственный за направления (distination_country_id: {departure_country_id: [array of transport_sub_kind]}, ...)
@@ -6402,7 +6502,7 @@ export class ContractorService extends BaseService {
 /**
  * Ответственный за направления (ID берем из запроса - direction_type)
  */
-'responsible_direction'?: Array<number>;
+'responsible_direction'?: Array<string>;
 
 /**
  * Ответственный за направления (distination_country_id: {departure_country_id: [array of transport_sub_kind]}, ...)
@@ -6527,7 +6627,7 @@ export class ContractorService extends BaseService {
 /**
  * Ответственный за направления (ID берем из запроса - direction_type)
  */
-'responsible_direction'?: Array<number>;
+'responsible_direction'?: Array<string>;
 
 /**
  * Ответственный за направления (distination_country_id: {departure_country_id: [array of transport_sub_kind]}, ...)
@@ -6659,7 +6759,7 @@ export class ContractorService extends BaseService {
 /**
  * Ответственный за направления (ID берем из запроса - direction_type)
  */
-'responsible_direction'?: Array<number>;
+'responsible_direction'?: Array<string>;
 
 /**
  * Ответственный за направления (distination_country_id: {departure_country_id: [array of transport_sub_kind]}, ...)
@@ -6800,7 +6900,7 @@ export class ContractorService extends BaseService {
 /**
  * Ответственный за направления (ID берем из запроса - direction_type)
  */
-'responsible_direction'?: Array<number>;
+'responsible_direction'?: Array<string>;
 
 /**
  * Ответственный за направления (distination_country_id: {departure_country_id: [array of transport_sub_kind]}, ...)
@@ -6927,7 +7027,7 @@ export class ContractorService extends BaseService {
 /**
  * Ответственный за направления (ID берем из запроса - direction_type)
  */
-'responsible_direction'?: Array<number>;
+'responsible_direction'?: Array<string>;
 
 /**
  * Ответственный за направления (distination_country_id: {departure_country_id: [array of transport_sub_kind]}, ...)
