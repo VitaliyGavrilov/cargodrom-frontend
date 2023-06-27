@@ -174,8 +174,10 @@ input, textarea, a:focus{outline-width:0;outline:none;}
 .table .type { display: inline-block; width: 26px; height: 26px; }
 .table .type + .type { margin-left: 7px; }
 .table .type.air { background: url('../assets/pic-service-air.svg') no-repeat 50% 50%; }
+.table .type.avia { background: url('../assets/pic-service-air.svg') no-repeat 50% 50%; }
 .table .type.road { background: url('../assets/pic-service-road.svg') no-repeat 50% 50%; }
 .table .type.rail { background: url('../assets/pic-service-rail.svg') no-repeat 50% 50%; }
+.table .type.rw { background: url('../assets/pic-service-rail.svg') no-repeat 50% 50%; }
 .table .type.sea { background: url('../assets/pic-service-sea.svg') no-repeat 50% 50%; }
 
 .table .kso { white-space: nowrap; }

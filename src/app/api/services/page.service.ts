@@ -12,12 +12,12 @@ import { map, filter } from 'rxjs/operators';
 
 
 /**
- * Работа со страни
+ * Работа со страницами
  */
 @Injectable({
   providedIn: 'root',
 })
-export class FileService extends BaseService {
+export class PageService extends BaseService {
   constructor(
     config: ApiConfiguration,
     http: HttpClient
@@ -26,9 +26,9 @@ export class FileService extends BaseService {
   }
 
   /**
-   * Path part for operation fileList
+   * Path part for operation pageList
    */
-  static readonly FileListPath = '/file_list';
+  static readonly PageListPath = '/page_list';
 
   /**
    * Список файлов.
@@ -36,11 +36,11 @@ export class FileService extends BaseService {
    *
    *
    * This method provides access to the full `HttpResponse`, allowing access to response headers.
-   * To access only the response body, use `fileList()` instead.
+   * To access only the response body, use `pageList()` instead.
    *
    * This method doesn't expect any request body.
    */
-  fileList$Response(params?: {
+  pageList$Response(params?: {
 
     /**
      * Начальная позиция
@@ -132,7 +132,7 @@ export class FileService extends BaseService {
 'total'?: number;
 }>> {
 
-    const rb = new RequestBuilder(this.rootUrl, FileService.FileListPath, 'get');
+    const rb = new RequestBuilder(this.rootUrl, PageService.PageListPath, 'get');
     if (params) {
       rb.query('start', params.start, {});
       rb.query('count', params.count, {});
@@ -221,11 +221,11 @@ export class FileService extends BaseService {
    *
    *
    * This method provides access to only to the response body.
-   * To access the full response (for headers, for example), `fileList$Response()` instead.
+   * To access the full response (for headers, for example), `pageList$Response()` instead.
    *
    * This method doesn't expect any request body.
    */
-  fileList(params?: {
+  pageList(params?: {
 
     /**
      * Начальная позиция
@@ -317,7 +317,7 @@ export class FileService extends BaseService {
 'total'?: number;
 }> {
 
-    return this.fileList$Response(params).pipe(
+    return this.pageList$Response(params).pipe(
       map((r: StrictHttpResponse<{
 
 /**
@@ -447,9 +447,9 @@ export class FileService extends BaseService {
   }
 
   /**
-   * Path part for operation fileInfo
+   * Path part for operation pageInfo
    */
-  static readonly FileInfoPath = '/file_info';
+  static readonly PageInfoPath = '/page_info';
 
   /**
    * Файл: данные.
@@ -457,11 +457,11 @@ export class FileService extends BaseService {
    *
    *
    * This method provides access to the full `HttpResponse`, allowing access to response headers.
-   * To access only the response body, use `fileInfo()` instead.
+   * To access only the response body, use `pageInfo()` instead.
    *
    * This method doesn't expect any request body.
    */
-  fileInfo$Response(params?: {
+  pageInfo$Response(params?: {
 
     /**
      * ID файла
@@ -522,7 +522,7 @@ export class FileService extends BaseService {
 'time_edit'?: string;
 }>> {
 
-    const rb = new RequestBuilder(this.rootUrl, FileService.FileInfoPath, 'get');
+    const rb = new RequestBuilder(this.rootUrl, PageService.PageInfoPath, 'get');
     if (params) {
       rb.query('id', params.id, {});
     }
@@ -596,11 +596,11 @@ export class FileService extends BaseService {
    *
    *
    * This method provides access to only to the response body.
-   * To access the full response (for headers, for example), `fileInfo$Response()` instead.
+   * To access the full response (for headers, for example), `pageInfo$Response()` instead.
    *
    * This method doesn't expect any request body.
    */
-  fileInfo(params?: {
+  pageInfo(params?: {
 
     /**
      * ID файла
@@ -661,7 +661,7 @@ export class FileService extends BaseService {
 'time_edit'?: string;
 }> {
 
-    return this.fileInfo$Response(params).pipe(
+    return this.pageInfo$Response(params).pipe(
       map((r: StrictHttpResponse<{
 
 /**
@@ -769,9 +769,9 @@ export class FileService extends BaseService {
   }
 
   /**
-   * Path part for operation fileCreate
+   * Path part for operation pageCreate
    */
-  static readonly FileCreatePath = '/file_create';
+  static readonly PageCreatePath = '/page_create';
 
   /**
    * Файлы: добавление.
@@ -779,11 +779,11 @@ export class FileService extends BaseService {
    *
    *
    * This method provides access to the full `HttpResponse`, allowing access to response headers.
-   * To access only the response body, use `fileCreate()` instead.
+   * To access only the response body, use `pageCreate()` instead.
    *
    * This method sends `multipart/form-data` and handles request body of type `multipart/form-data`.
    */
-  fileCreate$Response(params?: {
+  pageCreate$Response(params?: {
     context?: HttpContext
     body?: {
 
@@ -821,7 +821,7 @@ export class FileService extends BaseService {
 'result': 'OK';
 }>> {
 
-    const rb = new RequestBuilder(this.rootUrl, FileService.FileCreatePath, 'post');
+    const rb = new RequestBuilder(this.rootUrl, PageService.PageCreatePath, 'post');
     if (params) {
       rb.body(params.body, 'multipart/form-data');
     }
@@ -855,11 +855,11 @@ export class FileService extends BaseService {
    *
    *
    * This method provides access to only to the response body.
-   * To access the full response (for headers, for example), `fileCreate$Response()` instead.
+   * To access the full response (for headers, for example), `pageCreate$Response()` instead.
    *
    * This method sends `multipart/form-data` and handles request body of type `multipart/form-data`.
    */
-  fileCreate(params?: {
+  pageCreate(params?: {
     context?: HttpContext
     body?: {
 
@@ -897,7 +897,7 @@ export class FileService extends BaseService {
 'result': 'OK';
 }> {
 
-    return this.fileCreate$Response(params).pipe(
+    return this.pageCreate$Response(params).pipe(
       map((r: StrictHttpResponse<{
 
 /**
@@ -925,9 +925,9 @@ export class FileService extends BaseService {
   }
 
   /**
-   * Path part for operation fileUpdate
+   * Path part for operation pageUpdate
    */
-  static readonly FileUpdatePath = '/file_update';
+  static readonly PageUpdatePath = '/page_update';
 
   /**
    * Файлы: обновление.
@@ -935,11 +935,11 @@ export class FileService extends BaseService {
    *
    *
    * This method provides access to the full `HttpResponse`, allowing access to response headers.
-   * To access only the response body, use `fileUpdate()` instead.
+   * To access only the response body, use `pageUpdate()` instead.
    *
    * This method sends `multipart/form-data` and handles request body of type `multipart/form-data`.
    */
-  fileUpdate$Response(params?: {
+  pageUpdate$Response(params?: {
     context?: HttpContext
     body?: {
 
@@ -982,7 +982,7 @@ export class FileService extends BaseService {
 'result': 'OK';
 }>> {
 
-    const rb = new RequestBuilder(this.rootUrl, FileService.FileUpdatePath, 'post');
+    const rb = new RequestBuilder(this.rootUrl, PageService.PageUpdatePath, 'post');
     if (params) {
       rb.body(params.body, 'multipart/form-data');
     }
@@ -1016,11 +1016,11 @@ export class FileService extends BaseService {
    *
    *
    * This method provides access to only to the response body.
-   * To access the full response (for headers, for example), `fileUpdate$Response()` instead.
+   * To access the full response (for headers, for example), `pageUpdate$Response()` instead.
    *
    * This method sends `multipart/form-data` and handles request body of type `multipart/form-data`.
    */
-  fileUpdate(params?: {
+  pageUpdate(params?: {
     context?: HttpContext
     body?: {
 
@@ -1063,7 +1063,7 @@ export class FileService extends BaseService {
 'result': 'OK';
 }> {
 
-    return this.fileUpdate$Response(params).pipe(
+    return this.pageUpdate$Response(params).pipe(
       map((r: StrictHttpResponse<{
 
 /**
@@ -1091,9 +1091,9 @@ export class FileService extends BaseService {
   }
 
   /**
-   * Path part for operation fileDelete
+   * Path part for operation pageDelete
    */
-  static readonly FileDeletePath = '/file_delete';
+  static readonly PageDeletePath = '/page_delete';
 
   /**
    * Файлы: удаление.
@@ -1101,11 +1101,11 @@ export class FileService extends BaseService {
    *
    *
    * This method provides access to the full `HttpResponse`, allowing access to response headers.
-   * To access only the response body, use `fileDelete()` instead.
+   * To access only the response body, use `pageDelete()` instead.
    *
    * This method sends `application/json` and handles request body of type `application/json`.
    */
-  fileDelete$Response(params?: {
+  pageDelete$Response(params?: {
     context?: HttpContext
     body?: {
 
@@ -1138,7 +1138,7 @@ export class FileService extends BaseService {
 'result': 'OK';
 }>> {
 
-    const rb = new RequestBuilder(this.rootUrl, FileService.FileDeletePath, 'post');
+    const rb = new RequestBuilder(this.rootUrl, PageService.PageDeletePath, 'post');
     if (params) {
       rb.body(params.body, 'application/json');
     }
@@ -1167,11 +1167,11 @@ export class FileService extends BaseService {
    *
    *
    * This method provides access to only to the response body.
-   * To access the full response (for headers, for example), `fileDelete$Response()` instead.
+   * To access the full response (for headers, for example), `pageDelete$Response()` instead.
    *
    * This method sends `application/json` and handles request body of type `application/json`.
    */
-  fileDelete(params?: {
+  pageDelete(params?: {
     context?: HttpContext
     body?: {
 
@@ -1204,7 +1204,7 @@ export class FileService extends BaseService {
 'result': 'OK';
 }> {
 
-    return this.fileDelete$Response(params).pipe(
+    return this.pageDelete$Response(params).pipe(
       map((r: StrictHttpResponse<{
 
 /**
@@ -1222,9 +1222,9 @@ export class FileService extends BaseService {
   }
 
   /**
-   * Path part for operation fileDownload
+   * Path part for operation pageDownload
    */
-  static readonly FileDownloadPath = '/file_download';
+  static readonly PageDownloadPath = '/page_download';
 
   /**
    * Файл: получить.
@@ -1232,11 +1232,11 @@ export class FileService extends BaseService {
    *
    *
    * This method provides access to the full `HttpResponse`, allowing access to response headers.
-   * To access only the response body, use `fileDownload()` instead.
+   * To access only the response body, use `pageDownload()` instead.
    *
    * This method doesn't expect any request body.
    */
-  fileDownload$Response(params?: {
+  pageDownload$Response(params?: {
 
     /**
      * ID файла
@@ -1252,7 +1252,7 @@ export class FileService extends BaseService {
 'result': 'OK';
 }>> {
 
-    const rb = new RequestBuilder(this.rootUrl, FileService.FileDownloadPath, 'get');
+    const rb = new RequestBuilder(this.rootUrl, PageService.PageDownloadPath, 'get');
     if (params) {
       rb.query('id', params.id, {});
     }
@@ -1281,11 +1281,11 @@ export class FileService extends BaseService {
    *
    *
    * This method provides access to only to the response body.
-   * To access the full response (for headers, for example), `fileDownload$Response()` instead.
+   * To access the full response (for headers, for example), `pageDownload$Response()` instead.
    *
    * This method doesn't expect any request body.
    */
-  fileDownload(params?: {
+  pageDownload(params?: {
 
     /**
      * ID файла
@@ -1301,7 +1301,7 @@ export class FileService extends BaseService {
 'result': 'OK';
 }> {
 
-    return this.fileDownload$Response(params).pipe(
+    return this.pageDownload$Response(params).pipe(
       map((r: StrictHttpResponse<{
 
 /**
