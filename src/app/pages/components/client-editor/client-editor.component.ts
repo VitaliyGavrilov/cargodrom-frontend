@@ -186,5 +186,9 @@ export class ClientEditorComponent extends Editor<Client> implements OnInit {
       groups => this.clientGroups = groups.items ? (groups.items as ClientGroup[]).sort(byField('name', 'asc', 'case-insensitive')) : []
     );
   }
+  
+  onDocumentsPathChange(newPath: string): void {
+    this.form.patchValue({documents_path: newPath} as Partial<Client>);
+  }
 
 }

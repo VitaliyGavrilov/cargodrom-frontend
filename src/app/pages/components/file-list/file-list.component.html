@@ -13,7 +13,7 @@
   <div class="form-item">
     <div class="form-label">Ссылка на файл:</div>
     <div class="form-data">
-      <input type="text" name="documents_path">
+      <input type="text" [ngModel]="documentsPath" (ngModelChange)="documentsPathChange($event)">
     </div>
   </div>
 </div>
