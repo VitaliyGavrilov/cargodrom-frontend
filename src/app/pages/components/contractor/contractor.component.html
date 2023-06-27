@@ -45,8 +45,7 @@
         <td>{{ contractor.name }}</td>
         <td>{{ contractor.country_name }} </td>
         <td class="l">
-          <span class="type air"></span>
-          <span class="type road"></span>
+          <span class="type" *ngFor="let spec of contractor.specialization" [ngClass]="spec"></span>
         </td>
         <td>FLC, LCL, REF</td>
         <td class="l">{{ contractor.rating_nps_text }}</td>
