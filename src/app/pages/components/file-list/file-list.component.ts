@@ -1,6 +1,6 @@
 import { FileService } from './../../../api/services/file.service';
 import { FileDocument } from './../../../api/custom_models';
-import { Component, Input, OnInit, TemplateRef, ViewChild, ViewEncapsulation } from '@angular/core';
+import { Component, EventEmitter, Input, OnInit, Output, TemplateRef, ViewChild, ViewEncapsulation } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { Observable, map, of, zip } from 'rxjs';
 
@@ -22,6 +22,9 @@ export class FileListComponent implements OnInit {
   @Input() itemId: number = 8;
 
   @ViewChild('removeDialogRef') removeDialogRef!: TemplateRef<FileDocumentExtended>;
+  
+  @Input() documentsPath: string = '';
+  @Output() onDocumentsPathChange = new EventEmitter<string>();
 
   constructor(
     private dialog: MatDialog,
@@ -101,5 +104,9 @@ export class FileListComponent implements OnInit {
       }
     }));
     return zip(remove$).pipe(map(() => undefined))
+  }
+  
+  documentsPathChange(newPath: string): void {
+    this.onDocumentsPathChange.emit(newPath);
   }
 }
