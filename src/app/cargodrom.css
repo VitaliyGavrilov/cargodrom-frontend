@@ -167,17 +167,23 @@ input, textarea, a:focus{outline-width:0;outline:none;}
 .table td.l { border-left: 1px solid #e0e5eb !important; }
 .table .odd td { background: #F7F9FC; }
 .table .gray { color: #83909E; }
+.table-list .gray { color: #83909E; }
 .table .bk { color: #2C3640; }
+.table-list .bk { color: #2C3640; }
 .table .success { color: #61BA5D; }
 .table .fail { color: #FD7171; }
+.table-list .success { color: #61BA5D; }
+.table-list .fail { color: #FD7171; }
 .table .b { font-weight: bold; }
 .table .type { display: inline-block; width: 26px; height: 26px; }
 .table .type + .type { margin-left: 7px; }
 .table .type.air { background: url('../assets/pic-service-air.svg') no-repeat 50% 50%; }
 .table .type.avia { background: url('../assets/pic-service-air.svg') no-repeat 50% 50%; }
+.table-list .type.avia { background: url('../assets/pic-service-air.svg') no-repeat 50% 50%; }
 .table .type.road { background: url('../assets/pic-service-road.svg') no-repeat 50% 50%; }
 .table .type.rail { background: url('../assets/pic-service-rail.svg') no-repeat 50% 50%; }
 .table .type.rw { background: url('../assets/pic-service-rail.svg') no-repeat 50% 50%; }
+.table-list .type.rw { background: url('../assets/pic-service-rail.svg') no-repeat 50% 50%; }
 .table .type.sea { background: url('../assets/pic-service-sea.svg') no-repeat 50% 50%; }
 
 .table .kso { white-space: nowrap; }
