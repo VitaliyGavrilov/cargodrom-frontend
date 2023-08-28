@@ -9,7 +9,7 @@
     "watch": "ng build --watch --configuration development",
     "test": "ng test",
     "api": "ng-openapi-gen -i https://cargodrom.com/openapi2.php",
-    "build:github": "ng build --configuration production --base-href https://lchudinov.github.io/cargodrom-frontend/",
+    "build:github": "ng build --configuration production --base-href https://TriviumStudio.github.io/cargodrom-frontend/",
     "test:headless": "ng test --watch=false --browsers=ChromeHeadless"
   },
   "private": true,
