@@ -1,3 +1,3 @@
 # Cargodrom Frontend
 
-https://lchudinov.github.io/cargodrom-frontend/
+https://TriviumStudio.github.io/cargodrom-frontend/
