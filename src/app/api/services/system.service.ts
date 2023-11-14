@@ -1,33 +1,27 @@
 /* tslint:disable */
 /* eslint-disable */
+import { HttpClient, HttpContext, HttpResponse } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { HttpClient, HttpResponse, HttpContext } from '@angular/common/http';
+import { Observable } from 'rxjs';
+import { filter, map } from 'rxjs/operators';
+
 import { BaseService } from '../base-service';
 import { ApiConfiguration } from '../api-configuration';
 import { StrictHttpResponse } from '../strict-http-response';
 import { RequestBuilder } from '../request-builder';
-import { Observable } from 'rxjs';
-import { map, filter } from 'rxjs/operators';
 
 
 
 /**
  * Системный справочник данных
  */
-@Injectable({
-  providedIn: 'root',
-})
+@Injectable({ providedIn: 'root' })
 export class SystemService extends BaseService {
-  constructor(
-    config: ApiConfiguration,
-    http: HttpClient
-  ) {
+  constructor(config: ApiConfiguration, http: HttpClient) {
     super(config, http);
   }
 
-  /**
-   * Path part for operation systemTaxSystem
-   */
+  /** Path part for operation `systemTaxSystem()` */
   static readonly SystemTaxSystemPath = '/system_tax_system';
 
   /**
@@ -40,10 +34,11 @@ export class SystemService extends BaseService {
    *
    * This method doesn't expect any request body.
    */
-  systemTaxSystem$Response(params?: {
+  systemTaxSystem$Response(
+    params?: {
+    },
     context?: HttpContext
-  }
-): Observable<StrictHttpResponse<Array<{
+  ): Observable<StrictHttpResponse<Array<{
 
 /**
  * ID
@@ -55,17 +50,14 @@ export class SystemService extends BaseService {
  */
 'name'?: string;
 }>>> {
-
     const rb = new RequestBuilder(this.rootUrl, SystemService.SystemTaxSystemPath, 'get');
     if (params) {
     }
 
-    return this.http.request(rb.build({
-      responseType: 'json',
-      accept: 'application/json',
-      context: params?.context
-    })).pipe(
-      filter((r: any) => r instanceof HttpResponse),
+    return this.http.request(
+      rb.build({ responseType: 'json', accept: 'application/json', context })
+    ).pipe(
+      filter((r: any): r is HttpResponse<any> => r instanceof HttpResponse),
       map((r: HttpResponse<any>) => {
         return r as StrictHttpResponse<Array<{
         
@@ -88,15 +80,16 @@ export class SystemService extends BaseService {
    *
    *
    *
-   * This method provides access to only to the response body.
+   * This method provides access only to the response body.
    * To access the full response (for headers, for example), `systemTaxSystem$Response()` instead.
    *
    * This method doesn't expect any request body.
    */
-  systemTaxSystem(params?: {
+  systemTaxSystem(
+    params?: {
+    },
     context?: HttpContext
-  }
-): Observable<Array<{
+  ): Observable<Array<{
 
 /**
  * ID
@@ -108,8 +101,7 @@ export class SystemService extends BaseService {
  */
 'name'?: string;
 }>> {
-
-    return this.systemTaxSystem$Response(params).pipe(
+    return this.systemTaxSystem$Response(params, context).pipe(
       map((r: StrictHttpResponse<Array<{
 
 /**
@@ -121,7 +113,7 @@ export class SystemService extends BaseService {
  * Наименование
  */
 'name'?: string;
-}>>) => r.body as Array<{
+}>>): Array<{
 
 /**
  * ID
@@ -132,13 +124,11 @@ export class SystemService extends BaseService {
  * Наименование
  */
 'name'?: string;
-}>)
+}> => r.body)
     );
   }
 
-  /**
-   * Path part for operation systemCurrency
-   */
+  /** Path part for operation `systemCurrency()` */
   static readonly SystemCurrencyPath = '/system_currency';
 
   /**
@@ -151,10 +141,11 @@ export class SystemService extends BaseService {
    *
    * This method doesn't expect any request body.
    */
-  systemCurrency$Response(params?: {
+  systemCurrency$Response(
+    params?: {
+    },
     context?: HttpContext
-  }
-): Observable<StrictHttpResponse<Array<{
+  ): Observable<StrictHttpResponse<Array<{
 
 /**
  * ID
@@ -171,17 +162,14 @@ export class SystemService extends BaseService {
  */
 'name'?: string;
 }>>> {
-
     const rb = new RequestBuilder(this.rootUrl, SystemService.SystemCurrencyPath, 'get');
     if (params) {
     }
 
-    return this.http.request(rb.build({
-      responseType: 'json',
-      accept: 'application/json',
-      context: params?.context
-    })).pipe(
-      filter((r: any) => r instanceof HttpResponse),
+    return this.http.request(
+      rb.build({ responseType: 'json', accept: 'application/json', context })
+    ).pipe(
+      filter((r: any): r is HttpResponse<any> => r instanceof HttpResponse),
       map((r: HttpResponse<any>) => {
         return r as StrictHttpResponse<Array<{
         
@@ -209,15 +197,16 @@ export class SystemService extends BaseService {
    *
    *
    *
-   * This method provides access to only to the response body.
+   * This method provides access only to the response body.
    * To access the full response (for headers, for example), `systemCurrency$Response()` instead.
    *
    * This method doesn't expect any request body.
    */
-  systemCurrency(params?: {
+  systemCurrency(
+    params?: {
+    },
     context?: HttpContext
-  }
-): Observable<Array<{
+  ): Observable<Array<{
 
 /**
  * ID
@@ -234,8 +223,7 @@ export class SystemService extends BaseService {
  */
 'name'?: string;
 }>> {
-
-    return this.systemCurrency$Response(params).pipe(
+    return this.systemCurrency$Response(params, context).pipe(
       map((r: StrictHttpResponse<Array<{
 
 /**
@@ -252,7 +240,7 @@ export class SystemService extends BaseService {
  * Наименование
  */
 'name'?: string;
-}>>) => r.body as Array<{
+}>>): Array<{
 
 /**
  * ID
@@ -268,13 +256,11 @@ export class SystemService extends BaseService {
  * Наименование
  */
 'name'?: string;
-}>)
+}> => r.body)
     );
   }
 
-  /**
-   * Path part for operation systemHeadPosition
-   */
+  /** Path part for operation `systemHeadPosition()` */
   static readonly SystemHeadPositionPath = '/system_head_position';
 
   /**
@@ -287,10 +273,11 @@ export class SystemService extends BaseService {
    *
    * This method doesn't expect any request body.
    */
-  systemHeadPosition$Response(params?: {
+  systemHeadPosition$Response(
+    params?: {
+    },
     context?: HttpContext
-  }
-): Observable<StrictHttpResponse<Array<{
+  ): Observable<StrictHttpResponse<Array<{
 
 /**
  * ID
@@ -302,17 +289,14 @@ export class SystemService extends BaseService {
  */
 'name'?: string;
 }>>> {
-
     const rb = new RequestBuilder(this.rootUrl, SystemService.SystemHeadPositionPath, 'get');
     if (params) {
     }
 
-    return this.http.request(rb.build({
-      responseType: 'json',
-      accept: 'application/json',
-      context: params?.context
-    })).pipe(
-      filter((r: any) => r instanceof HttpResponse),
+    return this.http.request(
+      rb.build({ responseType: 'json', accept: 'application/json', context })
+    ).pipe(
+      filter((r: any): r is HttpResponse<any> => r instanceof HttpResponse),
       map((r: HttpResponse<any>) => {
         return r as StrictHttpResponse<Array<{
         
@@ -335,15 +319,16 @@ export class SystemService extends BaseService {
    *
    *
    *
-   * This method provides access to only to the response body.
+   * This method provides access only to the response body.
    * To access the full response (for headers, for example), `systemHeadPosition$Response()` instead.
    *
    * This method doesn't expect any request body.
    */
-  systemHeadPosition(params?: {
+  systemHeadPosition(
+    params?: {
+    },
     context?: HttpContext
-  }
-): Observable<Array<{
+  ): Observable<Array<{
 
 /**
  * ID
@@ -355,8 +340,7 @@ export class SystemService extends BaseService {
  */
 'name'?: string;
 }>> {
-
-    return this.systemHeadPosition$Response(params).pipe(
+    return this.systemHeadPosition$Response(params, context).pipe(
       map((r: StrictHttpResponse<Array<{
 
 /**
@@ -368,7 +352,7 @@ export class SystemService extends BaseService {
  * Наименование
  */
 'name'?: string;
-}>>) => r.body as Array<{
+}>>): Array<{
 
 /**
  * ID
@@ -379,13 +363,11 @@ export class SystemService extends BaseService {
  * Наименование
  */
 'name'?: string;
-}>)
+}> => r.body)
     );
   }
 
-  /**
-   * Path part for operation systemServices
-   */
+  /** Path part for operation `systemServices()` */
   static readonly SystemServicesPath = '/system_services';
 
   /**
@@ -398,10 +380,11 @@ export class SystemService extends BaseService {
    *
    * This method doesn't expect any request body.
    */
-  systemServices$Response(params?: {
+  systemServices$Response(
+    params?: {
+    },
     context?: HttpContext
-  }
-): Observable<StrictHttpResponse<Array<{
+  ): Observable<StrictHttpResponse<Array<{
 
 /**
  * ID
@@ -413,17 +396,14 @@ export class SystemService extends BaseService {
  */
 'name'?: string;
 }>>> {
-
     const rb = new RequestBuilder(this.rootUrl, SystemService.SystemServicesPath, 'get');
     if (params) {
     }
 
-    return this.http.request(rb.build({
-      responseType: 'json',
-      accept: 'application/json',
-      context: params?.context
-    })).pipe(
-      filter((r: any) => r instanceof HttpResponse),
+    return this.http.request(
+      rb.build({ responseType: 'json', accept: 'application/json', context })
+    ).pipe(
+      filter((r: any): r is HttpResponse<any> => r instanceof HttpResponse),
       map((r: HttpResponse<any>) => {
         return r as StrictHttpResponse<Array<{
         
@@ -446,15 +426,16 @@ export class SystemService extends BaseService {
    *
    *
    *
-   * This method provides access to only to the response body.
+   * This method provides access only to the response body.
    * To access the full response (for headers, for example), `systemServices$Response()` instead.
    *
    * This method doesn't expect any request body.
    */
-  systemServices(params?: {
+  systemServices(
+    params?: {
+    },
     context?: HttpContext
-  }
-): Observable<Array<{
+  ): Observable<Array<{
 
 /**
  * ID
@@ -466,8 +447,7 @@ export class SystemService extends BaseService {
  */
 'name'?: string;
 }>> {
-
-    return this.systemServices$Response(params).pipe(
+    return this.systemServices$Response(params, context).pipe(
       map((r: StrictHttpResponse<Array<{
 
 /**
@@ -479,7 +459,7 @@ export class SystemService extends BaseService {
  * Наименование
  */
 'name'?: string;
-}>>) => r.body as Array<{
+}>>): Array<{
 
 /**
  * ID
@@ -490,13 +470,11 @@ export class SystemService extends BaseService {
  * Наименование
  */
 'name'?: string;
-}>)
+}> => r.body)
     );
   }
 
-  /**
-   * Path part for operation systemBusiness
-   */
+  /** Path part for operation `systemBusiness()` */
   static readonly SystemBusinessPath = '/system_business';
 
   /**
@@ -509,10 +487,11 @@ export class SystemService extends BaseService {
    *
    * This method doesn't expect any request body.
    */
-  systemBusiness$Response(params?: {
+  systemBusiness$Response(
+    params?: {
+    },
     context?: HttpContext
-  }
-): Observable<StrictHttpResponse<Array<{
+  ): Observable<StrictHttpResponse<Array<{
 
 /**
  * ID
@@ -529,17 +508,14 @@ export class SystemService extends BaseService {
  */
 'num'?: number;
 }>>> {
-
     const rb = new RequestBuilder(this.rootUrl, SystemService.SystemBusinessPath, 'get');
     if (params) {
     }
 
-    return this.http.request(rb.build({
-      responseType: 'json',
-      accept: 'application/json',
-      context: params?.context
-    })).pipe(
-      filter((r: any) => r instanceof HttpResponse),
+    return this.http.request(
+      rb.build({ responseType: 'json', accept: 'application/json', context })
+    ).pipe(
+      filter((r: any): r is HttpResponse<any> => r instanceof HttpResponse),
       map((r: HttpResponse<any>) => {
         return r as StrictHttpResponse<Array<{
         
@@ -567,15 +543,16 @@ export class SystemService extends BaseService {
    *
    *
    *
-   * This method provides access to only to the response body.
+   * This method provides access only to the response body.
    * To access the full response (for headers, for example), `systemBusiness$Response()` instead.
    *
    * This method doesn't expect any request body.
    */
-  systemBusiness(params?: {
+  systemBusiness(
+    params?: {
+    },
     context?: HttpContext
-  }
-): Observable<Array<{
+  ): Observable<Array<{
 
 /**
  * ID
@@ -592,8 +569,7 @@ export class SystemService extends BaseService {
  */
 'num'?: number;
 }>> {
-
-    return this.systemBusiness$Response(params).pipe(
+    return this.systemBusiness$Response(params, context).pipe(
       map((r: StrictHttpResponse<Array<{
 
 /**
@@ -610,7 +586,7 @@ export class SystemService extends BaseService {
  * Порядок (меньше - выше)
  */
 'num'?: number;
-}>>) => r.body as Array<{
+}>>): Array<{
 
 /**
  * ID
@@ -626,13 +602,11 @@ export class SystemService extends BaseService {
  * Порядок (меньше - выше)
  */
 'num'?: number;
-}>)
+}> => r.body)
     );
   }
 
-  /**
-   * Path part for operation systemCounterparty
-   */
+  /** Path part for operation `systemCounterparty()` */
   static readonly SystemCounterpartyPath = '/system_counterparty';
 
   /**
@@ -645,10 +619,11 @@ export class SystemService extends BaseService {
    *
    * This method doesn't expect any request body.
    */
-  systemCounterparty$Response(params?: {
+  systemCounterparty$Response(
+    params?: {
+    },
     context?: HttpContext
-  }
-): Observable<StrictHttpResponse<Array<{
+  ): Observable<StrictHttpResponse<Array<{
 
 /**
  * ID
@@ -665,17 +640,14 @@ export class SystemService extends BaseService {
  */
 'num'?: number;
 }>>> {
-
     const rb = new RequestBuilder(this.rootUrl, SystemService.SystemCounterpartyPath, 'get');
     if (params) {
     }
 
-    return this.http.request(rb.build({
-      responseType: 'json',
-      accept: 'application/json',
-      context: params?.context
-    })).pipe(
-      filter((r: any) => r instanceof HttpResponse),
+    return this.http.request(
+      rb.build({ responseType: 'json', accept: 'application/json', context })
+    ).pipe(
+      filter((r: any): r is HttpResponse<any> => r instanceof HttpResponse),
       map((r: HttpResponse<any>) => {
         return r as StrictHttpResponse<Array<{
         
@@ -703,15 +675,16 @@ export class SystemService extends BaseService {
    *
    *
    *
-   * This method provides access to only to the response body.
+   * This method provides access only to the response body.
    * To access the full response (for headers, for example), `systemCounterparty$Response()` instead.
    *
    * This method doesn't expect any request body.
    */
-  systemCounterparty(params?: {
+  systemCounterparty(
+    params?: {
+    },
     context?: HttpContext
-  }
-): Observable<Array<{
+  ): Observable<Array<{
 
 /**
  * ID
@@ -728,8 +701,7 @@ export class SystemService extends BaseService {
  */
 'num'?: number;
 }>> {
-
-    return this.systemCounterparty$Response(params).pipe(
+    return this.systemCounterparty$Response(params, context).pipe(
       map((r: StrictHttpResponse<Array<{
 
 /**
@@ -746,7 +718,7 @@ export class SystemService extends BaseService {
  * Порядок (меньше - выше)
  */
 'num'?: number;
-}>>) => r.body as Array<{
+}>>): Array<{
 
 /**
  * ID
@@ -762,13 +734,11 @@ export class SystemService extends BaseService {
  * Порядок (меньше - выше)
  */
 'num'?: number;
-}>)
+}> => r.body)
     );
   }
 
-  /**
-   * Path part for operation systemInteraction
-   */
+  /** Path part for operation `systemInteraction()` */
   static readonly SystemInteractionPath = '/system_interaction';
 
   /**
@@ -781,10 +751,11 @@ export class SystemService extends BaseService {
    *
    * This method doesn't expect any request body.
    */
-  systemInteraction$Response(params?: {
+  systemInteraction$Response(
+    params?: {
+    },
     context?: HttpContext
-  }
-): Observable<StrictHttpResponse<Array<{
+  ): Observable<StrictHttpResponse<Array<{
 
 /**
  * ID
@@ -801,17 +772,14 @@ export class SystemService extends BaseService {
  */
 'num'?: number;
 }>>> {
-
     const rb = new RequestBuilder(this.rootUrl, SystemService.SystemInteractionPath, 'get');
     if (params) {
     }
 
-    return this.http.request(rb.build({
-      responseType: 'json',
-      accept: 'application/json',
-      context: params?.context
-    })).pipe(
-      filter((r: any) => r instanceof HttpResponse),
+    return this.http.request(
+      rb.build({ responseType: 'json', accept: 'application/json', context })
+    ).pipe(
+      filter((r: any): r is HttpResponse<any> => r instanceof HttpResponse),
       map((r: HttpResponse<any>) => {
         return r as StrictHttpResponse<Array<{
         
@@ -839,15 +807,16 @@ export class SystemService extends BaseService {
    *
    *
    *
-   * This method provides access to only to the response body.
+   * This method provides access only to the response body.
    * To access the full response (for headers, for example), `systemInteraction$Response()` instead.
    *
    * This method doesn't expect any request body.
    */
-  systemInteraction(params?: {
+  systemInteraction(
+    params?: {
+    },
     context?: HttpContext
-  }
-): Observable<Array<{
+  ): Observable<Array<{
 
 /**
  * ID
@@ -864,8 +833,7 @@ export class SystemService extends BaseService {
  */
 'num'?: number;
 }>> {
-
-    return this.systemInteraction$Response(params).pipe(
+    return this.systemInteraction$Response(params, context).pipe(
       map((r: StrictHttpResponse<Array<{
 
 /**
@@ -882,7 +850,7 @@ export class SystemService extends BaseService {
  * Порядок (меньше - выше)
  */
 'num'?: number;
-}>>) => r.body as Array<{
+}>>): Array<{
 
 /**
  * ID
@@ -898,13 +866,11 @@ export class SystemService extends BaseService {
  * Порядок (меньше - выше)
  */
 'num'?: number;
-}>)
+}> => r.body)
     );
   }
 
-  /**
-   * Path part for operation systemContactSource
-   */
+  /** Path part for operation `systemContactSource()` */
   static readonly SystemContactSourcePath = '/system_contact_source';
 
   /**
@@ -917,10 +883,11 @@ export class SystemService extends BaseService {
    *
    * This method doesn't expect any request body.
    */
-  systemContactSource$Response(params?: {
+  systemContactSource$Response(
+    params?: {
+    },
     context?: HttpContext
-  }
-): Observable<StrictHttpResponse<Array<{
+  ): Observable<StrictHttpResponse<Array<{
 
 /**
  * ID
@@ -932,17 +899,14 @@ export class SystemService extends BaseService {
  */
 'name'?: string;
 }>>> {
-
     const rb = new RequestBuilder(this.rootUrl, SystemService.SystemContactSourcePath, 'get');
     if (params) {
     }
 
-    return this.http.request(rb.build({
-      responseType: 'json',
-      accept: 'application/json',
-      context: params?.context
-    })).pipe(
-      filter((r: any) => r instanceof HttpResponse),
+    return this.http.request(
+      rb.build({ responseType: 'json', accept: 'application/json', context })
+    ).pipe(
+      filter((r: any): r is HttpResponse<any> => r instanceof HttpResponse),
       map((r: HttpResponse<any>) => {
         return r as StrictHttpResponse<Array<{
         
@@ -965,15 +929,16 @@ export class SystemService extends BaseService {
    *
    *
    *
-   * This method provides access to only to the response body.
+   * This method provides access only to the response body.
    * To access the full response (for headers, for example), `systemContactSource$Response()` instead.
    *
    * This method doesn't expect any request body.
    */
-  systemContactSource(params?: {
+  systemContactSource(
+    params?: {
+    },
     context?: HttpContext
-  }
-): Observable<Array<{
+  ): Observable<Array<{
 
 /**
  * ID
@@ -985,8 +950,7 @@ export class SystemService extends BaseService {
  */
 'name'?: string;
 }>> {
-
-    return this.systemContactSource$Response(params).pipe(
+    return this.systemContactSource$Response(params, context).pipe(
       map((r: StrictHttpResponse<Array<{
 
 /**
@@ -998,7 +962,7 @@ export class SystemService extends BaseService {
  * Наименование
  */
 'name'?: string;
-}>>) => r.body as Array<{
+}>>): Array<{
 
 /**
  * ID
@@ -1009,13 +973,11 @@ export class SystemService extends BaseService {
  * Наименование
  */
 'name'?: string;
-}>)
+}> => r.body)
     );
   }
 
-  /**
-   * Path part for operation systemCustomerStatus
-   */
+  /** Path part for operation `systemCustomerStatus()` */
   static readonly SystemCustomerStatusPath = '/system_customer_status';
 
   /**
@@ -1028,10 +990,11 @@ export class SystemService extends BaseService {
    *
    * This method doesn't expect any request body.
    */
-  systemCustomerStatus$Response(params?: {
+  systemCustomerStatus$Response(
+    params?: {
+    },
     context?: HttpContext
-  }
-): Observable<StrictHttpResponse<Array<{
+  ): Observable<StrictHttpResponse<Array<{
 
 /**
  * ID
@@ -1043,17 +1006,14 @@ export class SystemService extends BaseService {
  */
 'name'?: string;
 }>>> {
-
     const rb = new RequestBuilder(this.rootUrl, SystemService.SystemCustomerStatusPath, 'get');
     if (params) {
     }
 
-    return this.http.request(rb.build({
-      responseType: 'json',
-      accept: 'application/json',
-      context: params?.context
-    })).pipe(
-      filter((r: any) => r instanceof HttpResponse),
+    return this.http.request(
+      rb.build({ responseType: 'json', accept: 'application/json', context })
+    ).pipe(
+      filter((r: any): r is HttpResponse<any> => r instanceof HttpResponse),
       map((r: HttpResponse<any>) => {
         return r as StrictHttpResponse<Array<{
         
@@ -1076,15 +1036,16 @@ export class SystemService extends BaseService {
    *
    *
    *
-   * This method provides access to only to the response body.
+   * This method provides access only to the response body.
    * To access the full response (for headers, for example), `systemCustomerStatus$Response()` instead.
    *
    * This method doesn't expect any request body.
    */
-  systemCustomerStatus(params?: {
+  systemCustomerStatus(
+    params?: {
+    },
     context?: HttpContext
-  }
-): Observable<Array<{
+  ): Observable<Array<{
 
 /**
  * ID
@@ -1096,8 +1057,7 @@ export class SystemService extends BaseService {
  */
 'name'?: string;
 }>> {
-
-    return this.systemCustomerStatus$Response(params).pipe(
+    return this.systemCustomerStatus$Response(params, context).pipe(
       map((r: StrictHttpResponse<Array<{
 
 /**
@@ -1109,7 +1069,7 @@ export class SystemService extends BaseService {
  * Наименование
  */
 'name'?: string;
-}>>) => r.body as Array<{
+}>>): Array<{
 
 /**
  * ID
@@ -1120,13 +1080,11 @@ export class SystemService extends BaseService {
  * Наименование
  */
 'name'?: string;
-}>)
+}> => r.body)
     );
   }
 
-  /**
-   * Path part for operation systemAssociation
-   */
+  /** Path part for operation `systemAssociation()` */
   static readonly SystemAssociationPath = '/system_association';
 
   /**
@@ -1139,10 +1097,11 @@ export class SystemService extends BaseService {
    *
    * This method doesn't expect any request body.
    */
-  systemAssociation$Response(params?: {
+  systemAssociation$Response(
+    params?: {
+    },
     context?: HttpContext
-  }
-): Observable<StrictHttpResponse<Array<{
+  ): Observable<StrictHttpResponse<Array<{
 
 /**
  * ID
@@ -1154,17 +1113,14 @@ export class SystemService extends BaseService {
  */
 'name'?: string;
 }>>> {
-
     const rb = new RequestBuilder(this.rootUrl, SystemService.SystemAssociationPath, 'get');
     if (params) {
     }
 
-    return this.http.request(rb.build({
-      responseType: 'json',
-      accept: 'application/json',
-      context: params?.context
-    })).pipe(
-      filter((r: any) => r instanceof HttpResponse),
+    return this.http.request(
+      rb.build({ responseType: 'json', accept: 'application/json', context })
+    ).pipe(
+      filter((r: any): r is HttpResponse<any> => r instanceof HttpResponse),
       map((r: HttpResponse<any>) => {
         return r as StrictHttpResponse<Array<{
         
@@ -1187,15 +1143,16 @@ export class SystemService extends BaseService {
    *
    *
    *
-   * This method provides access to only to the response body.
+   * This method provides access only to the response body.
    * To access the full response (for headers, for example), `systemAssociation$Response()` instead.
    *
    * This method doesn't expect any request body.
    */
-  systemAssociation(params?: {
+  systemAssociation(
+    params?: {
+    },
     context?: HttpContext
-  }
-): Observable<Array<{
+  ): Observable<Array<{
 
 /**
  * ID
@@ -1207,8 +1164,7 @@ export class SystemService extends BaseService {
  */
 'name'?: string;
 }>> {
-
-    return this.systemAssociation$Response(params).pipe(
+    return this.systemAssociation$Response(params, context).pipe(
       map((r: StrictHttpResponse<Array<{
 
 /**
@@ -1220,7 +1176,7 @@ export class SystemService extends BaseService {
  * Наименование
  */
 'name'?: string;
-}>>) => r.body as Array<{
+}>>): Array<{
 
 /**
  * ID
@@ -1231,13 +1187,11 @@ export class SystemService extends BaseService {
  * Наименование
  */
 'name'?: string;
-}>)
+}> => r.body)
     );
   }
 
-  /**
-   * Path part for operation systemRating
-   */
+  /** Path part for operation `systemRating()` */
   static readonly SystemRatingPath = '/system_rating';
 
   /**
@@ -1250,10 +1204,11 @@ export class SystemService extends BaseService {
    *
    * This method doesn't expect any request body.
    */
-  systemRating$Response(params?: {
+  systemRating$Response(
+    params?: {
+    },
     context?: HttpContext
-  }
-): Observable<StrictHttpResponse<Array<{
+  ): Observable<StrictHttpResponse<Array<{
 
 /**
  * ID
@@ -1265,17 +1220,14 @@ export class SystemService extends BaseService {
  */
 'name'?: string;
 }>>> {
-
     const rb = new RequestBuilder(this.rootUrl, SystemService.SystemRatingPath, 'get');
     if (params) {
     }
 
-    return this.http.request(rb.build({
-      responseType: 'json',
-      accept: 'application/json',
-      context: params?.context
-    })).pipe(
-      filter((r: any) => r instanceof HttpResponse),
+    return this.http.request(
+      rb.build({ responseType: 'json', accept: 'application/json', context })
+    ).pipe(
+      filter((r: any): r is HttpResponse<any> => r instanceof HttpResponse),
       map((r: HttpResponse<any>) => {
         return r as StrictHttpResponse<Array<{
         
@@ -1298,15 +1250,16 @@ export class SystemService extends BaseService {
    *
    *
    *
-   * This method provides access to only to the response body.
+   * This method provides access only to the response body.
    * To access the full response (for headers, for example), `systemRating$Response()` instead.
    *
    * This method doesn't expect any request body.
    */
-  systemRating(params?: {
+  systemRating(
+    params?: {
+    },
     context?: HttpContext
-  }
-): Observable<Array<{
+  ): Observable<Array<{
 
 /**
  * ID
@@ -1318,8 +1271,7 @@ export class SystemService extends BaseService {
  */
 'name'?: string;
 }>> {
-
-    return this.systemRating$Response(params).pipe(
+    return this.systemRating$Response(params, context).pipe(
       map((r: StrictHttpResponse<Array<{
 
 /**
@@ -1331,7 +1283,7 @@ export class SystemService extends BaseService {
  * Наименование
  */
 'name'?: string;
-}>>) => r.body as Array<{
+}>>): Array<{
 
 /**
  * ID
@@ -1342,7 +1294,7 @@ export class SystemService extends BaseService {
  * Наименование
  */
 'name'?: string;
-}>)
+}> => r.body)
     );
   }
 

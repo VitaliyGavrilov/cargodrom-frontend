@@ -25,7 +25,7 @@ import { RequestFormat } from 'src/app/api/custom_models/request';
 
 })
 export class RequestEditorComponent implements OnInit {
-  //грубо говоря это стейцт переменные
+  //грубо говоря это стейт переменные
   title = ''
   isEditMode: boolean = false;
   requestForm: FormGroup;
@@ -39,7 +39,6 @@ export class RequestEditorComponent implements OnInit {
     private contractorService: ContractorService,
     private transportService: TransportService,
     private requestService: RequestService,
-    private readonly vitRequestService: VitRequestService//создал свой сервис для запросов которых нету
 
   ) {
     this.requestForm = this.fb.group({
@@ -82,7 +81,7 @@ export class RequestEditorComponent implements OnInit {
   }
   //видов запросов
   private getRequestFormats() {
-    this.vitRequestService.requestFormat()
+    this.requestService.requestType()
       .subscribe(requestFormats => this.requestFormats = requestFormats as unknown as RequestFormat[])
   }
   //видов перевозки

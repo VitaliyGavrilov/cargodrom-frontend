@@ -10,7 +10,6 @@ import { ContractorService } from './services/contractor.service';
 import { CustomerService } from './services/customer.service';
 import { DirectionService } from './services/direction.service';
 import { FileService } from './services/file.service';
-import { PageService } from './services/page.service';
 import { RequestService } from './services/request.service';
 import { SettingsService } from './services/settings.service';
 import { SystemService } from './services/system.service';
@@ -31,7 +30,6 @@ import { UserService } from './services/user.service';
     CustomerService,
     DirectionService,
     FileService,
-    PageService,
     RequestService,
     SettingsService,
     SystemService,

@@ -1,33 +1,27 @@
 /* tslint:disable */
 /* eslint-disable */
+import { HttpClient, HttpContext, HttpResponse } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { HttpClient, HttpResponse, HttpContext } from '@angular/common/http';
+import { Observable } from 'rxjs';
+import { filter, map } from 'rxjs/operators';
+
 import { BaseService } from '../base-service';
 import { ApiConfiguration } from '../api-configuration';
 import { StrictHttpResponse } from '../strict-http-response';
 import { RequestBuilder } from '../request-builder';
-import { Observable } from 'rxjs';
-import { map, filter } from 'rxjs/operators';
 
 
 
 /**
  * Транспорт
  */
-@Injectable({
-  providedIn: 'root',
-})
+@Injectable({ providedIn: 'root' })
 export class TransportService extends BaseService {
-  constructor(
-    config: ApiConfiguration,
-    http: HttpClient
-  ) {
+  constructor(config: ApiConfiguration, http: HttpClient) {
     super(config, http);
   }
 
-  /**
-   * Path part for operation transportKind
-   */
+  /** Path part for operation `transportKind()` */
   static readonly TransportKindPath = '/transport_kind';
 
   /**
@@ -40,10 +34,11 @@ export class TransportService extends BaseService {
    *
    * This method doesn't expect any request body.
    */
-  transportKind$Response(params?: {
+  transportKind$Response(
+    params?: {
+    },
     context?: HttpContext
-  }
-): Observable<StrictHttpResponse<Array<{
+  ): Observable<StrictHttpResponse<Array<{
 
 /**
  * ID
@@ -55,17 +50,14 @@ export class TransportService extends BaseService {
  */
 'name'?: string;
 }>>> {
-
     const rb = new RequestBuilder(this.rootUrl, TransportService.TransportKindPath, 'get');
     if (params) {
     }
 
-    return this.http.request(rb.build({
-      responseType: 'json',
-      accept: 'application/json',
-      context: params?.context
-    })).pipe(
-      filter((r: any) => r instanceof HttpResponse),
+    return this.http.request(
+      rb.build({ responseType: 'json', accept: 'application/json', context })
+    ).pipe(
+      filter((r: any): r is HttpResponse<any> => r instanceof HttpResponse),
       map((r: HttpResponse<any>) => {
         return r as StrictHttpResponse<Array<{
         
@@ -88,15 +80,16 @@ export class TransportService extends BaseService {
    *
    *
    *
-   * This method provides access to only to the response body.
+   * This method provides access only to the response body.
    * To access the full response (for headers, for example), `transportKind$Response()` instead.
    *
    * This method doesn't expect any request body.
    */
-  transportKind(params?: {
+  transportKind(
+    params?: {
+    },
     context?: HttpContext
-  }
-): Observable<Array<{
+  ): Observable<Array<{
 
 /**
  * ID
@@ -108,8 +101,7 @@ export class TransportService extends BaseService {
  */
 'name'?: string;
 }>> {
-
-    return this.transportKind$Response(params).pipe(
+    return this.transportKind$Response(params, context).pipe(
       map((r: StrictHttpResponse<Array<{
 
 /**
@@ -121,7 +113,7 @@ export class TransportService extends BaseService {
  * Наименование
  */
 'name'?: string;
-}>>) => r.body as Array<{
+}>>): Array<{
 
 /**
  * ID
@@ -132,13 +124,11 @@ export class TransportService extends BaseService {
  * Наименование
  */
 'name'?: string;
-}>)
+}> => r.body)
     );
   }
 
-  /**
-   * Path part for operation transportSubKind
-   */
+  /** Path part for operation `transportSubKind()` */
   static readonly TransportSubKindPath = '/transport_sub_kind';
 
   /**
@@ -151,10 +141,11 @@ export class TransportService extends BaseService {
    *
    * This method doesn't expect any request body.
    */
-  transportSubKind$Response(params?: {
+  transportSubKind$Response(
+    params?: {
+    },
     context?: HttpContext
-  }
-): Observable<StrictHttpResponse<Array<{
+  ): Observable<StrictHttpResponse<Array<{
 
 /**
  * ID
@@ -171,17 +162,14 @@ export class TransportService extends BaseService {
  */
 'name'?: string;
 }>>> {
-
     const rb = new RequestBuilder(this.rootUrl, TransportService.TransportSubKindPath, 'get');
     if (params) {
     }
 
-    return this.http.request(rb.build({
-      responseType: 'json',
-      accept: 'application/json',
-      context: params?.context
-    })).pipe(
-      filter((r: any) => r instanceof HttpResponse),
+    return this.http.request(
+      rb.build({ responseType: 'json', accept: 'application/json', context })
+    ).pipe(
+      filter((r: any): r is HttpResponse<any> => r instanceof HttpResponse),
       map((r: HttpResponse<any>) => {
         return r as StrictHttpResponse<Array<{
         
@@ -209,15 +197,16 @@ export class TransportService extends BaseService {
    *
    *
    *
-   * This method provides access to only to the response body.
+   * This method provides access only to the response body.
    * To access the full response (for headers, for example), `transportSubKind$Response()` instead.
    *
    * This method doesn't expect any request body.
    */
-  transportSubKind(params?: {
+  transportSubKind(
+    params?: {
+    },
     context?: HttpContext
-  }
-): Observable<Array<{
+  ): Observable<Array<{
 
 /**
  * ID
@@ -234,8 +223,7 @@ export class TransportService extends BaseService {
  */
 'name'?: string;
 }>> {
-
-    return this.transportSubKind$Response(params).pipe(
+    return this.transportSubKind$Response(params, context).pipe(
       map((r: StrictHttpResponse<Array<{
 
 /**
@@ -252,7 +240,7 @@ export class TransportService extends BaseService {
  * Наименование
  */
 'name'?: string;
-}>>) => r.body as Array<{
+}>>): Array<{
 
 /**
  * ID
@@ -268,13 +256,11 @@ export class TransportService extends BaseService {
  * Наименование
  */
 'name'?: string;
-}>)
+}> => r.body)
     );
   }
 
-  /**
-   * Path part for operation transportType
-   */
+  /** Path part for operation `transportType()` */
   static readonly TransportTypePath = '/transport_type';
 
   /**
@@ -287,15 +273,16 @@ export class TransportService extends BaseService {
    *
    * This method doesn't expect any request body.
    */
-  transportType$Response(params: {
+  transportType$Response(
+    params: {
 
     /**
      * Вид перевозки
      */
-    kind_id: string;
+      kind_id: string;
+    },
     context?: HttpContext
-  }
-): Observable<StrictHttpResponse<Array<{
+  ): Observable<StrictHttpResponse<Array<{
 
 /**
  * ID
@@ -307,18 +294,15 @@ export class TransportService extends BaseService {
  */
 'name'?: string;
 }>>> {
-
     const rb = new RequestBuilder(this.rootUrl, TransportService.TransportTypePath, 'get');
     if (params) {
       rb.query('kind_id', params.kind_id, {});
     }
 
-    return this.http.request(rb.build({
-      responseType: 'json',
-      accept: 'application/json',
-      context: params?.context
-    })).pipe(
-      filter((r: any) => r instanceof HttpResponse),
+    return this.http.request(
+      rb.build({ responseType: 'json', accept: 'application/json', context })
+    ).pipe(
+      filter((r: any): r is HttpResponse<any> => r instanceof HttpResponse),
       map((r: HttpResponse<any>) => {
         return r as StrictHttpResponse<Array<{
         
@@ -341,20 +325,21 @@ export class TransportService extends BaseService {
    *
    *
    *
-   * This method provides access to only to the response body.
+   * This method provides access only to the response body.
    * To access the full response (for headers, for example), `transportType$Response()` instead.
    *
    * This method doesn't expect any request body.
    */
-  transportType(params: {
+  transportType(
+    params: {
 
     /**
      * Вид перевозки
      */
-    kind_id: string;
+      kind_id: string;
+    },
     context?: HttpContext
-  }
-): Observable<Array<{
+  ): Observable<Array<{
 
 /**
  * ID
@@ -366,8 +351,7 @@ export class TransportService extends BaseService {
  */
 'name'?: string;
 }>> {
-
-    return this.transportType$Response(params).pipe(
+    return this.transportType$Response(params, context).pipe(
       map((r: StrictHttpResponse<Array<{
 
 /**
@@ -379,7 +363,7 @@ export class TransportService extends BaseService {
  * Наименование
  */
 'name'?: string;
-}>>) => r.body as Array<{
+}>>): Array<{
 
 /**
  * ID
@@ -390,13 +374,11 @@ export class TransportService extends BaseService {
  * Наименование
  */
 'name'?: string;
-}>)
+}> => r.body)
     );
   }
 
-  /**
-   * Path part for operation transportLoading
-   */
+  /** Path part for operation `transportLoading()` */
   static readonly TransportLoadingPath = '/transport_loading';
 
   /**
@@ -409,15 +391,16 @@ export class TransportService extends BaseService {
    *
    * This method doesn't expect any request body.
    */
-  transportLoading$Response(params: {
+  transportLoading$Response(
+    params: {
 
     /**
      * Вид перевозки
      */
-    kind_id: string;
+      kind_id: string;
+    },
     context?: HttpContext
-  }
-): Observable<StrictHttpResponse<Array<{
+  ): Observable<StrictHttpResponse<Array<{
 
 /**
  * ID
@@ -429,18 +412,15 @@ export class TransportService extends BaseService {
  */
 'name'?: string;
 }>>> {
-
     const rb = new RequestBuilder(this.rootUrl, TransportService.TransportLoadingPath, 'get');
     if (params) {
       rb.query('kind_id', params.kind_id, {});
     }
 
-    return this.http.request(rb.build({
-      responseType: 'json',
-      accept: 'application/json',
-      context: params?.context
-    })).pipe(
-      filter((r: any) => r instanceof HttpResponse),
+    return this.http.request(
+      rb.build({ responseType: 'json', accept: 'application/json', context })
+    ).pipe(
+      filter((r: any): r is HttpResponse<any> => r instanceof HttpResponse),
       map((r: HttpResponse<any>) => {
         return r as StrictHttpResponse<Array<{
         
@@ -463,20 +443,21 @@ export class TransportService extends BaseService {
    *
    *
    *
-   * This method provides access to only to the response body.
+   * This method provides access only to the response body.
    * To access the full response (for headers, for example), `transportLoading$Response()` instead.
    *
    * This method doesn't expect any request body.
    */
-  transportLoading(params: {
+  transportLoading(
+    params: {
 
     /**
      * Вид перевозки
      */
-    kind_id: string;
+      kind_id: string;
+    },
     context?: HttpContext
-  }
-): Observable<Array<{
+  ): Observable<Array<{
 
 /**
  * ID
@@ -488,8 +469,7 @@ export class TransportService extends BaseService {
  */
 'name'?: string;
 }>> {
-
-    return this.transportLoading$Response(params).pipe(
+    return this.transportLoading$Response(params, context).pipe(
       map((r: StrictHttpResponse<Array<{
 
 /**
@@ -501,7 +481,7 @@ export class TransportService extends BaseService {
  * Наименование
  */
 'name'?: string;
-}>>) => r.body as Array<{
+}>>): Array<{
 
 /**
  * ID
@@ -512,13 +492,11 @@ export class TransportService extends BaseService {
  * Наименование
  */
 'name'?: string;
-}>)
+}> => r.body)
     );
   }
 
-  /**
-   * Path part for operation transportBody
-   */
+  /** Path part for operation `transportBody()` */
   static readonly TransportBodyPath = '/transport_body';
 
   /**
@@ -531,15 +509,16 @@ export class TransportService extends BaseService {
    *
    * This method doesn't expect any request body.
    */
-  transportBody$Response(params: {
+  transportBody$Response(
+    params: {
 
     /**
      * Вид перевозки
      */
-    kind_id: string;
+      kind_id: string;
+    },
     context?: HttpContext
-  }
-): Observable<StrictHttpResponse<Array<{
+  ): Observable<StrictHttpResponse<Array<{
 
 /**
  * ID
@@ -551,18 +530,15 @@ export class TransportService extends BaseService {
  */
 'name'?: string;
 }>>> {
-
     const rb = new RequestBuilder(this.rootUrl, TransportService.TransportBodyPath, 'get');
     if (params) {
       rb.query('kind_id', params.kind_id, {});
     }
 
-    return this.http.request(rb.build({
-      responseType: 'json',
-      accept: 'application/json',
-      context: params?.context
-    })).pipe(
-      filter((r: any) => r instanceof HttpResponse),
+    return this.http.request(
+      rb.build({ responseType: 'json', accept: 'application/json', context })
+    ).pipe(
+      filter((r: any): r is HttpResponse<any> => r instanceof HttpResponse),
       map((r: HttpResponse<any>) => {
         return r as StrictHttpResponse<Array<{
         
@@ -585,20 +561,21 @@ export class TransportService extends BaseService {
    *
    *
    *
-   * This method provides access to only to the response body.
+   * This method provides access only to the response body.
    * To access the full response (for headers, for example), `transportBody$Response()` instead.
    *
    * This method doesn't expect any request body.
    */
-  transportBody(params: {
+  transportBody(
+    params: {
 
     /**
      * Вид перевозки
      */
-    kind_id: string;
+      kind_id: string;
+    },
     context?: HttpContext
-  }
-): Observable<Array<{
+  ): Observable<Array<{
 
 /**
  * ID
@@ -610,8 +587,7 @@ export class TransportService extends BaseService {
  */
 'name'?: string;
 }>> {
-
-    return this.transportBody$Response(params).pipe(
+    return this.transportBody$Response(params, context).pipe(
       map((r: StrictHttpResponse<Array<{
 
 /**
@@ -623,7 +599,7 @@ export class TransportService extends BaseService {
  * Наименование
  */
 'name'?: string;
-}>>) => r.body as Array<{
+}>>): Array<{
 
 /**
  * ID
@@ -634,7 +610,7 @@ export class TransportService extends BaseService {
  * Наименование
  */
 'name'?: string;
-}>)
+}> => r.body)
     );
   }
 

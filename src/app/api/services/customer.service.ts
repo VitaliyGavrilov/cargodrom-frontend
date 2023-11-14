@@ -1,33 +1,27 @@
 /* tslint:disable */
 /* eslint-disable */
+import { HttpClient, HttpContext, HttpResponse } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { HttpClient, HttpResponse, HttpContext } from '@angular/common/http';
+import { Observable } from 'rxjs';
+import { filter, map } from 'rxjs/operators';
+
 import { BaseService } from '../base-service';
 import { ApiConfiguration } from '../api-configuration';
 import { StrictHttpResponse } from '../strict-http-response';
 import { RequestBuilder } from '../request-builder';
-import { Observable } from 'rxjs';
-import { map, filter } from 'rxjs/operators';
 
 
 
 /**
  * Работа с клиентами
  */
-@Injectable({
-  providedIn: 'root',
-})
+@Injectable({ providedIn: 'root' })
 export class CustomerService extends BaseService {
-  constructor(
-    config: ApiConfiguration,
-    http: HttpClient
-  ) {
+  constructor(config: ApiConfiguration, http: HttpClient) {
     super(config, http);
   }
 
-  /**
-   * Path part for operation customerList
-   */
+  /** Path part for operation `customerList()` */
   static readonly CustomerListPath = '/customer_list';
 
   /**
@@ -40,47 +34,48 @@ export class CustomerService extends BaseService {
    *
    * This method doesn't expect any request body.
    */
-  customerList$Response(params?: {
+  customerList$Response(
+    params?: {
 
     /**
      * Поиск клиента по названию...
      */
-    name?: string;
+      name?: string;
 
     /**
      * Страна (ID берем из запроса - direction_country)
      */
-    country_id?: number;
+      country_id?: number;
 
     /**
      * Группа (ID берем из запроса - customer_group_list)
      */
-    group_id?: number;
+      group_id?: number;
 
     /**
      * ИНН
      */
-    inn?: string;
+      inn?: string;
 
     /**
      * Контактное лицо
      */
-    contact_fio?: string;
+      contact_fio?: string;
 
     /**
      * Начальная позиция
      */
-    start?: number;
+      start?: number;
 
     /**
      * Лимит позиций на страницу
      */
-    count?: number;
+      count?: number;
 
     /**
      * Сортировка
      */
-    sort?: Array<{
+      sort?: Array<{
 
 /**
  * Поле
@@ -92,9 +87,9 @@ export class CustomerService extends BaseService {
  */
 'dir': 'asc' | 'desc';
 }>;
+    },
     context?: HttpContext
-  }
-): Observable<StrictHttpResponse<{
+  ): Observable<StrictHttpResponse<{
 
 /**
  * Всего позиций
@@ -442,7 +437,6 @@ export class CustomerService extends BaseService {
  */
 'sort'?: Array<string>;
 }>> {
-
     const rb = new RequestBuilder(this.rootUrl, CustomerService.CustomerListPath, 'get');
     if (params) {
       rb.query('name', params.name, {});
@@ -455,12 +449,10 @@ export class CustomerService extends BaseService {
       rb.query('sort', params.sort, {"style":"form","explode":false});
     }
 
-    return this.http.request(rb.build({
-      responseType: 'json',
-      accept: 'application/json',
-      context: params?.context
-    })).pipe(
-      filter((r: any) => r instanceof HttpResponse),
+    return this.http.request(
+      rb.build({ responseType: 'json', accept: 'application/json', context })
+    ).pipe(
+      filter((r: any): r is HttpResponse<any> => r instanceof HttpResponse),
       map((r: HttpResponse<any>) => {
         return r as StrictHttpResponse<{
         
@@ -819,52 +811,53 @@ export class CustomerService extends BaseService {
    *
    *
    *
-   * This method provides access to only to the response body.
+   * This method provides access only to the response body.
    * To access the full response (for headers, for example), `customerList$Response()` instead.
    *
    * This method doesn't expect any request body.
    */
-  customerList(params?: {
+  customerList(
+    params?: {
 
     /**
      * Поиск клиента по названию...
      */
-    name?: string;
+      name?: string;
 
     /**
      * Страна (ID берем из запроса - direction_country)
      */
-    country_id?: number;
+      country_id?: number;
 
     /**
      * Группа (ID берем из запроса - customer_group_list)
      */
-    group_id?: number;
+      group_id?: number;
 
     /**
      * ИНН
      */
-    inn?: string;
+      inn?: string;
 
     /**
      * Контактное лицо
      */
-    contact_fio?: string;
+      contact_fio?: string;
 
     /**
      * Начальная позиция
      */
-    start?: number;
+      start?: number;
 
     /**
      * Лимит позиций на страницу
      */
-    count?: number;
+      count?: number;
 
     /**
      * Сортировка
      */
-    sort?: Array<{
+      sort?: Array<{
 
 /**
  * Поле
@@ -876,9 +869,9 @@ export class CustomerService extends BaseService {
  */
 'dir': 'asc' | 'desc';
 }>;
+    },
     context?: HttpContext
-  }
-): Observable<{
+  ): Observable<{
 
 /**
  * Всего позиций
@@ -1226,8 +1219,7 @@ export class CustomerService extends BaseService {
  */
 'sort'?: Array<string>;
 }> {
-
-    return this.customerList$Response(params).pipe(
+    return this.customerList$Response(params, context).pipe(
       map((r: StrictHttpResponse<{
 
 /**
@@ -1575,7 +1567,7 @@ export class CustomerService extends BaseService {
  * Поля сортировки
  */
 'sort'?: Array<string>;
-}>) => r.body as {
+}>): {
 
 /**
  * Всего позиций
@@ -1922,13 +1914,11 @@ export class CustomerService extends BaseService {
  * Поля сортировки
  */
 'sort'?: Array<string>;
-})
+} => r.body)
     );
   }
 
-  /**
-   * Path part for operation customerListSearch
-   */
+  /** Path part for operation `customerListSearch()` */
   static readonly CustomerListSearchPath = '/customer_list_search';
 
   /**
@@ -1941,10 +1931,11 @@ export class CustomerService extends BaseService {
    *
    * This method doesn't expect any request body.
    */
-  customerListSearch$Response(params?: {
+  customerListSearch$Response(
+    params?: {
+    },
     context?: HttpContext
-  }
-): Observable<StrictHttpResponse<{
+  ): Observable<StrictHttpResponse<{
 
 /**
  * Поиск в заголовке
@@ -2072,17 +2063,14 @@ export class CustomerService extends BaseService {
 }>;
 }>;
 }>> {
-
     const rb = new RequestBuilder(this.rootUrl, CustomerService.CustomerListSearchPath, 'get');
     if (params) {
     }
 
-    return this.http.request(rb.build({
-      responseType: 'json',
-      accept: 'application/json',
-      context: params?.context
-    })).pipe(
-      filter((r: any) => r instanceof HttpResponse),
+    return this.http.request(
+      rb.build({ responseType: 'json', accept: 'application/json', context })
+    ).pipe(
+      filter((r: any): r is HttpResponse<any> => r instanceof HttpResponse),
       map((r: HttpResponse<any>) => {
         return r as StrictHttpResponse<{
         
@@ -2221,15 +2209,16 @@ export class CustomerService extends BaseService {
    *
    *
    *
-   * This method provides access to only to the response body.
+   * This method provides access only to the response body.
    * To access the full response (for headers, for example), `customerListSearch$Response()` instead.
    *
    * This method doesn't expect any request body.
    */
-  customerListSearch(params?: {
+  customerListSearch(
+    params?: {
+    },
     context?: HttpContext
-  }
-): Observable<{
+  ): Observable<{
 
 /**
  * Поиск в заголовке
@@ -2357,8 +2346,7 @@ export class CustomerService extends BaseService {
 }>;
 }>;
 }> {
-
-    return this.customerListSearch$Response(params).pipe(
+    return this.customerListSearch$Response(params, context).pipe(
       map((r: StrictHttpResponse<{
 
 /**
@@ -2486,7 +2474,7 @@ export class CustomerService extends BaseService {
 'name'?: string;
 }>;
 }>;
-}>) => r.body as {
+}>): {
 
 /**
  * Поиск в заголовке
@@ -2613,13 +2601,11 @@ export class CustomerService extends BaseService {
 'name'?: string;
 }>;
 }>;
-})
+} => r.body)
     );
   }
 
-  /**
-   * Path part for operation customerInfo
-   */
+  /** Path part for operation `customerInfo()` */
   static readonly CustomerInfoPath = '/customer_info';
 
   /**
@@ -2632,15 +2618,16 @@ export class CustomerService extends BaseService {
    *
    * This method doesn't expect any request body.
    */
-  customerInfo$Response(params: {
+  customerInfo$Response(
+    params: {
 
     /**
      * ID клиента
      */
-    id: number;
+      id: number;
+    },
     context?: HttpContext
-  }
-): Observable<StrictHttpResponse<{
+  ): Observable<StrictHttpResponse<{
 
 /**
  * ID
@@ -2973,18 +2960,15 @@ export class CustomerService extends BaseService {
 'documents_file'?: {
 };
 }>> {
-
     const rb = new RequestBuilder(this.rootUrl, CustomerService.CustomerInfoPath, 'get');
     if (params) {
       rb.query('id', params.id, {});
     }
 
-    return this.http.request(rb.build({
-      responseType: 'json',
-      accept: 'application/json',
-      context: params?.context
-    })).pipe(
-      filter((r: any) => r instanceof HttpResponse),
+    return this.http.request(
+      rb.build({ responseType: 'json', accept: 'application/json', context })
+    ).pipe(
+      filter((r: any): r is HttpResponse<any> => r instanceof HttpResponse),
       map((r: HttpResponse<any>) => {
         return r as StrictHttpResponse<{
         
@@ -3328,20 +3312,21 @@ export class CustomerService extends BaseService {
    *
    *
    *
-   * This method provides access to only to the response body.
+   * This method provides access only to the response body.
    * To access the full response (for headers, for example), `customerInfo$Response()` instead.
    *
    * This method doesn't expect any request body.
    */
-  customerInfo(params: {
+  customerInfo(
+    params: {
 
     /**
      * ID клиента
      */
-    id: number;
+      id: number;
+    },
     context?: HttpContext
-  }
-): Observable<{
+  ): Observable<{
 
 /**
  * ID
@@ -3674,8 +3659,7 @@ export class CustomerService extends BaseService {
 'documents_file'?: {
 };
 }> {
-
-    return this.customerInfo$Response(params).pipe(
+    return this.customerInfo$Response(params, context).pipe(
       map((r: StrictHttpResponse<{
 
 /**
@@ -4008,7 +3992,7 @@ export class CustomerService extends BaseService {
  */
 'documents_file'?: {
 };
-}>) => r.body as {
+}>): {
 
 /**
  * ID
@@ -4340,13 +4324,11 @@ export class CustomerService extends BaseService {
  */
 'documents_file'?: {
 };
-})
+} => r.body)
     );
   }
 
-  /**
-   * Path part for operation customerCreate
-   */
+  /** Path part for operation `customerCreate()` */
   static readonly CustomerCreatePath = '/customer_create';
 
   /**
@@ -4359,9 +4341,9 @@ export class CustomerService extends BaseService {
    *
    * This method sends `application/json` and handles request body of type `application/json`.
    */
-  customerCreate$Response(params?: {
-    context?: HttpContext
-    body?: {
+  customerCreate$Response(
+    params?: {
+      body?: {
 
 /**
  * Наименование краткое
@@ -4588,8 +4570,9 @@ export class CustomerService extends BaseService {
  */
 'manager_sale_id'?: number;
 }
-  }
-): Observable<StrictHttpResponse<{
+    },
+    context?: HttpContext
+  ): Observable<StrictHttpResponse<{
 
 /**
  * ID созданной записи
@@ -4601,18 +4584,15 @@ export class CustomerService extends BaseService {
  */
 'result': 'OK';
 }>> {
-
     const rb = new RequestBuilder(this.rootUrl, CustomerService.CustomerCreatePath, 'post');
     if (params) {
       rb.body(params.body, 'application/json');
     }
 
-    return this.http.request(rb.build({
-      responseType: 'json',
-      accept: 'application/json',
-      context: params?.context
-    })).pipe(
-      filter((r: any) => r instanceof HttpResponse),
+    return this.http.request(
+      rb.build({ responseType: 'json', accept: 'application/json', context })
+    ).pipe(
+      filter((r: any): r is HttpResponse<any> => r instanceof HttpResponse),
       map((r: HttpResponse<any>) => {
         return r as StrictHttpResponse<{
         
@@ -4635,14 +4615,14 @@ export class CustomerService extends BaseService {
    *
    *
    *
-   * This method provides access to only to the response body.
+   * This method provides access only to the response body.
    * To access the full response (for headers, for example), `customerCreate$Response()` instead.
    *
    * This method sends `application/json` and handles request body of type `application/json`.
    */
-  customerCreate(params?: {
-    context?: HttpContext
-    body?: {
+  customerCreate(
+    params?: {
+      body?: {
 
 /**
  * Наименование краткое
@@ -4869,8 +4849,9 @@ export class CustomerService extends BaseService {
  */
 'manager_sale_id'?: number;
 }
-  }
-): Observable<{
+    },
+    context?: HttpContext
+  ): Observable<{
 
 /**
  * ID созданной записи
@@ -4882,8 +4863,7 @@ export class CustomerService extends BaseService {
  */
 'result': 'OK';
 }> {
-
-    return this.customerCreate$Response(params).pipe(
+    return this.customerCreate$Response(params, context).pipe(
       map((r: StrictHttpResponse<{
 
 /**
@@ -4895,7 +4875,7 @@ export class CustomerService extends BaseService {
  * Статус выполнения
  */
 'result': 'OK';
-}>) => r.body as {
+}>): {
 
 /**
  * ID созданной записи
@@ -4906,13 +4886,11 @@ export class CustomerService extends BaseService {
  * Статус выполнения
  */
 'result': 'OK';
-})
+} => r.body)
     );
   }
 
-  /**
-   * Path part for operation customerUpdate
-   */
+  /** Path part for operation `customerUpdate()` */
   static readonly CustomerUpdatePath = '/customer_update';
 
   /**
@@ -4925,9 +4903,9 @@ export class CustomerService extends BaseService {
    *
    * This method sends `application/json` and handles request body of type `application/json`.
    */
-  customerUpdate$Response(params?: {
-    context?: HttpContext
-    body?: {
+  customerUpdate$Response(
+    params?: {
+      body?: {
 
 /**
  * ID
@@ -5159,26 +5137,24 @@ export class CustomerService extends BaseService {
  */
 'manager_sale_id'?: number;
 }
-  }
-): Observable<StrictHttpResponse<{
+    },
+    context?: HttpContext
+  ): Observable<StrictHttpResponse<{
 
 /**
  * Статус выполнения
  */
 'result': 'OK';
 }>> {
-
     const rb = new RequestBuilder(this.rootUrl, CustomerService.CustomerUpdatePath, 'post');
     if (params) {
       rb.body(params.body, 'application/json');
     }
 
-    return this.http.request(rb.build({
-      responseType: 'json',
-      accept: 'application/json',
-      context: params?.context
-    })).pipe(
-      filter((r: any) => r instanceof HttpResponse),
+    return this.http.request(
+      rb.build({ responseType: 'json', accept: 'application/json', context })
+    ).pipe(
+      filter((r: any): r is HttpResponse<any> => r instanceof HttpResponse),
       map((r: HttpResponse<any>) => {
         return r as StrictHttpResponse<{
         
@@ -5196,14 +5172,14 @@ export class CustomerService extends BaseService {
    *
    *
    *
-   * This method provides access to only to the response body.
+   * This method provides access only to the response body.
    * To access the full response (for headers, for example), `customerUpdate$Response()` instead.
    *
    * This method sends `application/json` and handles request body of type `application/json`.
    */
-  customerUpdate(params?: {
-    context?: HttpContext
-    body?: {
+  customerUpdate(
+    params?: {
+      body?: {
 
 /**
  * ID
@@ -5435,35 +5411,33 @@ export class CustomerService extends BaseService {
  */
 'manager_sale_id'?: number;
 }
-  }
-): Observable<{
+    },
+    context?: HttpContext
+  ): Observable<{
 
 /**
  * Статус выполнения
  */
 'result': 'OK';
 }> {
-
-    return this.customerUpdate$Response(params).pipe(
+    return this.customerUpdate$Response(params, context).pipe(
       map((r: StrictHttpResponse<{
 
 /**
  * Статус выполнения
  */
 'result': 'OK';
-}>) => r.body as {
+}>): {
 
 /**
  * Статус выполнения
  */
 'result': 'OK';
-})
+} => r.body)
     );
   }
 
-  /**
-   * Path part for operation customerDelete
-   */
+  /** Path part for operation `customerDelete()` */
   static readonly CustomerDeletePath = '/customer_delete';
 
   /**
@@ -5476,35 +5450,33 @@ export class CustomerService extends BaseService {
    *
    * This method sends `application/json` and handles request body of type `application/json`.
    */
-  customerDelete$Response(params?: {
-    context?: HttpContext
-    body?: {
+  customerDelete$Response(
+    params?: {
+      body?: {
 
 /**
  * ID удаляемого клиента
  */
 'id': number;
 }
-  }
-): Observable<StrictHttpResponse<{
+    },
+    context?: HttpContext
+  ): Observable<StrictHttpResponse<{
 
 /**
  * Статус выполнения
  */
 'result': 'OK';
 }>> {
-
     const rb = new RequestBuilder(this.rootUrl, CustomerService.CustomerDeletePath, 'post');
     if (params) {
       rb.body(params.body, 'application/json');
     }
 
-    return this.http.request(rb.build({
-      responseType: 'json',
-      accept: 'application/json',
-      context: params?.context
-    })).pipe(
-      filter((r: any) => r instanceof HttpResponse),
+    return this.http.request(
+      rb.build({ responseType: 'json', accept: 'application/json', context })
+    ).pipe(
+      filter((r: any): r is HttpResponse<any> => r instanceof HttpResponse),
       map((r: HttpResponse<any>) => {
         return r as StrictHttpResponse<{
         
@@ -5522,49 +5494,47 @@ export class CustomerService extends BaseService {
    *
    *
    *
-   * This method provides access to only to the response body.
+   * This method provides access only to the response body.
    * To access the full response (for headers, for example), `customerDelete$Response()` instead.
    *
    * This method sends `application/json` and handles request body of type `application/json`.
    */
-  customerDelete(params?: {
-    context?: HttpContext
-    body?: {
+  customerDelete(
+    params?: {
+      body?: {
 
 /**
  * ID удаляемого клиента
  */
 'id': number;
 }
-  }
-): Observable<{
+    },
+    context?: HttpContext
+  ): Observable<{
 
 /**
  * Статус выполнения
  */
 'result': 'OK';
 }> {
-
-    return this.customerDelete$Response(params).pipe(
+    return this.customerDelete$Response(params, context).pipe(
       map((r: StrictHttpResponse<{
 
 /**
  * Статус выполнения
  */
 'result': 'OK';
-}>) => r.body as {
+}>): {
 
 /**
  * Статус выполнения
  */
 'result': 'OK';
-})
+} => r.body)
     );
   }
 
-  /**
-   * Path part for operation customerFiles
-   */
+  /** Path part for operation `customerFiles()` */
   static readonly CustomerFilesPath = '/customer_files';
 
   /**
@@ -5577,20 +5547,21 @@ export class CustomerService extends BaseService {
    *
    * This method doesn't expect any request body.
    */
-  customerFiles$Response(params: {
+  customerFiles$Response(
+    params: {
 
     /**
      * ID элемента
      */
-    item_id: number;
+      item_id: number;
 
     /**
      * Переменная формы
      */
-    var?: string;
+      var?: string;
+    },
     context?: HttpContext
-  }
-): Observable<StrictHttpResponse<Array<{
+  ): Observable<StrictHttpResponse<Array<{
 
 /**
  * ID
@@ -5637,19 +5608,16 @@ export class CustomerService extends BaseService {
  */
 'time_edit'?: string;
 }>>> {
-
     const rb = new RequestBuilder(this.rootUrl, CustomerService.CustomerFilesPath, 'get');
     if (params) {
       rb.query('item_id', params.item_id, {});
       rb.query('var', params.var, {});
     }
 
-    return this.http.request(rb.build({
-      responseType: 'json',
-      accept: 'application/json',
-      context: params?.context
-    })).pipe(
-      filter((r: any) => r instanceof HttpResponse),
+    return this.http.request(
+      rb.build({ responseType: 'json', accept: 'application/json', context })
+    ).pipe(
+      filter((r: any): r is HttpResponse<any> => r instanceof HttpResponse),
       map((r: HttpResponse<any>) => {
         return r as StrictHttpResponse<Array<{
         
@@ -5707,25 +5675,26 @@ export class CustomerService extends BaseService {
    *
    *
    *
-   * This method provides access to only to the response body.
+   * This method provides access only to the response body.
    * To access the full response (for headers, for example), `customerFiles$Response()` instead.
    *
    * This method doesn't expect any request body.
    */
-  customerFiles(params: {
+  customerFiles(
+    params: {
 
     /**
      * ID элемента
      */
-    item_id: number;
+      item_id: number;
 
     /**
      * Переменная формы
      */
-    var?: string;
+      var?: string;
+    },
     context?: HttpContext
-  }
-): Observable<Array<{
+  ): Observable<Array<{
 
 /**
  * ID
@@ -5772,8 +5741,7 @@ export class CustomerService extends BaseService {
  */
 'time_edit'?: string;
 }>> {
-
-    return this.customerFiles$Response(params).pipe(
+    return this.customerFiles$Response(params, context).pipe(
       map((r: StrictHttpResponse<Array<{
 
 /**
@@ -5820,7 +5788,7 @@ export class CustomerService extends BaseService {
  * Время изменения
  */
 'time_edit'?: string;
-}>>) => r.body as Array<{
+}>>): Array<{
 
 /**
  * ID
@@ -5866,13 +5834,11 @@ export class CustomerService extends BaseService {
  * Время изменения
  */
 'time_edit'?: string;
-}>)
+}> => r.body)
     );
   }
 
-  /**
-   * Path part for operation customerFileCreate
-   */
+  /** Path part for operation `customerFileCreate()` */
   static readonly CustomerFileCreatePath = '/customer_file_create';
 
   /**
@@ -5885,9 +5851,9 @@ export class CustomerService extends BaseService {
    *
    * This method sends `multipart/form-data` and handles request body of type `multipart/form-data`.
    */
-  customerFileCreate$Response(params?: {
-    context?: HttpContext
-    body?: {
+  customerFileCreate$Response(
+    params?: {
+      body?: {
 
 /**
  * ID элемента
@@ -5904,8 +5870,9 @@ export class CustomerService extends BaseService {
  */
 'file': file;
 }
-  }
-): Observable<StrictHttpResponse<{
+    },
+    context?: HttpContext
+  ): Observable<StrictHttpResponse<{
 
 /**
  * ID созданной записи
@@ -5917,18 +5884,15 @@ export class CustomerService extends BaseService {
  */
 'result': 'OK';
 }>> {
-
     const rb = new RequestBuilder(this.rootUrl, CustomerService.CustomerFileCreatePath, 'post');
     if (params) {
       rb.body(params.body, 'multipart/form-data');
     }
 
-    return this.http.request(rb.build({
-      responseType: 'json',
-      accept: 'application/json',
-      context: params?.context
-    })).pipe(
-      filter((r: any) => r instanceof HttpResponse),
+    return this.http.request(
+      rb.build({ responseType: 'json', accept: 'application/json', context })
+    ).pipe(
+      filter((r: any): r is HttpResponse<any> => r instanceof HttpResponse),
       map((r: HttpResponse<any>) => {
         return r as StrictHttpResponse<{
         
@@ -5951,14 +5915,14 @@ export class CustomerService extends BaseService {
    *
    *
    *
-   * This method provides access to only to the response body.
+   * This method provides access only to the response body.
    * To access the full response (for headers, for example), `customerFileCreate$Response()` instead.
    *
    * This method sends `multipart/form-data` and handles request body of type `multipart/form-data`.
    */
-  customerFileCreate(params?: {
-    context?: HttpContext
-    body?: {
+  customerFileCreate(
+    params?: {
+      body?: {
 
 /**
  * ID элемента
@@ -5975,8 +5939,9 @@ export class CustomerService extends BaseService {
  */
 'file': file;
 }
-  }
-): Observable<{
+    },
+    context?: HttpContext
+  ): Observable<{
 
 /**
  * ID созданной записи
@@ -5988,8 +5953,7 @@ export class CustomerService extends BaseService {
  */
 'result': 'OK';
 }> {
-
-    return this.customerFileCreate$Response(params).pipe(
+    return this.customerFileCreate$Response(params, context).pipe(
       map((r: StrictHttpResponse<{
 
 /**
@@ -6001,7 +5965,7 @@ export class CustomerService extends BaseService {
  * Статус выполнения
  */
 'result': 'OK';
-}>) => r.body as {
+}>): {
 
 /**
  * ID созданной записи
@@ -6012,13 +5976,11 @@ export class CustomerService extends BaseService {
  * Статус выполнения
  */
 'result': 'OK';
-})
+} => r.body)
     );
   }
 
-  /**
-   * Path part for operation customerFileDelete
-   */
+  /** Path part for operation `customerFileDelete()` */
   static readonly CustomerFileDeletePath = '/customer_file_delete';
 
   /**
@@ -6031,9 +5993,9 @@ export class CustomerService extends BaseService {
    *
    * This method sends `application/json` and handles request body of type `application/json`.
    */
-  customerFileDelete$Response(params?: {
-    context?: HttpContext
-    body?: {
+  customerFileDelete$Response(
+    params?: {
+      body?: {
 
 /**
  * ID удаляемой записи
@@ -6050,26 +6012,24 @@ export class CustomerService extends BaseService {
  */
 'var': string;
 }
-  }
-): Observable<StrictHttpResponse<{
+    },
+    context?: HttpContext
+  ): Observable<StrictHttpResponse<{
 
 /**
  * Статус выполнения
  */
 'result': 'OK';
 }>> {
-
     const rb = new RequestBuilder(this.rootUrl, CustomerService.CustomerFileDeletePath, 'post');
     if (params) {
       rb.body(params.body, 'application/json');
     }
 
-    return this.http.request(rb.build({
-      responseType: 'json',
-      accept: 'application/json',
-      context: params?.context
-    })).pipe(
-      filter((r: any) => r instanceof HttpResponse),
+    return this.http.request(
+      rb.build({ responseType: 'json', accept: 'application/json', context })
+    ).pipe(
+      filter((r: any): r is HttpResponse<any> => r instanceof HttpResponse),
       map((r: HttpResponse<any>) => {
         return r as StrictHttpResponse<{
         
@@ -6087,14 +6047,14 @@ export class CustomerService extends BaseService {
    *
    *
    *
-   * This method provides access to only to the response body.
+   * This method provides access only to the response body.
    * To access the full response (for headers, for example), `customerFileDelete$Response()` instead.
    *
    * This method sends `application/json` and handles request body of type `application/json`.
    */
-  customerFileDelete(params?: {
-    context?: HttpContext
-    body?: {
+  customerFileDelete(
+    params?: {
+      body?: {
 
 /**
  * ID удаляемой записи
@@ -6111,35 +6071,33 @@ export class CustomerService extends BaseService {
  */
 'var': string;
 }
-  }
-): Observable<{
+    },
+    context?: HttpContext
+  ): Observable<{
 
 /**
  * Статус выполнения
  */
 'result': 'OK';
 }> {
-
-    return this.customerFileDelete$Response(params).pipe(
+    return this.customerFileDelete$Response(params, context).pipe(
       map((r: StrictHttpResponse<{
 
 /**
  * Статус выполнения
  */
 'result': 'OK';
-}>) => r.body as {
+}>): {
 
 /**
  * Статус выполнения
  */
 'result': 'OK';
-})
+} => r.body)
     );
   }
 
-  /**
-   * Path part for operation customerGroupList
-   */
+  /** Path part for operation `customerGroupList()` */
   static readonly CustomerGroupListPath = '/customer_group_list';
 
   /**
@@ -6152,22 +6110,23 @@ export class CustomerService extends BaseService {
    *
    * This method doesn't expect any request body.
    */
-  customerGroupList$Response(params?: {
+  customerGroupList$Response(
+    params?: {
 
     /**
      * Начальная позиция
      */
-    start?: number;
+      start?: number;
 
     /**
      * Лимит позиций на страницу
      */
-    count?: number;
+      count?: number;
 
     /**
      * Сортировка
      */
-    sort?: Array<{
+      sort?: Array<{
 
 /**
  * Поле
@@ -6179,9 +6138,9 @@ export class CustomerService extends BaseService {
  */
 'dir': 'asc' | 'desc';
 }>;
+    },
     context?: HttpContext
-  }
-): Observable<StrictHttpResponse<{
+  ): Observable<StrictHttpResponse<{
 
 /**
  * Позиции
@@ -6224,7 +6183,6 @@ export class CustomerService extends BaseService {
  */
 'total'?: number;
 }>> {
-
     const rb = new RequestBuilder(this.rootUrl, CustomerService.CustomerGroupListPath, 'get');
     if (params) {
       rb.query('start', params.start, {});
@@ -6232,12 +6190,10 @@ export class CustomerService extends BaseService {
       rb.query('sort', params.sort, {"style":"form","explode":false});
     }
 
-    return this.http.request(rb.build({
-      responseType: 'json',
-      accept: 'application/json',
-      context: params?.context
-    })).pipe(
-      filter((r: any) => r instanceof HttpResponse),
+    return this.http.request(
+      rb.build({ responseType: 'json', accept: 'application/json', context })
+    ).pipe(
+      filter((r: any): r is HttpResponse<any> => r instanceof HttpResponse),
       map((r: HttpResponse<any>) => {
         return r as StrictHttpResponse<{
         
@@ -6291,27 +6247,28 @@ export class CustomerService extends BaseService {
    *
    *
    *
-   * This method provides access to only to the response body.
+   * This method provides access only to the response body.
    * To access the full response (for headers, for example), `customerGroupList$Response()` instead.
    *
    * This method doesn't expect any request body.
    */
-  customerGroupList(params?: {
+  customerGroupList(
+    params?: {
 
     /**
      * Начальная позиция
      */
-    start?: number;
+      start?: number;
 
     /**
      * Лимит позиций на страницу
      */
-    count?: number;
+      count?: number;
 
     /**
      * Сортировка
      */
-    sort?: Array<{
+      sort?: Array<{
 
 /**
  * Поле
@@ -6323,9 +6280,9 @@ export class CustomerService extends BaseService {
  */
 'dir': 'asc' | 'desc';
 }>;
+    },
     context?: HttpContext
-  }
-): Observable<{
+  ): Observable<{
 
 /**
  * Позиции
@@ -6368,8 +6325,7 @@ export class CustomerService extends BaseService {
  */
 'total'?: number;
 }> {
-
-    return this.customerGroupList$Response(params).pipe(
+    return this.customerGroupList$Response(params, context).pipe(
       map((r: StrictHttpResponse<{
 
 /**
@@ -6412,7 +6368,7 @@ export class CustomerService extends BaseService {
  * Всего позиций
  */
 'total'?: number;
-}>) => r.body as {
+}>): {
 
 /**
  * Позиции
@@ -6454,13 +6410,11 @@ export class CustomerService extends BaseService {
  * Всего позиций
  */
 'total'?: number;
-})
+} => r.body)
     );
   }
 
-  /**
-   * Path part for operation customerGroupInfo
-   */
+  /** Path part for operation `customerGroupInfo()` */
   static readonly CustomerGroupInfoPath = '/customer_group_info';
 
   /**
@@ -6473,15 +6427,16 @@ export class CustomerService extends BaseService {
    *
    * This method doesn't expect any request body.
    */
-  customerGroupInfo$Response(params?: {
+  customerGroupInfo$Response(
+    params?: {
 
     /**
      * ID группы
      */
-    id?: number;
+      id?: number;
+    },
     context?: HttpContext
-  }
-): Observable<StrictHttpResponse<{
+  ): Observable<StrictHttpResponse<{
 
 /**
  * ID
@@ -6513,18 +6468,15 @@ export class CustomerService extends BaseService {
  */
 'time_edit'?: string;
 }>> {
-
     const rb = new RequestBuilder(this.rootUrl, CustomerService.CustomerGroupInfoPath, 'get');
     if (params) {
       rb.query('id', params.id, {});
     }
 
-    return this.http.request(rb.build({
-      responseType: 'json',
-      accept: 'application/json',
-      context: params?.context
-    })).pipe(
-      filter((r: any) => r instanceof HttpResponse),
+    return this.http.request(
+      rb.build({ responseType: 'json', accept: 'application/json', context })
+    ).pipe(
+      filter((r: any): r is HttpResponse<any> => r instanceof HttpResponse),
       map((r: HttpResponse<any>) => {
         return r as StrictHttpResponse<{
         
@@ -6567,20 +6519,21 @@ export class CustomerService extends BaseService {
    *
    *
    *
-   * This method provides access to only to the response body.
+   * This method provides access only to the response body.
    * To access the full response (for headers, for example), `customerGroupInfo$Response()` instead.
    *
    * This method doesn't expect any request body.
    */
-  customerGroupInfo(params?: {
+  customerGroupInfo(
+    params?: {
 
     /**
      * ID группы
      */
-    id?: number;
+      id?: number;
+    },
     context?: HttpContext
-  }
-): Observable<{
+  ): Observable<{
 
 /**
  * ID
@@ -6612,8 +6565,7 @@ export class CustomerService extends BaseService {
  */
 'time_edit'?: string;
 }> {
-
-    return this.customerGroupInfo$Response(params).pipe(
+    return this.customerGroupInfo$Response(params, context).pipe(
       map((r: StrictHttpResponse<{
 
 /**
@@ -6645,7 +6597,7 @@ export class CustomerService extends BaseService {
  * Время изменения
  */
 'time_edit'?: string;
-}>) => r.body as {
+}>): {
 
 /**
  * ID
@@ -6676,13 +6628,11 @@ export class CustomerService extends BaseService {
  * Время изменения
  */
 'time_edit'?: string;
-})
+} => r.body)
     );
   }
 
-  /**
-   * Path part for operation customerGroupCreate
-   */
+  /** Path part for operation `customerGroupCreate()` */
   static readonly CustomerGroupCreatePath = '/customer_group_create';
 
   /**
@@ -6695,9 +6645,9 @@ export class CustomerService extends BaseService {
    *
    * This method sends `application/json` and handles request body of type `application/json`.
    */
-  customerGroupCreate$Response(params?: {
-    context?: HttpContext
-    body?: {
+  customerGroupCreate$Response(
+    params?: {
+      body?: {
 
 /**
  * Наименование
@@ -6709,8 +6659,9 @@ export class CustomerService extends BaseService {
  */
 'num'?: number;
 }
-  }
-): Observable<StrictHttpResponse<{
+    },
+    context?: HttpContext
+  ): Observable<StrictHttpResponse<{
 
 /**
  * ID созданной записи
@@ -6722,18 +6673,15 @@ export class CustomerService extends BaseService {
  */
 'result': 'OK';
 }>> {
-
     const rb = new RequestBuilder(this.rootUrl, CustomerService.CustomerGroupCreatePath, 'post');
     if (params) {
       rb.body(params.body, 'application/json');
     }
 
-    return this.http.request(rb.build({
-      responseType: 'json',
-      accept: 'application/json',
-      context: params?.context
-    })).pipe(
-      filter((r: any) => r instanceof HttpResponse),
+    return this.http.request(
+      rb.build({ responseType: 'json', accept: 'application/json', context })
+    ).pipe(
+      filter((r: any): r is HttpResponse<any> => r instanceof HttpResponse),
       map((r: HttpResponse<any>) => {
         return r as StrictHttpResponse<{
         
@@ -6756,14 +6704,14 @@ export class CustomerService extends BaseService {
    *
    *
    *
-   * This method provides access to only to the response body.
+   * This method provides access only to the response body.
    * To access the full response (for headers, for example), `customerGroupCreate$Response()` instead.
    *
    * This method sends `application/json` and handles request body of type `application/json`.
    */
-  customerGroupCreate(params?: {
-    context?: HttpContext
-    body?: {
+  customerGroupCreate(
+    params?: {
+      body?: {
 
 /**
  * Наименование
@@ -6775,8 +6723,9 @@ export class CustomerService extends BaseService {
  */
 'num'?: number;
 }
-  }
-): Observable<{
+    },
+    context?: HttpContext
+  ): Observable<{
 
 /**
  * ID созданной записи
@@ -6788,8 +6737,7 @@ export class CustomerService extends BaseService {
  */
 'result': 'OK';
 }> {
-
-    return this.customerGroupCreate$Response(params).pipe(
+    return this.customerGroupCreate$Response(params, context).pipe(
       map((r: StrictHttpResponse<{
 
 /**
@@ -6801,7 +6749,7 @@ export class CustomerService extends BaseService {
  * Статус выполнения
  */
 'result': 'OK';
-}>) => r.body as {
+}>): {
 
 /**
  * ID созданной записи
@@ -6812,13 +6760,11 @@ export class CustomerService extends BaseService {
  * Статус выполнения
  */
 'result': 'OK';
-})
+} => r.body)
     );
   }
 
-  /**
-   * Path part for operation customerGroupUpdate
-   */
+  /** Path part for operation `customerGroupUpdate()` */
   static readonly CustomerGroupUpdatePath = '/customer_group_update';
 
   /**
@@ -6831,9 +6777,9 @@ export class CustomerService extends BaseService {
    *
    * This method sends `application/json` and handles request body of type `application/json`.
    */
-  customerGroupUpdate$Response(params?: {
-    context?: HttpContext
-    body?: {
+  customerGroupUpdate$Response(
+    params?: {
+      body?: {
 
 /**
  * ID изменяемого подразделения
@@ -6850,26 +6796,24 @@ export class CustomerService extends BaseService {
  */
 'num'?: number;
 }
-  }
-): Observable<StrictHttpResponse<{
+    },
+    context?: HttpContext
+  ): Observable<StrictHttpResponse<{
 
 /**
  * Статус выполнения
  */
 'result': 'OK';
 }>> {
-
     const rb = new RequestBuilder(this.rootUrl, CustomerService.CustomerGroupUpdatePath, 'post');
     if (params) {
       rb.body(params.body, 'application/json');
     }
 
-    return this.http.request(rb.build({
-      responseType: 'json',
-      accept: 'application/json',
-      context: params?.context
-    })).pipe(
-      filter((r: any) => r instanceof HttpResponse),
+    return this.http.request(
+      rb.build({ responseType: 'json', accept: 'application/json', context })
+    ).pipe(
+      filter((r: any): r is HttpResponse<any> => r instanceof HttpResponse),
       map((r: HttpResponse<any>) => {
         return r as StrictHttpResponse<{
         
@@ -6887,14 +6831,14 @@ export class CustomerService extends BaseService {
    *
    *
    *
-   * This method provides access to only to the response body.
+   * This method provides access only to the response body.
    * To access the full response (for headers, for example), `customerGroupUpdate$Response()` instead.
    *
    * This method sends `application/json` and handles request body of type `application/json`.
    */
-  customerGroupUpdate(params?: {
-    context?: HttpContext
-    body?: {
+  customerGroupUpdate(
+    params?: {
+      body?: {
 
 /**
  * ID изменяемого подразделения
@@ -6911,35 +6855,33 @@ export class CustomerService extends BaseService {
  */
 'num'?: number;
 }
-  }
-): Observable<{
+    },
+    context?: HttpContext
+  ): Observable<{
 
 /**
  * Статус выполнения
  */
 'result': 'OK';
 }> {
-
-    return this.customerGroupUpdate$Response(params).pipe(
+    return this.customerGroupUpdate$Response(params, context).pipe(
       map((r: StrictHttpResponse<{
 
 /**
  * Статус выполнения
  */
 'result': 'OK';
-}>) => r.body as {
+}>): {
 
 /**
  * Статус выполнения
  */
 'result': 'OK';
-})
+} => r.body)
     );
   }
 
-  /**
-   * Path part for operation customerGroupDelete
-   */
+  /** Path part for operation `customerGroupDelete()` */
   static readonly CustomerGroupDeletePath = '/customer_group_delete';
 
   /**
@@ -6952,35 +6894,33 @@ export class CustomerService extends BaseService {
    *
    * This method sends `application/json` and handles request body of type `application/json`.
    */
-  customerGroupDelete$Response(params?: {
-    context?: HttpContext
-    body?: {
+  customerGroupDelete$Response(
+    params?: {
+      body?: {
 
 /**
  * ID удаляемой группы
  */
 'id': number;
 }
-  }
-): Observable<StrictHttpResponse<{
+    },
+    context?: HttpContext
+  ): Observable<StrictHttpResponse<{
 
 /**
  * Статус выполнения
  */
 'result': 'OK';
 }>> {
-
     const rb = new RequestBuilder(this.rootUrl, CustomerService.CustomerGroupDeletePath, 'post');
     if (params) {
       rb.body(params.body, 'application/json');
     }
 
-    return this.http.request(rb.build({
-      responseType: 'json',
-      accept: 'application/json',
-      context: params?.context
-    })).pipe(
-      filter((r: any) => r instanceof HttpResponse),
+    return this.http.request(
+      rb.build({ responseType: 'json', accept: 'application/json', context })
+    ).pipe(
+      filter((r: any): r is HttpResponse<any> => r instanceof HttpResponse),
       map((r: HttpResponse<any>) => {
         return r as StrictHttpResponse<{
         
@@ -6998,43 +6938,43 @@ export class CustomerService extends BaseService {
    *
    *
    *
-   * This method provides access to only to the response body.
+   * This method provides access only to the response body.
    * To access the full response (for headers, for example), `customerGroupDelete$Response()` instead.
    *
    * This method sends `application/json` and handles request body of type `application/json`.
    */
-  customerGroupDelete(params?: {
-    context?: HttpContext
-    body?: {
+  customerGroupDelete(
+    params?: {
+      body?: {
 
 /**
  * ID удаляемой группы
  */
 'id': number;
 }
-  }
-): Observable<{
+    },
+    context?: HttpContext
+  ): Observable<{
 
 /**
  * Статус выполнения
  */
 'result': 'OK';
 }> {
-
-    return this.customerGroupDelete$Response(params).pipe(
+    return this.customerGroupDelete$Response(params, context).pipe(
       map((r: StrictHttpResponse<{
 
 /**
  * Статус выполнения
  */
 'result': 'OK';
-}>) => r.body as {
+}>): {
 
 /**
  * Статус выполнения
  */
 'result': 'OK';
-})
+} => r.body)
     );
   }
 

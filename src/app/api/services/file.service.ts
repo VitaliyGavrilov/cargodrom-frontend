@@ -1,33 +1,27 @@
 /* tslint:disable */
 /* eslint-disable */
+import { HttpClient, HttpContext, HttpResponse } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { HttpClient, HttpResponse, HttpContext } from '@angular/common/http';
+import { Observable } from 'rxjs';
+import { filter, map } from 'rxjs/operators';
+
 import { BaseService } from '../base-service';
 import { ApiConfiguration } from '../api-configuration';
 import { StrictHttpResponse } from '../strict-http-response';
 import { RequestBuilder } from '../request-builder';
-import { Observable } from 'rxjs';
-import { map, filter } from 'rxjs/operators';
 
 
 
 /**
  * Работа со страни
  */
-@Injectable({
-  providedIn: 'root',
-})
+@Injectable({ providedIn: 'root' })
 export class FileService extends BaseService {
-  constructor(
-    config: ApiConfiguration,
-    http: HttpClient
-  ) {
+  constructor(config: ApiConfiguration, http: HttpClient) {
     super(config, http);
   }
 
-  /**
-   * Path part for operation fileList
-   */
+  /** Path part for operation `fileList()` */
   static readonly FileListPath = '/file_list';
 
   /**
@@ -40,35 +34,36 @@ export class FileService extends BaseService {
    *
    * This method doesn't expect any request body.
    */
-  fileList$Response(params?: {
+  fileList$Response(
+    params?: {
 
     /**
      * Начальная позиция
      */
-    start?: number;
+      start?: number;
 
     /**
      * Лимит позиций на страницу
      */
-    count?: number;
+      count?: number;
 
     /**
      * ID элемента
      */
-    item_id?: number;
+      item_id?: number;
 
     /**
      * Компонент элемента
      */
-    component?: string;
+      component?: string;
 
     /**
      * Переменная формы
      */
-    var?: string;
+      var?: string;
+    },
     context?: HttpContext
-  }
-): Observable<StrictHttpResponse<{
+  ): Observable<StrictHttpResponse<{
 
 /**
  * Позиции
@@ -131,7 +126,6 @@ export class FileService extends BaseService {
  */
 'total'?: number;
 }>> {
-
     const rb = new RequestBuilder(this.rootUrl, FileService.FileListPath, 'get');
     if (params) {
       rb.query('start', params.start, {});
@@ -141,12 +135,10 @@ export class FileService extends BaseService {
       rb.query('var', params.var, {});
     }
 
-    return this.http.request(rb.build({
-      responseType: 'json',
-      accept: 'application/json',
-      context: params?.context
-    })).pipe(
-      filter((r: any) => r instanceof HttpResponse),
+    return this.http.request(
+      rb.build({ responseType: 'json', accept: 'application/json', context })
+    ).pipe(
+      filter((r: any): r is HttpResponse<any> => r instanceof HttpResponse),
       map((r: HttpResponse<any>) => {
         return r as StrictHttpResponse<{
         
@@ -220,40 +212,41 @@ export class FileService extends BaseService {
    *
    *
    *
-   * This method provides access to only to the response body.
+   * This method provides access only to the response body.
    * To access the full response (for headers, for example), `fileList$Response()` instead.
    *
    * This method doesn't expect any request body.
    */
-  fileList(params?: {
+  fileList(
+    params?: {
 
     /**
      * Начальная позиция
      */
-    start?: number;
+      start?: number;
 
     /**
      * Лимит позиций на страницу
      */
-    count?: number;
+      count?: number;
 
     /**
      * ID элемента
      */
-    item_id?: number;
+      item_id?: number;
 
     /**
      * Компонент элемента
      */
-    component?: string;
+      component?: string;
 
     /**
      * Переменная формы
      */
-    var?: string;
+      var?: string;
+    },
     context?: HttpContext
-  }
-): Observable<{
+  ): Observable<{
 
 /**
  * Позиции
@@ -316,8 +309,7 @@ export class FileService extends BaseService {
  */
 'total'?: number;
 }> {
-
-    return this.fileList$Response(params).pipe(
+    return this.fileList$Response(params, context).pipe(
       map((r: StrictHttpResponse<{
 
 /**
@@ -380,7 +372,7 @@ export class FileService extends BaseService {
  * Всего позиций
  */
 'total'?: number;
-}>) => r.body as {
+}>): {
 
 /**
  * Позиции
@@ -442,13 +434,11 @@ export class FileService extends BaseService {
  * Всего позиций
  */
 'total'?: number;
-})
+} => r.body)
     );
   }
 
-  /**
-   * Path part for operation fileInfo
-   */
+  /** Path part for operation `fileInfo()` */
   static readonly FileInfoPath = '/file_info';
 
   /**
@@ -461,15 +451,16 @@ export class FileService extends BaseService {
    *
    * This method doesn't expect any request body.
    */
-  fileInfo$Response(params?: {
+  fileInfo$Response(
+    params?: {
 
     /**
      * ID файла
      */
-    id?: number;
+      id?: number;
+    },
     context?: HttpContext
-  }
-): Observable<StrictHttpResponse<{
+  ): Observable<StrictHttpResponse<{
 
 /**
  * ID
@@ -521,18 +512,15 @@ export class FileService extends BaseService {
  */
 'time_edit'?: string;
 }>> {
-
     const rb = new RequestBuilder(this.rootUrl, FileService.FileInfoPath, 'get');
     if (params) {
       rb.query('id', params.id, {});
     }
 
-    return this.http.request(rb.build({
-      responseType: 'json',
-      accept: 'application/json',
-      context: params?.context
-    })).pipe(
-      filter((r: any) => r instanceof HttpResponse),
+    return this.http.request(
+      rb.build({ responseType: 'json', accept: 'application/json', context })
+    ).pipe(
+      filter((r: any): r is HttpResponse<any> => r instanceof HttpResponse),
       map((r: HttpResponse<any>) => {
         return r as StrictHttpResponse<{
         
@@ -595,20 +583,21 @@ export class FileService extends BaseService {
    *
    *
    *
-   * This method provides access to only to the response body.
+   * This method provides access only to the response body.
    * To access the full response (for headers, for example), `fileInfo$Response()` instead.
    *
    * This method doesn't expect any request body.
    */
-  fileInfo(params?: {
+  fileInfo(
+    params?: {
 
     /**
      * ID файла
      */
-    id?: number;
+      id?: number;
+    },
     context?: HttpContext
-  }
-): Observable<{
+  ): Observable<{
 
 /**
  * ID
@@ -660,8 +649,7 @@ export class FileService extends BaseService {
  */
 'time_edit'?: string;
 }> {
-
-    return this.fileInfo$Response(params).pipe(
+    return this.fileInfo$Response(params, context).pipe(
       map((r: StrictHttpResponse<{
 
 /**
@@ -713,7 +701,7 @@ export class FileService extends BaseService {
  * Время изменения
  */
 'time_edit'?: string;
-}>) => r.body as {
+}>): {
 
 /**
  * ID
@@ -764,13 +752,11 @@ export class FileService extends BaseService {
  * Время изменения
  */
 'time_edit'?: string;
-})
+} => r.body)
     );
   }
 
-  /**
-   * Path part for operation fileCreate
-   */
+  /** Path part for operation `fileCreate()` */
   static readonly FileCreatePath = '/file_create';
 
   /**
@@ -783,9 +769,9 @@ export class FileService extends BaseService {
    *
    * This method sends `multipart/form-data` and handles request body of type `multipart/form-data`.
    */
-  fileCreate$Response(params?: {
-    context?: HttpContext
-    body?: {
+  fileCreate$Response(
+    params?: {
+      body?: {
 
 /**
  * ID элемента
@@ -807,8 +793,9 @@ export class FileService extends BaseService {
  */
 'file': file;
 }
-  }
-): Observable<StrictHttpResponse<{
+    },
+    context?: HttpContext
+  ): Observable<StrictHttpResponse<{
 
 /**
  * ID созданной записи
@@ -820,18 +807,15 @@ export class FileService extends BaseService {
  */
 'result': 'OK';
 }>> {
-
     const rb = new RequestBuilder(this.rootUrl, FileService.FileCreatePath, 'post');
     if (params) {
       rb.body(params.body, 'multipart/form-data');
     }
 
-    return this.http.request(rb.build({
-      responseType: 'json',
-      accept: 'application/json',
-      context: params?.context
-    })).pipe(
-      filter((r: any) => r instanceof HttpResponse),
+    return this.http.request(
+      rb.build({ responseType: 'json', accept: 'application/json', context })
+    ).pipe(
+      filter((r: any): r is HttpResponse<any> => r instanceof HttpResponse),
       map((r: HttpResponse<any>) => {
         return r as StrictHttpResponse<{
         
@@ -854,14 +838,14 @@ export class FileService extends BaseService {
    *
    *
    *
-   * This method provides access to only to the response body.
+   * This method provides access only to the response body.
    * To access the full response (for headers, for example), `fileCreate$Response()` instead.
    *
    * This method sends `multipart/form-data` and handles request body of type `multipart/form-data`.
    */
-  fileCreate(params?: {
-    context?: HttpContext
-    body?: {
+  fileCreate(
+    params?: {
+      body?: {
 
 /**
  * ID элемента
@@ -883,8 +867,9 @@ export class FileService extends BaseService {
  */
 'file': file;
 }
-  }
-): Observable<{
+    },
+    context?: HttpContext
+  ): Observable<{
 
 /**
  * ID созданной записи
@@ -896,8 +881,7 @@ export class FileService extends BaseService {
  */
 'result': 'OK';
 }> {
-
-    return this.fileCreate$Response(params).pipe(
+    return this.fileCreate$Response(params, context).pipe(
       map((r: StrictHttpResponse<{
 
 /**
@@ -909,7 +893,7 @@ export class FileService extends BaseService {
  * Статус выполнения
  */
 'result': 'OK';
-}>) => r.body as {
+}>): {
 
 /**
  * ID созданной записи
@@ -920,13 +904,11 @@ export class FileService extends BaseService {
  * Статус выполнения
  */
 'result': 'OK';
-})
+} => r.body)
     );
   }
 
-  /**
-   * Path part for operation fileUpdate
-   */
+  /** Path part for operation `fileUpdate()` */
   static readonly FileUpdatePath = '/file_update';
 
   /**
@@ -939,9 +921,9 @@ export class FileService extends BaseService {
    *
    * This method sends `multipart/form-data` and handles request body of type `multipart/form-data`.
    */
-  fileUpdate$Response(params?: {
-    context?: HttpContext
-    body?: {
+  fileUpdate$Response(
+    params?: {
+      body?: {
 
 /**
  * ID
@@ -968,8 +950,9 @@ export class FileService extends BaseService {
  */
 'file': file;
 }
-  }
-): Observable<StrictHttpResponse<{
+    },
+    context?: HttpContext
+  ): Observable<StrictHttpResponse<{
 
 /**
  * ID созданной записи
@@ -981,18 +964,15 @@ export class FileService extends BaseService {
  */
 'result': 'OK';
 }>> {
-
     const rb = new RequestBuilder(this.rootUrl, FileService.FileUpdatePath, 'post');
     if (params) {
       rb.body(params.body, 'multipart/form-data');
     }
 
-    return this.http.request(rb.build({
-      responseType: 'json',
-      accept: 'application/json',
-      context: params?.context
-    })).pipe(
-      filter((r: any) => r instanceof HttpResponse),
+    return this.http.request(
+      rb.build({ responseType: 'json', accept: 'application/json', context })
+    ).pipe(
+      filter((r: any): r is HttpResponse<any> => r instanceof HttpResponse),
       map((r: HttpResponse<any>) => {
         return r as StrictHttpResponse<{
         
@@ -1015,14 +995,14 @@ export class FileService extends BaseService {
    *
    *
    *
-   * This method provides access to only to the response body.
+   * This method provides access only to the response body.
    * To access the full response (for headers, for example), `fileUpdate$Response()` instead.
    *
    * This method sends `multipart/form-data` and handles request body of type `multipart/form-data`.
    */
-  fileUpdate(params?: {
-    context?: HttpContext
-    body?: {
+  fileUpdate(
+    params?: {
+      body?: {
 
 /**
  * ID
@@ -1049,8 +1029,9 @@ export class FileService extends BaseService {
  */
 'file': file;
 }
-  }
-): Observable<{
+    },
+    context?: HttpContext
+  ): Observable<{
 
 /**
  * ID созданной записи
@@ -1062,8 +1043,7 @@ export class FileService extends BaseService {
  */
 'result': 'OK';
 }> {
-
-    return this.fileUpdate$Response(params).pipe(
+    return this.fileUpdate$Response(params, context).pipe(
       map((r: StrictHttpResponse<{
 
 /**
@@ -1075,7 +1055,7 @@ export class FileService extends BaseService {
  * Статус выполнения
  */
 'result': 'OK';
-}>) => r.body as {
+}>): {
 
 /**
  * ID созданной записи
@@ -1086,13 +1066,11 @@ export class FileService extends BaseService {
  * Статус выполнения
  */
 'result': 'OK';
-})
+} => r.body)
     );
   }
 
-  /**
-   * Path part for operation fileDelete
-   */
+  /** Path part for operation `fileDelete()` */
   static readonly FileDeletePath = '/file_delete';
 
   /**
@@ -1105,9 +1083,9 @@ export class FileService extends BaseService {
    *
    * This method sends `application/json` and handles request body of type `application/json`.
    */
-  fileDelete$Response(params?: {
-    context?: HttpContext
-    body?: {
+  fileDelete$Response(
+    params?: {
+      body?: {
 
 /**
  * ID удаляемой записи
@@ -1129,26 +1107,24 @@ export class FileService extends BaseService {
  */
 'var': string;
 }
-  }
-): Observable<StrictHttpResponse<{
+    },
+    context?: HttpContext
+  ): Observable<StrictHttpResponse<{
 
 /**
  * Статус выполнения
  */
 'result': 'OK';
 }>> {
-
     const rb = new RequestBuilder(this.rootUrl, FileService.FileDeletePath, 'post');
     if (params) {
       rb.body(params.body, 'application/json');
     }
 
-    return this.http.request(rb.build({
-      responseType: 'json',
-      accept: 'application/json',
-      context: params?.context
-    })).pipe(
-      filter((r: any) => r instanceof HttpResponse),
+    return this.http.request(
+      rb.build({ responseType: 'json', accept: 'application/json', context })
+    ).pipe(
+      filter((r: any): r is HttpResponse<any> => r instanceof HttpResponse),
       map((r: HttpResponse<any>) => {
         return r as StrictHttpResponse<{
         
@@ -1166,14 +1142,14 @@ export class FileService extends BaseService {
    *
    *
    *
-   * This method provides access to only to the response body.
+   * This method provides access only to the response body.
    * To access the full response (for headers, for example), `fileDelete$Response()` instead.
    *
    * This method sends `application/json` and handles request body of type `application/json`.
    */
-  fileDelete(params?: {
-    context?: HttpContext
-    body?: {
+  fileDelete(
+    params?: {
+      body?: {
 
 /**
  * ID удаляемой записи
@@ -1195,35 +1171,33 @@ export class FileService extends BaseService {
  */
 'var': string;
 }
-  }
-): Observable<{
+    },
+    context?: HttpContext
+  ): Observable<{
 
 /**
  * Статус выполнения
  */
 'result': 'OK';
 }> {
-
-    return this.fileDelete$Response(params).pipe(
+    return this.fileDelete$Response(params, context).pipe(
       map((r: StrictHttpResponse<{
 
 /**
  * Статус выполнения
  */
 'result': 'OK';
-}>) => r.body as {
+}>): {
 
 /**
  * Статус выполнения
  */
 'result': 'OK';
-})
+} => r.body)
     );
   }
 
-  /**
-   * Path part for operation fileDownload
-   */
+  /** Path part for operation `fileDownload()` */
   static readonly FileDownloadPath = '/file_download';
 
   /**
@@ -1236,33 +1210,31 @@ export class FileService extends BaseService {
    *
    * This method doesn't expect any request body.
    */
-  fileDownload$Response(params?: {
+  fileDownload$Response(
+    params?: {
 
     /**
      * ID файла
      */
-    id?: number;
+      id?: number;
+    },
     context?: HttpContext
-  }
-): Observable<StrictHttpResponse<{
+  ): Observable<StrictHttpResponse<{
 
 /**
  * Статус выполнения
  */
 'result': 'OK';
 }>> {
-
     const rb = new RequestBuilder(this.rootUrl, FileService.FileDownloadPath, 'get');
     if (params) {
       rb.query('id', params.id, {});
     }
 
-    return this.http.request(rb.build({
-      responseType: 'json',
-      accept: 'application/json',
-      context: params?.context
-    })).pipe(
-      filter((r: any) => r instanceof HttpResponse),
+    return this.http.request(
+      rb.build({ responseType: 'json', accept: 'application/json', context })
+    ).pipe(
+      filter((r: any): r is HttpResponse<any> => r instanceof HttpResponse),
       map((r: HttpResponse<any>) => {
         return r as StrictHttpResponse<{
         
@@ -1280,41 +1252,41 @@ export class FileService extends BaseService {
    *
    *
    *
-   * This method provides access to only to the response body.
+   * This method provides access only to the response body.
    * To access the full response (for headers, for example), `fileDownload$Response()` instead.
    *
    * This method doesn't expect any request body.
    */
-  fileDownload(params?: {
+  fileDownload(
+    params?: {
 
     /**
      * ID файла
      */
-    id?: number;
+      id?: number;
+    },
     context?: HttpContext
-  }
-): Observable<{
+  ): Observable<{
 
 /**
  * Статус выполнения
  */
 'result': 'OK';
 }> {
-
-    return this.fileDownload$Response(params).pipe(
+    return this.fileDownload$Response(params, context).pipe(
       map((r: StrictHttpResponse<{
 
 /**
  * Статус выполнения
  */
 'result': 'OK';
-}>) => r.body as {
+}>): {
 
 /**
  * Статус выполнения
  */
 'result': 'OK';
-})
+} => r.body)
     );
   }
 
