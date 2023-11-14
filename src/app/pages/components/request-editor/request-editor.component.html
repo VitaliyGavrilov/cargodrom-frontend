@@ -1,0 +1,130 @@
+<app-editor-header [title]="title" (save)="save()" (remove)="remove()" [isEditMode]="isEditMode" ></app-editor-header>
+
+<div class="edit-form">
+  <form class="form" [formGroup]="requestForm" (ngSubmit)="save()">
+
+    <div class="form-block">
+      <div class="form-row">
+        <div class="form-item-layout">
+
+          <div class="form-item">
+            <div class="form-label">КОНТРАГЕНТ: <span class="req">•</span></div>
+            <div class="form-data">
+              <mat-form-field appearance="outline" class="ui-select">
+               <mat-select formControlName="contractor_id">
+                 <mat-option *ngFor="let contractor of contractors;" [value]="contractor.id">{{ contractor.name }}</mat-option>
+               </mat-select>
+               <mat-error *ngIf="requestForm.controls['contractor_id'].hasError('required')">
+                 Это поле обязательно
+               </mat-error>
+             </mat-form-field>
+            </div>
+          </div>
+
+          <div class="form-item">
+            <div class="form-label">Вид запроса: <span class="req">•</span></div>
+            <div class="form-data">
+              <mat-form-field appearance="outline" class="ui-select">
+               <mat-select formControlName="request_format_id">
+                 <mat-option *ngFor="let requestFormat of requestFormats;" [value]="requestFormat.id">{{ requestFormat.name }}</mat-option>
+               </mat-select>
+               <mat-error *ngIf="requestForm.controls['request_format_id'].hasError('required')">
+                 Это поле обязательно
+               </mat-error>
+             </mat-form-field>
+            </div>
+          </div>
+
+          <div class="form-item">
+            <div class="form-label">Вид перевозки: <span class="req">•</span></div>
+            <div class="form-data">
+              <mat-form-field appearance="outline" class="ui-select">
+               <mat-select formControlName="transportation_format_id" (valueChange)="onTransportationFormatsChange($event)">
+                 <mat-option *ngFor="let transportationFormat of transportationFormats;" [value]="transportationFormat.id">{{ transportationFormat.name }}</mat-option>
+               </mat-select>
+               <mat-error *ngIf="requestForm.controls['transportation_format_id'].hasError('required')">
+                 Это поле обязательно
+               </mat-error>
+             </mat-form-field>
+            </div>
+          </div>
+
+          <div class="form-item">
+            <div class="form-label">Вид транспорта: <span class="req">•</span></div>
+            <div class="form-data">
+              <mat-form-field appearance="outline" class="ui-select">
+               <mat-select formControlName="transportation_format_id">
+                 <mat-option *ngFor="let transportFormat of transportFormats;" [value]="transportFormat.id">{{ transportFormat.name }}</mat-option>
+               </mat-select>
+               <mat-error *ngIf="requestForm.controls['transportation_format_id'].hasError('required')">
+                 Это поле обязательно
+               </mat-error>
+             </mat-form-field>
+            </div>
+          </div>
+
+        </div>
+      </div>
+    </div>
+
+    <div class="form-block-title">Описание груза</div>
+    <div class="form-block">
+
+      <div class="form-row">
+        <div class="form-item-layout">
+
+
+        </div>
+      </div>
+
+      <div class="form-row">
+        <div class="form-item-layout">
+
+        </div>
+      </div>
+
+      <div class="form-row">
+        <div class="form-item-layout">
+
+        </div>
+      </div>
+    </div>
+
+    <div class="form-block-title">Направления</div>
+    <div class="form-block">
+
+      <div class="form-row">
+        <div class="form-item-layout">
+
+        </div>
+      </div>
+
+      <div class="form-row">
+        <div class="form-item-layout">
+
+        </div>
+      </div>
+
+      <div class="form-row">
+        <div class="form-item-layout">
+
+        </div>
+      </div>
+    </div>
+
+    <div class="form-block-title">Требуемые услуги</div>
+    <div class="form-block">
+
+      <div class="form-row">
+        <div class="form-item-layout">
+
+        </div>
+      </div>
+
+      <div class="form-row">
+
+      </div>
+    </div>
+
+  </form>
+</div>

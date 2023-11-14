@@ -6,6 +6,7 @@ import { PagesRoutingModule } from './pages-routing.module';
 import { PagesComponent } from './pages.component';
 import { HeaderComponent } from './components/header/header.component';
 import { RequestComponent } from './components/request/request.component';
+import { RequestEditorComponent } from './components/request-editor/request-editor.component';
 import { OrderComponent } from './components/order/order.component';
 import { BitComponent } from './components/bit/bit.component';
 import { TariffComponent } from './components/tariff/tariff.component';
@@ -33,6 +34,7 @@ import { ResponsibilityRowComponent } from './components/responsibility-row/resp
     PagesComponent,
     HeaderComponent,
     RequestComponent,
+    RequestEditorComponent,
     OrderComponent,
     BitComponent,
     TariffComponent,

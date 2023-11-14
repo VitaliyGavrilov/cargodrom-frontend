@@ -9,6 +9,7 @@ import { GuideComponent } from './components/guide/guide.component';
 import { OrderComponent } from './components/order/order.component';
 import { ReportComponent } from './components/report/report.component';
 import { RequestComponent } from './components/request/request.component';
+import { RequestEditorComponent } from './components/request-editor/request-editor.component';
 import { TariffComponent } from './components/tariff/tariff.component';
 import { PagesComponent } from './pages.component';
 import { ClientEditorComponent } from './components/client-editor/client-editor.component';
@@ -35,7 +36,13 @@ const routes: Routes = [
         component: RequestComponent,
         pathMatch: 'full',
         title: 'Запросы',
-        
+
+      },
+      {
+        path: 'request/add',
+        component: RequestEditorComponent,
+        pathMatch: 'full',
+        title: 'Добавление запроса',
       },
       {
         path: 'bit',
