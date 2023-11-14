@@ -73,12 +73,24 @@
       <div class="form-row">
         <div class="form-item-layout">
 
+          <div class="form-item">
+            <div class="form-label">Наименование груза: <span class="req">•</span></div>
+            <div class="form-data"><input type="text" name="cargo_description" formControlName="cargo_description" placeholder="—"></div>
+          </div>
 
-        </div>
-      </div>
-
-      <div class="form-row">
-        <div class="form-item-layout">
+          <div class="form-item">
+            <div class="form-label">Вид упаковки: <span class="req">•</span></div>
+            <div class="form-data">
+              <mat-form-field appearance="outline" class="ui-select">
+               <mat-select formControlName="cargo_package_id">
+                  <mat-option *ngFor="let cargoPackage of cargoPackages;" [value]="cargoPackage.id">{{ cargoPackage.name }}</mat-option>
+               </mat-select>
+               <mat-error *ngIf="requestForm.controls['cargo_package_id'].hasError('required')">
+                  Это поле обязательно
+               </mat-error>
+             </mat-form-field>
+            </div>
+          </div>
 
         </div>
       </div>
@@ -92,27 +104,79 @@
 
     <div class="form-block-title">Направления</div>
     <div class="form-block">
+      <!-- ОТКУДА -->
+      <div class="form-row">
+        <div class="form-item-layout">
 
+          <div class="form-item">
+            <div class="form-label">Страна отправления: <span class="req">•</span></div>
+            <div class="form-data">
+              <mat-form-field appearance="outline" class="ui-select">
+               <mat-select formControlName="departure_country_id" (valueChange)="onCountryChange($event)">
+                 <mat-option *ngFor="let departureCountry of departureCountrys;" [value]="departureCountry.id">{{ departureCountry.name }}</mat-option>
+               </mat-select>
+               <mat-error *ngIf="requestForm.controls['departure_country_id'].hasError('required')">
+                 Это поле обязательно
+               </mat-error>
+             </mat-form-field>
+            </div>
+          </div>
+
+          <div class="form-item">
+           <div class="form-label">Город отправления: <span class="req">•</span></div>
+            <mat-form-field appearance="outline" class="ui-select">
+              <mat-select formControlName="departure_city_id" (valueChange)="onCityChange($event)">
+                <mat-option *ngFor="let departureCity of departureCitys;" [value]="departureCity.id">{{ departureCity.name }}</mat-option>
+              </mat-select>
+              <mat-error *ngIf="requestForm.controls['departure_city_id'].hasError('required')">
+                Это поле обязательно
+              </mat-error>
+            </mat-form-field>
+          </div>
+
+          <div class="form-item">
+            <div class="form-label">Список точек: <span class="req">•</span></div>
+            <div class="form-data">
+              <mat-form-field appearance="outline" class="ui-select">
+               <mat-select formControlName="departure_point_id" >
+                 <mat-option *ngFor="let departurePoint of departurePoint;" [value]="departurePoint.id">{{ departurePoint.name }}</mat-option>
+               </mat-select>
+               <mat-error *ngIf="requestForm.controls['departure_point_id'].hasError('required')">
+                 Это поле обязательно
+               </mat-error>
+             </mat-form-field>
+            </div>
+          </div>
+
+        </div>
+      </div>
+      <!-- КУДА -->
       <div class="form-row">
         <div class="form-item-layout">
 
         </div>
       </div>
-
+      <!-- РЕЙСЫ -->
       <div class="form-row">
         <div class="form-item-layout">
-
-        </div>
-      </div>
-
-      <div class="form-row">
-        <div class="form-item-layout">
-
+          <div class="form-item">
+            <div class="form-label">Рейсы: <span class="req">•</span></div>
+            <div class="form-data">
+              <mat-form-field appearance="outline" class="ui-select">
+               <mat-select formControlName="direction_flight">
+                 <mat-option *ngFor="let directionFlight of directionFlights;" [value]="directionFlight.id">{{ directionFlight.name }}</mat-option>
+               </mat-select>
+               <mat-error *ngIf="requestForm.controls['direction_flight'].hasError('required')">
+                 Это поле обязательно
+               </mat-error>
+             </mat-form-field>
+            </div>
+          </div>
         </div>
       </div>
     </div>
 
-    <div class="form-block-title">Требуемые услуги</div>
+    <div class="form-block-title" *ngIf="requestForm.value.transportation_format_id !=='avia'">Требуемые услуги</div>
     <div class="form-block">
 
       <div class="form-row">
