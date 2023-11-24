@@ -15,10 +15,21 @@ export interface RequestList {
   ]
 }
 
+export interface Incoterms {
+  id: 0,
+  name: "string",
+  services_id: [string]
+}
+
+export interface RequestServices {
+  id: string;
+  name: string;
+}
 
 
 //запрос
 export interface Request {
+  id: number,
   customer_id: number,
   customer: string,
   request_type_id: number,

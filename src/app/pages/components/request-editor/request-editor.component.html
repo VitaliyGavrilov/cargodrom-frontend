@@ -7,7 +7,7 @@
       <div class="form-row">
         <div class="form-item-layout">
 
-          <div class="form-item">
+          <!-- <div class="form-item">
             <div class="form-label">КОНТРАГЕНТ: <span class="req">•</span></div>
             <div class="form-data">
               <mat-form-field appearance="outline" class="ui-select">
@@ -19,7 +19,21 @@
                </mat-error>
              </mat-form-field>
             </div>
+          </div> -->
+
+          <div class="form-item">
+            <div class="form-label">КОНТРАГЕНТ: <span class="req">•</span></div>
+            <input appearance="outline" class="ui-select"
+              type="text"
+              name="contractor_id"
+              formControlName="contractor_id"
+              [matAutocomplete]="auto"
+              (keyup)="getContractorsByName($event)" placeholder="—">
+            <mat-autocomplete #auto="matAutocomplete">
+              <mat-option *ngFor="let contractor of contractors;track contractor" [value]="contractor.id">{{ contractor.name }}</mat-option>
+            </mat-autocomplete>
           </div>
+
 
           <div class="form-item">
             <div class="form-label">Вид запроса: <span class="req">•</span></div>
@@ -97,10 +111,74 @@
 
       <div class="form-row">
         <div class="form-item-layout">
-
+          <mat-checkbox formControlName="cargo_package_id">Ввести габариты и вес мест раздельно </mat-checkbox>
         </div>
       </div>
+
+
+      <div class="form-row bg showhide indicative">
+        <div class="form-item-layout">
+
+          <div class="form-item">
+            <div class="form-label">Итого мест, шт:</div>
+            <div class="form-data">
+              <input type="text" name="cargo_places_count" formControlName="cargo_places_count">
+            </div>
+          </div>
+
+          <div class="form-item">
+            <div class="form-label">Итого вес, кг:</div>
+            <div class="form-data">
+              <input type="text" name="cargo_places_weight" formControlName="cargo_places_weight">
+            </div>
+          </div>
+
+          <div class="form-item">
+            <div class="form-label">Итого Объем, м<sup>3</sup>:</div>
+            <div class="form-data">
+              <input type="text" name="cargo_places_volume" formControlName="cargo_places_volume">
+            </div>
+          </div>
+
+          <div class="form-item ">
+            <div class="form-label">оплачиваемый вес:</div>
+            <div class="form-data" name="cargo_places_paid_weight" formControlName="cargo_places_paid_weight">
+              <input type="text">
+            </div>
+          </div>
+
+          <div class="form-item ">
+            <div class="form-label">плотность, кг/м<sup>3</sup>:</div>
+            <div class="form-data">
+              <input type="text" name="cargo_places_density" formControlName="cargo_places_density"  readonly value="{{requestForm.value.cargo_places_weight/requestForm.value.cargo_places_volume}}">
+            </div>
+          </div>
+
+          <div class="form-item">
+            <div class="form-label">стоимость груза:</div>
+            <div class="form-data">
+              <input type="text" name="cargo_cost" formControlName="cargo_cost">
+            </div>
+          </div>
+
+          <div class="form-item">
+            <div class="form-label">Валюта: <span class="req">•</span></div>
+            <div class="form-data">
+              <mat-form-field appearance="outline" class="ui-select">
+                <mat-select formControlName="cargo_currency_id">
+                  <mat-option *ngFor="let currency of currencys;" [value]="currency.id">{{ currency.name }}</mat-option>
+               </mat-select>
+               <mat-error *ngIf="requestForm.controls['cargo_currency_id'].hasError('required')">
+                 Это поле обязательно
+               </mat-error>
+             </mat-form-field>
+            </div>
+          </div>
+
+      </div>
     </div>
+
+  </div>
 
     <div class="form-block-title">Направления</div>
     <div class="form-block">
@@ -134,8 +212,8 @@
             </mat-form-field>
           </div>
 
-          <div class="form-item">
-            <div class="form-label">Список точек: <span class="req">•</span></div>
+          <div class="form-item" *ngIf="currentTransportationFormat==='avia'">
+            <div class="form-label">Аэропорт вылета: <span class="req">•</span></div>
             <div class="form-data">
               <mat-form-field appearance="outline" class="ui-select">
                <mat-select formControlName="departure_point_id" >
@@ -153,6 +231,51 @@
       <!-- КУДА -->
       <div class="form-row">
         <div class="form-item-layout">
+
+          <div class="form-item">
+            <div class="form-label">Страна прибытия: <span class="req">•</span></div>
+            <div class="form-data">
+              <mat-form-field appearance="outline" class="ui-select">
+               <mat-select formControlName="arrival_country_id" (valueChange)="onCountryChange($event)">
+                 <mat-option *ngFor="let departureCountry of departureCountrys;" [value]="departureCountry.id">{{ departureCountry.name }}</mat-option>
+               </mat-select>
+               <mat-error *ngIf="requestForm.controls['arrival_country_id'].hasError('required')">
+                 Это поле обязательно
+               </mat-error>
+             </mat-form-field>
+            </div>
+          </div>
+
+          <div class="form-item">
+            <div class="form-label">Город назначения: <span class="req">•</span></div>
+             <mat-form-field appearance="outline" class="ui-select">
+               <mat-select formControlName="arrival_city_id" (valueChange)="onCityChange($event)">
+                 <mat-option *ngFor="let departureCity of departureCitys;" [value]="departureCity.id">{{ departureCity.name }}</mat-option>
+               </mat-select>
+               <mat-error *ngIf="requestForm.controls['arrival_city_id'].hasError('required')">
+                 Это поле обязательно
+               </mat-error>
+             </mat-form-field>
+           </div>
+
+           <div class="form-item" *ngIf="currentTransportationFormat==='avia'">
+             <div class="form-label">Аэропорт прибытия: <span class="req">•</span></div>
+             <div class="form-data">
+               <mat-form-field appearance="outline" class="ui-select">
+                <mat-select formControlName="arrival_point_id" >
+                  <mat-option *ngFor="let departurePoint of departurePoint;" [value]="departurePoint.id">{{ departurePoint.name }}</mat-option>
+                </mat-select>
+                <mat-error *ngIf="requestForm.controls['arrival_point_id'].hasError('required')">
+                  Это поле обязательно
+                </mat-error>
+              </mat-form-field>
+             </div>
+           </div>
+
+           <div class="form-item">
+            <div class="form-label">Адрес доставки груза: <span class="req">•</span></div>
+            <div class="form-data"><input type="text" name="arrival_address" formControlName="arrival_address" placeholder="—"></div>
+          </div>
 
         </div>
       </div>
@@ -176,16 +299,54 @@
       </div>
     </div>
 
-    <div class="form-block-title" *ngIf="requestForm.value.transportation_format_id !=='avia'">Требуемые услуги</div>
+    <div class="form-block-title">Требуемые услуги</div>
     <div class="form-block">
 
       <div class="form-row">
         <div class="form-item-layout">
 
+          <div class="form-item">
+            <div class="form-label">УСЛОВИЕ ПОСТАВКИ (INCOTERMS): <span class="req">•</span></div>
+            <div class="form-data">
+              <mat-form-field appearance="outline" class="ui-select" >
+               <mat-select formControlName="incoterms_id">
+                 <mat-option *ngFor="let incoterm of incoterms;" [value]="incoterm.id" >{{ incoterm.name }}</mat-option>
+               </mat-select>
+               <mat-error *ngIf="requestForm.controls['incoterms_id'].hasError('required')">
+                 Это поле обязательно
+               </mat-error>
+             </mat-form-field>
+            </div>
+          </div>
+
         </div>
       </div>
 
       <div class="form-row">
+
+        <div class="form-item-layout">
+          <div class="form-item">
+            <div class="form-label">В ставку ДОЛЖНО быть включено: <span class="req">•</span></div>
+            <div class="form-data">
+              <mat-form-field appearance="outline" class="ui-select">
+               <mat-select formControlName="request_services_id" multiple="">
+                 <mat-option *ngFor="let service of services;" [value]="service.id">{{ service.name }}</mat-option>
+               </mat-select>
+             </mat-form-field>
+            </div>
+          </div>
+
+          <div class="form-item">
+            <div class="form-label">Дополнительные услуги: <span class="req">•</span></div>
+            <div class="form-data">
+              <mat-form-field appearance="outline" class="ui-select">
+               <mat-select formControlName="request_services_additional_id" multiple="" >
+                 <mat-option *ngFor="let servicesAdditional of servicesAdditionals;" [value]="servicesAdditional.id">{{ servicesAdditional.name }}</mat-option>
+               </mat-select>
+             </mat-form-field>
+            </div>
+          </div>
+        </div>
 
       </div>
     </div>
