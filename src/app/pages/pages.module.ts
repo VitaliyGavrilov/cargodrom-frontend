@@ -26,6 +26,7 @@ import { FileListComponent } from './components/file-list/file-list.component';
 import { FilterModule } from '../filter/filter.module';
 import { ResponsibilityMatrixComponent } from './components/responsibility-matrix/responsibility-matrix.component';
 import { ResponsibilityRowComponent } from './components/responsibility-row/responsibility-row.component';
+import { CargoEditorComponent } from './components/cargo-editor/cargo-editor.component';
 
 
 @NgModule({
@@ -52,6 +53,7 @@ import { ResponsibilityRowComponent } from './components/responsibility-row/resp
     FileListComponent,
     ResponsibilityMatrixComponent,
     ResponsibilityRowComponent,
+    CargoEditorComponent
   ],
   imports: [
     CommonModule,

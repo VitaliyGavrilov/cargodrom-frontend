@@ -1,10 +1,10 @@
 //Вид упаковки
 export interface CargoPackage {
-  id: string;
+  id: number;
   name: string;
 }
-//Вид груза
+//Тип груза
 export interface CargoType {
-  id: string;
+  id: number;
   name: string;
 }

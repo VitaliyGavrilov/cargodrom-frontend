@@ -1,9 +1,9 @@
 import { emailValidator, innValidator } from './../../../validators/pattern-validator';
-import { Component, OnInit, ViewChild, ViewEncapsulation } from '@angular/core';
+import { Component, OnDestroy, OnInit, ViewChild, ViewEncapsulation } from '@angular/core';
 import { FormArray, FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { ActivatedRoute, Router } from '@angular/router';
-import { Observable, map, tap } from 'rxjs';
+import { Observable, Subject, map, takeUntil, tap } from 'rxjs';
 import { ContractorService } from './../../../api/services/contractor.service';
 import { City, Client, ClientGroup, Contractor, ContractorRequestFormat, Country, Currency, Employee, FileDocument, TaxSystem } from 'src/app/api/custom_models';
 import { CargoService, CompanyService, CustomerService, DirectionService, RequestService, SystemService, TransportService } from 'src/app/api/services';
@@ -25,7 +25,7 @@ import { DirectionFlight, DirectionPoint } from 'src/app/api/custom_models/direc
   encapsulation: ViewEncapsulation.None,
 
 })
-export class RequestEditorComponent implements OnInit {
+export class RequestEditorComponent implements OnInit, OnDestroy {
   //грубо говоря это стейт переменные
   title = ''
   isEditMode: boolean = false;
@@ -33,7 +33,8 @@ export class RequestEditorComponent implements OnInit {
   contractors: Contractor[] = [];
   requestFormats: RequestFormat[] = [];
   transportationFormats: TaxSystem[] = [];
-  currentTransportationFormat:string=''; //переменная для хранения вида перевозки
+  currentTransportationFormat:string=''; //переменная для хранения текущего вида перевозки
+  currentRequestFormat:number = 1; //переменная для зранения текущего типа запроса
   transportFormats: TaxSystem[] = [];
   cargoPackages: CargoPackage[]=[];
   cargoTypes: CargoType[]=[];
@@ -49,6 +50,8 @@ export class RequestEditorComponent implements OnInit {
 
   services: RequestServices[]=[]
   servicesAdditionals: RequestServices[]=[]
+
+  private _destroy$ = new Subject()
 
   //конструктор
   constructor(
@@ -71,16 +74,18 @@ export class RequestEditorComponent implements OnInit {
       transportation_format_id: ['', [Validators.required]],
       transport_format_id: ['', [Validators.required]],
       //ОПИСАНИЕ ГРУЗА
-      cargo_description: ['', [Validators.required]],
-      cargo_package_id: ['', [Validators.required]],
+      // cargo_description: ['', [Validators.required]],
+      // cargo_package_id: ['', [Validators.required]],
 
-      cargo_places_count: ['', [Validators.required]],//итого мест
-      cargo_places_weight: ['', [Validators.required]],//итого вес
-      cargo_places_volume: ['', [Validators.required]],//итого обьем
-      cargo_places_paid_weight: ['', [Validators.required]],//оплач.вес
-      cargo_places_density: ['', [Validators.required]],//плонтность
-      cargo_cost: ['', [Validators.required]],//стоимость
-      cargo_currency_id: ['', [Validators.required]],//id валюты
+      // cargo_places_count: ['', [Validators.required]],//итого мест
+      // cargo_places_weight: ['', [Validators.required]],//итого вес
+      // cargo_places_volume: ['', [Validators.required]],//итого обьем
+      // cargo_places_paid_weight: ['', [Validators.required]],//оплач.вес
+      // cargo_places_density: ['', [Validators.required]],//плонтность
+      // cargo_cost: ['', [Validators.required]],//стоимость
+      // cargo_currency_id: ['', [Validators.required]],//id валюты
+
+      cargos_places: fb.array([], [Validators.required]),//массив мест груза
       //НАПРАЛЕНИЕ
       //откуда
       departure_city_id: ['', [Validators.required]],
@@ -102,6 +107,10 @@ export class RequestEditorComponent implements OnInit {
 
     });
   }
+  ngOnDestroy(): void {
+    this._destroy$.next(null);
+    this._destroy$.complete();
+  }
   //инициализация компонента
   ngOnInit(): void {
     this.title = this.isEditMode ? 'Информация о запросе' : 'Добавление запроса';
@@ -114,14 +123,31 @@ export class RequestEditorComponent implements OnInit {
     this.getCurrencys()
 
   }
+  displayFn(user: Contractor): string {
+    return user && user.name ? user.name : '';
+
+  }
+
   // Публичные методы:
   //сохранение данных
   save(): void {
     console.log('Нажата кнопка сохранить')
+
+
+
+    const body = this.requestForm.value;
+    body.contractor_id = body.contractor_id.id;
+
+    console.log(body)
+
   }
   //отмена данных
   remove():void {
     console.log('Нажата кнопка отмена')
+  }
+  onRequestFormatsChange(id:number){
+    this.currentRequestFormat = id;
+    console.log(id)
   }
   //защита инпута видов транспорта, доступ только после заполнения инпута видов перевозки
   onTransportationFormatsChange(id: string) {
@@ -147,7 +173,10 @@ export class RequestEditorComponent implements OnInit {
   //котрагентов (подрядчиков)
   private getContractors() {
     this.contractorService.contractorList()
-      .subscribe(contractors => this.contractors = contractors.items as unknown as Contractor[])
+      .pipe(
+        tap((contractors: any) => this.contractors = contractors.items as unknown as Contractor[]),
+        takeUntil(this._destroy$)
+      ).subscribe()
   }
   getContractorsByName(e:any) {
     this.contractorService.contractorList({name:e.target.value})
@@ -172,12 +201,12 @@ export class RequestEditorComponent implements OnInit {
   //видов упаковки
   private getСargoPackages() {
     this.cargoService.cargoPackage()
-      .subscribe(cargoPackages => this.cargoPackages = cargoPackages as unknown as CargoPackage[])
+      .subscribe(cargoPackages => this.cargoPackages = cargoPackages as CargoPackage[])
   }
 
   private getCurrencys() {
     this.systemService.systemCurrency()
-      .subscribe(currencys=> this.currencys = currencys as unknown as Currency[])
+      .subscribe(currencys=> this.currencys = currencys as Currency[])
   }
   //НАПРАВЛЕНИЕ
   //стран

@@ -29,8 +29,8 @@
               formControlName="contractor_id"
               [matAutocomplete]="auto"
               (keyup)="getContractorsByName($event)" placeholder="—">
-            <mat-autocomplete #auto="matAutocomplete">
-              <mat-option *ngFor="let contractor of contractors;track contractor" [value]="contractor.id">{{ contractor.name }}</mat-option>
+            <mat-autocomplete #auto="matAutocomplete" [displayWith]="displayFn" >
+              <mat-option *ngFor="let contractor of contractors;" [value]="contractor">{{ contractor.name }}</mat-option>
             </mat-autocomplete>
           </div>
 
@@ -39,7 +39,7 @@
             <div class="form-label">Вид запроса: <span class="req">•</span></div>
             <div class="form-data">
               <mat-form-field appearance="outline" class="ui-select">
-               <mat-select formControlName="request_format_id">
+               <mat-select formControlName="request_format_id" (valueChange)="onRequestFormatsChange($event)">
                  <mat-option *ngFor="let requestFormat of requestFormats;" [value]="requestFormat.id">{{ requestFormat.name }}</mat-option>
                </mat-select>
                <mat-error *ngIf="requestForm.controls['request_format_id'].hasError('required')">
@@ -80,105 +80,11 @@
         </div>
       </div>
     </div>
-    <!-- Блок описание груза меняется в зависимости от вида запроса -->
-    <div class="form-block-title">Описание груза</div>
-    <div class="form-block">
-
-      <div class="form-row">
-        <div class="form-item-layout">
-
-          <div class="form-item">
-            <div class="form-label">Наименование груза: <span class="req">•</span></div>
-            <div class="form-data"><input type="text" name="cargo_description" formControlName="cargo_description" placeholder="—"></div>
-          </div>
-
-          <div class="form-item">
-            <div class="form-label">Вид упаковки: <span class="req">•</span></div>
-            <div class="form-data">
-              <mat-form-field appearance="outline" class="ui-select">
-               <mat-select formControlName="cargo_package_id">
-                  <mat-option *ngFor="let cargoPackage of cargoPackages;" [value]="cargoPackage.id">{{ cargoPackage.name }}</mat-option>
-               </mat-select>
-               <mat-error *ngIf="requestForm.controls['cargo_package_id'].hasError('required')">
-                  Это поле обязательно
-               </mat-error>
-             </mat-form-field>
-            </div>
-          </div>
-
-        </div>
-      </div>
-
-      <div class="form-row">
-        <div class="form-item-layout">
-          <mat-checkbox formControlName="cargo_package_id">Ввести габариты и вес мест раздельно </mat-checkbox>
-        </div>
-      </div>
-
-
-      <div class="form-row bg showhide indicative">
-        <div class="form-item-layout">
-
-          <div class="form-item">
-            <div class="form-label">Итого мест, шт:</div>
-            <div class="form-data">
-              <input type="text" name="cargo_places_count" formControlName="cargo_places_count">
-            </div>
-          </div>
-
-          <div class="form-item">
-            <div class="form-label">Итого вес, кг:</div>
-            <div class="form-data">
-              <input type="text" name="cargo_places_weight" formControlName="cargo_places_weight">
-            </div>
-          </div>
-
-          <div class="form-item">
-            <div class="form-label">Итого Объем, м<sup>3</sup>:</div>
-            <div class="form-data">
-              <input type="text" name="cargo_places_volume" formControlName="cargo_places_volume">
-            </div>
-          </div>
-
-          <div class="form-item ">
-            <div class="form-label">оплачиваемый вес:</div>
-            <div class="form-data" name="cargo_places_paid_weight" formControlName="cargo_places_paid_weight">
-              <input type="text">
-            </div>
-          </div>
-
-          <div class="form-item ">
-            <div class="form-label">плотность, кг/м<sup>3</sup>:</div>
-            <div class="form-data">
-              <input type="text" name="cargo_places_density" formControlName="cargo_places_density"  readonly value="{{requestForm.value.cargo_places_weight/requestForm.value.cargo_places_volume}}">
-            </div>
-          </div>
-
-          <div class="form-item">
-            <div class="form-label">стоимость груза:</div>
-            <div class="form-data">
-              <input type="text" name="cargo_cost" formControlName="cargo_cost">
-            </div>
-          </div>
-
-          <div class="form-item">
-            <div class="form-label">Валюта: <span class="req">•</span></div>
-            <div class="form-data">
-              <mat-form-field appearance="outline" class="ui-select">
-                <mat-select formControlName="cargo_currency_id">
-                  <mat-option *ngFor="let currency of currencys;" [value]="currency.id">{{ currency.name }}</mat-option>
-               </mat-select>
-               <mat-error *ngIf="requestForm.controls['cargo_currency_id'].hasError('required')">
-                 Это поле обязательно
-               </mat-error>
-             </mat-form-field>
-            </div>
-          </div>
-
-      </div>
+    <!-- Блок ОПИСАНИЕ ГРУЗА меняется в зависимости от вида запроса -->
+    <div formArrayName="cargos_places">
+      <app-cargo-editor [currentRequestFormat]="currentRequestFormat"></app-cargo-editor>
     </div>
 
-  </div>
 
     <div class="form-block-title">Направления</div>
     <div class="form-block">
