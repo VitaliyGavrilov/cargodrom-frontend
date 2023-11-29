@@ -85,7 +85,7 @@ export class RequestEditorComponent implements OnInit, OnDestroy {
       // cargo_cost: ['', [Validators.required]],//стоимость
       // cargo_currency_id: ['', [Validators.required]],//id валюты
 
-      cargos_places: fb.array([], [Validators.required]),//массив мест груза
+      // cargos_places: fb.array([], [Validators.required]),//массив мест груза
       //НАПРАЛЕНИЕ
       //откуда
       departure_city_id: ['', [Validators.required]],
@@ -133,7 +133,7 @@ export class RequestEditorComponent implements OnInit, OnDestroy {
   save(): void {
     console.log('Нажата кнопка сохранить')
 
-
+  //Метод Object.assign() 
 
     const body = this.requestForm.value;
     body.contractor_id = body.contractor_id.id;

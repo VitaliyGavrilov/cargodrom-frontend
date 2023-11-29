@@ -1,6 +1,6 @@
 import { Country } from './../../../api/custom_models/country';
-import { Contact, Currency, responsibilityDirections } from './../../../api/custom_models';
-import { FormBuilder, FormGroup, Validators, ControlValueAccessor, NG_VALUE_ACCESSOR, AbstractControl, ValidationErrors, Validator, NG_VALIDATORS } from '@angular/forms';
+import { Contact, Contractor, Currency, responsibilityDirections } from './../../../api/custom_models';
+import { FormBuilder, FormGroup, Validators, ControlValueAccessor, NG_VALUE_ACCESSOR, AbstractControl, ValidationErrors, Validator, NG_VALIDATORS, FormArray } from '@angular/forms';
 import { Component, Input, OnChanges, OnDestroy, OnInit, SimpleChanges } from '@angular/core';
 import { Subject, tap } from 'rxjs';
 import { takeUntil } from 'rxjs/operators';
@@ -29,7 +29,10 @@ export class CargoEditorComponent implements OnInit, OnDestroy {
   //переменные
   private _destroy$ = new Subject();
 
+  contractor: Partial<Contractor> = {};
+
   @Input()currentRequestFormat!: number;
+  @Input()parentForm!:FormGroup;
 
   cargoForm: FormGroup;
 
@@ -58,20 +61,37 @@ export class CargoEditorComponent implements OnInit, OnDestroy {
       cargo_cost: ['', [Validators.required]],//стоимость
       cargo_currency_id: ['', [Validators.required]],//id валюты
       //3 строка
+      cargos_places: fb.array([], [Validators.required]),
     })
   }
-  //методы
   //методы ЖИЗЕНЕННОГО ЦИКЛА
   ngOnInit(): void {
     this._getСargoPackages();
     this._getCargoTypes();
     this._getCurrencys()
+
+    this.parentForm.addControl('cargo', this.cargoForm);
   }
   ngOnDestroy(): void {
     this._destroy$.next(null);
     this._destroy$.complete();
   }
   //методы ПУБЛИЧНЫЕ
+  removePlace(i: number): void {
+    this.place.removeAt(i);
+    this.cargoForm.markAsTouched();
+  }
+
+  addPlace() {
+    this.place.push(this.fb.control({
+      contractor_id: this.contractor.id
+    }));
+    this.cargoForm.markAsTouched();
+  }
+
+  get place() {
+    return <FormArray>this.cargoForm.get('cargos_places');
+  }
 
   //методы ПРИВАТНЫЕ
   //запрос массива видов упаковки

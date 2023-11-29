@@ -52,6 +52,25 @@
     </div>
   </div>
 
+  <div class="form-row"><div class="form-item-layout">
+    <div formArrayName="cargos_places">
+      <div class="user-item" *ngFor="let place of place.controls; let i=index">
+        <div class="form-block-title">Место №{{i + 1}}<span class="btn v del" (click)="removePlace(i)">Удалить</span></div>
+        <app-place-editor></app-place-editor>
+
+
+      </div>
+
+    </div>
+    <div class="user-item">
+      <div class="form-block-title">Место №{{place.length + 1}}<span class="btn v add" (click)=addPlace()>Добавить</span></div>
+    </div>
+    
+
+  </div></div>
+
+
+
   <div class="form-row bg showhide indicative">
     <div class="form-item-layout">
 
