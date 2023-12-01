@@ -1,25 +1,11 @@
 <app-editor-header [title]="title" (save)="save()" (remove)="remove()" [isEditMode]="isEditMode" ></app-editor-header>
 
 <div class="edit-form">
-  <form class="form" [formGroup]="requestForm" (ngSubmit)="save()">
+  <form class="form" [formGroup]="requestForm">
 
     <div class="form-block">
       <div class="form-row">
         <div class="form-item-layout">
-
-          <!-- <div class="form-item">
-            <div class="form-label">КОНТРАГЕНТ: <span class="req">•</span></div>
-            <div class="form-data">
-              <mat-form-field appearance="outline" class="ui-select">
-               <mat-select formControlName="contractor_id">
-                 <mat-option *ngFor="let contractor of contractors;" [value]="contractor.id">{{ contractor.name }}</mat-option>
-               </mat-select>
-               <mat-error *ngIf="requestForm.controls['contractor_id'].hasError('required')">
-                 Это поле обязательно
-               </mat-error>
-             </mat-form-field>
-            </div>
-          </div> -->
 
           <div class="form-item">
             <div class="form-label">КОНТРАГЕНТ: <span class="req">•</span></div>
@@ -52,6 +38,28 @@
           <div class="form-item">
             <div class="form-label">Вид перевозки: <span class="req">•</span></div>
             <div class="form-data">
+                <mat-button-toggle-group class="form-item-layout a" name="transportation_format_id" formControlName="transportation_format_id" (valueChange)="onTransportationFormatsChange()">
+                  <mat-button-toggle value="avia">
+                    <img src="../../../../assets/pic-service-air.svg">
+                  </mat-button-toggle>
+                  <mat-button-toggle value="road">
+                    <img  src="../../../../assets/pic-service-road.svg">
+                  </mat-button-toggle>
+                  <mat-button-toggle value="rw">
+                    <img  src="../../../../assets/pic-service-rail.svg">
+                  </mat-button-toggle>
+                  <mat-button-toggle value="sea">
+                    <img src="../../../../assets/pic-service-sea.svg">
+                  </mat-button-toggle>
+                </mat-button-toggle-group>
+            </div>
+          </div>
+
+
+
+          <!-- <div class="form-item">
+            <div class="form-label">Вид перевозки: <span class="req">•</span></div>
+            <div class="form-data">
               <mat-form-field appearance="outline" class="ui-select">
                <mat-select formControlName="transportation_format_id" (valueChange)="onTransportationFormatsChange($event)">
                  <mat-option *ngFor="let transportationFormat of transportationFormats;" [value]="transportationFormat.id">{{ transportationFormat.name }}</mat-option>
@@ -61,7 +69,7 @@
                </mat-error>
              </mat-form-field>
             </div>
-          </div>
+          </div> -->
 
           <div class="form-item">
             <div class="form-label">Вид транспорта: <span class="req">•</span></div>
@@ -80,9 +88,10 @@
         </div>
       </div>
     </div>
+
     <!-- Блок ОПИСАНИЕ ГРУЗА меняется в зависимости от вида запроса -->
     <div formArrayName="cargos_places">
-      <app-cargo-editor [currentRequestFormat]="currentRequestFormat" [parentForm]="requestForm"></app-cargo-editor>
+      <app-cargo-editor  [currentRequestFormat]="currentRequestFormat" [parentForm]="requestForm"></app-cargo-editor>
     </div>
 
 
@@ -96,8 +105,8 @@
             <div class="form-label">Страна отправления: <span class="req">•</span></div>
             <div class="form-data">
               <mat-form-field appearance="outline" class="ui-select">
-               <mat-select formControlName="departure_country_id" (valueChange)="onCountryChange($event)">
-                 <mat-option *ngFor="let departureCountry of departureCountrys;" [value]="departureCountry.id">{{ departureCountry.name }}</mat-option>
+               <mat-select formControlName="departure_country_id" (valueChange)="onDepartureCountryChange($event)">
+                 <mat-option *ngFor="let departureCountry of countrys;" [value]="departureCountry.id">{{ departureCountry.name }}</mat-option>
                </mat-select>
                <mat-error *ngIf="requestForm.controls['departure_country_id'].hasError('required')">
                  Это поле обязательно
@@ -109,7 +118,7 @@
           <div class="form-item">
            <div class="form-label">Город отправления: <span class="req">•</span></div>
             <mat-form-field appearance="outline" class="ui-select">
-              <mat-select formControlName="departure_city_id" (valueChange)="onCityChange($event)">
+              <mat-select formControlName="departure_city_id" (valueChange)="onDepartureCityChange($event)">
                 <mat-option *ngFor="let departureCity of departureCitys;" [value]="departureCity.id">{{ departureCity.name }}</mat-option>
               </mat-select>
               <mat-error *ngIf="requestForm.controls['departure_city_id'].hasError('required')">
@@ -142,8 +151,8 @@
             <div class="form-label">Страна прибытия: <span class="req">•</span></div>
             <div class="form-data">
               <mat-form-field appearance="outline" class="ui-select">
-               <mat-select formControlName="arrival_country_id" (valueChange)="onCountryChange($event)">
-                 <mat-option *ngFor="let departureCountry of departureCountrys;" [value]="departureCountry.id">{{ departureCountry.name }}</mat-option>
+               <mat-select formControlName="arrival_country_id" (valueChange)="onArrivalCountryChange($event)">
+                 <mat-option *ngFor="let arrivalCountry of countrys;" [value]="arrivalCountry.id">{{ arrivalCountry.name }}</mat-option>
                </mat-select>
                <mat-error *ngIf="requestForm.controls['arrival_country_id'].hasError('required')">
                  Это поле обязательно
@@ -155,8 +164,8 @@
           <div class="form-item">
             <div class="form-label">Город назначения: <span class="req">•</span></div>
              <mat-form-field appearance="outline" class="ui-select">
-               <mat-select formControlName="arrival_city_id" (valueChange)="onCityChange($event)">
-                 <mat-option *ngFor="let departureCity of departureCitys;" [value]="departureCity.id">{{ departureCity.name }}</mat-option>
+               <mat-select formControlName="arrival_city_id" (valueChange)="onArrivalCityChange($event)">
+                 <mat-option *ngFor="let arrivalCity of arrivalCitys;" [value]="arrivalCity.id">{{ arrivalCity.name }}</mat-option>
                </mat-select>
                <mat-error *ngIf="requestForm.controls['arrival_city_id'].hasError('required')">
                  Это поле обязательно
@@ -169,7 +178,7 @@
              <div class="form-data">
                <mat-form-field appearance="outline" class="ui-select">
                 <mat-select formControlName="arrival_point_id" >
-                  <mat-option *ngFor="let departurePoint of departurePoint;" [value]="departurePoint.id">{{ departurePoint.name }}</mat-option>
+                  <mat-option *ngFor="let arrivalPoint of arrivalPoint;" [value]="arrivalPoint.id">{{ arrivalPoint.name }}</mat-option>
                 </mat-select>
                 <mat-error *ngIf="requestForm.controls['arrival_point_id'].hasError('required')">
                   Это поле обязательно
@@ -208,7 +217,7 @@
     <div class="form-block-title">Требуемые услуги</div>
     <div class="form-block">
 
-      <div class="form-row">
+      <div class="form-row" *ngIf="currentTransportationFormat==='avia' || currentTransportationFormat==='rw' ">
         <div class="form-item-layout">
 
           <div class="form-item">

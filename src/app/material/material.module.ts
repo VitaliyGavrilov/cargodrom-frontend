@@ -18,6 +18,7 @@ import { MatDatepickerModule } from '@angular/material/datepicker';
 import { FocusInitialDirective } from './directives/focus-initial.directive';
 import {MatTableModule} from '@angular/material/table';
 import { PhoneMaskDirective } from './directives/phone-mask.directive';
+import {MatButtonToggleModule} from '@angular/material/button-toggle';
 
 
 @NgModule({
@@ -44,6 +45,7 @@ import { PhoneMaskDirective } from './directives/phone-mask.directive';
     MatDatepickerModule,
     MatNativeDateModule,
     MatTableModule,
+    MatButtonToggleModule,
   ],
   exports: [
     MatDialogModule,
@@ -63,6 +65,7 @@ import { PhoneMaskDirective } from './directives/phone-mask.directive';
     FocusInitialDirective,
     MatTableModule,
     PhoneMaskDirective,
+    MatButtonToggleModule,
   ]
 })
 export class MaterialModule { }

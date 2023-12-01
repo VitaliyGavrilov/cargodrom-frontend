@@ -4,9 +4,9 @@ export interface DirectionFlight {
 }
 
 export interface DirectionPoint {
-  id: string;
+  id: number;
   name: string;
-  citi_id:number;
+  city_id:number;
   country_id:number;
   type_id: number;
   time_add: string;

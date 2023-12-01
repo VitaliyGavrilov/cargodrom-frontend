@@ -37,6 +37,7 @@ export class PlaceEditorComponent implements OnInit, OnDestroy, OnChanges, Contr
     private fb: FormBuilder,
   ) {
     this.placeForm = this.fb.group({
+      request_id:[''],
       num: ['', [Validators.required]],
       cargo_package_id: ['', [Validators.required]],
       stacking: [false],

@@ -1,6 +1,6 @@
 //вид запроса
 export interface RequestFormat {
-  id: string;
+  id: number;
   name: string;
 }
 //список запросов
@@ -16,13 +16,13 @@ export interface RequestList {
 }
 
 export interface Incoterms {
-  id: 0,
-  name: "string",
+  id: number,
+  name: string,
   services_id: [string]
 }
 
 export interface RequestServices {
-  id: string;
+  id: number;
   name: string;
 }
 

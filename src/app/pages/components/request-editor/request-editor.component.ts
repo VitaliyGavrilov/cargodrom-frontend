@@ -1,7 +1,6 @@
 import { emailValidator, innValidator } from './../../../validators/pattern-validator';
 import { Component, OnDestroy, OnInit, ViewChild, ViewEncapsulation } from '@angular/core';
 import { FormArray, FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { MatSnackBar } from '@angular/material/snack-bar';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Observable, Subject, map, takeUntil, tap } from 'rxjs';
 import { ContractorService } from './../../../api/services/contractor.service';
@@ -13,10 +12,13 @@ import { CityService } from '../../services/city.service';
 import { CountryService } from '../../services/country.service';
 import { byField } from 'src/app/constants';
 import { FileListComponent } from '../file-list/file-list.component';
-import { TransportSubKind } from 'src/app/api/custom_models/transport';
-import { Incoterms, RequestFormat, RequestServices } from 'src/app/api/custom_models/request';
+import { TransportKind, TransportSubKind, TransportType } from 'src/app/api/custom_models/transport';
+import { Incoterms, Request, RequestFormat, RequestServices } from 'src/app/api/custom_models/request';
 import { CargoPackage, CargoType } from 'src/app/api/custom_models/cargo';
 import { DirectionFlight, DirectionPoint } from 'src/app/api/custom_models/direction';
+import {MatButtonToggleModule} from '@angular/material/button-toggle';
+import { MatSnackBar, MatSnackBarConfig } from '@angular/material/snack-bar';
+import { environment } from './../../../../environments/environment';
 
 @Component({
   selector: 'app-request-editor',
@@ -26,24 +28,33 @@ import { DirectionFlight, DirectionPoint } from 'src/app/api/custom_models/direc
 
 })
 export class RequestEditorComponent implements OnInit, OnDestroy {
-  //грубо говоря это стейт переменные
+  //ПЕРЕМЕННЫЕ
+  //
   title = ''
+  nameForHeader?: string;
+  request: Partial<Request> = {};
+  //состояния
   isEditMode: boolean = false;
+  //форма
   requestForm: FormGroup;
+
   contractors: Contractor[] = [];
   requestFormats: RequestFormat[] = [];
-  transportationFormats: TaxSystem[] = [];
-  currentTransportationFormat:string=''; //переменная для хранения текущего вида перевозки
   currentRequestFormat:number = 1; //переменная для зранения текущего типа запроса
-  transportFormats: TaxSystem[] = [];
+  transportationFormats: TransportKind[] = [];
+  currentTransportationFormat:string=''; //переменная для хранения текущего вида перевозки
+  transportFormats: TransportType[] = [];
+
   cargoPackages: CargoPackage[]=[];
   cargoTypes: CargoType[]=[];
 
-  currencys: Currency[]=[]
+  currencys: Currency[]=[];
 
-  departureCountrys: Country[]=[];
+  countrys: Country[]=[];
   departureCitys: City[]=[];
   departurePoint: DirectionPoint[] = [];
+  arrivalCitys: City[]=[];
+  arrivalPoint:DirectionPoint[] = [];
   directionFlights: DirectionFlight[]=[];
 
   incoterms: Incoterms[]=[]
@@ -51,10 +62,16 @@ export class RequestEditorComponent implements OnInit, OnDestroy {
   services: RequestServices[]=[]
   servicesAdditionals: RequestServices[]=[]
 
+  snackBarWithShortDuration: MatSnackBarConfig = { duration: 1000 };
+  snackBarWithLongDuration: MatSnackBarConfig = { duration: 3000 };
+  //отписки
   private _destroy$ = new Subject()
+  //
+  production = environment.production;
 
-  //конструктор
+  //КОНСТРУКТОР
   constructor(
+    private route: ActivatedRoute,
     private fb: FormBuilder,
     private contractorService: ContractorService,
     private transportService: TransportService,
@@ -64,6 +81,8 @@ export class RequestEditorComponent implements OnInit, OnDestroy {
     private countryService: CountryService,
     private cityService: CityService,
     private systemService: SystemService,
+    private snackBar: MatSnackBar,
+    private location: Location,
 
 
   ) {
@@ -71,7 +90,7 @@ export class RequestEditorComponent implements OnInit, OnDestroy {
       //ОСНОВА
       contractor_id: ['', [Validators.required]],
       request_format_id: ['', [Validators.required]],
-      transportation_format_id: ['', [Validators.required]],
+      transportation_format_id: ['avia', [Validators.required]],
       transport_format_id: ['', [Validators.required]],
       //ОПИСАНИЕ ГРУЗА
       // cargo_description: ['', [Validators.required]],
@@ -85,7 +104,7 @@ export class RequestEditorComponent implements OnInit, OnDestroy {
       // cargo_cost: ['', [Validators.required]],//стоимость
       // cargo_currency_id: ['', [Validators.required]],//id валюты
 
-      // cargos_places: fb.array([], [Validators.required]),//массив мест груза
+      cargos_places: fb.array([], [Validators.required]),//массив мест груза
       //НАПРАЛЕНИЕ
       //откуда
       departure_city_id: ['', [Validators.required]],
@@ -104,16 +123,27 @@ export class RequestEditorComponent implements OnInit, OnDestroy {
 
       request_services_id: [[], []],
       request_services_additional_id: [[], []],
+      test: [[], []],
 
     });
   }
+
+  get places() {
+    return <FormArray>this.requestForm.get('cargos_places');
+  }
+  //МЕТОДЫ ЖЦ
   ngOnDestroy(): void {
     this._destroy$.next(null);
     this._destroy$.complete();
   }
   //инициализация компонента
   ngOnInit(): void {
+    const segments = this.route.snapshot.url.map(s => s.path);
+    this.isEditMode = segments[1] !== 'add';
     this.title = this.isEditMode ? 'Информация о запросе' : 'Добавление запроса';
+    if (this.isEditMode) {
+      this.getRequest();
+    }
     // this.getContractors()
     this.getRequestFormats()
     this.getTransportationFormats()
@@ -123,23 +153,23 @@ export class RequestEditorComponent implements OnInit, OnDestroy {
     this.getCurrencys()
 
   }
-  displayFn(user: Contractor): string {
+  // Публичные методы:
+  displayFn(user:Contractor): string {
+
+    // let currentContractor: Contractor = this.allContractors.find(i=>i.id===userId);
+
+    // return userId ? currentContractor.name  : '';
+
+
     return user && user.name ? user.name : '';
 
   }
-
-  // Публичные методы:
   //сохранение данных
   save(): void {
     console.log('Нажата кнопка сохранить')
 
-    //ВАРИАНТ 1
-    //Планирую разделить старницу на 3-4 компонента, в каждом формы, в основном компоненте собираю данные с форм и обрабатываю, например обьединив обьекты методом Object.assign()
-    //Компоненты: Описание груза, Направления и требуемые услуги и одна форма в основного компоненте
-    //В Компоненте описание груза будет свой дочерний компонент-форма Управление местами, его реализую с помощью ControlValueAccessor.
-    //Надо уточнить как в таком варианте реализовать удобную валидацию.
-
     const body = this.requestForm.value;
+    //это собственно костыль, что бы в поле контрагент_id лежал именно id,а не весь обьект
     body.contractor_id = body.contractor_id.id;
 
     console.log(body)
@@ -148,57 +178,74 @@ export class RequestEditorComponent implements OnInit, OnDestroy {
   remove():void {
     console.log('Нажата кнопка отмена')
   }
+  goBack(): void {
+    this.location.back();
+  }
   onRequestFormatsChange(id:number){
     this.currentRequestFormat = id;
     console.log(id)
   }
   //защита инпута видов транспорта, доступ только после заполнения инпута видов перевозки
-  onTransportationFormatsChange(id: string) {
-    this.requestForm.controls['transport_format_id'].reset(undefined);
-    this.requestForm.controls['departure_point_id'].reset(undefined);
-    this.getTransportFormats(id);
-    this.currentTransportationFormat=id//запоминаем текущий вид перевозки
-    this.getIncoterms(this.currentTransportationFormat)
-    this.getRequestServices(this.currentTransportationFormat)
+  onTransportationFormatsChange() {
+    this.requestForm.controls['transport_format_id'].reset();
+    this.requestForm.controls['incoterms_id'].reset();
+    this.requestForm.controls['departure_point_id'].reset();
+    this.requestForm.controls['request_services_id'].reset();
+    this.requestForm.controls['request_services_additional_id'].reset();
+    this.currentTransportationFormat=this.requestForm.value.transportation_format_id//запоминаем текущий вид перевозки
+    this.getTransportFormats(this.currentTransportationFormat);
+    this.getIncoterms(this.currentTransportationFormat);
+    this.getRequestServices(this.currentTransportationFormat);
+    // console.log(this.currentTransportationFormat);
   }
   //защита инпута городов,доступ только после выбора страны
-  onCountryChange(countryId: number): void {
-    this.requestForm.controls['departure_city_id'].reset(undefined);
-    this.getCities(countryId);
+  onArrivalCountryChange(countryId: number): void {
+    this.requestForm.controls['arrival_city_id'].reset();
+    this.requestForm.controls['arrival_point_id'].reset();
+    this.getArrivalCities(countryId);
+  }
+  onDepartureCountryChange(countryId: number): void {
+    this.requestForm.controls['departure_city_id'].reset();
+    this.requestForm.controls['departure_point_id'].reset();
+    this.getDepartureCities(countryId);
   }
   //защита инпута точки,доступ толшько после выбора вида транспорта и города
-  onCityChange(cityId: number): void {
-    this.requestForm.controls['departure_point_id'].reset(undefined);
+  onDepartureCityChange(cityId: number): void {
+    this.requestForm.controls['departure_point_id'].reset();
     this.getDeparturePoint(cityId,this.currentTransportationFormat);
+  }
+  onArrivalCityChange(cityId: number): void {
+    this.requestForm.controls['arrival_point_id'].reset();
+    this.getArrivalPoint(cityId,this.currentTransportationFormat);
   }
   // Приватные методы:
   // Получаем списки
   //котрагентов (подрядчиков)
-  private getContractors() {
-    this.contractorService.contractorList()
-      .pipe(
-        tap((contractors: any) => this.contractors = contractors.items as unknown as Contractor[]),
-        takeUntil(this._destroy$)
-      ).subscribe()
-  }
-  getContractorsByName(e:any) {
+  // private getContractors() {
+  //   this.contractorService.contractorList()
+  //     .pipe(
+  //       tap((contractors) => this.allContractors = contractors.items as unknown as Contractor[]),
+  //       takeUntil(this._destroy$)
+  //     ).subscribe()
+  // }
+  protected getContractorsByName(e: any) {
     this.contractorService.contractorList({name:e.target.value})
       .subscribe(contractors => this.contractors = contractors.items as unknown as Contractor[])
   }
   //видов запросов
   private getRequestFormats() {
     this.requestService.requestType()
-      .subscribe(requestFormats => this.requestFormats = requestFormats as unknown as RequestFormat[])
+      .subscribe(requestFormats => this.requestFormats = requestFormats as  RequestFormat[])
   }
   //видов перевозки
   private getTransportationFormats() {
     this.transportService.transportKind()
-      .subscribe(transportationFormats => this.transportationFormats = transportationFormats as unknown as TaxSystem[])
+      .subscribe(transportationFormats => this.transportationFormats = transportationFormats as TransportKind[])
   }
   //видов транспорта, зависят от видов перевозки
   private getTransportFormats(id:string) {
     this.transportService.transportType({kind_id:id,})
-      .subscribe(transportFormats => this.transportFormats = transportFormats as unknown as TaxSystem[])
+      .subscribe(transportFormats => this.transportFormats = transportFormats as TransportType[])
   }
   //ОПИСАНИЕ ГРУЗА
   //видов упаковки
@@ -215,35 +262,70 @@ export class RequestEditorComponent implements OnInit, OnDestroy {
   //стран
   private getCountries() {
     this.countryService.getCountries()
-      .subscribe(departureСountrys => this.departureCountrys = departureСountrys);
+      .subscribe(countrys => this.countrys = countrys);
   }
   //городов
-  private getCities(countryId: number) {
+  private getArrivalCities(countryId: number) {
+    this.cityService.getCities(countryId)
+      .subscribe(arrivalCitys => this.arrivalCitys = arrivalCitys);
+  }
+  private getDepartureCities(countryId: number) {
     this.cityService.getCities(countryId)
       .subscribe(departureCitys => this.departureCitys = departureCitys);
   }
   //точек
   private getDeparturePoint(city_id: number, transport_kind_id: string) {
     this.directionService.directionPoint({city_id,transport_kind_id})
-      .subscribe(departurePoint => this.departurePoint=departurePoint as unknown as DirectionPoint[])
+      .subscribe(departurePoint => this.departurePoint=departurePoint as DirectionPoint[])
+  }
+  private getArrivalPoint(city_id: number, transport_kind_id: string) {
+    this.directionService.directionPoint({city_id,transport_kind_id})
+      .subscribe(arrivalPoint => this.arrivalPoint=arrivalPoint as DirectionPoint[])
   }
   //рейсов
   private getDirectionFlight() {
     this.directionService.directionFlight()
-      .subscribe(directionFlights=>this.directionFlights=directionFlights as unknown as DirectionFlight[])
+      .subscribe(directionFlights=>this.directionFlights=directionFlights as DirectionFlight[])
   }
   //ТРЕБУЕМЫЕ УСЛИГИ
   private getIncoterms(kind_id: string) {
     this.requestService.requestIncoterms({kind_id})
-      .subscribe(incoterms=>this.incoterms=incoterms as unknown as Incoterms[])
+      .subscribe(incoterms=>this.incoterms=incoterms as Incoterms[])
   }
 
   private getRequestServices(kind_id:string) {
     this.requestService.requestServices({kind_id})
-      .subscribe(services=>this.services=services as unknown as RequestServices[]);
+      .subscribe(services=>this.services=services as RequestServices[]);
     this.requestService.requestServicesAdditional({kind_id})
-    .subscribe(servicesAdditionals=>this.servicesAdditionals=servicesAdditionals as unknown as RequestServices[]);
+    .subscribe(servicesAdditionals=>this.servicesAdditionals=servicesAdditionals as RequestServices[]);
 
+  }
+
+  private getRequest():void{
+    const id = Number(this.route.snapshot.paramMap.get('id'));
+    this.requestService.requestInfo({id})
+      .pipe(tap(request => {
+        // currently, when contactor doesn't exist the service returns HTTP 200 with empty response body instead of HTTP 404
+        // therefore we have to handle that case manually
+        if (!request) {
+          throw ({ error: { error_message: `подрядчик не существует` } });
+        }
+      }))
+      .subscribe({
+        next: request => {
+          this.request = request as unknown as Request;
+          const cargoPlacesControl = this.places;
+          // this.request.cargo_places?.forEach(place => place.request_id = request.id);
+          this.request.cargo_places?.forEach(place => cargoPlacesControl.push(this.fb.control(place)));
+          this.requestForm.patchValue(this.request);
+
+          this.nameForHeader = request.transport_kind_id;
+        },
+        error: (err: any) => {
+          this.snackBar.open(`Подрядчик не найден: ` + err.error.error_message, undefined, this.snackBarWithShortDuration);
+          this.goBack();
+        }
+      });
   }
 
 }
