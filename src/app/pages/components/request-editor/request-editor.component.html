@@ -16,7 +16,7 @@
               [matAutocomplete]="auto"
               (keyup)="getContractorsByName($event)" placeholder="—">
             <mat-autocomplete #auto="matAutocomplete" [displayWith]="displayFn" >
-              <mat-option *ngFor="let contractor of contractors;" [value]="contractor">{{ contractor.name }}</mat-option>
+              <mat-option *ngFor="let contractor of contractors;" [value]="contractor.id">{{ contractor.name }}</mat-option>
             </mat-autocomplete>
           </div>
 

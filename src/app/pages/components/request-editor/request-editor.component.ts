@@ -2,7 +2,7 @@ import { emailValidator, innValidator } from './../../../validators/pattern-vali
 import { Component, OnDestroy, OnInit, ViewChild, ViewEncapsulation } from '@angular/core';
 import { FormArray, FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
-import { Observable, Subject, map, takeUntil, tap } from 'rxjs';
+import { Observable, Subject, find, map, takeUntil, tap } from 'rxjs';
 import { ContractorService } from './../../../api/services/contractor.service';
 import { City, Client, ClientGroup, Contractor, ContractorRequestFormat, Country, Currency, Employee, FileDocument, TaxSystem } from 'src/app/api/custom_models';
 import { CargoService, CompanyService, CustomerService, DirectionService, RequestService, SystemService, TransportService } from 'src/app/api/services';
@@ -154,23 +154,17 @@ export class RequestEditorComponent implements OnInit, OnDestroy {
 
   }
   // Публичные методы:
-  displayFn(user:Contractor): string {
-
-    // let currentContractor: Contractor = this.allContractors.find(i=>i.id===userId);
-
-    // return userId ? currentContractor.name  : '';
-
-
-    return user && user.name ? user.name : '';
-
+  displayFn = (id:number): string => {
+    const name = this.contractors?.find(contractor=>contractor.id === id)?.name;
+    return name as string;
   }
   //сохранение данных
   save(): void {
     console.log('Нажата кнопка сохранить')
 
     const body = this.requestForm.value;
-    //это собственно костыль, что бы в поле контрагент_id лежал именно id,а не весь обьект
-    body.contractor_id = body.contractor_id.id;
+    // //это собственно костыль, что бы в поле контрагент_id лежал именно id,а не весь обьект
+    // body.contractor_id = body.contractor_id.id;
 
     console.log(body)
   }
@@ -220,7 +214,7 @@ export class RequestEditorComponent implements OnInit, OnDestroy {
   }
   // Приватные методы:
   // Получаем списки
-  //котрагентов (подрядчиков)
+  // котрагентов (подрядчиков)
   // private getContractors() {
   //   this.contractorService.contractorList()
   //     .pipe(
