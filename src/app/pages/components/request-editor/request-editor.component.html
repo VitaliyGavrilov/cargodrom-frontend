@@ -90,9 +90,119 @@
     </div>
 
     <!-- Блок ОПИСАНИЕ ГРУЗА меняется в зависимости от вида запроса -->
-    <div formArrayName="cargos_places">
-      <app-cargo-editor  [currentRequestFormat]="currentRequestFormat" [parentForm]="requestForm"></app-cargo-editor>
+    <div class="form-block-title">Описание груза</div>
+    <div class="form-block">
+      <div class="form-row">
+      <div class="form-item-layout">
+
+        <div class="form-item">
+          <div class="form-label">Наименование груза: <span class="req">•</span></div>
+          <div class="form-data"><input type="text" name="cargo_description" formControlName="cargo_description" placeholder="—"></div>
+        </div>
+
+        <div class="form-item" *ngIf="currentRequestFormat===1">
+          <div class="form-label">Вид упаковки: <span class="req">•</span></div>
+          <div class="form-data">
+            <mat-form-field appearance="outline" class="ui-select">
+              <mat-select formControlName="cargo_package_id">
+                <mat-option *ngFor="let cargoPackage of cargoPackages;" [value]="cargoPackage.id">{{ cargoPackage.name }}</mat-option>
+              </mat-select>
+            </mat-form-field>
+          </div>
+        </div>
+
+        <div class="form-item" *ngIf="currentRequestFormat===2">
+          <div class="form-label">Тип груза: <span class="req">•</span></div>
+          <div class="form-data">
+            <mat-form-field appearance="outline" class="ui-select">
+              <mat-select formControlName="cargo_type_id">
+                <mat-option *ngFor="let cargoType of cargoTypes;" [value]="cargoType.id">{{ cargoType.name }}</mat-option>
+              </mat-select>
+            </mat-form-field>
+          </div>
+        </div>
+
+      </div>
     </div>
+
+    <div class="form-row" *ngIf="currentRequestFormat===2">
+      <div class="form-item-layout">
+        <mat-checkbox >Нужен температурный режим </mat-checkbox>
+      </div>
+    </div>
+
+    <div class="form-row" *ngIf="currentRequestFormat===2">
+      <div class="form-item-layout">
+        <mat-checkbox formControlName="cargo_danger">Наличие батареек, элементов питания или жидкостей (Необходимо наличие паспорта безопасности) </mat-checkbox>
+      </div>
+    </div>
+
+    <div class="form-row">
+      <div class="form-item-layout">
+        <mat-checkbox >Ввести габариты и вес мест раздельно </mat-checkbox>
+      </div>
+    </div>
+
+    <div class="form-row bg showhide indicative">
+      <div class="form-item-layout">
+
+        <div class="form-item">
+          <div class="form-label">Итого мест, шт:</div>
+          <div class="form-data">
+            <input type="text" name="cargo_places_count" formControlName="cargo_places_count">
+          </div>
+        </div>
+
+        <div class="form-item">
+          <div class="form-label">Итого вес, кг:</div>
+          <div class="form-data">
+            <input type="text" name="cargo_places_weight" formControlName="cargo_places_weight">
+          </div>
+        </div>
+
+        <div class="form-item">
+          <div class="form-label">Итого Объем, м<sup>3</sup>:</div>
+          <div class="form-data">
+            <input type="text" name="cargo_places_volume" formControlName="cargo_places_volume">
+          </div>
+        </div>
+
+        <div class="form-item ">
+          <div class="form-label">оплачиваемый вес:</div>
+          <div class="form-data" >
+            <input type="text" name="cargo_places_paid_weight" formControlName="cargo_places_paid_weight">
+          </div>
+        </div>
+
+        <div class="form-item ">
+          <div class="form-label">плотность, кг/м<sup>3</sup>:</div>
+          <div class="form-data">
+            <input type="text" name="cargo_places_density" formControlName="cargo_places_density"  readonly value="{{requestForm.value.cargo_places_weight/requestForm.value.cargo_places_volume}}">
+          </div>
+        </div>
+
+        <div class="form-item">
+          <div class="form-label">стоимость груза:</div>
+          <div class="form-data">
+            <input type="text" name="cargo_cost" formControlName="cargo_cost">
+          </div>
+        </div>
+
+        <div class="form-item">
+          <div class="form-label">Валюта: <span class="req">•</span></div>
+          <div class="form-data">
+            <mat-form-field appearance="outline" class="ui-select">
+              <mat-select formControlName="cargo_currency_id">
+                <mat-option *ngFor="let currency of currencys;" [value]="currency.id">{{ currency.name }}</mat-option>
+             </mat-select>
+           </mat-form-field>
+          </div>
+        </div>
+
+      </div>
+    </div>
+    </div>
+
 
 
     <div class="form-block-title">Направления</div>
@@ -274,6 +384,16 @@
           </div>
         </div>
 
+      </div>
+    </div>
+
+    <div class="hdr ftr">
+      <div class="title">
+      </div>
+      <div class="fn">
+        <button class="btn v save" (click)="save()"><span>сохранить</span></button>
+        <button class="btn v del" *ngIf="isEditMode" (click)="remove()"><span>Удалить</span></button>
+        <button class="btn v cancel" (click)="goBack()"><span>отмена</span></button>
       </div>
     </div>
 

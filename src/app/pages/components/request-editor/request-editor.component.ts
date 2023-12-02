@@ -93,16 +93,19 @@ export class RequestEditorComponent implements OnInit, OnDestroy {
       transportation_format_id: ['avia', [Validators.required]],
       transport_format_id: ['', [Validators.required]],
       //ОПИСАНИЕ ГРУЗА
-      // cargo_description: ['', [Validators.required]],
-      // cargo_package_id: ['', [Validators.required]],
+      cargo_description: ['', [Validators.required]],
+      cargo_package_id: ['', [Validators.required]],
+      cargo_type_id: ['', [Validators.required]],
 
-      // cargo_places_count: ['', [Validators.required]],//итого мест
-      // cargo_places_weight: ['', [Validators.required]],//итого вес
-      // cargo_places_volume: ['', [Validators.required]],//итого обьем
-      // cargo_places_paid_weight: ['', [Validators.required]],//оплач.вес
-      // cargo_places_density: ['', [Validators.required]],//плонтность
-      // cargo_cost: ['', [Validators.required]],//стоимость
-      // cargo_currency_id: ['', [Validators.required]],//id валюты
+      cargo_danger:[false,[]],
+
+      cargo_places_count: ['', [Validators.required]],//итого мест
+      cargo_places_weight: ['', [Validators.required]],//итого вес
+      cargo_places_volume: ['', [Validators.required]],//итого обьем
+      cargo_places_paid_weight: ['', [Validators.required]],//оплач.вес
+      cargo_places_density: ['', [Validators.required]],//плонтность
+      cargo_cost: ['', [Validators.required]],//стоимость
+      cargo_currency_id: ['', [Validators.required]],//id валюты
 
       cargos_places: fb.array([], [Validators.required]),//массив мест груза
       //НАПРАЛЕНИЕ
@@ -123,7 +126,6 @@ export class RequestEditorComponent implements OnInit, OnDestroy {
 
       request_services_id: [[], []],
       request_services_additional_id: [[], []],
-      test: [[], []],
 
     });
   }
@@ -150,6 +152,7 @@ export class RequestEditorComponent implements OnInit, OnDestroy {
     this.getDirectionFlight()
     this.getCountries()
     this.getCurrencys()
+    this.getСargoTypes()
 
   }
   // Публичные методы:
@@ -178,6 +181,8 @@ export class RequestEditorComponent implements OnInit, OnDestroy {
   //изменение поля вида запроса
   onRequestFormatsChange(id:number){
     this.currentRequestFormat = id;
+    this.requestForm.controls['cargo_package_id'].reset();
+    this.requestForm.controls['cargo_type_id'].reset();
   }
   //изменение поля вида перевозки
   onTransportationFormatsChange() {
@@ -248,6 +253,13 @@ export class RequestEditorComponent implements OnInit, OnDestroy {
     this.cargoService.cargoPackage()
       .pipe(
         tap((cargoPackages)=> this.cargoPackages = cargoPackages as CargoPackage[]),
+        takeUntil(this._destroy$)
+      ).subscribe();
+  }
+  private getСargoTypes() {
+    this.cargoService.cargoType()
+      .pipe(
+        tap((cargoType)=> this.cargoTypes = cargoType as CargoType[]),
         takeUntil(this._destroy$)
       ).subscribe();
   }
