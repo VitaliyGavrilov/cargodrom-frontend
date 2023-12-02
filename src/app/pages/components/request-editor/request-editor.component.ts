@@ -2,7 +2,7 @@ import { emailValidator, innValidator } from './../../../validators/pattern-vali
 import { Component, OnDestroy, OnInit, ViewChild, ViewEncapsulation } from '@angular/core';
 import { FormArray, FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
-import { Observable, Subject, find, map, takeUntil, tap } from 'rxjs';
+import { Observable, Subject, find, map, pipe, takeUntil, tap } from 'rxjs';
 import { ContractorService } from './../../../api/services/contractor.service';
 import { City, Client, ClientGroup, Contractor, ContractorRequestFormat, Country, Currency, Employee, FileDocument, TaxSystem } from 'src/app/api/custom_models';
 import { CargoService, CompanyService, CustomerService, DirectionService, RequestService, SystemService, TransportService } from 'src/app/api/services';
@@ -214,78 +214,114 @@ export class RequestEditorComponent implements OnInit, OnDestroy {
     this.getArrivalPoint(cityId,this.currentTransportationFormat);
   }
   // Приватные методы:
-  // Получаем списки
-  // котрагентов (подрядчиков)
-  // private getContractors() {
-  //   this.contractorService.contractorList()
-  //     .pipe(
-  //       tap((contractors) => this.allContractors = contractors.items as unknown as Contractor[]),
-  //       takeUntil(this._destroy$)
-  //     ).subscribe()
-  // }
   //НАЧАЛО ФОРМЫ
   private getContractorsByName(string: string) {
     this.contractorService.contractorList({name:string})
-      .subscribe(contractors => this.contractors = contractors.items as unknown as Contractor[])
+      .pipe(
+        tap((contractors) => this.contractors = contractors.items as unknown as Contractor[]),
+        takeUntil(this._destroy$)
+      ).subscribe();
   }
   private getRequestFormats() {
     this.requestService.requestType()
-      .subscribe(requestFormats => this.requestFormats = requestFormats as  RequestFormat[])
+      .pipe(
+        tap((requestFormats) => this.requestFormats = requestFormats as RequestFormat[]),
+        takeUntil(this._destroy$)
+      ).subscribe();
   }
   private getTransportationFormats() {
     this.transportService.transportKind()
-      .subscribe(transportationFormats => this.transportationFormats = transportationFormats as TransportKind[])
+      .pipe(
+        tap((transportationFormats) => this.transportationFormats = transportationFormats as TransportKind[]),
+        takeUntil(this._destroy$)
+      ).subscribe();
   }
   private getTransportFormats(id:string) {
-    this.transportService.transportType({kind_id:id,})
-      .subscribe(transportFormats => this.transportFormats = transportFormats as TransportType[])
+    this.transportService.transportType({kind_id:id})
+      .pipe(
+        tap((transportFormats) => this.transportFormats = transportFormats as TransportType[]),
+        takeUntil(this._destroy$)
+      ).subscribe();
   }
   //ОПИСАНИЕ ГРУЗА
   private getСargoPackages() {
     this.cargoService.cargoPackage()
-      .subscribe(cargoPackages => this.cargoPackages = cargoPackages as CargoPackage[])
+      .pipe(
+        tap((cargoPackages)=> this.cargoPackages = cargoPackages as CargoPackage[]),
+        takeUntil(this._destroy$)
+      ).subscribe();
   }
   private getCurrencys() {
     this.systemService.systemCurrency()
-      .subscribe(currencys=> this.currencys = currencys as Currency[])
+      .pipe(
+        tap((currencys)=> this.currencys = currencys as Currency[]),
+        takeUntil(this._destroy$)
+      ).subscribe();
   }
-  //НАПРАВЛЕНИЕ
+  //НАПРАВЛЕНИЯ
   private getCountries() {
     this.countryService.getCountries()
-      .subscribe(countrys => this.countrys = countrys);
+      .pipe(
+        tap((countrys) => this.countrys = countrys),
+        takeUntil(this._destroy$)
+      ).subscribe();
   }
   private getArrivalCities(countryId: number) {
     this.cityService.getCities(countryId)
-      .subscribe(arrivalCitys => this.arrivalCitys = arrivalCitys);
+      .pipe(
+        tap((arrivalCitys) => this.arrivalCitys = arrivalCitys),
+        takeUntil(this._destroy$)
+      ).subscribe();
   }
   private getDepartureCities(countryId: number) {
     this.cityService.getCities(countryId)
-      .subscribe(departureCitys => this.departureCitys = departureCitys);
+      .pipe(
+        tap((departureCitys) => this.departureCitys = departureCitys),
+        takeUntil(this._destroy$)
+      ).subscribe();
   }
   private getDeparturePoint(city_id: number, transport_kind_id: string) {
-    this.directionService.directionPoint({city_id,transport_kind_id})
-      .subscribe(departurePoint => this.departurePoint=departurePoint as DirectionPoint[])
+    this.directionService.directionPoint({city_id, transport_kind_id})
+      .pipe(
+        tap((departurePoint) => this.departurePoint=departurePoint as DirectionPoint[]),
+        takeUntil(this._destroy$)
+      ).subscribe();
   }
   private getArrivalPoint(city_id: number, transport_kind_id: string) {
-    this.directionService.directionPoint({city_id,transport_kind_id})
-      .subscribe(arrivalPoint => this.arrivalPoint=arrivalPoint as DirectionPoint[])
+    this.directionService.directionPoint({city_id, transport_kind_id})
+      .pipe(
+        tap(arrivalPoint => this.arrivalPoint=arrivalPoint as DirectionPoint[]),
+        takeUntil(this._destroy$)
+      ).subscribe();
   }
   private getDirectionFlight() {
     this.directionService.directionFlight()
-      .subscribe(directionFlights=>this.directionFlights=directionFlights as DirectionFlight[])
+      .pipe(
+        tap((directionFlights)=>this.directionFlights=directionFlights as DirectionFlight[]),
+        takeUntil(this._destroy$)
+      ).subscribe();
   }
   //ТРЕБУЕМЫЕ УСЛИГИ
   private getIncoterms(kind_id: string) {
     this.requestService.requestIncoterms({kind_id})
-      .subscribe(incoterms=>this.incoterms=incoterms as Incoterms[])
+      .pipe(
+        tap((incoterms)=>this.incoterms=incoterms as Incoterms[]),
+        takeUntil(this._destroy$)
+      ).subscribe();
   }
   private getRequestServices(kind_id:string) {
     this.requestService.requestServices({kind_id})
-      .subscribe(services=>this.services=services as RequestServices[]);
+      .pipe(
+        tap((services)=>this.services=services as RequestServices[]),
+        takeUntil(this._destroy$)
+      ).subscribe();
     this.requestService.requestServicesAdditional({kind_id})
-      .subscribe(servicesAdditionals=>this.servicesAdditionals=servicesAdditionals as RequestServices[]);
+      .pipe(
+        tap((servicesAdditionals)=>this.servicesAdditionals=servicesAdditionals as RequestServices[]),
+        takeUntil(this._destroy$)
+      ).subscribe();
   }
-
+  //Редактирование запроса
   private getRequest():void{
     const id = Number(this.route.snapshot.paramMap.get('id'));
     this.requestService.requestInfo({id})
