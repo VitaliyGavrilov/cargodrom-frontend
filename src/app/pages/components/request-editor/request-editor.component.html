@@ -195,7 +195,18 @@
         </div>
       </div>
       <!-- РЕЙСЫ -->
-      <div class="form-row">
+      <div class="form-row sep">
+        Рейсы: <span class="req">•</span>
+        <label *ngFor="let directionFlight of directionFlights">
+          <input type="radio" formControlName="direction_flight" [value]="directionFlight.id">
+          <i></i>
+          <span>{{ directionFlight.name }}</span>
+        </label>
+        <mat-error *ngIf="requestForm.controls['direction_flight'].hasError('required')&& (requestForm.dirty || requestForm.touched)">
+          Это поле обязательно
+        </mat-error>
+      </div>
+      <!-- <div class="form-row">
         <div class="form-item-layout">
           <div class="form-item">
             <div class="form-label">Рейсы: <span class="req">•</span></div>
@@ -211,7 +222,7 @@
             </div>
           </div>
         </div>
-      </div>
+      </div> -->
     </div>
 
     <div class="form-block-title">Требуемые услуги</div>
