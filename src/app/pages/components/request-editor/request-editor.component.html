@@ -97,7 +97,13 @@
 
         <div class="form-item">
           <div class="form-label">Наименование груза: <span class="req">•</span></div>
-          <div class="form-data"><input type="text" name="cargo_description" formControlName="cargo_description" placeholder="—"></div>
+          <div class="form-data">
+            <input type="text"
+              name="cargo_description"
+              formControlName="cargo_description"
+              placeholder="—"
+            >
+          </div>
         </div>
 
         <div class="form-item" *ngIf="currentRequestFormat===1">
@@ -127,7 +133,21 @@
 
     <div class="form-row" *ngIf="currentRequestFormat===2">
       <div class="form-item-layout">
-        <mat-checkbox >Нужен температурный режим </mat-checkbox>
+
+        <mat-checkbox (change)="toggleTempMode()" formControlName="cargo_temp_control">Нужен температурный режим?</mat-checkbox>
+
+        <div class="form-item" *ngIf="isTempMode">
+          <div class="form-data">
+            <input type="text" name="cargo_temp_min" formControlName="cargo_temp_min">
+          </div>
+        </div>
+
+        <div class="form-item" *ngIf="isTempMode">
+          <div class="form-data">
+            <input type="text" name="cargo_temp_max" formControlName="cargo_temp_max">
+          </div>
+        </div>
+
       </div>
     </div>
 
@@ -139,7 +159,7 @@
 
     <div class="form-row">
       <div class="form-item-layout">
-        <mat-checkbox >Ввести габариты и вес мест раздельно </mat-checkbox>
+        <mat-checkbox formControlName="cargo_separately">Ввести габариты и вес мест раздельно </mat-checkbox>
       </div>
     </div>
 
@@ -196,6 +216,20 @@
                 <mat-option *ngFor="let currency of currencys;" [value]="currency.id">{{ currency.name }}</mat-option>
              </mat-select>
            </mat-form-field>
+          </div>
+        </div>
+
+      </div>
+      <div class="form-item-layout">
+
+        <div class="form-item" *ngIf="currentRequestFormat===2">
+          <div class="form-label">Вид упаковки: <span class="req">•</span></div>
+          <div class="form-data">
+            <mat-form-field appearance="outline" class="ui-select">
+              <mat-select formControlName="cargo_package_id">
+                <mat-option *ngFor="let cargoPackage of cargoPackages;" [value]="cargoPackage.id">{{ cargoPackage.name }}</mat-option>
+              </mat-select>
+            </mat-form-field>
           </div>
         </div>
 

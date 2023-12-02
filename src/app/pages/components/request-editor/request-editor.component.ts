@@ -35,12 +35,13 @@ export class RequestEditorComponent implements OnInit, OnDestroy {
   request: Partial<Request> = {};
   //состояния
   isEditMode: boolean = false;
+  isTempMode: boolean = false;
   //форма
   requestForm: FormGroup;
 
   contractors: Contractor[] = [];
   requestFormats: RequestFormat[] = [];
-  currentRequestFormat:number = 1; //переменная для зранения текущего типа запроса
+  currentRequestFormat:number = 2; //переменная для зранения текущего типа запроса
   transportationFormats: TransportKind[] = [];
   currentTransportationFormat:string=''; //переменная для хранения текущего вида перевозки
   transportFormats: TransportType[] = [];
@@ -89,7 +90,7 @@ export class RequestEditorComponent implements OnInit, OnDestroy {
     this.requestForm = this.fb.group({
       //ОСНОВА
       contractor_id: ['', [Validators.required]],
-      request_format_id: ['', [Validators.required]],
+      request_format_id: ['2', [Validators.required]],
       transportation_format_id: ['avia', [Validators.required]],
       transport_format_id: ['', [Validators.required]],
       //ОПИСАНИЕ ГРУЗА
@@ -97,7 +98,11 @@ export class RequestEditorComponent implements OnInit, OnDestroy {
       cargo_package_id: ['', [Validators.required]],
       cargo_type_id: ['', [Validators.required]],
 
-      cargo_danger:[false,[]],
+      cargo_danger: [false,[Validators.required]],
+      cargo_temp_control: [false,[Validators.required]],
+      cargo_temp_min: ['', [Validators.required]],//сказать владимру что лучше двумя полями
+      cargo_temp_max: ['', [Validators.required]],//отправлять данные для создания,потому что будут сложности при редакторовании
+      cargo_separately: [false,[Validators.required]],
 
       cargo_places_count: ['', [Validators.required]],//итого мест
       cargo_places_weight: ['', [Validators.required]],//итого вес
@@ -175,14 +180,26 @@ export class RequestEditorComponent implements OnInit, OnDestroy {
   }
   //ИЗМЕНЕНИЯ ПОЛЕЙ
   //
+  toggleTempMode(){
+    this.isTempMode=!this.isTempMode;
+  }
+  //
   onContracorChange(e:any){
     this.getContractorsByName(e.target.value);
   }
   //изменение поля вида запроса
   onRequestFormatsChange(id:number){
     this.currentRequestFormat = id;
+    //оч много ресетов, для создания запроса норм, а как они будут себя вести при редактировании?
     this.requestForm.controls['cargo_package_id'].reset();
     this.requestForm.controls['cargo_type_id'].reset();
+    this.requestForm.controls['cargo_places_count'].reset();
+    this.requestForm.controls['cargo_places_weight'].reset();
+    this.requestForm.controls['cargo_places_volume'].reset();
+    this.requestForm.controls['cargo_places_paid_weight'].reset();
+    this.requestForm.controls['cargo_places_density'].reset();
+    this.requestForm.controls['cargo_cost'].reset();
+    this.requestForm.controls['cargo_currency_id'].reset();
   }
   //изменение поля вида перевозки
   onTransportationFormatsChange() {
@@ -191,7 +208,8 @@ export class RequestEditorComponent implements OnInit, OnDestroy {
     this.requestForm.controls['departure_point_id'].reset();
     this.requestForm.controls['request_services_id'].reset();
     this.requestForm.controls['request_services_additional_id'].reset();
-    this.currentTransportationFormat=this.requestForm.value.transportation_format_id//запоминаем текущий вид перевозки
+    //запоминаем и используем текущий вид перевозки
+    this.currentTransportationFormat=this.requestForm.value.transportation_format_id;
     this.getTransportFormats(this.currentTransportationFormat);
     this.getIncoterms(this.currentTransportationFormat);
     this.getRequestServices(this.currentTransportationFormat);
