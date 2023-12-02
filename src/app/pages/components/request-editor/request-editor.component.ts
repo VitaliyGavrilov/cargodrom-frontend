@@ -136,7 +136,6 @@ export class RequestEditorComponent implements OnInit, OnDestroy {
     this._destroy$.next(null);
     this._destroy$.complete();
   }
-  //инициализация компонента
   ngOnInit(): void {
     const segments = this.route.snapshot.url.map(s => s.path);
     this.isEditMode = segments[1] !== 'add';
@@ -154,32 +153,33 @@ export class RequestEditorComponent implements OnInit, OnDestroy {
 
   }
   // Публичные методы:
-  displayFn = (id:number): string => {
-    const name = this.contractors?.find(contractor=>contractor.id === id)?.name;
-    return name as string;
-  }
-  //сохранение данных
+  //СОХРАНЕНИЕ,УДАЛЕНИЕ,ОТМЕНА,НАЗАД
   save(): void {
     console.log('Нажата кнопка сохранить')
-
     const body = this.requestForm.value;
-    // //это собственно костыль, что бы в поле контрагент_id лежал именно id,а не весь обьект
-    // body.contractor_id = body.contractor_id.id;
-
     console.log(body)
   }
-  //отмена данных
   remove():void {
     console.log('Нажата кнопка отмена')
   }
   goBack(): void {
     this.location.back();
   }
+  //ОТОБРАЖЕНИЕ ПОЛЕЙ
+  displayFnContractor = (id:number): string => {
+    const name = this.contractors?.find(contractor=>contractor.id === id)?.name;
+    return name as string;
+  }
+  //ИЗМЕНЕНИЯ ПОЛЕЙ
+  //
+  onContracorChange(e:any){
+    this.getContractorsByName(e.target.value);
+  }
+  //изменение поля вида запроса
   onRequestFormatsChange(id:number){
     this.currentRequestFormat = id;
-    console.log(id)
   }
-  //защита инпута видов транспорта, доступ только после заполнения инпута видов перевозки
+  //изменение поля вида перевозки
   onTransportationFormatsChange() {
     this.requestForm.controls['transport_format_id'].reset();
     this.requestForm.controls['incoterms_id'].reset();
@@ -190,24 +190,25 @@ export class RequestEditorComponent implements OnInit, OnDestroy {
     this.getTransportFormats(this.currentTransportationFormat);
     this.getIncoterms(this.currentTransportationFormat);
     this.getRequestServices(this.currentTransportationFormat);
-    // console.log(this.currentTransportationFormat);
   }
-  //защита инпута городов,доступ только после выбора страны
+  //изменение поля страны прибытия
   onArrivalCountryChange(countryId: number): void {
     this.requestForm.controls['arrival_city_id'].reset();
     this.requestForm.controls['arrival_point_id'].reset();
     this.getArrivalCities(countryId);
   }
+  //изменение поля страны отправления
   onDepartureCountryChange(countryId: number): void {
     this.requestForm.controls['departure_city_id'].reset();
     this.requestForm.controls['departure_point_id'].reset();
     this.getDepartureCities(countryId);
   }
-  //защита инпута точки,доступ толшько после выбора вида транспорта и города
+  //изменение поля города отправления
   onDepartureCityChange(cityId: number): void {
     this.requestForm.controls['departure_point_id'].reset();
     this.getDeparturePoint(cityId,this.currentTransportationFormat);
   }
+  //изменение поля города прибытия
   onArrivalCityChange(cityId: number): void {
     this.requestForm.controls['arrival_point_id'].reset();
     this.getArrivalPoint(cityId,this.currentTransportationFormat);
@@ -222,43 +223,37 @@ export class RequestEditorComponent implements OnInit, OnDestroy {
   //       takeUntil(this._destroy$)
   //     ).subscribe()
   // }
-  protected getContractorsByName(e: any) {
-    this.contractorService.contractorList({name:e.target.value})
+  //НАЧАЛО ФОРМЫ
+  private getContractorsByName(string: string) {
+    this.contractorService.contractorList({name:string})
       .subscribe(contractors => this.contractors = contractors.items as unknown as Contractor[])
   }
-  //видов запросов
   private getRequestFormats() {
     this.requestService.requestType()
       .subscribe(requestFormats => this.requestFormats = requestFormats as  RequestFormat[])
   }
-  //видов перевозки
   private getTransportationFormats() {
     this.transportService.transportKind()
       .subscribe(transportationFormats => this.transportationFormats = transportationFormats as TransportKind[])
   }
-  //видов транспорта, зависят от видов перевозки
   private getTransportFormats(id:string) {
     this.transportService.transportType({kind_id:id,})
       .subscribe(transportFormats => this.transportFormats = transportFormats as TransportType[])
   }
   //ОПИСАНИЕ ГРУЗА
-  //видов упаковки
   private getСargoPackages() {
     this.cargoService.cargoPackage()
       .subscribe(cargoPackages => this.cargoPackages = cargoPackages as CargoPackage[])
   }
-
   private getCurrencys() {
     this.systemService.systemCurrency()
       .subscribe(currencys=> this.currencys = currencys as Currency[])
   }
   //НАПРАВЛЕНИЕ
-  //стран
   private getCountries() {
     this.countryService.getCountries()
       .subscribe(countrys => this.countrys = countrys);
   }
-  //городов
   private getArrivalCities(countryId: number) {
     this.cityService.getCities(countryId)
       .subscribe(arrivalCitys => this.arrivalCitys = arrivalCitys);
@@ -267,7 +262,6 @@ export class RequestEditorComponent implements OnInit, OnDestroy {
     this.cityService.getCities(countryId)
       .subscribe(departureCitys => this.departureCitys = departureCitys);
   }
-  //точек
   private getDeparturePoint(city_id: number, transport_kind_id: string) {
     this.directionService.directionPoint({city_id,transport_kind_id})
       .subscribe(departurePoint => this.departurePoint=departurePoint as DirectionPoint[])
@@ -276,7 +270,6 @@ export class RequestEditorComponent implements OnInit, OnDestroy {
     this.directionService.directionPoint({city_id,transport_kind_id})
       .subscribe(arrivalPoint => this.arrivalPoint=arrivalPoint as DirectionPoint[])
   }
-  //рейсов
   private getDirectionFlight() {
     this.directionService.directionFlight()
       .subscribe(directionFlights=>this.directionFlights=directionFlights as DirectionFlight[])
@@ -286,13 +279,11 @@ export class RequestEditorComponent implements OnInit, OnDestroy {
     this.requestService.requestIncoterms({kind_id})
       .subscribe(incoterms=>this.incoterms=incoterms as Incoterms[])
   }
-
   private getRequestServices(kind_id:string) {
     this.requestService.requestServices({kind_id})
       .subscribe(services=>this.services=services as RequestServices[]);
     this.requestService.requestServicesAdditional({kind_id})
-    .subscribe(servicesAdditionals=>this.servicesAdditionals=servicesAdditionals as RequestServices[]);
-
+      .subscribe(servicesAdditionals=>this.servicesAdditionals=servicesAdditionals as RequestServices[]);
   }
 
   private getRequest():void{

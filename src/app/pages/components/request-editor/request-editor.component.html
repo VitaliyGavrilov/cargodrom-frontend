@@ -14,8 +14,8 @@
               name="contractor_id"
               formControlName="contractor_id"
               [matAutocomplete]="auto"
-              (keyup)="getContractorsByName($event)" placeholder="—">
-            <mat-autocomplete #auto="matAutocomplete" [displayWith]="displayFn" >
+              (keyup)="onContracorChange($event)" placeholder="—">
+            <mat-autocomplete #auto="matAutocomplete" [displayWith]="displayFnContractor" >
               <mat-option *ngFor="let contractor of contractors;" [value]="contractor.id">{{ contractor.name }}</mat-option>
             </mat-autocomplete>
           </div>
