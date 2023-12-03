@@ -35,7 +35,6 @@ export class RequestEditorComponent implements OnInit, OnDestroy {
   request: Partial<Request> = {};
   //состояния
   isEditMode: boolean = false;
-  isTempMode: boolean = false;
   //форма
   requestForm: FormGroup;
 
@@ -180,8 +179,9 @@ export class RequestEditorComponent implements OnInit, OnDestroy {
   }
   //ИЗМЕНЕНИЯ ПОЛЕЙ
   //
-  toggleTempMode(){
-    this.isTempMode=!this.isTempMode;
+  onTempModeChange(){
+    this.requestForm.controls['cargo_temp_min'].reset();
+    this.requestForm.controls['cargo_temp_max'].reset();
   }
   //
   onContracorChange(e:any){

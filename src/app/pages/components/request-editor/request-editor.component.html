@@ -134,15 +134,15 @@
     <div class="form-row" *ngIf="currentRequestFormat===2">
       <div class="form-item-layout">
 
-        <mat-checkbox (change)="toggleTempMode()" formControlName="cargo_temp_control">Нужен температурный режим?</mat-checkbox>
+        <mat-checkbox (change)="onTempModeChange()" formControlName="cargo_temp_control">Нужен температурный режим?</mat-checkbox>
 
-        <div class="form-item" *ngIf="isTempMode">
+        <div class="form-item" *ngIf="requestForm.value.cargo_temp_control">
           <div class="form-data">
             <input type="text" name="cargo_temp_min" formControlName="cargo_temp_min">
           </div>
         </div>
 
-        <div class="form-item" *ngIf="isTempMode">
+        <div class="form-item" *ngIf="requestForm.value.cargo_temp_control">
           <div class="form-data">
             <input type="text" name="cargo_temp_max" formControlName="cargo_temp_max">
           </div>
