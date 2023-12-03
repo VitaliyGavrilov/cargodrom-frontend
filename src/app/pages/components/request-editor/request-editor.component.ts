@@ -101,6 +101,7 @@ export class RequestEditorComponent implements OnInit, OnDestroy {
       cargo_temp_control: [false,[Validators.required]],
       cargo_temp_min: ['', [Validators.required]],//сказать владимру что лучше двумя полями
       cargo_temp_max: ['', [Validators.required]],//отправлять данные для создания,потому что будут сложности при редакторовании
+      
       cargo_separately: [false,[Validators.required]],
 
       cargo_places_count: ['', [Validators.required]],//итого мест

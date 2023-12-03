@@ -1,33 +1,47 @@
-<form class="form-block" [formGroup]="placeForm">
-  <div class="form-item-layout">
-    <div class="form-item">
-      <div class="form-label">ДЛИНА, СМ: <span class="req">•</span></div>
-      <div class="form-data"><input type="text" name="length" formControlName="length" placeholder="—" required></div>
-    </div>
-    <div class="form-item">
-      <div class="form-label">ШИРИНА, СМ:</div>
-      <div class="form-data"><input type="text"  name="width" formControlName="width" placeholder="—" required></div>
-    </div>
-    <div class="form-item">
-      <div class="form-label">ВЫСОТА, СМ:</div>
-      <div class="form-data"><input type="text"  name="height" formControlName="height" placeholder="—" required></div>
-    </div>
-    <div class="form-item">
-      <div class="form-label">ВЕС, КГ<span class="req">•</span></div>
-      <div class="form-data"><input type="text"  name="weight" formControlName="weight" placeholder="—" required></div>
-    </div>
-    <div class="form-item">
-      <div class="form-label">КОЛ-ВО, ШТ <span class="req">•</span></div>
-      <div class="form-data"><input type="text" name="count" formControlName="count" placeholder="—" required></div>
-    </div>
-    <div class="form-item">
-      <div class="form-label">ИТОГО ОБЪЕМ, М3 <span class="req">•</span></div>
-      <div class="form-data"><input type="text"  placeholder="—" required></div>
-    </div>
-    <div class="form-item">
-      <div class="form-label">ИТОГО ВЕС, КГ <span class="req">•</span></div>
-      <div class="form-data"><input type="text"  placeholder="—" required></div>
-    </div>
-  </div>
+<form [formGroup]="placeForm">
+  <div class="form-item-table selected">
 
+    <div class="form-item-table-row">
+      <div class="form-item">
+        <div class="form-label">ДЛИНА, СМ: <span class="req">•</span></div>
+        <div class="form-data"><input type="text" name="length" formControlName="length" placeholder="—" required></div>
+      </div>
+      <div class="form-item">
+        <div class="form-label">ШИРИНА, СМ:</div>
+        <div class="form-data"><input type="text"  name="width" formControlName="width" placeholder="—" required></div>
+      </div>
+      <div class="form-item">
+        <div class="form-label">ВЫСОТА, СМ:</div>
+        <div class="form-data"><input type="text"  name="height" formControlName="height" placeholder="—" required></div>
+      </div>
+      <div class="form-item">
+        <div class="form-label">ВЕС, КГ<span class="req">•</span></div>
+        <div class="form-data"><input type="text"  name="weight" formControlName="weight" placeholder="—" required></div>
+      </div>
+      <div class="form-item">
+        <div class="form-label">КОЛ-ВО, ШТ <span class="req">•</span></div>
+        <div class="form-data"><input type="text" name="count" formControlName="count" placeholder="—" required></div>
+      </div>
+      <div class="form-item">
+        <div class="form-label">ИТОГО ОБЪЕМ, М3 <span class="req">•</span></div>
+        <div class="form-data"><input type="text"  placeholder="—" required></div>
+      </div>
+      <div class="form-item">
+        <div class="form-label">ИТОГО ВЕС, КГ <span class="req">•</span></div>
+        <div class="form-data"><input type="text"  placeholder="—" required></div>
+      </div>
+    </div>
+
+  </div>
 </form>
+
+
+<!-- font-family: 'regular', 'arial', 'sans-serif';
+color: #606A74;
+outline: none;
+display: flex;
+gap: 24px;
+border-bottom: 1px solid #E0E5EB;
+padding: 15px 0;
+position: relative;
+border-top: 1px solid #E0E5EB; -->

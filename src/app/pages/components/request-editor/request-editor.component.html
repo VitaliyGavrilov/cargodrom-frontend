@@ -158,9 +158,17 @@
     </div>
 
     <div class="form-row">
+
       <div class="form-item-layout">
         <mat-checkbox formControlName="cargo_separately">Ввести габариты и вес мест раздельно </mat-checkbox>
       </div>
+
+      <div class="form-item-layout">
+        <div formArrayName="cargos_places">
+          <app-place-editor></app-place-editor>
+        </div>
+      </div>
+      
     </div>
 
     <div class="form-row bg showhide indicative">
