@@ -240,6 +240,9 @@ export class RequestEditorComponent implements OnInit, OnDestroy {
     this.requestForm.controls['cargo_places_density'].reset();
     this.requestForm.controls['cargo_cost'].reset();
     this.requestForm.controls['cargo_currency_id'].reset();
+    this.requestForm.controls['request_one'].reset();
+    this.requestForm.controls['request_two'].reset();
+    this.requestForm.controls['additional_information'].reset();
   }
   //изменение поля вида перевозки
   onTransportationFormatsChange() {
