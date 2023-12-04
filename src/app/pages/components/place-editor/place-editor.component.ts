@@ -1,14 +1,17 @@
 import { Country } from './../../../api/custom_models/country';
 import { Contact, responsibilityDirections } from './../../../api/custom_models';
 import { FormBuilder, FormGroup, Validators, ControlValueAccessor, NG_VALUE_ACCESSOR, AbstractControl, ValidationErrors, Validator, NG_VALIDATORS } from '@angular/forms';
-import { Component, Input, OnChanges, OnDestroy, OnInit, SimpleChanges } from '@angular/core';
+import { Component, EventEmitter, Input, OnChanges, OnDestroy, OnInit, Output, SimpleChanges } from '@angular/core';
 import { Subject } from 'rxjs';
-import { takeUntil } from 'rxjs/operators';
+import { takeUntil, tap } from 'rxjs/operators';
 import { unknownCountry } from 'src/app/constants';
+import { CargoPackage } from 'src/app/api/custom_models/cargo';
+import { CargoService } from 'src/app/api/services';
 
 @Component({
   selector: 'app-place-editor',
   templateUrl: './place-editor.component.html',
+  styleUrls: ['./place-editor.component.scss'],
   providers: [
     {
       provide: NG_VALUE_ACCESSOR,
@@ -25,16 +28,19 @@ import { unknownCountry } from 'src/app/constants';
 export class PlaceEditorComponent implements OnInit, OnDestroy, OnChanges, ControlValueAccessor, Validator {
 
   placeForm: FormGroup;
+  @Output() removePlace = new EventEmitter<void>();
 
 
   onChange = (value: Partial<Contact>) => { };
   onTouched = () => { };
-  destroy$ = new Subject<void>();
+  private _destroy$ = new Subject();
 
   private touched = false;
+  cargoPackages:CargoPackage[]=[]
 
   constructor(
     private fb: FormBuilder,
+    private cargoService:CargoService,
   ) {
     this.placeForm = this.fb.group({
       request_id:[''],
@@ -46,7 +52,12 @@ export class PlaceEditorComponent implements OnInit, OnDestroy, OnChanges, Contr
       height: ['', [Validators.required]],
       weight: ['', [Validators.required]],
       count: ['', [Validators.required]],
+      volume: ['', [Validators.required]],
+      total_weight: ['', [Validators.required]],
     });
+  }
+  onDeletePlace(): void {
+    this.removePlace.emit();
   }
 
   writeValue(contact: Partial<Contact>): void {
@@ -62,12 +73,13 @@ export class PlaceEditorComponent implements OnInit, OnDestroy, OnChanges, Contr
   }
 
   ngOnInit(): void {
+    this.getСargoPackages()
     this.placeForm.valueChanges
-      .pipe(takeUntil(this.destroy$))
+      .pipe(takeUntil(this._destroy$))
       .subscribe(value => this.onChange(value));
 
     this.placeForm.statusChanges
-      .pipe(takeUntil(this.destroy$))
+      .pipe(takeUntil(this._destroy$))
       .subscribe(() => {
         if (!this.touched) {
           this.onTouched();
@@ -77,8 +89,8 @@ export class PlaceEditorComponent implements OnInit, OnDestroy, OnChanges, Contr
   }
 
   ngOnDestroy(): void {
-    this.destroy$.next();
-    this.destroy$.complete();
+    this._destroy$.next(null);
+    this._destroy$.complete();
   }
 
   ngOnChanges(changes: SimpleChanges): void {
@@ -89,5 +101,12 @@ export class PlaceEditorComponent implements OnInit, OnDestroy, OnChanges, Contr
     return control.value && this.placeForm.valid ? null : { contact: true };
   }
 
+  private getСargoPackages() {
+    this.cargoService.cargoPackage()
+      .pipe(
+        tap((cargoPackages)=> this.cargoPackages = cargoPackages as CargoPackage[]),
+        takeUntil(this._destroy$)
+      ).subscribe();
+  }
 
 }

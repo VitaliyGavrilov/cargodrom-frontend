@@ -144,7 +144,7 @@
 
         <div class="form-item" *ngIf="requestForm.value.cargo_temp_control">
           <div class="form-data">
-            <input type="text" name="cargo_temp_max" formControlName="cargo_temp_max">
+            <input type="number" name="cargo_temp_max" formControlName="cargo_temp_max" >
           </div>
         </div>
 
@@ -160,15 +160,36 @@
     <div class="form-row">
 
       <div class="form-item-layout">
-        <mat-checkbox formControlName="cargo_separately">Ввести габариты и вес мест раздельно </mat-checkbox>
+        <mat-checkbox formControlName="cargo_separately" (change)="onPlaceModeChange()">Ввести габариты и вес мест раздельно </mat-checkbox>
       </div>
 
-      <div class="form-item-layout">
-        <div formArrayName="cargos_places">
-          <app-place-editor></app-place-editor>
+      <div formArrayName="cargos_places" *ngIf="requestForm.value.cargo_separately">
+
+        <div class="form-item-table-row">
+          №
+          вид упаковки
+          стакинг
+          ДЛИНА
+          ширина
+          ВЫСОТА
+          вес
+          количество
+          обьем
+          вес
+          удаление
         </div>
+
+        <div class="form-item-table-row" *ngFor="let place of places.controls; let i=index">
+          <div class="form-block-title">Место №{{i +1}}</div>
+          <app-place-editor [formControlName]="i" (removePlace)="removePlace(i)"></app-place-editor>
+        </div>
+        <!-- так то кнопку удаления можно сюда засунуть,лишний аутпут уберу, решу во время верстки где ее оставить -->
       </div>
-      
+
+      <div class="form-item-table-row" *ngIf="requestForm.value.cargo_separately">
+        <div class="form-block-title">Добавить место №{{places.length + 1}}<span class="btn v add" (click)=addPlace()>Добавить</span></div>
+      </div>
+
     </div>
 
     <div class="form-row bg showhide indicative">
@@ -230,13 +251,35 @@
       </div>
       <div class="form-item-layout">
 
-        <div class="form-item" *ngIf="currentRequestFormat===2">
+        <div class="form-item" *ngIf="currentRequestFormat===2 && !requestForm.value.cargo_separately">
           <div class="form-label">Вид упаковки: <span class="req">•</span></div>
           <div class="form-data">
             <mat-form-field appearance="outline" class="ui-select">
               <mat-select formControlName="cargo_package_id">
                 <mat-option *ngFor="let cargoPackage of cargoPackages;" [value]="cargoPackage.id">{{ cargoPackage.name }}</mat-option>
               </mat-select>
+            </mat-form-field>
+          </div>
+        </div>
+
+        <div class="form-item" *ngIf="currentRequestFormat===2 && !requestForm.value.cargo_separately">
+          <div class="form-label">стакинг<span class="req">•</span></div>
+          <div class="form-data">
+            <mat-form-field appearance="outline" class="ui-select">
+              <mat-select formControlName="cargo_staking">
+                <mat-option *ngFor="let staking of stakingArr;" [value]="staking.value">{{ staking.text }}</mat-option>
+              </mat-select>
+            </mat-form-field>
+          </div>
+        </div>
+
+        <div class="form-item" *ngIf="currentRequestFormat===2">
+          <div class="form-label">готовность<span class="req">•</span></div>
+          <div class="form-data">
+            <mat-form-field>
+              <mat-datepicker-toggle matIconSuffix [for]="picker"></mat-datepicker-toggle>
+              <input matInput [matDatepicker]="picker" formControlName="date">
+              <mat-datepicker #picker></mat-datepicker>
             </mat-form-field>
           </div>
         </div>
@@ -427,6 +470,34 @@
         </div>
 
       </div>
+
+      <div class="form-row bg showhide actual" *ngIf="currentRequestFormat===2">
+        <div class="form-item">
+          <div class="form-label">Дополнительная информация:</div>
+          <div class="form-data">
+            <textarea name="additional_information"  placeholder="—" formControlName="additional_information" style="height: 120px;"></textarea>
+          </div>
+        </div>
+      </div>
+
+    </div>
+
+    <div class="form-block-title" *ngIf="currentRequestFormat===2">Настройка рассылки запроса</div>
+    <div class="form-block">
+      <div class="form-row">
+        <div class="form-item-layout">
+
+          <div class="form-item">
+            <mat-checkbox formControlName="request_one">Размещать запрос по база Подрядчиков</mat-checkbox>
+          </div>
+
+          <div class="form-item">
+            <mat-checkbox formControlName="request_two">Разместить запрос на котировку сотруднику компании</mat-checkbox>
+          </div>
+
+        </div>
+      </div>
+
     </div>
 
     <div class="hdr ftr">

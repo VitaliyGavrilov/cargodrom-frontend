@@ -1,6 +1,6 @@
 import { emailValidator, innValidator } from './../../../validators/pattern-validator';
 import { Component, OnDestroy, OnInit, ViewChild, ViewEncapsulation } from '@angular/core';
-import { FormArray, FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { FormArray, FormBuilder, FormGroup, MinLengthValidator, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Observable, Subject, find, map, pipe, takeUntil, tap } from 'rxjs';
 import { ContractorService } from './../../../api/services/contractor.service';
@@ -25,8 +25,8 @@ import { environment } from './../../../../environments/environment';
   templateUrl: './request-editor.component.html',
   styleUrls: ['./request-editor.component.scss'],
   encapsulation: ViewEncapsulation.None,
-
 })
+
 export class RequestEditorComponent implements OnInit, OnDestroy {
   //ПЕРЕМЕННЫЕ
   //
@@ -69,6 +69,18 @@ export class RequestEditorComponent implements OnInit, OnDestroy {
   //
   production = environment.production;
 
+  stakingArr =[
+    {
+      value: true,
+      text: 'стакинг'
+      // url: типо путь до картинки будет тут, для селектора, должно сработать
+    },
+    {
+      value: false,
+      text: ' не стакинг'
+    }
+  ]
+
   //КОНСТРУКТОР
   constructor(
     private route: ActivatedRoute,
@@ -83,13 +95,11 @@ export class RequestEditorComponent implements OnInit, OnDestroy {
     private systemService: SystemService,
     private snackBar: MatSnackBar,
     private location: Location,
-
-
   ) {
     this.requestForm = this.fb.group({
       //ОСНОВА
       contractor_id: ['', [Validators.required]],
-      request_format_id: ['2', [Validators.required]],
+      request_format_id: ['1', [Validators.required]],
       transportation_format_id: ['avia', [Validators.required]],
       transport_format_id: ['', [Validators.required]],
       //ОПИСАНИЕ ГРУЗА
@@ -98,10 +108,12 @@ export class RequestEditorComponent implements OnInit, OnDestroy {
       cargo_type_id: ['', [Validators.required]],
 
       cargo_danger: [false,[Validators.required]],
+      //danger_file
+
       cargo_temp_control: [false,[Validators.required]],
       cargo_temp_min: ['', [Validators.required]],//сказать владимру что лучше двумя полями
       cargo_temp_max: ['', [Validators.required]],//отправлять данные для создания,потому что будут сложности при редакторовании
-      
+
       cargo_separately: [false,[Validators.required]],
 
       cargo_places_count: ['', [Validators.required]],//итого мест
@@ -112,7 +124,13 @@ export class RequestEditorComponent implements OnInit, OnDestroy {
       cargo_cost: ['', [Validators.required]],//стоимость
       cargo_currency_id: ['', [Validators.required]],//id валюты
 
+      cargo_staking: [true, [Validators.required]],
+
+      date: ['', [Validators.required]],
+
       cargos_places: fb.array([], [Validators.required]),//массив мест груза
+
+      //files
       //НАПРАЛЕНИЕ
       //откуда
       departure_city_id: ['', [Validators.required]],
@@ -132,11 +150,11 @@ export class RequestEditorComponent implements OnInit, OnDestroy {
       request_services_id: [[], []],
       request_services_additional_id: [[], []],
 
+      additional_information: ['', []],
+      //РАССЫЛКИ
+      request_one: [false, []],
+      request_two: [false, []],
     });
-  }
-
-  get places() {
-    return <FormArray>this.requestForm.get('cargos_places');
   }
   //МЕТОДЫ ЖЦ
   ngOnDestroy(): void {
@@ -149,29 +167,46 @@ export class RequestEditorComponent implements OnInit, OnDestroy {
     this.title = this.isEditMode ? 'Информация о запросе' : 'Добавление запроса';
     if (this.isEditMode) {
       this.getRequest();
-    }
-    // this.getContractors()
-    this.getRequestFormats()
-    this.getTransportationFormats()
-    this.getСargoPackages()
-    this.getDirectionFlight()
-    this.getCountries()
-    this.getCurrencys()
-    this.getСargoTypes()
-
+    };
+    this.getRequestFormats();
+    this.getTransportationFormats();
+    this.getСargoPackages();
+    this.getDirectionFlight();
+    this.getCountries();
+    this.getCurrencys();
+    this.getСargoTypes();
+    //что бы сразу два экзамляра формы было, как в макете =)
+    if(this.places.length === 0){
+      this.addPlace();
+      this.addPlace();
+    };
   }
   // Публичные методы:
   //СОХРАНЕНИЕ,УДАЛЕНИЕ,ОТМЕНА,НАЗАД
   save(): void {
     console.log('Нажата кнопка сохранить')
     const body = this.requestForm.value;
-    console.log(body)
+    console.log(body);
   }
   remove():void {
-    console.log('Нажата кнопка отмена')
+    console.log('Нажата кнопка отмена');
   }
   goBack(): void {
     this.location.back();
+  }
+  //ВЛОЖЕННАЯ ФОРМА РЕДАКТИРОВАНИ МЕСТ
+  removePlace(i: number): void {
+    this.places.removeAt(i);
+    this.requestForm.markAsTouched();
+  }
+  addPlace() {
+    this.places.push(this.fb.control({
+      request_id: this.request.id
+    }));
+    this.requestForm.markAsTouched();
+  }
+  get places() {
+    return <FormArray>this.requestForm.get('cargos_places');
   }
   //ОТОБРАЖЕНИЕ ПОЛЕЙ
   displayFnContractor = (id:number): string => {
@@ -179,12 +214,16 @@ export class RequestEditorComponent implements OnInit, OnDestroy {
     return name as string;
   }
   //ИЗМЕНЕНИЯ ПОЛЕЙ
-  //
+  //изменение поля режима отдельных мест
+  onPlaceModeChange(){
+    this.requestForm.controls['cargos_places'].reset();
+  }
+  //изменение поля режима температурного контроля
   onTempModeChange(){
     this.requestForm.controls['cargo_temp_min'].reset();
     this.requestForm.controls['cargo_temp_max'].reset();
   }
-  //
+  //изменение поля когтрактора
   onContracorChange(e:any){
     this.getContractorsByName(e.target.value);
   }
