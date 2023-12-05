@@ -29,6 +29,7 @@ import { environment } from './../../../../environments/environment';
 
 export class RequestEditorComponent implements OnInit, OnDestroy {
   //ПЕРЕМЕННЫЕ
+  id?: number;
   //
   title = ''
   nameForHeader?: string;
@@ -81,6 +82,9 @@ export class RequestEditorComponent implements OnInit, OnDestroy {
     }
   ]
 
+  documentsDanger: FileDocument[] = [];
+  documents: FileDocument[] = [];
+
   //КОНСТРУКТОР
   constructor(
     private route: ActivatedRoute,
@@ -131,6 +135,8 @@ export class RequestEditorComponent implements OnInit, OnDestroy {
       cargos_places: fb.array([], [Validators.required]),//массив мест груза
 
       //files
+      documents: ['', []],
+
       //НАПРАЛЕНИЕ
       //откуда
       departure_city_id: ['', [Validators.required]],
@@ -148,6 +154,7 @@ export class RequestEditorComponent implements OnInit, OnDestroy {
       incoterms_id: ['', [Validators.required]],
 
       request_services_id: [[], []],
+
       request_services_additional_id: [[], []],
 
       additional_information: ['', []],
@@ -180,6 +187,7 @@ export class RequestEditorComponent implements OnInit, OnDestroy {
       this.addPlace();
       this.addPlace();
     };
+    this.currentRequestFormat=this.requestForm.value.request_format_id;
   }
   // Публичные методы:
   //СОХРАНЕНИЕ,УДАЛЕНИЕ,ОТМЕНА,НАЗАД
@@ -208,12 +216,17 @@ export class RequestEditorComponent implements OnInit, OnDestroy {
   get places() {
     return <FormArray>this.requestForm.get('cargos_places');
   }
+
   //ОТОБРАЖЕНИЕ ПОЛЕЙ
   displayFnContractor = (id:number): string => {
     const name = this.contractors?.find(contractor=>contractor.id === id)?.name;
     return name as string;
   }
   //ИЗМЕНЕНИЯ ПОЛЕЙ
+  //документы
+  onDocumentsPathChange(newPath: string): void {
+    this.requestForm.patchValue({documents: newPath} as Partial<Request>);
+  }
   //изменение поля режима отдельных мест
   onPlaceModeChange(){
     this.requestForm.controls['cargos_places'].reset();
@@ -413,7 +426,7 @@ export class RequestEditorComponent implements OnInit, OnDestroy {
           this.request.cargo_places?.forEach(place => cargoPlacesControl.push(this.fb.control(place)));
           this.requestForm.patchValue(this.request);
 
-          this.nameForHeader = request.transport_kind_id;
+          // this.nameForHeader = ;
         },
         error: (err: any) => {
           this.snackBar.open(`Подрядчик не найден: ` + err.error.error_message, undefined, this.snackBarWithShortDuration);

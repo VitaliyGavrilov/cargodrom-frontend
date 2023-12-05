@@ -27,6 +27,7 @@ import { FilterModule } from '../filter/filter.module';
 import { ResponsibilityMatrixComponent } from './components/responsibility-matrix/responsibility-matrix.component';
 import { ResponsibilityRowComponent } from './components/responsibility-row/responsibility-row.component';
 import { PlaceEditorComponent } from './components/place-editor/place-editor.component';
+import { RequestServicesComponent } from './components/request-services-editor/request-services-editor.component';
 
 
 @NgModule({
@@ -53,7 +54,9 @@ import { PlaceEditorComponent } from './components/place-editor/place-editor.com
     FileListComponent,
     ResponsibilityMatrixComponent,
     ResponsibilityRowComponent,
-    PlaceEditorComponent
+    PlaceEditorComponent,
+    RequestServicesComponent,
+
   ],
   imports: [
     CommonModule,

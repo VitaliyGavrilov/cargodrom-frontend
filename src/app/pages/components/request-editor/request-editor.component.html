@@ -286,6 +286,9 @@
 
       </div>
     </div>
+    <div class="form-row">
+      <app-file-list [documents]="documents" component="customer" var="documents_file" [itemId]="id!" [documentsPath]="requestForm.value.documents" (onDocumentsPathChange)="onDocumentsPathChange($event)" #fileList></app-file-list>
+    </div>
     </div>
 
 
@@ -443,9 +446,9 @@
         </div>
       </div>
 
-      <div class="form-row">
-
+      <!-- <div class="form-row">
         <div class="form-item-layout">
+
           <div class="form-item">
             <div class="form-label">В ставку ДОЛЖНО быть включено: <span class="req">•</span></div>
             <div class="form-data">
@@ -467,8 +470,33 @@
              </mat-form-field>
             </div>
           </div>
-        </div>
 
+
+
+        </div>
+      </div> -->
+
+      <div class="form-row">
+        <div class="form-item-layout">
+
+          <div class="form-item">
+            <div class="form-label">В ставку ДОЛЖНО быть включено: <span class="req">•</span></div>
+            <div class="form-data">
+              <app-services-ediotor [services]="services" formControlName="request_services_id"></app-services-ediotor>
+
+            </div>
+          </div>
+
+          <div class="form-item">
+            <div class="form-label">Дополнительные услуги: <span class="req">•</span></div>
+            <div class="form-data">
+              <app-services-ediotor [services]="servicesAdditionals" formControlName="request_services_additional_id"></app-services-ediotor>
+            </div>
+          </div>
+
+
+
+        </div>
       </div>
 
       <div class="form-row bg showhide actual" *ngIf="currentRequestFormat===2">
@@ -483,7 +511,8 @@
     </div>
 
     <div class="form-block-title" *ngIf="currentRequestFormat===2">Настройка рассылки запроса</div>
-    <div class="form-block">
+    <div class="form-block" *ngIf="currentRequestFormat===2">
+
       <div class="form-row">
         <div class="form-item-layout">
 
