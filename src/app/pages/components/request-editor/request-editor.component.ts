@@ -29,47 +29,45 @@ import { environment } from './../../../../environments/environment';
 
 export class RequestEditorComponent implements OnInit, OnDestroy {
   //ПЕРЕМЕННЫЕ
-  id?: number;
+  id?: number;//id нужен будет для документов, при создании будет получать его в ответе, при редактировании будет сразу с остальными данными
   //
-  title = ''
+  title = '';
   nameForHeader?: string;
   request: Partial<Request> = {};
   //состояния
   isEditMode: boolean = false;
   //форма
   requestForm: FormGroup;
-
+  //массивы для приходящих данных полей формы
   contractors: Contractor[] = [];
   requestFormats: RequestFormat[] = [];
-  currentRequestFormat:number = 2; //переменная для зранения текущего типа запроса
   transportationFormats: TransportKind[] = [];
-  currentTransportationFormat:string=''; //переменная для хранения текущего вида перевозки
   transportFormats: TransportType[] = [];
-
   cargoPackages: CargoPackage[]=[];
   cargoTypes: CargoType[]=[];
-
   currencys: Currency[]=[];
-
   countrys: Country[]=[];
   departureCitys: City[]=[];
   departurePoint: DirectionPoint[] = [];
   arrivalCitys: City[]=[];
   arrivalPoint:DirectionPoint[] = [];
   directionFlights: DirectionFlight[]=[];
-
-  incoterms: Incoterms[]=[]
-
-  services: RequestServices[]=[]
-  servicesAdditionals: RequestServices[]=[]
-
+  incoterms: Incoterms[]=[];
+  services: RequestServices[]=[];
+  servicesAdditionals: RequestServices[]=[];
+  documentsDanger: FileDocument[] = [];
+  documents: FileDocument[] = [];
+  //текущие данные
+  currentRequestFormat:number=1; //переменная для зранения текущего типа запроса
+  currentTransportationFormat:string=''; //переменная для хранения текущего вида перевозки
+  //снек бар
   snackBarWithShortDuration: MatSnackBarConfig = { duration: 1000 };
   snackBarWithLongDuration: MatSnackBarConfig = { duration: 3000 };
   //отписки
-  private _destroy$ = new Subject()
-  //
+  private _destroy$ = new Subject();
+  //переменные окружения
   production = environment.production;
-
+  //статичные данные
   stakingArr =[
     {
       value: true,
@@ -80,11 +78,7 @@ export class RequestEditorComponent implements OnInit, OnDestroy {
       value: false,
       text: ' не стакинг'
     }
-  ]
-
-  documentsDanger: FileDocument[] = [];
-  documents: FileDocument[] = [];
-
+  ];
   //КОНСТРУКТОР
   constructor(
     private route: ActivatedRoute,
@@ -102,7 +96,7 @@ export class RequestEditorComponent implements OnInit, OnDestroy {
   ) {
     this.requestForm = this.fb.group({
       //ОСНОВА
-      contractor_id: ['', [Validators.required]],
+      customer_id: ['', [Validators.required]],
       request_format_id: ['1', [Validators.required]],
       transportation_format_id: ['avia', [Validators.required]],
       transport_format_id: ['', [Validators.required]],
@@ -110,13 +104,12 @@ export class RequestEditorComponent implements OnInit, OnDestroy {
       cargo_description: ['', [Validators.required]],
       cargo_package_id: ['', [Validators.required]],
       cargo_type_id: ['', [Validators.required]],
-
+      //наличе файла безопасности
       cargo_danger: [false,[Validators.required]],
-      //danger_file
-
-      cargo_temp_control: [false,[Validators.required]],
-      cargo_temp_min: ['', [Validators.required]],//сказать владимру что лучше двумя полями
-      cargo_temp_max: ['', [Validators.required]],//отправлять данные для создания,потому что будут сложности при редакторовании
+      //температура, при отправке будем передавать как обьект
+      cargo_temperature_control: [false,[Validators.required]],
+      cargo_temperature_min: ['', []],
+      cargo_temperature_max: ['', []],
 
       cargo_separately: [false,[Validators.required]],
 
@@ -131,12 +124,8 @@ export class RequestEditorComponent implements OnInit, OnDestroy {
       cargo_staking: [true, [Validators.required]],
 
       date: ['', [Validators.required]],
-
-      cargos_places: fb.array([], [Validators.required]),//массив мест груза
-
-      //files
-      documents: ['', []],
-
+      //массив мест груза
+      cargos_places: fb.array([], [Validators.required]),
       //НАПРАЛЕНИЕ
       //откуда
       departure_city_id: ['', [Validators.required]],
@@ -152,11 +141,8 @@ export class RequestEditorComponent implements OnInit, OnDestroy {
       direction_flight: ['', [Validators.required]],
       //УСЛУГИ
       incoterms_id: ['', [Validators.required]],
-
       request_services_id: [[], []],
-
       request_services_additional_id: [[], []],
-
       additional_information: ['', []],
       //РАССЫЛКИ
       request_one: [false, []],
@@ -187,7 +173,6 @@ export class RequestEditorComponent implements OnInit, OnDestroy {
       this.addPlace();
       this.addPlace();
     };
-    this.currentRequestFormat=this.requestForm.value.request_format_id;
   }
   // Публичные методы:
   //СОХРАНЕНИЕ,УДАЛЕНИЕ,ОТМЕНА,НАЗАД
@@ -216,25 +201,20 @@ export class RequestEditorComponent implements OnInit, OnDestroy {
   get places() {
     return <FormArray>this.requestForm.get('cargos_places');
   }
-
   //ОТОБРАЖЕНИЕ ПОЛЕЙ
   displayFnContractor = (id:number): string => {
     const name = this.contractors?.find(contractor=>contractor.id === id)?.name;
     return name as string;
   }
   //ИЗМЕНЕНИЯ ПОЛЕЙ
-  //документы
-  onDocumentsPathChange(newPath: string): void {
-    this.requestForm.patchValue({documents: newPath} as Partial<Request>);
-  }
   //изменение поля режима отдельных мест
   onPlaceModeChange(){
     this.requestForm.controls['cargos_places'].reset();
   }
   //изменение поля режима температурного контроля
   onTempModeChange(){
-    this.requestForm.controls['cargo_temp_min'].reset();
-    this.requestForm.controls['cargo_temp_max'].reset();
+    this.requestForm.controls['cargo_temperature_min'].reset();
+    this.requestForm.controls['cargo_temperature_max'].reset();
   }
   //изменение поля когтрактора
   onContracorChange(e:any){
@@ -292,7 +272,7 @@ export class RequestEditorComponent implements OnInit, OnDestroy {
     this.requestForm.controls['arrival_point_id'].reset();
     this.getArrivalPoint(cityId,this.currentTransportationFormat);
   }
-  // Приватные методы:
+  // Приватные методы для полученния данных полей формы:
   //НАЧАЛО ФОРМЫ
   private getContractorsByName(string: string) {
     this.contractorService.contractorList({name:string})
@@ -407,7 +387,13 @@ export class RequestEditorComponent implements OnInit, OnDestroy {
         takeUntil(this._destroy$)
       ).subscribe();
   }
+  // Приватные методы для создания или редактирования запроса
   //Редактирование запроса
+  private updateRequest(){
+
+  }
+
+  //Получаем данные запроса для редактирования
   private getRequest():void{
     const id = Number(this.route.snapshot.paramMap.get('id'));
     this.requestService.requestInfo({id})
@@ -422,17 +408,19 @@ export class RequestEditorComponent implements OnInit, OnDestroy {
         next: request => {
           this.request = request as unknown as Request;
           const cargoPlacesControl = this.places;
-          // this.request.cargo_places?.forEach(place => place.request_id = request.id);
           this.request.cargo_places?.forEach(place => cargoPlacesControl.push(this.fb.control(place)));
           this.requestForm.patchValue(this.request);
-
-          // this.nameForHeader = ;
         },
         error: (err: any) => {
           this.snackBar.open(`Подрядчик не найден: ` + err.error.error_message, undefined, this.snackBarWithShortDuration);
           this.goBack();
         }
       });
+  }
+  //Создание запроса
+  private createRequest(){
+    //при успешном создании запроса, в ответ получаем id, используем его для добавления документов
+
   }
 
 }

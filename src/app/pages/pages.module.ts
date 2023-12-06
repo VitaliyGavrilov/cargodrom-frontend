@@ -28,6 +28,7 @@ import { ResponsibilityMatrixComponent } from './components/responsibility-matri
 import { ResponsibilityRowComponent } from './components/responsibility-row/responsibility-row.component';
 import { PlaceEditorComponent } from './components/place-editor/place-editor.component';
 import { RequestServicesComponent } from './components/request-services-editor/request-services-editor.component';
+import { RequestFileListComponent } from './components/request-file/request-file.component';
 
 
 @NgModule({
@@ -56,6 +57,7 @@ import { RequestServicesComponent } from './components/request-services-editor/r
     ResponsibilityRowComponent,
     PlaceEditorComponent,
     RequestServicesComponent,
+    RequestFileListComponent,
 
   ],
   imports: [
