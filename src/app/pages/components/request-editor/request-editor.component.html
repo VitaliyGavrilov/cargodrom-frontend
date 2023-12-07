@@ -25,10 +25,10 @@
             <div class="form-label">Вид запроса: <span class="req">•</span></div>
             <div class="form-data">
               <mat-form-field appearance="outline" class="ui-select">
-               <mat-select formControlName="request_format_id" (valueChange)="onRequestFormatsChange($event)">
+               <mat-select formControlName="request_type_id" (valueChange)="onRequestFormatsChange($event)">
                  <mat-option *ngFor="let requestFormat of requestFormats;" [value]="requestFormat.id">{{ requestFormat.name }}</mat-option>
                </mat-select>
-               <mat-error *ngIf="requestForm.controls['request_format_id'].hasError('required')">
+               <mat-error *ngIf="requestForm.controls['request_type_id'].hasError('required')">
                  Это поле обязательно
                </mat-error>
              </mat-form-field>
@@ -38,7 +38,7 @@
           <div class="form-item">
             <div class="form-label">Вид перевозки: <span class="req">•</span></div>
             <div class="form-data">
-                <mat-button-toggle-group class="form-item-layout a" name="transportation_format_id" formControlName="transportation_format_id" (valueChange)="onTransportationFormatsChange()">
+                <mat-button-toggle-group class="form-item-layout a" name="transport_kind_id" formControlName="transport_kind_id" (valueChange)="onTransportationFormatsChange()">
                   <mat-button-toggle value="avia">
                     <img src="../../../../assets/pic-service-air.svg">
                   </mat-button-toggle>
@@ -75,10 +75,10 @@
             <div class="form-label">Вид транспорта: <span class="req">•</span></div>
             <div class="form-data">
               <mat-form-field appearance="outline" class="ui-select">
-               <mat-select formControlName="transportation_format_id">
+               <mat-select formControlName="transport_type_id">
                  <mat-option *ngFor="let transportFormat of transportFormats;" [value]="transportFormat.id">{{ transportFormat.name }}</mat-option>
                </mat-select>
-               <mat-error *ngIf="requestForm.controls['transportation_format_id'].hasError('required')">
+               <mat-error *ngIf="requestForm.controls['transport_type_id'].hasError('required')">
                  Это поле обязательно
                </mat-error>
              </mat-form-field>
@@ -398,11 +398,11 @@
       <div class="form-row sep">
         Рейсы: <span class="req">•</span>
         <label *ngFor="let directionFlight of directionFlights">
-          <input type="radio" formControlName="direction_flight" [value]="directionFlight.id">
+          <input type="radio" formControlName="departure_flight" [value]="directionFlight.id">
           <i></i>
           <span>{{ directionFlight.name }}</span>
         </label>
-        <mat-error *ngIf="requestForm.controls['direction_flight'].hasError('required')&& (requestForm.dirty || requestForm.touched)">
+        <mat-error *ngIf="requestForm.controls['departure_flight'].hasError('required')&& (requestForm.dirty || requestForm.touched)">
           Это поле обязательно
         </mat-error>
       </div>
@@ -484,7 +484,7 @@
           <div class="form-item">
             <div class="form-label">В ставку ДОЛЖНО быть включено: <span class="req">•</span></div>
             <div class="form-data">
-              <app-services-ediotor [services]="services" formControlName="request_services_id"></app-services-ediotor>
+              <app-services-ediotor [services]="services" formControlName="services"></app-services-ediotor>
 
             </div>
           </div>
@@ -492,7 +492,7 @@
           <div class="form-item">
             <div class="form-label">Дополнительные услуги: <span class="req">•</span></div>
             <div class="form-data">
-              <app-services-ediotor [services]="servicesAdditionals" formControlName="request_services_additional_id"></app-services-ediotor>
+              <app-services-ediotor [services]="servicesAdditionals" formControlName="services_optional"></app-services-ediotor>
             </div>
           </div>
 
@@ -505,7 +505,7 @@
         <div class="form-item">
           <div class="form-label">Дополнительная информация:</div>
           <div class="form-data">
-            <textarea name="additional_information"  placeholder="—" formControlName="additional_information" style="height: 120px;"></textarea>
+            <textarea name="comment"  placeholder="—" formControlName="comment" style="height: 120px;"></textarea>
           </div>
         </div>
       </div>

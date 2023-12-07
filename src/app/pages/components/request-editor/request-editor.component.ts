@@ -95,56 +95,58 @@ export class RequestEditorComponent implements OnInit, OnDestroy {
     private location: Location,
   ) {
     this.requestForm = this.fb.group({
+      // + -это значит что в обькте который мы будем отправлять для создания или изменения запроса, есть такое жк поле, а минус будет означть что поле нашей формы не нужно или должно дыть преобразованно в другое поле
       //ОСНОВА
-      customer_id: ['', [Validators.required]],
-      request_format_id: ['1', [Validators.required]],
-      transportation_format_id: ['avia', [Validators.required]],
-      transport_format_id: ['', [Validators.required]],
+      customer_id: ['', [Validators.required]],// + (customer это клиент,должен быть контрактор)
+      request_type_id: ['1', [Validators.required]],// +
+      transport_kind_id: ['avia', [Validators.required]],// +
+      transport_type_id: ['', [Validators.required]],// +
       //ОПИСАНИЕ ГРУЗА
-      cargo_description: ['', [Validators.required]],
-      cargo_package_id: ['', [Validators.required]],
-      cargo_type_id: ['', [Validators.required]],
+      cargo_description: ['', [Validators.required]],// +
+      cargo_package_id: ['', [Validators.required]],// +
+      cargo_type_id: ['', [Validators.required]],// +
       //наличе файла безопасности
-      cargo_danger: [false,[Validators.required]],
-      //температура, при отправке будем передавать как обьект
-      cargo_temperature_control: [false,[Validators.required]],
-      cargo_temperature_min: ['', []],
-      cargo_temperature_max: ['', []],
+      cargo_danger: [false,[Validators.required]],// +
+      //температура, при отправке будем передавать как обьект cargo_temperature
+      cargo_temperature_control: [false,[Validators.required]],// -
+      cargo_temperature_min: ['', []],// -
+      cargo_temperature_max: ['', []],// -
+      //режим раздельных мест,для создания не нужен, чисто для меня пока что оставлю
+      cargo_separately: [false,[Validators.required]],// -
+      //общие габариты
+      cargo_places_count: ['', [Validators.required]],// + итого мест
+      cargo_places_weight: ['', [Validators.required]],// + итого вес
+      cargo_places_volume: ['', [Validators.required]],// + итого обьем
+      cargo_places_paid_weight: ['', [Validators.required]],// + оплач.вес
+      cargo_places_density: ['', [Validators.required]],// + плонтность
+      cargo_cost: ['', [Validators.required]],// + стоимость
+      cargo_currency_id: ['', [Validators.required]],// + id валюты
 
-      cargo_separately: [false,[Validators.required]],
+      cargo_staking: [true, [Validators.required]],// сейчас его в апи нету, но должен быть
 
-      cargo_places_count: ['', [Validators.required]],//итого мест
-      cargo_places_weight: ['', [Validators.required]],//итого вес
-      cargo_places_volume: ['', [Validators.required]],//итого обьем
-      cargo_places_paid_weight: ['', [Validators.required]],//оплач.вес
-      cargo_places_density: ['', [Validators.required]],//плонтность
-      cargo_cost: ['', [Validators.required]],//стоимость
-      cargo_currency_id: ['', [Validators.required]],//id валюты
-
-      cargo_staking: [true, [Validators.required]],
-
-      date: ['', [Validators.required]],
+      date: ['', [Validators.required]],// сейчас его в апи нету, но должен быть
       //массив мест груза
-      cargos_places: fb.array([], [Validators.required]),
+      cargos_places: fb.array([], [Validators.required]),//+
       //НАПРАЛЕНИЕ
       //откуда
-      departure_city_id: ['', [Validators.required]],
-      departure_country_id: ['', [Validators.required]],
-      departure_point_id: ['', [Validators.required]],
-      departure_address: ['', [Validators.required]],
+      departure_city_id: ['', [Validators.required]],//+
+      departure_country_id: ['', [Validators.required]],//+
+      departure_point_id: ['', [Validators.required]],//+
+      departure_address: ['', [Validators.required]],//+
       //куда
-      arrival_city_id: ['', [Validators.required]],
-      arrival_country_id: ['', [Validators.required]],
-      arrival_point_id: ['', [Validators.required]],
-      arrival_address: ['', [Validators.required]],
+      arrival_city_id: ['', [Validators.required]],//+
+      arrival_country_id: ['', [Validators.required]],//+
+      arrival_point_id: ['', [Validators.required]],//+
+      arrival_address: ['', [Validators.required]],//+
       //рейсы
-      direction_flight: ['', [Validators.required]],
+      departure_flight: ['', [Validators.required]],//+
       //УСЛУГИ
-      incoterms_id: ['', [Validators.required]],
-      request_services_id: [[], []],
-      request_services_additional_id: [[], []],
-      additional_information: ['', []],
+      incoterms_id: ['', [Validators.required]],//+
+      services: [[], []],//+
+      services_optional: [[], []],//+
+      comment: ['', []],//+
       //РАССЫЛКИ
+      //эти данные не нужны для создания и редактирования, но понадобятся потом
       request_one: [false, []],
       request_two: [false, []],
     });
@@ -179,6 +181,16 @@ export class RequestEditorComponent implements OnInit, OnDestroy {
   save(): void {
     console.log('Нажата кнопка сохранить')
     const body = this.requestForm.value;
+    //редактируем данные температуры
+    body.cargo_temperature = {
+      cargo_temperature_control: body.cargo_temperature_control,
+      cargo_temperature_min: body.cargo_temperature_min,
+      cargo_temperature_max: body.cargo_temperature_max
+    }
+    delete body.cargo_temperature_control;
+    delete body.cargo_temperature_min;
+    delete body.cargo_temperature_max;
+
     console.log(body);
   }
   remove():void {
@@ -235,17 +247,17 @@ export class RequestEditorComponent implements OnInit, OnDestroy {
     this.requestForm.controls['cargo_currency_id'].reset();
     this.requestForm.controls['request_one'].reset();
     this.requestForm.controls['request_two'].reset();
-    this.requestForm.controls['additional_information'].reset();
+    this.requestForm.controls['comment'].reset();
   }
   //изменение поля вида перевозки
   onTransportationFormatsChange() {
-    this.requestForm.controls['transport_format_id'].reset();
+    this.requestForm.controls['transport_type_id'].reset();
     this.requestForm.controls['incoterms_id'].reset();
     this.requestForm.controls['departure_point_id'].reset();
-    this.requestForm.controls['request_services_id'].reset();
-    this.requestForm.controls['request_services_additional_id'].reset();
+    this.requestForm.controls['services'].reset();
+    this.requestForm.controls['services_optional'].reset();
     //запоминаем и используем текущий вид перевозки
-    this.currentTransportationFormat=this.requestForm.value.transportation_format_id;
+    this.currentTransportationFormat=this.requestForm.value.transport_kind_id;
     this.getTransportFormats(this.currentTransportationFormat);
     this.getIncoterms(this.currentTransportationFormat);
     this.getRequestServices(this.currentTransportationFormat);
