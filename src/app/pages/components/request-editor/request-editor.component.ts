@@ -190,8 +190,22 @@ export class RequestEditorComponent implements OnInit, OnDestroy {
     delete body.cargo_temperature_control;
     delete body.cargo_temperature_min;
     delete body.cargo_temperature_max;
+    //редактируем данные груза
+    if(body.cargo_separately === true) {
+      //то скорее всего буду удалять поля с ИТОГО характеристиками и расчет будет на сервере, это еще предстоит обсудить
+    } else {// а если груз не раздельно, то удаляю массив мест
+      delete body.cargo_places;
+    }
+    delete body.cargo_type_id;
+    delete body.cargo_separately;
+
+
+
+
+
 
     console.log(body);
+    this.createRequest(body);
   }
   remove():void {
     console.log('Нажата кнопка отмена');
@@ -257,10 +271,11 @@ export class RequestEditorComponent implements OnInit, OnDestroy {
     this.requestForm.controls['services'].reset();
     this.requestForm.controls['services_optional'].reset();
     //запоминаем и используем текущий вид перевозки
-    this.currentTransportationFormat=this.requestForm.value.transport_kind_id;
+    this.currentTransportationFormat = this.requestForm.value.transport_kind_id;
     this.getTransportFormats(this.currentTransportationFormat);
     this.getIncoterms(this.currentTransportationFormat);
     this.getRequestServices(this.currentTransportationFormat);
+    this.getRequestServicesAdditional(this.currentTransportationFormat);
   }
   //изменение поля страны прибытия
   onArrivalCountryChange(countryId: number): void {
@@ -393,6 +408,8 @@ export class RequestEditorComponent implements OnInit, OnDestroy {
         tap((services)=>this.services=services as RequestServices[]),
         takeUntil(this._destroy$)
       ).subscribe();
+  }
+  private getRequestServicesAdditional(kind_id:string) {
     this.requestService.requestServicesAdditional({kind_id})
       .pipe(
         tap((servicesAdditionals)=>this.servicesAdditionals=servicesAdditionals as RequestServices[]),
@@ -430,9 +447,83 @@ export class RequestEditorComponent implements OnInit, OnDestroy {
       });
   }
   //Создание запроса
-  private createRequest(){
+  private createRequest(body:any){
     //при успешном создании запроса, в ответ получаем id, используем его для добавления документов
+    this.requestService.requestCreate({body}).pipe().subscribe({
+      next: () => {
+        this.snackBar.open(`Подрядчик создан`, undefined, this.snackBarWithShortDuration)
+      },
+      error: (err) => this.snackBar.open(`Ошибка создания подрядчика: ` + err.error.error_message, undefined, this.snackBarWithShortDuration)
+    });
 
   }
 
 }
+
+
+
+// Обязательные поля для создания запроса()
+//это типо скелет нашей формы,в будущем форма в таком виде не будет отправляться
+
+// ОСНОВНЫЕ
+//контрагент = customer_id: число
+//вид запроса = request_type_id: число
+//вид перевозки = transport_kind_id: строка
+//тип транспорта = transport_type_id: число
+
+//ОПИСАНИЕ ГРУЗА
+//наименнование груза = cargo_description: строка
+
+//НАПРАВЛЕНИЕ
+//город отправления = departure_city_id: число
+//страна отправления = departure_country_id: число
+//город назначения = arrival_city_id: число
+//страна назначения = arrival_country_id: число
+//рейсы = departure_flight: строка
+
+
+//дальше пойдет описане какждого режима формы и его полей
+
+//Режим №1 БАЗОВЫЙ
+//Признаки:
+//1. Вид запроса индикатив
+// request_type_id: 1
+//2.Габариты и места не раздельно
+// cargo_separately: false
+
+//Вариативность данного режима
+//1.Если выбрать видом перевозки авто(road), то будет не доступен весь блок Требуемых Услуг(так как бек ничего не возвращает для селкторов блока).
+//2.Если выбрать видом перевозки самолет(avia), то в блоке Направления появятся селекторы АЭРОПОРТ ВЫЛЕТА и АЭРОПОРТ ПРИБЫТИЯ.
+
+//Основные поля данного режима:
+
+//контрагент = customer_id: число
+//вид запроса = request_type_id: число
+//вид перевозки = transport_kind_id: строка
+//тип транспорта = transport_type_id: число
+
+//наименнование груза = cargo_description: строка
+//вид упаковки cargo_package_id: число
+
+//итого мест
+//итого вес
+//итого обьем
+//оплачиваемый вес
+//плотность
+//стоимость
+//вид валюты
+
+
+//город отправления = departure_city_id: число
+//страна отправления = departure_country_id: число
+//город назначения = arrival_city_id: число
+//страна назначения = arrival_country_id: число
+//рейсы = departure_flight: строка
+
+//ЗАВТРА ЗАКОНЧИТЬ!!!!!!!!!
+
+
+
+
+
+

@@ -94,7 +94,7 @@ export class RequestService extends BaseService {
 /**
  * Контрагент
  */
-'customer'?: string;
+'customer_name'?: string;
 
 /**
  * Вид запроса (ID берем из запроса - request_type)
@@ -129,7 +129,23 @@ export class RequestService extends BaseService {
 /**
  * Температурный режим
  */
-'cargo_temp_control'?: string;
+'cargo_temperature'?: {
+
+/**
+ * Температурный режим - признак
+ */
+'cargo_temperature_control'?: boolean;
+
+/**
+ * Температурный режим - минимальная температура
+ */
+'cargo_temperature_min'?: number;
+
+/**
+ * Температурный режим - максимальная температура
+ */
+'cargo_temperature_max'?: number;
+};
 
 /**
  * Наличие батареек, элементов питания или жидкостей
@@ -235,14 +251,29 @@ export class RequestService extends BaseService {
 'departure_city_id'?: number;
 
 /**
+ * Город отправления
+ */
+'departure_city_name'?: string;
+
+/**
  * Страна отправления (ID берем из запроса - direction_country)
  */
 'departure_country_id'?: number;
 
 /**
+ * Страна отправления
+ */
+'departure_country_name'?: string;
+
+/**
  * Аэропорт вылета (ID берем из запроса - direction_point)
  */
 'departure_point_id'?: number;
+
+/**
+ * Аэропорт вылета
+ */
+'departure_point_name'?: string;
 
 /**
  * Адрес забора груза
@@ -255,14 +286,29 @@ export class RequestService extends BaseService {
 'arrival_city_id'?: number;
 
 /**
+ * Город назначения
+ */
+'arrival_city_name'?: string;
+
+/**
  * Страна назначения (ID берем из запроса - direction_country)
  */
 'arrival_country_id'?: number;
 
 /**
+ * Страна назначения
+ */
+'arrival_country_name'?: string;
+
+/**
  * Аэропорт прибытия (ID берем из запроса - direction_point)
  */
 'arrival_point_id'?: number;
+
+/**
+ * Аэропорт прибытия
+ */
+'arrival_point_name'?: string;
 
 /**
  * Адрес доставки груза
@@ -379,7 +425,7 @@ export class RequestService extends BaseService {
         /**
          * Контрагент
          */
-        'customer'?: string;
+        'customer_name'?: string;
         
         /**
          * Вид запроса (ID берем из запроса - request_type)
@@ -414,7 +460,23 @@ export class RequestService extends BaseService {
         /**
          * Температурный режим
          */
-        'cargo_temp_control'?: string;
+        'cargo_temperature'?: {
+        
+        /**
+         * Температурный режим - признак
+         */
+        'cargo_temperature_control'?: boolean;
+        
+        /**
+         * Температурный режим - минимальная температура
+         */
+        'cargo_temperature_min'?: number;
+        
+        /**
+         * Температурный режим - максимальная температура
+         */
+        'cargo_temperature_max'?: number;
+        };
         
         /**
          * Наличие батареек, элементов питания или жидкостей
@@ -520,14 +582,29 @@ export class RequestService extends BaseService {
         'departure_city_id'?: number;
         
         /**
+         * Город отправления
+         */
+        'departure_city_name'?: string;
+        
+        /**
          * Страна отправления (ID берем из запроса - direction_country)
          */
         'departure_country_id'?: number;
         
         /**
+         * Страна отправления
+         */
+        'departure_country_name'?: string;
+        
+        /**
          * Аэропорт вылета (ID берем из запроса - direction_point)
          */
         'departure_point_id'?: number;
+        
+        /**
+         * Аэропорт вылета
+         */
+        'departure_point_name'?: string;
         
         /**
          * Адрес забора груза
@@ -540,14 +617,29 @@ export class RequestService extends BaseService {
         'arrival_city_id'?: number;
         
         /**
+         * Город назначения
+         */
+        'arrival_city_name'?: string;
+        
+        /**
          * Страна назначения (ID берем из запроса - direction_country)
          */
         'arrival_country_id'?: number;
         
         /**
+         * Страна назначения
+         */
+        'arrival_country_name'?: string;
+        
+        /**
          * Аэропорт прибытия (ID берем из запроса - direction_point)
          */
         'arrival_point_id'?: number;
+        
+        /**
+         * Аэропорт прибытия
+         */
+        'arrival_point_name'?: string;
         
         /**
          * Адрес доставки груза
@@ -704,7 +796,7 @@ export class RequestService extends BaseService {
 /**
  * Контрагент
  */
-'customer'?: string;
+'customer_name'?: string;
 
 /**
  * Вид запроса (ID берем из запроса - request_type)
@@ -739,7 +831,23 @@ export class RequestService extends BaseService {
 /**
  * Температурный режим
  */
-'cargo_temp_control'?: string;
+'cargo_temperature'?: {
+
+/**
+ * Температурный режим - признак
+ */
+'cargo_temperature_control'?: boolean;
+
+/**
+ * Температурный режим - минимальная температура
+ */
+'cargo_temperature_min'?: number;
+
+/**
+ * Температурный режим - максимальная температура
+ */
+'cargo_temperature_max'?: number;
+};
 
 /**
  * Наличие батареек, элементов питания или жидкостей
@@ -845,14 +953,29 @@ export class RequestService extends BaseService {
 'departure_city_id'?: number;
 
 /**
+ * Город отправления
+ */
+'departure_city_name'?: string;
+
+/**
  * Страна отправления (ID берем из запроса - direction_country)
  */
 'departure_country_id'?: number;
 
 /**
+ * Страна отправления
+ */
+'departure_country_name'?: string;
+
+/**
  * Аэропорт вылета (ID берем из запроса - direction_point)
  */
 'departure_point_id'?: number;
+
+/**
+ * Аэропорт вылета
+ */
+'departure_point_name'?: string;
 
 /**
  * Адрес забора груза
@@ -865,14 +988,29 @@ export class RequestService extends BaseService {
 'arrival_city_id'?: number;
 
 /**
+ * Город назначения
+ */
+'arrival_city_name'?: string;
+
+/**
  * Страна назначения (ID берем из запроса - direction_country)
  */
 'arrival_country_id'?: number;
 
 /**
+ * Страна назначения
+ */
+'arrival_country_name'?: string;
+
+/**
  * Аэропорт прибытия (ID берем из запроса - direction_point)
  */
 'arrival_point_id'?: number;
+
+/**
+ * Аэропорт прибытия
+ */
+'arrival_point_name'?: string;
 
 /**
  * Адрес доставки груза
@@ -976,7 +1114,7 @@ export class RequestService extends BaseService {
 /**
  * Контрагент
  */
-'customer'?: string;
+'customer_name'?: string;
 
 /**
  * Вид запроса (ID берем из запроса - request_type)
@@ -1011,7 +1149,23 @@ export class RequestService extends BaseService {
 /**
  * Температурный режим
  */
-'cargo_temp_control'?: string;
+'cargo_temperature'?: {
+
+/**
+ * Температурный режим - признак
+ */
+'cargo_temperature_control'?: boolean;
+
+/**
+ * Температурный режим - минимальная температура
+ */
+'cargo_temperature_min'?: number;
+
+/**
+ * Температурный режим - максимальная температура
+ */
+'cargo_temperature_max'?: number;
+};
 
 /**
  * Наличие батареек, элементов питания или жидкостей
@@ -1117,14 +1271,29 @@ export class RequestService extends BaseService {
 'departure_city_id'?: number;
 
 /**
+ * Город отправления
+ */
+'departure_city_name'?: string;
+
+/**
  * Страна отправления (ID берем из запроса - direction_country)
  */
 'departure_country_id'?: number;
 
 /**
+ * Страна отправления
+ */
+'departure_country_name'?: string;
+
+/**
  * Аэропорт вылета (ID берем из запроса - direction_point)
  */
 'departure_point_id'?: number;
+
+/**
+ * Аэропорт вылета
+ */
+'departure_point_name'?: string;
 
 /**
  * Адрес забора груза
@@ -1137,14 +1306,29 @@ export class RequestService extends BaseService {
 'arrival_city_id'?: number;
 
 /**
+ * Город назначения
+ */
+'arrival_city_name'?: string;
+
+/**
  * Страна назначения (ID берем из запроса - direction_country)
  */
 'arrival_country_id'?: number;
 
 /**
+ * Страна назначения
+ */
+'arrival_country_name'?: string;
+
+/**
  * Аэропорт прибытия (ID берем из запроса - direction_point)
  */
 'arrival_point_id'?: number;
+
+/**
+ * Аэропорт прибытия
+ */
+'arrival_point_name'?: string;
 
 /**
  * Адрес доставки груза
@@ -1246,7 +1430,7 @@ export class RequestService extends BaseService {
 /**
  * Контрагент
  */
-'customer'?: string;
+'customer_name'?: string;
 
 /**
  * Вид запроса (ID берем из запроса - request_type)
@@ -1281,7 +1465,23 @@ export class RequestService extends BaseService {
 /**
  * Температурный режим
  */
-'cargo_temp_control'?: string;
+'cargo_temperature'?: {
+
+/**
+ * Температурный режим - признак
+ */
+'cargo_temperature_control'?: boolean;
+
+/**
+ * Температурный режим - минимальная температура
+ */
+'cargo_temperature_min'?: number;
+
+/**
+ * Температурный режим - максимальная температура
+ */
+'cargo_temperature_max'?: number;
+};
 
 /**
  * Наличие батареек, элементов питания или жидкостей
@@ -1387,14 +1587,29 @@ export class RequestService extends BaseService {
 'departure_city_id'?: number;
 
 /**
+ * Город отправления
+ */
+'departure_city_name'?: string;
+
+/**
  * Страна отправления (ID берем из запроса - direction_country)
  */
 'departure_country_id'?: number;
 
 /**
+ * Страна отправления
+ */
+'departure_country_name'?: string;
+
+/**
  * Аэропорт вылета (ID берем из запроса - direction_point)
  */
 'departure_point_id'?: number;
+
+/**
+ * Аэропорт вылета
+ */
+'departure_point_name'?: string;
 
 /**
  * Адрес забора груза
@@ -1407,14 +1622,29 @@ export class RequestService extends BaseService {
 'arrival_city_id'?: number;
 
 /**
+ * Город назначения
+ */
+'arrival_city_name'?: string;
+
+/**
  * Страна назначения (ID берем из запроса - direction_country)
  */
 'arrival_country_id'?: number;
 
 /**
+ * Страна назначения
+ */
+'arrival_country_name'?: string;
+
+/**
  * Аэропорт прибытия (ID берем из запроса - direction_point)
  */
 'arrival_point_id'?: number;
+
+/**
+ * Аэропорт прибытия
+ */
+'arrival_point_name'?: string;
 
 /**
  * Адрес доставки груза
@@ -2219,7 +2449,7 @@ export class RequestService extends BaseService {
 /**
  * Контрагент
  */
-'customer'?: string;
+'customer_name'?: string;
 
 /**
  * Вид запроса (ID берем из запроса - request_type)
@@ -2254,7 +2484,23 @@ export class RequestService extends BaseService {
 /**
  * Температурный режим
  */
-'cargo_temp_control'?: string;
+'cargo_temperature'?: {
+
+/**
+ * Температурный режим - признак
+ */
+'cargo_temperature_control'?: boolean;
+
+/**
+ * Температурный режим - минимальная температура
+ */
+'cargo_temperature_min'?: number;
+
+/**
+ * Температурный режим - максимальная температура
+ */
+'cargo_temperature_max'?: number;
+};
 
 /**
  * Наличие батареек, элементов питания или жидкостей
@@ -2349,7 +2595,7 @@ export class RequestService extends BaseService {
 'cargo_currency_id'?: string;
 
 /**
- * Документы по грузу
+ * Паспорта безопасности (файлы)
  */
 'cargo_file'?: {
 };
@@ -2360,14 +2606,29 @@ export class RequestService extends BaseService {
 'departure_city_id'?: number;
 
 /**
+ * Город отправления
+ */
+'departure_city_name'?: string;
+
+/**
  * Страна отправления (ID берем из запроса - direction_country)
  */
 'departure_country_id'?: number;
 
 /**
+ * Страна отправления
+ */
+'departure_country_name'?: string;
+
+/**
  * Аэропорт вылета (ID берем из запроса - direction_point)
  */
 'departure_point_id'?: number;
+
+/**
+ * Аэропорт вылета
+ */
+'departure_point_name'?: string;
 
 /**
  * Адрес забора груза
@@ -2380,14 +2641,29 @@ export class RequestService extends BaseService {
 'arrival_city_id'?: number;
 
 /**
+ * Город назначения
+ */
+'arrival_city_name'?: string;
+
+/**
  * Страна назначения (ID берем из запроса - direction_country)
  */
 'arrival_country_id'?: number;
 
 /**
+ * Страна назначения
+ */
+'arrival_country_name'?: string;
+
+/**
  * Аэропорт прибытия (ID берем из запроса - direction_point)
  */
 'arrival_point_id'?: number;
+
+/**
+ * Аэропорт прибытия
+ */
+'arrival_point_name'?: string;
 
 /**
  * Адрес доставки груза
@@ -2485,7 +2761,7 @@ export class RequestService extends BaseService {
         /**
          * Контрагент
          */
-        'customer'?: string;
+        'customer_name'?: string;
         
         /**
          * Вид запроса (ID берем из запроса - request_type)
@@ -2520,7 +2796,23 @@ export class RequestService extends BaseService {
         /**
          * Температурный режим
          */
-        'cargo_temp_control'?: string;
+        'cargo_temperature'?: {
+        
+        /**
+         * Температурный режим - признак
+         */
+        'cargo_temperature_control'?: boolean;
+        
+        /**
+         * Температурный режим - минимальная температура
+         */
+        'cargo_temperature_min'?: number;
+        
+        /**
+         * Температурный режим - максимальная температура
+         */
+        'cargo_temperature_max'?: number;
+        };
         
         /**
          * Наличие батареек, элементов питания или жидкостей
@@ -2615,7 +2907,7 @@ export class RequestService extends BaseService {
         'cargo_currency_id'?: string;
         
         /**
-         * Документы по грузу
+         * Паспорта безопасности (файлы)
          */
         'cargo_file'?: {
         };
@@ -2626,14 +2918,29 @@ export class RequestService extends BaseService {
         'departure_city_id'?: number;
         
         /**
+         * Город отправления
+         */
+        'departure_city_name'?: string;
+        
+        /**
          * Страна отправления (ID берем из запроса - direction_country)
          */
         'departure_country_id'?: number;
         
         /**
+         * Страна отправления
+         */
+        'departure_country_name'?: string;
+        
+        /**
          * Аэропорт вылета (ID берем из запроса - direction_point)
          */
         'departure_point_id'?: number;
+        
+        /**
+         * Аэропорт вылета
+         */
+        'departure_point_name'?: string;
         
         /**
          * Адрес забора груза
@@ -2646,14 +2953,29 @@ export class RequestService extends BaseService {
         'arrival_city_id'?: number;
         
         /**
+         * Город назначения
+         */
+        'arrival_city_name'?: string;
+        
+        /**
          * Страна назначения (ID берем из запроса - direction_country)
          */
         'arrival_country_id'?: number;
         
         /**
+         * Страна назначения
+         */
+        'arrival_country_name'?: string;
+        
+        /**
          * Аэропорт прибытия (ID берем из запроса - direction_point)
          */
         'arrival_point_id'?: number;
+        
+        /**
+         * Аэропорт прибытия
+         */
+        'arrival_point_name'?: string;
         
         /**
          * Адрес доставки груза
@@ -2764,7 +3086,7 @@ export class RequestService extends BaseService {
 /**
  * Контрагент
  */
-'customer'?: string;
+'customer_name'?: string;
 
 /**
  * Вид запроса (ID берем из запроса - request_type)
@@ -2799,7 +3121,23 @@ export class RequestService extends BaseService {
 /**
  * Температурный режим
  */
-'cargo_temp_control'?: string;
+'cargo_temperature'?: {
+
+/**
+ * Температурный режим - признак
+ */
+'cargo_temperature_control'?: boolean;
+
+/**
+ * Температурный режим - минимальная температура
+ */
+'cargo_temperature_min'?: number;
+
+/**
+ * Температурный режим - максимальная температура
+ */
+'cargo_temperature_max'?: number;
+};
 
 /**
  * Наличие батареек, элементов питания или жидкостей
@@ -2894,7 +3232,7 @@ export class RequestService extends BaseService {
 'cargo_currency_id'?: string;
 
 /**
- * Документы по грузу
+ * Паспорта безопасности (файлы)
  */
 'cargo_file'?: {
 };
@@ -2905,14 +3243,29 @@ export class RequestService extends BaseService {
 'departure_city_id'?: number;
 
 /**
+ * Город отправления
+ */
+'departure_city_name'?: string;
+
+/**
  * Страна отправления (ID берем из запроса - direction_country)
  */
 'departure_country_id'?: number;
 
 /**
+ * Страна отправления
+ */
+'departure_country_name'?: string;
+
+/**
  * Аэропорт вылета (ID берем из запроса - direction_point)
  */
 'departure_point_id'?: number;
+
+/**
+ * Аэропорт вылета
+ */
+'departure_point_name'?: string;
 
 /**
  * Адрес забора груза
@@ -2925,14 +3278,29 @@ export class RequestService extends BaseService {
 'arrival_city_id'?: number;
 
 /**
+ * Город назначения
+ */
+'arrival_city_name'?: string;
+
+/**
  * Страна назначения (ID берем из запроса - direction_country)
  */
 'arrival_country_id'?: number;
 
 /**
+ * Страна назначения
+ */
+'arrival_country_name'?: string;
+
+/**
  * Аэропорт прибытия (ID берем из запроса - direction_point)
  */
 'arrival_point_id'?: number;
+
+/**
+ * Аэропорт прибытия
+ */
+'arrival_point_name'?: string;
 
 /**
  * Адрес доставки груза
@@ -3021,7 +3389,7 @@ export class RequestService extends BaseService {
 /**
  * Контрагент
  */
-'customer'?: string;
+'customer_name'?: string;
 
 /**
  * Вид запроса (ID берем из запроса - request_type)
@@ -3056,7 +3424,23 @@ export class RequestService extends BaseService {
 /**
  * Температурный режим
  */
-'cargo_temp_control'?: string;
+'cargo_temperature'?: {
+
+/**
+ * Температурный режим - признак
+ */
+'cargo_temperature_control'?: boolean;
+
+/**
+ * Температурный режим - минимальная температура
+ */
+'cargo_temperature_min'?: number;
+
+/**
+ * Температурный режим - максимальная температура
+ */
+'cargo_temperature_max'?: number;
+};
 
 /**
  * Наличие батареек, элементов питания или жидкостей
@@ -3151,7 +3535,7 @@ export class RequestService extends BaseService {
 'cargo_currency_id'?: string;
 
 /**
- * Документы по грузу
+ * Паспорта безопасности (файлы)
  */
 'cargo_file'?: {
 };
@@ -3162,14 +3546,29 @@ export class RequestService extends BaseService {
 'departure_city_id'?: number;
 
 /**
+ * Город отправления
+ */
+'departure_city_name'?: string;
+
+/**
  * Страна отправления (ID берем из запроса - direction_country)
  */
 'departure_country_id'?: number;
 
 /**
+ * Страна отправления
+ */
+'departure_country_name'?: string;
+
+/**
  * Аэропорт вылета (ID берем из запроса - direction_point)
  */
 'departure_point_id'?: number;
+
+/**
+ * Аэропорт вылета
+ */
+'departure_point_name'?: string;
 
 /**
  * Адрес забора груза
@@ -3182,14 +3581,29 @@ export class RequestService extends BaseService {
 'arrival_city_id'?: number;
 
 /**
+ * Город назначения
+ */
+'arrival_city_name'?: string;
+
+/**
  * Страна назначения (ID берем из запроса - direction_country)
  */
 'arrival_country_id'?: number;
 
 /**
+ * Страна назначения
+ */
+'arrival_country_name'?: string;
+
+/**
  * Аэропорт прибытия (ID берем из запроса - direction_point)
  */
 'arrival_point_id'?: number;
+
+/**
+ * Аэропорт прибытия
+ */
+'arrival_point_name'?: string;
 
 /**
  * Адрес доставки груза
@@ -3276,7 +3690,7 @@ export class RequestService extends BaseService {
 /**
  * Контрагент
  */
-'customer'?: string;
+'customer_name'?: string;
 
 /**
  * Вид запроса (ID берем из запроса - request_type)
@@ -3311,7 +3725,23 @@ export class RequestService extends BaseService {
 /**
  * Температурный режим
  */
-'cargo_temp_control'?: string;
+'cargo_temperature'?: {
+
+/**
+ * Температурный режим - признак
+ */
+'cargo_temperature_control'?: boolean;
+
+/**
+ * Температурный режим - минимальная температура
+ */
+'cargo_temperature_min'?: number;
+
+/**
+ * Температурный режим - максимальная температура
+ */
+'cargo_temperature_max'?: number;
+};
 
 /**
  * Наличие батареек, элементов питания или жидкостей
@@ -3406,7 +3836,7 @@ export class RequestService extends BaseService {
 'cargo_currency_id'?: string;
 
 /**
- * Документы по грузу
+ * Паспорта безопасности (файлы)
  */
 'cargo_file'?: {
 };
@@ -3417,14 +3847,29 @@ export class RequestService extends BaseService {
 'departure_city_id'?: number;
 
 /**
+ * Город отправления
+ */
+'departure_city_name'?: string;
+
+/**
  * Страна отправления (ID берем из запроса - direction_country)
  */
 'departure_country_id'?: number;
 
 /**
+ * Страна отправления
+ */
+'departure_country_name'?: string;
+
+/**
  * Аэропорт вылета (ID берем из запроса - direction_point)
  */
 'departure_point_id'?: number;
+
+/**
+ * Аэропорт вылета
+ */
+'departure_point_name'?: string;
 
 /**
  * Адрес забора груза
@@ -3437,14 +3882,29 @@ export class RequestService extends BaseService {
 'arrival_city_id'?: number;
 
 /**
+ * Город назначения
+ */
+'arrival_city_name'?: string;
+
+/**
  * Страна назначения (ID берем из запроса - direction_country)
  */
 'arrival_country_id'?: number;
 
 /**
+ * Страна назначения
+ */
+'arrival_country_name'?: string;
+
+/**
  * Аэропорт прибытия (ID берем из запроса - direction_point)
  */
 'arrival_point_id'?: number;
+
+/**
+ * Аэропорт прибытия
+ */
+'arrival_point_name'?: string;
 
 /**
  * Адрес доставки груза
@@ -3521,6 +3981,1698 @@ export class RequestService extends BaseService {
  */
 'documents_file'?: {
 };
+} => r.body)
+    );
+  }
+
+  /** Path part for operation `requestCreate()` */
+  static readonly RequestCreatePath = '/request_create';
+
+  /**
+   * Запросы: добавление.
+   *
+   *
+   *
+   * This method provides access to the full `HttpResponse`, allowing access to response headers.
+   * To access only the response body, use `requestCreate()` instead.
+   *
+   * This method sends `application/json` and handles request body of type `application/json`.
+   */
+  requestCreate$Response(
+    params?: {
+      body?: {
+
+/**
+ * Контрагент (ID берем из запроса - customer_list)
+ */
+'customer_id': number;
+
+/**
+ * Вид запроса (ID берем из запроса - request_type)
+ */
+'request_type_id': number;
+
+/**
+ * Вид перевозки (ID берем из запроса - transport_kind)
+ */
+'transport_kind_id': string;
+
+/**
+ * Тип транспорта (ID берем из запроса - transport_type)
+ */
+'transport_type_id': number;
+
+/**
+ * Наименование груза
+ */
+'cargo_description': string;
+
+/**
+ * Тип груза (ID берем из запроса - cargo_type)
+ */
+'cargo_type_id': number;
+
+/**
+ * Вид упаковки (ID берем из запроса - cargo_package)
+ */
+'cargo_package_id': number;
+
+/**
+ * Температурный режим
+ */
+'cargo_temperature'?: {
+
+/**
+ * Температурный режим - признак
+ */
+'cargo_temperature_control'?: boolean;
+
+/**
+ * Температурный режим - минимальная температура
+ */
+'cargo_temperature_min'?: number;
+
+/**
+ * Температурный режим - максимальная температура
+ */
+'cargo_temperature_max'?: number;
+};
+
+/**
+ * Наличие батареек, элементов питания или жидкостей
+ */
+'cargo_danger'?: boolean;
+
+/**
+ * Грузовые места
+ */
+'cargo_places': Array<{
+
+/**
+ * Номер места
+ */
+'num': number;
+
+/**
+ * Вид упаковки (ID берем из запроса - cargo_package)
+ */
+'cargo_package_id': number;
+
+/**
+ * Признак возможности штабелировать груз (ID берем из запроса - cargo_package)
+ */
+'stacking'?: boolean;
+
+/**
+ * Длина, см
+ */
+'length'?: number;
+
+/**
+ * Ширина, см
+ */
+'width'?: number;
+
+/**
+ * Высота, см
+ */
+'height'?: number;
+
+/**
+ * Вес, кг
+ */
+'weight'?: number;
+
+/**
+ * Количество
+ */
+'count'?: number;
+}>;
+
+/**
+ * Итого мест
+ */
+'cargo_places_count'?: number;
+
+/**
+ * Итого вес
+ */
+'cargo_places_weight'?: number;
+
+/**
+ * Итого объем
+ */
+'cargo_places_volume'?: number;
+
+/**
+ * Оплачиваемый вес
+ */
+'cargo_places_paid_weight'?: number;
+
+/**
+ * Плотность, кг/м3
+ */
+'cargo_places_density'?: number;
+
+/**
+ * Стоимость груза
+ */
+'cargo_cost'?: number;
+
+/**
+ * Валюта по стоимости груза (ID берем из запроса - settings_get из поля currency)
+ */
+'cargo_currency_id'?: string;
+
+/**
+ * Город отправления (ID берем из запроса - direction_city)
+ */
+'departure_city_id': number;
+
+/**
+ * Страна отправления (ID берем из запроса - direction_country)
+ */
+'departure_country_id': number;
+
+/**
+ * Аэропорт вылета (ID берем из запроса - direction_point)
+ */
+'departure_point_id'?: number;
+
+/**
+ * Адрес забора груза
+ */
+'departure_address'?: string;
+
+/**
+ * Город назначения (ID берем из запроса - direction_city)
+ */
+'arrival_city_id': number;
+
+/**
+ * Страна назначения (ID берем из запроса - direction_country)
+ */
+'arrival_country_id': number;
+
+/**
+ * Аэропорт прибытия (ID берем из запроса - direction_point)
+ */
+'arrival_point_id'?: number;
+
+/**
+ * Адрес доставки груза
+ */
+'arrival_address'?: string;
+
+/**
+ * Рейсы (ID берем из запроса - direction_flight)
+ */
+'departure_flight'?: string;
+
+/**
+ * Условия поставки по Инкотермс (ID берем из запроса - request_incoterms)
+ */
+'incoterms_id'?: number;
+
+/**
+ * Услуги включаемые в ставку (ID берем из запроса - request_services)
+ */
+'services'?: Array<string>;
+
+/**
+ * Дополнительные услуги включаемые в ставку (ID берем из запроса - request_services_additional)
+ */
+'services_optional'?: Array<string>;
+
+/**
+ * Примечание по Запросу
+ */
+'comment'?: string;
+}
+    },
+    context?: HttpContext
+  ): Observable<StrictHttpResponse<{
+
+/**
+ * Статус выполнения
+ */
+'result': 'OK';
+}>> {
+    const rb = new RequestBuilder(this.rootUrl, RequestService.RequestCreatePath, 'post');
+    if (params) {
+      rb.body(params.body, 'application/json');
+    }
+
+    return this.http.request(
+      rb.build({ responseType: 'json', accept: 'application/json', context })
+    ).pipe(
+      filter((r: any): r is HttpResponse<any> => r instanceof HttpResponse),
+      map((r: HttpResponse<any>) => {
+        return r as StrictHttpResponse<{
+        
+        /**
+         * Статус выполнения
+         */
+        'result': 'OK';
+        }>;
+      })
+    );
+  }
+
+  /**
+   * Запросы: добавление.
+   *
+   *
+   *
+   * This method provides access only to the response body.
+   * To access the full response (for headers, for example), `requestCreate$Response()` instead.
+   *
+   * This method sends `application/json` and handles request body of type `application/json`.
+   */
+  requestCreate(
+    params?: {
+      body?: {
+
+/**
+ * Контрагент (ID берем из запроса - customer_list)
+ */
+'customer_id': number;
+
+/**
+ * Вид запроса (ID берем из запроса - request_type)
+ */
+'request_type_id': number;
+
+/**
+ * Вид перевозки (ID берем из запроса - transport_kind)
+ */
+'transport_kind_id': string;
+
+/**
+ * Тип транспорта (ID берем из запроса - transport_type)
+ */
+'transport_type_id': number;
+
+/**
+ * Наименование груза
+ */
+'cargo_description': string;
+
+/**
+ * Тип груза (ID берем из запроса - cargo_type)
+ */
+'cargo_type_id': number;
+
+/**
+ * Вид упаковки (ID берем из запроса - cargo_package)
+ */
+'cargo_package_id': number;
+
+/**
+ * Температурный режим
+ */
+'cargo_temperature'?: {
+
+/**
+ * Температурный режим - признак
+ */
+'cargo_temperature_control'?: boolean;
+
+/**
+ * Температурный режим - минимальная температура
+ */
+'cargo_temperature_min'?: number;
+
+/**
+ * Температурный режим - максимальная температура
+ */
+'cargo_temperature_max'?: number;
+};
+
+/**
+ * Наличие батареек, элементов питания или жидкостей
+ */
+'cargo_danger'?: boolean;
+
+/**
+ * Грузовые места
+ */
+'cargo_places': Array<{
+
+/**
+ * Номер места
+ */
+'num': number;
+
+/**
+ * Вид упаковки (ID берем из запроса - cargo_package)
+ */
+'cargo_package_id': number;
+
+/**
+ * Признак возможности штабелировать груз (ID берем из запроса - cargo_package)
+ */
+'stacking'?: boolean;
+
+/**
+ * Длина, см
+ */
+'length'?: number;
+
+/**
+ * Ширина, см
+ */
+'width'?: number;
+
+/**
+ * Высота, см
+ */
+'height'?: number;
+
+/**
+ * Вес, кг
+ */
+'weight'?: number;
+
+/**
+ * Количество
+ */
+'count'?: number;
+}>;
+
+/**
+ * Итого мест
+ */
+'cargo_places_count'?: number;
+
+/**
+ * Итого вес
+ */
+'cargo_places_weight'?: number;
+
+/**
+ * Итого объем
+ */
+'cargo_places_volume'?: number;
+
+/**
+ * Оплачиваемый вес
+ */
+'cargo_places_paid_weight'?: number;
+
+/**
+ * Плотность, кг/м3
+ */
+'cargo_places_density'?: number;
+
+/**
+ * Стоимость груза
+ */
+'cargo_cost'?: number;
+
+/**
+ * Валюта по стоимости груза (ID берем из запроса - settings_get из поля currency)
+ */
+'cargo_currency_id'?: string;
+
+/**
+ * Город отправления (ID берем из запроса - direction_city)
+ */
+'departure_city_id': number;
+
+/**
+ * Страна отправления (ID берем из запроса - direction_country)
+ */
+'departure_country_id': number;
+
+/**
+ * Аэропорт вылета (ID берем из запроса - direction_point)
+ */
+'departure_point_id'?: number;
+
+/**
+ * Адрес забора груза
+ */
+'departure_address'?: string;
+
+/**
+ * Город назначения (ID берем из запроса - direction_city)
+ */
+'arrival_city_id': number;
+
+/**
+ * Страна назначения (ID берем из запроса - direction_country)
+ */
+'arrival_country_id': number;
+
+/**
+ * Аэропорт прибытия (ID берем из запроса - direction_point)
+ */
+'arrival_point_id'?: number;
+
+/**
+ * Адрес доставки груза
+ */
+'arrival_address'?: string;
+
+/**
+ * Рейсы (ID берем из запроса - direction_flight)
+ */
+'departure_flight'?: string;
+
+/**
+ * Условия поставки по Инкотермс (ID берем из запроса - request_incoterms)
+ */
+'incoterms_id'?: number;
+
+/**
+ * Услуги включаемые в ставку (ID берем из запроса - request_services)
+ */
+'services'?: Array<string>;
+
+/**
+ * Дополнительные услуги включаемые в ставку (ID берем из запроса - request_services_additional)
+ */
+'services_optional'?: Array<string>;
+
+/**
+ * Примечание по Запросу
+ */
+'comment'?: string;
+}
+    },
+    context?: HttpContext
+  ): Observable<{
+
+/**
+ * Статус выполнения
+ */
+'result': 'OK';
+}> {
+    return this.requestCreate$Response(params, context).pipe(
+      map((r: StrictHttpResponse<{
+
+/**
+ * Статус выполнения
+ */
+'result': 'OK';
+}>): {
+
+/**
+ * Статус выполнения
+ */
+'result': 'OK';
+} => r.body)
+    );
+  }
+
+  /** Path part for operation `requestUpdate()` */
+  static readonly RequestUpdatePath = '/request_update';
+
+  /**
+   * Запросы: обновление.
+   *
+   *
+   *
+   * This method provides access to the full `HttpResponse`, allowing access to response headers.
+   * To access only the response body, use `requestUpdate()` instead.
+   *
+   * This method sends `application/json` and handles request body of type `application/json`.
+   */
+  requestUpdate$Response(
+    params?: {
+      body?: {
+
+/**
+ * ID запроса
+ */
+'id': number;
+
+/**
+ * Контрагент (ID берем из запроса - customer_list)
+ */
+'customer_id'?: number;
+
+/**
+ * Вид запроса (ID берем из запроса - request_type)
+ */
+'request_type_id'?: number;
+
+/**
+ * Вид перевозки (ID берем из запроса - transport_kind)
+ */
+'transport_kind_id'?: string;
+
+/**
+ * Тип транспорта (ID берем из запроса - transport_type)
+ */
+'transport_type_id'?: number;
+
+/**
+ * Наименование груза
+ */
+'cargo_description'?: string;
+
+/**
+ * Тип груза (ID берем из запроса - cargo_type)
+ */
+'cargo_type_id'?: number;
+
+/**
+ * Вид упаковки (ID берем из запроса - cargo_package)
+ */
+'cargo_package_id'?: number;
+
+/**
+ * Температурный режим
+ */
+'cargo_temperature'?: {
+
+/**
+ * Температурный режим - признак
+ */
+'cargo_temperature_control'?: boolean;
+
+/**
+ * Температурный режим - минимальная температура
+ */
+'cargo_temperature_min'?: number;
+
+/**
+ * Температурный режим - максимальная температура
+ */
+'cargo_temperature_max'?: number;
+};
+
+/**
+ * Наличие батареек, элементов питания или жидкостей
+ */
+'cargo_danger'?: boolean;
+
+/**
+ * Грузовые места
+ */
+'cargo_places'?: Array<{
+
+/**
+ * Номер места
+ */
+'num'?: number;
+
+/**
+ * Вид упаковки (ID берем из запроса - cargo_package)
+ */
+'cargo_package_id'?: number;
+
+/**
+ * Признак возможности штабелировать груз (ID берем из запроса - cargo_package)
+ */
+'stacking'?: boolean;
+
+/**
+ * Длина, см
+ */
+'length'?: number;
+
+/**
+ * Ширина, см
+ */
+'width'?: number;
+
+/**
+ * Высота, см
+ */
+'height'?: number;
+
+/**
+ * Вес, кг
+ */
+'weight'?: number;
+
+/**
+ * Количество
+ */
+'count'?: number;
+}>;
+
+/**
+ * Итого мест
+ */
+'cargo_places_count'?: number;
+
+/**
+ * Итого вес
+ */
+'cargo_places_weight'?: number;
+
+/**
+ * Итого объем
+ */
+'cargo_places_volume'?: number;
+
+/**
+ * Оплачиваемый вес
+ */
+'cargo_places_paid_weight'?: number;
+
+/**
+ * Плотность, кг/м3
+ */
+'cargo_places_density'?: number;
+
+/**
+ * Стоимость груза
+ */
+'cargo_cost'?: number;
+
+/**
+ * Валюта по стоимости груза (ID берем из запроса - settings_get из поля currency)
+ */
+'cargo_currency_id'?: string;
+
+/**
+ * Город отправления (ID берем из запроса - direction_city)
+ */
+'departure_city_id'?: number;
+
+/**
+ * Страна отправления (ID берем из запроса - direction_country)
+ */
+'departure_country_id'?: number;
+
+/**
+ * Аэропорт вылета (ID берем из запроса - direction_point)
+ */
+'departure_point_id'?: number;
+
+/**
+ * Адрес забора груза
+ */
+'departure_address'?: string;
+
+/**
+ * Город назначения (ID берем из запроса - direction_city)
+ */
+'arrival_city_id'?: number;
+
+/**
+ * Страна назначения (ID берем из запроса - direction_country)
+ */
+'arrival_country_id'?: number;
+
+/**
+ * Аэропорт прибытия (ID берем из запроса - direction_point)
+ */
+'arrival_point_id'?: number;
+
+/**
+ * Адрес доставки груза
+ */
+'arrival_address'?: string;
+
+/**
+ * Рейсы (ID берем из запроса - direction_flight)
+ */
+'departure_flight'?: string;
+
+/**
+ * Условия поставки по Инкотермс (ID берем из запроса - request_incoterms)
+ */
+'incoterms_id'?: number;
+
+/**
+ * Услуги включаемые в ставку (ID берем из запроса - request_services)
+ */
+'services'?: Array<string>;
+
+/**
+ * Дополнительные услуги включаемые в ставку (ID берем из запроса - request_services_additional)
+ */
+'services_optional'?: Array<string>;
+
+/**
+ * Примечание по Запросу
+ */
+'comment'?: string;
+
+/**
+ * Статус Запроса (ID берем из запроса - request_status)
+ */
+'status_id'?: number;
+
+/**
+ * Статус CRM (ID берем из запроса - request_status_crm)
+ */
+'status_crm_id'?: number;
+}
+    },
+    context?: HttpContext
+  ): Observable<StrictHttpResponse<{
+
+/**
+ * Статус выполнения
+ */
+'result': 'OK';
+}>> {
+    const rb = new RequestBuilder(this.rootUrl, RequestService.RequestUpdatePath, 'post');
+    if (params) {
+      rb.body(params.body, 'application/json');
+    }
+
+    return this.http.request(
+      rb.build({ responseType: 'json', accept: 'application/json', context })
+    ).pipe(
+      filter((r: any): r is HttpResponse<any> => r instanceof HttpResponse),
+      map((r: HttpResponse<any>) => {
+        return r as StrictHttpResponse<{
+        
+        /**
+         * Статус выполнения
+         */
+        'result': 'OK';
+        }>;
+      })
+    );
+  }
+
+  /**
+   * Запросы: обновление.
+   *
+   *
+   *
+   * This method provides access only to the response body.
+   * To access the full response (for headers, for example), `requestUpdate$Response()` instead.
+   *
+   * This method sends `application/json` and handles request body of type `application/json`.
+   */
+  requestUpdate(
+    params?: {
+      body?: {
+
+/**
+ * ID запроса
+ */
+'id': number;
+
+/**
+ * Контрагент (ID берем из запроса - customer_list)
+ */
+'customer_id'?: number;
+
+/**
+ * Вид запроса (ID берем из запроса - request_type)
+ */
+'request_type_id'?: number;
+
+/**
+ * Вид перевозки (ID берем из запроса - transport_kind)
+ */
+'transport_kind_id'?: string;
+
+/**
+ * Тип транспорта (ID берем из запроса - transport_type)
+ */
+'transport_type_id'?: number;
+
+/**
+ * Наименование груза
+ */
+'cargo_description'?: string;
+
+/**
+ * Тип груза (ID берем из запроса - cargo_type)
+ */
+'cargo_type_id'?: number;
+
+/**
+ * Вид упаковки (ID берем из запроса - cargo_package)
+ */
+'cargo_package_id'?: number;
+
+/**
+ * Температурный режим
+ */
+'cargo_temperature'?: {
+
+/**
+ * Температурный режим - признак
+ */
+'cargo_temperature_control'?: boolean;
+
+/**
+ * Температурный режим - минимальная температура
+ */
+'cargo_temperature_min'?: number;
+
+/**
+ * Температурный режим - максимальная температура
+ */
+'cargo_temperature_max'?: number;
+};
+
+/**
+ * Наличие батареек, элементов питания или жидкостей
+ */
+'cargo_danger'?: boolean;
+
+/**
+ * Грузовые места
+ */
+'cargo_places'?: Array<{
+
+/**
+ * Номер места
+ */
+'num'?: number;
+
+/**
+ * Вид упаковки (ID берем из запроса - cargo_package)
+ */
+'cargo_package_id'?: number;
+
+/**
+ * Признак возможности штабелировать груз (ID берем из запроса - cargo_package)
+ */
+'stacking'?: boolean;
+
+/**
+ * Длина, см
+ */
+'length'?: number;
+
+/**
+ * Ширина, см
+ */
+'width'?: number;
+
+/**
+ * Высота, см
+ */
+'height'?: number;
+
+/**
+ * Вес, кг
+ */
+'weight'?: number;
+
+/**
+ * Количество
+ */
+'count'?: number;
+}>;
+
+/**
+ * Итого мест
+ */
+'cargo_places_count'?: number;
+
+/**
+ * Итого вес
+ */
+'cargo_places_weight'?: number;
+
+/**
+ * Итого объем
+ */
+'cargo_places_volume'?: number;
+
+/**
+ * Оплачиваемый вес
+ */
+'cargo_places_paid_weight'?: number;
+
+/**
+ * Плотность, кг/м3
+ */
+'cargo_places_density'?: number;
+
+/**
+ * Стоимость груза
+ */
+'cargo_cost'?: number;
+
+/**
+ * Валюта по стоимости груза (ID берем из запроса - settings_get из поля currency)
+ */
+'cargo_currency_id'?: string;
+
+/**
+ * Город отправления (ID берем из запроса - direction_city)
+ */
+'departure_city_id'?: number;
+
+/**
+ * Страна отправления (ID берем из запроса - direction_country)
+ */
+'departure_country_id'?: number;
+
+/**
+ * Аэропорт вылета (ID берем из запроса - direction_point)
+ */
+'departure_point_id'?: number;
+
+/**
+ * Адрес забора груза
+ */
+'departure_address'?: string;
+
+/**
+ * Город назначения (ID берем из запроса - direction_city)
+ */
+'arrival_city_id'?: number;
+
+/**
+ * Страна назначения (ID берем из запроса - direction_country)
+ */
+'arrival_country_id'?: number;
+
+/**
+ * Аэропорт прибытия (ID берем из запроса - direction_point)
+ */
+'arrival_point_id'?: number;
+
+/**
+ * Адрес доставки груза
+ */
+'arrival_address'?: string;
+
+/**
+ * Рейсы (ID берем из запроса - direction_flight)
+ */
+'departure_flight'?: string;
+
+/**
+ * Условия поставки по Инкотермс (ID берем из запроса - request_incoterms)
+ */
+'incoterms_id'?: number;
+
+/**
+ * Услуги включаемые в ставку (ID берем из запроса - request_services)
+ */
+'services'?: Array<string>;
+
+/**
+ * Дополнительные услуги включаемые в ставку (ID берем из запроса - request_services_additional)
+ */
+'services_optional'?: Array<string>;
+
+/**
+ * Примечание по Запросу
+ */
+'comment'?: string;
+
+/**
+ * Статус Запроса (ID берем из запроса - request_status)
+ */
+'status_id'?: number;
+
+/**
+ * Статус CRM (ID берем из запроса - request_status_crm)
+ */
+'status_crm_id'?: number;
+}
+    },
+    context?: HttpContext
+  ): Observable<{
+
+/**
+ * Статус выполнения
+ */
+'result': 'OK';
+}> {
+    return this.requestUpdate$Response(params, context).pipe(
+      map((r: StrictHttpResponse<{
+
+/**
+ * Статус выполнения
+ */
+'result': 'OK';
+}>): {
+
+/**
+ * Статус выполнения
+ */
+'result': 'OK';
+} => r.body)
+    );
+  }
+
+  /** Path part for operation `requestDelete()` */
+  static readonly RequestDeletePath = '/request_delete';
+
+  /**
+   * Удаление запроса.
+   *
+   *
+   *
+   * This method provides access to the full `HttpResponse`, allowing access to response headers.
+   * To access only the response body, use `requestDelete()` instead.
+   *
+   * This method sends `application/json` and handles request body of type `application/json`.
+   */
+  requestDelete$Response(
+    params?: {
+      body?: {
+
+/**
+ * ID удаляемого запроса
+ */
+'id': number;
+}
+    },
+    context?: HttpContext
+  ): Observable<StrictHttpResponse<{
+
+/**
+ * Статус выполнения
+ */
+'result': 'OK';
+}>> {
+    const rb = new RequestBuilder(this.rootUrl, RequestService.RequestDeletePath, 'post');
+    if (params) {
+      rb.body(params.body, 'application/json');
+    }
+
+    return this.http.request(
+      rb.build({ responseType: 'json', accept: 'application/json', context })
+    ).pipe(
+      filter((r: any): r is HttpResponse<any> => r instanceof HttpResponse),
+      map((r: HttpResponse<any>) => {
+        return r as StrictHttpResponse<{
+        
+        /**
+         * Статус выполнения
+         */
+        'result': 'OK';
+        }>;
+      })
+    );
+  }
+
+  /**
+   * Удаление запроса.
+   *
+   *
+   *
+   * This method provides access only to the response body.
+   * To access the full response (for headers, for example), `requestDelete$Response()` instead.
+   *
+   * This method sends `application/json` and handles request body of type `application/json`.
+   */
+  requestDelete(
+    params?: {
+      body?: {
+
+/**
+ * ID удаляемого запроса
+ */
+'id': number;
+}
+    },
+    context?: HttpContext
+  ): Observable<{
+
+/**
+ * Статус выполнения
+ */
+'result': 'OK';
+}> {
+    return this.requestDelete$Response(params, context).pipe(
+      map((r: StrictHttpResponse<{
+
+/**
+ * Статус выполнения
+ */
+'result': 'OK';
+}>): {
+
+/**
+ * Статус выполнения
+ */
+'result': 'OK';
+} => r.body)
+    );
+  }
+
+  /** Path part for operation `requestFiles()` */
+  static readonly RequestFilesPath = '/request_files';
+
+  /**
+   * Список файлов.
+   *
+   *
+   *
+   * This method provides access to the full `HttpResponse`, allowing access to response headers.
+   * To access only the response body, use `requestFiles()` instead.
+   *
+   * This method doesn't expect any request body.
+   */
+  requestFiles$Response(
+    params: {
+
+    /**
+     * ID элемента
+     */
+      item_id: number;
+
+    /**
+     * Переменная формы
+     */
+      var?: string;
+    },
+    context?: HttpContext
+  ): Observable<StrictHttpResponse<Array<{
+
+/**
+ * ID
+ */
+'id': number;
+
+/**
+ * ID элемента
+ */
+'item_id': number;
+
+/**
+ * Переменная формы
+ */
+'var': string;
+
+/**
+ * Ссылка на файл
+ */
+'path'?: string;
+
+/**
+ * Информация по файлу
+ */
+'file_info'?: Array<string>;
+
+/**
+ * Время загрузки файла
+ */
+'file_time'?: string;
+
+/**
+ * Наименование файла
+ */
+'file_name'?: string;
+
+/**
+ * Время создания
+ */
+'time_add'?: string;
+
+/**
+ * Время изменения
+ */
+'time_edit'?: string;
+}>>> {
+    const rb = new RequestBuilder(this.rootUrl, RequestService.RequestFilesPath, 'get');
+    if (params) {
+      rb.query('item_id', params.item_id, {});
+      rb.query('var', params.var, {});
+    }
+
+    return this.http.request(
+      rb.build({ responseType: 'json', accept: 'application/json', context })
+    ).pipe(
+      filter((r: any): r is HttpResponse<any> => r instanceof HttpResponse),
+      map((r: HttpResponse<any>) => {
+        return r as StrictHttpResponse<Array<{
+        
+        /**
+         * ID
+         */
+        'id': number;
+        
+        /**
+         * ID элемента
+         */
+        'item_id': number;
+        
+        /**
+         * Переменная формы
+         */
+        'var': string;
+        
+        /**
+         * Ссылка на файл
+         */
+        'path'?: string;
+        
+        /**
+         * Информация по файлу
+         */
+        'file_info'?: Array<string>;
+        
+        /**
+         * Время загрузки файла
+         */
+        'file_time'?: string;
+        
+        /**
+         * Наименование файла
+         */
+        'file_name'?: string;
+        
+        /**
+         * Время создания
+         */
+        'time_add'?: string;
+        
+        /**
+         * Время изменения
+         */
+        'time_edit'?: string;
+        }>>;
+      })
+    );
+  }
+
+  /**
+   * Список файлов.
+   *
+   *
+   *
+   * This method provides access only to the response body.
+   * To access the full response (for headers, for example), `requestFiles$Response()` instead.
+   *
+   * This method doesn't expect any request body.
+   */
+  requestFiles(
+    params: {
+
+    /**
+     * ID элемента
+     */
+      item_id: number;
+
+    /**
+     * Переменная формы
+     */
+      var?: string;
+    },
+    context?: HttpContext
+  ): Observable<Array<{
+
+/**
+ * ID
+ */
+'id': number;
+
+/**
+ * ID элемента
+ */
+'item_id': number;
+
+/**
+ * Переменная формы
+ */
+'var': string;
+
+/**
+ * Ссылка на файл
+ */
+'path'?: string;
+
+/**
+ * Информация по файлу
+ */
+'file_info'?: Array<string>;
+
+/**
+ * Время загрузки файла
+ */
+'file_time'?: string;
+
+/**
+ * Наименование файла
+ */
+'file_name'?: string;
+
+/**
+ * Время создания
+ */
+'time_add'?: string;
+
+/**
+ * Время изменения
+ */
+'time_edit'?: string;
+}>> {
+    return this.requestFiles$Response(params, context).pipe(
+      map((r: StrictHttpResponse<Array<{
+
+/**
+ * ID
+ */
+'id': number;
+
+/**
+ * ID элемента
+ */
+'item_id': number;
+
+/**
+ * Переменная формы
+ */
+'var': string;
+
+/**
+ * Ссылка на файл
+ */
+'path'?: string;
+
+/**
+ * Информация по файлу
+ */
+'file_info'?: Array<string>;
+
+/**
+ * Время загрузки файла
+ */
+'file_time'?: string;
+
+/**
+ * Наименование файла
+ */
+'file_name'?: string;
+
+/**
+ * Время создания
+ */
+'time_add'?: string;
+
+/**
+ * Время изменения
+ */
+'time_edit'?: string;
+}>>): Array<{
+
+/**
+ * ID
+ */
+'id': number;
+
+/**
+ * ID элемента
+ */
+'item_id': number;
+
+/**
+ * Переменная формы
+ */
+'var': string;
+
+/**
+ * Ссылка на файл
+ */
+'path'?: string;
+
+/**
+ * Информация по файлу
+ */
+'file_info'?: Array<string>;
+
+/**
+ * Время загрузки файла
+ */
+'file_time'?: string;
+
+/**
+ * Наименование файла
+ */
+'file_name'?: string;
+
+/**
+ * Время создания
+ */
+'time_add'?: string;
+
+/**
+ * Время изменения
+ */
+'time_edit'?: string;
+}> => r.body)
+    );
+  }
+
+  /** Path part for operation `requestFileCreate()` */
+  static readonly RequestFileCreatePath = '/request_file_create';
+
+  /**
+   * Файлы: добавление.
+   *
+   *
+   *
+   * This method provides access to the full `HttpResponse`, allowing access to response headers.
+   * To access only the response body, use `requestFileCreate()` instead.
+   *
+   * This method sends `multipart/form-data` and handles request body of type `multipart/form-data`.
+   */
+  requestFileCreate$Response(
+    params?: {
+      body?: {
+
+/**
+ * ID элемента
+ */
+'item_id': number;
+
+/**
+ * Переменная формы
+ */
+'var': string;
+
+/**
+ * Файл
+ */
+'file': file;
+}
+    },
+    context?: HttpContext
+  ): Observable<StrictHttpResponse<{
+
+/**
+ * ID созданной записи
+ */
+'id': number;
+
+/**
+ * Статус выполнения
+ */
+'result': 'OK';
+}>> {
+    const rb = new RequestBuilder(this.rootUrl, RequestService.RequestFileCreatePath, 'post');
+    if (params) {
+      rb.body(params.body, 'multipart/form-data');
+    }
+
+    return this.http.request(
+      rb.build({ responseType: 'json', accept: 'application/json', context })
+    ).pipe(
+      filter((r: any): r is HttpResponse<any> => r instanceof HttpResponse),
+      map((r: HttpResponse<any>) => {
+        return r as StrictHttpResponse<{
+        
+        /**
+         * ID созданной записи
+         */
+        'id': number;
+        
+        /**
+         * Статус выполнения
+         */
+        'result': 'OK';
+        }>;
+      })
+    );
+  }
+
+  /**
+   * Файлы: добавление.
+   *
+   *
+   *
+   * This method provides access only to the response body.
+   * To access the full response (for headers, for example), `requestFileCreate$Response()` instead.
+   *
+   * This method sends `multipart/form-data` and handles request body of type `multipart/form-data`.
+   */
+  requestFileCreate(
+    params?: {
+      body?: {
+
+/**
+ * ID элемента
+ */
+'item_id': number;
+
+/**
+ * Переменная формы
+ */
+'var': string;
+
+/**
+ * Файл
+ */
+'file': file;
+}
+    },
+    context?: HttpContext
+  ): Observable<{
+
+/**
+ * ID созданной записи
+ */
+'id': number;
+
+/**
+ * Статус выполнения
+ */
+'result': 'OK';
+}> {
+    return this.requestFileCreate$Response(params, context).pipe(
+      map((r: StrictHttpResponse<{
+
+/**
+ * ID созданной записи
+ */
+'id': number;
+
+/**
+ * Статус выполнения
+ */
+'result': 'OK';
+}>): {
+
+/**
+ * ID созданной записи
+ */
+'id': number;
+
+/**
+ * Статус выполнения
+ */
+'result': 'OK';
+} => r.body)
+    );
+  }
+
+  /** Path part for operation `requestFileDelete()` */
+  static readonly RequestFileDeletePath = '/request_file_delete';
+
+  /**
+   * Файлы: удаление.
+   *
+   *
+   *
+   * This method provides access to the full `HttpResponse`, allowing access to response headers.
+   * To access only the response body, use `requestFileDelete()` instead.
+   *
+   * This method sends `application/json` and handles request body of type `application/json`.
+   */
+  requestFileDelete$Response(
+    params?: {
+      body?: {
+
+/**
+ * ID удаляемой записи
+ */
+'id': number;
+
+/**
+ * ID элемента
+ */
+'item_id': number;
+
+/**
+ * Переменная формы
+ */
+'var': string;
+}
+    },
+    context?: HttpContext
+  ): Observable<StrictHttpResponse<{
+
+/**
+ * Статус выполнения
+ */
+'result': 'OK';
+}>> {
+    const rb = new RequestBuilder(this.rootUrl, RequestService.RequestFileDeletePath, 'post');
+    if (params) {
+      rb.body(params.body, 'application/json');
+    }
+
+    return this.http.request(
+      rb.build({ responseType: 'json', accept: 'application/json', context })
+    ).pipe(
+      filter((r: any): r is HttpResponse<any> => r instanceof HttpResponse),
+      map((r: HttpResponse<any>) => {
+        return r as StrictHttpResponse<{
+        
+        /**
+         * Статус выполнения
+         */
+        'result': 'OK';
+        }>;
+      })
+    );
+  }
+
+  /**
+   * Файлы: удаление.
+   *
+   *
+   *
+   * This method provides access only to the response body.
+   * To access the full response (for headers, for example), `requestFileDelete$Response()` instead.
+   *
+   * This method sends `application/json` and handles request body of type `application/json`.
+   */
+  requestFileDelete(
+    params?: {
+      body?: {
+
+/**
+ * ID удаляемой записи
+ */
+'id': number;
+
+/**
+ * ID элемента
+ */
+'item_id': number;
+
+/**
+ * Переменная формы
+ */
+'var': string;
+}
+    },
+    context?: HttpContext
+  ): Observable<{
+
+/**
+ * Статус выполнения
+ */
+'result': 'OK';
+}> {
+    return this.requestFileDelete$Response(params, context).pipe(
+      map((r: StrictHttpResponse<{
+
+/**
+ * Статус выполнения
+ */
+'result': 'OK';
+}>): {
+
+/**
+ * Статус выполнения
+ */
+'result': 'OK';
 } => r.body)
     );
   }

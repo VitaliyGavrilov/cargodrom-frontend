@@ -39,6 +39,13 @@ const routes: Routes = [
 
       },
       {
+        path: 'request/:id',
+        component: RequestEditorComponent,
+        pathMatch: 'full',
+        title: 'Добавление запроса',
+
+      },
+      {
         path: 'request/add',
         component: RequestEditorComponent,
         pathMatch: 'full',

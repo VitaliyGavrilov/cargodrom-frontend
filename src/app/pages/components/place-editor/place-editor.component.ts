@@ -43,7 +43,7 @@ export class PlaceEditorComponent implements OnInit, OnDestroy, OnChanges, Contr
     private cargoService:CargoService,
   ) {
     this.placeForm = this.fb.group({
-      request_id:[''],
+      // request_id:[''],
       num: ['', [Validators.required]],
       cargo_package_id: ['', [Validators.required]],
       stacking: [false],
@@ -52,8 +52,8 @@ export class PlaceEditorComponent implements OnInit, OnDestroy, OnChanges, Contr
       height: ['', [Validators.required]],
       weight: ['', [Validators.required]],
       count: ['', [Validators.required]],
-      volume: ['', [Validators.required]],
-      total_weight: ['', [Validators.required]],
+      // volume: ['', [Validators.required]],
+      // total_weight: ['', [Validators.required]],
     });
   }
   onDeletePlace(): void {

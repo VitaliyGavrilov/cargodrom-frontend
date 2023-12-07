@@ -2,6 +2,7 @@
 
 <div class="edit-form">
   <form class="form" [formGroup]="requestForm">
+
     <!-- Блок ОСНОВА-->
     <div class="form-block">
       <div class="form-row">
@@ -54,22 +55,6 @@
                 </mat-button-toggle-group>
             </div>
           </div>
-
-
-
-          <!-- <div class="form-item">
-            <div class="form-label">Вид перевозки: <span class="req">•</span></div>
-            <div class="form-data">
-              <mat-form-field appearance="outline" class="ui-select">
-               <mat-select formControlName="transportation_format_id" (valueChange)="onTransportationFormatsChange($event)">
-                 <mat-option *ngFor="let transportationFormat of transportationFormats;" [value]="transportationFormat.id">{{ transportationFormat.name }}</mat-option>
-               </mat-select>
-               <mat-error *ngIf="requestForm.controls['transportation_format_id'].hasError('required')">
-                 Это поле обязательно
-               </mat-error>
-             </mat-form-field>
-            </div>
-          </div> -->
 
           <div class="form-item">
             <div class="form-label">Вид транспорта: <span class="req">•</span></div>
@@ -137,7 +122,7 @@
 
         <div class="form-item" *ngIf="requestForm.value.cargo_temperature_control">
           <div class="form-data">
-            <input type="text" name="cargo_temperature_min" formControlName="cargo_temperature_min">
+            <input type="number" name="cargo_temperature_min" formControlName="cargo_temperature_min">
           </div>
         </div>
 
@@ -428,7 +413,7 @@
     <div class="form-block-title">Требуемые услуги</div>
     <div class="form-block">
 
-      <div class="form-row" *ngIf="currentTransportationFormat==='avia' || currentTransportationFormat==='rw' ">
+      <div class="form-row" *ngIf="currentTransportationFormat !=='road' ">
         <div class="form-item-layout">
 
           <div class="form-item">
@@ -478,7 +463,7 @@
         </div>
       </div> -->
 
-      <div class="form-row">
+      <div class="form-row" *ngIf="currentTransportationFormat !=='road'">
         <div class="form-item-layout">
 
           <div class="form-item">
