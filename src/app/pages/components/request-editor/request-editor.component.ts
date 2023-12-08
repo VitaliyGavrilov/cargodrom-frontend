@@ -60,6 +60,7 @@ export class RequestEditorComponent implements OnInit, OnDestroy {
   //текущие данные
   currentRequestFormat:number=1; //переменная для зранения текущего типа запроса
   currentTransportationFormat:string=''; //переменная для хранения текущего вида перевозки
+  currentPlacesDensity: number = 0 ;
   //снек бар
   snackBarWithShortDuration: MatSnackBarConfig = { duration: 1000 };
   snackBarWithLongDuration: MatSnackBarConfig = { duration: 3000 };
@@ -181,9 +182,13 @@ export class RequestEditorComponent implements OnInit, OnDestroy {
   save(): void {
     console.log('Нажата кнопка сохранить')
     const body = this.requestForm.value;
-    if(body.request_type_id===1 && body.cargo_separately == false ) {
+    if(body.request_type_id===1 && body.cargo_separately == false) {
       console.log('План А вызван')
       this.planA(body)
+    }
+    if(body.request_type_id===1 && body.cargo_separately == true) {
+      console.log('План B вызван')
+      this.planB(body)
     }
 
 
@@ -195,6 +200,7 @@ export class RequestEditorComponent implements OnInit, OnDestroy {
     this.location.back();
   }
   //РЕДАКТИРОВАНИЕ ДАННЫХ ПЕРЕД ОТПРАВКОЙ
+  //
   planA(body:any){
     const data = {
       customer_id: body.customer_id,
@@ -209,7 +215,55 @@ export class RequestEditorComponent implements OnInit, OnDestroy {
       cargo_places_weight: body.cargo_places_weight,
       cargo_places_volume: body.cargo_places_volume,
       cargo_places_paid_weight: body.cargo_places_paid_weight,
-      cargo_places_density: body.cargo_places_density,
+      cargo_places_density: this.currentPlacesDensity,
+      cargo_cost: body.cargo_cost,
+      cargo_currency_id: body.cargo_currency_id,
+
+      departure_city_id: body.departure_city_id,
+      departure_country_id: body.departure_country_id,
+      arrival_city_id: body.arrival_city_id,
+      arrival_country_id: body.arrival_country_id,
+      arrival_address: body.arrival_address,
+      departure_flight: body.departure_flight,
+      //дополнительные поля:
+      departure_point_id : body.departure_point_id,
+      arrival_point_id : body.arrival_point_id,
+
+      incoterms_id: body.incoterms_id,
+      services: body.services,
+      services_optional: body.services_optional,
+    }
+    //удаляем доп поля
+    if(body.transport_kind_id !== 'avia') {
+      delete data.departure_point_id;
+      delete data.arrival_point_id;
+    }
+    if(body.transport_kind_id === 'road'){
+      delete data.incoterms_id;
+      delete data.services;
+      delete data.services_optional;
+    }
+    console.log(data);
+    this.createRequest(data);
+  }
+  //
+  planB(body:any){
+    const data = {
+      customer_id: body.customer_id,
+      request_type_id: body.request_type_id,
+      transport_kind_id: body.transport_kind_id,
+      transport_type_id: body.transport_type_id,
+
+      cargo_description: body.cargo_description,
+      cargo_package_id: body.cargo_package_id,
+
+      cargo_places: body.cargo_places,
+
+      cargo_places_count: body.cargo_places_count,
+      cargo_places_weight: body.cargo_places_weight,
+      cargo_places_volume: body.cargo_places_volume,
+      cargo_places_paid_weight: body.cargo_places_paid_weight,
+      cargo_places_density: this.currentPlacesDensity,
       cargo_cost: body.cargo_cost,
       cargo_currency_id: body.cargo_currency_id,
 
@@ -263,9 +317,8 @@ export class RequestEditorComponent implements OnInit, OnDestroy {
   //ИЗМЕНЕНИЯ ПОЛЕЙ
   //
   onWeightAndVolumeChange() {
-    const density = this.requestForm.value.cargo_places_weight/this.requestForm.value.cargo_places_volume;
-    this.requestForm.value.cargo_places_density = density;
-    console.log(density)
+    const density = this.requestForm.value.cargo_places_weight/this.requestForm.value.cargo_places_volume ;
+    this.currentPlacesDensity = typeof density === 'number' && density >0 && density < Infinity ? density : 0;
   }
   //изменение поля режима отдельных мест
   onPlaceModeChange(){
@@ -524,7 +577,7 @@ export class RequestEditorComponent implements OnInit, OnDestroy {
 //Признаки:
 //1. Вид запроса = индикатив
 // request_type_id: 1
-//2.Габариты и места = не раздельно
+//2.Габариты и места = не раздельно(данного поля не будут на беке)
 // cargo_separately: false
 
 //Вариативность данного режима
@@ -569,8 +622,56 @@ export class RequestEditorComponent implements OnInit, OnDestroy {
 
 
 //Режим №2 БАЗОВЫЙ+(planB)-------------------------------------------------------------------------------------
+//Признаки:
+//1. Вид запроса = индикатив
+// request_type_id: 1
+//2.Габариты и места = раздельно(данного поля не будет на беке)
+// cargo_separately: true
 
+//Вариативность данного режима такая же как и в planA:
+//1.Если выбрать видом перевозки авто(road), то будет не доступен весь блок Требуемых Услуг(так как бек ничего не возвращает для селкторов блока).
+//2.Если выбрать видом перевозки самолет(avia), то в блоке Направления появятся селекторы АЭРОПОРТ ВЫЛЕТА и АЭРОПОРТ ПРИБЫТИЯ.
 
+//ВАЖНО
+//мы еще не решили как работать с итоговыми данными-характеристиками груза
+
+//  Основные поля базового+ режима:
+
+//контрагент = customer_id: число
+//вид запроса = request_type_id: число
+//вид перевозки = transport_kind_id: строка
+//тип транспорта = transport_type_id: число
+
+//наименнование груза = cargo_description: строка
+//вид упаковки = cargo_package_id: число
+
+//места = cargo_places: массив мест
+
+//итого мест = cargo_places_count: число
+//итого вес = cargo_places_weight: число
+//итого обьем = cargo_places_volume: число
+//оплачиваемый вес = cargo_places_paid_weight: число
+//плотность = cargo_places_density: число
+//стоимость = cargo_cost: число
+//вид валюты = cargo_currency_id: число по моему, но в документации(создание запроса) написанно строка, надо уточнить
+
+//город отправления = departure_city_id: число
+//страна отправления = departure_country_id: число
+//город назначения = arrival_city_id: число
+//страна назначения = arrival_country_id: число
+//адресс назначения = arrival_address: строка
+//рейсы = departure_flight: строка
+
+//  Дополнительные поля базового+ режима:
+
+//Если выбрать видом перевозки самолет(avia),то
+//-аэропорт вылета
+//-аэропорт приземления
+
+//Если выбрать видом перевозки(transport_kind_id) не авто(road), а самолет(avia), жд(rw) или море , то
+//-условия поставки = incoterms_id: число
+//-в ставку должно быть включенно = services: массив из числе по моему, но в документация из строк
+//-дополнительные услуги = services_optional: массив из числе по моему, но в документация из строк
 
 
 

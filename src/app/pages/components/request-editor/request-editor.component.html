@@ -191,14 +191,14 @@
         <div class="form-item">
           <div class="form-label">Итого вес, кг:</div>
           <div class="form-data">
-            <input type="text" name="cargo_places_weight" formControlName="cargo_places_weight" (change)="onWeightAndVolumeChange()">
+            <input type="text" name="cargo_places_weight" formControlName="cargo_places_weight" (ngModelChange)="onWeightAndVolumeChange()">
           </div>
         </div>
 
         <div class="form-item">
           <div class="form-label">Итого Объем, м<sup>3</sup>:</div>
           <div class="form-data">
-            <input type="text" name="cargo_places_volume" formControlName="cargo_places_volume" (change)="onWeightAndVolumeChange()">
+            <input type="text" name="cargo_places_volume" formControlName="cargo_places_volume" (ngModelChange)="onWeightAndVolumeChange()">
           </div>
         </div>
 
@@ -212,7 +212,7 @@
         <div class="form-item ">
           <div class="form-label">плотность, кг/м<sup>3</sup>:</div>
           <div class="form-data">
-            <input type="text" name="cargo_places_density" formControlName="cargo_places_density"  readonly value="{{requestForm.value.cargo_places_weight/requestForm.value.cargo_places_volume}}">
+            <div>{{currentPlacesDensity}}</div>
           </div>
         </div>
 
