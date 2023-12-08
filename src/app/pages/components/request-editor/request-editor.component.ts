@@ -103,45 +103,45 @@ export class RequestEditorComponent implements OnInit, OnDestroy {
       transport_type_id: ['', [Validators.required]],// +
       //ОПИСАНИЕ ГРУЗА
       cargo_description: ['', [Validators.required]],// +
-      cargo_package_id: ['', [Validators.required]],// +
-      cargo_type_id: ['', [Validators.required]],// +
+      cargo_package_id: ['', []],// +
+      cargo_type_id: ['', []],// +
       //наличе файла безопасности
-      cargo_danger: [false,[Validators.required]],// +
+      cargo_danger: [false,[]],// +
       //температура, при отправке будем передавать как обьект cargo_temperature
-      cargo_temperature_control: [false,[Validators.required]],// -
+      cargo_temperature_control: [false,[]],// -
       cargo_temperature_min: ['', []],// -
       cargo_temperature_max: ['', []],// -
       //режим раздельных мест,для создания не нужен, чисто для меня пока что оставлю
-      cargo_separately: [false,[Validators.required]],// -
+      cargo_separately: [false,[]],// -
       //общие габариты
-      cargo_places_count: ['', [Validators.required]],// + итого мест
-      cargo_places_weight: ['', [Validators.required]],// + итого вес
-      cargo_places_volume: ['', [Validators.required]],// + итого обьем
-      cargo_places_paid_weight: ['', [Validators.required]],// + оплач.вес
-      cargo_places_density: ['', [Validators.required]],// + плонтность
-      cargo_cost: ['', [Validators.required]],// + стоимость
-      cargo_currency_id: ['', [Validators.required]],// + id валюты
+      cargo_places_count: ['', []],// + итого мест
+      cargo_places_weight: ['', []],// + итого вес
+      cargo_places_volume: ['', []],// + итого обьем
+      cargo_places_paid_weight: ['', []],// + оплач.вес
+      cargo_places_density: ['', []],// + плонтность
+      cargo_cost: ['', []],// + стоимость
+      cargo_currency_id: ['', []],// + id валюты
 
-      cargo_staking: [true, [Validators.required]],// сейчас его в апи нету, но должен быть
+      cargo_staking: [true, []],// сейчас его в апи нету, но должен быть
 
-      date: ['', [Validators.required]],// сейчас его в апи нету, но должен быть
+      date: ['', []],// сейчас его в апи нету, но должен быть
       //массив мест груза
-      cargos_places: fb.array([], [Validators.required]),//+
+      cargos_places: fb.array([], []),//+
       //НАПРАЛЕНИЕ
       //откуда
       departure_city_id: ['', [Validators.required]],//+
       departure_country_id: ['', [Validators.required]],//+
-      departure_point_id: ['', [Validators.required]],//+
-      departure_address: ['', [Validators.required]],//+
+      departure_point_id: ['', []],//+
+      departure_address: ['', []],//+
       //куда
       arrival_city_id: ['', [Validators.required]],//+
       arrival_country_id: ['', [Validators.required]],//+
-      arrival_point_id: ['', [Validators.required]],//+
-      arrival_address: ['', [Validators.required]],//+
+      arrival_point_id: ['', []],//+
+      arrival_address: ['', []],//+
       //рейсы
       departure_flight: ['', [Validators.required]],//+
       //УСЛУГИ
-      incoterms_id: ['', [Validators.required]],//+
+      incoterms_id: ['', []],//+
       services: [[], []],//+
       services_optional: [[], []],//+
       comment: ['', []],//+
@@ -181,37 +181,65 @@ export class RequestEditorComponent implements OnInit, OnDestroy {
   save(): void {
     console.log('Нажата кнопка сохранить')
     const body = this.requestForm.value;
-    //редактируем данные температуры
-    body.cargo_temperature = {
-      cargo_temperature_control: body.cargo_temperature_control,
-      cargo_temperature_min: body.cargo_temperature_min,
-      cargo_temperature_max: body.cargo_temperature_max
+    if(body.request_type_id===1 && body.cargo_separately == false ) {
+      console.log('План А вызван')
+      this.planA(body)
     }
-    delete body.cargo_temperature_control;
-    delete body.cargo_temperature_min;
-    delete body.cargo_temperature_max;
-    //редактируем данные груза
-    if(body.cargo_separately === true) {
-      //то скорее всего буду удалять поля с ИТОГО характеристиками и расчет будет на сервере, это еще предстоит обсудить
-    } else {// а если груз не раздельно, то удаляю массив мест
-      delete body.cargo_places;
-    }
-    delete body.cargo_type_id;
-    delete body.cargo_separately;
 
 
-
-
-
-
-    console.log(body);
-    this.createRequest(body);
   }
   remove():void {
     console.log('Нажата кнопка отмена');
   }
   goBack(): void {
     this.location.back();
+  }
+  //РЕДАКТИРОВАНИЕ ДАННЫХ ПЕРЕД ОТПРАВКОЙ
+  planA(body:any){
+    const data = {
+      customer_id: body.customer_id,
+      request_type_id: body.request_type_id,
+      transport_kind_id: body.transport_kind_id,
+      transport_type_id: body.transport_type_id,
+
+      cargo_description: body.cargo_description,
+      cargo_package_id: body.cargo_package_id,
+
+      cargo_places_count: body.cargo_places_count,
+      cargo_places_weight: body.cargo_places_weight,
+      cargo_places_volume: body.cargo_places_volume,
+      cargo_places_paid_weight: body.cargo_places_paid_weight,
+      cargo_places_density: body.cargo_places_density,
+      cargo_cost: body.cargo_cost,
+      cargo_currency_id: body.cargo_currency_id,
+
+      departure_city_id: body.departure_city_id,
+      departure_country_id: body.departure_country_id,
+      arrival_city_id: body.arrival_city_id,
+      arrival_country_id: body.arrival_country_id,
+      arrival_address: body.arrival_address,
+      departure_flight: body.departure_flight,
+      //дополнительные поля:
+      departure_point_id : body.departure_point_id,
+      arrival_point_id : body.arrival_point_id,
+
+      incoterms_id: body.incoterms_id,
+      services: body.services,
+      services_optional: body.services_optional,
+    }
+    //удаляем доп поля
+    if(body.transport_kind_id !== 'avia') {
+      delete data.departure_point_id;
+      delete data.arrival_point_id;
+    }
+    if(body.transport_kind_id === 'road'){
+      delete data.incoterms_id;
+      delete data.services;
+      delete data.services_optional;
+    }
+    console.log(data);
+    this.createRequest(data);
+
   }
   //ВЛОЖЕННАЯ ФОРМА РЕДАКТИРОВАНИ МЕСТ
   removePlace(i: number): void {
@@ -233,6 +261,12 @@ export class RequestEditorComponent implements OnInit, OnDestroy {
     return name as string;
   }
   //ИЗМЕНЕНИЯ ПОЛЕЙ
+  //
+  onWeightAndVolumeChange() {
+    const density = this.requestForm.value.cargo_places_weight/this.requestForm.value.cargo_places_volume;
+    this.requestForm.value.cargo_places_density = density;
+    console.log(density)
+  }
   //изменение поля режима отдельных мест
   onPlaceModeChange(){
     this.requestForm.controls['cargos_places'].reset();
@@ -450,7 +484,8 @@ export class RequestEditorComponent implements OnInit, OnDestroy {
   private createRequest(body:any){
     //при успешном создании запроса, в ответ получаем id, используем его для добавления документов
     this.requestService.requestCreate({body}).pipe().subscribe({
-      next: () => {
+      next: (test) => {
+        console.log(test)
         this.snackBar.open(`Подрядчик создан`, undefined, this.snackBarWithShortDuration)
       },
       error: (err) => this.snackBar.open(`Ошибка создания подрядчика: ` + err.error.error_message, undefined, this.snackBarWithShortDuration)
@@ -484,18 +519,19 @@ export class RequestEditorComponent implements OnInit, OnDestroy {
 
 //дальше пойдет описане какждого режима формы и его полей
 
-//Режим №1 БАЗОВЫЙ
+
+//Режим №1 БАЗОВЫЙ(planA)-------------------------------------------------------------------------------------
 //Признаки:
-//1. Вид запроса индикатив
+//1. Вид запроса = индикатив
 // request_type_id: 1
-//2.Габариты и места не раздельно
+//2.Габариты и места = не раздельно
 // cargo_separately: false
 
 //Вариативность данного режима
 //1.Если выбрать видом перевозки авто(road), то будет не доступен весь блок Требуемых Услуг(так как бек ничего не возвращает для селкторов блока).
 //2.Если выбрать видом перевозки самолет(avia), то в блоке Направления появятся селекторы АЭРОПОРТ ВЫЛЕТА и АЭРОПОРТ ПРИБЫТИЯ.
 
-//Основные поля данного режима:
+//  Основные поля базового режима:
 
 //контрагент = customer_id: число
 //вид запроса = request_type_id: число
@@ -503,24 +539,36 @@ export class RequestEditorComponent implements OnInit, OnDestroy {
 //тип транспорта = transport_type_id: число
 
 //наименнование груза = cargo_description: строка
-//вид упаковки cargo_package_id: число
+//вид упаковки = cargo_package_id: число
 
-//итого мест
-//итого вес
-//итого обьем
-//оплачиваемый вес
-//плотность
-//стоимость
-//вид валюты
-
+//итого мест = cargo_places_count: число
+//итого вес = cargo_places_weight: число
+//итого обьем = cargo_places_volume: число
+//оплачиваемый вес = cargo_places_paid_weight: число
+//плотность = cargo_places_density: число
+//стоимость = cargo_cost: число
+//вид валюты = cargo_currency_id: число по моему, но в документации(создание запроса) написанно строка, надо уточнить
 
 //город отправления = departure_city_id: число
 //страна отправления = departure_country_id: число
 //город назначения = arrival_city_id: число
 //страна назначения = arrival_country_id: число
+//адресс назначения = arrival_address: строка
 //рейсы = departure_flight: строка
 
-//ЗАВТРА ЗАКОНЧИТЬ!!!!!!!!!
+//  Дополнительные поля базового режима:
+
+//Если выбрать видом перевозки самолет(avia),то
+//-аэропорт вылета
+//-аэропорт приземления
+
+//Если выбрать видом перевозки(transport_kind_id) не авто(road), а самолет(avia), жд(rw) или море , то
+//-условия поставки = incoterms_id: число
+//-в ставку должно быть включенно = services: массив из числе по моему, но в документация из строк
+//-дополнительные услуги = services_optional: массив из числе по моему, но в документация из строк
+
+
+//Режим №2 БАЗОВЫЙ+(planB)-------------------------------------------------------------------------------------
 
 
 
