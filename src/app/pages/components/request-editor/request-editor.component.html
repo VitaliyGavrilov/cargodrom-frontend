@@ -166,7 +166,7 @@
 
         <div class="form-item-table-row" *ngFor="let place of places.controls; let i=index">
           <div class="form-block-title">Место №{{i +1}}</div>
-          <app-place-editor [formControlName]="i" (removePlace)="removePlace(i)"></app-place-editor>
+          <app-place-editor [formControlName]="i" (removePlace)="removePlace(i)" [currentRequestFormat]="currentRequestFormat" (ngModelChange)="test()"></app-place-editor>
           <!-- так то кнопку удаления можно сюда засунуть,лишний аутпут уберу, решу во время верстки где ее оставить -->
         </div>
 
@@ -177,14 +177,15 @@
       </div>
 
     </div>
-
+    <!-- Габариты общие -->
     <div class="form-row bg showhide indicative">
       <div class="form-item-layout">
 
         <div class="form-item">
           <div class="form-label">Итого мест, шт:</div>
           <div class="form-data">
-            <input type="text" name="cargo_places_count" formControlName="cargo_places_count">
+            <input *ngIf="!requestForm.value.cargo_separately" type="text" name="cargo_places_count" formControlName="cargo_places_count">
+            <input *ngIf="requestForm.value.cargo_separately" type="text" readonly [value] = 'requestForm.value.cargos_places.length'>
           </div>
         </div>
 
@@ -272,6 +273,9 @@
 
       </div>
     </div>
+
+
+
     <div class="form-row" *ngIf="currentRequestFormat===2">
       <app-file-list-request [documents]="documents" component="request" var="documents_file" [itemId]="id!" #fileList>
         <div class="form-block-sub-title" subtitle>Прикрепить документы:</div>

@@ -99,7 +99,7 @@ export class RequestEditorComponent implements OnInit, OnDestroy {
       // + -это значит что в обькте который мы будем отправлять для создания или изменения запроса, есть такое жк поле, а минус будет означть что поле нашей формы не нужно или должно дыть преобразованно в другое поле
       //ОСНОВА
       customer_id: ['', [Validators.required]],// + (customer это клиент,должен быть контрактор)
-      request_type_id: ['1', [Validators.required]],// +
+      request_type_id: [1, [Validators.required]],// +
       transport_kind_id: ['avia', [Validators.required]],// +
       transport_type_id: ['', [Validators.required]],// +
       //ОПИСАНИЕ ГРУЗА
@@ -257,7 +257,7 @@ export class RequestEditorComponent implements OnInit, OnDestroy {
       cargo_description: body.cargo_description,
       cargo_package_id: body.cargo_package_id,
 
-      cargo_places: body.cargo_places,
+      cargo_places: body.cargos_places,
 
       cargo_places_count: body.cargo_places_count,
       cargo_places_weight: body.cargo_places_weight,
@@ -291,9 +291,13 @@ export class RequestEditorComponent implements OnInit, OnDestroy {
       delete data.services;
       delete data.services_optional;
     }
+    //удалем ненужные поля из массива мест
+    data.cargo_places.forEach((i:any) => {
+      delete i.cargo_package_id;
+      delete i.stacking;
+    })
     console.log(data);
     this.createRequest(data);
-
   }
   //ВЛОЖЕННАЯ ФОРМА РЕДАКТИРОВАНИ МЕСТ
   removePlace(i: number): void {
@@ -315,6 +319,13 @@ export class RequestEditorComponent implements OnInit, OnDestroy {
     return name as string;
   }
   //ИЗМЕНЕНИЯ ПОЛЕЙ
+  test(){
+    let volume = 0;
+    this.requestForm.value.cargos_places.forEach((i:any)=>{
+      volume += i.volume;
+    })
+    this.requestForm.value.cargo_places_volume = volume;
+  }
   //
   onWeightAndVolumeChange() {
     const density = this.requestForm.value.cargo_places_weight/this.requestForm.value.cargo_places_volume ;

@@ -30,32 +30,46 @@ export class PlaceEditorComponent implements OnInit, OnDestroy, OnChanges, Contr
   placeForm: FormGroup;
   @Output() removePlace = new EventEmitter<void>();
 
+  @Input() currentRequestFormat!:number;
+
 
   onChange = (value: Partial<Contact>) => { };
   onTouched = () => { };
   private _destroy$ = new Subject();
 
   private touched = false;
-  cargoPackages:CargoPackage[]=[]
+  cargoPackages:CargoPackage[]=[];
+
+  currentTotalVolume: number = 0;
+  currentTotalWeight: number = 0;
 
   constructor(
     private fb: FormBuilder,
     private cargoService:CargoService,
   ) {
     this.placeForm = this.fb.group({
-      // request_id:[''],
-      num: ['', [Validators.required]],
-      cargo_package_id: ['', [Validators.required]],
-      stacking: [false],
+      cargo_package_id: ['', []],
+      stacking: [false,[]],
       length: ['', [Validators.required]],
       width: ['', [Validators.required]],
       height: ['', [Validators.required]],
       weight: ['', [Validators.required]],
       count: ['', [Validators.required]],
-      // volume: ['', [Validators.required]],
-      // total_weight: ['', [Validators.required]],
+      volume: ['', []],
+      total_weight: ['', []],
     });
   }
+  onCalkTotalVolumeAndWeight(){
+    const volume = this.placeForm.value.length * this.placeForm.value.width * this.placeForm.value.height * this.placeForm.value.count ;
+    const weight = this.placeForm.value.weight * this.placeForm.value.count ;
+
+    this.currentTotalWeight = typeof weight === 'number' && weight > 0 && weight < Infinity ? weight : 0;
+    this.currentTotalVolume = typeof volume === 'number' && volume > 0 && volume < Infinity ? volume : 0;
+
+    this.placeForm.value.volume = this.currentTotalVolume;
+    this.placeForm.value.total_weight = this.currentTotalWeight;
+  }
+
   onDeletePlace(): void {
     this.removePlace.emit();
   }
@@ -86,6 +100,7 @@ export class PlaceEditorComponent implements OnInit, OnDestroy, OnChanges, Contr
           this.touched = true;
         }
       });
+
   }
 
   ngOnDestroy(): void {

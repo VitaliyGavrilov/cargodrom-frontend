@@ -1,7 +1,7 @@
 <form [formGroup]="placeForm">
   <div class="form-item-layout">
 
-    <div class="form-item">
+    <div class="form-item" *ngIf="currentRequestFormat===2">
       <div class="form-data">
         <mat-form-field appearance="outline" class="ui-select">
           <mat-select formControlName="cargo_package_id">
@@ -13,31 +13,31 @@
 
     <div class="form-item">
       <div class="form-label">ДЛИНА, СМ: <span class="req">•</span></div>
-      <div class="form-data"><input type="text" name="length" formControlName="length" placeholder="—" required></div>
+      <div class="form-data"><input type="text" name="length" formControlName="length" placeholder="—" required (ngModelChange)="onCalkTotalVolumeAndWeight()"></div>
     </div>
     <div class="form-item">
       <div class="form-label">ШИРИНА, СМ:</div>
-      <div class="form-data"><input type="text"  name="width" formControlName="width" placeholder="—" required></div>
+      <div class="form-data"><input type="text"  name="width" formControlName="width" placeholder="—" required (ngModelChange)="onCalkTotalVolumeAndWeight()"></div>
     </div>
     <div class="form-item">
       <div class="form-label">ВЫСОТА, СМ:</div>
-      <div class="form-data"><input type="text"  name="height" formControlName="height" placeholder="—" required></div>
+      <div class="form-data"><input type="text"  name="height" formControlName="height" placeholder="—" required (ngModelChange)="onCalkTotalVolumeAndWeight()"></div>
     </div>
     <div class="form-item">
       <div class="form-label">ВЕС, КГ<span class="req">•</span></div>
-      <div class="form-data"><input type="text"  name="weight" formControlName="weight" placeholder="—" required></div>
+      <div class="form-data"><input type="text"  name="weight" formControlName="weight" placeholder="—" required (ngModelChange)="onCalkTotalVolumeAndWeight()"></div>
     </div>
     <div class="form-item">
       <div class="form-label">КОЛ-ВО, ШТ <span class="req">•</span></div>
-      <div class="form-data"><input type="text" name="count" formControlName="count" placeholder="—" required></div>
+      <div class="form-data"><input type="text" name="count" formControlName="count" placeholder="—" required (ngModelChange)="onCalkTotalVolumeAndWeight()"></div>
     </div>
     <div class="form-item">
       <div class="form-label">ИТОГО ОБЪЕМ, М3 <span class="req">•</span></div>
-      <div class="form-data"><input type="text" name="volume" formControlName="volume"  placeholder="—" required></div>
+      <div class="form-data"><input type="text" name="volume" formControlName="volume"  placeholder="—" required readonly [value]="currentTotalVolume"></div>
     </div>
     <div class="form-item">
       <div class="form-label">ИТОГО ВЕС, КГ <span class="req">•</span></div>
-      <div class="form-data"><input type="text" name="total_weight" formControlName="total_weight" placeholder="—" required></div>
+      <div class="form-data"><input type="text" name="total_weight" formControlName="total_weight" placeholder="—" required readonly [value]="currentTotalWeight"></div>
     </div>
     <div class="form-item">
       <button (click)="onDeletePlace()">удалить</button>
