@@ -60,7 +60,7 @@ export class PlaceEditorComponent implements OnInit, OnDestroy, OnChanges, Contr
     });
   }
   onCalkTotalVolumeAndWeight(){
-    const volume = this.placeForm.value.length * this.placeForm.value.width * this.placeForm.value.height * this.placeForm.value.count ;
+    const volume = this.placeForm.value.length * this.placeForm.value.width * this.placeForm.value.height * this.placeForm.value.count / 100 ;
     const weight = this.placeForm.value.weight * this.placeForm.value.count ;
 
     this.currentTotalWeight = typeof weight === 'number' && weight > 0 && weight < Infinity ? weight : 0;

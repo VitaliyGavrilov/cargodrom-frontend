@@ -166,7 +166,7 @@
 
         <div class="form-item-table-row" *ngFor="let place of places.controls; let i=index">
           <div class="form-block-title">Место №{{i +1}}</div>
-          <app-place-editor [formControlName]="i" (removePlace)="removePlace(i)" [currentRequestFormat]="currentRequestFormat" (ngModelChange)="test()"></app-place-editor>
+          <app-place-editor [formControlName]="i" (removePlace)="removePlace(i)" [currentRequestFormat]="currentRequestFormat" (change)="test()"></app-place-editor>
           <!-- так то кнопку удаления можно сюда засунуть,лишний аутпут уберу, решу во время верстки где ее оставить -->
         </div>
 
@@ -192,14 +192,16 @@
         <div class="form-item">
           <div class="form-label">Итого вес, кг:</div>
           <div class="form-data">
-            <input type="text" name="cargo_places_weight" formControlName="cargo_places_weight" (ngModelChange)="onWeightAndVolumeChange()">
+            <input *ngIf="!requestForm.value.cargo_separately" type="text" name="cargo_places_weight" formControlName="cargo_places_weight" (ngModelChange)="onWeightAndVolumeChange()">
+            <input *ngIf="requestForm.value.cargo_separately" type="text" readonly [value] = 'requestForm.value.cargo_places_weight'>
           </div>
         </div>
 
         <div class="form-item">
           <div class="form-label">Итого Объем, м<sup>3</sup>:</div>
           <div class="form-data">
-            <input type="text" name="cargo_places_volume" formControlName="cargo_places_volume" (ngModelChange)="onWeightAndVolumeChange()">
+            <input *ngIf="!requestForm.value.cargo_separately" type="text" name="cargo_places_volume" formControlName="cargo_places_volume" (ngModelChange)="onWeightAndVolumeChange()">
+            <input *ngIf="requestForm.value.cargo_separately" type="text" readonly [value] = 'requestForm.value.cargo_places_volume'>
           </div>
         </div>
 

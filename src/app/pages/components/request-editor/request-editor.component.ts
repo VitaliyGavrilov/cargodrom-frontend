@@ -61,6 +61,14 @@ export class RequestEditorComponent implements OnInit, OnDestroy {
   currentRequestFormat:number=1; //переменная для зранения текущего типа запроса
   currentTransportationFormat:string=''; //переменная для хранения текущего вида перевозки
   currentPlacesDensity: number = 0 ;
+  currentTotalPlacesData = {
+    count: 0,
+    weight: 0,
+    volume: 0,
+    paid_weight: 0,
+    density: 0,
+    cost: 0
+  }
   //снек бар
   snackBarWithShortDuration: MatSnackBarConfig = { duration: 1000 };
   snackBarWithLongDuration: MatSnackBarConfig = { duration: 3000 };
@@ -248,6 +256,7 @@ export class RequestEditorComponent implements OnInit, OnDestroy {
   }
   //
   planB(body:any){
+
     const data = {
       customer_id: body.customer_id,
       request_type_id: body.request_type_id,
@@ -259,7 +268,7 @@ export class RequestEditorComponent implements OnInit, OnDestroy {
 
       cargo_places: body.cargos_places,
 
-      cargo_places_count: body.cargo_places_count,
+      cargo_places_count: body.cargos_places.length,
       cargo_places_weight: body.cargo_places_weight,
       cargo_places_volume: body.cargo_places_volume,
       cargo_places_paid_weight: body.cargo_places_paid_weight,
@@ -319,14 +328,30 @@ export class RequestEditorComponent implements OnInit, OnDestroy {
     return name as string;
   }
   //ИЗМЕНЕНИЯ ПОЛЕЙ
+  // итоговый подсчет при раздельных местах,
+  //не знаю как правильно сделать,через (ngModelChange)="" чет не полуилось, отставвание какоето, а с (change) получше
+  //надо изучить тему Change detection
+
   test(){
+    //обьем
     let volume = 0;
     this.requestForm.value.cargos_places.forEach((i:any)=>{
-      volume += i.volume;
+      if(i) {
+        volume += i.volume;
+      }
     })
     this.requestForm.value.cargo_places_volume = volume;
+    //вес
+    let weight = 0;
+    this.requestForm.value.cargos_places.forEach((i:any)=>{
+      if(i) {
+        weight += i.total_weight;
+      }
+    })
+    this.requestForm.value.cargo_places_weight = weight;
+
   }
-  //
+
   onWeightAndVolumeChange() {
     const density = this.requestForm.value.cargo_places_weight/this.requestForm.value.cargo_places_volume ;
     this.currentPlacesDensity = typeof density === 'number' && density >0 && density < Infinity ? density : 0;
