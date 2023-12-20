@@ -61,14 +61,6 @@ export class RequestEditorComponent implements OnInit, OnDestroy {
   currentRequestFormat:number=1; //переменная для зранения текущего типа запроса
   currentTransportationFormat:string=''; //переменная для хранения текущего вида перевозки
   currentPlacesDensity: number = 0 ;
-  currentTotalPlacesData = {
-    count: 0,
-    weight: 0,
-    volume: 0,
-    paid_weight: 0,
-    density: 0,
-    cost: 0
-  }
   //снек бар
   snackBarWithShortDuration: MatSnackBarConfig = { duration: 1000 };
   snackBarWithLongDuration: MatSnackBarConfig = { duration: 3000 };
@@ -88,6 +80,14 @@ export class RequestEditorComponent implements OnInit, OnDestroy {
       text: ' не стакинг'
     }
   ];
+
+  cargoTotal={
+    count: 0,
+    weight: 0,
+    volume: 0,
+    paid_weight: 0,
+    density: 0,
+  }
   //КОНСТРУКТОР
   constructor(
     private route: ActivatedRoute,
@@ -108,7 +108,7 @@ export class RequestEditorComponent implements OnInit, OnDestroy {
       //ОСНОВА
       customer_id: ['', [Validators.required]],// + (customer это клиент,должен быть контрактор)
       request_type_id: [1, [Validators.required]],// +
-      transport_kind_id: ['avia', [Validators.required]],// +
+      transport_kind_id: ['', [Validators.required]],// +
       transport_type_id: ['', [Validators.required]],// +
       //ОПИСАНИЕ ГРУЗА
       cargo_description: ['', [Validators.required]],// +
@@ -116,10 +116,12 @@ export class RequestEditorComponent implements OnInit, OnDestroy {
       cargo_type_id: ['', []],// +
       //наличе файла безопасности
       cargo_danger: [false,[]],// +
-      //температура, при отправке будем передавать как обьект cargo_temperature
-      cargo_temperature_control: [false,[]],// -
-      cargo_temperature_min: ['', []],// -
-      cargo_temperature_max: ['', []],// -
+      //температура
+      cargo_temperature: this.fb.group({
+        cargo_temperature_control: [false,[]],
+        cargo_temperature_min: ['', []],
+        cargo_temperature_max: ['', []],
+      }),
       //режим раздельных мест,для создания не нужен, чисто для меня пока что оставлю
       cargo_separately: [false,[]],// -
       //общие габариты
@@ -185,10 +187,11 @@ export class RequestEditorComponent implements OnInit, OnDestroy {
       this.addPlace();
     };
   }
+
+
   // Публичные методы:
   //СОХРАНЕНИЕ,УДАЛЕНИЕ,ОТМЕНА,НАЗАД
   save(): void {
-    console.log('Нажата кнопка сохранить')
     const body = this.requestForm.value;
     if(body.request_type_id===1 && body.cargo_separately == false) {
       console.log('План А вызван')
@@ -198,8 +201,6 @@ export class RequestEditorComponent implements OnInit, OnDestroy {
       console.log('План B вызван')
       this.planB(body)
     }
-
-
   }
   remove():void {
     console.log('Нажата кнопка отмена');
@@ -223,7 +224,7 @@ export class RequestEditorComponent implements OnInit, OnDestroy {
       cargo_places_weight: body.cargo_places_weight,
       cargo_places_volume: body.cargo_places_volume,
       cargo_places_paid_weight: body.cargo_places_paid_weight,
-      cargo_places_density: this.currentPlacesDensity,
+      cargo_places_density: body.cargo_places_density,
       cargo_cost: body.cargo_cost,
       cargo_currency_id: body.cargo_currency_id,
 
@@ -256,7 +257,6 @@ export class RequestEditorComponent implements OnInit, OnDestroy {
   }
   //
   planB(body:any){
-
     const data = {
       customer_id: body.customer_id,
       request_type_id: body.request_type_id,
@@ -272,7 +272,7 @@ export class RequestEditorComponent implements OnInit, OnDestroy {
       cargo_places_weight: body.cargo_places_weight,
       cargo_places_volume: body.cargo_places_volume,
       cargo_places_paid_weight: body.cargo_places_paid_weight,
-      cargo_places_density: this.currentPlacesDensity,
+      cargo_places_density: body.cargo_places_density,
       cargo_cost: body.cargo_cost,
       cargo_currency_id: body.cargo_currency_id,
 
@@ -327,43 +327,62 @@ export class RequestEditorComponent implements OnInit, OnDestroy {
     const name = this.contractors?.find(contractor=>contractor.id === id)?.name;
     return name as string;
   }
-  //ИЗМЕНЕНИЯ ПОЛЕЙ
-  // итоговый подсчет при раздельных местах,
-  //не знаю как правильно сделать,через (ngModelChange)="" чет не полуилось, отставвание какоето, а с (change) получше
-  //надо изучить тему Change detection
-
-  test(){
-    //обьем
+  //РАСЧЕТЫ
+  //итоговый подсчет при раздельных местах
+  onPlaceEditorChange(){
     let volume = 0;
-    this.requestForm.value.cargos_places.forEach((i:any)=>{
-      if(i) {
-        volume += i.volume;
-      }
-    })
-    this.requestForm.value.cargo_places_volume = volume;
-    //вес
     let weight = 0;
+    let count = this.requestForm.value.cargos_places.length;
+    let paidWeight = 0;
+    let density = 0;
+
     this.requestForm.value.cargos_places.forEach((i:any)=>{
       if(i) {
-        weight += i.total_weight;
+        if(i.volume>0){
+          volume += i.volume;
+        }
+        if(i.total_weight>0){
+          weight += i.total_weight;
+        }
       }
     })
-    this.requestForm.value.cargo_places_weight = weight;
 
-  }
+    density = weight/volume>0 ? weight/volume : 0;
+    //оплачиваемый вес потом еще
 
-  onWeightAndVolumeChange() {
-    const density = this.requestForm.value.cargo_places_weight/this.requestForm.value.cargo_places_volume ;
-    this.currentPlacesDensity = typeof density === 'number' && density >0 && density < Infinity ? density : 0;
+    this.requestForm.patchValue({
+      cargo_places_volume: volume,
+      cargo_places_weight: weight,
+      cargo_places_count: count,
+      cargo_places_paid_weight: paidWeight,
+      cargo_places_density: density,
+    });
   }
+  //расчет плотности при совместных местах
+  weightAndVolumeChange() {
+    const calk = this.requestForm.value.cargo_places_weight/this.requestForm.value.cargo_places_volume;
+    const density = calk > 0 && calk < Infinity ? calk: 0;
+    this.requestForm.patchValue({
+      cargo_places_density: density,
+    });
+  }
+  //ИЗМЕНЕНИЯ ПОЛЕЙ
   //изменение поля режима отдельных мест
   onPlaceModeChange(){
     this.requestForm.controls['cargos_places'].reset();
+    this.requestForm.controls['cargo_places_count'].reset();
+    this.requestForm.controls['cargo_places_weight'].reset();
+    this.requestForm.controls['cargo_places_volume'].reset();
+    this.requestForm.controls['cargo_places_paid_weight'].reset();
+    this.requestForm.controls['cargo_places_density'].reset();
+    this.requestForm.controls['cargo_cost'].reset();
+    this.requestForm.controls['cargo_currency_id'].reset();
   }
   //изменение поля режима температурного контроля
   onTempModeChange(){
-    this.requestForm.controls['cargo_temperature_min'].reset();
-    this.requestForm.controls['cargo_temperature_max'].reset();
+    if(!this.requestForm.value.cargo_temperature.cargo_temperature_control){
+      this.requestForm.controls['cargo_temperature'].reset();
+    }
   }
   //изменение поля когтрактора
   onContracorChange(e:any){
@@ -661,15 +680,12 @@ export class RequestEditorComponent implements OnInit, OnDestroy {
 //Признаки:
 //1. Вид запроса = индикатив
 // request_type_id: 1
-//2.Габариты и места = раздельно(данного поля не будет на беке)
-// cargo_separately: true
+//2.Габариты и места = раздельно
+// cargo_separately: true (данного поля не будет на беке)
 
 //Вариативность данного режима такая же как и в planA:
 //1.Если выбрать видом перевозки авто(road), то будет не доступен весь блок Требуемых Услуг(так как бек ничего не возвращает для селкторов блока).
 //2.Если выбрать видом перевозки самолет(avia), то в блоке Направления появятся селекторы АЭРОПОРТ ВЫЛЕТА и АЭРОПОРТ ПРИБЫТИЯ.
-
-//ВАЖНО
-//мы еще не решили как работать с итоговыми данными-характеристиками груза
 
 //  Основные поля базового+ режима:
 
@@ -681,7 +697,15 @@ export class RequestEditorComponent implements OnInit, OnDestroy {
 //наименнование груза = cargo_description: строка
 //вид упаковки = cargo_package_id: число
 
-//места = cargo_places: массив мест
+//места = cargo_places: массив мест[{
+// length: длина
+// width: ширина
+// height: высота
+// weight: вес
+// count: количество
+// volume: итого обьем места
+// total_weight: итого вес места
+// },]
 
 //итого мест = cargo_places_count: число
 //итого вес = cargo_places_weight: число
@@ -710,5 +734,65 @@ export class RequestEditorComponent implements OnInit, OnDestroy {
 //-дополнительные услуги = services_optional: массив из числе по моему, но в документация из строк
 
 
+//Режим №3 РАСШИРЕННЫЙ(planC)-------------------------------------------------------------------------------------
+//Признаки:
+//1. Вид запроса = индикатив
+// request_type_id: 2
+//2.Габариты и места = не раздельно
+// cargo_separately: false (данного поля не будет на беке)
 
+//Вариативность:
+//1.Если выбрать видом перевозки авто(road), то будет не доступен весь блок Требуемых Услуг(так как бек ничего не возвращает для селкторов блока).
+//2.Если выбрать видом перевозки самолет(avia), то в блоке Направления появятся селекторы АЭРОПОРТ ВЫЛЕТА и АЭРОПОРТ ПРИБЫТИЯ.
 
+//  Основные поля расширенного режима:
+
+//контрагент = customer_id: число
+//вид запроса = request_type_id: число
+//вид перевозки = transport_kind_id: строка
+//тип транспорта = transport_type_id: число
+
+//наименнование груза = cargo_description: строка
+//тип груза = cargo_type_id: число
+
+//температура
+//температурный режим
+//температура мин
+//температура макс
+
+//файл безрпастности наличие
+//файл безрпастности
+
+//итого мест = cargo_places_count: число
+//итого вес = cargo_places_weight: число
+//итого обьем = cargo_places_volume: число
+//оплачиваемый вес = cargo_places_paid_weight: число
+//плотность = cargo_places_density: число
+//стоимость = cargo_cost: число
+//вид валюты = cargo_currency_id: число по моему, но в документации(создание запроса) написанно строка, надо уточнить
+//готовность
+//вид упаковки = cargo_package_id: число
+//стакинг
+
+//файлы
+
+//город отправления = departure_city_id: число
+//страна отправления = departure_country_id: число
+//город назначения = arrival_city_id: число
+//страна назначения = arrival_country_id: число
+//адрес забора груза
+//адресс назначения = arrival_address: строка
+//рейсы = departure_flight: строка
+
+//дополнительная информация
+
+//  Дополнительные поля расширенного режима:
+
+//Если выбрать видом перевозки самолет(avia),то
+//-аэропорт вылета
+//-аэропорт приземления
+
+//Если выбрать видом перевозки(transport_kind_id) не авто(road), а самолет(avia), жд(rw) или море , то
+//-условия поставки = incoterms_id: число
+//-в ставку должно быть включенно = services: массив из числе по моему, но в документация из строк
+//-дополнительные услуги = services_optional: массив из числе по моему, но в документация из строк

@@ -55,8 +55,8 @@ export class PlaceEditorComponent implements OnInit, OnDestroy, OnChanges, Contr
       height: ['', [Validators.required]],
       weight: ['', [Validators.required]],
       count: ['', [Validators.required]],
-      volume: ['', []],
-      total_weight: ['', []],
+      volume: ['', [Validators.required]],
+      total_weight: ['', [Validators.required]],
     });
   }
   onCalkTotalVolumeAndWeight(){
@@ -66,8 +66,7 @@ export class PlaceEditorComponent implements OnInit, OnDestroy, OnChanges, Contr
     this.currentTotalWeight = typeof weight === 'number' && weight > 0 && weight < Infinity ? weight : 0;
     this.currentTotalVolume = typeof volume === 'number' && volume > 0 && volume < Infinity ? volume : 0;
 
-    this.placeForm.value.volume = this.currentTotalVolume;
-    this.placeForm.value.total_weight = this.currentTotalWeight;
+    this.placeForm.patchValue({volume: this.currentTotalVolume,total_weight: this.currentTotalWeight})
   }
 
   onDeletePlace(): void {
@@ -100,6 +99,8 @@ export class PlaceEditorComponent implements OnInit, OnDestroy, OnChanges, Contr
           this.touched = true;
         }
       });
+
+      this.onCalkTotalVolumeAndWeight()
 
   }
 

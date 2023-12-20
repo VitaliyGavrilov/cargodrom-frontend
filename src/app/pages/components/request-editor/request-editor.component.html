@@ -39,7 +39,7 @@
           <div class="form-item">
             <div class="form-label">Вид перевозки: <span class="req">•</span></div>
             <div class="form-data">
-                <mat-button-toggle-group class="form-item-layout a" name="transport_kind_id" formControlName="transport_kind_id" (valueChange)="onTransportationFormatsChange()">
+                <mat-button-toggle-group class="form-item-layout a" name="transport_kind_id" formControlName="transport_kind_id" (change)="onTransportationFormatsChange()">
                   <mat-button-toggle value="avia">
                     <img src="../../../../assets/pic-service-air.svg">
                   </mat-button-toggle>
@@ -115,18 +115,18 @@
       </div>
     </div>
 
-    <div class="form-row" *ngIf="currentRequestFormat===2">
+    <div class="form-row" *ngIf="currentRequestFormat===2" formGroupName="cargo_temperature">
       <div class="form-item-layout">
 
         <mat-checkbox (change)="onTempModeChange()" formControlName="cargo_temperature_control">Нужен температурный режим?</mat-checkbox>
 
-        <div class="form-item" *ngIf="requestForm.value.cargo_temperature_control">
+        <div class="form-item" *ngIf="requestForm.value.cargo_temperature.cargo_temperature_control">
           <div class="form-data">
             <input type="number" name="cargo_temperature_min" formControlName="cargo_temperature_min">
           </div>
         </div>
 
-        <div class="form-item" *ngIf="requestForm.value.cargo_temperature_control">
+        <div class="form-item" *ngIf="requestForm.value.cargo_temperature.cargo_temperature_control">
           <div class="form-data">
             <input type="number" name="cargo_temperature_max" formControlName="cargo_temperature_max" >
           </div>
@@ -166,7 +166,7 @@
 
         <div class="form-item-table-row" *ngFor="let place of places.controls; let i=index">
           <div class="form-block-title">Место №{{i +1}}</div>
-          <app-place-editor [formControlName]="i" (removePlace)="removePlace(i)" [currentRequestFormat]="currentRequestFormat" (change)="test()"></app-place-editor>
+          <app-place-editor [formControlName]="i" (removePlace)="removePlace(i)" [currentRequestFormat]="currentRequestFormat" (keyup)='onPlaceEditorChange()' (click)="onPlaceEditorChange()"></app-place-editor>
           <!-- так то кнопку удаления можно сюда засунуть,лишний аутпут уберу, решу во время верстки где ее оставить -->
         </div>
 
@@ -185,14 +185,14 @@
           <div class="form-label">Итого мест, шт:</div>
           <div class="form-data">
             <input *ngIf="!requestForm.value.cargo_separately" type="text" name="cargo_places_count" formControlName="cargo_places_count">
-            <input *ngIf="requestForm.value.cargo_separately" type="text" readonly [value] = 'requestForm.value.cargos_places.length'>
+            <input *ngIf="requestForm.value.cargo_separately" type="text" readonly [value] = 'requestForm.value.cargo_places_count'>
           </div>
         </div>
 
         <div class="form-item">
           <div class="form-label">Итого вес, кг:</div>
           <div class="form-data">
-            <input *ngIf="!requestForm.value.cargo_separately" type="text" name="cargo_places_weight" formControlName="cargo_places_weight" (ngModelChange)="onWeightAndVolumeChange()">
+            <input *ngIf="!requestForm.value.cargo_separately" type="text" name="cargo_places_weight" formControlName="cargo_places_weight" (keyup)='weightAndVolumeChange()' (click)="weightAndVolumeChange()">
             <input *ngIf="requestForm.value.cargo_separately" type="text" readonly [value] = 'requestForm.value.cargo_places_weight'>
           </div>
         </div>
@@ -200,7 +200,7 @@
         <div class="form-item">
           <div class="form-label">Итого Объем, м<sup>3</sup>:</div>
           <div class="form-data">
-            <input *ngIf="!requestForm.value.cargo_separately" type="text" name="cargo_places_volume" formControlName="cargo_places_volume" (ngModelChange)="onWeightAndVolumeChange()">
+            <input *ngIf="!requestForm.value.cargo_separately" type="text" name="cargo_places_volume" formControlName="cargo_places_volume" (keyup)='weightAndVolumeChange()' (click)="weightAndVolumeChange()">
             <input *ngIf="requestForm.value.cargo_separately" type="text" readonly [value] = 'requestForm.value.cargo_places_volume'>
           </div>
         </div>
@@ -208,14 +208,15 @@
         <div class="form-item ">
           <div class="form-label">оплачиваемый вес:</div>
           <div class="form-data" >
-            <input type="text" name="cargo_places_paid_weight" formControlName="cargo_places_paid_weight">
+            <input *ngIf="!requestForm.value.cargo_separately" type="text" name="cargo_places_paid_weight" formControlName="cargo_places_paid_weight">
+            <input *ngIf="requestForm.value.cargo_separately" type="text" readonly [value] = 'requestForm.value.cargo_places_paid_weight'>
           </div>
         </div>
 
         <div class="form-item ">
           <div class="form-label">плотность, кг/м<sup>3</sup>:</div>
           <div class="form-data">
-            <div>{{currentPlacesDensity}}</div>
+            <input type="text" readonly [value] = 'requestForm.value.cargo_places_density'>
           </div>
         </div>
 
@@ -276,14 +277,12 @@
       </div>
     </div>
 
+      <div class="form-row" *ngIf="currentRequestFormat===2">
+        <app-file-list-request [documents]="documents" component="request" var="documents_file" [itemId]="id!" #fileList>
+          <div class="form-block-sub-title" subtitle>Прикрепить документы:</div>
+        </app-file-list-request>
+      </div>
 
-
-    <div class="form-row" *ngIf="currentRequestFormat===2">
-      <app-file-list-request [documents]="documents" component="request" var="documents_file" [itemId]="id!" #fileList>
-        <div class="form-block-sub-title" subtitle>Прикрепить документы:</div>
-      </app-file-list-request>
-
-    </div>
     </div>
     <!-- Блок НАПРАВЛЕНИЯ -->
     <div class="form-block-title">Направления</div>
@@ -371,7 +370,7 @@
                 <mat-select formControlName="arrival_point_id" >
                   <mat-option *ngFor="let arrivalPoint of arrivalPoint;" [value]="arrivalPoint.id">{{ arrivalPoint.name }}</mat-option>
                 </mat-select>
-                <mat-error *ngIf="requestForm.controls['arrival_point_id'].hasError('required')">
+                <mat-error *ngIf="requestForm.controls['arrival_point_id'].hasError('required')&& (requestForm.controls['arrival_point_id'].dirty || requestForm.controls['arrival_point_id'].touched)">
                   Это поле обязательно
                 </mat-error>
               </mat-form-field>
@@ -393,33 +392,19 @@
           <i></i>
           <span>{{ directionFlight.name }}</span>
         </label>
-        <mat-error *ngIf="requestForm.controls['departure_flight'].hasError('required')&& (requestForm.dirty || requestForm.touched)">
+        <!-- <mat-error *ngIf="requestForm.controls['departure_flight'].hasError('required')&& (requestForm.dirty || requestForm.touched)">
+          Это поле обязательно
+        </mat-error> -->
+        <mat-error *ngIf="requestForm.controls['departure_flight'].hasError('required')&& (requestForm.controls['departure_flight'].dirty || requestForm.controls['departure_flight'].touched)">
           Это поле обязательно
         </mat-error>
       </div>
-      <!-- <div class="form-row">
-        <div class="form-item-layout">
-          <div class="form-item">
-            <div class="form-label">Рейсы: <span class="req">•</span></div>
-            <div class="form-data">
-              <mat-form-field appearance="outline" class="ui-select">
-               <mat-select formControlName="direction_flight">
-                 <mat-option *ngFor="let directionFlight of directionFlights;" [value]="directionFlight.id">{{ directionFlight.name }}</mat-option>
-               </mat-select>
-               <mat-error *ngIf="requestForm.controls['direction_flight'].hasError('required')">
-                 Это поле обязательно
-               </mat-error>
-             </mat-form-field>
-            </div>
-          </div>
-        </div>
-      </div> -->
     </div>
     <!-- Блок ТРЕБУЕМЫЕ УСЛУГИ -->
-    <div class="form-block-title">Требуемые услуги</div>
-    <div class="form-block">
+    <div class="form-block-title" *ngIf="currentTransportationFormat !=='road'">Требуемые услуги</div>
+    <div class="form-block" *ngIf="currentTransportationFormat !=='road'">
 
-      <div class="form-row" *ngIf="currentTransportationFormat !=='road' ">
+      <div class="form-row">
         <div class="form-item-layout">
 
           <div class="form-item">
