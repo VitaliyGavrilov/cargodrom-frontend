@@ -4,7 +4,7 @@ import { FormArray, FormBuilder, FormGroup, MinLengthValidator, Validators } fro
 import { ActivatedRoute, Router } from '@angular/router';
 import { Observable, Subject, find, map, pipe, takeUntil, tap } from 'rxjs';
 import { ContractorService } from './../../../api/services/contractor.service';
-import { City, Client, ClientGroup, Contractor, ContractorRequestFormat, Country, Currency, Employee, FileDocument, TaxSystem } from 'src/app/api/custom_models';
+import { City, Client, ClientGroup, Contractor, ContractorRequestFormat, Country, Currency, DirectionCity, Employee, FileDocument, TaxSystem } from 'src/app/api/custom_models';
 import { CargoService, CompanyService, CustomerService, DirectionService, RequestService, SystemService, TransportService } from 'src/app/api/services';
 import { Editor } from 'src/app/classes/editor';
 import { Location } from '@angular/common';
@@ -47,12 +47,13 @@ export class RequestEditorComponent implements OnInit, OnDestroy {
   cargoTypes: CargoType[]=[];
   currencys: Currency[]=[];
   countrys: Country[]=[];
-  departureCitys: City[]=[];
+  departureCitys: DirectionCity[]=[];
   departurePoint: DirectionPoint[] = [];
-  arrivalCitys: City[]=[];
+  arrivalCitys: DirectionCity[]=[];
   arrivalPoint:DirectionPoint[] = [];
   directionFlights: DirectionFlight[]=[];
   incoterms: Incoterms[]=[];
+  ports: DirectionCity[]=[];
   services: RequestServices[]=[];
   servicesAdditionals: RequestServices[]=[];
   documentsDanger: FileDocument[] = [];
@@ -61,6 +62,8 @@ export class RequestEditorComponent implements OnInit, OnDestroy {
   currentRequestFormat:number=1; //переменная для зранения текущего типа запроса
   currentTransportationFormat:string=''; //переменная для хранения текущего вида перевозки
   currentPlacesDensity: number = 0 ;
+  currentDepartureCountryName:string='';
+  currentArrivalCountryName:string='';
   //снек бар
   snackBarWithShortDuration: MatSnackBarConfig = { duration: 1000 };
   snackBarWithLongDuration: MatSnackBarConfig = { duration: 3000 };
@@ -80,14 +83,6 @@ export class RequestEditorComponent implements OnInit, OnDestroy {
       text: ' не стакинг'
     }
   ];
-
-  cargoTotal={
-    count: 0,
-    weight: 0,
-    volume: 0,
-    paid_weight: 0,
-    density: 0,
-  }
   //КОНСТРУКТОР
   constructor(
     private route: ActivatedRoute,
@@ -187,8 +182,6 @@ export class RequestEditorComponent implements OnInit, OnDestroy {
       this.addPlace();
     };
   }
-
-
   // Публичные методы:
   //СОХРАНЕНИЕ,УДАЛЕНИЕ,ОТМЕНА,НАЗАД
   save(): void {
@@ -323,8 +316,21 @@ export class RequestEditorComponent implements OnInit, OnDestroy {
     return <FormArray>this.requestForm.get('cargos_places');
   }
   //ОТОБРАЖЕНИЕ ПОЛЕЙ
+  //можно событие клик на мat-option повесить, избавлюсь от displayFn-методов, хотя разницы нету
   displayFnContractor = (id:number): string => {
     const name = this.contractors?.find(contractor=>contractor.id === id)?.name;
+    return name as string;
+  }
+  displayFnDepartureCity = (id:number): string => {
+    const name = this.departureCitys?.find(city=>city.id === id)?.name;
+    return name as string;
+  }
+  displayFnArrivalCity = (id:number): string => {
+    const name = this.arrivalCitys?.find(city=>city.id === id)?.name;
+    return name as string;
+  }
+  displayFnPort = (id:number): string => {
+    const name = this.ports?.find(port=>port.id === id)?.name;
     return name as string;
   }
   //РАСЧЕТЫ
@@ -335,7 +341,7 @@ export class RequestEditorComponent implements OnInit, OnDestroy {
     let count = this.requestForm.value.cargos_places.length;
     let paidWeight = 0;
     let density = 0;
-
+    //итого вес и обьем
     this.requestForm.value.cargos_places.forEach((i:any)=>{
       if(i) {
         if(i.volume>0){
@@ -346,10 +352,17 @@ export class RequestEditorComponent implements OnInit, OnDestroy {
         }
       }
     })
-
+    //плотность
     density = weight/volume>0 ? weight/volume : 0;
-    //оплачиваемый вес потом еще
-
+    //оплачиваемый вес
+    let b1 = weight;
+    let b2= volume * 167;
+    if(b1>=b2){
+      paidWeight=b1;
+    } else {
+      paidWeight=b2;
+    }
+    //патчим форму
     this.requestForm.patchValue({
       cargo_places_volume: volume,
       cargo_places_weight: weight,
@@ -358,21 +371,32 @@ export class RequestEditorComponent implements OnInit, OnDestroy {
       cargo_places_density: density,
     });
   }
-  //расчет плотности при совместных местах
+  //расчет плотности и оплач.веса при совместных местах
   weightAndVolumeChange() {
-    const calk = this.requestForm.value.cargo_places_weight/this.requestForm.value.cargo_places_volume;
-    const density = calk > 0 && calk < Infinity ? calk: 0;
+    //плотность
+    const calkDensity = this.requestForm.value.cargo_places_weight/this.requestForm.value.cargo_places_volume;
+    let density = calkDensity > 0 && calkDensity < Infinity ? calkDensity: 0;
+    //оплач.вес
+    let paidWeight;
+    let b1 = this.requestForm.value.cargo_places_weight;
+    let b2= this.requestForm.value.cargo_places_volume * 167;
+    if(b1>=b2){
+      paidWeight=b1;
+    } else {
+      paidWeight=b2;
+    }
+    //патчим форму
     this.requestForm.patchValue({
       cargo_places_density: density,
+      cargo_places_paid_weight: paidWeight,
     });
   }
   //ИЗМЕНЕНИЯ ПОЛЕЙ
   //изменение инкотермс
-  test(incotem:any){
+  onIncotermsChange(incotem:any){
     this.requestForm.patchValue({
       services: incotem.services_id,
     });
-
   }
   //изменение поля режима отдельных мест
   onPlaceModeChange(){
@@ -391,14 +415,9 @@ export class RequestEditorComponent implements OnInit, OnDestroy {
       this.requestForm.controls['cargo_temperature'].reset();
     }
   }
-  //изменение поля когтрактора
-  onContracorChange(e:any){
-    this.getContractorsByName(e.target.value);
-  }
   //изменение поля вида запроса
   onRequestFormatsChange(id:number){
     this.currentRequestFormat = id;
-    //оч много ресетов, для создания запроса норм, а как они будут себя вести при редактировании?
     this.requestForm.controls['cargo_package_id'].reset();
     this.requestForm.controls['cargo_type_id'].reset();
     this.requestForm.controls['cargo_places_count'].reset();
@@ -426,27 +445,41 @@ export class RequestEditorComponent implements OnInit, OnDestroy {
     this.getRequestServices(this.currentTransportationFormat);
     this.getRequestServicesAdditional(this.currentTransportationFormat);
   }
-  //изменение поля страны прибытия
-  onArrivalCountryChange(countryId: number): void {
-    this.requestForm.controls['arrival_city_id'].reset();
-    this.requestForm.controls['arrival_point_id'].reset();
-    this.getArrivalCities(countryId);
-  }
-  //изменение поля страны отправления
-  onDepartureCountryChange(countryId: number): void {
-    this.requestForm.controls['departure_city_id'].reset();
-    this.requestForm.controls['departure_point_id'].reset();
-    this.getDepartureCities(countryId);
-  }
   //изменение поля города отправления
-  onDepartureCityChange(cityId: number): void {
-    this.requestForm.controls['departure_point_id'].reset();
-    this.getDeparturePoint(cityId,this.currentTransportationFormat);
+  onDepartureCityChange(city: DirectionCity): void {
+    this.requestForm.patchValue({
+      departure_country_id: city.country_id,
+    });
+    this.currentDepartureCountryName=city.country_name;
+    this.requestForm.controls['departure_country_id'].reset();
+    this.getDeparturePoint(city.id,this.currentTransportationFormat);
   }
   //изменение поля города прибытия
-  onArrivalCityChange(cityId: number): void {
-    this.requestForm.controls['arrival_point_id'].reset();
-    this.getArrivalPoint(cityId,this.currentTransportationFormat);
+  onArrivalCityChange(city: DirectionCity): void {
+    this.requestForm.patchValue({
+      arrival_country_id: city.country_id,
+    });
+    this.currentArrivalCountryName=city.country_name;
+    this.requestForm.controls['arrival_country_id'].reset();
+    this.getArrivalPoint(city.id,this.currentTransportationFormat);
+  }
+  //ПОИСК
+  //так то можно напрямую evt передавать в методы запросы
+  //поиск котнтрактора
+  searchContracor(e:any){
+    this.getContractorsByName(e.target.value);
+  }
+  //поиск города оиправления
+  searchDepartureCity(e:any){
+    this.getDepartureCities(e.target.value);
+  }
+  //поиск города прибытия
+  searchArrivalCity(e:any){
+    this.getArrivalCities(e.target.value);
+  }
+  //поиск город/порт для инкотермс
+  searchPort(e:any){
+    this.getPorts(e.target.value)
   }
   // Приватные методы для полученния данных полей формы:
   //НАЧАЛО ФОРМЫ
@@ -508,17 +541,17 @@ export class RequestEditorComponent implements OnInit, OnDestroy {
         takeUntil(this._destroy$)
       ).subscribe();
   }
-  private getArrivalCities(countryId: number) {
-    this.cityService.getCities(countryId)
+  private getArrivalCities(search: string) {
+    this.directionService.directionCity({search})
       .pipe(
-        tap((arrivalCitys) => this.arrivalCitys = arrivalCitys),
+        tap((arrivalCitys) => this.arrivalCitys = arrivalCitys as DirectionCity[]),
         takeUntil(this._destroy$)
       ).subscribe();
   }
-  private getDepartureCities(countryId: number) {
-    this.cityService.getCities(countryId)
+  private getDepartureCities(search: string) {
+    this.directionService.directionCity({search})
       .pipe(
-        tap((departureCitys) => this.departureCitys = departureCitys),
+        tap((departureCitys) => this.departureCitys = departureCitys as DirectionCity[]),
         takeUntil(this._destroy$)
       ).subscribe();
   }
@@ -544,6 +577,13 @@ export class RequestEditorComponent implements OnInit, OnDestroy {
       ).subscribe();
   }
   //ТРЕБУЕМЫЕ УСЛИГИ
+  private getPorts(search:string){
+    this.directionService.directionCity({search})
+      .pipe(
+        tap((ports)=>this.ports=ports as DirectionCity[]),
+        takeUntil(this._destroy$)
+      ).subscribe();
+  }
   private getIncoterms(kind_id: string) {
     this.requestService.requestIncoterms({kind_id})
       .pipe(

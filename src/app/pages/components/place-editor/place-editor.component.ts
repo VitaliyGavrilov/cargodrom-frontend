@@ -43,6 +43,19 @@ export class PlaceEditorComponent implements OnInit, OnDestroy, OnChanges, Contr
   currentTotalVolume: number = 0;
   currentTotalWeight: number = 0;
 
+  //статичные данные
+  stakingArr =[
+    {
+      value: true,
+      text: 'стакинг'
+      // url: типо путь до картинки будет тут, для селектора, должно сработать
+    },
+    {
+      value: false,
+      text: ' не стакинг'
+    }
+  ];
+
   constructor(
     private fb: FormBuilder,
     private cargoService:CargoService,

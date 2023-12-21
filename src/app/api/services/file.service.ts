@@ -13,7 +13,7 @@ import { RequestBuilder } from '../request-builder';
 
 
 /**
- * Работа со страни
+ * Работа с файлами
  */
 @Injectable({ providedIn: 'root' })
 export class FileService extends BaseService {

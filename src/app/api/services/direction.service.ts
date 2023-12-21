@@ -335,6 +335,224 @@ export class DirectionService extends BaseService {
     );
   }
 
+  /** Path part for operation `directionCountryInfo()` */
+  static readonly DirectionCountryInfoPath = '/direction_country_info';
+
+  /**
+   * Данные запроса.
+   *
+   *
+   *
+   * This method provides access to the full `HttpResponse`, allowing access to response headers.
+   * To access only the response body, use `directionCountryInfo()` instead.
+   *
+   * This method doesn't expect any request body.
+   */
+  directionCountryInfo$Response(
+    params?: {
+
+    /**
+     * ID страны
+     */
+      id?: number;
+    },
+    context?: HttpContext
+  ): Observable<StrictHttpResponse<Array<{
+
+/**
+ * ID
+ */
+'id': number;
+
+/**
+ * Наименование
+ */
+'name'?: string;
+
+/**
+ * Наименование, откуда
+ */
+'name_from'?: string;
+
+/**
+ * Наименование, куда
+ */
+'name_to'?: string;
+
+/**
+ * Время создания
+ */
+'time_add'?: string;
+
+/**
+ * Время изменения
+ */
+'time_edit'?: string;
+}>>> {
+    const rb = new RequestBuilder(this.rootUrl, DirectionService.DirectionCountryInfoPath, 'get');
+    if (params) {
+      rb.query('id', params.id, {});
+    }
+
+    return this.http.request(
+      rb.build({ responseType: 'json', accept: 'application/json', context })
+    ).pipe(
+      filter((r: any): r is HttpResponse<any> => r instanceof HttpResponse),
+      map((r: HttpResponse<any>) => {
+        return r as StrictHttpResponse<Array<{
+        
+        /**
+         * ID
+         */
+        'id': number;
+        
+        /**
+         * Наименование
+         */
+        'name'?: string;
+        
+        /**
+         * Наименование, откуда
+         */
+        'name_from'?: string;
+        
+        /**
+         * Наименование, куда
+         */
+        'name_to'?: string;
+        
+        /**
+         * Время создания
+         */
+        'time_add'?: string;
+        
+        /**
+         * Время изменения
+         */
+        'time_edit'?: string;
+        }>>;
+      })
+    );
+  }
+
+  /**
+   * Данные запроса.
+   *
+   *
+   *
+   * This method provides access only to the response body.
+   * To access the full response (for headers, for example), `directionCountryInfo$Response()` instead.
+   *
+   * This method doesn't expect any request body.
+   */
+  directionCountryInfo(
+    params?: {
+
+    /**
+     * ID страны
+     */
+      id?: number;
+    },
+    context?: HttpContext
+  ): Observable<Array<{
+
+/**
+ * ID
+ */
+'id': number;
+
+/**
+ * Наименование
+ */
+'name'?: string;
+
+/**
+ * Наименование, откуда
+ */
+'name_from'?: string;
+
+/**
+ * Наименование, куда
+ */
+'name_to'?: string;
+
+/**
+ * Время создания
+ */
+'time_add'?: string;
+
+/**
+ * Время изменения
+ */
+'time_edit'?: string;
+}>> {
+    return this.directionCountryInfo$Response(params, context).pipe(
+      map((r: StrictHttpResponse<Array<{
+
+/**
+ * ID
+ */
+'id': number;
+
+/**
+ * Наименование
+ */
+'name'?: string;
+
+/**
+ * Наименование, откуда
+ */
+'name_from'?: string;
+
+/**
+ * Наименование, куда
+ */
+'name_to'?: string;
+
+/**
+ * Время создания
+ */
+'time_add'?: string;
+
+/**
+ * Время изменения
+ */
+'time_edit'?: string;
+}>>): Array<{
+
+/**
+ * ID
+ */
+'id': number;
+
+/**
+ * Наименование
+ */
+'name'?: string;
+
+/**
+ * Наименование, откуда
+ */
+'name_from'?: string;
+
+/**
+ * Наименование, куда
+ */
+'name_to'?: string;
+
+/**
+ * Время создания
+ */
+'time_add'?: string;
+
+/**
+ * Время изменения
+ */
+'time_edit'?: string;
+}> => r.body)
+    );
+  }
+
   /** Path part for operation `directionCity()` */
   static readonly DirectionCityPath = '/direction_city';
 
@@ -375,6 +593,16 @@ export class DirectionService extends BaseService {
 'name'?: string;
 
 /**
+ * ID страны
+ */
+'country_id'?: number;
+
+/**
+ * Наименование страны
+ */
+'country_name'?: string;
+
+/**
  * Время создания
  */
 'time_add'?: string;
@@ -406,6 +634,16 @@ export class DirectionService extends BaseService {
          * Наименование
          */
         'name'?: string;
+        
+        /**
+         * ID страны
+         */
+        'country_id'?: number;
+        
+        /**
+         * Наименование страны
+         */
+        'country_name'?: string;
         
         /**
          * Время создания
@@ -458,6 +696,16 @@ export class DirectionService extends BaseService {
 'name'?: string;
 
 /**
+ * ID страны
+ */
+'country_id'?: number;
+
+/**
+ * Наименование страны
+ */
+'country_name'?: string;
+
+/**
  * Время создания
  */
 'time_add'?: string;
@@ -481,6 +729,16 @@ export class DirectionService extends BaseService {
 'name'?: string;
 
 /**
+ * ID страны
+ */
+'country_id'?: number;
+
+/**
+ * Наименование страны
+ */
+'country_name'?: string;
+
+/**
  * Время создания
  */
 'time_add'?: string;
@@ -500,6 +758,234 @@ export class DirectionService extends BaseService {
  * Наименование
  */
 'name'?: string;
+
+/**
+ * ID страны
+ */
+'country_id'?: number;
+
+/**
+ * Наименование страны
+ */
+'country_name'?: string;
+
+/**
+ * Время создания
+ */
+'time_add'?: string;
+
+/**
+ * Время изменения
+ */
+'time_edit'?: string;
+}> => r.body)
+    );
+  }
+
+  /** Path part for operation `directionCityInfo()` */
+  static readonly DirectionCityInfoPath = '/direction_city_info';
+
+  /**
+   * Данные запроса.
+   *
+   *
+   *
+   * This method provides access to the full `HttpResponse`, allowing access to response headers.
+   * To access only the response body, use `directionCityInfo()` instead.
+   *
+   * This method doesn't expect any request body.
+   */
+  directionCityInfo$Response(
+    params?: {
+
+    /**
+     * ID города
+     */
+      id?: number;
+    },
+    context?: HttpContext
+  ): Observable<StrictHttpResponse<Array<{
+
+/**
+ * ID
+ */
+'id': number;
+
+/**
+ * Наименование
+ */
+'name'?: string;
+
+/**
+ * ID страны
+ */
+'country_id'?: number;
+
+/**
+ * Наименование страны
+ */
+'country_name'?: string;
+
+/**
+ * Время создания
+ */
+'time_add'?: string;
+
+/**
+ * Время изменения
+ */
+'time_edit'?: string;
+}>>> {
+    const rb = new RequestBuilder(this.rootUrl, DirectionService.DirectionCityInfoPath, 'get');
+    if (params) {
+      rb.query('id', params.id, {});
+    }
+
+    return this.http.request(
+      rb.build({ responseType: 'json', accept: 'application/json', context })
+    ).pipe(
+      filter((r: any): r is HttpResponse<any> => r instanceof HttpResponse),
+      map((r: HttpResponse<any>) => {
+        return r as StrictHttpResponse<Array<{
+        
+        /**
+         * ID
+         */
+        'id': number;
+        
+        /**
+         * Наименование
+         */
+        'name'?: string;
+        
+        /**
+         * ID страны
+         */
+        'country_id'?: number;
+        
+        /**
+         * Наименование страны
+         */
+        'country_name'?: string;
+        
+        /**
+         * Время создания
+         */
+        'time_add'?: string;
+        
+        /**
+         * Время изменения
+         */
+        'time_edit'?: string;
+        }>>;
+      })
+    );
+  }
+
+  /**
+   * Данные запроса.
+   *
+   *
+   *
+   * This method provides access only to the response body.
+   * To access the full response (for headers, for example), `directionCityInfo$Response()` instead.
+   *
+   * This method doesn't expect any request body.
+   */
+  directionCityInfo(
+    params?: {
+
+    /**
+     * ID города
+     */
+      id?: number;
+    },
+    context?: HttpContext
+  ): Observable<Array<{
+
+/**
+ * ID
+ */
+'id': number;
+
+/**
+ * Наименование
+ */
+'name'?: string;
+
+/**
+ * ID страны
+ */
+'country_id'?: number;
+
+/**
+ * Наименование страны
+ */
+'country_name'?: string;
+
+/**
+ * Время создания
+ */
+'time_add'?: string;
+
+/**
+ * Время изменения
+ */
+'time_edit'?: string;
+}>> {
+    return this.directionCityInfo$Response(params, context).pipe(
+      map((r: StrictHttpResponse<Array<{
+
+/**
+ * ID
+ */
+'id': number;
+
+/**
+ * Наименование
+ */
+'name'?: string;
+
+/**
+ * ID страны
+ */
+'country_id'?: number;
+
+/**
+ * Наименование страны
+ */
+'country_name'?: string;
+
+/**
+ * Время создания
+ */
+'time_add'?: string;
+
+/**
+ * Время изменения
+ */
+'time_edit'?: string;
+}>>): Array<{
+
+/**
+ * ID
+ */
+'id': number;
+
+/**
+ * Наименование
+ */
+'name'?: string;
+
+/**
+ * ID страны
+ */
+'country_id'?: number;
+
+/**
+ * Наименование страны
+ */
+'country_name'?: string;
 
 /**
  * Время создания

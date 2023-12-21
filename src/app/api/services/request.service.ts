@@ -4030,12 +4030,12 @@ export class RequestService extends BaseService {
 /**
  * Тип груза (ID берем из запроса - cargo_type)
  */
-'cargo_type_id': number;
+'cargo_type_id'?: number;
 
 /**
  * Вид упаковки (ID берем из запроса - cargo_package)
  */
-'cargo_package_id': number;
+'cargo_package_id'?: number;
 
 /**
  * Температурный режим
@@ -4066,17 +4066,17 @@ export class RequestService extends BaseService {
 /**
  * Грузовые места
  */
-'cargo_places': Array<{
+'cargo_places'?: Array<{
 
 /**
  * Номер места
  */
-'num': number;
+'num'?: number;
 
 /**
  * Вид упаковки (ID берем из запроса - cargo_package)
  */
-'cargo_package_id': number;
+'cargo_package_id'?: number;
 
 /**
  * Признак возможности штабелировать груз (ID берем из запроса - cargo_package)
@@ -4281,12 +4281,12 @@ export class RequestService extends BaseService {
 /**
  * Тип груза (ID берем из запроса - cargo_type)
  */
-'cargo_type_id': number;
+'cargo_type_id'?: number;
 
 /**
  * Вид упаковки (ID берем из запроса - cargo_package)
  */
-'cargo_package_id': number;
+'cargo_package_id'?: number;
 
 /**
  * Температурный режим
@@ -4317,17 +4317,17 @@ export class RequestService extends BaseService {
 /**
  * Грузовые места
  */
-'cargo_places': Array<{
+'cargo_places'?: Array<{
 
 /**
  * Номер места
  */
-'num': number;
+'num'?: number;
 
 /**
  * Вид упаковки (ID берем из запроса - cargo_package)
  */
-'cargo_package_id': number;
+'cargo_package_id'?: number;
 
 /**
  * Признак возможности штабелировать груз (ID берем из запроса - cargo_package)

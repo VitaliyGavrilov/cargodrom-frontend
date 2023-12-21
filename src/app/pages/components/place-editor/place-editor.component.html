@@ -11,6 +11,17 @@
       </div>
     </div>
 
+    <div class="form-item" *ngIf="currentRequestFormat===2">
+      <div class="form-label">стакинг<span class="req">•</span></div>
+      <div class="form-data">
+        <mat-form-field appearance="outline" class="ui-select">
+          <mat-select formControlName="stacking">
+            <mat-option *ngFor="let staking of stakingArr;" [value]="staking.value">{{ staking.text }}</mat-option>
+          </mat-select>
+        </mat-form-field>
+      </div>
+    </div>
+
     <div class="form-item">
       <div class="form-label">ДЛИНА, СМ: <span class="req">•</span></div>
       <div class="form-data"><input type="text" name="length" formControlName="length" placeholder="—" required (ngModelChange)="onCalkTotalVolumeAndWeight()"></div>
