@@ -411,13 +411,13 @@
             <div class="form-label">УСЛОВИЕ ПОСТАВКИ (INCOTERMS): <span class="req">•</span></div>
             <div class="form-data">
               <mat-form-field appearance="outline" class="ui-select" >
-               <mat-select formControlName="incoterms_id">
-                 <mat-option *ngFor="let incoterm of incoterms;" [value]="incoterm.id" >{{ incoterm.name }}</mat-option>
-               </mat-select>
-               <mat-error *ngIf="requestForm.controls['incoterms_id'].hasError('required')">
-                 Это поле обязательно
-               </mat-error>
-             </mat-form-field>
+                <mat-select formControlName="incoterms_id">
+                  <mat-option *ngFor="let incoterm of incoterms;" [value]="incoterm.id" (click)="test(incoterm)">{{ incoterm.name }}</mat-option>
+                </mat-select>
+                <mat-error *ngIf="requestForm.controls['incoterms_id'].hasError('required')">
+                  Это поле обязательно
+                </mat-error>
+              </mat-form-field>
             </div>
           </div>
 
@@ -461,7 +461,6 @@
             <div class="form-label">В ставку ДОЛЖНО быть включено: <span class="req">•</span></div>
             <div class="form-data">
               <app-services-ediotor [services]="services" formControlName="services"></app-services-ediotor>
-
             </div>
           </div>
 

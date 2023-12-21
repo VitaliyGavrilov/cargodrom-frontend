@@ -367,6 +367,13 @@ export class RequestEditorComponent implements OnInit, OnDestroy {
     });
   }
   //ИЗМЕНЕНИЯ ПОЛЕЙ
+  //изменение инкотермс
+  test(incotem:any){
+    this.requestForm.patchValue({
+      services: incotem.services_id,
+    });
+
+  }
   //изменение поля режима отдельных мест
   onPlaceModeChange(){
     this.requestForm.controls['cargos_places'].reset();
