@@ -15,7 +15,7 @@
               name="customer_id"
               formControlName="customer_id"
               [matAutocomplete]="auto"
-              (keyup)="searchContracor($event)" placeholder="—">
+              (keyup)="searchContracor($event)" placeholder="—" va>
             <mat-autocomplete #auto="matAutocomplete" [displayWith]="displayFnContractor" >
               <mat-option *ngFor="let contractor of contractors;" [value]="contractor.id">{{ contractor.name }}</mat-option>
             </mat-autocomplete>
@@ -139,7 +139,7 @@
       <div class="form-item-layout">
         <mat-checkbox formControlName="cargo_danger">Наличие батареек, элементов питания или жидкостей (Необходимо наличие паспорта безопасности) </mat-checkbox>
       </div>
-      <app-file-list-request *ngIf="requestForm.value.cargo_danger" [documents]="documents" component="request" var="danger_file" [itemId]="id!" #fileList></app-file-list-request>
+      <app-file-list-request *ngIf="requestForm.value.cargo_danger" [documents]="documentsDanger" component="request" var="danger_file" [itemId]="id!" #fileList></app-file-list-request>
     </div>
 
     <div class="form-row">
