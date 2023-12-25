@@ -101,7 +101,8 @@ export class RequestEditorComponent implements OnInit, OnDestroy {
     this.requestForm = this.fb.group({
       // + -это значит что в обькте который мы будем отправлять для создания или изменения запроса, есть такое жк поле, а минус будет означть что поле нашей формы не нужно или должно дыть преобразованно в другое поле
       //ОСНОВА
-      customer_id: ['', [Validators.required]],// + (customer это клиент,должен быть контрактор)
+      customer_id: [8, [Validators.required]],// + (customer это клиент,должен быть контрактор)
+      customer_name: ['',[]],
       request_type_id: [1, [Validators.required]],// +
       transport_kind_id: ['', [Validators.required]],// +
       transport_type_id: ['', [Validators.required]],// +
@@ -148,6 +149,7 @@ export class RequestEditorComponent implements OnInit, OnDestroy {
       departure_flight: ['', [Validators.required]],//+
       //УСЛУГИ
       incoterms_id: ['', []],//+
+      incoterms_city_id:[,[]],
       services: [[], []],//+
       services_optional: [[], []],//+
       comment: ['', []],//+
@@ -169,6 +171,8 @@ export class RequestEditorComponent implements OnInit, OnDestroy {
     if (this.isEditMode) {
       this.getRequest();
     };
+    this.getContractors();
+    this.displayFnContractor;
     this.getRequestFormats();
     this.getTransportationFormats();
     this.getСargoPackages();
@@ -392,6 +396,13 @@ export class RequestEditorComponent implements OnInit, OnDestroy {
     });
   }
   //ИЗМЕНЕНИЯ ПОЛЕЙ
+  //
+  onContractorChange(contractor:any){
+    this.requestForm.patchValue({
+      customer_id: contractor.id,
+    });
+    console.log(this.requestForm.value.customer_id)
+  }
   //изменение инкотермс
   onIncotermsChange(incotem:any){
     this.requestForm.patchValue({
@@ -447,20 +458,22 @@ export class RequestEditorComponent implements OnInit, OnDestroy {
   }
   //изменение поля города отправления
   onDepartureCityChange(city: DirectionCity): void {
+    this.requestForm.controls['departure_country_id'].reset();
     this.requestForm.patchValue({
       departure_country_id: city.country_id,
     });
     this.currentDepartureCountryName=city.country_name;
-    this.requestForm.controls['departure_country_id'].reset();
+
     this.getDeparturePoint(city.id,this.currentTransportationFormat);
   }
   //изменение поля города прибытия
   onArrivalCityChange(city: DirectionCity): void {
+    this.requestForm.controls['arrival_country_id'].reset();
     this.requestForm.patchValue({
       arrival_country_id: city.country_id,
     });
     this.currentArrivalCountryName=city.country_name;
-    this.requestForm.controls['arrival_country_id'].reset();
+
     this.getArrivalPoint(city.id,this.currentTransportationFormat);
   }
   //ПОИСК
@@ -483,6 +496,13 @@ export class RequestEditorComponent implements OnInit, OnDestroy {
   }
   // Приватные методы для полученния данных полей формы:
   //НАЧАЛО ФОРМЫ
+  private getContractors() {
+    this.contractorService.contractorList()
+      .pipe(
+        tap((contractors) => this.contractors = contractors.items as unknown as Contractor[]),
+        takeUntil(this._destroy$)
+      ).subscribe();
+  }
   private getContractorsByName(string: string) {
     this.contractorService.contractorList({name:string})
       .pipe(
@@ -644,9 +664,7 @@ export class RequestEditorComponent implements OnInit, OnDestroy {
       },
       error: (err) => this.snackBar.open(`Ошибка создания подрядчика: ` + err.error.error_message, undefined, this.snackBarWithShortDuration)
     });
-
   }
-
 }
 
 

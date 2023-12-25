@@ -8,18 +8,33 @@
       <div class="form-row">
         <div class="form-item-layout">
 
-          <div class="form-item">
+          <!-- <div class="form-item">
             <div class="form-label">КОНТРАГЕНТ: <span class="req">•</span></div>
             <input appearance="outline" class="ui-select"
               type="text"
               name="customer_id"
               formControlName="customer_id"
               [matAutocomplete]="auto"
-              (keyup)="searchContracor($event)" placeholder="—" va>
-            <mat-autocomplete #auto="matAutocomplete" [displayWith]="displayFnContractor" >
+              (keyup)="searchContracor($event)" placeholder="—" >
+            <mat-autocomplete #auto="matAutocomplete" [displayWith]="displayFnContractor">
               <mat-option *ngFor="let contractor of contractors;" [value]="contractor.id">{{ contractor.name }}</mat-option>
             </mat-autocomplete>
+          </div> -->
+
+          <div class="form-item">
+            <div class="form-label">КОНТРАГЕНТ: <span class="req">•</span></div>
+            <input appearance="outline" class="ui-select"
+              type="text"
+              name="customer_name"
+              formControlName="customer_name"
+              [matAutocomplete]="auto"
+              (keyup)="searchContracor($event)" placeholder="—" >
+            <mat-autocomplete #auto="matAutocomplete">
+              <mat-option *ngFor="let contractor of contractors;" [value]="contractor.name" (click)="onContractorChange(contractor)">{{ contractor.name }}</mat-option>
+            </mat-autocomplete>
           </div>
+
+
 
 
           <div class="form-item">
