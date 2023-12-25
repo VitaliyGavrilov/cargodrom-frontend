@@ -4,7 +4,7 @@ import { FormArray, FormBuilder, FormGroup, MinLengthValidator, Validators } fro
 import { ActivatedRoute, Router } from '@angular/router';
 import { Observable, Subject, find, map, pipe, takeUntil, tap } from 'rxjs';
 import { ContractorService } from './../../../api/services/contractor.service';
-import { City, Client, ClientGroup, Contractor, ContractorRequestFormat, Country, Currency, DirectionCity, Employee, FileDocument, TaxSystem } from 'src/app/api/custom_models';
+import { City, Client, ClientGroup, Contractor, ContractorRequestFormat, Country, Currency, Customer, DirectionCity, Employee, FileDocument, TaxSystem } from 'src/app/api/custom_models';
 import { CargoService, CompanyService, CustomerService, DirectionService, RequestService, SystemService, TransportService } from 'src/app/api/services';
 import { Editor } from 'src/app/classes/editor';
 import { Location } from '@angular/common';
@@ -39,7 +39,7 @@ export class RequestEditorComponent implements OnInit, OnDestroy {
   //форма
   requestForm: FormGroup;
   //массивы для приходящих данных полей формы
-  customers: Contractor[] = [];
+  customers: Customer[] = [];
   requestFormats: RequestFormat[] = [];
   transportationFormats: TransportKind[] = [];
   transportFormats: TransportType[] = [];
@@ -87,7 +87,7 @@ export class RequestEditorComponent implements OnInit, OnDestroy {
   constructor(
     private route: ActivatedRoute,
     private fb: FormBuilder,
-    private contractorService: ContractorService,
+    private customerService: CustomerService,
     private transportService: TransportService,
     private requestService: RequestService,
     private cargoService: CargoService,
@@ -195,12 +195,20 @@ export class RequestEditorComponent implements OnInit, OnDestroy {
   save(): void {
     const body = this.requestForm.value;
     if(body.request_type_id===1 && body.cargo_separately == false) {
-      console.log('План А вызван')
-      this.planA(body)
+      console.log('План А вызван');
+      this.planA(body);
     }
     if(body.request_type_id===1 && body.cargo_separately == true) {
-      console.log('План B вызван')
-      this.planB(body)
+      console.log('План B вызван');
+      this.planB(body);
+    }
+    if(body.request_type_id===2 && body.cargo_separately == false) {
+      console.log('План C вызван');
+
+    }
+    if(body.request_type_id===2 && body.cargo_separately == true) {
+      console.log('План D вызван');
+
     }
   }
   remove():void {
@@ -210,7 +218,6 @@ export class RequestEditorComponent implements OnInit, OnDestroy {
     this.location.back();
   }
   //РЕДАКТИРОВАНИЕ ДАННЫХ ПЕРЕД ОТПРАВКОЙ
-  //
   planA(body:any){
     const data = {
       customer_id: body.customer_id,
@@ -256,7 +263,6 @@ export class RequestEditorComponent implements OnInit, OnDestroy {
     console.log(data);
     this.createRequest(data);
   }
-  //
   planB(body:any){
     const data = {
       customer_id: body.customer_id,
@@ -308,6 +314,12 @@ export class RequestEditorComponent implements OnInit, OnDestroy {
     })
     console.log(data);
     this.createRequest(data);
+  }
+  planC(body:any){
+
+  }
+  planD(body:any){
+
   }
   //ВЛОЖЕННАЯ ФОРМА РЕДАКТИРОВАНИ МЕСТ
   removePlace(i: number): void {
@@ -491,16 +503,16 @@ export class RequestEditorComponent implements OnInit, OnDestroy {
   // Приватные методы для полученния данных полей формы:
   //НАЧАЛО ФОРМЫ
   private getCustomers() {
-    this.contractorService.contractorList()
+    this.customerService.customerList()
       .pipe(
-        tap((customer) => this.customers = customer.items as unknown as Contractor[]),
+        tap((customer) => this.customers = customer.items as unknown as Customer[]),
         takeUntil(this._destroy$)
       ).subscribe();
   }
   private getCustomersByName(string: string) {
-    this.contractorService.contractorList({name:string})
+    this.customerService.customerList({name:string})
       .pipe(
-        tap((customer) => this.customers = customer.items as unknown as Contractor[]),
+        tap((customer) => this.customers = customer.items as unknown as Customer[]),
         takeUntil(this._destroy$)
       ).subscribe();
   }
