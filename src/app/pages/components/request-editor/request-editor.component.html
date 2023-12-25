@@ -22,20 +22,17 @@
           </div> -->
 
           <div class="form-item">
-            <div class="form-label">КОНТРАГЕНТ: <span class="req">•</span></div>
+            <div class="form-label">КЛИЕНТ: <span class="req">•</span></div>
             <input appearance="outline" class="ui-select"
               type="text"
               name="customer_name"
               formControlName="customer_name"
               [matAutocomplete]="auto"
-              (keyup)="searchContracor($event)" placeholder="—" >
+              (keyup)="searchCustomer($event)" placeholder="—" >
             <mat-autocomplete #auto="matAutocomplete">
-              <mat-option *ngFor="let contractor of contractors;" [value]="contractor.name" (click)="onContractorChange(contractor)">{{ contractor.name }}</mat-option>
+              <mat-option *ngFor="let customer of customers;" [value]="customer.name" (click)="onCustomerChange(customer)">{{ customer.name }}</mat-option>
             </mat-autocomplete>
           </div>
-
-
-
 
           <div class="form-item">
             <div class="form-label">Вид запроса: <span class="req">•</span></div>
@@ -309,18 +306,18 @@
             <div class="form-label">Город отправления: <span class="req">•</span></div>
             <input appearance="outline" class="ui-select"
               type="text"
-              name="departure_city_id"
-              formControlName="departure_city_id"
+              name="departure_city_name"
+              formControlName="departure_city_name"
               [matAutocomplete]="dSity"
               (keyup)="searchDepartureCity($event)" placeholder="—">
-            <mat-autocomplete #dSity="matAutocomplete" [displayWith]="displayFnDepartureCity" >
-              <mat-option *ngFor="let departureCity of departureCitys;" [value]="departureCity.id" (click)="onDepartureCityChange(departureCity)">{{ departureCity.name }}</mat-option>
+            <mat-autocomplete #dSity="matAutocomplete" >
+              <mat-option *ngFor="let departureCity of departureCitys;" [value]="departureCity.name" (click)="onDepartureCityChange(departureCity)">{{ departureCity.name }}</mat-option>
             </mat-autocomplete>
           </div>
 
           <div class="form-item">
             <div class="form-label">Страна отправления: <span class="req">•</span></div>
-            <div class="form-data"><input type="text" readonly placeholder="—" [value]="currentDepartureCountryName"></div>
+            <div class="form-data"><input type="text" readonly placeholder="—" formControlName="departure_country_name"></div>
           </div>
 
           <div class="form-item" *ngIf="currentTransportationFormat==='avia'">
@@ -347,18 +344,18 @@
             <div class="form-label">Город назначения: <span class="req">•</span></div>
             <input appearance="outline" class="ui-select"
               type="text"
-              name="arrival_city_id"
-              formControlName="arrival_city_id"
+              name="arrival_city_name"
+              formControlName="arrival_city_name"
               [matAutocomplete]="aSity"
               (keyup)="searchArrivalCity($event)" placeholder="—">
-            <mat-autocomplete #aSity="matAutocomplete" [displayWith]="displayFnArrivalCity" >
-              <mat-option *ngFor="let arrivalCity of arrivalCitys;" [value]="arrivalCity.id" (click)="onArrivalCityChange(arrivalCity)">{{ arrivalCity.name }}</mat-option>
+            <mat-autocomplete #aSity="matAutocomplete" >
+              <mat-option *ngFor="let arrivalCity of arrivalCitys;" [value]="arrivalCity.name" (click)="onArrivalCityChange(arrivalCity)">{{ arrivalCity.name }}</mat-option>
             </mat-autocomplete>
           </div>
 
           <div class="form-item">
             <div class="form-label">Страна прибытия: <span class="req">•</span></div>
-            <div class="form-data"><input type="text" readonly placeholder="—" [value]="currentArrivalCountryName"></div>
+            <div class="form-data"><input type="text" readonly placeholder="—" formControlName="arrival_country_name"></div>
           </div>
 
            <div class="form-item" *ngIf="currentTransportationFormat==='avia'">
@@ -423,12 +420,12 @@
             <div class="form-label">ГОРОД / ПОРТ: <span class="req">•</span></div>
             <input appearance="outline" class="ui-select"
               type="text"
-              name="incoterms_city_id"
-              formControlName="incoterms_city_id"
+              name="incoterms_city_name"
+              formControlName="incoterms_city_name"
               [matAutocomplete]="port"
               (keyup)="searchPort($event)" placeholder="—">
-            <mat-autocomplete #port="matAutocomplete" [displayWith]="displayFnPort" >
-              <mat-option *ngFor="let port of ports;" [value]="port.id">{{ port.name }}</mat-option>
+            <mat-autocomplete #port="matAutocomplete">
+              <mat-option *ngFor="let port of ports;" [value]="port.name" (click)="onPortChange(port)">{{ port.name }}</mat-option>
             </mat-autocomplete>
           </div>
 

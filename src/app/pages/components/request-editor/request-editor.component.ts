@@ -39,7 +39,7 @@ export class RequestEditorComponent implements OnInit, OnDestroy {
   //форма
   requestForm: FormGroup;
   //массивы для приходящих данных полей формы
-  contractors: Contractor[] = [];
+  customers: Contractor[] = [];
   requestFormats: RequestFormat[] = [];
   transportationFormats: TransportKind[] = [];
   transportFormats: TransportType[] = [];
@@ -137,18 +137,23 @@ export class RequestEditorComponent implements OnInit, OnDestroy {
       //НАПРАЛЕНИЕ
       //откуда
       departure_city_id: ['', [Validators.required]],//+
-      departure_country_id: ['', [Validators.required]],//+
+      departure_city_name: ['', []],
+      departure_country_id: [ , [Validators.required]],//+
+      departure_country_name: ['',[]],
       departure_point_id: ['', []],//+
       departure_address: ['', []],//+
       //куда
       arrival_city_id: ['', [Validators.required]],//+
+      arrival_city_name: ['', []],
       arrival_country_id: ['', [Validators.required]],//+
+      arrival_country_name: ['',[]],
       arrival_point_id: ['', []],//+
       arrival_address: ['', []],//+
       //рейсы
       departure_flight: ['', [Validators.required]],//+
       //УСЛУГИ
       incoterms_id: ['', []],//+
+      incoterms_city_name:[,[]],
       incoterms_city_id:[,[]],
       services: [[], []],//+
       services_optional: [[], []],//+
@@ -171,8 +176,7 @@ export class RequestEditorComponent implements OnInit, OnDestroy {
     if (this.isEditMode) {
       this.getRequest();
     };
-    this.getContractors();
-    this.displayFnContractor;
+    this.getCustomers();
     this.getRequestFormats();
     this.getTransportationFormats();
     this.getСargoPackages();
@@ -319,24 +323,6 @@ export class RequestEditorComponent implements OnInit, OnDestroy {
   get places() {
     return <FormArray>this.requestForm.get('cargos_places');
   }
-  //ОТОБРАЖЕНИЕ ПОЛЕЙ
-  //можно событие клик на мat-option повесить, избавлюсь от displayFn-методов, хотя разницы нету
-  displayFnContractor = (id:number): string => {
-    const name = this.contractors?.find(contractor=>contractor.id === id)?.name;
-    return name as string;
-  }
-  displayFnDepartureCity = (id:number): string => {
-    const name = this.departureCitys?.find(city=>city.id === id)?.name;
-    return name as string;
-  }
-  displayFnArrivalCity = (id:number): string => {
-    const name = this.arrivalCitys?.find(city=>city.id === id)?.name;
-    return name as string;
-  }
-  displayFnPort = (id:number): string => {
-    const name = this.ports?.find(port=>port.id === id)?.name;
-    return name as string;
-  }
   //РАСЧЕТЫ
   //итоговый подсчет при раздельных местах
   onPlaceEditorChange(){
@@ -397,7 +383,7 @@ export class RequestEditorComponent implements OnInit, OnDestroy {
   }
   //ИЗМЕНЕНИЯ ПОЛЕЙ
   //
-  onContractorChange(contractor:any){
+  onCustomerChange(contractor:any){
     this.requestForm.patchValue({
       customer_id: contractor.id,
     });
@@ -460,9 +446,10 @@ export class RequestEditorComponent implements OnInit, OnDestroy {
   onDepartureCityChange(city: DirectionCity): void {
     this.requestForm.controls['departure_country_id'].reset();
     this.requestForm.patchValue({
+      departure_city_id: city.id,
       departure_country_id: city.country_id,
+      departure_country_name: city.country_name,
     });
-    this.currentDepartureCountryName=city.country_name;
 
     this.getDeparturePoint(city.id,this.currentTransportationFormat);
   }
@@ -470,17 +457,24 @@ export class RequestEditorComponent implements OnInit, OnDestroy {
   onArrivalCityChange(city: DirectionCity): void {
     this.requestForm.controls['arrival_country_id'].reset();
     this.requestForm.patchValue({
+      arrival_city_id: city.id,
       arrival_country_id: city.country_id,
+      arrival_country_name: city.country_name
     });
-    this.currentArrivalCountryName=city.country_name;
 
     this.getArrivalPoint(city.id,this.currentTransportationFormat);
+  }
+  //
+  onPortChange(port:any){
+    this.requestForm.patchValue({
+      incoterms_city_id:port.id
+    })
   }
   //ПОИСК
   //так то можно напрямую evt передавать в методы запросы
   //поиск котнтрактора
-  searchContracor(e:any){
-    this.getContractorsByName(e.target.value);
+  searchCustomer(e:any){
+    this.getCustomersByName(e.target.value);
   }
   //поиск города оиправления
   searchDepartureCity(e:any){
@@ -496,17 +490,17 @@ export class RequestEditorComponent implements OnInit, OnDestroy {
   }
   // Приватные методы для полученния данных полей формы:
   //НАЧАЛО ФОРМЫ
-  private getContractors() {
+  private getCustomers() {
     this.contractorService.contractorList()
       .pipe(
-        tap((contractors) => this.contractors = contractors.items as unknown as Contractor[]),
+        tap((customer) => this.customers = customer.items as unknown as Contractor[]),
         takeUntil(this._destroy$)
       ).subscribe();
   }
-  private getContractorsByName(string: string) {
+  private getCustomersByName(string: string) {
     this.contractorService.contractorList({name:string})
       .pipe(
-        tap((contractors) => this.contractors = contractors.items as unknown as Contractor[]),
+        tap((customer) => this.customers = customer.items as unknown as Contractor[]),
         takeUntil(this._destroy$)
       ).subscribe();
   }
