@@ -1,0 +1,7 @@
+<div class="form-item-layout-col">
+  <label class="label" *ngFor="let kind of services" (click)="toggle(kind.id)" for="service-kind-{{kind.id}}">
+    <input type="checkbox" [checked]="isChecked(kind.id)" name="service-kind-{{kind.id}}">
+    <i></i>
+    <span>{{ kind.name }}</span>
+  </label>
+</div>

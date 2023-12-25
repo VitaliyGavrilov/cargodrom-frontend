@@ -1,6 +1,6 @@
 <div class="form-item-layout">
   <div class="form-item">
-    <div class="form-block-sub-title">Прикрепить документы:</div>
+    <ng-content select="[subtitle]"></ng-content>
     <div class="file-list">
       <div *ngFor="let doc of filteredDocuments">
         <span>{{ doc.file_name }}</span>
@@ -9,12 +9,6 @@
     </div>
     <input type="file" class="file-input" (change)="onFileSelected($event)" #fileUpload>
     <span class="btn add-file" (click)="fileUpload.click()">Прикрепить файл</span>
-  </div>
-  <div class="form-item">
-    <div class="form-label">Ссылка на файл:</div>
-    <div class="form-data">
-      <input type="text" [ngModel]="documentsPath" (ngModelChange)="documentsPathChange($event)">
-    </div>
   </div>
 </div>
 

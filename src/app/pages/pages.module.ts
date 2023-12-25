@@ -6,6 +6,7 @@ import { PagesRoutingModule } from './pages-routing.module';
 import { PagesComponent } from './pages.component';
 import { HeaderComponent } from './components/header/header.component';
 import { RequestComponent } from './components/request/request.component';
+import { RequestEditorComponent } from './components/request-editor/request-editor.component';
 import { OrderComponent } from './components/order/order.component';
 import { BitComponent } from './components/bit/bit.component';
 import { TariffComponent } from './components/tariff/tariff.component';
@@ -25,6 +26,9 @@ import { FileListComponent } from './components/file-list/file-list.component';
 import { FilterModule } from '../filter/filter.module';
 import { ResponsibilityMatrixComponent } from './components/responsibility-matrix/responsibility-matrix.component';
 import { ResponsibilityRowComponent } from './components/responsibility-row/responsibility-row.component';
+import { PlaceEditorComponent } from './components/place-editor/place-editor.component';
+import { RequestServicesComponent } from './components/request-services-editor/request-services-editor.component';
+import { RequestFileListComponent } from './components/request-file/request-file.component';
 
 
 @NgModule({
@@ -33,6 +37,7 @@ import { ResponsibilityRowComponent } from './components/responsibility-row/resp
     PagesComponent,
     HeaderComponent,
     RequestComponent,
+    RequestEditorComponent,
     OrderComponent,
     BitComponent,
     TariffComponent,
@@ -50,6 +55,10 @@ import { ResponsibilityRowComponent } from './components/responsibility-row/resp
     FileListComponent,
     ResponsibilityMatrixComponent,
     ResponsibilityRowComponent,
+    PlaceEditorComponent,
+    RequestServicesComponent,
+    RequestFileListComponent,
+
   ],
   imports: [
     CommonModule,

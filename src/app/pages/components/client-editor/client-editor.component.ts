@@ -123,6 +123,7 @@ export class ClientEditorComponent extends Editor<Client> implements OnInit {
     this.loadCurrencies();
   }
 
+ 
   private afterRead(client: Client): void {
     this.getCities(client.country_id!);
     this.documents = client.documents_file || [];
@@ -131,7 +132,7 @@ export class ClientEditorComponent extends Editor<Client> implements OnInit {
   protected override create(params: { body: Omit<Client, 'id'>; }): Observable<{ id: number; }> {
     return this.customerService.customerCreate(params as any);
   }
-  
+
   protected override afterCreate(body: { id: number; }): Observable<{ id: number; }> {
     return this.fileList.create(body.id).pipe(map(() => ({id: body.id})));
   }
@@ -143,7 +144,7 @@ export class ClientEditorComponent extends Editor<Client> implements OnInit {
   protected override update(params: { body: Partial<Client>; }): Observable<void> {
     return this.customerService.customerUpdate(params as any) as unknown as Observable<void>;
   }
-  
+
   protected override afterUpdate(): Observable<void> {
     return this.fileList.update();
   }
@@ -151,7 +152,7 @@ export class ClientEditorComponent extends Editor<Client> implements OnInit {
   protected override delete(params: { body: { id: number; }; }): Observable<void> {
     return this.customerService.customerDelete(params as any) as unknown as Observable<void>;
   }
-  
+
   protected override afterDelete(): Observable<void> {
     return this.fileList.delete();
   }
@@ -186,7 +187,7 @@ export class ClientEditorComponent extends Editor<Client> implements OnInit {
       groups => this.clientGroups = groups.items ? (groups.items as ClientGroup[]).sort(byField('name', 'asc', 'case-insensitive')) : []
     );
   }
-  
+
   onDocumentsPathChange(newPath: string): void {
     this.form.patchValue({documents_path: newPath} as Partial<Client>);
   }

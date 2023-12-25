@@ -1,33 +1,27 @@
 /* tslint:disable */
 /* eslint-disable */
+import { HttpClient, HttpContext, HttpResponse } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { HttpClient, HttpResponse, HttpContext } from '@angular/common/http';
+import { Observable } from 'rxjs';
+import { filter, map } from 'rxjs/operators';
+
 import { BaseService } from '../base-service';
 import { ApiConfiguration } from '../api-configuration';
 import { StrictHttpResponse } from '../strict-http-response';
 import { RequestBuilder } from '../request-builder';
-import { Observable } from 'rxjs';
-import { map, filter } from 'rxjs/operators';
 
 
 
 /**
  * Авторизация пользователей
  */
-@Injectable({
-  providedIn: 'root',
-})
+@Injectable({ providedIn: 'root' })
 export class UserService extends BaseService {
-  constructor(
-    config: ApiConfiguration,
-    http: HttpClient
-  ) {
+  constructor(config: ApiConfiguration, http: HttpClient) {
     super(config, http);
   }
 
-  /**
-   * Path part for operation userCreate
-   */
+  /** Path part for operation `userCreate()` */
   static readonly UserCreatePath = '/user_create';
 
   /**
@@ -40,9 +34,9 @@ export class UserService extends BaseService {
    *
    * This method sends `application/json` and handles request body of type `application/json`.
    */
-  userCreate$Response(params?: {
-    context?: HttpContext
-    body?: {
+  userCreate$Response(
+    params?: {
+      body?: {
 
 /**
  * Название компании
@@ -79,26 +73,24 @@ export class UserService extends BaseService {
  */
 'password_confirm': string;
 }
-  }
-): Observable<StrictHttpResponse<{
+    },
+    context?: HttpContext
+  ): Observable<StrictHttpResponse<{
 
 /**
  * Идентификатор регистрации
  */
 'uid': string;
 }>> {
-
     const rb = new RequestBuilder(this.rootUrl, UserService.UserCreatePath, 'post');
     if (params) {
       rb.body(params.body, 'application/json');
     }
 
-    return this.http.request(rb.build({
-      responseType: 'json',
-      accept: 'application/json',
-      context: params?.context
-    })).pipe(
-      filter((r: any) => r instanceof HttpResponse),
+    return this.http.request(
+      rb.build({ responseType: 'json', accept: 'application/json', context })
+    ).pipe(
+      filter((r: any): r is HttpResponse<any> => r instanceof HttpResponse),
       map((r: HttpResponse<any>) => {
         return r as StrictHttpResponse<{
         
@@ -116,14 +108,14 @@ export class UserService extends BaseService {
    *
    *
    *
-   * This method provides access to only to the response body.
+   * This method provides access only to the response body.
    * To access the full response (for headers, for example), `userCreate$Response()` instead.
    *
    * This method sends `application/json` and handles request body of type `application/json`.
    */
-  userCreate(params?: {
-    context?: HttpContext
-    body?: {
+  userCreate(
+    params?: {
+      body?: {
 
 /**
  * Название компании
@@ -160,35 +152,33 @@ export class UserService extends BaseService {
  */
 'password_confirm': string;
 }
-  }
-): Observable<{
+    },
+    context?: HttpContext
+  ): Observable<{
 
 /**
  * Идентификатор регистрации
  */
 'uid': string;
 }> {
-
-    return this.userCreate$Response(params).pipe(
+    return this.userCreate$Response(params, context).pipe(
       map((r: StrictHttpResponse<{
 
 /**
  * Идентификатор регистрации
  */
 'uid': string;
-}>) => r.body as {
+}>): {
 
 /**
  * Идентификатор регистрации
  */
 'uid': string;
-})
+} => r.body)
     );
   }
 
-  /**
-   * Path part for operation userConfirm
-   */
+  /** Path part for operation `userConfirm()` */
   static readonly UserConfirmPath = '/user_confirm';
 
   /**
@@ -201,9 +191,9 @@ export class UserService extends BaseService {
    *
    * This method sends `application/json` and handles request body of type `application/json`.
    */
-  userConfirm$Response(params?: {
-    context?: HttpContext
-    body?: {
+  userConfirm$Response(
+    params?: {
+      body?: {
 
 /**
  * Идентификатор регистрации
@@ -215,26 +205,24 @@ export class UserService extends BaseService {
  */
 'code': string;
 }
-  }
-): Observable<StrictHttpResponse<{
+    },
+    context?: HttpContext
+  ): Observable<StrictHttpResponse<{
 
 /**
  * ID
  */
 'id'?: number;
 }>> {
-
     const rb = new RequestBuilder(this.rootUrl, UserService.UserConfirmPath, 'post');
     if (params) {
       rb.body(params.body, 'application/json');
     }
 
-    return this.http.request(rb.build({
-      responseType: 'json',
-      accept: 'application/json',
-      context: params?.context
-    })).pipe(
-      filter((r: any) => r instanceof HttpResponse),
+    return this.http.request(
+      rb.build({ responseType: 'json', accept: 'application/json', context })
+    ).pipe(
+      filter((r: any): r is HttpResponse<any> => r instanceof HttpResponse),
       map((r: HttpResponse<any>) => {
         return r as StrictHttpResponse<{
         
@@ -252,14 +240,14 @@ export class UserService extends BaseService {
    *
    *
    *
-   * This method provides access to only to the response body.
+   * This method provides access only to the response body.
    * To access the full response (for headers, for example), `userConfirm$Response()` instead.
    *
    * This method sends `application/json` and handles request body of type `application/json`.
    */
-  userConfirm(params?: {
-    context?: HttpContext
-    body?: {
+  userConfirm(
+    params?: {
+      body?: {
 
 /**
  * Идентификатор регистрации
@@ -271,35 +259,33 @@ export class UserService extends BaseService {
  */
 'code': string;
 }
-  }
-): Observable<{
+    },
+    context?: HttpContext
+  ): Observable<{
 
 /**
  * ID
  */
 'id'?: number;
 }> {
-
-    return this.userConfirm$Response(params).pipe(
+    return this.userConfirm$Response(params, context).pipe(
       map((r: StrictHttpResponse<{
 
 /**
  * ID
  */
 'id'?: number;
-}>) => r.body as {
+}>): {
 
 /**
  * ID
  */
 'id'?: number;
-})
+} => r.body)
     );
   }
 
-  /**
-   * Path part for operation userLogin
-   */
+  /** Path part for operation `userLogin()` */
   static readonly UserLoginPath = '/user_login';
 
   /**
@@ -312,9 +298,9 @@ export class UserService extends BaseService {
    *
    * This method sends `application/json` and handles request body of type `application/json`.
    */
-  userLogin$Response(params?: {
-    context?: HttpContext
-    body?: {
+  userLogin$Response(
+    params?: {
+      body?: {
 
 /**
  * Логин (email)
@@ -326,8 +312,9 @@ export class UserService extends BaseService {
  */
 'password': string;
 }
-  }
-): Observable<StrictHttpResponse<{
+    },
+    context?: HttpContext
+  ): Observable<StrictHttpResponse<{
 
 /**
  * Токен доступа, передается в заголовке "Bearer ACCESS_TOKEN" всех запросов кроме авторизации
@@ -349,18 +336,15 @@ export class UserService extends BaseService {
  */
 'refresh_token_expire': string;
 }>> {
-
     const rb = new RequestBuilder(this.rootUrl, UserService.UserLoginPath, 'post');
     if (params) {
       rb.body(params.body, 'application/json');
     }
 
-    return this.http.request(rb.build({
-      responseType: 'json',
-      accept: 'application/json',
-      context: params?.context
-    })).pipe(
-      filter((r: any) => r instanceof HttpResponse),
+    return this.http.request(
+      rb.build({ responseType: 'json', accept: 'application/json', context })
+    ).pipe(
+      filter((r: any): r is HttpResponse<any> => r instanceof HttpResponse),
       map((r: HttpResponse<any>) => {
         return r as StrictHttpResponse<{
         
@@ -393,14 +377,14 @@ export class UserService extends BaseService {
    *
    *
    *
-   * This method provides access to only to the response body.
+   * This method provides access only to the response body.
    * To access the full response (for headers, for example), `userLogin$Response()` instead.
    *
    * This method sends `application/json` and handles request body of type `application/json`.
    */
-  userLogin(params?: {
-    context?: HttpContext
-    body?: {
+  userLogin(
+    params?: {
+      body?: {
 
 /**
  * Логин (email)
@@ -412,8 +396,9 @@ export class UserService extends BaseService {
  */
 'password': string;
 }
-  }
-): Observable<{
+    },
+    context?: HttpContext
+  ): Observable<{
 
 /**
  * Токен доступа, передается в заголовке "Bearer ACCESS_TOKEN" всех запросов кроме авторизации
@@ -435,8 +420,7 @@ export class UserService extends BaseService {
  */
 'refresh_token_expire': string;
 }> {
-
-    return this.userLogin$Response(params).pipe(
+    return this.userLogin$Response(params, context).pipe(
       map((r: StrictHttpResponse<{
 
 /**
@@ -458,7 +442,7 @@ export class UserService extends BaseService {
  * Время жизни токена продления
  */
 'refresh_token_expire': string;
-}>) => r.body as {
+}>): {
 
 /**
  * Токен доступа, передается в заголовке "Bearer ACCESS_TOKEN" всех запросов кроме авторизации
@@ -479,13 +463,11 @@ export class UserService extends BaseService {
  * Время жизни токена продления
  */
 'refresh_token_expire': string;
-})
+} => r.body)
     );
   }
 
-  /**
-   * Path part for operation userLogout
-   */
+  /** Path part for operation `userLogout()` */
   static readonly UserLogoutPath = '/user_logout';
 
   /**
@@ -498,9 +480,9 @@ export class UserService extends BaseService {
    *
    * This method sends `application/json` and handles request body of type `application/json`.
    */
-  userLogout$Response(params?: {
-    context?: HttpContext
-    body?: {
+  userLogout$Response(
+    params?: {
+      body?: {
 
 /**
  * Токен досткпа
@@ -512,26 +494,24 @@ export class UserService extends BaseService {
  */
 'everywhere'?: boolean;
 }
-  }
-): Observable<StrictHttpResponse<{
+    },
+    context?: HttpContext
+  ): Observable<StrictHttpResponse<{
 
 /**
  * Статус выполнения
  */
 'result': 'OK';
 }>> {
-
     const rb = new RequestBuilder(this.rootUrl, UserService.UserLogoutPath, 'post');
     if (params) {
       rb.body(params.body, 'application/json');
     }
 
-    return this.http.request(rb.build({
-      responseType: 'json',
-      accept: 'application/json',
-      context: params?.context
-    })).pipe(
-      filter((r: any) => r instanceof HttpResponse),
+    return this.http.request(
+      rb.build({ responseType: 'json', accept: 'application/json', context })
+    ).pipe(
+      filter((r: any): r is HttpResponse<any> => r instanceof HttpResponse),
       map((r: HttpResponse<any>) => {
         return r as StrictHttpResponse<{
         
@@ -549,14 +529,14 @@ export class UserService extends BaseService {
    *
    *
    *
-   * This method provides access to only to the response body.
+   * This method provides access only to the response body.
    * To access the full response (for headers, for example), `userLogout$Response()` instead.
    *
    * This method sends `application/json` and handles request body of type `application/json`.
    */
-  userLogout(params?: {
-    context?: HttpContext
-    body?: {
+  userLogout(
+    params?: {
+      body?: {
 
 /**
  * Токен досткпа
@@ -568,35 +548,33 @@ export class UserService extends BaseService {
  */
 'everywhere'?: boolean;
 }
-  }
-): Observable<{
+    },
+    context?: HttpContext
+  ): Observable<{
 
 /**
  * Статус выполнения
  */
 'result': 'OK';
 }> {
-
-    return this.userLogout$Response(params).pipe(
+    return this.userLogout$Response(params, context).pipe(
       map((r: StrictHttpResponse<{
 
 /**
  * Статус выполнения
  */
 'result': 'OK';
-}>) => r.body as {
+}>): {
 
 /**
  * Статус выполнения
  */
 'result': 'OK';
-})
+} => r.body)
     );
   }
 
-  /**
-   * Path part for operation userUpdateToken
-   */
+  /** Path part for operation `userUpdateToken()` */
   static readonly UserUpdateTokenPath = '/user_update_token';
 
   /**
@@ -609,17 +587,18 @@ export class UserService extends BaseService {
    *
    * This method sends `application/json` and handles request body of type `application/json`.
    */
-  userUpdateToken$Response(params?: {
-    context?: HttpContext
-    body?: {
+  userUpdateToken$Response(
+    params?: {
+      body?: {
 
 /**
  * Токен продления
  */
 'refresh_token': string;
 }
-  }
-): Observable<StrictHttpResponse<{
+    },
+    context?: HttpContext
+  ): Observable<StrictHttpResponse<{
 
 /**
  * токен доступа
@@ -641,18 +620,15 @@ export class UserService extends BaseService {
  */
 'refresh_token_expire'?: string;
 }>> {
-
     const rb = new RequestBuilder(this.rootUrl, UserService.UserUpdateTokenPath, 'post');
     if (params) {
       rb.body(params.body, 'application/json');
     }
 
-    return this.http.request(rb.build({
-      responseType: 'json',
-      accept: 'application/json',
-      context: params?.context
-    })).pipe(
-      filter((r: any) => r instanceof HttpResponse),
+    return this.http.request(
+      rb.build({ responseType: 'json', accept: 'application/json', context })
+    ).pipe(
+      filter((r: any): r is HttpResponse<any> => r instanceof HttpResponse),
       map((r: HttpResponse<any>) => {
         return r as StrictHttpResponse<{
         
@@ -685,22 +661,23 @@ export class UserService extends BaseService {
    *
    *
    *
-   * This method provides access to only to the response body.
+   * This method provides access only to the response body.
    * To access the full response (for headers, for example), `userUpdateToken$Response()` instead.
    *
    * This method sends `application/json` and handles request body of type `application/json`.
    */
-  userUpdateToken(params?: {
-    context?: HttpContext
-    body?: {
+  userUpdateToken(
+    params?: {
+      body?: {
 
 /**
  * Токен продления
  */
 'refresh_token': string;
 }
-  }
-): Observable<{
+    },
+    context?: HttpContext
+  ): Observable<{
 
 /**
  * токен доступа
@@ -722,8 +699,7 @@ export class UserService extends BaseService {
  */
 'refresh_token_expire'?: string;
 }> {
-
-    return this.userUpdateToken$Response(params).pipe(
+    return this.userUpdateToken$Response(params, context).pipe(
       map((r: StrictHttpResponse<{
 
 /**
@@ -745,7 +721,7 @@ export class UserService extends BaseService {
  * Время жизни токена продления
  */
 'refresh_token_expire'?: string;
-}>) => r.body as {
+}>): {
 
 /**
  * токен доступа
@@ -766,7 +742,7 @@ export class UserService extends BaseService {
  * Время жизни токена продления
  */
 'refresh_token_expire'?: string;
-})
+} => r.body)
     );
   }
 

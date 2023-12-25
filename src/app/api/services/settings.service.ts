@@ -1,33 +1,27 @@
 /* tslint:disable */
 /* eslint-disable */
+import { HttpClient, HttpContext, HttpResponse } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { HttpClient, HttpResponse, HttpContext } from '@angular/common/http';
+import { Observable } from 'rxjs';
+import { filter, map } from 'rxjs/operators';
+
 import { BaseService } from '../base-service';
 import { ApiConfiguration } from '../api-configuration';
 import { StrictHttpResponse } from '../strict-http-response';
 import { RequestBuilder } from '../request-builder';
-import { Observable } from 'rxjs';
-import { map, filter } from 'rxjs/operators';
 
 
 
 /**
  * Настройки
  */
-@Injectable({
-  providedIn: 'root',
-})
+@Injectable({ providedIn: 'root' })
 export class SettingsService extends BaseService {
-  constructor(
-    config: ApiConfiguration,
-    http: HttpClient
-  ) {
+  constructor(config: ApiConfiguration, http: HttpClient) {
     super(config, http);
   }
 
-  /**
-   * Path part for operation settingsGet
-   */
+  /** Path part for operation `settingsGet()` */
   static readonly SettingsGetPath = '/settings_get';
 
   /**
@@ -40,10 +34,11 @@ export class SettingsService extends BaseService {
    *
    * This method doesn't expect any request body.
    */
-  settingsGet$Response(params?: {
+  settingsGet$Response(
+    params?: {
+    },
     context?: HttpContext
-  }
-): Observable<StrictHttpResponse<{
+  ): Observable<StrictHttpResponse<{
 
 /**
  * Общее: Язык интерфейса (ID берем из запроса - settings_get из поля language)
@@ -236,17 +231,14 @@ export class SettingsService extends BaseService {
  */
 'start_page'?: string;
 }>> {
-
     const rb = new RequestBuilder(this.rootUrl, SettingsService.SettingsGetPath, 'get');
     if (params) {
     }
 
-    return this.http.request(rb.build({
-      responseType: 'json',
-      accept: 'application/json',
-      context: params?.context
-    })).pipe(
-      filter((r: any) => r instanceof HttpResponse),
+    return this.http.request(
+      rb.build({ responseType: 'json', accept: 'application/json', context })
+    ).pipe(
+      filter((r: any): r is HttpResponse<any> => r instanceof HttpResponse),
       map((r: HttpResponse<any>) => {
         return r as StrictHttpResponse<{
         
@@ -450,15 +442,16 @@ export class SettingsService extends BaseService {
    *
    *
    *
-   * This method provides access to only to the response body.
+   * This method provides access only to the response body.
    * To access the full response (for headers, for example), `settingsGet$Response()` instead.
    *
    * This method doesn't expect any request body.
    */
-  settingsGet(params?: {
+  settingsGet(
+    params?: {
+    },
     context?: HttpContext
-  }
-): Observable<{
+  ): Observable<{
 
 /**
  * Общее: Язык интерфейса (ID берем из запроса - settings_get из поля language)
@@ -651,8 +644,7 @@ export class SettingsService extends BaseService {
  */
 'start_page'?: string;
 }> {
-
-    return this.settingsGet$Response(params).pipe(
+    return this.settingsGet$Response(params, context).pipe(
       map((r: StrictHttpResponse<{
 
 /**
@@ -845,7 +837,7 @@ export class SettingsService extends BaseService {
  * Стартовая страница
  */
 'start_page'?: string;
-}>) => r.body as {
+}>): {
 
 /**
  * Общее: Язык интерфейса (ID берем из запроса - settings_get из поля language)
@@ -1037,13 +1029,11 @@ export class SettingsService extends BaseService {
  * Стартовая страница
  */
 'start_page'?: string;
-})
+} => r.body)
     );
   }
 
-  /**
-   * Path part for operation settingsUpdate
-   */
+  /** Path part for operation `settingsUpdate()` */
   static readonly SettingsUpdatePath = '/settings_update';
 
   /**
@@ -1056,9 +1046,9 @@ export class SettingsService extends BaseService {
    *
    * This method sends `application/json` and handles request body of type `application/json`.
    */
-  settingsUpdate$Response(params?: {
-    context?: HttpContext
-    body?: {
+  settingsUpdate$Response(
+    params?: {
+      body?: {
 
 /**
  * Общее: Язык интерфейса (ID берем из запроса - settings_get из поля language)
@@ -1150,26 +1140,24 @@ export class SettingsService extends BaseService {
  */
 'branding_logo'?: string;
 }
-  }
-): Observable<StrictHttpResponse<{
+    },
+    context?: HttpContext
+  ): Observable<StrictHttpResponse<{
 
 /**
  * Статус выполнения
  */
 'result': 'OK';
 }>> {
-
     const rb = new RequestBuilder(this.rootUrl, SettingsService.SettingsUpdatePath, 'post');
     if (params) {
       rb.body(params.body, 'application/json');
     }
 
-    return this.http.request(rb.build({
-      responseType: 'json',
-      accept: 'application/json',
-      context: params?.context
-    })).pipe(
-      filter((r: any) => r instanceof HttpResponse),
+    return this.http.request(
+      rb.build({ responseType: 'json', accept: 'application/json', context })
+    ).pipe(
+      filter((r: any): r is HttpResponse<any> => r instanceof HttpResponse),
       map((r: HttpResponse<any>) => {
         return r as StrictHttpResponse<{
         
@@ -1187,14 +1175,14 @@ export class SettingsService extends BaseService {
    *
    *
    *
-   * This method provides access to only to the response body.
+   * This method provides access only to the response body.
    * To access the full response (for headers, for example), `settingsUpdate$Response()` instead.
    *
    * This method sends `application/json` and handles request body of type `application/json`.
    */
-  settingsUpdate(params?: {
-    context?: HttpContext
-    body?: {
+  settingsUpdate(
+    params?: {
+      body?: {
 
 /**
  * Общее: Язык интерфейса (ID берем из запроса - settings_get из поля language)
@@ -1286,29 +1274,29 @@ export class SettingsService extends BaseService {
  */
 'branding_logo'?: string;
 }
-  }
-): Observable<{
+    },
+    context?: HttpContext
+  ): Observable<{
 
 /**
  * Статус выполнения
  */
 'result': 'OK';
 }> {
-
-    return this.settingsUpdate$Response(params).pipe(
+    return this.settingsUpdate$Response(params, context).pipe(
       map((r: StrictHttpResponse<{
 
 /**
  * Статус выполнения
  */
 'result': 'OK';
-}>) => r.body as {
+}>): {
 
 /**
  * Статус выполнения
  */
 'result': 'OK';
-})
+} => r.body)
     );
   }
 
