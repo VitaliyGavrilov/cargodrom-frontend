@@ -4,7 +4,7 @@ import { FormArray, FormBuilder, FormGroup, MinLengthValidator, Validators } fro
 import { ActivatedRoute, Router } from '@angular/router';
 import { Observable, Subject, find, map, pipe, takeUntil, tap } from 'rxjs';
 import { ContractorService } from './../../../api/services/contractor.service';
-import { City, Client, ClientGroup, Contractor, ContractorRequestFormat, Country, Currency, Customer, DirectionCity, Employee, FileDocument, TaxSystem } from 'src/app/api/custom_models';
+import { City, Client, ClientGroup, Contractor, ContractorRequestFormat, Country, Currency, Customer, DirectionCity, Employee, FileDocument, TaxSystem, RequestFile } from 'src/app/api/custom_models';
 import { CargoService, CompanyService, CustomerService, DirectionService, RequestService, SystemService, TransportService } from 'src/app/api/services';
 import { Editor } from 'src/app/classes/editor';
 import { Location } from '@angular/common';
@@ -131,7 +131,7 @@ export class RequestEditorComponent implements OnInit, OnDestroy {
 
       cargo_staking: [true, []],// сейчас его в апи нету, но должен быть
 
-      date: ['', []],// сейчас его в апи нету, но должен быть
+      cargo_readiness: ['', []],
       //массив мест груза
       cargos_places: fb.array([], []),//+
       //НАПРАЛЕНИЕ
@@ -344,7 +344,7 @@ export class RequestEditorComponent implements OnInit, OnDestroy {
       cargo_places_density: body.cargo_places_density,
       cargo_cost: body.cargo_cost,
       cargo_currency_id: body.cargo_currency_id,
-      cargo_date: body.date,
+      cargo_readiness: body.cargo_readiness,
       cargo_package_id: body.cargo_package_id,
       cargo_staking: body.cargo_staking,
 
@@ -366,7 +366,7 @@ export class RequestEditorComponent implements OnInit, OnDestroy {
       incoterms_city_id: body.incoterms_city_id,
       services: body.services,
       services_optional: body.services_optional,
-      coment: body.coment,
+      comment: body.comment,
     }
     //удаляем доп поля
     if(!body.cargo_temperature.cargo_temperature_control) {
@@ -382,7 +382,7 @@ export class RequestEditorComponent implements OnInit, OnDestroy {
       delete data.incoterms_id;
       delete data.services;
       delete data.services_optional;
-      delete data.coment;
+      delete data.comment;
     }
     console.log(data);
     this.createRequest(data);
@@ -407,7 +407,7 @@ export class RequestEditorComponent implements OnInit, OnDestroy {
       cargo_places_density: body.cargo_places_density,
       cargo_cost: body.cargo_cost,
       cargo_currency_id: body.cargo_currency_id,
-      cargo_date: body.date,
+      cargo_readiness: body.cargo_readiness,
 
       departure_city_id: body.departure_city_id,
       departure_country_id: body.departure_country_id,
@@ -576,7 +576,7 @@ export class RequestEditorComponent implements OnInit, OnDestroy {
     this.requestForm.controls['services_optional'].reset();
     //запоминаем и используем текущий вид перевозки
     this.currentTransportationFormat = this.requestForm.value.transport_kind_id;
-    this.getTransportFormats(this.currentTransportationFormat);
+    this.getTransportFormatsById(this.currentTransportationFormat);
     this.getIncoterms(this.currentTransportationFormat);
     this.getRequestServices(this.currentTransportationFormat);
     this.getRequestServicesAdditional(this.currentTransportationFormat);
@@ -657,7 +657,7 @@ export class RequestEditorComponent implements OnInit, OnDestroy {
         takeUntil(this._destroy$)
       ).subscribe();
   }
-  private getTransportFormats(id:string) {
+  private getTransportFormatsById(id:string) {
     this.transportService.transportType({kind_id:id})
       .pipe(
         tap((transportFormats) => this.transportFormats = transportFormats as TransportType[]),
@@ -758,6 +758,21 @@ export class RequestEditorComponent implements OnInit, OnDestroy {
         takeUntil(this._destroy$)
       ).subscribe();
   }
+  //ФАЙЛЫ
+  private getDocumentsFile(item_id:number) {
+    this.requestService.requestFiles({item_id:item_id, var:'documents_file'})
+    .pipe(
+      tap((file)=>this.documents=file as unknown as FileDocument[]  ),
+      takeUntil(this._destroy$)
+    ).subscribe();
+  }
+  private getDocumentsDangerFile(item_id:number) {
+    this.requestService.requestFiles({item_id:item_id, var:'danger_file'})
+    .pipe(
+      tap((file)=>this.documentsDanger=file as unknown as FileDocument[]  ),
+      takeUntil(this._destroy$)
+    ).subscribe();
+  }
   // Приватные методы для создания или редактирования запроса
   //Редактирование запроса
   private updateRequest(){
@@ -766,24 +781,34 @@ export class RequestEditorComponent implements OnInit, OnDestroy {
   //Получаем данные запроса для редактирования
   private getRequest():void{
     const id = Number(this.route.snapshot.paramMap.get('id'));
+    this.id = id;
     this.requestService.requestInfo({id})
       .pipe(tap(request => {
-        // currently, when contactor doesn't exist the service returns HTTP 200 with empty response body instead of HTTP 404
-        // therefore we have to handle that case manually
         if (!request) {
           throw ({ error: { error_message: `подрядчик не существует` } });
         }
       }))
       .subscribe({
         next: request => {
-          // this.request = request as unknown as Request;
-          // const cargoPlacesControl = this.places;
-          // this.request.cargo_places?.forEach(place => cargoPlacesControl.push(this.fb.control(place)));
+          this.getDocumentsFile(id);
+          this.getDocumentsDangerFile(id)
+
+
+
           this.requestForm.patchValue({
             cargo_separately: true,
             cargos_places: request.cargo_places,
           })
           this.requestForm.patchValue(request);
+
+
+          //тут нужны будут еще проверки
+          this.getTransportFormatsById(this.requestForm.value.transport_kind_id);
+          this.getIncoterms(this.requestForm.value.transport_kind_id);
+          this.getRequestServices(this.requestForm.value.transport_kind_id);
+          this.getRequestServicesAdditional(this.requestForm.value.transport_kind_id);
+          this.getArrivalPoint(this.requestForm.value.arrival_city_id, this.requestForm.value.transport_kind_id)
+          this.getDeparturePoint(this.requestForm.value.departure_city_id, this.requestForm.value.transport_kind_id)
         },
         error: (err: any) => {
           this.snackBar.open(`Подрядчик не найден: ` + err.error.error_message, undefined, this.snackBarWithShortDuration);
@@ -797,6 +822,7 @@ export class RequestEditorComponent implements OnInit, OnDestroy {
     this.requestService.requestCreate({body}).pipe().subscribe({
       next: (test) => {
         console.log(test)
+        this.id=test.id;
         this.snackBar.open(`Подрядчик создан`, undefined, this.snackBarWithShortDuration)
       },
       error: (err) => this.snackBar.open(`Ошибка создания подрядчика: ` + err.error.error_message, undefined, this.snackBarWithShortDuration)

@@ -102,7 +102,7 @@
           </div>
         </div>
 
-        <div class="form-item" *ngIf="currentRequestFormat===1">
+        <div class="form-item" *ngIf="requestForm.value.request_type_id===1">
           <div class="form-label">Вид упаковки: <span class="req">•</span></div>
           <div class="form-data">
             <mat-form-field appearance="outline" class="ui-select">
@@ -113,7 +113,7 @@
           </div>
         </div>
 
-        <div class="form-item" *ngIf="currentRequestFormat===2">
+        <div class="form-item" *ngIf="requestForm.value.request_type_id===2">
           <div class="form-label">Тип груза: <span class="req">•</span></div>
           <div class="form-data">
             <mat-form-field appearance="outline" class="ui-select">
@@ -127,7 +127,7 @@
       </div>
     </div>
 
-    <div class="form-row" *ngIf="currentRequestFormat===2" formGroupName="cargo_temperature">
+    <div class="form-row" *ngIf="requestForm.value.request_type_id===2" formGroupName="cargo_temperature">
       <div class="form-item-layout">
 
         <mat-checkbox (change)="onTempModeChange()" formControlName="cargo_temperature_control">Нужен температурный режим?</mat-checkbox>
@@ -147,7 +147,7 @@
       </div>
     </div>
 
-    <div class="form-row" *ngIf="currentRequestFormat===2">
+    <div class="form-row" *ngIf="requestForm.value.request_type_id===2">
       <div class="form-item-layout">
         <mat-checkbox formControlName="cargo_danger">Наличие батареек, элементов питания или жидкостей (Необходимо наличие паспорта безопасности) </mat-checkbox>
       </div>
@@ -178,7 +178,7 @@
 
         <div class="form-item-table-row" *ngFor="let place of places.controls; let i=index">
           <div class="form-block-title">Место №{{i +1}}</div>
-          <app-place-editor [formControlName]="i" (removePlace)="removePlace(i)" [currentRequestFormat]="currentRequestFormat" (keyup)='onPlaceEditorChange()' (click)="onPlaceEditorChange()" (paste)="onPlaceEditorChange()"></app-place-editor>
+          <app-place-editor [formControlName]="i" (removePlace)="removePlace(i)" [currentRequestFormat]="requestForm.value.request_type_id" (keyup)='onPlaceEditorChange()' (click)="onPlaceEditorChange()" (paste)="onPlaceEditorChange()"></app-place-editor>
           <!-- так то кнопку удаления можно сюда засунуть,лишний аутпут уберу, решу во время верстки где ее оставить -->
         </div>
 
@@ -252,7 +252,7 @@
       </div>
       <div class="form-item-layout">
 
-        <div class="form-item" *ngIf="currentRequestFormat===2 && !requestForm.value.cargo_separately">
+        <div class="form-item" *ngIf="requestForm.value.request_type_id===2 && !requestForm.value.cargo_separately">
           <div class="form-label">Вид упаковки: <span class="req">•</span></div>
           <div class="form-data">
             <mat-form-field appearance="outline" class="ui-select">
@@ -263,7 +263,7 @@
           </div>
         </div>
 
-        <div class="form-item" *ngIf="currentRequestFormat===2 && !requestForm.value.cargo_separately">
+        <div class="form-item" *ngIf="requestForm.value.request_type_id===2 && !requestForm.value.cargo_separately">
           <div class="form-label">стакинг<span class="req">•</span></div>
           <div class="form-data">
             <mat-form-field appearance="outline" class="ui-select">
@@ -274,12 +274,12 @@
           </div>
         </div>
 
-        <div class="form-item" *ngIf="currentRequestFormat===2">
+        <div class="form-item" *ngIf="requestForm.value.request_type_id===2">
           <div class="form-label">готовность<span class="req">•</span></div>
           <div class="form-data">
             <mat-form-field>
               <mat-datepicker-toggle matIconSuffix [for]="picker"></mat-datepicker-toggle>
-              <input matInput [matDatepicker]="picker" formControlName="date">
+              <input matInput [matDatepicker]="picker" formControlName="cargo_readiness">
               <mat-datepicker #picker></mat-datepicker>
             </mat-form-field>
           </div>
@@ -288,7 +288,7 @@
       </div>
     </div>
 
-      <div class="form-row" *ngIf="currentRequestFormat===2">
+      <div class="form-row" *ngIf="requestForm.value.request_type_id===2">
         <app-file-list-request [documents]="documents" component="request" var="documents_file" [itemId]="id!" #fileList>
           <div class="form-block-sub-title" subtitle>Прикрепить документы:</div>
         </app-file-list-request>
@@ -320,7 +320,7 @@
             <div class="form-data"><input type="text" readonly placeholder="—" formControlName="departure_country_name"></div>
           </div>
 
-          <div class="form-item" *ngIf="currentTransportationFormat==='avia'">
+          <div class="form-item" *ngIf="requestForm.value.transport_kind_id==='avia'">
             <div class="form-label">Аэропорт вылета: <span class="req">•</span></div>
             <div class="form-data">
               <mat-form-field appearance="outline" class="ui-select">
@@ -358,7 +358,7 @@
             <div class="form-data"><input type="text" readonly placeholder="—" formControlName="arrival_country_name"></div>
           </div>
 
-           <div class="form-item" *ngIf="currentTransportationFormat==='avia'">
+           <div class="form-item" *ngIf="requestForm.value.transport_kind_id==='avia'">
              <div class="form-label">Аэропорт прибытия: <span class="req">•</span></div>
              <div class="form-data">
                <mat-form-field appearance="outline" class="ui-select">
@@ -452,7 +452,7 @@
         </div>
       </div>
 
-      <div class="form-row bg showhide actual" *ngIf="currentRequestFormat===2">
+      <div class="form-row bg showhide actual" *ngIf="requestForm.value.request_type_id===2">
         <div class="form-item">
           <div class="form-label">Дополнительная информация:</div>
           <div class="form-data">
@@ -463,8 +463,8 @@
 
     </div>
     <!-- Блок НАСТРОЙКА РАССЫЛКИ ЗАПРОСОВ -->
-    <div class="form-block-title" *ngIf="currentRequestFormat===2">Настройка рассылки запроса</div>
-    <div class="form-block" *ngIf="currentRequestFormat===2">
+    <div class="form-block-title" *ngIf="requestForm.value.request_type_id===2">Настройка рассылки запроса</div>
+    <div class="form-block" *ngIf="requestForm.value.request_type_id===2">
 
       <div class="form-row">
         <div class="form-item-layout">

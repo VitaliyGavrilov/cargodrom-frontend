@@ -92,6 +92,7 @@ export class PlaceEditorComponent implements OnInit, OnDestroy, OnChanges, Contr
 
   registerOnChange(fn: any): void {
     this.onChange = fn;
+    this.onCalkTotalVolumeAndWeight()
   }
 
   registerOnTouched(fn: any): void {
@@ -102,7 +103,11 @@ export class PlaceEditorComponent implements OnInit, OnDestroy, OnChanges, Contr
     this.getСargoPackages()
     this.placeForm.valueChanges
       .pipe(takeUntil(this._destroy$))
-      .subscribe(value => this.onChange(value));
+      .subscribe(value => {
+        this.onChange(value);
+
+      });
+
 
     this.placeForm.statusChanges
       .pipe(takeUntil(this._destroy$))
@@ -113,8 +118,6 @@ export class PlaceEditorComponent implements OnInit, OnDestroy, OnChanges, Contr
         }
       });
 
-      this.onCalkTotalVolumeAndWeight()
-
   }
 
   ngOnDestroy(): void {
@@ -123,6 +126,7 @@ export class PlaceEditorComponent implements OnInit, OnDestroy, OnChanges, Contr
   }
 
   ngOnChanges(changes: SimpleChanges): void {
+    this.onCalkTotalVolumeAndWeight()
 
   }
 
