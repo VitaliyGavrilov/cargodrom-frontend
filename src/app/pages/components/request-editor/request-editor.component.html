@@ -160,7 +160,7 @@
         <mat-checkbox formControlName="cargo_separately" (change)="onPlaceModeChange()">Ввести габариты и вес мест раздельно </mat-checkbox>
       </div>
 
-      <div formArrayName="cargos_places" *ngIf="requestForm.value.cargo_separately">
+      <div formArrayName="cargo_places" *ngIf="requestForm.value.cargo_separately">
 
         <div class="form-item-table-row">
           №

@@ -29,7 +29,7 @@ import { environment } from './../../../../environments/environment';
 
 export class RequestEditorComponent implements OnInit, OnDestroy {
   //ПЕРЕМЕННЫЕ
-  id?: number;//id нужен будет для документов, при создании будет получать его в ответе, при редактировании будет сразу с остальными данными
+  id: number=0;//id нужен будет для документов, при создании будет получать его в ответе, при редактировании будет сразу с остальными данными
   //
   title = '';
   nameForHeader?: string;
@@ -64,6 +64,7 @@ export class RequestEditorComponent implements OnInit, OnDestroy {
   currentPlacesDensity: number = 0 ;
   currentDepartureCountryName:string='';
   currentArrivalCountryName:string='';
+  currentDeleteFile:FileDocument[] = [];
   //снек бар
   snackBarWithShortDuration: MatSnackBarConfig = { duration: 1000 };
   snackBarWithLongDuration: MatSnackBarConfig = { duration: 3000 };
@@ -133,7 +134,7 @@ export class RequestEditorComponent implements OnInit, OnDestroy {
 
       cargo_readiness: ['', []],
       //массив мест груза
-      cargos_places: fb.array([], []),//+
+      cargo_places: fb.array([], []),//+
       //НАПРАЛЕНИЕ
       //откуда
       departure_city_id: ['', [Validators.required]],//+
@@ -189,7 +190,11 @@ export class RequestEditorComponent implements OnInit, OnDestroy {
       this.addPlace();
       this.addPlace();
     };
+
+    this.testFile()
   }
+
+
   // Публичные методы:
   //СОХРАНЕНИЕ,УДАЛЕНИЕ,ОТМЕНА,НАЗАД
   save(): void {
@@ -219,6 +224,14 @@ export class RequestEditorComponent implements OnInit, OnDestroy {
   goBack(): void {
     this.location.back();
   }
+  testFile(){
+    this.requestForm.valueChanges.subscribe((v) => {
+      console.log(this.documents);
+      console.log(this.documentsDanger);
+    })
+  }
+
+
   //РЕДАКТИРОВАНИЕ ДАННЫХ ПЕРЕД ОТПРАВКОЙ
   planA(body:any){
     const data = {
@@ -279,9 +292,9 @@ export class RequestEditorComponent implements OnInit, OnDestroy {
       cargo_description: body.cargo_description,
       cargo_package_id: body.cargo_package_id,
 
-      cargo_places: body.cargos_places,
+      cargo_places: body.cargo_places,
 
-      cargo_places_count: body.cargos_places.length,
+      cargo_places_count: body.cargo_places.length,
       cargo_places_weight: body.cargo_places_weight,
       cargo_places_volume: body.cargo_places_volume,
 
@@ -338,7 +351,7 @@ export class RequestEditorComponent implements OnInit, OnDestroy {
 
       cargo_danger: body.cargo_danger,
 
-      cargo_places_count: body.cargos_places.length,
+      cargo_places_count: body.cargo_places.length,
       cargo_places_weight: body.cargo_places_weight,
       cargo_places_volume: body.cargo_places_volume,
       cargo_places_density: body.cargo_places_density,
@@ -401,7 +414,7 @@ export class RequestEditorComponent implements OnInit, OnDestroy {
 
       cargo_places: body.cargo_places,
 
-      cargo_places_count: body.cargos_places.length,
+      cargo_places_count: body.cargo_places.length,
       cargo_places_weight: body.cargo_places_weight,
       cargo_places_volume: body.cargo_places_volume,
       cargo_places_density: body.cargo_places_density,
@@ -460,18 +473,18 @@ export class RequestEditorComponent implements OnInit, OnDestroy {
     this.requestForm.markAsTouched();
   }
   get places() {
-    return <FormArray>this.requestForm.get('cargos_places');
+    return <FormArray>this.requestForm.get('cargo_places');
   }
   //РАСЧЕТЫ
   //итоговый подсчет при раздельных местах
   onPlaceEditorChange(){
     let volume = 0;
     let weight = 0;
-    let count = this.requestForm.value.cargos_places.length;
+    let count = this.requestForm.value.cargo_places.length;
     let paidWeight = 0;
     let density = 0;
     //итого вес и обьем
-    this.requestForm.value.cargos_places.forEach((i:any)=>{
+    this.requestForm.value.cargo_places.forEach((i:any)=>{
       if(i) {
         if(i.volume>0){
           volume += i.volume;
@@ -536,7 +549,7 @@ export class RequestEditorComponent implements OnInit, OnDestroy {
   }
   //изменение поля режима отдельных мест
   onPlaceModeChange(){
-    this.requestForm.controls['cargos_places'].reset();
+    this.requestForm.controls['cargo_places'].reset();
     this.requestForm.controls['cargo_places_count'].reset();
     this.requestForm.controls['cargo_places_weight'].reset();
     this.requestForm.controls['cargo_places_volume'].reset();
@@ -759,24 +772,56 @@ export class RequestEditorComponent implements OnInit, OnDestroy {
       ).subscribe();
   }
   //ФАЙЛЫ
-  private getDocumentsFile(item_id:number) {
+  private getFile(item_id:number) {
     this.requestService.requestFiles({item_id:item_id, var:'documents_file'})
     .pipe(
       tap((file)=>this.documents=file as unknown as FileDocument[]  ),
       takeUntil(this._destroy$)
     ).subscribe();
   }
-  private getDocumentsDangerFile(item_id:number) {
+  private getDangerFile(item_id:number) {
     this.requestService.requestFiles({item_id:item_id, var:'danger_file'})
-    .pipe(
-      tap((file)=>this.documentsDanger=file as unknown as FileDocument[]  ),
-      takeUntil(this._destroy$)
-    ).subscribe();
+      .pipe(
+        tap((file)=>this.documentsDanger=file as unknown as FileDocument[]),
+        takeUntil(this._destroy$)
+      ).subscribe();
+  }
+  private createFile(request_id:number, form:string, file:file){
+    const a = {body:{item_id:request_id, var:form, file:file}}
+    this.requestService.requestFileCreate(a)
+      .pipe(
+        tap((res)=>console.log(res)),
+        takeUntil(this._destroy$)
+      ).subscribe();
+  }
+  private deleteFile(file_id:number, request_id:number, form:string){
+    const a = {body:{id:file_id, item_id:request_id, var:form}}
+    this.requestService.requestFileDelete(a)
+      .pipe(
+        tap((res)=>console.log(res)),
+        takeUntil(this._destroy$)
+      ).subscribe();
   }
   // Приватные методы для создания или редактирования запроса
   //Редактирование запроса
-  private updateRequest(){
-
+  private updateRequest(body:any){
+    this.requestService.requestUpdate({body}).pipe().subscribe({
+      next: () => {
+        this.documents.forEach((file)=>{
+          if(!file.id){
+            this.createFile(this.id,'documents_file', file.file)
+          }
+        });
+        this.documentsDanger.forEach((file)=>{
+          if(!file.id){
+            this.createFile(this.id,'danger_file', file.file)
+          }
+        })
+        
+        this.snackBar.open(`Подрядчик изменён`, undefined, this.snackBarWithShortDuration)
+      },
+      error: (err) => this.snackBar.open(`Ошибка редактирования подрядчика: ` + err.error.error_message, undefined, this.snackBarWithShortDuration)
+    });
   }
   //Получаем данные запроса для редактирования
   private getRequest():void{
@@ -790,15 +835,15 @@ export class RequestEditorComponent implements OnInit, OnDestroy {
       }))
       .subscribe({
         next: request => {
-          this.getDocumentsFile(id);
-          this.getDocumentsDangerFile(id)
+          this.getFile(id);
+          this.getDangerFile(id)
+
+          if(request.cargo_places && request.cargo_places.length>0){
+            this.requestForm.patchValue({cargo_separately: true,})
+          }
 
 
 
-          this.requestForm.patchValue({
-            cargo_separately: true,
-            cargos_places: request.cargo_places,
-          })
           this.requestForm.patchValue(request);
 
 
@@ -822,7 +867,12 @@ export class RequestEditorComponent implements OnInit, OnDestroy {
     this.requestService.requestCreate({body}).pipe().subscribe({
       next: (test) => {
         console.log(test)
-        this.id=test.id;
+        this.documents.forEach((file)=>{
+          this.createFile(test.id,'documents_file', file.file)
+        });
+        this.documentsDanger.forEach((file)=>{
+          this.createFile(test.id,'danger_file', file.file)
+        })
         this.snackBar.open(`Подрядчик создан`, undefined, this.snackBarWithShortDuration)
       },
       error: (err) => this.snackBar.open(`Ошибка создания подрядчика: ` + err.error.error_message, undefined, this.snackBarWithShortDuration)
