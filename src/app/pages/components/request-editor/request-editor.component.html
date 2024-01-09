@@ -151,7 +151,14 @@
       <div class="form-item-layout">
         <mat-checkbox formControlName="cargo_danger">Наличие батареек, элементов питания или жидкостей (Необходимо наличие паспорта безопасности) </mat-checkbox>
       </div>
-      <app-file-list-request *ngIf="requestForm.value.cargo_danger" [documents]="documentsDanger" component="request" var="danger_file" [itemId]="id!" #fileList></app-file-list-request>
+      <app-file-list-request
+        *ngIf="requestForm.value.cargo_danger"
+        [documents]="documentsDanger"
+        component="request"
+        var="danger_file"
+        [itemId]="id!"
+        #fileListDanger
+      ></app-file-list-request>
     </div>
 
     <div class="form-row">
@@ -290,7 +297,7 @@
 
       <div class="form-row" *ngIf="requestForm.value.request_type_id===2">
         <app-file-list-request [documents]="documents" component="request" var="documents_file" [itemId]="id!" #fileList>
-          <div class="form-block-sub-title" subtitle>Прикрепить документы:</div>
+        <div class="form-block-sub-title" subtitle>Прикрепить документы:</div>
         </app-file-list-request>
       </div>
 

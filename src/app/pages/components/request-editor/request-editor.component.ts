@@ -19,6 +19,7 @@ import { DirectionFlight, DirectionPoint } from 'src/app/api/custom_models/direc
 import {MatButtonToggleModule} from '@angular/material/button-toggle';
 import { MatSnackBar, MatSnackBarConfig } from '@angular/material/snack-bar';
 import { environment } from './../../../../environments/environment';
+import { RequestFileListComponent } from '../request-file/request-file.component';
 
 @Component({
   selector: 'app-request-editor',
@@ -84,6 +85,8 @@ export class RequestEditorComponent implements OnInit, OnDestroy {
       text: ' не стакинг'
     }
   ];
+  @ViewChild('fileList', { static: false }) fileList!: RequestFileListComponent;
+  @ViewChild('fileListDanger', { static: false }) fileListDanger!: RequestFileListComponent;
   //КОНСТРУКТОР
   constructor(
     private route: ActivatedRoute,
@@ -190,11 +193,7 @@ export class RequestEditorComponent implements OnInit, OnDestroy {
       this.addPlace();
       this.addPlace();
     };
-
-    this.testFile()
   }
-
-
   // Публичные методы:
   //СОХРАНЕНИЕ,УДАЛЕНИЕ,ОТМЕНА,НАЗАД
   save(): void {
@@ -210,12 +209,10 @@ export class RequestEditorComponent implements OnInit, OnDestroy {
     if(body.request_type_id===2 && body.cargo_separately == false) {
       console.log('План C вызван');
       this.planC(body);
-
     }
     if(body.request_type_id===2 && body.cargo_separately == true) {
       console.log('План D вызван');
       this.planD(body);
-
     }
   }
   remove():void {
@@ -224,17 +221,10 @@ export class RequestEditorComponent implements OnInit, OnDestroy {
   goBack(): void {
     this.location.back();
   }
-  testFile(){
-    this.requestForm.valueChanges.subscribe((v) => {
-      console.log(this.documents);
-      console.log(this.documentsDanger);
-    })
-  }
-
-
   //РЕДАКТИРОВАНИЕ ДАННЫХ ПЕРЕД ОТПРАВКОЙ
   planA(body:any){
     const data = {
+      id: this.id,
       customer_id: body.customer_id,
       request_type_id: body.request_type_id,
       transport_kind_id: body.transport_kind_id,
@@ -280,10 +270,15 @@ export class RequestEditorComponent implements OnInit, OnDestroy {
       delete data.services_optional;
     }
     console.log(data);
-    this.createRequest(data);
+    if(this.isEditMode){
+      this.updateRequest(data);
+    } else {
+      this.createRequest(data);
+    }
   }
   planB(body:any){
     const data = {
+      id: this.id,
       customer_id: body.customer_id,
       request_type_id: body.request_type_id,
       transport_kind_id: body.transport_kind_id,
@@ -337,10 +332,15 @@ export class RequestEditorComponent implements OnInit, OnDestroy {
       delete i.stacking;
     })
     console.log(data);
-    this.createRequest(data);
+    if(this.isEditMode){
+      this.updateRequest(data);
+    } else {
+      this.createRequest(data);
+    }
   }
   planC(body:any){
     const data = {
+      id: this.id,
       customer_id: body.customer_id,
       request_type_id: body.request_type_id,
       transport_kind_id: body.transport_kind_id,
@@ -398,10 +398,15 @@ export class RequestEditorComponent implements OnInit, OnDestroy {
       delete data.comment;
     }
     console.log(data);
-    this.createRequest(data);
+    if(this.isEditMode){
+      this.updateRequest(data);
+    } else {
+      this.createRequest(data);
+    }
   }
   planD(body:any){
     const data = {
+      id: this.id,
       customer_id: body.customer_id,
       request_type_id: body.request_type_id,
       transport_kind_id: body.transport_kind_id,
@@ -459,7 +464,11 @@ export class RequestEditorComponent implements OnInit, OnDestroy {
       delete data.comment;
     }
     console.log(data);
-    this.createRequest(data);
+    if(this.isEditMode){
+      this.updateRequest(data);
+    } else {
+      this.createRequest(data);
+    }
   }
   //ВЛОЖЕННАЯ ФОРМА РЕДАКТИРОВАНИ МЕСТ
   removePlace(i: number): void {
@@ -774,31 +783,15 @@ export class RequestEditorComponent implements OnInit, OnDestroy {
   //ФАЙЛЫ
   private getFile(item_id:number) {
     this.requestService.requestFiles({item_id:item_id, var:'documents_file'})
-    .pipe(
-      tap((file)=>this.documents=file as unknown as FileDocument[]  ),
-      takeUntil(this._destroy$)
-    ).subscribe();
+      .pipe(
+        tap((file)=>this.documents=file as unknown as FileDocument[] || []  ),
+        takeUntil(this._destroy$)
+      ).subscribe();
   }
   private getDangerFile(item_id:number) {
     this.requestService.requestFiles({item_id:item_id, var:'danger_file'})
       .pipe(
-        tap((file)=>this.documentsDanger=file as unknown as FileDocument[]),
-        takeUntil(this._destroy$)
-      ).subscribe();
-  }
-  private createFile(request_id:number, form:string, file:file){
-    const a = {body:{item_id:request_id, var:form, file:file}}
-    this.requestService.requestFileCreate(a)
-      .pipe(
-        tap((res)=>console.log(res)),
-        takeUntil(this._destroy$)
-      ).subscribe();
-  }
-  private deleteFile(file_id:number, request_id:number, form:string){
-    const a = {body:{id:file_id, item_id:request_id, var:form}}
-    this.requestService.requestFileDelete(a)
-      .pipe(
-        tap((res)=>console.log(res)),
+        tap((file)=>this.documentsDanger=file as unknown as FileDocument[] || []),
         takeUntil(this._destroy$)
       ).subscribe();
   }
@@ -807,20 +800,11 @@ export class RequestEditorComponent implements OnInit, OnDestroy {
   private updateRequest(body:any){
     this.requestService.requestUpdate({body}).pipe().subscribe({
       next: () => {
-        this.documents.forEach((file)=>{
-          if(!file.id){
-            this.createFile(this.id,'documents_file', file.file)
-          }
-        });
-        this.documentsDanger.forEach((file)=>{
-          if(!file.id){
-            this.createFile(this.id,'danger_file', file.file)
-          }
-        })
-        
-        this.snackBar.open(`Подрядчик изменён`, undefined, this.snackBarWithShortDuration)
+        this.fileListDanger?.update().subscribe();
+        this.fileList?.update().subscribe();
+        this.snackBar.open(`Запрос изменён`, undefined, this.snackBarWithShortDuration)
       },
-      error: (err) => this.snackBar.open(`Ошибка редактирования подрядчика: ` + err.error.error_message, undefined, this.snackBarWithShortDuration)
+      error: (err) => this.snackBar.open(`Ошибка редактирования запроса: ` + err.error.error_message, undefined, this.snackBarWithShortDuration)
     });
   }
   //Получаем данные запроса для редактирования
@@ -830,33 +814,27 @@ export class RequestEditorComponent implements OnInit, OnDestroy {
     this.requestService.requestInfo({id})
       .pipe(tap(request => {
         if (!request) {
-          throw ({ error: { error_message: `подрядчик не существует` } });
+          throw ({ error: { error_message: `Запрос не существует` } });
         }
       }))
       .subscribe({
         next: request => {
           this.getFile(id);
-          this.getDangerFile(id)
-
+          this.getDangerFile(id);
           if(request.cargo_places && request.cargo_places.length>0){
             this.requestForm.patchValue({cargo_separately: true,})
           }
-
-
-
           this.requestForm.patchValue(request);
-
-
           //тут нужны будут еще проверки
           this.getTransportFormatsById(this.requestForm.value.transport_kind_id);
           this.getIncoterms(this.requestForm.value.transport_kind_id);
           this.getRequestServices(this.requestForm.value.transport_kind_id);
           this.getRequestServicesAdditional(this.requestForm.value.transport_kind_id);
-          this.getArrivalPoint(this.requestForm.value.arrival_city_id, this.requestForm.value.transport_kind_id)
-          this.getDeparturePoint(this.requestForm.value.departure_city_id, this.requestForm.value.transport_kind_id)
+          this.getArrivalPoint(this.requestForm.value.arrival_city_id, this.requestForm.value.transport_kind_id);
+          this.getDeparturePoint(this.requestForm.value.departure_city_id, this.requestForm.value.transport_kind_id);
         },
         error: (err: any) => {
-          this.snackBar.open(`Подрядчик не найден: ` + err.error.error_message, undefined, this.snackBarWithShortDuration);
+          this.snackBar.open(`Запрос не найден: ` + err.error.error_message, undefined, this.snackBarWithShortDuration);
           this.goBack();
         }
       });
@@ -866,16 +844,12 @@ export class RequestEditorComponent implements OnInit, OnDestroy {
     //при успешном создании запроса, в ответ получаем id, используем его для добавления документов
     this.requestService.requestCreate({body}).pipe().subscribe({
       next: (test) => {
-        console.log(test)
-        this.documents.forEach((file)=>{
-          this.createFile(test.id,'documents_file', file.file)
-        });
-        this.documentsDanger.forEach((file)=>{
-          this.createFile(test.id,'danger_file', file.file)
-        })
-        this.snackBar.open(`Подрядчик создан`, undefined, this.snackBarWithShortDuration)
+        console.log(test);
+        this.fileListDanger?.create(test.id).subscribe();
+        this.fileList?.create(test.id).subscribe();
+        this.snackBar.open(`Запрос создан`, undefined, this.snackBarWithShortDuration);
       },
-      error: (err) => this.snackBar.open(`Ошибка создания подрядчика: ` + err.error.error_message, undefined, this.snackBarWithShortDuration)
+      error: (err) => this.snackBar.open(`Ошибка создания запроса: ` + err.error.error_message, undefined, this.snackBarWithShortDuration)
     });
   }
 }
