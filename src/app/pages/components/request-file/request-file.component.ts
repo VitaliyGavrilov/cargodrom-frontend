@@ -23,6 +23,7 @@ export class RequestFileListComponent implements OnInit {
 
   @ViewChild('removeDialogRef') removeDialogRef!: TemplateRef<FileDocumentExtended>;
 
+
   constructor(
     private dialog: MatDialog,
     private fileService: FileService,
@@ -36,6 +37,7 @@ export class RequestFileListComponent implements OnInit {
 
   onFileSelected(event: Event) {
     const file: File = (event.target! as HTMLInputElement).files![0];
+    console.log(file,this.documents);
     if (file) {
       this.documents.push({ file_name: file.name, file: file, item_id: this.itemId, component: this.component, var: this.var, added: true });
     }

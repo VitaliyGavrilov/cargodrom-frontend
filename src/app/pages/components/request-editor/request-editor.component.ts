@@ -7,7 +7,7 @@ import { ContractorService } from './../../../api/services/contractor.service';
 import { City, Client, ClientGroup, Contractor, ContractorRequestFormat, Country, Currency, Customer, DirectionCity, Employee, FileDocument, TaxSystem, RequestFile } from 'src/app/api/custom_models';
 import { CargoService, CompanyService, CustomerService, DirectionService, RequestService, SystemService, TransportService } from 'src/app/api/services';
 import { Editor } from 'src/app/classes/editor';
-import { Location } from '@angular/common';
+import { Location, getLocaleMonthNames } from '@angular/common';
 import { CityService } from '../../services/city.service';
 import { CountryService } from '../../services/country.service';
 import { byField } from 'src/app/constants';
@@ -133,9 +133,9 @@ export class RequestEditorComponent implements OnInit, OnDestroy {
       cargo_cost: ['', []],// + стоимость
       cargo_currency_id: ['', []],// + id валюты
 
-      cargo_staking: [true, []],// сейчас его в апи нету, но должен быть
+      cargo_places_stacking: [true, []],// сейчас его в апи нету, но должен быть
 
-      cargo_readiness: ['', []],
+      cargo_readiness: [new Date, []],
       //массив мест груза
       cargo_places: fb.array([], []),//+
       //НАПРАЛЕНИЕ
@@ -233,6 +233,10 @@ export class RequestEditorComponent implements OnInit, OnDestroy {
       cargo_description: body.cargo_description,
       cargo_package_id: body.cargo_package_id,
 
+      cargo_separately: body.cargo_separately,
+
+      cargo_places: body.cargo_places,
+
       cargo_places_count: body.cargo_places_count,
       cargo_places_weight: body.cargo_places_weight,
       cargo_places_volume: body.cargo_places_volume,
@@ -286,6 +290,8 @@ export class RequestEditorComponent implements OnInit, OnDestroy {
 
       cargo_description: body.cargo_description,
       cargo_package_id: body.cargo_package_id,
+
+      cargo_separately: body.cargo_separately,
 
       cargo_places: body.cargo_places,
 
@@ -351,6 +357,10 @@ export class RequestEditorComponent implements OnInit, OnDestroy {
 
       cargo_danger: body.cargo_danger,
 
+      cargo_separately: body.cargo_separately,
+
+      cargo_places: body.cargo_places,
+
       cargo_places_count: body.cargo_places.length,
       cargo_places_weight: body.cargo_places_weight,
       cargo_places_volume: body.cargo_places_volume,
@@ -359,7 +369,7 @@ export class RequestEditorComponent implements OnInit, OnDestroy {
       cargo_currency_id: body.cargo_currency_id,
       cargo_readiness: body.cargo_readiness,
       cargo_package_id: body.cargo_package_id,
-      cargo_staking: body.cargo_staking,
+      cargo_places_stacking: body.cargo_places_stacking,
 
       departure_city_id: body.departure_city_id,
       departure_country_id: body.departure_country_id,
@@ -416,6 +426,8 @@ export class RequestEditorComponent implements OnInit, OnDestroy {
       cargo_type_id: body.cargo_type_id,
 
       cargo_danger: body.cargo_danger,
+
+      cargo_separately: body.cargo_separately,
 
       cargo_places: body.cargo_places,
 
@@ -789,7 +801,7 @@ export class RequestEditorComponent implements OnInit, OnDestroy {
       ).subscribe();
   }
   private getDangerFile(item_id:number) {
-    this.requestService.requestFiles({item_id:item_id, var:'danger_file'})
+    this.requestService.requestFiles({item_id:item_id, var:'cargo_file'})
       .pipe(
         tap((file)=>this.documentsDanger=file as unknown as FileDocument[] || []),
         takeUntil(this._destroy$)
@@ -821,9 +833,7 @@ export class RequestEditorComponent implements OnInit, OnDestroy {
         next: request => {
           this.getFile(id);
           this.getDangerFile(id);
-          if(request.cargo_places && request.cargo_places.length>0){
-            this.requestForm.patchValue({cargo_separately: true,})
-          }
+
           this.requestForm.patchValue(request);
           //тут нужны будут еще проверки
           this.getTransportFormatsById(this.requestForm.value.transport_kind_id);
@@ -832,6 +842,8 @@ export class RequestEditorComponent implements OnInit, OnDestroy {
           this.getRequestServicesAdditional(this.requestForm.value.transport_kind_id);
           this.getArrivalPoint(this.requestForm.value.arrival_city_id, this.requestForm.value.transport_kind_id);
           this.getDeparturePoint(this.requestForm.value.departure_city_id, this.requestForm.value.transport_kind_id);
+
+          this.requestForm.patchValue(request);
         },
         error: (err: any) => {
           this.snackBar.open(`Запрос не найден: ` + err.error.error_message, undefined, this.snackBarWithShortDuration);

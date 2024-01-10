@@ -151,14 +151,15 @@
       <div class="form-item-layout">
         <mat-checkbox formControlName="cargo_danger">Наличие батареек, элементов питания или жидкостей (Необходимо наличие паспорта безопасности) </mat-checkbox>
       </div>
-      <app-file-list-request
-        *ngIf="requestForm.value.cargo_danger"
+      <app-file-list *ngIf="requestForm.value.cargo_danger"
+        [isTitle]="false"
+        [showLinks]="false"
         [documents]="documentsDanger"
         component="request"
-        var="danger_file"
+        var="cargo_file"
         [itemId]="id!"
-        #fileListDanger
-      ></app-file-list-request>
+        #fileListDanger>
+      </app-file-list>
     </div>
 
     <div class="form-row">
@@ -219,7 +220,7 @@
         <div class="form-item">
           <div class="form-label">Итого Объем, м<sup>3</sup>:</div>
           <div class="form-data">
-            <input *ngIf="!requestForm.value.cargo_separately" type="text" name="cargo_places_volume" formControlName="cargo_places_volume" (keyup)='weightAndVolumeChange()' (click)="weightAndVolumeChange()">
+            <input *ngIf="!requestForm.value.cargo_separately" type="text" name="cargo_places_volume" formControlName="cargo_places_volume" (keyup)='weightAndVolumeChange()' (click)="weightAndVolumeChange()" >
             <input *ngIf="requestForm.value.cargo_separately" type="text" readonly [value] = 'requestForm.value.cargo_places_volume'>
           </div>
         </div>
@@ -274,7 +275,7 @@
           <div class="form-label">стакинг<span class="req">•</span></div>
           <div class="form-data">
             <mat-form-field appearance="outline" class="ui-select">
-              <mat-select formControlName="cargo_staking">
+              <mat-select formControlName="cargo_places_stacking">
                 <mat-option *ngFor="let staking of stakingArr;" [value]="staking.value">{{ staking.text }}</mat-option>
               </mat-select>
             </mat-form-field>
@@ -296,9 +297,8 @@
     </div>
 
       <div class="form-row" *ngIf="requestForm.value.request_type_id===2">
-        <app-file-list-request [documents]="documents" component="request" var="documents_file" [itemId]="id!" #fileList>
-        <div class="form-block-sub-title" subtitle>Прикрепить документы:</div>
-        </app-file-list-request>
+        <app-file-list [showLinks]="false" [documents]="documents" component="request" var="documents_file" [itemId]="id!" #fileList>
+        </app-file-list>
       </div>
 
     </div>

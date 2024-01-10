@@ -5,6 +5,9 @@ import { MatDialog } from '@angular/material/dialog';
 import { Observable, map, of, zip } from 'rxjs';
 
 export type FileDocumentExtended = Partial<FileDocument> & { added?: true, removed?: true };
+export type ComponentsTypes = 'customer'|'request';
+export type VarTypes = 'documents_file'|'cargo_file';
+
 
 @Component({
   selector: 'app-file-list',
@@ -13,16 +16,21 @@ export type FileDocumentExtended = Partial<FileDocument> & { added?: true, remov
   encapsulation: ViewEncapsulation.None,
 })
 export class FileListComponent implements OnInit {
+
+  @Input() isTitle:boolean=true;
+
+  @Input() showLinks:boolean=true;
+
   @Input() documents: FileDocumentExtended[] = [];
 
-  @Input() component: 'customer' = 'customer';
+  @Input() component: ComponentsTypes = 'customer';
 
-  @Input() var: 'documents_file' = 'documents_file';
+  @Input() var: VarTypes = 'documents_file';
 
-  @Input() itemId: number = 8;
+  @Input() itemId: number = 0;
 
   @ViewChild('removeDialogRef') removeDialogRef!: TemplateRef<FileDocumentExtended>;
-  
+
   @Input() documentsPath: string = '';
   @Output() onDocumentsPathChange = new EventEmitter<string>();
 
@@ -105,7 +113,7 @@ export class FileListComponent implements OnInit {
     }));
     return zip(remove$).pipe(map(() => undefined))
   }
-  
+
   documentsPathChange(newPath: string): void {
     this.onDocumentsPathChange.emit(newPath);
   }

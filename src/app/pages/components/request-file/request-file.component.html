@@ -1,13 +1,14 @@
 <div class="form-item-layout">
   <div class="form-item">
-    <ng-content select="[subtitle]"></ng-content>
+    
     <div class="file-list">
       <div *ngFor="let doc of filteredDocuments">
         <span>{{ doc.file_name }}</span>
         <span class="del" (click)="confirmRemove(doc)"></span>
       </div>
     </div>
-    <input type="file" class="file-input" (change)="onFileSelected($event)" #fileUpload>
+    <input  type="file" class="file-input" (change)="onFileSelected($event)"  #fileUpload multiple>
+
     <span class="btn add-file" (click)="fileUpload.click()">Прикрепить файл</span>
   </div>
 </div>
