@@ -9,6 +9,9 @@
     </div>
     <input type="file" class="file-input" (change)="onFileSelected($event)" #fileUpload>
     <span class="btn add-file" (click)="fileUpload.click()">Прикрепить файл</span>
+    <mat-error *ngIf="filteredDocuments.length<1 && isError">
+      Требуется хотя бы один файл
+    </mat-error>
   </div>
   <div *ngIf="showLinks" class="form-item">
     <div class="form-label">Ссылка на файл:</div>

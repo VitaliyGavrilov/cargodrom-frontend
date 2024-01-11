@@ -23,7 +23,7 @@
 
           <div class="form-item">
             <div class="form-label">КЛИЕНТ: <span class="req">•</span></div>
-            <input appearance="outline" class="ui-select"
+              <input appearance="outline" class="ui-select"
               type="text"
               name="customer_name"
               formControlName="customer_name"
@@ -32,6 +32,9 @@
             <mat-autocomplete #auto="matAutocomplete">
               <mat-option *ngFor="let customer of customers;" [value]="customer.name" (click)="onCustomerChange(customer)">{{ customer.name }}</mat-option>
             </mat-autocomplete>
+            <mat-error *ngIf="!requestForm.controls['customer_id'].valid && requestForm.controls['customer_name'].touched">
+              Это поле обязательно
+            </mat-error>
           </div>
 
           <div class="form-item">
@@ -65,6 +68,9 @@
                   <img src="../../../../assets/pic-service-sea.svg">
                 </mat-button-toggle>
               </mat-button-toggle-group>
+              <mat-error *ngIf="!requestForm.controls['transport_kind_id'].valid && requestForm.controls['transport_kind_id'].touched">
+                Это поле обязательно
+              </mat-error>
             </div>
           </div>
 
@@ -72,13 +78,16 @@
             <div class="form-label">Вид транспорта: <span class="req">•</span></div>
             <div class="form-data">
               <mat-form-field appearance="outline" class="ui-select">
-               <mat-select formControlName="transport_type_id">
-                 <mat-option *ngFor="let transportFormat of transportFormats;" [value]="transportFormat.id">{{ transportFormat.name }}</mat-option>
-               </mat-select>
-               <mat-error *ngIf="requestForm.controls['transport_type_id'].hasError('required')">
-                 Это поле обязательно
-               </mat-error>
-             </mat-form-field>
+                <mat-select formControlName="transport_type_id">
+                  <mat-option *ngFor="let transportFormat of transportFormats;" [value]="transportFormat.id">{{ transportFormat.name }}</mat-option>
+                </mat-select>
+                <mat-error *ngIf="requestForm.controls['transport_type_id'].hasError('required')">
+                  Это поле обязательно
+                </mat-error>
+                <mat-error *ngIf="requestForm.controls['transport_type_id'].hasError('required') && !requestForm.controls['transport_kind_id'].valid ">
+                  Вы не выбрали вид перевозки
+                </mat-error>
+              </mat-form-field>
             </div>
           </div>
 
@@ -98,7 +107,11 @@
               name="cargo_description"
               formControlName="cargo_description"
               placeholder="—"
+              minlength="2"
             >
+            <mat-error *ngIf="!requestForm.controls['cargo_description'].valid && requestForm.controls['cargo_description'].touched">
+              Это поле обязательно
+            </mat-error>
           </div>
         </div>
 
@@ -109,6 +122,9 @@
               <mat-select formControlName="cargo_package_id">
                 <mat-option *ngFor="let cargoPackage of cargoPackages;" [value]="cargoPackage.id">{{ cargoPackage.name }}</mat-option>
               </mat-select>
+              <mat-error *ngIf="!requestForm.controls['cargo_package_id'].valid && requestForm.controls['cargo_package_id'].touched">
+                Это поле обязательно
+              </mat-error>
             </mat-form-field>
           </div>
         </div>
@@ -154,6 +170,7 @@
       <app-file-list *ngIf="requestForm.value.cargo_danger"
         [isTitle]="false"
         [showLinks]="false"
+        [isError]="true"
         [documents]="documentsDanger"
         component="request"
         var="cargo_file"

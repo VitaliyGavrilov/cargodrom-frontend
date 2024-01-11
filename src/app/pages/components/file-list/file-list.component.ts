@@ -21,6 +21,8 @@ export class FileListComponent implements OnInit {
 
   @Input() showLinks:boolean=true;
 
+  @Input() isError:boolean=false;
+
   @Input() documents: FileDocumentExtended[] = [];
 
   @Input() component: ComponentsTypes = 'customer';

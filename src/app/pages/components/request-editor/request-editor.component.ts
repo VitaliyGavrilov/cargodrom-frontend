@@ -19,7 +19,6 @@ import { DirectionFlight, DirectionPoint } from 'src/app/api/custom_models/direc
 import {MatButtonToggleModule} from '@angular/material/button-toggle';
 import { MatSnackBar, MatSnackBarConfig } from '@angular/material/snack-bar';
 import { environment } from './../../../../environments/environment';
-import { RequestFileListComponent } from '../request-file/request-file.component';
 
 @Component({
   selector: 'app-request-editor',
@@ -85,8 +84,8 @@ export class RequestEditorComponent implements OnInit, OnDestroy {
       text: ' не стакинг'
     }
   ];
-  @ViewChild('fileList', { static: false }) fileList!: RequestFileListComponent;
-  @ViewChild('fileListDanger', { static: false }) fileListDanger!: RequestFileListComponent;
+  @ViewChild('fileList', { static: false }) fileList!: FileListComponent;
+  @ViewChild('fileListDanger', { static: false }) fileListDanger!: FileListComponent;
   //КОНСТРУКТОР
   constructor(
     private route: ActivatedRoute,
@@ -105,7 +104,7 @@ export class RequestEditorComponent implements OnInit, OnDestroy {
     this.requestForm = this.fb.group({
       // + -это значит что в обькте который мы будем отправлять для создания или изменения запроса, есть такое жк поле, а минус будет означть что поле нашей формы не нужно или должно дыть преобразованно в другое поле
       //ОСНОВА
-      customer_id: [8, [Validators.required]],// + (customer это клиент,должен быть контрактор)
+      customer_id: [ , [Validators.required]],// + (customer это клиент,должен быть контрактор)
       customer_name: ['',[]],
       request_type_id: [1, [Validators.required]],// +
       transport_kind_id: ['', [Validators.required]],// +
@@ -197,6 +196,12 @@ export class RequestEditorComponent implements OnInit, OnDestroy {
   // Публичные методы:
   //СОХРАНЕНИЕ,УДАЛЕНИЕ,ОТМЕНА,НАЗАД
   save(): void {
+    if (!this.requestForm.valid) {
+      this.snackBar.open('Не все поля заполнены корректно', undefined, this.snackBarWithLongDuration);
+      console.log(this.requestForm.errors);
+
+      return;
+    }
     const body = this.requestForm.value;
     if(body.request_type_id===1 && body.cargo_separately == false) {
       console.log('План А вызван');
@@ -560,7 +565,6 @@ export class RequestEditorComponent implements OnInit, OnDestroy {
     this.requestForm.patchValue({
       customer_id: contractor.id,
     });
-    console.log(this.requestForm.value.customer_id)
   }
   //изменение инкотермс
   onIncotermsChange(incotem:any){
@@ -623,7 +627,6 @@ export class RequestEditorComponent implements OnInit, OnDestroy {
       departure_country_id: city.country_id,
       departure_country_name: city.country_name,
     });
-
     this.getDeparturePoint(city.id,this.currentTransportationFormat);
   }
   //изменение поля города прибытия
@@ -634,7 +637,6 @@ export class RequestEditorComponent implements OnInit, OnDestroy {
       arrival_country_id: city.country_id,
       arrival_country_name: city.country_name
     });
-
     this.getArrivalPoint(city.id,this.currentTransportationFormat);
   }
   //
@@ -842,8 +844,6 @@ export class RequestEditorComponent implements OnInit, OnDestroy {
           this.getRequestServicesAdditional(this.requestForm.value.transport_kind_id);
           this.getArrivalPoint(this.requestForm.value.arrival_city_id, this.requestForm.value.transport_kind_id);
           this.getDeparturePoint(this.requestForm.value.departure_city_id, this.requestForm.value.transport_kind_id);
-
-          this.requestForm.patchValue(request);
         },
         error: (err: any) => {
           this.snackBar.open(`Запрос не найден: ` + err.error.error_message, undefined, this.snackBarWithShortDuration);
