@@ -2,7 +2,7 @@ import { emailValidator, innValidator } from './../../../validators/pattern-vali
 import { Component, OnDestroy, OnInit, ViewChild, ViewEncapsulation } from '@angular/core';
 import { FormArray, FormBuilder, FormGroup, MinLengthValidator, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
-import { Observable, Subject, find, map, pipe, takeUntil, tap } from 'rxjs';
+import { Observable, Subject, find, map, pipe, takeUntil, tap, retry } from 'rxjs';
 import { ContractorService } from './../../../api/services/contractor.service';
 import { City, Client, ClientGroup, Contractor, ContractorRequestFormat, Country, Currency, Customer, DirectionCity, Employee, FileDocument, TaxSystem, RequestFile } from 'src/app/api/custom_models';
 import { CargoService, CompanyService, CustomerService, DirectionService, RequestService, SystemService, TransportService } from 'src/app/api/services';
@@ -36,6 +36,7 @@ export class RequestEditorComponent implements OnInit, OnDestroy {
   request: Partial<Request> = {};
   //состояния
   isEditMode: boolean = false;
+  isFormSubmitted = false;
   //форма
   requestForm: FormGroup;
   //массивы для приходящих данных полей формы
@@ -59,12 +60,11 @@ export class RequestEditorComponent implements OnInit, OnDestroy {
   documentsDanger: FileDocument[] = [];
   documents: FileDocument[] = [];
   //текущие данные
-  currentRequestFormat:number=1; //переменная для зранения текущего типа запроса
-  currentTransportationFormat:string=''; //переменная для хранения текущего вида перевозки
+  // currentRequestFormat:number=1; //переменная для зранения текущего типа запроса
+  // currentTransportationFormat:string=''; //переменная для хранения текущего вида перевозки
   currentPlacesDensity: number = 0 ;
   currentDepartureCountryName:string='';
   currentArrivalCountryName:string='';
-  currentDeleteFile:FileDocument[] = [];
   //снек бар
   snackBarWithShortDuration: MatSnackBarConfig = { duration: 1000 };
   snackBarWithLongDuration: MatSnackBarConfig = { duration: 3000 };
@@ -105,14 +105,14 @@ export class RequestEditorComponent implements OnInit, OnDestroy {
       // + -это значит что в обькте который мы будем отправлять для создания или изменения запроса, есть такое жк поле, а минус будет означть что поле нашей формы не нужно или должно дыть преобразованно в другое поле
       //ОСНОВА
       customer_id: [ , [Validators.required]],// + (customer это клиент,должен быть контрактор)
-      customer_name: ['',[]],
-      request_type_id: [1, [Validators.required]],// +
+      customer_name: ['',[Validators.required]],
+      request_type_id: [, [Validators.required]],// +
       transport_kind_id: ['', [Validators.required]],// +
       transport_type_id: ['', [Validators.required]],// +
       //ОПИСАНИЕ ГРУЗА
-      cargo_description: ['', [Validators.required]],// +
-      cargo_package_id: ['', []],// +
-      cargo_type_id: ['', []],// +
+      cargo_description: ['', [Validators.required,Validators.minLength(2)]],// +
+      cargo_package_id: [, []],// +
+      cargo_type_id: [, []],// +
       //наличе файла безопасности
       cargo_danger: [false,[]],// +
       //температура
@@ -134,7 +134,7 @@ export class RequestEditorComponent implements OnInit, OnDestroy {
 
       cargo_places_stacking: [true, []],// сейчас его в апи нету, но должен быть
 
-      cargo_readiness: [new Date, []],
+      cargo_readiness: ['', []],
       //массив мест груза
       cargo_places: fb.array([], []),//+
       //НАПРАЛЕНИЕ
@@ -153,7 +153,7 @@ export class RequestEditorComponent implements OnInit, OnDestroy {
       arrival_point_id: ['', []],//+
       arrival_address: ['', []],//+
       //рейсы
-      departure_flight: ['', [Validators.required]],//+
+      departure_flight: ['', []],//+
       //УСЛУГИ
       incoterms_id: ['', []],//+
       incoterms_city_name:[,[]],
@@ -188,21 +188,37 @@ export class RequestEditorComponent implements OnInit, OnDestroy {
     this.getCurrencys();
     this.getСargoTypes();
     //что бы сразу два экзамляра формы было, как в макете =)
-    if(this.places.length === 0){
+    if(this.places.length === 0 && !this.isEditMode){
       this.addPlace();
       this.addPlace();
     };
+    this.subForm();
+    this.requestForm.get('cargo_readiness')?.clearValidators();
   }
   // Публичные методы:
   //СОХРАНЕНИЕ,УДАЛЕНИЕ,ОТМЕНА,НАЗАД
   save(): void {
-    if (!this.requestForm.valid) {
-      this.snackBar.open('Не все поля заполнены корректно', undefined, this.snackBarWithLongDuration);
-      console.log(this.requestForm.errors);
+    const body = this.requestForm.value;
+    this.isFormSubmitted=true;
+    let placeError=false;
+    console.log(body);
 
+    body.cargo_places.forEach((i:any)=>{
+      if(i.cargo_package_id==='' || i.cargo_package_id===0){
+        placeError=true;
+      }
+    })
+
+    if(placeError){
+      this.snackBar.open('Не выбран вид упаковки в местах', undefined, this.snackBarWithLongDuration);
       return;
     }
-    const body = this.requestForm.value;
+
+    if (!this.requestForm.valid ) {
+      this.snackBar.open('Не все поля заполнены', undefined, this.snackBarWithLongDuration);
+      return;
+    }
+
     if(body.request_type_id===1 && body.cargo_separately == false) {
       console.log('План А вызван');
       this.planA(body);
@@ -591,7 +607,6 @@ export class RequestEditorComponent implements OnInit, OnDestroy {
   }
   //изменение поля вида запроса
   onRequestFormatsChange(id:number){
-    this.currentRequestFormat = id;
     this.requestForm.controls['cargo_package_id'].reset();
     this.requestForm.controls['cargo_type_id'].reset();
     this.requestForm.controls['cargo_places_count'].reset();
@@ -604,6 +619,7 @@ export class RequestEditorComponent implements OnInit, OnDestroy {
     this.requestForm.controls['request_one'].reset();
     this.requestForm.controls['request_two'].reset();
     this.requestForm.controls['comment'].reset();
+
   }
   //изменение поля вида перевозки
   onTransportationFormatsChange() {
@@ -612,12 +628,14 @@ export class RequestEditorComponent implements OnInit, OnDestroy {
     this.requestForm.controls['departure_point_id'].reset();
     this.requestForm.controls['services'].reset();
     this.requestForm.controls['services_optional'].reset();
+
     //запоминаем и используем текущий вид перевозки
-    this.currentTransportationFormat = this.requestForm.value.transport_kind_id;
-    this.getTransportFormatsById(this.currentTransportationFormat);
-    this.getIncoterms(this.currentTransportationFormat);
-    this.getRequestServices(this.currentTransportationFormat);
-    this.getRequestServicesAdditional(this.currentTransportationFormat);
+    // this.currentTransportationFormat = this.requestForm.value.transport_kind_id;
+    console.log(this.requestForm.value.transport_kind_id)
+    this.getTransportFormatsById(this.requestForm.value.transport_kind_id);
+    this.getIncoterms(this.requestForm.value.transport_kind_id);
+    this.getRequestServices(this.requestForm.value.transport_kind_id);
+    this.getRequestServicesAdditional(this.requestForm.value.transport_kind_id);
   }
   //изменение поля города отправления
   onDepartureCityChange(city: DirectionCity): void {
@@ -627,7 +645,7 @@ export class RequestEditorComponent implements OnInit, OnDestroy {
       departure_country_id: city.country_id,
       departure_country_name: city.country_name,
     });
-    this.getDeparturePoint(city.id,this.currentTransportationFormat);
+    this.getDeparturePoint(city.id,this.requestForm.value.transport_kind_id);
   }
   //изменение поля города прибытия
   onArrivalCityChange(city: DirectionCity): void {
@@ -637,7 +655,7 @@ export class RequestEditorComponent implements OnInit, OnDestroy {
       arrival_country_id: city.country_id,
       arrival_country_name: city.country_name
     });
-    this.getArrivalPoint(city.id,this.currentTransportationFormat);
+    this.getArrivalPoint(city.id,this.requestForm.value.transport_kind_id);
   }
   //
   onPortChange(port:any){
@@ -650,14 +668,17 @@ export class RequestEditorComponent implements OnInit, OnDestroy {
   //поиск котнтрактора
   searchCustomer(e:any){
     this.getCustomersByName(e.target.value);
+    this.requestForm.controls['customer_id'].reset();
   }
   //поиск города оиправления
   searchDepartureCity(e:any){
     this.getDepartureCities(e.target.value);
+    this.requestForm.controls['departure_city_id'].reset();
   }
   //поиск города прибытия
   searchArrivalCity(e:any){
     this.getArrivalCities(e.target.value);
+    this.requestForm.controls['arrival_city_id'].reset();
   }
   //поиск город/порт для инкотермс
   searchPort(e:any){
@@ -836,6 +857,10 @@ export class RequestEditorComponent implements OnInit, OnDestroy {
           this.getFile(id);
           this.getDangerFile(id);
 
+          request.cargo_places?.forEach(element => {
+            this.addPlace()
+          });
+
           this.requestForm.patchValue(request);
           //тут нужны будут еще проверки
           this.getTransportFormatsById(this.requestForm.value.transport_kind_id);
@@ -864,6 +889,69 @@ export class RequestEditorComponent implements OnInit, OnDestroy {
       error: (err) => this.snackBar.open(`Ошибка создания запроса: ` + err.error.error_message, undefined, this.snackBarWithShortDuration)
     });
   }
+  //ВАЛИДАЦИЯ
+  setValid(){
+    if(this.requestForm.value.request_type_id===1){
+      this.validateA();
+      console.log('A');
+      return;
+    }
+    if(this.requestForm.value.request_type_id===2 && !this.requestForm.value.cargo_separately){
+      this.validateB();
+      console.log('B');
+      return;
+    }
+    if(this.requestForm.value.request_type_id===2 && this.requestForm.value.cargo_separately){
+      this.validateC();
+      console.log('C');
+      return;
+    }
+  }
+  //при индиактиве
+  validateA(){
+    //обяз
+    this.requestForm.get('cargo_package_id')?.setValidators([Validators.required]);
+    //не обяз
+    this.requestForm.get('cargo_type_id')?.clearValidators();
+
+    if(this.requestForm.value.transport_kind_id==='road'){
+      this.requestForm.get('incoterms_id')?.clearValidators();
+    } else {
+      this.requestForm.get('incoterms_id')?.setValidators([Validators.required]);
+    }
+  }
+  //при индиактиве, не раздельно
+  validateB(){
+    //обяз
+    this.requestForm.get('cargo_package_id')?.setValidators([Validators.required]);
+    //не обяз
+    this.requestForm.get('cargo_type_id')?.setValidators([Validators.required]);
+
+    if(this.requestForm.value.transport_kind_id==='road'){
+      this.requestForm.get('incoterms_id')?.clearValidators();
+    } else {
+      this.requestForm.get('incoterms_id')?.setValidators([Validators.required]);
+    }
+  }
+  //при индиактиве, не раздельно
+  validateC(){
+    //обяз
+    this.requestForm.get('cargo_package_id')?.clearValidators();
+    //не обяз
+    this.requestForm.get('cargo_type_id')?.setValidators([Validators.required]);
+
+    if(this.requestForm.value.transport_kind_id==='road'){
+      this.requestForm.get('incoterms_id')?.clearValidators();
+    } else {
+      this.requestForm.get('incoterms_id')?.setValidators([Validators.required]);
+    }
+  }
+  subForm(){
+    this.requestForm.valueChanges.subscribe((v) => {
+     this.setValid();
+    });
+  }
+
 }
 
 
@@ -1151,4 +1239,30 @@ export class RequestEditorComponent implements OnInit, OnDestroy {
 //-условия поставки = incoterms_id: число
 //-в ставку должно быть включенно = services: массив из числе по моему, но в документация из строк
 //-дополнительные услуги = services_optional: массив из числе по моему, но в документация из строк
+
+
+//-ВАЛИДАЦИЯ-ВАЛИДАЦИЯ-ВАЛИДАЦИЯ-ВАЛИДАЦИЯ-ВАЛИДАЦИЯ-ВАЛИДАЦИЯ-ВАЛИДАЦИЯ-ВАЛИДАЦИЯ
+
+//Поля влияющие на валидацию:
+//-вид запроса
+//-вид перевозки
+//-места
+
+//Поля с валидцией:
+
+//котрагнет
+//вид запроса
+//вид перевозки
+//тип транспорта
+
+//наименнование груза
+//вид упаковки
+//тип груза
+
+//вид упаковки(в местах)
+
+//город
+//страна
+
+//условия поставки
 

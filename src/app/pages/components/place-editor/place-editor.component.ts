@@ -31,6 +31,7 @@ export class PlaceEditorComponent implements OnInit, OnDestroy, OnChanges, Contr
   @Output() removePlace = new EventEmitter<void>();
 
   @Input() currentRequestFormat!:number;
+  @Input() isFormSubmitted!:boolean;
 
 
   onChange = (value: Partial<Contact>) => { };
@@ -63,13 +64,13 @@ export class PlaceEditorComponent implements OnInit, OnDestroy, OnChanges, Contr
     this.placeForm = this.fb.group({
       cargo_package_id: ['', []],
       stacking: [false,[]],
-      length: ['', [Validators.required]],
-      width: ['', [Validators.required]],
-      height: ['', [Validators.required]],
-      weight: ['', [Validators.required]],
-      count: ['', [Validators.required]],
-      volume: ['', [Validators.required]],
-      total_weight: ['', [Validators.required]],
+      length: ['', []],
+      width: ['', []],
+      height: ['', []],
+      weight: ['', []],
+      count: ['', []],
+      volume: ['', []],
+      total_weight: ['', []],
     });
   }
   onCalkTotalVolumeAndWeight(){
@@ -93,10 +94,12 @@ export class PlaceEditorComponent implements OnInit, OnDestroy, OnChanges, Contr
   registerOnChange(fn: any): void {
     this.onChange = fn;
     this.onCalkTotalVolumeAndWeight()
+
   }
 
   registerOnTouched(fn: any): void {
     this.onTouched = fn;
+
   }
 
   ngOnInit(): void {
@@ -127,7 +130,6 @@ export class PlaceEditorComponent implements OnInit, OnDestroy, OnChanges, Contr
 
   ngOnChanges(changes: SimpleChanges): void {
     this.onCalkTotalVolumeAndWeight()
-
   }
 
   validate(control: AbstractControl): ValidationErrors | null {

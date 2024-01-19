@@ -1,17 +1,204 @@
-.a{
-  display: flex;
-  flex-direction: row;
-  justify-content: space-between;
+//общие
+.form-label{
+  font-family: 'regular', 'arial', 'sans-serif';
+  outline: none;
+  font-size: 10px;
+  line-height: 10px;
+  color: #606A74;
+  text-transform: uppercase;
+  margin-bottom: 7px;
+  min-height: 10px;
+  box-sizing: border-box;
 }
 
-.form-item-table-row{
+//основа
+
+//груз
+
+
+.i2{
+  font-family: 'regular', 'arial', 'sans-serif';
+  color: #606A74;
+  outline: none;
+  box-sizing: border-box;
+  max-width: 50%;
+}
+
+.i4{
+  font-family: 'regular', 'arial', 'sans-serif';
+  color: #606A74;
+  outline: none;
+  box-sizing: border-box;
+  max-width: 25%;
+}
+
+.wa{
+  font-family: 'regular', 'arial', 'sans-serif';
+  color: #606A74;
+  outline: none;
+  box-sizing: border-box;
+
+}
+
+.fit{
+  max-width: fit-content;
+  max-height: fit-content;
+}
+
+.temp{
+  font-family: 'regular', 'arial', 'sans-serif';
+  color: #606A74;
+  outline: none;
+  font-size: 15px;
+  line-height: 14px;
+  margin-top: -11px;
+  margin-bottom: -20px;
+  box-sizing: border-box;
+  width: auto;
+}
+
+.temp_input{
+  outline: none;
+  font-family: 'regular', 'arial', 'sans-serif';
+  border: 1px solid #E0E5EB;
+  color: #2C3640;
+  font-size: 15px;
+  line-height: 15px;
+  border-radius: 6px;
+  box-sizing: border-box;
+  padding: 11px 13px 9px;
+  width: 50px;
+  padding-left: 5px;
+  padding-right: 5px;
+  text-align: center;
+  background: #fff;
+}
+.temp_center {
+  display: flex;
+  align-items: center;
+}
+.temp_span_s {
+  font-family: 'regular', 'arial', 'sans-serif';
+  color: #606A74;
+  font-size: 15px;
+  line-height: 14px;
+  outline: none;
+  margin-left: 5px;
+  margin-right: 5px;
+}
+.temp_span_t {
+  font-family: 'regular', 'arial', 'sans-serif';
+  color: #606A74;
+  outline: none;
+  font-size: 13px;
+  line-height: 12px;
+}
+
+.span_denger{
+  font-family: 'regular', 'arial', 'sans-serif';
+  cursor: pointer;
+  outline: none;
+  color: #83909E;
+}
+
+.cargo_place {
+  font-family: 'regular', 'arial', 'sans-serif';
+  color: #606A74;
+  outline: none;
+  box-sizing: border-box;
+  max-width: 124px;
+  flex-shrink: 0;
+}
+
+.form-item-block{
   font-family: 'regular', 'arial', 'sans-serif';
   color: #606A74;
   outline: none;
   display: flex;
-  gap: 24px;
-  // border-bottom: 1px solid #E0E5EB;
-  padding: 15px 0;
-  position: relative;
-  border-top: 1px solid #E0E5EB;
+  gap: 6px;
 }
+
+.form-item_time{
+  font-family: 'regular', 'arial', 'sans-serif';
+  color: #606A74;
+  outline: none;
+  box-sizing: border-box;
+  max-width: 124px;
+  flex-shrink: 0;
+}
+
+//направления
+.form-item_city{
+  font-family: 'regular', 'arial', 'sans-serif';
+  color: #606A74;
+  outline: none;
+  box-sizing: border-box;
+  max-width: 25%;
+  min-width: 24%;
+}
+
+.form-item_country{
+  font-family: 'regular', 'arial', 'sans-serif';
+  color: #606A74;
+  outline: none;
+  box-sizing: border-box;
+  max-width: 11.677%;
+  min-width: 11.5;
+  flex-shrink: 0;
+}
+
+.form-item_airport {
+  font-family: 'regular', 'arial', 'sans-serif';
+  color: #606A74;
+  outline: none;
+  box-sizing: border-box;
+  max-width: 25%;
+  min-width: 24%;
+}
+
+.form-item_adress{
+  font-family: 'regular', 'arial', 'sans-serif';
+  color: #606A74;
+  outline: none;
+  box-sizing: border-box;
+  flex-grow: 1;
+  max-width: auto;
+}
+
+//услуг
+.form-item_incoterms{
+  font-family: 'regular', 'arial', 'sans-serif';
+  color: #606A74;
+  outline: none;
+  box-sizing: border-box;
+  max-width: 23.25%;
+}
+
+.form-item_port{
+  font-family: 'regular', 'arial', 'sans-serif';
+  color: #606A74;
+  outline: none;
+  box-sizing: border-box;
+  max-width: 23.25%;
+}
+
+.form-item_sevices{
+  font-family: 'regular', 'arial', 'sans-serif';
+  color: #606A74;
+  outline: none;
+  box-sizing: border-box;
+  max-width: 50%;
+}
+
+.sevices_title{
+  font-family: 'regular', 'arial', 'sans-serif';
+  outline: none;
+  color: #2C3640;
+  font-weight: bold;
+  font-size: 20px;
+  line-height: 20px;
+}
+
+
+
+
