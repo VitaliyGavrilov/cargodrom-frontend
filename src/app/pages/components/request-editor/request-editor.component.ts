@@ -73,6 +73,9 @@ export class RequestEditorComponent implements OnInit, OnDestroy {
   //переменные окружения
   production = environment.production;
   //статичные данные
+  selectedStacking="staking__true"
+  selected = "option2";
+
   stakingArr =[
     {
       value: true,
@@ -106,7 +109,7 @@ export class RequestEditorComponent implements OnInit, OnDestroy {
       //ОСНОВА
       customer_id: [ , [Validators.required]],// + (customer это клиент,должен быть контрактор)
       customer_name: ['',[Validators.required]],
-      request_type_id: [, [Validators.required]],// +
+      request_type_id: [1, [Validators.required]],// +
       transport_kind_id: ['', [Validators.required]],// +
       transport_type_id: ['', [Validators.required]],// +
       //ОПИСАНИЕ ГРУЗА
@@ -200,19 +203,7 @@ export class RequestEditorComponent implements OnInit, OnDestroy {
   save(): void {
     const body = this.requestForm.value;
     this.isFormSubmitted=true;
-    let placeError=false;
     console.log(body);
-
-    body.cargo_places.forEach((i:any)=>{
-      if(i.cargo_package_id==='' || i.cargo_package_id===0){
-        placeError=true;
-      }
-    })
-
-    if(placeError){
-      this.snackBar.open('Не выбран вид упаковки в местах', undefined, this.snackBarWithLongDuration);
-      return;
-    }
 
     if (!this.requestForm.valid ) {
       this.snackBar.open('Не все поля заполнены', undefined, this.snackBarWithLongDuration);
@@ -893,17 +884,14 @@ export class RequestEditorComponent implements OnInit, OnDestroy {
   setValid(){
     if(this.requestForm.value.request_type_id===1){
       this.validateA();
-      console.log('A');
       return;
     }
     if(this.requestForm.value.request_type_id===2 && !this.requestForm.value.cargo_separately){
       this.validateB();
-      console.log('B');
       return;
     }
     if(this.requestForm.value.request_type_id===2 && this.requestForm.value.cargo_separately){
       this.validateC();
-      console.log('C');
       return;
     }
   }

@@ -32,6 +32,7 @@ export class PlaceEditorComponent implements OnInit, OnDestroy, OnChanges, Contr
 
   @Input() currentRequestFormat!:number;
   @Input() isFormSubmitted!:boolean;
+  @Input() num!:number;
 
 
   onChange = (value: Partial<Contact>) => { };
@@ -63,7 +64,7 @@ export class PlaceEditorComponent implements OnInit, OnDestroy, OnChanges, Contr
   ) {
     this.placeForm = this.fb.group({
       cargo_package_id: ['', []],
-      stacking: [false,[]],
+      stacking: [true,[]],
       length: ['', []],
       width: ['', []],
       height: ['', []],

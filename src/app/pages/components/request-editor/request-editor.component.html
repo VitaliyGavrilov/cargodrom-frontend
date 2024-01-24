@@ -4,21 +4,21 @@
   <form class="edit-form" [formGroup]="requestForm" (ngSubmit)="save()">
 
     <!-- Блок ОСНОВА-->
-    <div class="form-block">
-      <div class="form-row">
-        <div class="form-item-layout">
+    <div class="edit-form__block">
+      <div class="edit-form__row">
+        <div class="edit-form__item-layout">
 
-          <div class="form-item">
-            <div class="form-label">КЛИЕНТ: <span class="req">•</span></div>
-            <div class="form-data">
-              <input appearance="outline" class="ui-select"
+          <div class="edit-form__item">
+            <div class="edit-form__label">КЛИЕНТ: <span class="req">•</span></div>
+            <div class="edit-form__data">
+              <input appearance="outline" class="edit-form__input bg-color_grey1"
                 type="text"
                 name="customer_name"
                 formControlName="customer_name"
                 [matAutocomplete]="auto"
                 (keyup)="searchCustomer($event)" placeholder="—" >
-              <mat-autocomplete #auto="matAutocomplete">
-                <mat-option *ngFor="let customer of customers;" [value]="customer.name" (click)="onCustomerChange(customer)">{{ customer.name }}</mat-option>
+              <mat-autocomplete  #auto="matAutocomplete">
+                <mat-option class="edit-form__mat-option" *ngFor="let customer of customers;" [value]="customer.name" (click)="onCustomerChange(customer)">{{ customer.name }}</mat-option>
               </mat-autocomplete>
 
             <mat-error *ngIf="requestForm.controls['customer_id'].invalid && requestForm.controls['customer_name'].touched || (requestForm.controls['customer_id'].invalid && isFormSubmitted)">
@@ -28,12 +28,12 @@
 
           </div>
 
-          <div class="form-item">
-            <div class="form-label">Вид запроса: <span class="req">•</span></div>
-            <div class="form-data">
-              <mat-form-field appearance="outline" class="ui-select">
-                <mat-select formControlName="request_type_id" (valueChange)="onRequestFormatsChange($event)">
-                  <mat-option *ngFor="let requestFormat of requestFormats;" [value]="requestFormat.id">{{ requestFormat.name }}</mat-option>
+          <div class="edit-form__item">
+            <div class="edit-form__label">Вид запроса: <span class="req">•</span></div>
+            <div class="edit-form__data">
+              <mat-form-field appearance="outline" class="edit-form__mat-field">
+                <mat-select panelClass="f" textClass="ff" formControlName="request_type_id" (valueChange)="onRequestFormatsChange($event)">
+                  <mat-option class="edit-form__mat-option" *ngFor="let requestFormat of requestFormats;" [value]="requestFormat.id">{{ requestFormat.name }}</mat-option>
                 </mat-select>
               </mat-form-field>
               <mat-error *ngIf="requestForm.controls['request_type_id'].invalid && requestForm.controls['request_type_id'].touched || (requestForm.controls['request_type_id'].invalid && isFormSubmitted)">
@@ -42,41 +42,56 @@
             </div>
           </div>
 
-          <div class="form-item">
-            <div class="form-label">Вид перевозки: <span class="req">•</span></div>
-              <mat-button-toggle-group appearance="legacy" class="form-data" name="transport_kind_id" formControlName="transport_kind_id" (change)="onTransportationFormatsChange()">
-                <mat-button-toggle value="avia" class="avia">
+          <div class="edit-form__data">
+            <div class="edit-form__label">Вид перевозки <span class="req">•</span></div>
+
+            <label class="radio-btn" (change)="onTransportationFormatsChange()">
+              <input type="radio"  name="transport_kind_id" value="avia" formControlName="transport_kind_id">
+                <span class="avia" title="Авиа">
                   <svg width="21" height="20" viewBox="0 0 21 20" fill="none" xmlns="http://www.w3.org/2000/svg">
-                    <path d="M20.636 10.0449L16.9866 9.01727V7.41992C16.9866 6.63672 16.3143 6 15.4877 6C14.6613 6 13.989 6.63672 13.989 7.41992V8.17322L12.0068 7.61511L12.0042 3.75586C12.0042 3.71875 11.8452 0 10.5063 0C9.16852 0 9.00946 3.71875 9.00946 3.75586V7.61053L7.01105 8.17328V7.41992C7.01105 6.63672 6.33875 6 5.51227 6C4.68573 6 4.01343 6.63672 4.01343 7.41992V9.0174L0.364441 10.0449C0.148804 10.1055 0 10.3027 0 10.5264V12.3682C0 12.5078 0.0585327 12.6416 0.161987 12.7363C0.254211 12.8213 0.375183 12.8682 0.499634 12.8682C0.513733 12.8682 0.527893 12.8672 0.542053 12.8662L9.00946 12.1398V14.3264L5.61957 16.3799C5.47028 16.4707 5.37854 16.6328 5.37854 16.8076V17.5C5.37854 17.7764 5.60199 18 5.87817 18H9.31091C9.52667 19.04 9.89081 20 10.5063 20C11.1223 20 11.4867 19.04 11.7026 18H15.1218C15.398 18 15.6215 17.7764 15.6215 17.5V16.8076C15.6215 16.6328 15.5297 16.4707 15.3804 16.3799L12.0042 14.3347V12.141L20.4575 12.8662C20.4721 12.8672 20.4858 12.8682 20.5004 12.8682C20.6253 12.8682 20.7453 12.8213 20.838 12.7363C20.9415 12.6416 21 12.5078 21 12.3682V10.5264C21 10.3027 20.8507 10.1055 20.636 10.0449ZM14.9882 7.41992C14.9882 7.18848 15.2126 7 15.4877 7C15.7629 7 15.9874 7.18848 15.9874 7.41992V8.73596L14.9882 8.45459V7.41992ZM5.01263 7.41992C5.01263 7.18848 5.23706 7 5.51227 7C5.78741 7 6.01184 7.18848 6.01184 7.41992V8.45465L5.01263 8.73602V7.41992ZM6.52509 17L9.01215 15.4935C9.02057 15.6901 9.05389 16.2943 9.14496 17H6.52509ZM11.8687 17C11.9589 16.3015 11.9924 15.7044 12.0012 15.5016L14.4749 17H11.8687ZM20.0008 11.8232L11.5504 11.0986C11.5431 11.0983 11.5366 11.1017 11.5293 11.1017C11.5206 11.1013 11.5134 11.0967 11.5046 11.0967C11.4529 11.0967 11.4058 11.1115 11.3589 11.126C11.3579 11.1264 11.3567 11.1263 11.3556 11.1267C11.2372 11.1643 11.1422 11.243 11.0804 11.3483C11.0753 11.3566 11.0689 11.3634 11.0643 11.3721C11.0416 11.4163 11.03 11.4646 11.0214 11.5153C11.019 11.5289 11.011 11.5397 11.0098 11.5537C11.0095 11.5579 11.0114 11.5615 11.0112 11.5657C11.0105 11.5765 11.0049 11.5857 11.0049 11.5967V15.4238C11.0049 16.2666 10.7591 17.8379 10.5063 18.6289C10.2546 17.8379 10.0087 16.2666 10.0087 15.4238V11.5967C10.0087 11.3693 9.85443 11.1854 9.64709 11.1245C9.64264 11.123 9.63782 11.1232 9.6333 11.1218C9.59259 11.1111 9.55316 11.0967 9.50909 11.0967C9.49884 11.0967 9.49036 11.1019 9.48029 11.1025C9.46973 11.1025 9.46021 11.0979 9.44958 11.0986L0.999207 11.8232V10.9053L9.62811 8.47559C9.6347 8.47369 9.63916 8.46869 9.64557 8.46661C9.8537 8.40625 10.0087 8.22205 10.0087 7.99414V3.75586C10.0087 2.92773 10.2741 1.72754 10.5063 1.19824C10.7396 1.72656 11.0049 2.92773 11.0049 3.75586L11.0079 7.99414C11.0079 8.00513 11.0134 8.01428 11.0141 8.02509C11.0163 8.05981 11.0251 8.09155 11.0342 8.12451C11.0426 8.15503 11.0495 8.18494 11.0633 8.21283C11.0773 8.24127 11.0964 8.26501 11.1155 8.29034C11.135 8.31628 11.1531 8.3418 11.1773 8.3634C11.2 8.38385 11.2264 8.39825 11.253 8.41443C11.2824 8.43237 11.3107 8.44952 11.3438 8.46112C11.354 8.46472 11.3613 8.4726 11.3719 8.47559L20.0008 10.9053V11.8232Z" fill="#83909E"></path>
+                    <path d="M20.636 10.0449L16.9866 9.01727V7.41992C16.9866 6.63672 16.3143 6 15.4877 6C14.6613 6 13.989 6.63672 13.989 7.41992V8.17322L12.0068 7.61511L12.0042 3.75586C12.0042 3.71875 11.8452 0 10.5063 0C9.16852 0 9.00946 3.71875 9.00946 3.75586V7.61053L7.01105 8.17328V7.41992C7.01105 6.63672 6.33875 6 5.51227 6C4.68573 6 4.01343 6.63672 4.01343 7.41992V9.0174L0.364441 10.0449C0.148804 10.1055 0 10.3027 0 10.5264V12.3682C0 12.5078 0.0585327 12.6416 0.161987 12.7363C0.254211 12.8213 0.375183 12.8682 0.499634 12.8682C0.513733 12.8682 0.527893 12.8672 0.542053 12.8662L9.00946 12.1398V14.3264L5.61957 16.3799C5.47028 16.4707 5.37854 16.6328 5.37854 16.8076V17.5C5.37854 17.7764 5.60199 18 5.87817 18H9.31091C9.52667 19.04 9.89081 20 10.5063 20C11.1223 20 11.4867 19.04 11.7026 18H15.1218C15.398 18 15.6215 17.7764 15.6215 17.5V16.8076C15.6215 16.6328 15.5297 16.4707 15.3804 16.3799L12.0042 14.3347V12.141L20.4575 12.8662C20.4721 12.8672 20.4858 12.8682 20.5004 12.8682C20.6253 12.8682 20.7453 12.8213 20.838 12.7363C20.9415 12.6416 21 12.5078 21 12.3682V10.5264C21 10.3027 20.8507 10.1055 20.636 10.0449ZM14.9882 7.41992C14.9882 7.18848 15.2126 7 15.4877 7C15.7629 7 15.9874 7.18848 15.9874 7.41992V8.73596L14.9882 8.45459V7.41992ZM5.01263 7.41992C5.01263 7.18848 5.23706 7 5.51227 7C5.78741 7 6.01184 7.18848 6.01184 7.41992V8.45465L5.01263 8.73602V7.41992ZM6.52509 17L9.01215 15.4935C9.02057 15.6901 9.05389 16.2943 9.14496 17H6.52509ZM11.8687 17C11.9589 16.3015 11.9924 15.7044 12.0012 15.5016L14.4749 17H11.8687ZM20.0008 11.8232L11.5504 11.0986C11.5431 11.0983 11.5366 11.1017 11.5293 11.1017C11.5206 11.1013 11.5134 11.0967 11.5046 11.0967C11.4529 11.0967 11.4058 11.1115 11.3589 11.126C11.3579 11.1264 11.3567 11.1263 11.3556 11.1267C11.2372 11.1643 11.1422 11.243 11.0804 11.3483C11.0753 11.3566 11.0689 11.3634 11.0643 11.3721C11.0416 11.4163 11.03 11.4646 11.0214 11.5153C11.019 11.5289 11.011 11.5397 11.0098 11.5537C11.0095 11.5579 11.0114 11.5615 11.0112 11.5657C11.0105 11.5765 11.0049 11.5857 11.0049 11.5967V15.4238C11.0049 16.2666 10.7591 17.8379 10.5063 18.6289C10.2546 17.8379 10.0087 16.2666 10.0087 15.4238V11.5967C10.0087 11.3693 9.85443 11.1854 9.64709 11.1245C9.64264 11.123 9.63782 11.1232 9.6333 11.1218C9.59259 11.1111 9.55316 11.0967 9.50909 11.0967C9.49884 11.0967 9.49036 11.1019 9.48029 11.1025C9.46973 11.1025 9.46021 11.0979 9.44958 11.0986L0.999207 11.8232V10.9053L9.62811 8.47559C9.6347 8.47369 9.63916 8.46869 9.64557 8.46661C9.8537 8.40625 10.0087 8.22205 10.0087 7.99414V3.75586C10.0087 2.92773 10.2741 1.72754 10.5063 1.19824C10.7396 1.72656 11.0049 2.92773 11.0049 3.75586L11.0079 7.99414C11.0079 8.00513 11.0134 8.01428 11.0141 8.02509C11.0163 8.05981 11.0251 8.09155 11.0342 8.12451C11.0426 8.15503 11.0495 8.18494 11.0633 8.21283C11.0773 8.24127 11.0964 8.26501 11.1155 8.29034C11.135 8.31628 11.1531 8.3418 11.1773 8.3634C11.2 8.38385 11.2264 8.39825 11.253 8.41443C11.2824 8.43237 11.3107 8.44952 11.3438 8.46112C11.354 8.46472 11.3613 8.4726 11.3719 8.47559L20.0008 10.9053V11.8232Z" fill="#83909E">
+                    </path>
                   </svg>
-                </mat-button-toggle>
-                <mat-button-toggle value="road" class="transport_icon">
+                </span>
+            </label>
+            <label class="radio-btn" (change)="onTransportationFormatsChange()">
+              <input type="radio"  name="transport_kind_id" value="road" formControlName="transport_kind_id">
+                <span class="road" title="Авто">
                   <svg width="21" height="18" viewBox="0 0 21 18" fill="none" xmlns="http://www.w3.org/2000/svg">
-                    <path d="M20.5 2H19V0.5C19 0.223633 18.7764 0 18.5 0H2.5C2.22363 0 2 0.223633 2 0.5V2H0.5C0.223633 2 0 2.22363 0 2.5V6.5C0 6.77637 0.223633 7 0.5 7H2V7.5V15.5V17.5C2 17.7764 2.22363 18 2.5 18H5.5C5.77637 18 6 17.7764 6 17.5V16H15V17.5C15 17.7764 15.2236 18 15.5 18H18.5C18.7764 18 19 17.7764 19 17.5V15.5V7.5V7H20.5C20.7764 7 21 6.77637 21 6.5V2.5C21 2.22363 20.7764 2 20.5 2ZM2 6H1V3H2V6ZM5 17H3V16H4.5H5V17ZM5.5 15H5V14H16V15H15.5H5.5ZM18 17H16V16H16.5H18V17ZM18 15H17V13.5C17 13.2236 16.7764 13 16.5 13H4.5C4.22363 13 4 13.2236 4 13.5V15H3V8H6.00098V9.5V11.5C6.00098 11.7764 6.22461 12 6.50098 12H14.499C14.7754 12 14.999 11.7764 14.999 11.5V9.5V8H18V15ZM13.999 10V11H7.00098V10H13.999ZM7.00098 9V8H13.999V9H7.00098ZM18 2.5V6.5V7H14.499H6.50098H3V6.5V2.5V1H18V2.5ZM20 6H19V3H20V6Z" fill="#83909E"></path>
+                    <path d="M20.5 2H19V0.5C19 0.223633 18.7764 0 18.5 0H2.5C2.22363 0 2 0.223633 2 0.5V2H0.5C0.223633 2 0 2.22363 0 2.5V6.5C0 6.77637 0.223633 7 0.5 7H2V7.5V15.5V17.5C2 17.7764 2.22363 18 2.5 18H5.5C5.77637 18 6 17.7764 6 17.5V16H15V17.5C15 17.7764 15.2236 18 15.5 18H18.5C18.7764 18 19 17.7764 19 17.5V15.5V7.5V7H20.5C20.7764 7 21 6.77637 21 6.5V2.5C21 2.22363 20.7764 2 20.5 2ZM2 6H1V3H2V6ZM5 17H3V16H4.5H5V17ZM5.5 15H5V14H16V15H15.5H5.5ZM18 17H16V16H16.5H18V17ZM18 15H17V13.5C17 13.2236 16.7764 13 16.5 13H4.5C4.22363 13 4 13.2236 4 13.5V15H3V8H6.00098V9.5V11.5C6.00098 11.7764 6.22461 12 6.50098 12H14.499C14.7754 12 14.999 11.7764 14.999 11.5V9.5V8H18V15ZM13.999 10V11H7.00098V10H13.999ZM7.00098 9V8H13.999V9H7.00098ZM18 2.5V6.5V7H14.499H6.50098H3V6.5V2.5V1H18V2.5ZM20 6H19V3H20V6Z" fill="#83909E">
+                    </path>
                   </svg>
-                </mat-button-toggle>
-                <mat-button-toggle value="sea" class="transport_icon">
+                </span>
+              </label>
+
+              <label class="radio-btn" (change)="onTransportationFormatsChange()">
+                <input type="radio" name="transport_kind_id" value="sea" formControlName="transport_kind_id">
+                <span class="sea" title="Море">
                   <svg width="25" height="18" viewBox="0 0 25 18" fill="none" xmlns="http://www.w3.org/2000/svg">
-                    <path d="M24.5 15C23.1582 15 22.5908 15.6475 22.1348 16.167C21.7109 16.6504 21.4043 17 20.5 17C20.2117 17 19.997 16.9543 19.807 16.8902L22.8926 8.82422C22.9463 8.68359 22.9346 8.52734 22.8594 8.39648C22.7852 8.2666 22.6562 8.17676 22.5078 8.15234L20 7.7356V2.5C20 2.22363 19.7764 2 19.5 2H18V0.5C18 0.223633 17.7764 0 17.5 0H7.5C7.22363 0 7 0.223633 7 0.5V2H5.5C5.22363 2 5 2.22363 5 2.5V7.73566L2.49268 8.15234C2.34473 8.17676 2.21533 8.2666 2.14111 8.39648C2.06641 8.52734 2.0542 8.68359 2.10791 8.82422L5.19299 16.8902C5.00299 16.9543 4.78827 17 4.5 17C3.5957 17 3.28955 16.6504 2.86523 16.167C2.40918 15.6475 1.8418 15 0.5 15C0.223633 15 0 15.2236 0 15.5C0 15.7764 0.223633 16 0.5 16C1.38867 16 1.69287 16.3467 2.11328 16.8262C2.57178 17.3496 3.14258 18 4.5 18C5.85742 18 6.42773 17.3496 6.88672 16.8262C7.30762 16.3467 7.61133 16 8.5 16C9.38867 16 9.69238 16.3467 10.1133 16.8262C10.5723 17.3496 11.1426 18 12.5 18C13.8574 18 14.4277 17.3496 14.8867 16.8262C15.3076 16.3467 15.6113 16 16.5 16C17.3887 16 17.6924 16.3467 18.1133 16.8262C18.5723 17.3496 19.1426 18 20.5 18C21.8574 18 22.4277 17.3496 22.8867 16.8262C23.3076 16.3467 23.6113 16 24.5 16C24.7764 16 25 15.7764 25 15.5C25 15.2236 24.7764 15 24.5 15ZM8 1H17V2H8V1ZM6 3H7.5H17.5H19V7.56946L12.582 6.50293C12.5547 6.49823 12.5276 6.50708 12.5001 6.50714C12.4725 6.50708 12.4456 6.49823 12.418 6.50293L6 7.56946V3ZM10.8652 16.167C10.4092 15.6475 9.8418 15 8.5 15C7.1582 15 6.59082 15.6475 6.13477 16.167C6.09869 16.2081 6.06506 16.2417 6.03021 16.2808L3.26025 9.03809L12 7.58594V16.9461C11.468 16.8354 11.1973 16.5457 10.8652 16.167ZM16.5 15C15.1582 15 14.5908 15.6475 14.1348 16.167C13.8027 16.5457 13.532 16.8354 13 16.9461V7.58594L21.7402 9.03809L18.9698 16.2808C18.9349 16.2417 18.9013 16.2081 18.8652 16.167C18.4092 15.6475 17.8418 15 16.5 15ZM10 4.5C10 4.77637 9.77637 5 9.5 5H7.5C7.22363 5 7 4.77637 7 4.5C7 4.22363 7.22363 4 7.5 4H9.5C9.77637 4 10 4.22363 10 4.5ZM13.5 5H11.5C11.2236 5 11 4.77637 11 4.5C11 4.22363 11.2236 4 11.5 4H13.5C13.7764 4 14 4.22363 14 4.5C14 4.77637 13.7764 5 13.5 5ZM15 4.5C15 4.22363 15.2236 4 15.5 4H17.5C17.7764 4 18 4.22363 18 4.5C18 4.77637 17.7764 5 17.5 5H15.5C15.2236 5 15 4.77637 15 4.5Z" fill="#83909E"></path>
+                    <path d="M24.5 15C23.1582 15 22.5908 15.6475 22.1348 16.167C21.7109 16.6504 21.4043 17 20.5 17C20.2117 17 19.997 16.9543 19.807 16.8902L22.8926 8.82422C22.9463 8.68359 22.9346 8.52734 22.8594 8.39648C22.7852 8.2666 22.6562 8.17676 22.5078 8.15234L20 7.7356V2.5C20 2.22363 19.7764 2 19.5 2H18V0.5C18 0.223633 17.7764 0 17.5 0H7.5C7.22363 0 7 0.223633 7 0.5V2H5.5C5.22363 2 5 2.22363 5 2.5V7.73566L2.49268 8.15234C2.34473 8.17676 2.21533 8.2666 2.14111 8.39648C2.06641 8.52734 2.0542 8.68359 2.10791 8.82422L5.19299 16.8902C5.00299 16.9543 4.78827 17 4.5 17C3.5957 17 3.28955 16.6504 2.86523 16.167C2.40918 15.6475 1.8418 15 0.5 15C0.223633 15 0 15.2236 0 15.5C0 15.7764 0.223633 16 0.5 16C1.38867 16 1.69287 16.3467 2.11328 16.8262C2.57178 17.3496 3.14258 18 4.5 18C5.85742 18 6.42773 17.3496 6.88672 16.8262C7.30762 16.3467 7.61133 16 8.5 16C9.38867 16 9.69238 16.3467 10.1133 16.8262C10.5723 17.3496 11.1426 18 12.5 18C13.8574 18 14.4277 17.3496 14.8867 16.8262C15.3076 16.3467 15.6113 16 16.5 16C17.3887 16 17.6924 16.3467 18.1133 16.8262C18.5723 17.3496 19.1426 18 20.5 18C21.8574 18 22.4277 17.3496 22.8867 16.8262C23.3076 16.3467 23.6113 16 24.5 16C24.7764 16 25 15.7764 25 15.5C25 15.2236 24.7764 15 24.5 15ZM8 1H17V2H8V1ZM6 3H7.5H17.5H19V7.56946L12.582 6.50293C12.5547 6.49823 12.5276 6.50708 12.5001 6.50714C12.4725 6.50708 12.4456 6.49823 12.418 6.50293L6 7.56946V3ZM10.8652 16.167C10.4092 15.6475 9.8418 15 8.5 15C7.1582 15 6.59082 15.6475 6.13477 16.167C6.09869 16.2081 6.06506 16.2417 6.03021 16.2808L3.26025 9.03809L12 7.58594V16.9461C11.468 16.8354 11.1973 16.5457 10.8652 16.167ZM16.5 15C15.1582 15 14.5908 15.6475 14.1348 16.167C13.8027 16.5457 13.532 16.8354 13 16.9461V7.58594L21.7402 9.03809L18.9698 16.2808C18.9349 16.2417 18.9013 16.2081 18.8652 16.167C18.4092 15.6475 17.8418 15 16.5 15ZM10 4.5C10 4.77637 9.77637 5 9.5 5H7.5C7.22363 5 7 4.77637 7 4.5C7 4.22363 7.22363 4 7.5 4H9.5C9.77637 4 10 4.22363 10 4.5ZM13.5 5H11.5C11.2236 5 11 4.77637 11 4.5C11 4.22363 11.2236 4 11.5 4H13.5C13.7764 4 14 4.22363 14 4.5C14 4.77637 13.7764 5 13.5 5ZM15 4.5C15 4.22363 15.2236 4 15.5 4H17.5C17.7764 4 18 4.22363 18 4.5C18 4.77637 17.7764 5 17.5 5H15.5C15.2236 5 15 4.77637 15 4.5Z" fill="#83909E">
+                    </path>
                   </svg>
-                </mat-button-toggle>
-                <mat-button-toggle value="rw" class="transport_icon">
+                </span>
+              </label>
+
+              <label class="radio-btn" (change)="onTransportationFormatsChange()">
+                <input type="radio"  name="transport_kind_id" value="rw" formControlName="transport_kind_id">
+                <span class="rw" title="Ж/Д">
                   <svg width="23" height="22" viewBox="0 0 23 22" fill="none" xmlns="http://www.w3.org/2000/svg">
-                    <path d="M13.9713 7.19846C13.9127 7.42414 13.7106 7.57265 13.4879 7.57265C13.4469 7.57265 13.4039 7.56776 13.362 7.55604L11.4879 7.06656L9.6139 7.55604C9.3434 7.63224 9.07386 7.46518 9.00453 7.19846C8.93422 6.93173 9.09437 6.65817 9.36195 6.58881L11.362 6.06611C11.444 6.04462 11.5319 6.04462 11.6139 6.06611L13.6139 6.58881C13.8815 6.65817 14.0416 6.93173 13.9713 7.19846ZM13.6139 8.5897L11.6139 8.06701C11.5319 8.04551 11.444 8.04551 11.362 8.06701L9.36195 8.5897C9.09437 8.65907 8.93422 8.93263 9.00453 9.19935C9.07386 9.46705 9.3434 9.63314 9.6139 9.55693L11.4879 9.06746L13.362 9.55693C13.4039 9.56866 13.4469 9.57354 13.4879 9.57354C13.7106 9.57354 13.9127 9.42504 13.9713 9.19935C14.0416 8.93263 13.8815 8.65907 13.6139 8.5897ZM3.98793 15.4971V6.21462V5.49261V2.25679C3.98793 2.0272 4.1432 1.82789 4.36586 1.7722L11.3659 0.00578385C11.3684 0.00505112 11.3711 0.00621124 11.3737 0.00553964C11.4088 -0.00288703 11.444 0.00303612 11.4802 0.0025476C11.5217 0.00169272 11.5621 -0.00423033 11.6027 0.00560077C11.6051 0.00621144 11.6076 0.00511225 11.61 0.00578395L18.61 1.7722C18.8327 1.82789 18.9879 2.0272 18.9879 2.25679V5.49261V6.21462V15.4971C18.9879 15.7736 18.7643 15.9973 18.4879 15.9973H4.48793C4.21156 15.9973 3.98793 15.7736 3.98793 15.4971ZM17.9879 14.9969V6.60383L11.4879 4.96357L4.98793 6.60383V14.9969H17.9879ZM17.9879 2.64661L11.9879 1.13226V4.05838L17.9879 5.57273V5.49261V2.64661ZM4.98793 5.49261V5.57273L10.9879 4.05838V1.13226L4.98793 2.64661V5.49261ZM8.98793 12.4957C8.98793 13.3233 8.31508 13.9964 7.48793 13.9964C6.66078 13.9964 5.98793 13.3233 5.98793 12.4957C5.98793 11.6682 6.66078 10.9951 7.48793 10.9951C8.31508 10.9951 8.98793 11.6682 8.98793 12.4957ZM7.98793 12.4957C7.98793 12.2202 7.76332 11.9955 7.48793 11.9955C7.21254 11.9955 6.98793 12.2202 6.98793 12.4957C6.98793 12.7713 7.21254 12.996 7.48793 12.996C7.76332 12.996 7.98793 12.7713 7.98793 12.4957ZM16.9879 12.4957C16.9879 13.3233 16.3151 13.9964 15.4879 13.9964C14.6608 13.9964 13.9879 13.3233 13.9879 12.4957C13.9879 11.6682 14.6608 10.9951 15.4879 10.9951C16.3151 10.9951 16.9879 11.6682 16.9879 12.4957ZM15.9879 12.4957C15.9879 12.2202 15.7633 11.9955 15.4879 11.9955C15.2125 11.9955 14.9879 12.2202 14.9879 12.4957C14.9879 12.7713 15.2125 12.996 15.4879 12.996C15.7633 12.996 15.9879 12.7713 15.9879 12.4957ZM5.48793 16.9978C5.21156 16.9978 4.98793 17.2215 4.98793 17.498C4.98793 17.7745 5.21156 17.9982 5.48793 17.9982H17.4879C17.7643 17.9982 17.9879 17.7745 17.9879 17.498C17.9879 17.2215 17.7643 16.9978 17.4879 16.9978H5.48793ZM4.48793 19.9991H18.4879C18.7643 19.9991 18.9879 19.7754 18.9879 19.4989C18.9879 19.2224 18.7643 18.9987 18.4879 18.9987H4.48793C4.21156 18.9987 3.98793 19.2224 3.98793 19.4989C3.98793 19.7754 4.21156 19.9991 4.48793 19.9991ZM19.4879 20.9996H3.48793C3.21156 20.9996 2.98793 21.2233 2.98793 21.4998C2.98793 21.7763 3.21156 22 3.48793 22H19.4879C19.7643 22 19.9879 21.7763 19.9879 21.4998C19.9879 21.2233 19.7643 20.9996 19.4879 20.9996ZM3.43812 17.0818C3.20863 16.9284 2.89857 16.9899 2.74476 17.2205L0.0836305 21.2223C-0.0692015 21.4529 -0.0067015 21.7636 0.223279 21.916C0.30824 21.9726 0.404431 22 0.499646 22C0.661267 22 0.819959 21.9218 0.916638 21.7772L3.57777 17.7755C3.7306 17.5449 3.6681 17.2342 3.43812 17.0818ZM22.9157 21.2223L20.2545 17.2205C20.1012 16.9899 19.7907 16.9294 19.5612 17.0818C19.3317 17.2342 19.2692 17.5449 19.4225 17.7755L22.0836 21.7772C22.1793 21.9218 22.3385 22 22.4996 22C22.5953 22 22.6911 21.9726 22.777 21.916C23.0065 21.7636 23.069 21.4529 22.9157 21.2223Z" fill="#83909E"></path>
+                    <path d="M13.9713 7.19846C13.9127 7.42414 13.7106 7.57265 13.4879 7.57265C13.4469 7.57265 13.4039 7.56776 13.362 7.55604L11.4879 7.06656L9.6139 7.55604C9.3434 7.63224 9.07386 7.46518 9.00453 7.19846C8.93422 6.93173 9.09437 6.65817 9.36195 6.58881L11.362 6.06611C11.444 6.04462 11.5319 6.04462 11.6139 6.06611L13.6139 6.58881C13.8815 6.65817 14.0416 6.93173 13.9713 7.19846ZM13.6139 8.5897L11.6139 8.06701C11.5319 8.04551 11.444 8.04551 11.362 8.06701L9.36195 8.5897C9.09437 8.65907 8.93422 8.93263 9.00453 9.19935C9.07386 9.46705 9.3434 9.63314 9.6139 9.55693L11.4879 9.06746L13.362 9.55693C13.4039 9.56866 13.4469 9.57354 13.4879 9.57354C13.7106 9.57354 13.9127 9.42504 13.9713 9.19935C14.0416 8.93263 13.8815 8.65907 13.6139 8.5897ZM3.98793 15.4971V6.21462V5.49261V2.25679C3.98793 2.0272 4.1432 1.82789 4.36586 1.7722L11.3659 0.00578385C11.3684 0.00505112 11.3711 0.00621124 11.3737 0.00553964C11.4088 -0.00288703 11.444 0.00303612 11.4802 0.0025476C11.5217 0.00169272 11.5621 -0.00423033 11.6027 0.00560077C11.6051 0.00621144 11.6076 0.00511225 11.61 0.00578395L18.61 1.7722C18.8327 1.82789 18.9879 2.0272 18.9879 2.25679V5.49261V6.21462V15.4971C18.9879 15.7736 18.7643 15.9973 18.4879 15.9973H4.48793C4.21156 15.9973 3.98793 15.7736 3.98793 15.4971ZM17.9879 14.9969V6.60383L11.4879 4.96357L4.98793 6.60383V14.9969H17.9879ZM17.9879 2.64661L11.9879 1.13226V4.05838L17.9879 5.57273V5.49261V2.64661ZM4.98793 5.49261V5.57273L10.9879 4.05838V1.13226L4.98793 2.64661V5.49261ZM8.98793 12.4957C8.98793 13.3233 8.31508 13.9964 7.48793 13.9964C6.66078 13.9964 5.98793 13.3233 5.98793 12.4957C5.98793 11.6682 6.66078 10.9951 7.48793 10.9951C8.31508 10.9951 8.98793 11.6682 8.98793 12.4957ZM7.98793 12.4957C7.98793 12.2202 7.76332 11.9955 7.48793 11.9955C7.21254 11.9955 6.98793 12.2202 6.98793 12.4957C6.98793 12.7713 7.21254 12.996 7.48793 12.996C7.76332 12.996 7.98793 12.7713 7.98793 12.4957ZM16.9879 12.4957C16.9879 13.3233 16.3151 13.9964 15.4879 13.9964C14.6608 13.9964 13.9879 13.3233 13.9879 12.4957C13.9879 11.6682 14.6608 10.9951 15.4879 10.9951C16.3151 10.9951 16.9879 11.6682 16.9879 12.4957ZM15.9879 12.4957C15.9879 12.2202 15.7633 11.9955 15.4879 11.9955C15.2125 11.9955 14.9879 12.2202 14.9879 12.4957C14.9879 12.7713 15.2125 12.996 15.4879 12.996C15.7633 12.996 15.9879 12.7713 15.9879 12.4957ZM5.48793 16.9978C5.21156 16.9978 4.98793 17.2215 4.98793 17.498C4.98793 17.7745 5.21156 17.9982 5.48793 17.9982H17.4879C17.7643 17.9982 17.9879 17.7745 17.9879 17.498C17.9879 17.2215 17.7643 16.9978 17.4879 16.9978H5.48793ZM4.48793 19.9991H18.4879C18.7643 19.9991 18.9879 19.7754 18.9879 19.4989C18.9879 19.2224 18.7643 18.9987 18.4879 18.9987H4.48793C4.21156 18.9987 3.98793 19.2224 3.98793 19.4989C3.98793 19.7754 4.21156 19.9991 4.48793 19.9991ZM19.4879 20.9996H3.48793C3.21156 20.9996 2.98793 21.2233 2.98793 21.4998C2.98793 21.7763 3.21156 22 3.48793 22H19.4879C19.7643 22 19.9879 21.7763 19.9879 21.4998C19.9879 21.2233 19.7643 20.9996 19.4879 20.9996ZM3.43812 17.0818C3.20863 16.9284 2.89857 16.9899 2.74476 17.2205L0.0836305 21.2223C-0.0692015 21.4529 -0.0067015 21.7636 0.223279 21.916C0.30824 21.9726 0.404431 22 0.499646 22C0.661267 22 0.819959 21.9218 0.916638 21.7772L3.57777 17.7755C3.7306 17.5449 3.6681 17.2342 3.43812 17.0818ZM22.9157 21.2223L20.2545 17.2205C20.1012 16.9899 19.7907 16.9294 19.5612 17.0818C19.3317 17.2342 19.2692 17.5449 19.4225 17.7755L22.0836 21.7772C22.1793 21.9218 22.3385 22 22.4996 22C22.5953 22 22.6911 21.9726 22.777 21.916C23.0065 21.7636 23.069 21.4529 22.9157 21.2223Z" fill="#83909E">
+                    </path>
                   </svg>
-                </mat-button-toggle>
-              </mat-button-toggle-group>
-              <mat-error *ngIf="!requestForm.controls['transport_kind_id'].valid && requestForm.controls['transport_type_id'].hasError('required') && isFormSubmitted">
-                Это поле обязательно
-              </mat-error>
+                </span>
+              </label>
+
           </div>
 
-          <div class="form-item w-247 h-57">
-            <div class="form-label">Вид транспорта: <span class="req">•</span></div>
-            <div class="form-data">
-              <mat-form-field appearance="outline" class="ui-select">
+          <div class="edit-form__item w-247 h-57">
+            <div class="edit-form__label">Вид транспорта: <span class="req">•</span></div>
+            <div class="edit-form__data">
+              <mat-form-field appearance="outline" class="edit-form__mat-field">
                 <mat-select formControlName="transport_type_id">
-                  <mat-option *ngFor="let transportFormat of transportFormats;" [value]="transportFormat.id">{{ transportFormat.name }}</mat-option>
+                  <mat-option class="edit-form__mat-option" *ngFor="let transportFormat of transportFormats;" [value]="transportFormat.id">{{ transportFormat.name }}</mat-option>
                 </mat-select>
               </mat-form-field>
               <mat-error *ngIf="requestForm.controls['transport_type_id'].hasError('required') && requestForm.controls['transport_type_id'].touched || requestForm.controls['transport_type_id'].invalid && isFormSubmitted">
@@ -92,16 +107,17 @@
       </div>
     </div>
     <!-- Блок ОПИСАНИЕ ГРУЗА -->
-    <div class="form-block-title">Описание груза</div>
-    <div class="form-block">
+    <div class="edit-form__title">Описание груза</div>
+    <div class="edit-form__block">
 
-      <div class="form-row">
-      <div class="form-item-layout">
+      <div class="edit-form__row">
+      <div class="edit-form__item-layout">
 
-        <div class="form-item i2">
-          <div class="form-label">Наименование груза: <span class="req">•</span></div>
-          <div class="form-data">
+        <div class="edit-form__item edit-form__item_i2">
+          <div class="edit-form__label">Наименование груза: <span class="req">•</span></div>
+          <div class="edit-form__data">
             <input type="text"
+              class="edit-form__input bg-color_grey1"
               name="cargo_description"
               formControlName="cargo_description"
               placeholder="—"
@@ -113,12 +129,12 @@
           </div>
         </div>
 
-        <div class="form-item i4" *ngIf="requestForm.value.request_type_id===1">
-          <div class="form-label">Вид упаковки: <span class="req">•</span></div>
-          <div class="form-data">
-            <mat-form-field appearance="outline" class="ui-select">
+        <div class="edit-form__item edit-form__item_i4" *ngIf="requestForm.value.request_type_id===1">
+          <div class="edit-form__label">Вид упаковки: <span class="req">•</span></div>
+          <div class="edit-form__data">
+            <mat-form-field appearance="outline" class="edit-form__mat-field">
               <mat-select formControlName="cargo_package_id">
-                <mat-option *ngFor="let cargoPackage of cargoPackages;" [value]="cargoPackage.id">{{ cargoPackage.name }}</mat-option>
+                <mat-option class="edit-form__mat-option" *ngFor="let cargoPackage of cargoPackages;" [value]="cargoPackage.id">{{ cargoPackage.name }}</mat-option>
               </mat-select>
             </mat-form-field>
             <mat-error *ngIf="!requestForm.controls['cargo_package_id'].valid && requestForm.controls['cargo_package_id'].touched || !requestForm.controls['cargo_package_id'].valid && isFormSubmitted">
@@ -127,12 +143,12 @@
           </div>
         </div>
 
-        <div class="form-item i4" *ngIf="requestForm.value.request_type_id===2">
-          <div class="form-label">Тип груза: <span class="req">•</span></div>
-          <div class="form-data">
-            <mat-form-field appearance="outline" class="ui-select">
+        <div class="edit-form__item edit-form__item_i4" *ngIf="requestForm.value.request_type_id===2">
+          <div class="edit-form__label">Тип груза: <span class="req">•</span></div>
+          <div class="edit-form__data">
+            <mat-form-field appearance="outline" class="edit-form__mat-field">
               <mat-select formControlName="cargo_type_id">
-                <mat-option *ngFor="let cargoType of cargoTypes;" [value]="cargoType.id">{{ cargoType.name }}</mat-option>
+                <mat-option *ngFor="let cargoType of cargoTypes;" class="edit-form__mat-option" [value]="cargoType.id">{{ cargoType.name }}</mat-option>
               </mat-select>
             </mat-form-field>
             <mat-error *ngIf="!requestForm.controls['cargo_type_id'].valid && requestForm.controls['cargo_type_id'].touched || !requestForm.controls['cargo_type_id'].valid && isFormSubmitted">
@@ -144,25 +160,25 @@
       </div>
     </div>
 
-    <div class="form-row" *ngIf="requestForm.value.request_type_id===2" formGroupName="cargo_temperature">
-      <div class="form-item-layout temp_center">
+    <div class="edit-form__row" *ngIf="requestForm.value.request_type_id===2" formGroupName="cargo_temperature">
+      <div class="edit-form__item-layout temp_center aaa">
 
-        <div class="form-item i2 wa fit">
+        <div class="edit-form__item edit-form__item_wa">
           <mat-checkbox (change)="onTempModeChange()" formControlName="cargo_temperature_control">Нужен температурный режим?</mat-checkbox>
         </div>
 
-        <div class="form-item i2 wa temp fit" *ngIf="requestForm.value.cargo_temperature.cargo_temperature_control">
-          <input class="temp_input" type="number" name="cargo_temperature_min" formControlName="cargo_temperature_min">
+        <div class="edit-form__item edit-form__item_temp" *ngIf="requestForm.value.cargo_temperature.cargo_temperature_control">
+          <input class="edit-form__input" type="number" name="cargo_temperature_min" formControlName="cargo_temperature_min">
           <span>—</span>
-          <input class="temp_input" type="number" name="cargo_temperature_max" formControlName="cargo_temperature_max" >
+          <input class="edit-form__input" type="number" name="cargo_temperature_max" formControlName="cargo_temperature_max" >
           <span class="t"><sup>o</sup>C</span>
         </div>
 
       </div>
     </div>
 
-    <div class="form-row" *ngIf="requestForm.value.request_type_id===2">
-      <div class="form-item-layout">
+    <div class="edit-form__row" *ngIf="requestForm.value.request_type_id===2">
+      <div class="edit-form__item-layout">
         <mat-checkbox formControlName="cargo_danger">Наличие батареек, элементов питания или жидкостей<span class="span_denger">(Необходимо наличие паспорта безопасности)</span></mat-checkbox>
       </div>
       <app-file-list *ngIf="requestForm.value.cargo_danger"
@@ -177,68 +193,61 @@
       </app-file-list>
     </div>
 
-    <div class="form-row">
+    <div class="edit-form__row">
 
-      <div class="form-item-layout">
+      <div class="edit-form__item-layout">
         <mat-checkbox formControlName="cargo_separately" (change)="onPlaceModeChange()">Ввести габариты и вес мест раздельно </mat-checkbox>
       </div>
 
-      <div formArrayName="cargo_places" *ngIf="requestForm.value.cargo_separately">
-
-        <div class="form-item-table-row">
-          №
-          вид упаковки
-          стакинг
-          ДЛИНА
-          ширина
-          ВЫСОТА
-          вес
-          количество
-          обьем
-          вес
-          удаление
+      <div class="edit-form__table" formArrayName="cargo_places" *ngIf="requestForm.value.cargo_separately">
+        <div class="edit-form__item-table" *ngFor="let place of places.controls; let i=index">
+          <app-place-editor
+            [formControlName]="i"
+            (removePlace)="removePlace(i)"
+            [currentRequestFormat]="requestForm.value.request_type_id"
+            [isFormSubmitted]="isFormSubmitted"
+            (keyup)='onPlaceEditorChange()'
+            (click)="onPlaceEditorChange()"
+            (paste)="onPlaceEditorChange()"
+            [num]="i+1"
+            >
+          </app-place-editor>
         </div>
-
-        <div class="form-item-table-row" *ngFor="let place of places.controls; let i=index">
-          <div class="form-block-title">Место №{{i +1}}</div>
-          <app-place-editor [formControlName]="i" (removePlace)="removePlace(i)" [currentRequestFormat]="requestForm.value.request_type_id" [isFormSubmitted]="isFormSubmitted" (keyup)='onPlaceEditorChange()' (click)="onPlaceEditorChange()" (paste)="onPlaceEditorChange()"></app-place-editor>
-          <!-- так то кнопку удаления можно сюда засунуть,лишний аутпут уберу, решу во время верстки где ее оставить -->
+        <div class="edit-form__item-table-row edit-form__item-table-row_del-button">
+          <span class="btn add-file" (click)="addPlace()">Добавить место</span>
         </div>
-
       </div>
 
-      <div class="form-item-table-row" *ngIf="requestForm.value.cargo_separately">
-        <div class="form-block-title">Добавить место №{{places.length + 1}}<span class="btn v add" (click)=addPlace()>Добавить</span></div>
-      </div>
+
 
     </div>
     <!-- Габариты общие -->
-    <div class="form-row bg showhide indicative">
-      <div class="form-item-layout">
+    <div class="edit-form__row edit-form__row_bg">
+      <div class="edit-form__item-layout">
 
-        <div class="form-item-block">
+        <div class="edit-form__item-block">
 
-          <div class="cargo_place">
-            <div class="form-label">Итого мест, шт:</div>
-            <div class="form-data">
-              <input *ngIf="!requestForm.value.cargo_separately" type="text" name="cargo_places_count" formControlName="cargo_places_count">
-              <input *ngIf="requestForm.value.cargo_separately" type="text" readonly [value] = 'requestForm.value.cargo_places_count'>
+          <div class="edit-form__item edit-form__item_w124">
+            <div class="edit-form__label">Итого мест, шт:</div>
+            <div class="edit-form__data">
+              <input *ngIf="!requestForm.value.cargo_separately" class="edit-form__input edit-form__input_cargo" type="number" name="cargo_places_count" formControlName="cargo_places_count">
+              <input *ngIf="requestForm.value.cargo_separately" class="edit-form__input edit-form__input_cargo bg-color_grey2" type="number" readonly [value] = 'requestForm.value.cargo_places_count'>
             </div>
           </div>
 
-          <div class="cargo_place">
-            <div class="form-label">Итого вес, кг:</div>
-            <div class="form-data">
-              <input *ngIf="!requestForm.value.cargo_separately" type="text" name="cargo_places_weight" formControlName="cargo_places_weight" (keyup)='weightAndVolumeChange()' (click)="weightAndVolumeChange()">
-              <input *ngIf="requestForm.value.cargo_separately" type="text" readonly [value] = 'requestForm.value.cargo_places_weight'>
+          <div class="edit-form__item edit-form__item_w124">
+            <div class="edit-form__label">Итого вес, кг:</div>
+            <div class="edit-form__data">
+              <input *ngIf="!requestForm.value.cargo_separately" class="edit-form__input edit-form__input_cargo" type="number" name="cargo_places_weight" formControlName="cargo_places_weight" (keyup)='weightAndVolumeChange()' (click)="weightAndVolumeChange()">
+              <input *ngIf="requestForm.value.cargo_separately" class="edit-form__input edit-form__input_cargo bg-color_grey2" type="number" readonly [value] = 'requestForm.value.cargo_places_weight'>
             </div>
           </div>
 
-          <div class="cargo_place">
-            <div class="form-label">Итого Объем, м<sup>3</sup>:</div>
-            <div class="form-data">
-              <input *ngIf="!requestForm.value.cargo_separately" type="text" name="cargo_places_volume" formControlName="cargo_places_volume" (keyup)='weightAndVolumeChange()' (click)="weightAndVolumeChange()" >
-              <input *ngIf="requestForm.value.cargo_separately" type="text" readonly [value] = 'requestForm.value.cargo_places_volume'>
+          <div class="edit-form__item edit-form__item_w124">
+            <div class="edit-form__label">Итого Объем, м<sup class="sup">3</sup>:</div>
+            <div class="edit-form__data">
+              <input *ngIf="!requestForm.value.cargo_separately" class="edit-form__input edit-form__input_cargo" type="number" name="cargo_places_volume" formControlName="cargo_places_volume" (keyup)='weightAndVolumeChange()' (click)="weightAndVolumeChange()" >
+              <input *ngIf="requestForm.value.cargo_separately" class="edit-form__input edit-form__input_cargo bg-color_grey2" type="number" readonly [value] = 'requestForm.value.cargo_places_volume'>
             </div>
           </div>
 
@@ -246,124 +255,124 @@
 
 
 
-        <div class="form-item cargo_place" *ngIf="requestForm.value.transport_kind_id === 'avia'">
-          <div class="form-label">оплачиваемый вес:</div>
-          <div class="form-data" >
-            <input type="text" readonly [value] = 'requestForm.value.cargo_places_paid_weight'>
+        <div class="edit-form__item edit-form__item_w112" *ngIf="requestForm.value.transport_kind_id === 'avia'">
+          <div class="edit-form__label">оплачиваемый вес:</div>
+          <div class="edit-form__data" >
+            <input class="edit-form__input edit-form__input_cargo edit-form__input_readonly" type="number" readonly [value] = 'requestForm.value.cargo_places_paid_weight'>
           </div>
         </div>
 
-        <div class="form-item cargo_place">
-          <div class="form-label">плотность, кг/м<sup>3</sup>:</div>
-          <div class="form-data">
-            <input type="text" readonly [value] = 'requestForm.value.cargo_places_density'>
+        <div class="edit-form__item edit-form__item_w112">
+          <div class="edit-form__label">плотность, кг/м<sup class="sup">3</sup>:</div>
+          <div class="edit-form__data">
+            <input class="edit-form__input edit-form__input_cargo edit-form__input_readonly" type="number" readonly [value] = 'requestForm.value.cargo_places_density'>
           </div>
         </div>
 
-        <div class="form-item">
-          <div class="form-label">стоимость груза:</div>
-          <div class="form-data">
-            <input type="text" name="cargo_cost" formControlName="cargo_cost">
-          </div>
-        </div>
+        <div class="edit-form__item-block">
 
-        <div class="form-item">
-          <div class="form-label">Валюта: <span class="req">•</span></div>
-          <div class="form-data">
-            <mat-form-field appearance="outline" class="ui-select">
-              <mat-select formControlName="cargo_currency_id">
-                <mat-option *ngFor="let currency of currencys;" [value]="currency.id">{{ currency.name }}</mat-option>
-             </mat-select>
-           </mat-form-field>
+          <div class="edit-form__item edit-form__item_w138">
+            <div class="edit-form__label">стоимость груза:</div>
+            <div class="edit-form__data">
+              <input class="edit-form__input edit-form__input_cargo" type="number" name="cargo_cost" formControlName="cargo_cost">
+            </div>
           </div>
+
+          <div class="edit-form__item edit-form__item_w90">
+            <div class="edit-form__label">Валюта:</div>
+            <div class="edit-form__data">
+              <mat-form-field appearance="outline" class="edit-form__mat-field">
+                <mat-select formControlName="cargo_currency_id">
+                  <mat-option class="edit-form__mat-option" *ngFor="let currency of currencys;" [value]="currency.id">{{ currency.name }}</mat-option>
+              </mat-select>
+            </mat-form-field>
+            </div>
+          </div>
+
         </div>
 
       </div>
-      <div class="form-item-layout">
 
-        <div class="form-item" *ngIf="requestForm.value.request_type_id===2 && !requestForm.value.cargo_separately">
-          <div class="form-label">Вид упаковки: <span class="req">•</span></div>
-          <div class="form-data">
-            <mat-form-field appearance="outline" class="ui-select">
-              <mat-select formControlName="cargo_package_id">
-                <mat-option *ngFor="let cargoPackage of cargoPackages;" [value]="cargoPackage.id">{{ cargoPackage.name }}</mat-option>
-              </mat-select>
-            </mat-form-field>
-          </div>
-        </div>
+      <div class="edit-form__item-layout edit-form__item-layout_cargo">
 
-        <div class="form-item" *ngIf="requestForm.value.request_type_id===2 && !requestForm.value.cargo_separately">
-          <div class="form-label">стакинг<span class="req">•</span></div>
-          <div class="form-data">
-            <mat-form-field appearance="outline" class="ui-select">
-              <mat-select formControlName="cargo_places_stacking">
-                <mat-option [value]='true'>
-                  <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 14 14" fill="none">
-                    <path id="Vector" d="M0 10V14H14V10H0ZM13 13H1V11H13V13ZM10 0H4V4H10V0ZM9 3H5V1H9V3ZM12 5.00049H2V9.00049H12V5.00049ZM11 8.00049H3V6.00049H11V8.00049Z" fill="#83909E"/>
-                  </svg>
-                </mat-option>
-                <mat-option [value]="false">
-                  <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 14 14" fill="none">
-                    <g id="III" clip-path="url(#clip0_2405_1643)">
-                    <path id="Vector" d="M10.207 5.29297C10.5977 5.68359 10.5977 6.31641 10.207 6.70703C10.0117 6.90234 9.75586 7 9.5 7C9.24414 7 8.98828 6.90234 8.79297 6.70703L7 4.91406L5.20703 6.70703C5.01172 6.90234 4.75586 7 4.5 7C4.24414 7 3.98828 6.90234 3.79297 6.70703C3.40234 6.31641 3.40234 5.68359 3.79297 5.29297L5.58594 3.5L3.79297 1.70703C3.40234 1.31641 3.40234 0.683594 3.79297 0.292969C4.18359 -0.0976561 4.81641 -0.0976561 5.20703 0.292969L7 2.08594L8.79297 0.292969C9.18359 -0.0976562 9.81641 -0.0976562 10.207 0.292969C10.5977 0.683594 10.5977 1.31641 10.207 1.70703L8.41406 3.5L10.207 5.29297Z" fill="#DB563B"/>
-                    <path id="Vector_2" d="M0 14H14V10H0V14ZM1 11H13V13H1V11ZM14 4.99951V5.99951V8.99951H0V5.99951V4.99951H1H2V5.99951H1V7.99951H13V5.99951H12V4.99951H13H14Z" fill="#83909E"/>
-                    </g>
-                    <defs>
-                    <clipPath id="clip0_2405_1643">
-                    <rect width="14" height="14" fill="white"/>
-                    </clipPath>
-                    </defs>
-                  </svg>
-                </mat-option>
-              </mat-select>
-            </mat-form-field>
-          </div>
-        </div>
+        <div class="edit-form__item-block" *ngIf="requestForm.value.request_type_id===2 && !requestForm.value.cargo_separately">
 
-        <!-- <div class="form-item" *ngIf="requestForm.value.request_type_id===2">
-          <div class="form-label">готовность<span class="req">•</span></div>
-          <div class="form-data">
-            <mat-form-field>
-              <mat-datepicker-toggle matIconSuffix [for]="picker" (change)="onDateChange($event)"></mat-datepicker-toggle>
-              <input  matInput [matDatepicker]="picker" formControlName="cargo_readiness" >
-
-              <mat-datepicker (change)="onDateChange($event)" #picker></mat-datepicker>
-            </mat-form-field>
-
-          </div>
-        </div> -->
-
-        <div class="form-item form-item_time" *ngIf="requestForm.value.request_type_id===2">
-          <div class="form-title">
-            <div>Готовность</div>
-          </div>
-          <div class="form-data">
-            <div>
-              <div class="form-input"><input class="text-control" type="date"
-                  formControlName="cargo_readiness"></div>
+          <div class="edit-form__item edit-form__item_i" >
+            <div class="edit-form__label">Вид упаковки: <span class="req">•</span></div>
+            <div class="edit-form__data">
+              <mat-form-field appearance="outline" class="edit-form__mat-field">
+                <mat-select formControlName="cargo_package_id">
+                  <mat-option class="edit-form__mat-option" *ngFor="let cargoPackage of cargoPackages;" [value]="cargoPackage.id">{{ cargoPackage.name }}</mat-option>
+                </mat-select>
+              </mat-form-field>
             </div>
+          </div>
+
+          <div class="edit-form__item edit-form__item_w70">
+            <div class="edit-form__label"></div>
+              <div class="edit-form__data">
+                <mat-form-field appearance="outline" class="edit-form__mat-field">
+                  <mat-select [ngClass]="'staking-'+requestForm.value.cargo_places_stacking" formControlName="cargo_places_stacking">
+
+                    <mat-option value="true">
+                      <div class="stacking-div">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 14 14" fill="none">
+                          <path id="Vector" d="M0 10V14H14V10H0ZM13 13H1V11H13V13ZM10 0H4V4H10V0ZM9 3H5V1H9V3ZM12 5.00049H2V9.00049H12V5.00049ZM11 8.00049H3V6.00049H11V8.00049Z" fill="#83909E"/>
+                        </svg>
+                      </div>
+                    </mat-option>
+
+                    <mat-option value="false">
+                      <div class="stacking-div">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 14 14" fill="none">
+                          <g id="III" clip-path="url(#clip0_2405_1643)">
+                          <path id="Vector" d="M10.207 5.29297C10.5977 5.68359 10.5977 6.31641 10.207 6.70703C10.0117 6.90234 9.75586 7 9.5 7C9.24414 7 8.98828 6.90234 8.79297 6.70703L7 4.91406L5.20703 6.70703C5.01172 6.90234 4.75586 7 4.5 7C4.24414 7 3.98828 6.90234 3.79297 6.70703C3.40234 6.31641 3.40234 5.68359 3.79297 5.29297L5.58594 3.5L3.79297 1.70703C3.40234 1.31641 3.40234 0.683594 3.79297 0.292969C4.18359 -0.0976561 4.81641 -0.0976561 5.20703 0.292969L7 2.08594L8.79297 0.292969C9.18359 -0.0976562 9.81641 -0.0976562 10.207 0.292969C10.5977 0.683594 10.5977 1.31641 10.207 1.70703L8.41406 3.5L10.207 5.29297Z" fill="#DB563B"/>
+                          <path id="Vector_2" d="M0 14H14V10H0V14ZM1 11H13V13H1V11ZM14 4.99951V5.99951V8.99951H0V5.99951V4.99951H1H2V5.99951H1V7.99951H13V5.99951H12V4.99951H13H14Z" fill="#83909E"/>
+                          </g>
+                          <defs>
+                          <clipPath id="clip0_2405_1643">
+                          <rect width="14" height="14" fill="white"/>
+                          </clipPath>
+                          </defs>
+                        </svg>
+                      </div>
+                    </mat-option>
+
+                  </mat-select>
+                </mat-form-field>
+              </div>
+          </div>
+
+        </div>
+
+
+
+        <div class="edit-form__item edit-form__item_w124" *ngIf="requestForm.value.request_type_id===2">
+          <div class="edit-form__label">готовность</div>
+          <div class="edit-form__data">
+            <input class="edit-form__input edit-form__input_readiness textcontrol" type="date"formControlName="cargo_readiness">
           </div>
         </div>
 
       </div>
     </div>
 
-      <div class="form-row" *ngIf="requestForm.value.request_type_id===2">
+      <div class="edit-form__row" *ngIf="requestForm.value.request_type_id===2">
         <app-file-list [showLinks]="false" [documents]="documents" component="request" var="documents_file" [itemId]="id!" #fileList>
         </app-file-list>
       </div>
 
     </div>
     <!-- Блок НАПРАВЛЕНИЯ -->
-    <div class="form-block-title">Направления</div>
-    <div class="form-block">
+    <div class="edit-form__title">Направления</div>
+    <div class="edit-form__block">
       <!-- ОТКУДА -->
-      <div class="form-row">
-        <div class="form-item-layout">
+      <div class="edit-form__row">
+        <div class="edit-form__item-layout">
 
-          <div class="form-item form-item_city">
-            <div class="form-label">Город отправления: <span class="req">•</span></div>
-            <input appearance="outline" class="ui-select"
+          <div class="edit-form__item edit-form__item_i4">
+            <div class="edit-form__label">Город отправления: <span class="req">•</span></div>
+            <input appearance="outline" class="edit-form__input bg-color_grey1"
               type="text"
               name="departure_city_name"
               formControlName="departure_city_name"
@@ -377,15 +386,15 @@
             </mat-error>
           </div>
 
-          <div class="form-item form-item_country">
-            <div class="form-label">Страна отправл.:<span class="req">•</span></div>
-            <div class="form-data"><input type="text" readonly placeholder="—" formControlName="departure_country_name"></div>
+          <div class="edit-form__item edit-form__item_i8">
+            <div class="edit-form__label">Страна отправл.:<span class="req">•</span></div>
+            <div class="edit-form__data"><input class="edit-form__input bg-color_grey1" type="text" readonly placeholder="—" formControlName="departure_country_name"></div>
           </div>
 
-          <div class="form-item form-item_airport" *ngIf="requestForm.value.transport_kind_id==='avia'">
-            <div class="form-label ">Аэропорт вылета:</div>
-            <div class="form-data">
-              <mat-form-field appearance="outline" class="ui-select">
+          <div class="edit-form__item edit-form__item_i4" *ngIf="requestForm.value.transport_kind_id==='avia'">
+            <div class="edit-form__label ">Аэропорт вылета:</div>
+            <div class="edit-form__data">
+              <mat-form-field appearance="outline" class="edit-form__mat-field">
                <mat-select formControlName="departure_point_id" >
                  <mat-option *ngFor="let departurePoint of departurePoint;" [value]="departurePoint.id">{{ departurePoint.name }}</mat-option>
                </mat-select>
@@ -393,15 +402,20 @@
             </div>
           </div>
 
+          <div class="edit-form__item edit-form__item_i">
+            <div class="edit-form__label">Адрес забора груза:</div>
+            <div class="edit-form__data"><input class="edit-form__input bg-color_grey1" type="text" name="departure_address" formControlName="departure_address" placeholder="—"></div>
+          </div>
+
         </div>
       </div>
       <!-- КУДА -->
-      <div class="form-row">
-        <div class="form-item-layout">
+      <div class="edit-form__row">
+        <div class="edit-form__item-layout">
 
-          <div class="form-item form-item_city">
-            <div class="form-label">Город назначения: <span class="req">•</span></div>
-            <input appearance="outline" class="ui-select"
+          <div class="edit-form__item edit-form__item_i4">
+            <div class="edit-form__label">Город назначения: <span class="req">•</span></div>
+            <input appearance="outline" class="edit-form__input bg-color_grey1"
               type="text"
               name="arrival_city_name"
               formControlName="arrival_city_name"
@@ -415,15 +429,15 @@
             </mat-error>
           </div>
 
-          <div class="form-item form-item_country">
-            <div class="form-label">Страна прибытия:<span class="req">•</span></div>
-            <div class="form-data"><input type="text" readonly placeholder="—" formControlName="arrival_country_name"></div>
+          <div class="edit-form__item edit-form__item_i8">
+            <div class="edit-form__label">Страна прибытия:<span class="req">•</span></div>
+            <div class="edit-form__data"><input class="edit-form__input bg-color_grey1" type="text" readonly placeholder="—" formControlName="arrival_country_name"></div>
           </div>
 
-           <div class="form-item form-item_airport" *ngIf="requestForm.value.transport_kind_id==='avia'">
-             <div class="form-label">Аэропорт прибытия:</div>
-             <div class="form-data">
-               <mat-form-field appearance="outline" class="ui-select">
+           <div class="edit-form__item edit-form__item_i4" *ngIf="requestForm.value.transport_kind_id==='avia'">
+             <div class="edit-form__label">Аэропорт прибытия:</div>
+             <div class="edit-form__data">
+               <mat-form-field appearance="outline" class="edit-form__mat-field">
                 <mat-select formControlName="arrival_point_id" >
                   <mat-option *ngFor="let arrivalPoint of arrivalPoint;" [value]="arrivalPoint.id">{{ arrivalPoint.name }}</mat-option>
                 </mat-select>
@@ -434,36 +448,39 @@
              </div>
            </div>
 
-           <div class="form-item form-item_adress">
-            <div class="form-label">Адрес доставки груза:</div>
-            <div class="form-data"><input type="text" name="arrival_address" formControlName="arrival_address" placeholder="—"></div>
+          <div class="edit-form__item edit-form__item_i">
+            <div class="edit-form__label">Адрес доставки груза:</div>
+            <div class="edit-form__data"><input class="edit-form__input bg-color_grey1" type="text" name="arrival_address" formControlName="arrival_address" placeholder="—"></div>
           </div>
 
         </div>
       </div>
       <!-- РЕЙСЫ -->
-      <div class="form-row sep">
-        Рейсы:
-        <label *ngFor="let directionFlight of directionFlights">
-          <input type="radio" formControlName="departure_flight" [value]="directionFlight.id">
-          <i></i>
-          <span>{{ directionFlight.name }}</span>
-        </label>
+      <div class="edit-form__row">
+        <div class="edit-form__item-layout">
+          Рейсы:
+          <label class="direction-flight-label" *ngFor="let directionFlight of directionFlights">
+            <input formControlName="departure_flight" type="radio" name="departure_flight" [value]="directionFlight.id">
+            <i class="direction-flight"></i>
+            <span>{{ directionFlight.name }}</span>
+          </label>
+        </div>
       </div>
+
     </div>
     <!-- Блок ТРЕБУЕМЫЕ УСЛУГИ -->
-    <div class="form-block-title" *ngIf="requestForm.value.transport_kind_id ==='avia'|| requestForm.value.transport_kind_id ==='rw' || requestForm.value.transport_kind_id ==='sea'">Требуемые услуги</div>
-    <div class="form-block" *ngIf="requestForm.value.transport_kind_id ==='avia'|| requestForm.value.transport_kind_id ==='rw' || requestForm.value.transport_kind_id ==='sea'">
+    <div class="edit-form__title" *ngIf="requestForm.value.transport_kind_id ==='avia'|| requestForm.value.transport_kind_id ==='rw' || requestForm.value.transport_kind_id ==='sea'">Требуемые услуги</div>
+    <div class="edit-form__block" *ngIf="requestForm.value.transport_kind_id ==='avia'|| requestForm.value.transport_kind_id ==='rw' || requestForm.value.transport_kind_id ==='sea'">
 
-      <div class="form-row">
-        <div class="form-item-layout">
+      <div class="edit-form__row">
+        <div class="edit-form__item-layout">
 
-          <div class="form-item form-item_incoterms">
-            <div class="form-label">УСЛОВИЕ ПОСТАВКИ (INCOTERMS): <span class="req">•</span></div>
-            <div class="form-data">
-              <mat-form-field appearance="outline" class="ui-select" >
+          <div class="edit-form__item">
+            <div class="edit-form__label">УСЛОВИЕ ПОСТАВКИ (INCOTERMS): <span class="req">•</span></div>
+            <div class="edit-form__data">
+              <mat-form-field appearance="outline" class="edit-form__mat-field" >
                 <mat-select formControlName="incoterms_id">
-                  <mat-option *ngFor="let incoterm of incoterms;" [value]="incoterm.id" (click)="onIncotermsChange(incoterm)">{{ incoterm.name }}</mat-option>
+                  <mat-option class="edit-form__mat-option" *ngFor="let incoterm of incoterms;" [value]="incoterm.id" (click)="onIncotermsChange(incoterm)">{{ incoterm.name }}</mat-option>
                 </mat-select>
               </mat-form-field>
               <mat-error *ngIf="requestForm.controls['incoterms_id'].invalid && requestForm.controls['incoterms_id'].touched || requestForm.controls['incoterms_id'].invalid && isFormSubmitted  ">
@@ -472,9 +489,9 @@
             </div>
           </div>
 
-          <div class="form-item form-item_port">
-            <div class="form-label">ГОРОД / ПОРТ:</div>
-            <input appearance="outline" class="ui-select"
+          <div class="edit-form__item">
+            <div class="edit-form__label">ГОРОД / ПОРТ:</div>
+            <input appearance="outline" class="edit-form__input bg-color_grey1"
               type="text"
               name="incoterms_city_name"
               formControlName="incoterms_city_name"
@@ -488,19 +505,19 @@
         </div>
       </div>
 
-      <div class="form-row" *ngIf="requestForm.value.transport_kind_id !=='road'">
-        <div class="form-item-layout">
+      <div class="edit-form__row" *ngIf="requestForm.value.transport_kind_id !=='road'">
+        <div class="edit-form__item-layout">
 
-          <div class="form-item form-item_sevices">
-            <div class="sevices_title">В ставку ДОЛЖНО быть включено:</div>
-            <div class="form-data">
+          <div class="edit-form__item edit-form__item_i2">
+            <div class="edit-form__subtitle">В ставку ДОЛЖНО быть включено:</div>
+            <div class="edit-form__data">
               <app-services-ediotor [services]="services" formControlName="services"></app-services-ediotor>
             </div>
           </div>
 
-          <div class="form-item form-item_sevices">
-            <div class="sevices_title">Дополнительные услуги:</div>
-            <div class="form-data">
+          <div class="edit-form__item edit-form__item_i2">
+            <div class="edit-form__subtitle">Дополнительные услуги:</div>
+            <div class="edit-form__data">
               <app-services-ediotor [services]="servicesAdditionals" formControlName="services_optional"></app-services-ediotor>
             </div>
           </div>
@@ -508,31 +525,24 @@
         </div>
       </div>
 
-      <div class="form-row bg showhide actual" *ngIf="requestForm.value.request_type_id===2">
-        <div class="form-item">
-          <div class="form-label">Дополнительная информация:</div>
-          <div class="form-data">
-            <textarea name="comment"  placeholder="—" formControlName="comment" style="height: 120px;"></textarea>
+      <div class="edit-form__row edit-form__row_bg" *ngIf="requestForm.value.request_type_id===2">
+        <div class="edit-form__item edit-form__item_i100">
+          <div class="edit-form__label">Дополнительная информация:</div>
+          <div class="edit-form__data">
+            <textarea class="edit-form__textarea" name="comment"  placeholder="—" formControlName="comment" ></textarea>
           </div>
         </div>
       </div>
 
     </div>
     <!-- Блок НАСТРОЙКА РАССЫЛКИ ЗАПРОСОВ -->
-    <div class="form-block-title" *ngIf="requestForm.value.request_type_id===2">Настройка рассылки запроса</div>
-    <div class="form-block" *ngIf="requestForm.value.request_type_id===2">
+    <div class="edit-form__title" *ngIf="requestForm.value.request_type_id===2">Настройка рассылки запроса</div>
+    <div class="edit-form__block" *ngIf="requestForm.value.request_type_id===2">
 
-      <div class="form-row">
-        <div class="form-item-layout">
-
-          <div class="form-item">
-            <mat-checkbox formControlName="request_one">Размещать запрос по база Подрядчиков</mat-checkbox>
-          </div>
-
-          <div class="form-item">
-            <mat-checkbox formControlName="request_two">Разместить запрос на котировку сотруднику компании</mat-checkbox>
-          </div>
-
+      <div class="edit-form__row">
+        <div class="edit-form__item-layout">
+          <mat-checkbox formControlName="request_one">Размещать запрос по база Подрядчиков</mat-checkbox>
+          <mat-checkbox formControlName="request_two">Разместить запрос на котировку сотруднику компании</mat-checkbox>
         </div>
       </div>
 
