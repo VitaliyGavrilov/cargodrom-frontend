@@ -3,11 +3,19 @@
   color: #606A74;
   outline: none;
   box-sizing: border-box;
-  width: 50%;
+  max-width: 100%;
   display: flex;
   flex-direction: column;
 }
 .label{
   margin-top: 25px;
+}
+
+.span{
+  font-family: 'regular', 'arial', 'sans-serif';
+  outline: none;
+  color: #83909E;
+  cursor: pointer;
+  min-width: 100%;
 }
 

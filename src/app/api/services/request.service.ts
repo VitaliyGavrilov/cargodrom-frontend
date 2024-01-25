@@ -87,7 +87,7 @@ export class RequestService extends BaseService {
 'items'?: Array<{
 
 /**
- * Контрагент (ID берем из запроса - customer_list)
+ * Клиент (ID берем из запроса - customer_list)
  */
 'customer_id'?: number;
 
@@ -240,6 +240,11 @@ export class RequestService extends BaseService {
 'cargo_currency_id'?: string;
 
 /**
+ * Готовность
+ */
+'cargo_readiness'?: string;
+
+/**
  * Документы по грузу
  */
 'cargo_file'?: {
@@ -324,6 +329,16 @@ export class RequestService extends BaseService {
  * Условия поставки по Инкотермс (ID берем из запроса - request_incoterms)
  */
 'incoterms_id'?: number;
+
+/**
+ * Город/Порт (ID берем из запроса - direction_city)
+ */
+'incoterms_city_id'?: number;
+
+/**
+ * Город/Порт
+ */
+'incoterms_city_name'?: string;
 
 /**
  * Услуги включаемые в ставку (ID берем из запроса - request_services)
@@ -418,7 +433,7 @@ export class RequestService extends BaseService {
         'items'?: Array<{
         
         /**
-         * Контрагент (ID берем из запроса - customer_list)
+         * Клиент (ID берем из запроса - customer_list)
          */
         'customer_id'?: number;
         
@@ -571,6 +586,11 @@ export class RequestService extends BaseService {
         'cargo_currency_id'?: string;
         
         /**
+         * Готовность
+         */
+        'cargo_readiness'?: string;
+        
+        /**
          * Документы по грузу
          */
         'cargo_file'?: {
@@ -655,6 +675,16 @@ export class RequestService extends BaseService {
          * Условия поставки по Инкотермс (ID берем из запроса - request_incoterms)
          */
         'incoterms_id'?: number;
+        
+        /**
+         * Город/Порт (ID берем из запроса - direction_city)
+         */
+        'incoterms_city_id'?: number;
+        
+        /**
+         * Город/Порт
+         */
+        'incoterms_city_name'?: string;
         
         /**
          * Услуги включаемые в ставку (ID берем из запроса - request_services)
@@ -789,7 +819,7 @@ export class RequestService extends BaseService {
 'items'?: Array<{
 
 /**
- * Контрагент (ID берем из запроса - customer_list)
+ * Клиент (ID берем из запроса - customer_list)
  */
 'customer_id'?: number;
 
@@ -942,6 +972,11 @@ export class RequestService extends BaseService {
 'cargo_currency_id'?: string;
 
 /**
+ * Готовность
+ */
+'cargo_readiness'?: string;
+
+/**
  * Документы по грузу
  */
 'cargo_file'?: {
@@ -1026,6 +1061,16 @@ export class RequestService extends BaseService {
  * Условия поставки по Инкотермс (ID берем из запроса - request_incoterms)
  */
 'incoterms_id'?: number;
+
+/**
+ * Город/Порт (ID берем из запроса - direction_city)
+ */
+'incoterms_city_id'?: number;
+
+/**
+ * Город/Порт
+ */
+'incoterms_city_name'?: string;
 
 /**
  * Услуги включаемые в ставку (ID берем из запроса - request_services)
@@ -1107,7 +1152,7 @@ export class RequestService extends BaseService {
 'items'?: Array<{
 
 /**
- * Контрагент (ID берем из запроса - customer_list)
+ * Клиент (ID берем из запроса - customer_list)
  */
 'customer_id'?: number;
 
@@ -1260,6 +1305,11 @@ export class RequestService extends BaseService {
 'cargo_currency_id'?: string;
 
 /**
+ * Готовность
+ */
+'cargo_readiness'?: string;
+
+/**
  * Документы по грузу
  */
 'cargo_file'?: {
@@ -1344,6 +1394,16 @@ export class RequestService extends BaseService {
  * Условия поставки по Инкотермс (ID берем из запроса - request_incoterms)
  */
 'incoterms_id'?: number;
+
+/**
+ * Город/Порт (ID берем из запроса - direction_city)
+ */
+'incoterms_city_id'?: number;
+
+/**
+ * Город/Порт
+ */
+'incoterms_city_name'?: string;
 
 /**
  * Услуги включаемые в ставку (ID берем из запроса - request_services)
@@ -1423,7 +1483,7 @@ export class RequestService extends BaseService {
 'items'?: Array<{
 
 /**
- * Контрагент (ID берем из запроса - customer_list)
+ * Клиент (ID берем из запроса - customer_list)
  */
 'customer_id'?: number;
 
@@ -1576,6 +1636,11 @@ export class RequestService extends BaseService {
 'cargo_currency_id'?: string;
 
 /**
+ * Готовность
+ */
+'cargo_readiness'?: string;
+
+/**
  * Документы по грузу
  */
 'cargo_file'?: {
@@ -1660,6 +1725,16 @@ export class RequestService extends BaseService {
  * Условия поставки по Инкотермс (ID берем из запроса - request_incoterms)
  */
 'incoterms_id'?: number;
+
+/**
+ * Город/Порт (ID берем из запроса - direction_city)
+ */
+'incoterms_city_id'?: number;
+
+/**
+ * Город/Порт
+ */
+'incoterms_city_name'?: string;
 
 /**
  * Услуги включаемые в ставку (ID берем из запроса - request_services)
@@ -2442,7 +2517,7 @@ export class RequestService extends BaseService {
   ): Observable<StrictHttpResponse<{
 
 /**
- * Контрагент (ID берем из запроса - customer_list)
+ * Клиент (ID берем из запроса - customer_list)
  */
 'customer_id'?: number;
 
@@ -2595,6 +2670,11 @@ export class RequestService extends BaseService {
 'cargo_currency_id'?: string;
 
 /**
+ * Готовность
+ */
+'cargo_readiness'?: string;
+
+/**
  * Паспорта безопасности (файлы)
  */
 'cargo_file'?: {
@@ -2681,6 +2761,16 @@ export class RequestService extends BaseService {
 'incoterms_id'?: number;
 
 /**
+ * Город/Порт (ID берем из запроса - direction_city)
+ */
+'incoterms_city_id'?: number;
+
+/**
+ * Город/Порт
+ */
+'incoterms_city_name'?: string;
+
+/**
  * Услуги включаемые в ставку (ID берем из запроса - request_services)
  */
 'services'?: Array<string>;
@@ -2754,7 +2844,7 @@ export class RequestService extends BaseService {
         return r as StrictHttpResponse<{
         
         /**
-         * Контрагент (ID берем из запроса - customer_list)
+         * Клиент (ID берем из запроса - customer_list)
          */
         'customer_id'?: number;
         
@@ -2907,6 +2997,11 @@ export class RequestService extends BaseService {
         'cargo_currency_id'?: string;
         
         /**
+         * Готовность
+         */
+        'cargo_readiness'?: string;
+        
+        /**
          * Паспорта безопасности (файлы)
          */
         'cargo_file'?: {
@@ -2991,6 +3086,16 @@ export class RequestService extends BaseService {
          * Условия поставки по Инкотермс (ID берем из запроса - request_incoterms)
          */
         'incoterms_id'?: number;
+        
+        /**
+         * Город/Порт (ID берем из запроса - direction_city)
+         */
+        'incoterms_city_id'?: number;
+        
+        /**
+         * Город/Порт
+         */
+        'incoterms_city_name'?: string;
         
         /**
          * Услуги включаемые в ставку (ID берем из запроса - request_services)
@@ -3079,7 +3184,7 @@ export class RequestService extends BaseService {
   ): Observable<{
 
 /**
- * Контрагент (ID берем из запроса - customer_list)
+ * Клиент (ID берем из запроса - customer_list)
  */
 'customer_id'?: number;
 
@@ -3232,6 +3337,11 @@ export class RequestService extends BaseService {
 'cargo_currency_id'?: string;
 
 /**
+ * Готовность
+ */
+'cargo_readiness'?: string;
+
+/**
  * Паспорта безопасности (файлы)
  */
 'cargo_file'?: {
@@ -3316,6 +3426,16 @@ export class RequestService extends BaseService {
  * Условия поставки по Инкотермс (ID берем из запроса - request_incoterms)
  */
 'incoterms_id'?: number;
+
+/**
+ * Город/Порт (ID берем из запроса - direction_city)
+ */
+'incoterms_city_id'?: number;
+
+/**
+ * Город/Порт
+ */
+'incoterms_city_name'?: string;
 
 /**
  * Услуги включаемые в ставку (ID берем из запроса - request_services)
@@ -3382,7 +3502,7 @@ export class RequestService extends BaseService {
       map((r: StrictHttpResponse<{
 
 /**
- * Контрагент (ID берем из запроса - customer_list)
+ * Клиент (ID берем из запроса - customer_list)
  */
 'customer_id'?: number;
 
@@ -3535,6 +3655,11 @@ export class RequestService extends BaseService {
 'cargo_currency_id'?: string;
 
 /**
+ * Готовность
+ */
+'cargo_readiness'?: string;
+
+/**
  * Паспорта безопасности (файлы)
  */
 'cargo_file'?: {
@@ -3619,6 +3744,16 @@ export class RequestService extends BaseService {
  * Условия поставки по Инкотермс (ID берем из запроса - request_incoterms)
  */
 'incoterms_id'?: number;
+
+/**
+ * Город/Порт (ID берем из запроса - direction_city)
+ */
+'incoterms_city_id'?: number;
+
+/**
+ * Город/Порт
+ */
+'incoterms_city_name'?: string;
 
 /**
  * Услуги включаемые в ставку (ID берем из запроса - request_services)
@@ -3683,7 +3818,7 @@ export class RequestService extends BaseService {
 }>): {
 
 /**
- * Контрагент (ID берем из запроса - customer_list)
+ * Клиент (ID берем из запроса - customer_list)
  */
 'customer_id'?: number;
 
@@ -3836,6 +3971,11 @@ export class RequestService extends BaseService {
 'cargo_currency_id'?: string;
 
 /**
+ * Готовность
+ */
+'cargo_readiness'?: string;
+
+/**
  * Паспорта безопасности (файлы)
  */
 'cargo_file'?: {
@@ -3920,6 +4060,16 @@ export class RequestService extends BaseService {
  * Условия поставки по Инкотермс (ID берем из запроса - request_incoterms)
  */
 'incoterms_id'?: number;
+
+/**
+ * Город/Порт (ID берем из запроса - direction_city)
+ */
+'incoterms_city_id'?: number;
+
+/**
+ * Город/Порт
+ */
+'incoterms_city_name'?: string;
 
 /**
  * Услуги включаемые в ставку (ID берем из запроса - request_services)
@@ -4003,7 +4153,7 @@ export class RequestService extends BaseService {
       body?: {
 
 /**
- * Контрагент (ID берем из запроса - customer_list)
+ * Клиент (ID берем из запроса - customer_list)
  */
 'customer_id': number;
 
@@ -4145,6 +4295,11 @@ export class RequestService extends BaseService {
 'cargo_currency_id'?: string;
 
 /**
+ * Готовность
+ */
+'cargo_readiness'?: string;
+
+/**
  * Город отправления (ID берем из запроса - direction_city)
  */
 'departure_city_id': number;
@@ -4195,6 +4350,11 @@ export class RequestService extends BaseService {
 'incoterms_id'?: number;
 
 /**
+ * Город/Порт (ID берем из запроса - direction_city)
+ */
+'incoterms_city_id'?: number;
+
+/**
  * Услуги включаемые в ставку (ID берем из запроса - request_services)
  */
 'services'?: Array<string>;
@@ -4214,6 +4374,11 @@ export class RequestService extends BaseService {
   ): Observable<StrictHttpResponse<{
 
 /**
+ * ID созданной записи
+ */
+'id': number;
+
+/**
  * Статус выполнения
  */
 'result': 'OK';
@@ -4229,6 +4394,11 @@ export class RequestService extends BaseService {
       filter((r: any): r is HttpResponse<any> => r instanceof HttpResponse),
       map((r: HttpResponse<any>) => {
         return r as StrictHttpResponse<{
+        
+        /**
+         * ID созданной записи
+         */
+        'id': number;
         
         /**
          * Статус выполнения
@@ -4254,7 +4424,7 @@ export class RequestService extends BaseService {
       body?: {
 
 /**
- * Контрагент (ID берем из запроса - customer_list)
+ * Клиент (ID берем из запроса - customer_list)
  */
 'customer_id': number;
 
@@ -4396,6 +4566,11 @@ export class RequestService extends BaseService {
 'cargo_currency_id'?: string;
 
 /**
+ * Готовность
+ */
+'cargo_readiness'?: string;
+
+/**
  * Город отправления (ID берем из запроса - direction_city)
  */
 'departure_city_id': number;
@@ -4446,6 +4621,11 @@ export class RequestService extends BaseService {
 'incoterms_id'?: number;
 
 /**
+ * Город/Порт (ID берем из запроса - direction_city)
+ */
+'incoterms_city_id'?: number;
+
+/**
  * Услуги включаемые в ставку (ID берем из запроса - request_services)
  */
 'services'?: Array<string>;
@@ -4465,6 +4645,11 @@ export class RequestService extends BaseService {
   ): Observable<{
 
 /**
+ * ID созданной записи
+ */
+'id': number;
+
+/**
  * Статус выполнения
  */
 'result': 'OK';
@@ -4473,10 +4658,20 @@ export class RequestService extends BaseService {
       map((r: StrictHttpResponse<{
 
 /**
+ * ID созданной записи
+ */
+'id': number;
+
+/**
  * Статус выполнения
  */
 'result': 'OK';
 }>): {
+
+/**
+ * ID созданной записи
+ */
+'id': number;
 
 /**
  * Статус выполнения
@@ -4509,7 +4704,7 @@ export class RequestService extends BaseService {
 'id': number;
 
 /**
- * Контрагент (ID берем из запроса - customer_list)
+ * Клиент (ID берем из запроса - customer_list)
  */
 'customer_id'?: number;
 
@@ -4651,6 +4846,11 @@ export class RequestService extends BaseService {
 'cargo_currency_id'?: string;
 
 /**
+ * Готовность
+ */
+'cargo_readiness'?: string;
+
+/**
  * Город отправления (ID берем из запроса - direction_city)
  */
 'departure_city_id'?: number;
@@ -4699,6 +4899,11 @@ export class RequestService extends BaseService {
  * Условия поставки по Инкотермс (ID берем из запроса - request_incoterms)
  */
 'incoterms_id'?: number;
+
+/**
+ * Город/Порт (ID берем из запроса - direction_city)
+ */
+'incoterms_city_id'?: number;
 
 /**
  * Услуги включаемые в ставку (ID берем из запроса - request_services)
@@ -4775,7 +4980,7 @@ export class RequestService extends BaseService {
 'id': number;
 
 /**
- * Контрагент (ID берем из запроса - customer_list)
+ * Клиент (ID берем из запроса - customer_list)
  */
 'customer_id'?: number;
 
@@ -4917,6 +5122,11 @@ export class RequestService extends BaseService {
 'cargo_currency_id'?: string;
 
 /**
+ * Готовность
+ */
+'cargo_readiness'?: string;
+
+/**
  * Город отправления (ID берем из запроса - direction_city)
  */
 'departure_city_id'?: number;
@@ -4965,6 +5175,11 @@ export class RequestService extends BaseService {
  * Условия поставки по Инкотермс (ID берем из запроса - request_incoterms)
  */
 'incoterms_id'?: number;
+
+/**
+ * Город/Порт (ID берем из запроса - direction_city)
+ */
+'incoterms_city_id'?: number;
 
 /**
  * Услуги включаемые в ставку (ID берем из запроса - request_services)

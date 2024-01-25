@@ -1,60 +1,108 @@
-<form [formGroup]="placeForm">
-  <div class="form-item-layout">
+<form [formGroup]="placeForm" class="edit-form__item-table-row">
 
-    <div class="form-item" *ngIf="currentRequestFormat===2">
+  <div class="edit-form__item edit-form__item_w100">
+    <div *ngIf="num===1" class="edit-form__label edit-form__label_places">габариты</div>
+    <div class="edit-form__data edit-form__data_place-num">Место №{{num}}</div>
+  </div>
+
+  <div class="edit-form__item-block edit-form__item_i edit-form__item_min231">
+
+    <div class="edit-form__item edit-form__item_w155" *ngIf="currentRequestFormat===2">
+      <div *ngIf="num===1" class="edit-form__label edit-form__label_places">Вид упаковки</div>
       <div class="form-data">
-        <mat-form-field appearance="outline" class="ui-select">
+        <mat-form-field appearance="outline" class="edit-form__mat-field">
           <mat-select formControlName="cargo_package_id">
-            <mat-option *ngFor="let cargoPackage of cargoPackages;" [value]="cargoPackage.id">{{ cargoPackage.name }}</mat-option>
+            <mat-option class="edit-form__mat-option" *ngFor="let cargoPackage of cargoPackages;" [value]="cargoPackage.id">{{ cargoPackage.name }}</mat-option>
           </mat-select>
         </mat-form-field>
+        <mat-error *ngIf="placeForm.value.cargo_package_id==='' && placeForm.controls['cargo_package_id'].touched || placeForm.value.cargo_package_id==='' && isFormSubmitted">Это поле обязательно</mat-error>
       </div>
     </div>
 
-    <div class="form-item" *ngIf="currentRequestFormat===2">
-      <div class="form-label">стакинг<span class="req">•</span></div>
-      <div class="form-data">
-        <mat-form-field appearance="outline" class="ui-select">
-          <mat-select formControlName="stacking">
-            <mat-option *ngFor="let staking of stakingArr;" [value]="staking.value">{{ staking.text }}</mat-option>
-          </mat-select>
-        </mat-form-field>
-      </div>
-    </div>
+    <div class="edit-form__item edit-form__item_w70" *ngIf="currentRequestFormat===2">
+      <div *ngIf="num===1" class="edit-form__label edit-form__label_places"></div>
+        <div class="form-data">
+          <mat-form-field appearance="outline" class="edit-form__mat-field ">
+            <mat-select [ngClass]="'staking-'+placeForm.value.stacking" formControlName="stacking">
 
-    <div class="form-item">
-      <div class="form-label">ДЛИНА, СМ: <span class="req">•</span></div>
-      <div class="form-data"><input type="text" name="length" formControlName="length" placeholder="—" required (ngModelChange)="onCalkTotalVolumeAndWeight()"></div>
-    </div>
-    <div class="form-item">
-      <div class="form-label">ШИРИНА, СМ:</div>
-      <div class="form-data"><input type="text"  name="width" formControlName="width" placeholder="—" required (ngModelChange)="onCalkTotalVolumeAndWeight()"></div>
-    </div>
-    <div class="form-item">
-      <div class="form-label">ВЫСОТА, СМ:</div>
-      <div class="form-data"><input type="text"  name="height" formControlName="height" placeholder="—" required (ngModelChange)="onCalkTotalVolumeAndWeight()"></div>
-    </div>
-    <div class="form-item">
-      <div class="form-label">ВЕС, КГ<span class="req">•</span></div>
-      <div class="form-data"><input type="text"  name="weight" formControlName="weight" placeholder="—" required (ngModelChange)="onCalkTotalVolumeAndWeight()"></div>
-    </div>
-    <div class="form-item">
-      <div class="form-label">КОЛ-ВО, ШТ <span class="req">•</span></div>
-      <div class="form-data"><input type="text" name="count" formControlName="count" placeholder="—" required (ngModelChange)="onCalkTotalVolumeAndWeight()"></div>
-    </div>
-    <div class="form-item">
-      <div class="form-label">ИТОГО ОБЪЕМ, М3 <span class="req">•</span></div>
-      <div class="form-data"><input type="text" name="volume" formControlName="volume"  placeholder="—" required readonly [value]="currentTotalVolume"></div>
-    </div>
-    <div class="form-item">
-      <div class="form-label">ИТОГО ВЕС, КГ <span class="req">•</span></div>
-      <div class="form-data"><input type="text" name="total_weight" formControlName="total_weight" placeholder="—" required readonly [value]="currentTotalWeight"></div>
-    </div>
-    <div class="form-item">
-      <button (click)="onDeletePlace()">удалить</button>
+              <mat-option value="true">
+                <div class="stacking-div">
+                  <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 14 14" fill="none">
+                    <path id="Vector" d="M0 10V14H14V10H0ZM13 13H1V11H13V13ZM10 0H4V4H10V0ZM9 3H5V1H9V3ZM12 5.00049H2V9.00049H12V5.00049ZM11 8.00049H3V6.00049H11V8.00049Z" fill="#83909E"/>
+                  </svg>
+                </div>
+
+              </mat-option>
+
+              <mat-option value="false">
+                <div class="stacking-div">
+                  <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 14 14" fill="none">
+                    <g id="III" clip-path="url(#clip0_2405_1643)">
+                    <path id="Vector" d="M10.207 5.29297C10.5977 5.68359 10.5977 6.31641 10.207 6.70703C10.0117 6.90234 9.75586 7 9.5 7C9.24414 7 8.98828 6.90234 8.79297 6.70703L7 4.91406L5.20703 6.70703C5.01172 6.90234 4.75586 7 4.5 7C4.24414 7 3.98828 6.90234 3.79297 6.70703C3.40234 6.31641 3.40234 5.68359 3.79297 5.29297L5.58594 3.5L3.79297 1.70703C3.40234 1.31641 3.40234 0.683594 3.79297 0.292969C4.18359 -0.0976561 4.81641 -0.0976561 5.20703 0.292969L7 2.08594L8.79297 0.292969C9.18359 -0.0976562 9.81641 -0.0976562 10.207 0.292969C10.5977 0.683594 10.5977 1.31641 10.207 1.70703L8.41406 3.5L10.207 5.29297Z" fill="#DB563B"/>
+                    <path id="Vector_2" d="M0 14H14V10H0V14ZM1 11H13V13H1V11ZM14 4.99951V5.99951V8.99951H0V5.99951V4.99951H1H2V5.99951H1V7.99951H13V5.99951H12V4.99951H13H14Z" fill="#83909E"/>
+                    </g>
+                    <defs>
+                    <clipPath id="clip0_2405_1643">
+                    <rect width="14" height="14" fill="white"/>
+                    </clipPath>
+                    </defs>
+                  </svg>
+                </div>
+              </mat-option>
+
+            </mat-select>
+          </mat-form-field>
+        </div>
     </div>
 
   </div>
+
+  <div class="edit-form__item-block">
+    <div class="edit-form__item edit-form__item_w72">
+      <div *ngIf="num===1" class="edit-form__label edit-form__label_places">ДЛИНА, СМ</div>
+      <div class="form-data"><input class="edit-form__input edit-form__input_cargo bg-color_grey1" type="number" name="length" formControlName="length" placeholder="—" required (ngModelChange)="onCalkTotalVolumeAndWeight()"></div>
+    </div>
+    <div class="edit-form__item edit-form__item_w72">
+      <div *ngIf="num===1" class="edit-form__label edit-form__label_places">ШИРИНА, СМ</div>
+      <div class="form-data"><input class="edit-form__input edit-form__input_cargo bg-color_grey1" type="number"  name="width" formControlName="width" placeholder="—" required (ngModelChange)="onCalkTotalVolumeAndWeight()"></div>
+    </div>
+    <div class="edit-form__item edit-form__item_w72">
+      <div *ngIf="num===1" class="edit-form__label edit-form__label_places">ВЫСОТА, СМ</div>
+      <div class="form-data"><input class="edit-form__input edit-form__input_cargo bg-color_grey1" type="number"  name="height" formControlName="height" placeholder="—" required (ngModelChange)="onCalkTotalVolumeAndWeight()"></div>
+    </div>
+  </div>
+
+  <div class="edit-form__item-block">
+    <div class="edit-form__item edit-form__item_w72">
+      <div *ngIf="num===1" class="edit-form__label edit-form__label_places">ВЕС, КГ</div>
+      <div class="form-data"><input class="edit-form__input edit-form__input_cargo bg-color_grey1" type="number"  name="weight" formControlName="weight" placeholder="—" required (ngModelChange)="onCalkTotalVolumeAndWeight()"></div>
+    </div>
+    <div class="edit-form__item edit-form__item_w72">
+      <div *ngIf="num===1" class="edit-form__label edit-form__label_places">КОЛ-ВО, ШТ</div>
+      <div class="form-data"><input class="edit-form__input edit-form__input_cargo bg-color_grey1" type="number" name="count" formControlName="count" placeholder="—" required (ngModelChange)="onCalkTotalVolumeAndWeight()"></div>
+    </div>
+  </div>
+
+
+  <div class="edit-form__item edit-form__item_w96">
+    <div *ngIf="num===1" class="edit-form__label edit-form__label_places">Итого Объем,м<sup class="sup">3</sup>:</div>
+    <div class="form-data"><input class="edit-form__input edit-form__input_cargo" type="number" name="volume" formControlName="volume"  placeholder="—" required readonly ></div>
+  </div>
+
+  <div class="edit-form__item edit-form__item_w96">
+    <div *ngIf="num===1" class="edit-form__label edit-form__label_places">Итого вес</div>
+    <div class="form-data"><input class="edit-form__input edit-form__input_cargo" type="number" name="total_weight" formControlName="total_weight" placeholder="—" required readonly ></div>
+  </div>
+
+  <div class="edit-form__item edit-form__item_w16">
+    <div *ngIf="num===1" class="edit-form__label edit-form__label_places"></div>
+    <button (click)="onDeletePlace()" class="button__del-place">
+      <svg width="14" height="16" viewBox="0 0 14 16" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <path d="M13.5 2H10V0.5C10 0.223633 9.77637 0 9.5 0H4.5C4.22363 0 4 0.223633 4 0.5V2H0.5C0.223633 2 0 2.22363 0 2.5V5.5C0 5.77637 0.223633 6 0.5 6H1V15.5C1 15.7764 1.22363 16 1.5 16H12.5C12.7764 16 13 15.7764 13 15.5V6H13.5C13.7764 6 14 5.77637 14 5.5V2.5C14 2.22363 13.7764 2 13.5 2ZM5 1H9V2H5V1ZM13 5H12.5C12.2236 5 12 5.22363 12 5.5V15H2V5.5C2 5.22363 1.77637 5 1.5 5H1V3H4.5H9.5H13V5ZM5 6.5V13.5C5 13.7764 4.77637 14 4.5 14C4.22363 14 4 13.7764 4 13.5V6.5C4 6.22363 4.22363 6 4.5 6C4.77637 6 5 6.22363 5 6.5ZM9.5 6C9.77637 6 10 6.22363 10 6.5V13.5C10 13.7764 9.77637 14 9.5 14C9.22363 14 9 13.7764 9 13.5V6.5C9 6.22363 9.22363 6 9.5 6Z" fill="#83909E"/>
+      </svg>
+    </button>
+  </div>
+
 </form>
 
 
