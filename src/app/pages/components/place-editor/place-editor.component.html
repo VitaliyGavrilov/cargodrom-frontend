@@ -15,7 +15,6 @@
             <mat-option class="edit-form__mat-option" *ngFor="let cargoPackage of cargoPackages;" [value]="cargoPackage.id">{{ cargoPackage.name }}</mat-option>
           </mat-select>
         </mat-form-field>
-        <mat-error *ngIf="placeForm.value.cargo_package_id==='' && placeForm.controls['cargo_package_id'].touched || placeForm.value.cargo_package_id==='' && isFormSubmitted">Это поле обязательно</mat-error>
       </div>
     </div>
 

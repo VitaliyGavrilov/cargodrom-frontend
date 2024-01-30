@@ -1,5 +1,5 @@
 <div class="services ">
-  <label class="services-label" *ngFor="let kind of services" (click)="toggle(kind.id)" for="service-kind-{{kind.id}}">
+  <label class="services-label marg-top-services" *ngFor="let kind of services" (click)="toggle(kind.id)" for="service-kind-{{kind.id}}">
     <input type="radio" [checked]="isChecked(kind.id)" name="service-kind-{{kind.id}}">
     <i class="services-checkbox"></i>
     <span class="services-span">{{ kind.name }}</span>

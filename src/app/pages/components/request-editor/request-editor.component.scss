@@ -98,6 +98,9 @@ input[type="number"] {
 .edit-form__item_wa{
   width: auto;
 }
+.w172px{
+  width: 172px;
+}
 .edit-form__item_temp{
   display: flex;
   justify-content: center;
@@ -135,6 +138,14 @@ input[type="number"] {
 }
 
 .form-block [type="radio"] {
+  display: none;
+}
+
+.form-block [type="checkbox"] {
+  display: none;
+}
+
+.display-n{
   display: none;
 }
 
@@ -245,6 +256,11 @@ input[type="number"] {
 
 .edit-form__mat-field{
   width: 100%;
+
+}
+.assf .edit-form__mat-field{
+  background-color: #fff;
+
 }
 
 .edit-form__block .edit-form__row + .edit-form__row {
@@ -428,11 +444,11 @@ option {
   content: "";
   position: absolute;
   vertical-align: top;
-  left: 5px;
-  top: 5px;
+  left: 25%;
+  top: 25%;
   background: #DB563B;
-  width: 7px;
-  height: 7px;
+  width: 50%;
+  height: 50%;
   border-radius: 50%;
 }
 
@@ -454,10 +470,10 @@ option {
   flex-direction: column;
 }
 
-.services-label{
+.marg-top-services{
   margin-top: 25px;
 }
-.services-label:first-child{
+.marg-top-services:first-child{
   margin-top: 40px;
 }
 
@@ -465,16 +481,57 @@ option {
   content: "";
   position: absolute;
   vertical-align: top;
-  left: 5px;
-  top: 5px;
+  left: 25%;
+  top: 25%;
   background: #DB563B;
-  width: 8px;
-  height: 8px;
+  width: 50%;
+  height: 50%;
+}
+
+.services-label [type="checkbox"]:checked + .services-checkbox:before {
+  content: "";
+  position: absolute;
+  vertical-align: top;
+  left: 25%;
+  top: 25%;
+  background: #DB563B;
+  width: 50%;
+  height: 50%;
 }
 
 .services-span{
   color: #83909E;
   cursor: pointer;
+}
+
+.temp{
+  font-size: 15px;
+  line-height: 14px;
+  margin-top: -11px;
+  margin-bottom: -20px;
+  width: 148px;
+  height: 38px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.temp_input{
+  max-width: 50px;
+  padding-left: 5px;
+  padding-right: 5px;
+  text-align: center;
+  background: #fff;
+  font-family: 'regular', 'arial', 'sans-serif';
+  background: #F7F9FC;
+  border: 1px solid #E0E5EB;
+  color: #2C3640;
+  font-size: 15px;
+  line-height: 15px;
+  border-radius: 6px;
+  width: 100%;
+  box-sizing: border-box;
+  padding: 11px 5px 9px;
 }
 
 
@@ -483,3 +540,28 @@ option {
 // .layout .item:first-child .test {
 //   display: none;
 // }
+
+input[type="date"]{
+  font-family: 'regular', 'arial', 'sans-serif';
+  background: #fff;
+  border: 1px solid #E0E5EB;
+  color: #2C3640;
+  font-size: 15px;
+  line-height: 15px;
+  border-radius: 6px;
+  width: 124px;
+  box-sizing: border-box;
+  padding: 11px 10px 9px;
+}
+::-webkit-calendar-picker-indicator{
+  // background-color: #ffffff;
+  // padding: 5px;
+  // cursor: pointer;
+  // border-radius: 3px;
+  background-image: url('../../../../assets/pic-btn-calendar.svg');
+}
+
+
+.select-bg mat-form-field.mat-form-field-appearance-outline .mat-form-field-outline > * {
+  background: white;
+}
