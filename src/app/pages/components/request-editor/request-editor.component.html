@@ -1,24 +1,24 @@
 <app-editor-header [title]="title" (save)="save()" (remove)="remove()" [isEditMode]="isEditMode" ></app-editor-header>
 
 <!-- <div class="edit-form"> -->
-  <form class="edit-form" [formGroup]="requestForm" (ngSubmit)="save()">
+  <form class="edit-form request" [formGroup]="requestForm" (ngSubmit)="save()">
 
     <!-- Блок ОСНОВА-->
-    <div class="edit-form__block">
-      <div class="edit-form__row">
-        <div class="edit-form__item-layout">
+    <div class="form-block">
+      <div class="form-row">
+        <div class="form-item-layout">
 
-          <div class="edit-form__item">
-            <div class="edit-form__label">КЛИЕНТ: <span class="req">•</span></div>
-            <div class="edit-form__data">
-              <input appearance="outline" class="edit-form__input bg-color_grey1"
+          <div class="form-item">
+            <div class="form-label">КЛИЕНТ: <span class="req">•</span></div>
+            <div class="form-data">
+              <input appearance="outline" class="ui-select"
                 type="text"
                 name="customer_name"
                 formControlName="customer_name"
                 [matAutocomplete]="auto"
                 (keyup)="searchCustomer($event)" placeholder="—" >
               <mat-autocomplete  #auto="matAutocomplete">
-                <mat-option class="edit-form__mat-option" *ngFor="let customer of customers;" [value]="customer.name" (click)="onCustomerChange(customer)">{{ customer.name }}</mat-option>
+                <mat-option class="" *ngFor="let customer of customers;" [value]="customer.name" (click)="onCustomerChange(customer)">{{ customer.name }}</mat-option>
               </mat-autocomplete>
 
             <mat-error *ngIf="requestForm.controls['customer_id'].invalid && requestForm.controls['customer_name'].touched || (requestForm.controls['customer_id'].invalid && isFormSubmitted)">
@@ -28,10 +28,10 @@
 
           </div>
 
-          <div class="edit-form__item">
-            <div class="edit-form__label">Вид запроса: <span class="req">•</span></div>
-            <div class="edit-form__data">
-              <mat-form-field appearance="outline" class="edit-form__mat-field">
+          <div class="form-item">
+            <div class="form-label">Вид запроса: <span class="req">•</span></div>
+            <div class="form-data">
+              <mat-form-field appearance="outline" class="ui-select">
                 <mat-select panelClass="f" textClass="ff" formControlName="request_type_id" (valueChange)="onRequestFormatsChange($event)">
                   <mat-option class="edit-form__mat-option" *ngFor="let requestFormat of requestFormats;" [value]="requestFormat.id">{{ requestFormat.name }}</mat-option>
                 </mat-select>
@@ -42,20 +42,22 @@
             </div>
           </div>
 
-          <div class="edit-form__data">
-            <div class="edit-form__label">Вид перевозки <span class="req">•</span></div>
+          <div class="form-item">
+            <div class="form-label">Вид перевозки <span class="req">•</span></div>
+            <div class="form-data">
 
-            <label class="radio-btn" (change)="onTransportationFormatsChange()">
-              <input type="radio"  name="transport_kind_id" value="avia" formControlName="transport_kind_id">
+              <label class="radio-btn" (change)="onTransportationFormatsChange()">
+                <input type="radio"  name="transport_kind_id" value="avia" formControlName="transport_kind_id">
                 <span class="avia" title="Авиа">
                   <svg width="21" height="20" viewBox="0 0 21 20" fill="none" xmlns="http://www.w3.org/2000/svg">
                     <path d="M20.636 10.0449L16.9866 9.01727V7.41992C16.9866 6.63672 16.3143 6 15.4877 6C14.6613 6 13.989 6.63672 13.989 7.41992V8.17322L12.0068 7.61511L12.0042 3.75586C12.0042 3.71875 11.8452 0 10.5063 0C9.16852 0 9.00946 3.71875 9.00946 3.75586V7.61053L7.01105 8.17328V7.41992C7.01105 6.63672 6.33875 6 5.51227 6C4.68573 6 4.01343 6.63672 4.01343 7.41992V9.0174L0.364441 10.0449C0.148804 10.1055 0 10.3027 0 10.5264V12.3682C0 12.5078 0.0585327 12.6416 0.161987 12.7363C0.254211 12.8213 0.375183 12.8682 0.499634 12.8682C0.513733 12.8682 0.527893 12.8672 0.542053 12.8662L9.00946 12.1398V14.3264L5.61957 16.3799C5.47028 16.4707 5.37854 16.6328 5.37854 16.8076V17.5C5.37854 17.7764 5.60199 18 5.87817 18H9.31091C9.52667 19.04 9.89081 20 10.5063 20C11.1223 20 11.4867 19.04 11.7026 18H15.1218C15.398 18 15.6215 17.7764 15.6215 17.5V16.8076C15.6215 16.6328 15.5297 16.4707 15.3804 16.3799L12.0042 14.3347V12.141L20.4575 12.8662C20.4721 12.8672 20.4858 12.8682 20.5004 12.8682C20.6253 12.8682 20.7453 12.8213 20.838 12.7363C20.9415 12.6416 21 12.5078 21 12.3682V10.5264C21 10.3027 20.8507 10.1055 20.636 10.0449ZM14.9882 7.41992C14.9882 7.18848 15.2126 7 15.4877 7C15.7629 7 15.9874 7.18848 15.9874 7.41992V8.73596L14.9882 8.45459V7.41992ZM5.01263 7.41992C5.01263 7.18848 5.23706 7 5.51227 7C5.78741 7 6.01184 7.18848 6.01184 7.41992V8.45465L5.01263 8.73602V7.41992ZM6.52509 17L9.01215 15.4935C9.02057 15.6901 9.05389 16.2943 9.14496 17H6.52509ZM11.8687 17C11.9589 16.3015 11.9924 15.7044 12.0012 15.5016L14.4749 17H11.8687ZM20.0008 11.8232L11.5504 11.0986C11.5431 11.0983 11.5366 11.1017 11.5293 11.1017C11.5206 11.1013 11.5134 11.0967 11.5046 11.0967C11.4529 11.0967 11.4058 11.1115 11.3589 11.126C11.3579 11.1264 11.3567 11.1263 11.3556 11.1267C11.2372 11.1643 11.1422 11.243 11.0804 11.3483C11.0753 11.3566 11.0689 11.3634 11.0643 11.3721C11.0416 11.4163 11.03 11.4646 11.0214 11.5153C11.019 11.5289 11.011 11.5397 11.0098 11.5537C11.0095 11.5579 11.0114 11.5615 11.0112 11.5657C11.0105 11.5765 11.0049 11.5857 11.0049 11.5967V15.4238C11.0049 16.2666 10.7591 17.8379 10.5063 18.6289C10.2546 17.8379 10.0087 16.2666 10.0087 15.4238V11.5967C10.0087 11.3693 9.85443 11.1854 9.64709 11.1245C9.64264 11.123 9.63782 11.1232 9.6333 11.1218C9.59259 11.1111 9.55316 11.0967 9.50909 11.0967C9.49884 11.0967 9.49036 11.1019 9.48029 11.1025C9.46973 11.1025 9.46021 11.0979 9.44958 11.0986L0.999207 11.8232V10.9053L9.62811 8.47559C9.6347 8.47369 9.63916 8.46869 9.64557 8.46661C9.8537 8.40625 10.0087 8.22205 10.0087 7.99414V3.75586C10.0087 2.92773 10.2741 1.72754 10.5063 1.19824C10.7396 1.72656 11.0049 2.92773 11.0049 3.75586L11.0079 7.99414C11.0079 8.00513 11.0134 8.01428 11.0141 8.02509C11.0163 8.05981 11.0251 8.09155 11.0342 8.12451C11.0426 8.15503 11.0495 8.18494 11.0633 8.21283C11.0773 8.24127 11.0964 8.26501 11.1155 8.29034C11.135 8.31628 11.1531 8.3418 11.1773 8.3634C11.2 8.38385 11.2264 8.39825 11.253 8.41443C11.2824 8.43237 11.3107 8.44952 11.3438 8.46112C11.354 8.46472 11.3613 8.4726 11.3719 8.47559L20.0008 10.9053V11.8232Z" fill="#83909E">
                     </path>
                   </svg>
                 </span>
-            </label>
-            <label class="radio-btn" (change)="onTransportationFormatsChange()">
-              <input type="radio"  name="transport_kind_id" value="road" formControlName="transport_kind_id">
+              </label>
+
+              <label class="radio-btn" (change)="onTransportationFormatsChange()">
+                <input type="radio"  name="transport_kind_id" value="road" formControlName="transport_kind_id">
                 <span class="road" title="Авто">
                   <svg width="21" height="18" viewBox="0 0 21 18" fill="none" xmlns="http://www.w3.org/2000/svg">
                     <path d="M20.5 2H19V0.5C19 0.223633 18.7764 0 18.5 0H2.5C2.22363 0 2 0.223633 2 0.5V2H0.5C0.223633 2 0 2.22363 0 2.5V6.5C0 6.77637 0.223633 7 0.5 7H2V7.5V15.5V17.5C2 17.7764 2.22363 18 2.5 18H5.5C5.77637 18 6 17.7764 6 17.5V16H15V17.5C15 17.7764 15.2236 18 15.5 18H18.5C18.7764 18 19 17.7764 19 17.5V15.5V7.5V7H20.5C20.7764 7 21 6.77637 21 6.5V2.5C21 2.22363 20.7764 2 20.5 2ZM2 6H1V3H2V6ZM5 17H3V16H4.5H5V17ZM5.5 15H5V14H16V15H15.5H5.5ZM18 17H16V16H16.5H18V17ZM18 15H17V13.5C17 13.2236 16.7764 13 16.5 13H4.5C4.22363 13 4 13.2236 4 13.5V15H3V8H6.00098V9.5V11.5C6.00098 11.7764 6.22461 12 6.50098 12H14.499C14.7754 12 14.999 11.7764 14.999 11.5V9.5V8H18V15ZM13.999 10V11H7.00098V10H13.999ZM7.00098 9V8H13.999V9H7.00098ZM18 2.5V6.5V7H14.499H6.50098H3V6.5V2.5V1H18V2.5ZM20 6H19V3H20V6Z" fill="#83909E">
@@ -84,12 +86,13 @@
                 </span>
               </label>
 
+            </div>
           </div>
 
-          <div class="edit-form__item w-247 h-57">
-            <div class="edit-form__label">Вид транспорта: <span class="req">•</span></div>
-            <div class="edit-form__data">
-              <mat-form-field appearance="outline" class="edit-form__mat-field">
+          <div class="form-item">
+            <div class="form-label">Вид транспорта: <span class="req">•</span></div>
+            <div class="form-data">
+              <mat-form-field appearance="outline" class="ui-select">
                 <mat-select formControlName="transport_type_id">
                   <mat-option class="edit-form__mat-option" *ngFor="let transportFormat of transportFormats;" [value]="transportFormat.id">{{ transportFormat.name }}</mat-option>
                 </mat-select>
@@ -107,86 +110,86 @@
       </div>
     </div>
     <!-- Блок ОПИСАНИЕ ГРУЗА -->
-    <div class="edit-form__title">Описание груза</div>
-    <div class="edit-form__block">
+    <div class="form-block-title">Описание груза</div>
+    <div class="form-block">
 
-      <div class="edit-form__row">
-      <div class="edit-form__item-layout">
+      <div class="form-row">
+      <div class="form-item-layout">
 
-        <div class="edit-form__item edit-form__item_i2">
-          <div class="edit-form__label">Наименование груза: <span class="req">•</span></div>
-          <div class="edit-form__data">
-            <input type="text"
-              class="edit-form__input bg-color_grey1"
+        <div class="form-item i2">
+          <div class="form-label">Наименование груза: <span class="req">•</span></div>
+          <div class="form-data">
+            <input
+              type="text"
               name="cargo_description"
               formControlName="cargo_description"
               placeholder="—"
-              minlength="2"
             >
-            <mat-error *ngIf="!requestForm.controls['cargo_description'].valid && requestForm.controls['cargo_description'].touched || requestForm.controls['cargo_description'].invalid && isFormSubmitted">
-              Это поле обязательно
-            </mat-error>
           </div>
         </div>
 
-        <div class="edit-form__item edit-form__item_i4" *ngIf="requestForm.value.request_type_id===1">
-          <div class="edit-form__label">Вид упаковки: <span class="req">•</span></div>
-          <div class="edit-form__data">
-            <mat-form-field appearance="outline" class="edit-form__mat-field">
+        <div class="form-item i4" *ngIf="requestForm.value.request_type_id===1">
+          <div class="form-label">Вид упаковки: <span class="req">•</span></div>
+          <div class="form-data">
+            <mat-form-field appearance="outline" class="ui-select">
               <mat-select formControlName="cargo_package_id">
-                <mat-option class="edit-form__mat-option" *ngFor="let cargoPackage of cargoPackages;" [value]="cargoPackage.id">{{ cargoPackage.name }}</mat-option>
+                <mat-option
+                  *ngFor="let cargoPackage of cargoPackages;"
+                  [value]="cargoPackage.id"
+                >
+                {{ cargoPackage.name }}
+                </mat-option>
               </mat-select>
             </mat-form-field>
-            <mat-error *ngIf="!requestForm.controls['cargo_package_id'].valid && requestForm.controls['cargo_package_id'].touched || !requestForm.controls['cargo_package_id'].valid && isFormSubmitted">
-              Это поле обязательно
-            </mat-error>
           </div>
         </div>
 
-        <div class="edit-form__item edit-form__item_i4" *ngIf="requestForm.value.request_type_id===2">
-          <div class="edit-form__label">Тип груза: <span class="req">•</span></div>
-          <div class="edit-form__data">
-            <mat-form-field appearance="outline" class="edit-form__mat-field">
+        <div class="form-item i4" *ngIf="requestForm.value.request_type_id===2">
+          <div class="form-label">Тип груза: <span class="req">•</span></div>
+          <div class="form-data">
+            <mat-form-field appearance="outline" class="ui-select">
               <mat-select formControlName="cargo_type_id">
-                <mat-option *ngFor="let cargoType of cargoTypes;" class="edit-form__mat-option" [value]="cargoType.id">{{ cargoType.name }}</mat-option>
+                <mat-option
+                  *ngFor="let cargoType of cargoTypes;"
+                  [value]="cargoType.id"
+                >
+                {{ cargoType.name }}
+                </mat-option>
               </mat-select>
             </mat-form-field>
-            <mat-error *ngIf="!requestForm.controls['cargo_type_id'].valid && requestForm.controls['cargo_type_id'].touched || !requestForm.controls['cargo_type_id'].valid && isFormSubmitted">
-              Это поле обязательно
-            </mat-error>
           </div>
         </div>
 
       </div>
     </div>
 
-    <div class="edit-form__row" *ngIf="requestForm.value.request_type_id===2" formGroupName="cargo_temperature">
-      <div class="edit-form__item-layout ">
+    <div class="form-row" *ngIf="requestForm.value.request_type_id===2" formGroupName="cargo_temperature">
+      <div class="form-item-layout ">
 
-        <div class="edit-form__item edit-form__item_wa">
-          <label class="services-label">
-            <input type="checkbox" formControlName="cargo_temperature_control" class="display-n">
-            <i class="services-checkbox"></i>
-            <span class="services-span">Нужен температурный режим?</span>
+        <div class="form-item i2 max-w-fc">
+          <label>
+            <input type="checkbox" formControlName="cargo_temperature_control">
+            <i></i>
+            <span>Нужен температурный режим?</span>
           </label>
         </div>
 
-        <div class="temp" *ngIf="requestForm.value.cargo_temperature.cargo_temperature_control">
-          <input class="temp_input" type="number" name="cargo_temperature_min" formControlName="cargo_temperature_min">
-          <span>—</span>
-          <input class="temp_input" type="number" name="cargo_temperature_max" formControlName="cargo_temperature_max" >
-          <span class="t"><sup>o</sup>C</span>
+        <div class="form-item i2 wa temperature" *ngIf="requestForm.value.cargo_temperature.cargo_temperature_control">
+          <input type="number" name="cargo_temperature_min" formControlName="cargo_temperature_min">
+          <span class="s">—</span>
+          <input type="number" name="cargo_temperature_max" formControlName="cargo_temperature_max">
+          <span class="t"><sup>O</sup>C</span>
         </div>
 
       </div>
     </div>
 
-    <div class="edit-form__row" *ngIf="requestForm.value.request_type_id===2">
-      <div class="edit-form__item-layout">
-        <label class="services-label">
-          <input type="checkbox" formControlName="cargo_danger" class="display-n">
-          <i class="services-checkbox"></i>
-          <span class="services-span">Наличие батареек, элементов питания или жидкостей<span class="span_denger">(Необходимо наличие паспорта безопасности)</span></span>
+    <div class="form-row" *ngIf="requestForm.value.request_type_id===2">
+      <div class="form-item-layout">
+        <label>
+          <input type="checkbox" formControlName="cargo_danger">
+          <i></i>
+          <span>Наличие батареек, элементов питания или жидкостей <span>(Необходимо наличие паспорта безопасности)</span></span>
         </label>
       </div>
       <app-file-list *ngIf="requestForm.value.cargo_danger"
@@ -201,31 +204,29 @@
       </app-file-list>
     </div>
 
-    <div class="edit-form__row">
+    <div class="form-row">
 
-      <div class="edit-form__item-layout">
-        <label class="services-label">
-          <input type="checkbox" formControlName="cargo_separately" class="display-n" (change)="onPlaceModeChange()">
-          <i class="services-checkbox"></i>
-          <span class="services-span">Ввести габариты и вес мест раздельно</span>
+      <div class="form-item-layout">
+        <label>
+          <input type="checkbox" formControlName="cargo_separately" (change)="onPlaceModeChange()">
+          <i></i>
+          <span>Ввести габариты и вес мест раздельно</span>
         </label>
       </div>
 
-      <div class="edit-form__table" formArrayName="cargo_places" *ngIf="requestForm.value.cargo_separately">
-        <div class="edit-form__item-table" *ngFor="let place of places.controls; let i=index">
-          <app-place-editor
-            [formControlName]="i"
-            (removePlace)="removePlace(i)"
-            [currentRequestFormat]="requestForm.value.request_type_id"
-            [isFormSubmitted]="isFormSubmitted"
-            (keyup)='onPlaceEditorChange()'
-            (click)="onPlaceEditorChange()"
-            (paste)="onPlaceEditorChange()"
-            [num]="i+1"
-            >
-          </app-place-editor>
-        </div>
-        <div class="edit-form__item-table-row edit-form__item-table-row_del-button">
+      <div class="form-item-table" formArrayName="cargo_places" *ngIf="requestForm.value.cargo_separately">
+        <app-place-editor class="place" *ngFor="let place of places.controls; let i=index"
+          [formControlName]="i"
+          (removePlace)="removePlace(i)"
+          [currentRequestFormat]="requestForm.value.request_type_id"
+          [isFormSubmitted]="isFormSubmitted"
+          (keyup)='onPlaceEditorChange()'
+          (click)="onPlaceEditorChange()"
+          (paste)="onPlaceEditorChange()"
+          [num]="i+1"
+          >
+        </app-place-editor>
+        <div class="form-item-table-row btn-del-place">
           <span class="btn add-file" (click)="addPlace()">Добавить место</span>
         </div>
       </div>
@@ -234,32 +235,32 @@
 
     </div>
     <!-- Габариты общие -->
-    <div class="edit-form__row edit-form__row_bg select-bg">
-      <div class="edit-form__item-layout">
+    <div class="form-row bg">
+      <div class="form-item-layout">
 
-        <div class="edit-form__item-block">
+        <div class="form-item-block">
 
-          <div class="edit-form__item edit-form__item_w124">
-            <div class="edit-form__label">Итого мест, шт:</div>
-            <div class="edit-form__data">
-              <input *ngIf="!requestForm.value.cargo_separately" class="edit-form__input edit-form__input_cargo" type="number" name="cargo_places_count" formControlName="cargo_places_count">
-              <input *ngIf="requestForm.value.cargo_separately" class="edit-form__input edit-form__input_cargo edit-form__input_readonly bg-color_grey2" type="number" readonly [value] = 'requestForm.value.cargo_places_count'>
+          <div class="form-item w124">
+            <div class="form-label">Итого мест, шт:</div>
+            <div class="form-data">
+              <input *ngIf="!requestForm.value.cargo_separately" type="number" name="cargo_places_count" formControlName="cargo_places_count">
+              <input *ngIf="requestForm.value.cargo_separately" type="number" readonly [value] = 'requestForm.value.cargo_places_count'>
             </div>
           </div>
 
-          <div class="edit-form__item edit-form__item_w124">
-            <div class="edit-form__label">Итого вес, кг:</div>
-            <div class="edit-form__data">
-              <input *ngIf="!requestForm.value.cargo_separately" class="edit-form__input edit-form__input_cargo" type="number" name="cargo_places_weight" formControlName="cargo_places_weight" (keyup)='weightAndVolumeChange()' (click)="weightAndVolumeChange()">
-              <input *ngIf="requestForm.value.cargo_separately" class="edit-form__input edit-form__input_cargo edit-form__input_readonly bg-color_grey2" type="number" readonly [value] = 'requestForm.value.cargo_places_weight'>
+          <div class="form-item w124">
+            <div class="form-label">Итого вес, кг:</div>
+            <div class="form-data">
+              <input *ngIf="!requestForm.value.cargo_separately" type="number" formControlName="cargo_places_weight" (keyup)='weightAndVolumeChange()' (click)="weightAndVolumeChange()">
+              <input *ngIf="requestForm.value.cargo_separately" type="number" readonly [value] = 'requestForm.value.cargo_places_weight'>
             </div>
           </div>
 
-          <div class="edit-form__item edit-form__item_w124">
-            <div class="edit-form__label">Итого Объем, м<sup class="sup">3</sup>:</div>
-            <div class="edit-form__data">
-              <input *ngIf="!requestForm.value.cargo_separately" class="edit-form__input edit-form__input_cargo" type="number" name="cargo_places_volume" formControlName="cargo_places_volume" (keyup)='weightAndVolumeChange()' (click)="weightAndVolumeChange()" >
-              <input *ngIf="requestForm.value.cargo_separately" class="edit-form__input edit-form__input_cargo edit-form__input_readonly bg-color_grey2" type="number" readonly [value] = 'requestForm.value.cargo_places_volume'>
+          <div class="form-item w124">
+            <div class="form-label">Итого Объем, м<sup class="sup">3</sup>:</div>
+            <div class="form-data">
+              <input *ngIf="!requestForm.value.cargo_separately" type="number" name="cargo_places_volume" formControlName="cargo_places_volume" (keyup)='weightAndVolumeChange()' (click)="weightAndVolumeChange()" >
+              <input *ngIf="requestForm.value.cargo_separately" type="number" readonly [value] = 'requestForm.value.cargo_places_volume'>
             </div>
           </div>
 
@@ -267,35 +268,40 @@
 
 
 
-        <div class="edit-form__item edit-form__item_w112" *ngIf="requestForm.value.transport_kind_id === 'avia'">
-          <div class="edit-form__label">оплачиваемый вес:</div>
-          <div class="edit-form__data" >
-            <input class="edit-form__input edit-form__input_cargo edit-form__input_readonly" type="number" readonly [value] = 'requestForm.value.cargo_places_paid_weight'>
+        <div class="form-item w112" *ngIf="requestForm.value.transport_kind_id === 'avia'">
+          <div class="form-label">оплачиваемый вес:</div>
+          <div class="form-data" >
+            <input type="number" readonly [value] = 'requestForm.value.cargo_places_paid_weight'>
           </div>
         </div>
 
-        <div class="edit-form__item edit-form__item_w112">
-          <div class="edit-form__label">плотность, кг/м<sup class="sup">3</sup>:</div>
-          <div class="edit-form__data">
-            <input class="edit-form__input edit-form__input_cargo edit-form__input_readonly" type="number" readonly [value] = 'requestForm.value.cargo_places_density'>
+        <div class="form-item w112">
+          <div class="form-label">плотность, кг/м<sup class="sup">3</sup>:</div>
+          <div class="form-data">
+            <input type="number" readonly [value] = 'requestForm.value.cargo_places_density'>
           </div>
         </div>
 
-        <div class="edit-form__item-block" *ngIf="requestForm.value.request_type_id===1">
+        <div class="form-item-block" *ngIf="requestForm.value.request_type_id===1">
 
-          <div class="edit-form__item edit-form__item_w138">
-            <div class="edit-form__label">стоимость груза:</div>
-            <div class="edit-form__data">
-              <input class="edit-form__input edit-form__input_cargo" type="number" name="cargo_cost" formControlName="cargo_cost">
+          <div class="form-item w138">
+            <div class="form-label">стоимость груза:</div>
+            <div class="form-data">
+              <input type="number" name="cargo_cost" formControlName="cargo_cost">
             </div>
           </div>
 
-          <div class="edit-form__item edit-form__item_w90">
-            <div class="edit-form__label">Валюта:</div>
-            <div class="edit-form__data ">
-              <mat-form-field appearance="outline" class="edit-form__mat-field ">
+          <div class="form-item w90">
+            <div class="form-label">Валюта:</div>
+            <div class="form-data ">
+              <mat-form-field appearance="outline" class="ui-select">
                 <mat-select formControlName="cargo_currency_id">
-                  <mat-option class="edit-form__mat-option" *ngFor="let currency of currencys;" [value]="currency.id">{{ currency.name }}</mat-option>
+                  <mat-option
+                    *ngFor="let currency of currencys;"
+                    [value]="currency.id"
+                    >
+                    {{ currency.name }}
+                  </mat-option>
                 </mat-select>
               </mat-form-field>
             </div>
@@ -305,23 +311,23 @@
 
       </div>
 
-      <div class="edit-form__item-layout edit-form__item-layout_cargo">
+      <div class="form-item-layout">
 
-        <div class="edit-form__item-block" *ngIf="requestForm.value.request_type_id===2">
+        <div class="form-item-block" *ngIf="requestForm.value.request_type_id===2">
 
-          <div class="edit-form__item edit-form__item_w138">
-            <div class="edit-form__label">стоимость груза:</div>
-            <div class="edit-form__data">
-              <input class="edit-form__input edit-form__input_cargo" type="number" name="cargo_cost" formControlName="cargo_cost">
+          <div class="form-item w142">
+            <div class="form-label">стоимость груза:</div>
+            <div class="form-data">
+              <input type="number" name="cargo_cost" formControlName="cargo_cost">
             </div>
           </div>
 
-          <div class="edit-form__item edit-form__item_w90">
-            <div class="edit-form__label">Валюта:</div>
-            <div class="edit-form__data ">
-              <mat-form-field appearance="outline" class="edit-form__mat-field ">
+          <div class="form-item w90">
+            <div class="form-label">Валюта:</div>
+            <div class="form-data ">
+              <mat-form-field appearance="outline" class="ui-select ">
                 <mat-select formControlName="cargo_currency_id">
-                  <mat-option class="edit-form__mat-option" *ngFor="let currency of currencys;" [value]="currency.id">{{ currency.name }}</mat-option>
+                  <mat-option *ngFor="let currency of currencys;" [value]="currency.id">{{ currency.name }}</mat-option>
                 </mat-select>
               </mat-form-field>
             </div>
@@ -329,33 +335,30 @@
 
         </div>
 
-        <div class="edit-form__item edit-form__item_w124" *ngIf="requestForm.value.request_type_id===2">
-          <div class="edit-form__label">готовность</div>
-          <div class="edit-form__data">
+        <div class="form-item w124" *ngIf="requestForm.value.request_type_id===2">
+          <div class="form-label">готовность</div>
+          <div class="form-data">
             <input type="date"formControlName="cargo_readiness">
           </div>
         </div>
 
-        <div class="edit-form__item-block" *ngIf="requestForm.value.request_type_id===2 && !requestForm.value.cargo_separately">
+        <div class="form-item-block" *ngIf="requestForm.value.request_type_id===2 && !requestForm.value.cargo_separately">
 
-          <div class="edit-form__item w172px" >
-            <div class="edit-form__label">Вид упаковки: <span class="req">•</span></div>
-            <div class="edit-form__data">
-              <mat-form-field appearance="outline" class="edit-form__mat-field">
+          <div class="form-item w172" >
+            <div class="form-label">Вид упаковки: <span class="req">•</span></div>
+            <div class="form-data">
+              <mat-form-field appearance="outline" class="ui-select">
                 <mat-select formControlName="cargo_package_id">
-                  <mat-option class="edit-form__mat-option" *ngFor="let cargoPackage of cargoPackages;" [value]="cargoPackage.id">{{ cargoPackage.name }}</mat-option>
+                  <mat-option *ngFor="let cargoPackage of cargoPackages;" [value]="cargoPackage.id">{{ cargoPackage.name }}</mat-option>
                 </mat-select>
               </mat-form-field>
-              <mat-error *ngIf="!requestForm.controls['cargo_package_id'].valid && requestForm.controls['cargo_package_id'].touched || !requestForm.controls['cargo_package_id'].valid && isFormSubmitted">
-                Это поле обязательно
-              </mat-error>
             </div>
           </div>
 
-          <div class="edit-form__item edit-form__item_w70">
-            <div class="edit-form__label"></div>
-              <div class="edit-form__data">
-                <mat-form-field appearance="outline" class="edit-form__mat-field">
+          <div class="form-item w70">
+            <div class="form-label stacking-label">stacking</div>
+              <div class="form-data">
+                <mat-form-field appearance="outline" class="ui-select">
                   <mat-select [ngClass]="'staking-'+requestForm.value.cargo_places_stacking" formControlName="cargo_places_stacking">
 
                     <mat-option value="true">
@@ -397,62 +400,48 @@
       </div>
     </div>
 
-      <div class="edit-form__row" *ngIf="requestForm.value.request_type_id===2">
+      <div class="form-row" *ngIf="requestForm.value.request_type_id===2">
         <app-file-list [showLinks]="false" [documents]="documents" component="request" var="documents_file" [itemId]="id!" #fileList>
         </app-file-list>
       </div>
 
     </div>
     <!-- Блок НАПРАВЛЕНИЯ -->
-    <div class="edit-form__title">Направления</div>
-    <div class="edit-form__block">
+    <div class="form-block-title">Направления</div>
+    <div class="form-block">
       <!-- ОТКУДА -->
-      <div class="edit-form__row">
-        <div class="edit-form__item-layout">
+      <div class="form-row">
+        <div class="form-item-layout">
 
-          <div class="edit-form__item edit-form__item_i4">
-            <div class="edit-form__label">Город отправления: <span class="req">•</span></div>
-            <input appearance="outline" class="edit-form__input bg-color_grey1"
-              type="text"
-              name="departure_city_name"
-              formControlName="departure_city_name"
-              [matAutocomplete]="dSity"
-              (keyup)="searchDepartureCity($event)" placeholder="—">
-            <mat-autocomplete #dSity="matAutocomplete" >
-              <mat-option *ngFor="let departureCity of departureCitys;" [value]="departureCity.name" (click)="onDepartureCityChange(departureCity)">{{ departureCity.name }}</mat-option>
-            </mat-autocomplete>
-            <mat-error *ngIf="requestForm.controls['departure_city_id'].invalid && isFormSubmitted || requestForm.controls['departure_city_id'].invalid && requestForm.controls['departure_city_name'].dirty">
-              Это поле обязательно
-            </mat-error>
+          <div class="form-item i4">
+            <div class="form-label">Город отправления: <span class="req">•</span></div>
+            <div class="form-data">
+              <input appearance="outline" class="edit-form__input bg-color_grey1"
+                type="text"
+                name="departure_city_name"
+                formControlName="departure_city_name"
+                [matAutocomplete]="dSity"
+                (keyup)="searchDepartureCity($event)" placeholder="—"
+              >
+              <mat-autocomplete #dSity="matAutocomplete" >
+                <mat-option
+                  *ngFor="let departureCity of departureCitys;"
+                  [value]="departureCity.name"
+                  (click)="onDepartureCityChange(departureCity)"
+                  >
+                  {{ departureCity.name }}
+                </mat-option>
+              </mat-autocomplete>
+            </div>
           </div>
 
-          <!-- <div class="edit-form__item edit-form__item_i8">
-            <div class="edit-form__label">Страна отправл.:<span class="req">•</span></div>
-            <div class="edit-form__data"><input class="edit-form__input bg-color_grey1" type="text" readonly placeholder="—" formControlName="departure_country_name"></div>
-          </div> -->
-
-          <!-- <div class="edit-form__item edit-form__item_i8">
-            <div class="edit-form__label">Страна отправл.:<span class="req">•</span></div>
-            <input appearance="outline" class="edit-form__input bg-color_grey1"
-              type="text"
-              name="departure_country_name"
-              formControlName="departure_country_name"
-              [matAutocomplete]="dCountry"
-              (keyup)="searchDepartureCountry($event)" placeholder="—">
-            <mat-autocomplete #dCountry="matAutocomplete" >
-              <mat-option *ngFor="let departureCountry of departureCountrys;" [value]="departureCountry.name" (click)="onDepartureCountryChange(departureCountry)">{{ departureCountry.name }}</mat-option>
-            </mat-autocomplete>
-            <mat-error *ngIf="requestForm.controls['departure_country_id'].invalid && isFormSubmitted || requestForm.controls['departure_country_id'].invalid && requestForm.controls['departure_country_name'].dirty">
-              Это поле обязательно
-            </mat-error>
-          </div> -->
-
-          <div class="edit-form__item edit-form__item_i8">
-            <div class="edit-form__label">Страна отправл.:<span class="req">•</span></div>
-            <div class="edit-form__data">
-              <mat-form-field appearance="outline" class="edit-form__mat-field">
+          <div class="form-item i8">
+            <div class="form-label">Страна отправл.:<span class="req">•</span></div>
+            <div class="form-data">
+              <mat-form-field appearance="outline" class="ui-select">
                <mat-select formControlName="departure_country_id" (valueChange)="onDepartureCountryChange($event)">
-                  <mat-option *ngFor="let country of countrys;"
+                  <mat-option
+                    *ngFor="let country of countrys;"
                     [value]="country.id"
                     >
                     {{ country.name }}
@@ -462,55 +451,64 @@
             </div>
           </div>
 
-          <div class="edit-form__item edit-form__item_i4" *ngIf="requestForm.value.transport_kind_id==='avia'">
-            <div class="edit-form__label ">Аэропорт вылета:</div>
-            <div class="edit-form__data">
-              <mat-form-field appearance="outline" class="edit-form__mat-field">
-               <mat-select formControlName="departure_point_id" >
-                 <mat-option *ngFor="let departurePoint of departurePoint;" [value]="departurePoint.id">{{ departurePoint.name }}</mat-option>
-               </mat-select>
-             </mat-form-field>
+          <div class="form-item i4" *ngIf="requestForm.value.transport_kind_id==='avia'">
+            <div class="form-label ">Аэропорт вылета:</div>
+            <div class="form-data">
+              <mat-form-field appearance="outline" class="ui-select">
+                <mat-select formControlName="departure_point_id" >
+                  <mat-option
+                    *ngFor="let departurePoint of departurePoint;"
+                    [value]="departurePoint.id"
+                    >
+                    {{ departurePoint.name }}
+                  </mat-option>
+                </mat-select>
+              </mat-form-field>
             </div>
           </div>
 
-          <div class="edit-form__item edit-form__item_i">
-            <div class="edit-form__label">Адрес забора груза:</div>
-            <div class="edit-form__data"><input class="edit-form__input bg-color_grey1" type="text" name="departure_address" formControlName="departure_address" placeholder="—"></div>
+          <div class="form-item stretch">
+            <div class="form-label">Адрес забора груза:</div>
+            <div class="form-data">
+              <input class="" type="text" name="departure_address" formControlName="departure_address" placeholder="—">
+            </div>
           </div>
 
         </div>
       </div>
       <!-- КУДА -->
-      <div class="edit-form__row">
-        <div class="edit-form__item-layout">
+      <div class="form-row">
+        <div class="form-item-layout">
 
-          <div class="edit-form__item edit-form__item_i4">
-            <div class="edit-form__label">Город назначения: <span class="req">•</span></div>
-            <input appearance="outline" class="edit-form__input bg-color_grey1"
-              type="text"
-              name="arrival_city_name"
-              formControlName="arrival_city_name"
-              [matAutocomplete]="aSity"
-              (keyup)="searchArrivalCity($event)" placeholder="—">
-            <mat-autocomplete #aSity="matAutocomplete" >
-              <mat-option *ngFor="let arrivalCity of arrivalCitys;" [value]="arrivalCity.name" (click)="onArrivalCityChange(arrivalCity)">{{ arrivalCity.name }}</mat-option>
-            </mat-autocomplete>
-            <mat-error *ngIf="requestForm.controls['arrival_city_id'].invalid && isFormSubmitted || requestForm.controls['arrival_city_id'].invalid && requestForm.controls['arrival_city_name'].dirty">
-              Это поле обязательно
-            </mat-error>
+          <div class="form-item i4">
+            <div class="form-label">Город назначения: <span class="req">•</span></div>
+            <div class="form-data">
+              <input appearance="outline" class="edit-form__input bg-color_grey1"
+                type="text"
+                name="arrival_city_name"
+                formControlName="arrival_city_name"
+                [matAutocomplete]="aSity"
+                (keyup)="searchArrivalCity($event)"
+                placeholder="—">
+              <mat-autocomplete #aSity="matAutocomplete" >
+                <mat-option
+                  *ngFor="let arrivalCity of arrivalCitys;"
+                  [value]="arrivalCity.name"
+                  (click)="onArrivalCityChange(arrivalCity)"
+                  >
+                  {{ arrivalCity.name }}
+                </mat-option>
+              </mat-autocomplete>
+            </div>
           </div>
 
-          <!-- <div class="edit-form__item edit-form__item_i8">
-            <div class="edit-form__label">Страна прибытия:<span class="req">•</span></div>
-            <div class="edit-form__data"><input class="edit-form__input bg-color_grey1" type="text" readonly placeholder="—" formControlName="arrival_country_name"></div>
-          </div> -->
-
-          <div class="edit-form__item edit-form__item_i8">
-            <div class="edit-form__label">Страна прибытия:<span class="req">•</span></div>
-            <div class="edit-form__data">
-              <mat-form-field appearance="outline" class="edit-form__mat-field">
+          <div class="form-item i8">
+            <div class="form-label">Страна прибытия:<span class="req">•</span></div>
+            <div class="form-data">
+              <mat-form-field appearance="outline" class="ui-select">
                <mat-select formControlName="arrival_country_id" (valueChange)="onArrivalCountryChange($event)">
-                  <mat-option *ngFor="let country of countrys;"
+                  <mat-option
+                    *ngFor="let country of countrys;"
                     [value]="country.id"
                     >
                     {{ country.name }}
@@ -520,34 +518,38 @@
             </div>
           </div>
 
-          <div class="edit-form__item edit-form__item_i4" *ngIf="requestForm.value.transport_kind_id==='avia'">
-            <div class="edit-form__label">Аэропорт прибытия:</div>
-              <div class="edit-form__data">
-                <mat-form-field appearance="outline" class="edit-form__mat-field">
+          <div class="form-item i4" *ngIf="requestForm.value.transport_kind_id==='avia'">
+            <div class="form-label">Аэропорт прибытия:</div>
+              <div class="form-data">
+                <mat-form-field appearance="outline" class="ui-select">
                   <mat-select formControlName="arrival_point_id" >
-                    <mat-option *ngFor="let arrivalPoint of arrivalPoint;" [value]="arrivalPoint.id">{{ arrivalPoint.name }}</mat-option>
+                    <mat-option
+                      *ngFor="let arrivalPoint of arrivalPoint;"
+                      [value]="arrivalPoint.id"
+                      >
+                      {{ arrivalPoint.name }}
+                    </mat-option>
                   </mat-select>
-                  <mat-error *ngIf="requestForm.controls['arrival_point_id'].hasError('required')&& (requestForm.controls['arrival_point_id'].dirty || requestForm.controls['arrival_point_id'].touched)">
-                    Это поле обязательно
-                  </mat-error>
                 </mat-form-field>
               </div>
           </div>
 
-          <div class="edit-form__item edit-form__item_i">
-            <div class="edit-form__label">Адрес доставки груза:</div>
-            <div class="edit-form__data"><input class="edit-form__input bg-color_grey1" type="text" name="arrival_address" formControlName="arrival_address" placeholder="—"></div>
+          <div class="form-item stretch">
+            <div class="form-label">Адрес доставки груза:</div>
+            <div class="form-data">
+              <input class="edit-form__input bg-color_grey1" type="text" name="arrival_address" formControlName="arrival_address" placeholder="—">
+            </div>
           </div>
 
         </div>
       </div>
       <!-- РЕЙСЫ -->
-      <div class="edit-form__row">
-        <div class="edit-form__item-layout">
+      <div class="form-row sep">
+        <div class="form-item-layout">
           Рейсы:
-          <label class="direction-flight-label" *ngFor="let directionFlight of directionFlights">
+          <label *ngFor="let directionFlight of directionFlights">
             <input formControlName="departure_flight" type="radio" name="departure_flight" [value]="directionFlight.id">
-            <i class="direction-flight"></i>
+            <i></i>
             <span>{{ directionFlight.name }}</span>
           </label>
         </div>
@@ -555,55 +557,66 @@
 
     </div>
     <!-- Блок ТРЕБУЕМЫЕ УСЛУГИ -->
-    <div class="edit-form__title" *ngIf="requestForm.value.transport_kind_id ==='avia'|| requestForm.value.transport_kind_id ==='rw' || requestForm.value.transport_kind_id ==='sea'">Требуемые услуги</div>
-    <div class="edit-form__block" *ngIf="requestForm.value.transport_kind_id ==='avia'|| requestForm.value.transport_kind_id ==='rw' || requestForm.value.transport_kind_id ==='sea'">
+    <div class="form-block-title" *ngIf="requestForm.value.transport_kind_id ==='avia'|| requestForm.value.transport_kind_id ==='rw' || requestForm.value.transport_kind_id ==='sea'">Требуемые услуги</div>
+    <div class="form-block" *ngIf="requestForm.value.transport_kind_id ==='avia'|| requestForm.value.transport_kind_id ==='rw' || requestForm.value.transport_kind_id ==='sea'">
 
-      <div class="edit-form__row">
-        <div class="edit-form__item-layout">
+      <div class="form-row">
+        <div class="form-item-layout">
 
-          <div class="edit-form__item">
-            <div class="edit-form__label">УСЛОВИЕ ПОСТАВКИ (INCOTERMS): <span class="req">•</span></div>
-            <div class="edit-form__data">
-              <mat-form-field appearance="outline" class="edit-form__mat-field" >
+          <div class="form-item">
+            <div class="form-label">УСЛОВИЕ ПОСТАВКИ (INCOTERMS): <span class="req">•</span></div>
+            <div class="form-data">
+              <mat-form-field appearance="outline" class="ui-select" >
                 <mat-select formControlName="incoterms_id">
-                  <mat-option class="edit-form__mat-option" *ngFor="let incoterm of incoterms;" [value]="incoterm.id" (click)="onIncotermsChange(incoterm)">{{ incoterm.name }}</mat-option>
+                  <mat-option
+                    *ngFor="let incoterm of incoterms;"
+                    [value]="incoterm.id"
+                    (click)="onIncotermsChange(incoterm)"
+                    >
+                    {{ incoterm.name }}
+                  </mat-option>
                 </mat-select>
               </mat-form-field>
-              <mat-error *ngIf="requestForm.controls['incoterms_id'].invalid && requestForm.controls['incoterms_id'].touched || requestForm.controls['incoterms_id'].invalid && isFormSubmitted  ">
-                Это поле обязательно
-              </mat-error>
             </div>
           </div>
 
-          <div class="edit-form__item">
-            <div class="edit-form__label">ГОРОД / ПОРТ:</div>
-            <input appearance="outline" class="edit-form__input bg-color_grey1"
-              type="text"
-              name="incoterms_city_name"
-              formControlName="incoterms_city_name"
-              [matAutocomplete]="port"
-              (keyup)="searchPort($event)" placeholder="—">
-            <mat-autocomplete #port="matAutocomplete">
-              <mat-option *ngFor="let port of ports;" [value]="port.name" (click)="onPortChange(port)">{{ port.name }}</mat-option>
-            </mat-autocomplete>
+          <div class="form-item">
+            <div class="form-label">ГОРОД / ПОРТ:</div>
+            <div class="form-data">
+              <input appearance="outline"
+                type="text"
+                name="incoterms_city_name"
+                formControlName="incoterms_city_name"
+                [matAutocomplete]="port"
+                (keyup)="searchPort($event)" placeholder="—">
+              <mat-autocomplete #port="matAutocomplete">
+                <mat-option
+                  *ngFor="let port of ports;"
+                  [value]="port.name"
+                  (click)="onPortChange(port)"
+                  >
+                  {{ port.name }}
+                </mat-option>
+              </mat-autocomplete>
+            </div>
           </div>
 
         </div>
       </div>
 
-      <div class="edit-form__row" *ngIf="requestForm.value.transport_kind_id !=='road'">
-        <div class="edit-form__item-layout">
+      <div class="form-row" *ngIf="requestForm.value.transport_kind_id !=='road'">
+        <div class="form-item-layout">
 
-          <div class="edit-form__item edit-form__item_i2">
-            <div class="edit-form__subtitle">В ставку ДОЛЖНО быть включено:</div>
-            <div class="edit-form__data">
+          <div class="form-item i2">
+            <div class="form-block-sub-title">В ставку ДОЛЖНО быть включено:</div>
+            <div class="form-data">
               <app-services-ediotor [services]="services" formControlName="services"></app-services-ediotor>
             </div>
           </div>
 
-          <div class="edit-form__item edit-form__item_i2">
-            <div class="edit-form__subtitle">Дополнительные услуги:</div>
-            <div class="edit-form__data">
+          <div class="form-item i2">
+            <div class="form-block-sub-title">Дополнительные услуги:</div>
+            <div class="form-data">
               <app-services-ediotor [services]="servicesAdditionals" formControlName="services_optional"></app-services-ediotor>
             </div>
           </div>
@@ -611,41 +624,35 @@
         </div>
       </div>
 
-      <div class="edit-form__row edit-form__row_bg" *ngIf="requestForm.value.request_type_id===2">
-        <div class="edit-form__item edit-form__item_i100">
-          <div class="edit-form__label">Дополнительная информация:</div>
-          <div class="edit-form__data">
-            <textarea class="edit-form__textarea" name="comment"  placeholder="—" formControlName="comment" ></textarea>
+      <div class="form-row bg" *ngIf="requestForm.value.request_type_id===2">
+        <div class="form-item">
+          <div class="form-label">Дополнительная информация:</div>
+          <div class="form-data">
+            <textarea style="height: 120px;" name="comment"  placeholder="—" formControlName="comment" ></textarea>
           </div>
         </div>
       </div>
 
     </div>
     <!-- Блок НАСТРОЙКА РАССЫЛКИ ЗАПРОСОВ -->
-    <div class="edit-form__title" *ngIf="requestForm.value.request_type_id===2">Настройка рассылки запроса</div>
-    <div class="edit-form__block" *ngIf="requestForm.value.request_type_id===2">
+    <div class="form-block-title" *ngIf="requestForm.value.request_type_id===2">Настройка рассылки запроса</div>
+    <div class="form-block" *ngIf="requestForm.value.request_type_id===2">
 
-      <div class="edit-form__row">
-        <div class="edit-form__item-layout">
+      <div class="form-row">
+        <div class="form-item-layout sep2">
 
-          <div class="services ">
-            <label class="services-label">
-              <input type="radio">
-              <i class="services-checkbox"></i>
-              <span class="services-span">Размещать запрос по базам Подрядчиков</span>
-            </label>
-          </div>
+          <label>
+            <input type="checkbox">
+            <i></i>
+            <span>Размещать запрос по базам Подрядчиков</span>
+          </label>
 
-          <div class="services">
-            <label class="services-label">
-              <input type="radio" >
-              <i class="services-checkbox"></i>
-              <span class="services-span">Разместить запрос на котировку сотруднику компании</span>
-            </label>
-          </div>
+          <label>
+            <input type="checkbox">
+            <i></i>
+            <span>Разместить запрос на котировку сотруднику компании</span>
+          </label>
 
-          <!-- <mat-checkbox formControlName="request_one">Размещать запрос по база Подрядчиков</mat-checkbox>
-          <mat-checkbox formControlName="request_two">Разместить запрос на котировку сотруднику компании</mat-checkbox> -->
         </div>
       </div>
 
