@@ -1,8 +1,8 @@
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { ActivatedRoute, ParamMap, Router } from '@angular/router';
 import { SortColumn } from '../api/custom_models/sort-column';
-import { Directive, OnInit, OnDestroy, ViewChild, TemplateRef } from '@angular/core';
-import { Observable, of, Subject, takeUntil } from 'rxjs';
+import { Directive, OnInit, OnDestroy, ViewChild, TemplateRef, ElementRef } from '@angular/core';
+import { NEVER, Observable, of, Subject, takeUntil } from 'rxjs';
 import { MatSnackBarConfig } from '@angular/material/snack-bar';
 import { MatDialog } from '@angular/material/dialog';
 import { FilterService } from '../filter/services/filter.service';
@@ -37,6 +37,8 @@ export abstract class Table<T extends { id: number }, A = never, F = never> impl
   sortDir: 'asc' | 'desc' = 'asc';
   @ViewChild('removeDialogRef') removeDialogRef!: TemplateRef<T>;
   private aliases = new Map<A, (keyof T)[]>();
+  
+  @ViewChild('file', { static: true }) file?: ElementRef;
 
   constructor(
     private route: ActivatedRoute,
@@ -257,6 +259,64 @@ export abstract class Table<T extends { id: number }, A = never, F = never> impl
 
   registerAlias(alias: A, fields: (keyof T)[]): void {
     this.aliases.set(alias, fields);
+  }
+  
+  protected exportData(): Observable<any> {
+    return NEVER;
+  }
+  
+  protected importData(payload: any): Observable<any> {
+    return of({});
+  }
+  
+  exportFile(): void {
+    this.exportData().subscribe({
+      next: data => {
+        console.log('data', data);
+        const aData = window.btoa(window.unescape(encodeURIComponent(JSON.stringify(data, null, 2))));
+        const xlsxMimeType = 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet';
+        const dataUri = `data:${xlsxMimeType};base64,${aData}`;
+        const a = document.createElement('a');
+        a.href = dataUri;
+        a.download = `1.json`;
+        a.click();
+      },
+      error: err => this.snackBar.open(`Не удалось экспортировать данные: ` + err.error.error_message, undefined, this.snackBarWithShortDuration)
+    })
+  }
+  
+  importFile(): void {
+    this.file?.nativeElement?.click();
+  }
+  
+  selectFileForImport(): void {
+    const files = this.file?.nativeElement.files as File[] | undefined;
+    const file = files?.[0];
+    if (!file?.name.endsWith('.json')) {
+      this.snackBar.open('Требуется Excel file', undefined, this.snackBarWithShortDuration);
+      return;
+    }
+    if (file.size > 2 * 1024 * 1024) {
+      this.snackBar.open('Слишком большой файл', undefined, this.snackBarWithShortDuration);
+      return;
+    }
+    const fileName = file.name;
+    const reader = new FileReader();
+    reader.onload = (event) => {
+      if (typeof event.target?.result === 'string') {
+        const data = window.btoa(event.target.result);
+        console.log(`data`, data);
+        const payload = {data, file: fileName};
+        this.importData(payload).subscribe({
+          next: () => {
+            this.snackBar.open('Данные импортированы успешно', undefined, this.snackBarWithShortDuration);
+            this.onStartChange(0);
+          },
+          error: err => this.snackBar.open(`Не удалось импортировать данные: ` + err.error.error_message, undefined, this.snackBarWithShortDuration)
+        });
+      }
+    };
+    reader.readAsBinaryString(file);
   }
 
 }
