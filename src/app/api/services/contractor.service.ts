@@ -197,6 +197,11 @@ export class ContractorService extends BaseService {
 'tax_id'?: number;
 
 /**
+ * Формат отправки запроса
+ */
+'request_format_name'?: string;
+
+/**
  * Формат отправки запроса (ID берем из запроса - contractor_request_format)
  */
 'request_format_id'?: string;
@@ -560,6 +565,11 @@ export class ContractorService extends BaseService {
          * Система налогообложения (ID берем из запроса - system_tax_system)
          */
         'tax_id'?: number;
+        
+        /**
+         * Формат отправки запроса
+         */
+        'request_format_name'?: string;
         
         /**
          * Формат отправки запроса (ID берем из запроса - contractor_request_format)
@@ -983,6 +993,11 @@ export class ContractorService extends BaseService {
 'tax_id'?: number;
 
 /**
+ * Формат отправки запроса
+ */
+'request_format_name'?: string;
+
+/**
  * Формат отправки запроса (ID берем из запроса - contractor_request_format)
  */
 'request_format_id'?: string;
@@ -1331,6 +1346,11 @@ export class ContractorService extends BaseService {
 'tax_id'?: number;
 
 /**
+ * Формат отправки запроса
+ */
+'request_format_name'?: string;
+
+/**
  * Формат отправки запроса (ID берем из запроса - contractor_request_format)
  */
 'request_format_id'?: string;
@@ -1675,6 +1695,11 @@ export class ContractorService extends BaseService {
  * Система налогообложения (ID берем из запроса - system_tax_system)
  */
 'tax_id'?: number;
+
+/**
+ * Формат отправки запроса
+ */
+'request_format_name'?: string;
 
 /**
  * Формат отправки запроса (ID берем из запроса - contractor_request_format)
@@ -2726,6 +2751,11 @@ export class ContractorService extends BaseService {
 'tax_id'?: number;
 
 /**
+ * Формат отправки запроса
+ */
+'request_format_name'?: string;
+
+/**
  * Формат отправки запроса (ID берем из запроса - contractor_request_format)
  */
 'request_format_id'?: string;
@@ -3060,6 +3090,11 @@ export class ContractorService extends BaseService {
          * Система налогообложения (ID берем из запроса - system_tax_system)
          */
         'tax_id'?: number;
+        
+        /**
+         * Формат отправки запроса
+         */
+        'request_format_name'?: string;
         
         /**
          * Формат отправки запроса (ID берем из запроса - contractor_request_format)
@@ -3411,6 +3446,11 @@ export class ContractorService extends BaseService {
 'tax_id'?: number;
 
 /**
+ * Формат отправки запроса
+ */
+'request_format_name'?: string;
+
+/**
  * Формат отправки запроса (ID берем из запроса - contractor_request_format)
  */
 'request_format_id'?: string;
@@ -3738,6 +3778,11 @@ export class ContractorService extends BaseService {
 'tax_id'?: number;
 
 /**
+ * Формат отправки запроса
+ */
+'request_format_name'?: string;
+
+/**
  * Формат отправки запроса (ID берем из запроса - contractor_request_format)
  */
 'request_format_id'?: string;
@@ -4061,6 +4106,11 @@ export class ContractorService extends BaseService {
  * Система налогообложения (ID берем из запроса - system_tax_system)
  */
 'tax_id'?: number;
+
+/**
+ * Формат отправки запроса
+ */
+'request_format_name'?: string;
 
 /**
  * Формат отправки запроса (ID берем из запроса - contractor_request_format)
@@ -7325,6 +7375,212 @@ export class ContractorService extends BaseService {
  */
 'name'?: string;
 }> => r.body)
+    );
+  }
+
+  /** Path part for operation `contractorExport()` */
+  static readonly ContractorExportPath = '/contractor_export';
+
+  /**
+   * Экспорт контрагентов в XLSX.
+   *
+   *
+   *
+   * This method provides access to the full `HttpResponse`, allowing access to response headers.
+   * To access only the response body, use `contractorExport()` instead.
+   *
+   * This method doesn't expect any request body.
+   */
+  contractorExport$Response(
+    params?: {
+
+    /**
+     * Поиск подрядчика по названию...
+     */
+      name?: string;
+
+    /**
+     * Специализация (ID берем из запроса - transport_kind)
+     */
+      specialization?: Array<string>;
+
+    /**
+     * Рейтинг (ID берем из запроса - system_rating)
+     */
+      rating?: number;
+
+    /**
+     * Доступ к торгам
+     */
+      allow_trade?: number;
+
+    /**
+     * Направление откуда (ID берем из запроса - direction_country)
+     */
+      country_departure?: number;
+
+    /**
+     * Направление куда (ID берем из запроса - direction_country)
+     */
+      country_arrival?: number;
+
+    /**
+     * Сортировка
+     */
+      sort?: Array<{
+
+/**
+ * Поле
+ */
+'field': 'id' | 'name' | 'rating_nps_text' | 'trade_rating' | 'exclude_from_trade' | 'avg_answer_time';
+
+/**
+ * Направление сортировки
+ */
+'dir': 'asc' | 'desc';
+}>;
+    },
+    context?: HttpContext
+  ): Observable<StrictHttpResponse<{
+
+/**
+ * Наименование
+ */
+'name'?: string;
+
+/**
+ * Base64 строка файла
+ */
+'data'?: string;
+}>> {
+    const rb = new RequestBuilder(this.rootUrl, ContractorService.ContractorExportPath, 'get');
+    if (params) {
+      rb.query('name', params.name, {});
+      rb.query('specialization', params.specialization, {"style":"form","explode":false});
+      rb.query('rating', params.rating, {});
+      rb.query('allow_trade', params.allow_trade, {});
+      rb.query('country_departure', params.country_departure, {});
+      rb.query('country_arrival', params.country_arrival, {});
+      rb.query('sort', params.sort, {"style":"form","explode":false});
+    }
+
+    return this.http.request(
+      rb.build({ responseType: 'json', accept: 'application/json', context })
+    ).pipe(
+      filter((r: any): r is HttpResponse<any> => r instanceof HttpResponse),
+      map((r: HttpResponse<any>) => {
+        return r as StrictHttpResponse<{
+        
+        /**
+         * Наименование
+         */
+        'name'?: string;
+        
+        /**
+         * Base64 строка файла
+         */
+        'data'?: string;
+        }>;
+      })
+    );
+  }
+
+  /**
+   * Экспорт контрагентов в XLSX.
+   *
+   *
+   *
+   * This method provides access only to the response body.
+   * To access the full response (for headers, for example), `contractorExport$Response()` instead.
+   *
+   * This method doesn't expect any request body.
+   */
+  contractorExport(
+    params?: {
+
+    /**
+     * Поиск подрядчика по названию...
+     */
+      name?: string;
+
+    /**
+     * Специализация (ID берем из запроса - transport_kind)
+     */
+      specialization?: Array<string>;
+
+    /**
+     * Рейтинг (ID берем из запроса - system_rating)
+     */
+      rating?: number;
+
+    /**
+     * Доступ к торгам
+     */
+      allow_trade?: number;
+
+    /**
+     * Направление откуда (ID берем из запроса - direction_country)
+     */
+      country_departure?: number;
+
+    /**
+     * Направление куда (ID берем из запроса - direction_country)
+     */
+      country_arrival?: number;
+
+    /**
+     * Сортировка
+     */
+      sort?: Array<{
+
+/**
+ * Поле
+ */
+'field': 'id' | 'name' | 'rating_nps_text' | 'trade_rating' | 'exclude_from_trade' | 'avg_answer_time';
+
+/**
+ * Направление сортировки
+ */
+'dir': 'asc' | 'desc';
+}>;
+    },
+    context?: HttpContext
+  ): Observable<{
+
+/**
+ * Наименование
+ */
+'name'?: string;
+
+/**
+ * Base64 строка файла
+ */
+'data'?: string;
+}> {
+    return this.contractorExport$Response(params, context).pipe(
+      map((r: StrictHttpResponse<{
+
+/**
+ * Наименование
+ */
+'name'?: string;
+
+/**
+ * Base64 строка файла
+ */
+'data'?: string;
+}>): {
+
+/**
+ * Наименование
+ */
+'name'?: string;
+
+/**
+ * Base64 строка файла
+ */
+'data'?: string;
+} => r.body)
     );
   }
 
