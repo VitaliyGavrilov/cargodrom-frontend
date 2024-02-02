@@ -68,6 +68,8 @@ export abstract class Table<T extends { id: number }, A = never, F = never> impl
   protected loadRows(): void {
     const sortCol = this.getSort();
     this.load({ start: this.start, count: this.count, sort: JSON.stringify(sortCol) as unknown as SortColumn<T>[], ...this.filter }).subscribe(rows => {
+      console.log(rows);
+
       this.rows = rows ? rows.items as T[] : [];
       this.total = rows.total;
       this.column = rows.column;

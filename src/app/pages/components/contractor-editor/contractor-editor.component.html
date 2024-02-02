@@ -89,11 +89,10 @@
             </mat-form-field>
            </div>
          </div>
-         <div class="form-item">
+         <!-- <div class="form-item">
            <div class="form-label">вид подрядчика: <span class="req">•</span></div>
            <div class="form-data">
             <mat-form-field appearance="outline" class="ui-select">
-              <!--<mat-label class="form-label">вид подрядчика</mat-label>-->
               <mat-select formControlName="type_id">
                 <mat-option *ngFor="let type of contractorTypes; let i=index" [value]="i+1">{{ type.name }}</mat-option>
               </mat-select>
@@ -102,7 +101,20 @@
               </mat-error>
             </mat-form-field>
            </div>
-         </div>
+         </div> -->
+         <div class="form-item">
+          <div class="form-label">вид подрядчика: <span class="req">•</span></div>
+          <div class="form-data">
+           <mat-form-field appearance="outline" class="ui-select">
+             <mat-select formControlName="type_id">
+               <mat-option *ngFor="let type of contractorTypes;"  [value]="type.id">{{ type.name }}</mat-option>
+             </mat-select>
+             <mat-error *ngIf="contractorForm.controls['type_id'].hasError('required')">
+               Это поле обязательно
+             </mat-error>
+           </mat-form-field>
+          </div>
+        </div>
          <div class="form-item">
            <div class="form-label">членство в ассоциациях:</div>
            <div class="form-data">

@@ -21,6 +21,7 @@ export class FilterService implements OnDestroy {
   ) { }
 
   setSearchFilterSchema(filter: SearchFilterSchema) {
+    console.log(filter)
     this.searchFilterSchema = filter;
     this.hasAdditional = Array.isArray(this.searchFilterSchema.additional) && this.searchFilterSchema.additional.length > 0;
     this.softReset();
@@ -82,7 +83,7 @@ export class FilterService implements OnDestroy {
       }
     }
   }
-  
+
   private getAllControls(searchFilterSchema: SearchFilterSchema): FilterControl[] {
     const allControls = [
       ...(searchFilterSchema.header || []),

@@ -16,14 +16,11 @@
                 name="customer_name"
                 formControlName="customer_name"
                 [matAutocomplete]="auto"
-                (keyup)="searchCustomer($event)" placeholder="—" >
+                (keyup)="searchCustomer($event)"
+                placeholder="—" >
               <mat-autocomplete  #auto="matAutocomplete">
                 <mat-option class="" *ngFor="let customer of customers;" [value]="customer.name" (click)="onCustomerChange(customer)">{{ customer.name }}</mat-option>
               </mat-autocomplete>
-
-            <mat-error *ngIf="requestForm.controls['customer_id'].invalid && requestForm.controls['customer_name'].touched || (requestForm.controls['customer_id'].invalid && isFormSubmitted)">
-              Это поле обязательно
-            </mat-error>
             </div>
 
           </div>
@@ -36,9 +33,6 @@
                   <mat-option class="edit-form__mat-option" *ngFor="let requestFormat of requestFormats;" [value]="requestFormat.id">{{ requestFormat.name }}</mat-option>
                 </mat-select>
               </mat-form-field>
-              <mat-error *ngIf="requestForm.controls['request_type_id'].invalid && requestForm.controls['request_type_id'].touched || (requestForm.controls['request_type_id'].invalid && isFormSubmitted)">
-                Это поле обязательно
-              </mat-error>
             </div>
           </div>
 
@@ -97,12 +91,6 @@
                   <mat-option class="edit-form__mat-option" *ngFor="let transportFormat of transportFormats;" [value]="transportFormat.id">{{ transportFormat.name }}</mat-option>
                 </mat-select>
               </mat-form-field>
-              <mat-error *ngIf="requestForm.controls['transport_type_id'].hasError('required') && requestForm.controls['transport_type_id'].touched || requestForm.controls['transport_type_id'].invalid && isFormSubmitted">
-                Это поле обязательно
-              </mat-error>
-              <mat-error *ngIf="requestForm.controls['transport_type_id'].hasError('required') && requestForm.controls['transport_kind_id'].invalid && requestForm.controls['transport_type_id'].touched">
-                Вы не выбрали вид перевозки
-              </mat-error>
             </div>
           </div>
 

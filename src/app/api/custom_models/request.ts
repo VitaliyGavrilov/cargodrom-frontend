@@ -1,3 +1,5 @@
+import { SortColumn } from "./sort-column";
+
 //вид запроса
 export interface RequestFormat {
   id: number;
@@ -88,6 +90,23 @@ export interface Request {
   manager_executor_name: string
 }
 
+
+export interface RequestFilter {
+
+  request_type_id?: number;
+
+
+  status_id?: number;
+
+
+  start?: number;
+
+
+  count?: number;
+
+
+  sort?: SortColumn<Request>[];
+}
 
 
 
