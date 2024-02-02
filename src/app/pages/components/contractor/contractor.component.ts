@@ -6,7 +6,7 @@ import { LoadParams, Table } from '../../../classes';
 import { MatDialog } from '@angular/material/dialog';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { ActivatedRoute, Router } from '@angular/router';
-import { Observable, map } from 'rxjs';
+import { Observable, map, of, tap } from 'rxjs';
 import { FilterService } from 'src/app/filter/services/filter.service';
 @Component({
   selector: 'app-contractor',
@@ -41,7 +41,11 @@ export class ContractorComponent extends Table<Contractor, 'trade_rating', Contr
   }
   
   protected override exportData(): Observable<any> {
-    return this.contractorService.contractorList();
+    return this.contractorService.contractorExport().pipe(tap(data => console.log(`data`, data)));
+  }
+  
+  protected override importData(payload: any): Observable<any> {
+    return of({});
   }
 
 }
