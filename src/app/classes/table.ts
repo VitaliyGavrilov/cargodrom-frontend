@@ -261,7 +261,7 @@ export abstract class Table<T extends { id: number }, A = never, F = never> impl
     this.aliases.set(alias, fields);
   }
   
-  protected exportData(): Observable<any> {
+  protected exportData(): Observable<{data: string; name: string}> {
     return NEVER;
   }
   
@@ -271,14 +271,12 @@ export abstract class Table<T extends { id: number }, A = never, F = never> impl
   
   exportFile(): void {
     this.exportData().subscribe({
-      next: data => {
-        console.log('data', data);
-        const aData = window.btoa(window.unescape(encodeURIComponent(JSON.stringify(data, null, 2))));
+      next: ({name, data}) => {
         const xlsxMimeType = 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet';
-        const dataUri = `data:${xlsxMimeType};base64,${aData}`;
+        const dataUri = `data:${xlsxMimeType};base64,${data}`;
         const a = document.createElement('a');
         a.href = dataUri;
-        a.download = `1.json`;
+        a.download = name;
         a.click();
       },
       error: err => this.snackBar.open(`Не удалось экспортировать данные: ` + err.error.error_message, undefined, this.snackBarWithShortDuration)
