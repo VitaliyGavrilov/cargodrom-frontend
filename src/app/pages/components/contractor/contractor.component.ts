@@ -6,7 +6,7 @@ import { LoadParams, Table } from '../../../classes';
 import { MatDialog } from '@angular/material/dialog';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { ActivatedRoute, Router } from '@angular/router';
-import { Observable, map } from 'rxjs';
+import { Observable, map, of } from 'rxjs';
 import { FilterService } from 'src/app/filter/services/filter.service';
 @Component({
   selector: 'app-contractor',
@@ -17,8 +17,7 @@ import { FilterService } from 'src/app/filter/services/filter.service';
 
 export class ContractorComponent extends Table<Contractor, 'trade_rating', ContractorFilter> {
   sortField = 'name' as const;
-
-
+  
   trackById = (_index: number, contractor: Contractor) => contractor.id!;
 
   constructor(
@@ -39,6 +38,14 @@ export class ContractorComponent extends Table<Contractor, 'trade_rating', Contr
 
   protected override loadFilterSchema(): Observable<SearchFilterSchema> {
     return this.contractorService.contractorListSearch().pipe(map(val => val as SearchFilterSchema));
+  }
+  
+  protected override exportData(): Observable<{data: string; name: string}> {
+    return this.contractorService.contractorExport(this.filter as any) as Observable<{data: string; name: string}>;
+  }
+  
+  protected override importData(payload: any): Observable<any> {
+    return of({});
   }
 
 }

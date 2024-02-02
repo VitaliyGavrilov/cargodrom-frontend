@@ -153,12 +153,6 @@ export class RequestService extends BaseService {
 'cargo_danger'?: boolean;
 
 /**
- * Документы паспорта безопасности
- */
-'cargo_danger_file'?: {
-};
-
-/**
  * Грузовые места
  */
 'cargo_places'?: Array<{
@@ -205,6 +199,11 @@ export class RequestService extends BaseService {
 }>;
 
 /**
+ * Раздельные места
+ */
+'cargo_separately'?: boolean;
+
+/**
  * Итого мест
  */
 'cargo_places_count'?: number;
@@ -243,6 +242,11 @@ export class RequestService extends BaseService {
  * Готовность
  */
 'cargo_readiness'?: string;
+
+/**
+ * Признак возможности штабелировать груз (ID берем из запроса - cargo_package)
+ */
+'cargo_places_stacking'?: boolean;
 
 /**
  * Документы по грузу
@@ -499,12 +503,6 @@ export class RequestService extends BaseService {
         'cargo_danger'?: boolean;
         
         /**
-         * Документы паспорта безопасности
-         */
-        'cargo_danger_file'?: {
-        };
-        
-        /**
          * Грузовые места
          */
         'cargo_places'?: Array<{
@@ -551,6 +549,11 @@ export class RequestService extends BaseService {
         }>;
         
         /**
+         * Раздельные места
+         */
+        'cargo_separately'?: boolean;
+        
+        /**
          * Итого мест
          */
         'cargo_places_count'?: number;
@@ -589,6 +592,11 @@ export class RequestService extends BaseService {
          * Готовность
          */
         'cargo_readiness'?: string;
+        
+        /**
+         * Признак возможности штабелировать груз (ID берем из запроса - cargo_package)
+         */
+        'cargo_places_stacking'?: boolean;
         
         /**
          * Документы по грузу
@@ -885,12 +893,6 @@ export class RequestService extends BaseService {
 'cargo_danger'?: boolean;
 
 /**
- * Документы паспорта безопасности
- */
-'cargo_danger_file'?: {
-};
-
-/**
  * Грузовые места
  */
 'cargo_places'?: Array<{
@@ -937,6 +939,11 @@ export class RequestService extends BaseService {
 }>;
 
 /**
+ * Раздельные места
+ */
+'cargo_separately'?: boolean;
+
+/**
  * Итого мест
  */
 'cargo_places_count'?: number;
@@ -975,6 +982,11 @@ export class RequestService extends BaseService {
  * Готовность
  */
 'cargo_readiness'?: string;
+
+/**
+ * Признак возможности штабелировать груз (ID берем из запроса - cargo_package)
+ */
+'cargo_places_stacking'?: boolean;
 
 /**
  * Документы по грузу
@@ -1218,12 +1230,6 @@ export class RequestService extends BaseService {
 'cargo_danger'?: boolean;
 
 /**
- * Документы паспорта безопасности
- */
-'cargo_danger_file'?: {
-};
-
-/**
  * Грузовые места
  */
 'cargo_places'?: Array<{
@@ -1270,6 +1276,11 @@ export class RequestService extends BaseService {
 }>;
 
 /**
+ * Раздельные места
+ */
+'cargo_separately'?: boolean;
+
+/**
  * Итого мест
  */
 'cargo_places_count'?: number;
@@ -1308,6 +1319,11 @@ export class RequestService extends BaseService {
  * Готовность
  */
 'cargo_readiness'?: string;
+
+/**
+ * Признак возможности штабелировать груз (ID берем из запроса - cargo_package)
+ */
+'cargo_places_stacking'?: boolean;
 
 /**
  * Документы по грузу
@@ -1549,12 +1565,6 @@ export class RequestService extends BaseService {
 'cargo_danger'?: boolean;
 
 /**
- * Документы паспорта безопасности
- */
-'cargo_danger_file'?: {
-};
-
-/**
  * Грузовые места
  */
 'cargo_places'?: Array<{
@@ -1601,6 +1611,11 @@ export class RequestService extends BaseService {
 }>;
 
 /**
+ * Раздельные места
+ */
+'cargo_separately'?: boolean;
+
+/**
  * Итого мест
  */
 'cargo_places_count'?: number;
@@ -1639,6 +1654,11 @@ export class RequestService extends BaseService {
  * Готовность
  */
 'cargo_readiness'?: string;
+
+/**
+ * Признак возможности штабелировать груз (ID берем из запроса - cargo_package)
+ */
+'cargo_places_stacking'?: boolean;
 
 /**
  * Документы по грузу
@@ -2583,12 +2603,6 @@ export class RequestService extends BaseService {
 'cargo_danger'?: boolean;
 
 /**
- * Документы паспорта безопасности
- */
-'cargo_danger_file'?: {
-};
-
-/**
  * Грузовые места
  */
 'cargo_places'?: Array<{
@@ -2635,6 +2649,11 @@ export class RequestService extends BaseService {
 }>;
 
 /**
+ * Раздельные места
+ */
+'cargo_separately'?: boolean;
+
+/**
  * Итого мест
  */
 'cargo_places_count'?: number;
@@ -2673,6 +2692,11 @@ export class RequestService extends BaseService {
  * Готовность
  */
 'cargo_readiness'?: string;
+
+/**
+ * Признак возможности штабелировать груз (ID берем из запроса - cargo_package)
+ */
+'cargo_places_stacking'?: boolean;
 
 /**
  * Паспорта безопасности (файлы)
@@ -2910,12 +2934,6 @@ export class RequestService extends BaseService {
         'cargo_danger'?: boolean;
         
         /**
-         * Документы паспорта безопасности
-         */
-        'cargo_danger_file'?: {
-        };
-        
-        /**
          * Грузовые места
          */
         'cargo_places'?: Array<{
@@ -2962,6 +2980,11 @@ export class RequestService extends BaseService {
         }>;
         
         /**
+         * Раздельные места
+         */
+        'cargo_separately'?: boolean;
+        
+        /**
          * Итого мест
          */
         'cargo_places_count'?: number;
@@ -3000,6 +3023,11 @@ export class RequestService extends BaseService {
          * Готовность
          */
         'cargo_readiness'?: string;
+        
+        /**
+         * Признак возможности штабелировать груз (ID берем из запроса - cargo_package)
+         */
+        'cargo_places_stacking'?: boolean;
         
         /**
          * Паспорта безопасности (файлы)
@@ -3250,12 +3278,6 @@ export class RequestService extends BaseService {
 'cargo_danger'?: boolean;
 
 /**
- * Документы паспорта безопасности
- */
-'cargo_danger_file'?: {
-};
-
-/**
  * Грузовые места
  */
 'cargo_places'?: Array<{
@@ -3302,6 +3324,11 @@ export class RequestService extends BaseService {
 }>;
 
 /**
+ * Раздельные места
+ */
+'cargo_separately'?: boolean;
+
+/**
  * Итого мест
  */
 'cargo_places_count'?: number;
@@ -3340,6 +3367,11 @@ export class RequestService extends BaseService {
  * Готовность
  */
 'cargo_readiness'?: string;
+
+/**
+ * Признак возможности штабелировать груз (ID берем из запроса - cargo_package)
+ */
+'cargo_places_stacking'?: boolean;
 
 /**
  * Паспорта безопасности (файлы)
@@ -3568,12 +3600,6 @@ export class RequestService extends BaseService {
 'cargo_danger'?: boolean;
 
 /**
- * Документы паспорта безопасности
- */
-'cargo_danger_file'?: {
-};
-
-/**
  * Грузовые места
  */
 'cargo_places'?: Array<{
@@ -3620,6 +3646,11 @@ export class RequestService extends BaseService {
 }>;
 
 /**
+ * Раздельные места
+ */
+'cargo_separately'?: boolean;
+
+/**
  * Итого мест
  */
 'cargo_places_count'?: number;
@@ -3658,6 +3689,11 @@ export class RequestService extends BaseService {
  * Готовность
  */
 'cargo_readiness'?: string;
+
+/**
+ * Признак возможности штабелировать груз (ID берем из запроса - cargo_package)
+ */
+'cargo_places_stacking'?: boolean;
 
 /**
  * Паспорта безопасности (файлы)
@@ -3884,12 +3920,6 @@ export class RequestService extends BaseService {
 'cargo_danger'?: boolean;
 
 /**
- * Документы паспорта безопасности
- */
-'cargo_danger_file'?: {
-};
-
-/**
  * Грузовые места
  */
 'cargo_places'?: Array<{
@@ -3936,6 +3966,11 @@ export class RequestService extends BaseService {
 }>;
 
 /**
+ * Раздельные места
+ */
+'cargo_separately'?: boolean;
+
+/**
  * Итого мест
  */
 'cargo_places_count'?: number;
@@ -3974,6 +4009,11 @@ export class RequestService extends BaseService {
  * Готовность
  */
 'cargo_readiness'?: string;
+
+/**
+ * Признак возможности штабелировать груз (ID берем из запроса - cargo_package)
+ */
+'cargo_places_stacking'?: boolean;
 
 /**
  * Паспорта безопасности (файлы)
@@ -4260,6 +4300,11 @@ export class RequestService extends BaseService {
 }>;
 
 /**
+ * Раздельные места
+ */
+'cargo_separately'?: boolean;
+
+/**
  * Итого мест
  */
 'cargo_places_count'?: number;
@@ -4298,6 +4343,11 @@ export class RequestService extends BaseService {
  * Готовность
  */
 'cargo_readiness'?: string;
+
+/**
+ * Признак возможности штабелировать груз (ID берем из запроса - cargo_package)
+ */
+'cargo_places_stacking'?: boolean;
 
 /**
  * Город отправления (ID берем из запроса - direction_city)
@@ -4531,6 +4581,11 @@ export class RequestService extends BaseService {
 }>;
 
 /**
+ * Раздельные места
+ */
+'cargo_separately'?: boolean;
+
+/**
  * Итого мест
  */
 'cargo_places_count'?: number;
@@ -4569,6 +4624,11 @@ export class RequestService extends BaseService {
  * Готовность
  */
 'cargo_readiness'?: string;
+
+/**
+ * Признак возможности штабелировать груз (ID берем из запроса - cargo_package)
+ */
+'cargo_places_stacking'?: boolean;
 
 /**
  * Город отправления (ID берем из запроса - direction_city)
@@ -4811,6 +4871,11 @@ export class RequestService extends BaseService {
 }>;
 
 /**
+ * Раздельные места
+ */
+'cargo_separately'?: boolean;
+
+/**
  * Итого мест
  */
 'cargo_places_count'?: number;
@@ -4849,6 +4914,11 @@ export class RequestService extends BaseService {
  * Готовность
  */
 'cargo_readiness'?: string;
+
+/**
+ * Признак возможности штабелировать груз (ID берем из запроса - cargo_package)
+ */
+'cargo_places_stacking'?: boolean;
 
 /**
  * Город отправления (ID берем из запроса - direction_city)
@@ -5087,6 +5157,11 @@ export class RequestService extends BaseService {
 }>;
 
 /**
+ * Раздельные места
+ */
+'cargo_separately'?: boolean;
+
+/**
  * Итого мест
  */
 'cargo_places_count'?: number;
@@ -5125,6 +5200,11 @@ export class RequestService extends BaseService {
  * Готовность
  */
 'cargo_readiness'?: string;
+
+/**
+ * Признак возможности штабелировать груз (ID берем из запроса - cargo_package)
+ */
+'cargo_places_stacking'?: boolean;
 
 /**
  * Город отправления (ID берем из запроса - direction_city)
