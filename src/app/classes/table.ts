@@ -22,6 +22,9 @@ export abstract class Table<T extends { id: number }, A = never, F = never> impl
   filter?: F;
   column?: string[];
   sortableColumns?: string[];
+  
+  readonly xlsxMimeType = 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet';
+ 
   protected abstract load<T>(params: LoadParams<T, F>): Observable<{ total: number, items: T[], column?: string[], sort?: string[] }>;
 
   protected removedMessage: string = 'Запись удалена';
@@ -36,6 +39,7 @@ export abstract class Table<T extends { id: number }, A = never, F = never> impl
   readonly nameField?: keyof T | A;
   sortDir: 'asc' | 'desc' = 'asc';
   @ViewChild('removeDialogRef') removeDialogRef!: TemplateRef<T>;
+  @ViewChild('exportDialogRef') exportDialogRef?: TemplateRef<void>;
   private aliases = new Map<A, (keyof T)[]>();
   
   @ViewChild('file', { static: true }) file?: ElementRef;
@@ -269,17 +273,28 @@ export abstract class Table<T extends { id: number }, A = never, F = never> impl
     return of({});
   }
   
-  exportFile(): void {
+  confirmExport(): void {
+    if (!this.exportDialogRef) {
+      console.log(`Не найден шаблон для подтверждения экспорта в файл`);
+      return;
+    }
+    this.dialog.open(this.exportDialogRef).afterClosed().subscribe(res => {
+      if (res) {
+        this.exportFile();
+      }
+    });
+  }
+  
+  private exportFile(): void {
     this.exportData().subscribe({
       next: ({name, data}) => {
-        const xlsxMimeType = 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet';
-        const dataUri = `data:${xlsxMimeType};base64,${data}`;
+        const dataUri = `data:${this.xlsxMimeType};base64,${data}`;
         const a = document.createElement('a');
         a.href = dataUri;
         a.download = name;
         a.click();
       },
-      error: err => this.snackBar.open(`Не удалось экспортировать данные: ` + err.error.error_message, undefined, this.snackBarWithShortDuration)
+      error: err => this.snackBar.open(`Не удалось экспортировать данные: ` + err.error?.error_message, undefined, this.snackBarWithShortDuration)
     })
   }
   
@@ -290,7 +305,7 @@ export abstract class Table<T extends { id: number }, A = never, F = never> impl
   selectFileForImport(): void {
     const files = this.file?.nativeElement.files as File[] | undefined;
     const file = files?.[0];
-    if (!file?.name.endsWith('.json')) {
+    if (!file?.name.endsWith('.xlsx')) {
       this.snackBar.open('Требуется Excel file', undefined, this.snackBarWithShortDuration);
       return;
     }

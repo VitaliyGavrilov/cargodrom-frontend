@@ -10,12 +10,12 @@
         <path d="M13 8H14V14H0V0H6V1H1V13H13V8ZM13.2929 0L6 7.29291V4H5V8V9H6H10V8H6.70709L14 0.707092V0H13.2929Z"
           fill="#DB563B"></path>
       </svg><span>Импорт данных</span></a>
-    <a class="link export" (click)="exportFile()"><svg width="14" height="14" viewBox="0 0 14 14" fill="none"
+    <a class="link export" (click)="confirmExport()"><svg width="14" height="14" viewBox="0 0 14 14" fill="none"
         xmlns="http://www.w3.org/2000/svg">
         <path d="M13 10H14V14H0V0H4V1H1V13H13V10ZM13 0H9V1H12.2929L5 8.29291V9H5.70709L13 1.70709V5H14V1V0H13Z"
           fill="#DB563B"></path>
       </svg><span>Экспорт данных</span></a>
-      <input class="ui-file-input" type="file" accept="*.xlsx" #file (change)="selectFileForImport()" />
+      <input class="ui-file-input" type="file" [accept]="xlsxMimeType" #file (change)="selectFileForImport()" />
     <div class="div"></div>
     <app-universal-filter *ngFor="let control of filterService.searchFilterSchema?.header" [filterControl]="control"></app-universal-filter>
   </div>
@@ -123,3 +123,14 @@
 </div>
 <app-paginator [total]="total" [count]="count" [start]="start" [limits]="limits" (startChange)="onStartChange($event)"
   (countChange)="onCountChange($event)"></app-paginator>
+  
+<ng-template #exportDialogRef let-data>
+  <h1 mat-dialog-title>Экспорт</h1>
+  <div mat-dialog-content>
+    Экспортировать данные о подрядчиках в Excel файл ?
+  </div>
+  <div mat-dialog-actions align="end">
+    <button mat-button [mat-dialog-close]="true" cdkFocusInitial>Да</button>
+    <button mat-button mat-dialog-close>Нет</button>
+  </div>
+</ng-template>
