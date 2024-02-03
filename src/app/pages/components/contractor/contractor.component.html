@@ -134,3 +134,14 @@
     <button mat-button mat-dialog-close>Нет</button>
   </div>
 </ng-template>
+
+<ng-template #importDialogRef let-data>
+  <h1 mat-dialog-title>Импорт</h1>
+  <div mat-dialog-content>
+    Импортировать данные о подрядчиках из файла {{data.name}} ?
+  </div>
+  <div mat-dialog-actions align="end">
+    <button mat-button [mat-dialog-close]="true" cdkFocusInitial>Да</button>
+    <button mat-button mat-dialog-close>Нет</button>
+  </div>
+</ng-template>

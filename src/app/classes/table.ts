@@ -40,6 +40,7 @@ export abstract class Table<T extends { id: number }, A = never, F = never> impl
   sortDir: 'asc' | 'desc' = 'asc';
   @ViewChild('removeDialogRef') removeDialogRef!: TemplateRef<T>;
   @ViewChild('exportDialogRef') exportDialogRef?: TemplateRef<void>;
+  @ViewChild('importDialogRef') importDialogRef?: TemplateRef<{file: File}>;
   private aliases = new Map<A, (keyof T)[]>();
   
   @ViewChild('file', { static: true }) file?: ElementRef;
@@ -284,6 +285,33 @@ export abstract class Table<T extends { id: number }, A = never, F = never> impl
       }
     });
   }
+
+  private confirmImport(file: File): void {
+    if (!this.importDialogRef) {
+      console.log(`Не найден шаблон для подтверждения импорта из файла`);
+      return;
+    }
+    this.dialog.open(this.importDialogRef, {data: file}).afterClosed().subscribe(res => {
+      if (res) {
+        const fileName = file.name;
+        const reader = new FileReader();
+        reader.onload = (event) => {
+          if (typeof event.target?.result === 'string') {
+            const data = window.btoa(event.target.result);
+            const payload = {data, file: fileName};
+            this.importData(payload).subscribe({
+              next: () => {
+                this.snackBar.open('Данные импортированы успешно', undefined, this.snackBarWithShortDuration);
+                this.onStartChange(0);
+              },
+              error: err => this.snackBar.open(`Не удалось импортировать данные: ` + err.error.error_message, undefined, this.snackBarWithShortDuration)
+            });
+          }
+        };
+        reader.readAsBinaryString(file);
+      }
+    });
+  }
   
   private exportFile(): void {
     this.exportData().subscribe({
@@ -313,23 +341,7 @@ export abstract class Table<T extends { id: number }, A = never, F = never> impl
       this.snackBar.open('Слишком большой файл', undefined, this.snackBarWithShortDuration);
       return;
     }
-    const fileName = file.name;
-    const reader = new FileReader();
-    reader.onload = (event) => {
-      if (typeof event.target?.result === 'string') {
-        const data = window.btoa(event.target.result);
-        console.log(`data`, data);
-        const payload = {data, file: fileName};
-        this.importData(payload).subscribe({
-          next: () => {
-            this.snackBar.open('Данные импортированы успешно', undefined, this.snackBarWithShortDuration);
-            this.onStartChange(0);
-          },
-          error: err => this.snackBar.open(`Не удалось импортировать данные: ` + err.error.error_message, undefined, this.snackBarWithShortDuration)
-        });
-      }
-    };
-    reader.readAsBinaryString(file);
+    this.confirmImport(file);
   }
 
 }
