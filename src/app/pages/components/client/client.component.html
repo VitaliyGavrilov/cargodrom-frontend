@@ -11,7 +11,7 @@
       <a class="link export" (click)="confirmExport()"><svg width="14" height="14" viewBox="0 0 14 14" fill="none" xmlns="http://www.w3.org/2000/svg">
           <path d="M13 10H14V14H0V0H4V1H1V13H13V10ZM13 0H9V1H12.2929L5 8.29291V9H5.70709L13 1.70709V5H14V1V0H13Z" fill="#DB563B"></path>
         </svg><span>Экспорт данных</span></a>
-        <input class="ui-file-input" type="file" accept="*.xlsx" #file (change)="selectFileForImport()" />
+        <input class="ui-file-input" type="file" [accept]="xlsxMimeType" #file (change)="selectFileForImport()" />
       <a class="link statistic"><svg width="14" height="14" viewBox="0 0 14 14" fill="none" xmlns="http://www.w3.org/2000/svg">
           <defs>
             <style>
@@ -158,6 +158,17 @@
   <h1 mat-dialog-title>Экспорт</h1>
   <div mat-dialog-content>
     Экспортировать данные о клиентах в Excel файл ?
+  </div>
+  <div mat-dialog-actions align="end">
+    <button mat-button [mat-dialog-close]="true" cdkFocusInitial>Да</button>
+    <button mat-button mat-dialog-close>Нет</button>
+  </div>
+</ng-template>
+
+<ng-template #importDialogRef let-data>
+  <h1 mat-dialog-title>Импорт</h1>
+  <div mat-dialog-content>
+    Импортировать данные о клиентах из файла {{data.name}} ?
   </div>
   <div mat-dialog-actions align="end">
     <button mat-button [mat-dialog-close]="true" cdkFocusInitial>Да</button>
