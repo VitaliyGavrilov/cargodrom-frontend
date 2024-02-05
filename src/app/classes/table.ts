@@ -299,7 +299,13 @@ export abstract class Table<T extends { id: number }, A = never, F = never> impl
     const reader = new FileReader();
     reader.onload = (event) => {
       if (typeof event.target?.result === 'string') {
-        const data = window.btoa(event.target.result);
+        const base64URL = event.target?.result;
+        const suffix = `;base64,`;
+        const index = base64URL.indexOf(suffix);
+        const data = base64URL.substring(index + suffix.length);
+        console.log(`index`, index);
+        console.log(`base64URL`, base64URL);
+        console.log(`data`, data);
         const payload = {data, name: fileName};
         this.importData(payload).subscribe({
           next: ({import_key}) => {
@@ -320,7 +326,7 @@ export abstract class Table<T extends { id: number }, A = never, F = never> impl
         });
       }
     };
-    reader.readAsBinaryString(file);
+    reader.readAsDataURL(file);
   }
   
   private exportFile(): void {
