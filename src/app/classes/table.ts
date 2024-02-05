@@ -326,6 +326,7 @@ export abstract class Table<T extends { id: number }, A = never, F = never> impl
         });
       }
     }, false);
+    reader.addEventListener('error', () => this.snackBar.open(`Ошибка чтения файла ${fileName} `, undefined, this.snackBarWithShortDuration), false);
     reader.readAsDataURL(file);
   }
   
@@ -343,7 +344,11 @@ export abstract class Table<T extends { id: number }, A = never, F = never> impl
   }
   
   importFile(): void {
-    this.file?.nativeElement?.click();
+    const input = this.file?.nativeElement as HTMLInputElement | undefined;
+    if (input) {
+      input.value = '';
+      input.click();
+    }
   }
   
   selectFileForImport(): void {
