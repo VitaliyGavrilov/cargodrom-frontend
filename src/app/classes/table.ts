@@ -297,7 +297,7 @@ export abstract class Table<T extends { id: number }, A = never, F = never> impl
     }
     const fileName = file.name;
     const reader = new FileReader();
-    reader.onload = (event) => {
+    reader.addEventListener('load', (event) => {
       if (typeof event.target?.result === 'string') {
         const base64URL = event.target?.result;
         const suffix = `;base64,`;
@@ -306,14 +306,14 @@ export abstract class Table<T extends { id: number }, A = never, F = never> impl
         console.log(`index`, index);
         console.log(`base64URL`, base64URL);
         console.log(`data`, data);
-        const payload = {data, name: fileName};
+        const payload = { data, name: fileName };
         this.importData(payload).subscribe({
-          next: ({import_key}) => {
-            this.dialog.open(this.importDialogRef!, {data: payload}).afterClosed().subscribe(res => {
+          next: ({ import_key }) => {
+            this.dialog.open(this.importDialogRef!, { data: payload }).afterClosed().subscribe(res => {
               if (!res) {
                 return;
               }
-              this.importDataConfirm({import_key}).subscribe({
+              this.importDataConfirm({ import_key }).subscribe({
                 next: () => {
                   this.snackBar.open('Данные импортированы успешно', undefined, this.snackBarWithShortDuration);
                   this.onStartChange(0);
@@ -325,7 +325,7 @@ export abstract class Table<T extends { id: number }, A = never, F = never> impl
           error: (err) => this.snackBar.open(`Не удалось импортировать данные: ` + err.error.error_message, undefined, this.snackBarWithShortDuration)
         });
       }
-    };
+    }, false);
     reader.readAsDataURL(file);
   }
   
