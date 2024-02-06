@@ -40,7 +40,7 @@ export abstract class Table<T extends { id: number }, A = never, F = never> impl
   sortDir: 'asc' | 'desc' = 'asc';
   @ViewChild('removeDialogRef') removeDialogRef!: TemplateRef<T>;
   @ViewChild('exportDialogRef') exportDialogRef?: TemplateRef<void>;
-  @ViewChild('importDialogRef') importDialogRef?: TemplateRef<{file: File}>;
+  @ViewChild('importDialogRef') importDialogRef?: TemplateRef<{file: File, text: string}>;
   private aliases = new Map<A, (keyof T)[]>();
   
   @ViewChild('file', { static: true }) file?: ElementRef;
@@ -308,8 +308,8 @@ export abstract class Table<T extends { id: number }, A = never, F = never> impl
         console.log(`data`, data);
         const payload = { data, name: fileName };
         this.importData(payload).subscribe({
-          next: ({ import_key }) => {
-            this.dialog.open(this.importDialogRef!, { data: payload }).afterClosed().subscribe(res => {
+          next: ({ import_key, text }) => {
+            this.dialog.open(this.importDialogRef!, { data: {...payload, text} }).afterClosed().subscribe(res => {
               if (!res) {
                 return;
               }
