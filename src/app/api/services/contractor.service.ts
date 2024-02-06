@@ -7584,4 +7584,233 @@ export class ContractorService extends BaseService {
     );
   }
 
+  /** Path part for operation `contractorImport()` */
+  static readonly ContractorImportPath = '/contractor_import';
+
+  /**
+   * Импорт контрагентов в XLSX.
+   *
+   *
+   *
+   * This method provides access to the full `HttpResponse`, allowing access to response headers.
+   * To access only the response body, use `contractorImport()` instead.
+   *
+   * This method sends `application/json` and handles request body of type `application/json`.
+   */
+  contractorImport$Response(
+    params?: {
+      body?: {
+
+/**
+ * Наименование
+ */
+'name': string;
+
+/**
+ * Base64 строка файла
+ */
+'data': string;
+}
+    },
+    context?: HttpContext
+  ): Observable<StrictHttpResponse<{
+
+/**
+ * Код обновления
+ */
+'import_key'?: string;
+
+/**
+ * Текст обновления
+ */
+'text'?: string;
+}>> {
+    const rb = new RequestBuilder(this.rootUrl, ContractorService.ContractorImportPath, 'post');
+    if (params) {
+      rb.body(params.body, 'application/json');
+    }
+
+    return this.http.request(
+      rb.build({ responseType: 'json', accept: 'application/json', context })
+    ).pipe(
+      filter((r: any): r is HttpResponse<any> => r instanceof HttpResponse),
+      map((r: HttpResponse<any>) => {
+        return r as StrictHttpResponse<{
+        
+        /**
+         * Код обновления
+         */
+        'import_key'?: string;
+        
+        /**
+         * Текст обновления
+         */
+        'text'?: string;
+        }>;
+      })
+    );
+  }
+
+  /**
+   * Импорт контрагентов в XLSX.
+   *
+   *
+   *
+   * This method provides access only to the response body.
+   * To access the full response (for headers, for example), `contractorImport$Response()` instead.
+   *
+   * This method sends `application/json` and handles request body of type `application/json`.
+   */
+  contractorImport(
+    params?: {
+      body?: {
+
+/**
+ * Наименование
+ */
+'name': string;
+
+/**
+ * Base64 строка файла
+ */
+'data': string;
+}
+    },
+    context?: HttpContext
+  ): Observable<{
+
+/**
+ * Код обновления
+ */
+'import_key'?: string;
+
+/**
+ * Текст обновления
+ */
+'text'?: string;
+}> {
+    return this.contractorImport$Response(params, context).pipe(
+      map((r: StrictHttpResponse<{
+
+/**
+ * Код обновления
+ */
+'import_key'?: string;
+
+/**
+ * Текст обновления
+ */
+'text'?: string;
+}>): {
+
+/**
+ * Код обновления
+ */
+'import_key'?: string;
+
+/**
+ * Текст обновления
+ */
+'text'?: string;
+} => r.body)
+    );
+  }
+
+  /** Path part for operation `contractorImportConfirm()` */
+  static readonly ContractorImportConfirmPath = '/contractor_import_confirm';
+
+  /**
+   * Подтверждение импорта контрагентов в XLSX.
+   *
+   *
+   *
+   * This method provides access to the full `HttpResponse`, allowing access to response headers.
+   * To access only the response body, use `contractorImportConfirm()` instead.
+   *
+   * This method sends `application/json` and handles request body of type `application/json`.
+   */
+  contractorImportConfirm$Response(
+    params?: {
+      body?: {
+
+/**
+ * Код обновления
+ */
+'import_key'?: string;
+}
+    },
+    context?: HttpContext
+  ): Observable<StrictHttpResponse<{
+
+/**
+ * Статус выполнения
+ */
+'result': 'OK';
+}>> {
+    const rb = new RequestBuilder(this.rootUrl, ContractorService.ContractorImportConfirmPath, 'post');
+    if (params) {
+      rb.body(params.body, 'application/json');
+    }
+
+    return this.http.request(
+      rb.build({ responseType: 'json', accept: 'application/json', context })
+    ).pipe(
+      filter((r: any): r is HttpResponse<any> => r instanceof HttpResponse),
+      map((r: HttpResponse<any>) => {
+        return r as StrictHttpResponse<{
+        
+        /**
+         * Статус выполнения
+         */
+        'result': 'OK';
+        }>;
+      })
+    );
+  }
+
+  /**
+   * Подтверждение импорта контрагентов в XLSX.
+   *
+   *
+   *
+   * This method provides access only to the response body.
+   * To access the full response (for headers, for example), `contractorImportConfirm$Response()` instead.
+   *
+   * This method sends `application/json` and handles request body of type `application/json`.
+   */
+  contractorImportConfirm(
+    params?: {
+      body?: {
+
+/**
+ * Код обновления
+ */
+'import_key'?: string;
+}
+    },
+    context?: HttpContext
+  ): Observable<{
+
+/**
+ * Статус выполнения
+ */
+'result': 'OK';
+}> {
+    return this.contractorImportConfirm$Response(params, context).pipe(
+      map((r: StrictHttpResponse<{
+
+/**
+ * Статус выполнения
+ */
+'result': 'OK';
+}>): {
+
+/**
+ * Статус выполнения
+ */
+'result': 'OK';
+} => r.body)
+    );
+  }
+
 }

@@ -40,7 +40,7 @@ export abstract class Table<T extends { id: number }, A = never, F = never> impl
   sortDir: 'asc' | 'desc' = 'asc';
   @ViewChild('removeDialogRef') removeDialogRef!: TemplateRef<T>;
   @ViewChild('exportDialogRef') exportDialogRef?: TemplateRef<void>;
-  @ViewChild('importDialogRef') importDialogRef?: TemplateRef<{file: File}>;
+  @ViewChild('importDialogRef') importDialogRef?: TemplateRef<{file: File, text: string}>;
   private aliases = new Map<A, (keyof T)[]>();
   
   @ViewChild('file', { static: true }) file?: ElementRef;
@@ -270,8 +270,12 @@ export abstract class Table<T extends { id: number }, A = never, F = never> impl
     return NEVER;
   }
   
-  protected importData(payload: any): Observable<any> {
-    return of({});
+  protected importData(body: {data: string; name: string}): Observable<{import_key: string; text: string}> {
+    return NEVER;
+  }
+  
+  protected importDataConfirm(body: {import_key: string}): Observable<any> {
+    return NEVER;
   }
   
   confirmExport(): void {
@@ -286,31 +290,44 @@ export abstract class Table<T extends { id: number }, A = never, F = never> impl
     });
   }
 
-  private confirmImport(file: File): void {
+  private doImport(file: File): void {
     if (!this.importDialogRef) {
       console.log(`Не найден шаблон для подтверждения импорта из файла`);
       return;
     }
-    this.dialog.open(this.importDialogRef, {data: file}).afterClosed().subscribe(res => {
-      if (res) {
-        const fileName = file.name;
-        const reader = new FileReader();
-        reader.onload = (event) => {
-          if (typeof event.target?.result === 'string') {
-            const data = window.btoa(event.target.result);
-            const payload = {data, file: fileName};
-            this.importData(payload).subscribe({
-              next: () => {
-                this.snackBar.open('Данные импортированы успешно', undefined, this.snackBarWithShortDuration);
-                this.onStartChange(0);
-              },
-              error: err => this.snackBar.open(`Не удалось импортировать данные: ` + err.error.error_message, undefined, this.snackBarWithShortDuration)
+    const fileName = file.name;
+    const reader = new FileReader();
+    reader.addEventListener('load', (event) => {
+      if (typeof event.target?.result === 'string') {
+        const base64URL = event.target?.result;
+        const suffix = `;base64,`;
+        const index = base64URL.indexOf(suffix);
+        const data = base64URL.substring(index + suffix.length);
+        console.log(`index`, index);
+        console.log(`base64URL`, base64URL);
+        console.log(`data`, data);
+        const payload = { data, name: fileName };
+        this.importData(payload).subscribe({
+          next: ({ import_key, text }) => {
+            this.dialog.open(this.importDialogRef!, { data: {...payload, text} }).afterClosed().subscribe(res => {
+              if (!res) {
+                return;
+              }
+              this.importDataConfirm({ import_key }).subscribe({
+                next: () => {
+                  this.snackBar.open('Данные импортированы успешно', undefined, this.snackBarWithShortDuration);
+                  this.onStartChange(0);
+                },
+                error: (err) => this.snackBar.open(`Не удалось импортировать данные: ` + err.error.error_message, undefined, this.snackBarWithShortDuration)
+              });
             });
-          }
-        };
-        reader.readAsBinaryString(file);
+          },
+          error: (err) => this.snackBar.open(`Не удалось импортировать данные: ` + err.error.error_message, undefined, this.snackBarWithShortDuration)
+        });
       }
-    });
+    }, false);
+    reader.addEventListener('error', () => this.snackBar.open(`Ошибка чтения файла ${fileName} `, undefined, this.snackBarWithShortDuration), false);
+    reader.readAsDataURL(file);
   }
   
   private exportFile(): void {
@@ -327,7 +344,11 @@ export abstract class Table<T extends { id: number }, A = never, F = never> impl
   }
   
   importFile(): void {
-    this.file?.nativeElement?.click();
+    const input = this.file?.nativeElement as HTMLInputElement | undefined;
+    if (input) {
+      input.value = '';
+      input.click();
+    }
   }
   
   selectFileForImport(): void {
@@ -341,7 +362,9 @@ export abstract class Table<T extends { id: number }, A = never, F = never> impl
       this.snackBar.open('Слишком большой файл', undefined, this.snackBarWithShortDuration);
       return;
     }
-    this.confirmImport(file);
+    this.doImport(file);
   }
+  
+
 
 }

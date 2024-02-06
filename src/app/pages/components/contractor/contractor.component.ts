@@ -44,8 +44,12 @@ export class ContractorComponent extends Table<Contractor, 'trade_rating', Contr
     return this.contractorService.contractorExport(this.filter as any) as Observable<{data: string; name: string}>;
   }
   
-  protected override importData(payload: any): Observable<any> {
-    return of({});
+  protected override importData(body: {data: string; name: string}) {
+    return this.contractorService.contractorImport({body}) as any;
+  }
+  
+  protected override importDataConfirm(body: {import_key: string}) {
+    return this.contractorService.contractorImportConfirm({body});
   }
 
 }
