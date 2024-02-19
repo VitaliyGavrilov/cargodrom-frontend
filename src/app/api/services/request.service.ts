@@ -38,14 +38,64 @@ export class RequestService extends BaseService {
     params?: {
 
     /**
+     * Поиск запроса по номеру...
+     */
+      id?: string;
+
+    /**
+     * Статус запроса (ID берем из запроса - request_status)
+     */
+      status_id?: Array<string>;
+
+    /**
      * Вид запроса (ID берем из запроса - request_type)
      */
       request_type_id?: number;
 
     /**
-     * Статус CRM (ID берем из запроса - request_status)
+     * Статус CRM (ID берем из запроса - request_status_crm)
      */
-      status_id?: number;
+      status_crm_id?: Array<string>;
+
+    /**
+     * Страна отправления (ID берем из запроса - direction_country)
+     */
+      departure_country_id?: number;
+
+    /**
+     * Страна назначения (ID берем из запроса - direction_country)
+     */
+      arrival_country_id?: number;
+
+    /**
+     * Клиент (ID берем из запроса - customer_list)
+     */
+      customer_id?: number;
+
+    /**
+     * Подрядчик (ID берем из запроса - contractor_list)
+     */
+      contractor_id?: number;
+
+    /**
+     * Город отправления (ID берем из запроса - direction_city)
+     */
+      departure_city_id?: number;
+
+    /**
+     * Город назначения (ID берем из запроса - direction_city)
+     */
+      arrival_city_id?: number;
+
+    /**
+     * Сотрудник (ID берем из запроса - company_employee_list)
+     */
+      manager_executor_id?: number;
+
+    /**
+     * Вид перевозки (ID берем из запроса - transport_kind)
+     */
+      transport_kind_id?: number;
 
     /**
      * Начальная позиция
@@ -65,7 +115,7 @@ export class RequestService extends BaseService {
 /**
  * Поле
  */
-'field': 'id' | 'name' | 'order_count' | 'order_day_last' | 'order_delay_payment';
+'field': 'id' | 'time_add';
 
 /**
  * Направление сортировки
@@ -87,6 +137,11 @@ export class RequestService extends BaseService {
 'items'?: Array<{
 
 /**
+ * ID
+ */
+'id': number;
+
+/**
  * Клиент (ID берем из запроса - customer_list)
  */
 'customer_id'?: number;
@@ -95,6 +150,16 @@ export class RequestService extends BaseService {
  * Контрагент
  */
 'customer_name'?: string;
+
+/**
+ * Телефон контрагента
+ */
+'customer_phone'?: string;
+
+/**
+ * Email контрагента
+ */
+'customer_email'?: string;
 
 /**
  * Вид запроса (ID берем из запроса - request_type)
@@ -107,9 +172,19 @@ export class RequestService extends BaseService {
 'transport_kind_id'?: string;
 
 /**
+ * Вид перевозки
+ */
+'transport_kind_name'?: string;
+
+/**
  * Тип транспорта (ID берем из запроса - transport_type)
  */
 'transport_type_id'?: number;
+
+/**
+ * Тип транспорта
+ */
+'transport_type_name'?: number;
 
 /**
  * Наименование груза
@@ -335,6 +410,11 @@ export class RequestService extends BaseService {
 'incoterms_id'?: number;
 
 /**
+ * Условия поставки по Инкотермс
+ */
+'incoterms_name'?: string;
+
+/**
  * Город/Порт (ID берем из запроса - direction_city)
  */
 'incoterms_city_id'?: number;
@@ -343,6 +423,46 @@ export class RequestService extends BaseService {
  * Город/Порт
  */
 'incoterms_city_name'?: string;
+
+/**
+ * Ставки дали
+ */
+'rates'?: string;
+
+/**
+ * Минимальная ставка Подрядчик ID
+ */
+'rate_contractor_id'?: number;
+
+/**
+ * Минимальная ставка Подрядчик
+ */
+'rate_contractor_name'?: string;
+
+/**
+ * Минимальная ставка Срок, дней
+ */
+'rate_delivery_days'?: string;
+
+/**
+ * Минимальная ставка Сумма
+ */
+'rate_delivery_cost'?: string;
+
+/**
+ * Профит сумма
+ */
+'profit_amount'?: string;
+
+/**
+ * Профит процент
+ */
+'profit_percent'?: string;
+
+/**
+ * Ставка клиенту
+ */
+'bid_client'?: string;
 
 /**
  * Услуги включаемые в ставку (ID берем из запроса - request_services)
@@ -398,6 +518,11 @@ export class RequestService extends BaseService {
  * Ответственный исполнитель
  */
 'manager_executor_name'?: string;
+
+/**
+ * Дата создания
+ */
+'time_add'?: string;
 }>;
 
 /**
@@ -412,8 +537,18 @@ export class RequestService extends BaseService {
 }>> {
     const rb = new RequestBuilder(this.rootUrl, RequestService.RequestListPath, 'get');
     if (params) {
+      rb.query('id', params.id, {});
+      rb.query('status_id', params.status_id, {"style":"form","explode":false});
       rb.query('request_type_id', params.request_type_id, {});
-      rb.query('status_id', params.status_id, {});
+      rb.query('status_crm_id', params.status_crm_id, {"style":"form","explode":false});
+      rb.query('departure_country_id', params.departure_country_id, {});
+      rb.query('arrival_country_id', params.arrival_country_id, {});
+      rb.query('customer_id', params.customer_id, {});
+      rb.query('contractor_id', params.contractor_id, {});
+      rb.query('departure_city_id', params.departure_city_id, {});
+      rb.query('arrival_city_id', params.arrival_city_id, {});
+      rb.query('manager_executor_id', params.manager_executor_id, {});
+      rb.query('transport_kind_id', params.transport_kind_id, {});
       rb.query('start', params.start, {});
       rb.query('count', params.count, {});
       rb.query('sort', params.sort, {"style":"form","explode":false});
@@ -437,6 +572,11 @@ export class RequestService extends BaseService {
         'items'?: Array<{
         
         /**
+         * ID
+         */
+        'id': number;
+        
+        /**
          * Клиент (ID берем из запроса - customer_list)
          */
         'customer_id'?: number;
@@ -445,6 +585,16 @@ export class RequestService extends BaseService {
          * Контрагент
          */
         'customer_name'?: string;
+        
+        /**
+         * Телефон контрагента
+         */
+        'customer_phone'?: string;
+        
+        /**
+         * Email контрагента
+         */
+        'customer_email'?: string;
         
         /**
          * Вид запроса (ID берем из запроса - request_type)
@@ -457,9 +607,19 @@ export class RequestService extends BaseService {
         'transport_kind_id'?: string;
         
         /**
+         * Вид перевозки
+         */
+        'transport_kind_name'?: string;
+        
+        /**
          * Тип транспорта (ID берем из запроса - transport_type)
          */
         'transport_type_id'?: number;
+        
+        /**
+         * Тип транспорта
+         */
+        'transport_type_name'?: number;
         
         /**
          * Наименование груза
@@ -685,6 +845,11 @@ export class RequestService extends BaseService {
         'incoterms_id'?: number;
         
         /**
+         * Условия поставки по Инкотермс
+         */
+        'incoterms_name'?: string;
+        
+        /**
          * Город/Порт (ID берем из запроса - direction_city)
          */
         'incoterms_city_id'?: number;
@@ -693,6 +858,46 @@ export class RequestService extends BaseService {
          * Город/Порт
          */
         'incoterms_city_name'?: string;
+        
+        /**
+         * Ставки дали
+         */
+        'rates'?: string;
+        
+        /**
+         * Минимальная ставка Подрядчик ID
+         */
+        'rate_contractor_id'?: number;
+        
+        /**
+         * Минимальная ставка Подрядчик
+         */
+        'rate_contractor_name'?: string;
+        
+        /**
+         * Минимальная ставка Срок, дней
+         */
+        'rate_delivery_days'?: string;
+        
+        /**
+         * Минимальная ставка Сумма
+         */
+        'rate_delivery_cost'?: string;
+        
+        /**
+         * Профит сумма
+         */
+        'profit_amount'?: string;
+        
+        /**
+         * Профит процент
+         */
+        'profit_percent'?: string;
+        
+        /**
+         * Ставка клиенту
+         */
+        'bid_client'?: string;
         
         /**
          * Услуги включаемые в ставку (ID берем из запроса - request_services)
@@ -748,6 +953,11 @@ export class RequestService extends BaseService {
          * Ответственный исполнитель
          */
         'manager_executor_name'?: string;
+        
+        /**
+         * Дата создания
+         */
+        'time_add'?: string;
         }>;
         
         /**
@@ -778,14 +988,64 @@ export class RequestService extends BaseService {
     params?: {
 
     /**
+     * Поиск запроса по номеру...
+     */
+      id?: string;
+
+    /**
+     * Статус запроса (ID берем из запроса - request_status)
+     */
+      status_id?: Array<string>;
+
+    /**
      * Вид запроса (ID берем из запроса - request_type)
      */
       request_type_id?: number;
 
     /**
-     * Статус CRM (ID берем из запроса - request_status)
+     * Статус CRM (ID берем из запроса - request_status_crm)
      */
-      status_id?: number;
+      status_crm_id?: Array<string>;
+
+    /**
+     * Страна отправления (ID берем из запроса - direction_country)
+     */
+      departure_country_id?: number;
+
+    /**
+     * Страна назначения (ID берем из запроса - direction_country)
+     */
+      arrival_country_id?: number;
+
+    /**
+     * Клиент (ID берем из запроса - customer_list)
+     */
+      customer_id?: number;
+
+    /**
+     * Подрядчик (ID берем из запроса - contractor_list)
+     */
+      contractor_id?: number;
+
+    /**
+     * Город отправления (ID берем из запроса - direction_city)
+     */
+      departure_city_id?: number;
+
+    /**
+     * Город назначения (ID берем из запроса - direction_city)
+     */
+      arrival_city_id?: number;
+
+    /**
+     * Сотрудник (ID берем из запроса - company_employee_list)
+     */
+      manager_executor_id?: number;
+
+    /**
+     * Вид перевозки (ID берем из запроса - transport_kind)
+     */
+      transport_kind_id?: number;
 
     /**
      * Начальная позиция
@@ -805,7 +1065,7 @@ export class RequestService extends BaseService {
 /**
  * Поле
  */
-'field': 'id' | 'name' | 'order_count' | 'order_day_last' | 'order_delay_payment';
+'field': 'id' | 'time_add';
 
 /**
  * Направление сортировки
@@ -827,6 +1087,11 @@ export class RequestService extends BaseService {
 'items'?: Array<{
 
 /**
+ * ID
+ */
+'id': number;
+
+/**
  * Клиент (ID берем из запроса - customer_list)
  */
 'customer_id'?: number;
@@ -835,6 +1100,16 @@ export class RequestService extends BaseService {
  * Контрагент
  */
 'customer_name'?: string;
+
+/**
+ * Телефон контрагента
+ */
+'customer_phone'?: string;
+
+/**
+ * Email контрагента
+ */
+'customer_email'?: string;
 
 /**
  * Вид запроса (ID берем из запроса - request_type)
@@ -847,9 +1122,19 @@ export class RequestService extends BaseService {
 'transport_kind_id'?: string;
 
 /**
+ * Вид перевозки
+ */
+'transport_kind_name'?: string;
+
+/**
  * Тип транспорта (ID берем из запроса - transport_type)
  */
 'transport_type_id'?: number;
+
+/**
+ * Тип транспорта
+ */
+'transport_type_name'?: number;
 
 /**
  * Наименование груза
@@ -1075,6 +1360,11 @@ export class RequestService extends BaseService {
 'incoterms_id'?: number;
 
 /**
+ * Условия поставки по Инкотермс
+ */
+'incoterms_name'?: string;
+
+/**
  * Город/Порт (ID берем из запроса - direction_city)
  */
 'incoterms_city_id'?: number;
@@ -1083,6 +1373,46 @@ export class RequestService extends BaseService {
  * Город/Порт
  */
 'incoterms_city_name'?: string;
+
+/**
+ * Ставки дали
+ */
+'rates'?: string;
+
+/**
+ * Минимальная ставка Подрядчик ID
+ */
+'rate_contractor_id'?: number;
+
+/**
+ * Минимальная ставка Подрядчик
+ */
+'rate_contractor_name'?: string;
+
+/**
+ * Минимальная ставка Срок, дней
+ */
+'rate_delivery_days'?: string;
+
+/**
+ * Минимальная ставка Сумма
+ */
+'rate_delivery_cost'?: string;
+
+/**
+ * Профит сумма
+ */
+'profit_amount'?: string;
+
+/**
+ * Профит процент
+ */
+'profit_percent'?: string;
+
+/**
+ * Ставка клиенту
+ */
+'bid_client'?: string;
 
 /**
  * Услуги включаемые в ставку (ID берем из запроса - request_services)
@@ -1138,6 +1468,11 @@ export class RequestService extends BaseService {
  * Ответственный исполнитель
  */
 'manager_executor_name'?: string;
+
+/**
+ * Дата создания
+ */
+'time_add'?: string;
 }>;
 
 /**
@@ -1164,6 +1499,11 @@ export class RequestService extends BaseService {
 'items'?: Array<{
 
 /**
+ * ID
+ */
+'id': number;
+
+/**
  * Клиент (ID берем из запроса - customer_list)
  */
 'customer_id'?: number;
@@ -1172,6 +1512,16 @@ export class RequestService extends BaseService {
  * Контрагент
  */
 'customer_name'?: string;
+
+/**
+ * Телефон контрагента
+ */
+'customer_phone'?: string;
+
+/**
+ * Email контрагента
+ */
+'customer_email'?: string;
 
 /**
  * Вид запроса (ID берем из запроса - request_type)
@@ -1184,9 +1534,19 @@ export class RequestService extends BaseService {
 'transport_kind_id'?: string;
 
 /**
+ * Вид перевозки
+ */
+'transport_kind_name'?: string;
+
+/**
  * Тип транспорта (ID берем из запроса - transport_type)
  */
 'transport_type_id'?: number;
+
+/**
+ * Тип транспорта
+ */
+'transport_type_name'?: number;
 
 /**
  * Наименование груза
@@ -1412,6 +1772,11 @@ export class RequestService extends BaseService {
 'incoterms_id'?: number;
 
 /**
+ * Условия поставки по Инкотермс
+ */
+'incoterms_name'?: string;
+
+/**
  * Город/Порт (ID берем из запроса - direction_city)
  */
 'incoterms_city_id'?: number;
@@ -1420,6 +1785,46 @@ export class RequestService extends BaseService {
  * Город/Порт
  */
 'incoterms_city_name'?: string;
+
+/**
+ * Ставки дали
+ */
+'rates'?: string;
+
+/**
+ * Минимальная ставка Подрядчик ID
+ */
+'rate_contractor_id'?: number;
+
+/**
+ * Минимальная ставка Подрядчик
+ */
+'rate_contractor_name'?: string;
+
+/**
+ * Минимальная ставка Срок, дней
+ */
+'rate_delivery_days'?: string;
+
+/**
+ * Минимальная ставка Сумма
+ */
+'rate_delivery_cost'?: string;
+
+/**
+ * Профит сумма
+ */
+'profit_amount'?: string;
+
+/**
+ * Профит процент
+ */
+'profit_percent'?: string;
+
+/**
+ * Ставка клиенту
+ */
+'bid_client'?: string;
 
 /**
  * Услуги включаемые в ставку (ID берем из запроса - request_services)
@@ -1475,6 +1880,11 @@ export class RequestService extends BaseService {
  * Ответственный исполнитель
  */
 'manager_executor_name'?: string;
+
+/**
+ * Дата создания
+ */
+'time_add'?: string;
 }>;
 
 /**
@@ -1499,6 +1909,11 @@ export class RequestService extends BaseService {
 'items'?: Array<{
 
 /**
+ * ID
+ */
+'id': number;
+
+/**
  * Клиент (ID берем из запроса - customer_list)
  */
 'customer_id'?: number;
@@ -1507,6 +1922,16 @@ export class RequestService extends BaseService {
  * Контрагент
  */
 'customer_name'?: string;
+
+/**
+ * Телефон контрагента
+ */
+'customer_phone'?: string;
+
+/**
+ * Email контрагента
+ */
+'customer_email'?: string;
 
 /**
  * Вид запроса (ID берем из запроса - request_type)
@@ -1519,9 +1944,19 @@ export class RequestService extends BaseService {
 'transport_kind_id'?: string;
 
 /**
+ * Вид перевозки
+ */
+'transport_kind_name'?: string;
+
+/**
  * Тип транспорта (ID берем из запроса - transport_type)
  */
 'transport_type_id'?: number;
+
+/**
+ * Тип транспорта
+ */
+'transport_type_name'?: number;
 
 /**
  * Наименование груза
@@ -1747,6 +2182,11 @@ export class RequestService extends BaseService {
 'incoterms_id'?: number;
 
 /**
+ * Условия поставки по Инкотермс
+ */
+'incoterms_name'?: string;
+
+/**
  * Город/Порт (ID берем из запроса - direction_city)
  */
 'incoterms_city_id'?: number;
@@ -1755,6 +2195,46 @@ export class RequestService extends BaseService {
  * Город/Порт
  */
 'incoterms_city_name'?: string;
+
+/**
+ * Ставки дали
+ */
+'rates'?: string;
+
+/**
+ * Минимальная ставка Подрядчик ID
+ */
+'rate_contractor_id'?: number;
+
+/**
+ * Минимальная ставка Подрядчик
+ */
+'rate_contractor_name'?: string;
+
+/**
+ * Минимальная ставка Срок, дней
+ */
+'rate_delivery_days'?: string;
+
+/**
+ * Минимальная ставка Сумма
+ */
+'rate_delivery_cost'?: string;
+
+/**
+ * Профит сумма
+ */
+'profit_amount'?: string;
+
+/**
+ * Профит процент
+ */
+'profit_percent'?: string;
+
+/**
+ * Ставка клиенту
+ */
+'bid_client'?: string;
 
 /**
  * Услуги включаемые в ставку (ID берем из запроса - request_services)
@@ -1810,6 +2290,11 @@ export class RequestService extends BaseService {
  * Ответственный исполнитель
  */
 'manager_executor_name'?: string;
+
+/**
+ * Дата создания
+ */
+'time_add'?: string;
 }>;
 
 /**
@@ -2537,6 +3022,11 @@ export class RequestService extends BaseService {
   ): Observable<StrictHttpResponse<{
 
 /**
+ * ID
+ */
+'id': number;
+
+/**
  * Клиент (ID берем из запроса - customer_list)
  */
 'customer_id'?: number;
@@ -2545,6 +3035,16 @@ export class RequestService extends BaseService {
  * Контрагент
  */
 'customer_name'?: string;
+
+/**
+ * Телефон контрагента
+ */
+'customer_phone'?: string;
+
+/**
+ * Email контрагента
+ */
+'customer_email'?: string;
 
 /**
  * Вид запроса (ID берем из запроса - request_type)
@@ -2557,9 +3057,19 @@ export class RequestService extends BaseService {
 'transport_kind_id'?: string;
 
 /**
+ * Вид перевозки
+ */
+'transport_kind_name'?: string;
+
+/**
  * Тип транспорта (ID берем из запроса - transport_type)
  */
 'transport_type_id'?: number;
+
+/**
+ * Тип транспорта
+ */
+'transport_type_name'?: number;
 
 /**
  * Наименование груза
@@ -2785,6 +3295,11 @@ export class RequestService extends BaseService {
 'incoterms_id'?: number;
 
 /**
+ * Условия поставки по Инкотермс
+ */
+'incoterms_name'?: string;
+
+/**
  * Город/Порт (ID берем из запроса - direction_city)
  */
 'incoterms_city_id'?: number;
@@ -2793,6 +3308,46 @@ export class RequestService extends BaseService {
  * Город/Порт
  */
 'incoterms_city_name'?: string;
+
+/**
+ * Ставки дали
+ */
+'rates'?: string;
+
+/**
+ * Минимальная ставка Подрядчик ID
+ */
+'rate_contractor_id'?: number;
+
+/**
+ * Минимальная ставка Подрядчик
+ */
+'rate_contractor_name'?: string;
+
+/**
+ * Минимальная ставка Срок, дней
+ */
+'rate_delivery_days'?: string;
+
+/**
+ * Минимальная ставка Сумма
+ */
+'rate_delivery_cost'?: string;
+
+/**
+ * Профит сумма
+ */
+'profit_amount'?: string;
+
+/**
+ * Профит процент
+ */
+'profit_percent'?: string;
+
+/**
+ * Ставка клиенту
+ */
+'bid_client'?: string;
 
 /**
  * Услуги включаемые в ставку (ID берем из запроса - request_services)
@@ -2850,6 +3405,11 @@ export class RequestService extends BaseService {
 'manager_executor_name'?: string;
 
 /**
+ * Дата создания
+ */
+'time_add'?: string;
+
+/**
  * Документы (файлы)
  */
 'documents_file'?: {
@@ -2868,6 +3428,11 @@ export class RequestService extends BaseService {
         return r as StrictHttpResponse<{
         
         /**
+         * ID
+         */
+        'id': number;
+        
+        /**
          * Клиент (ID берем из запроса - customer_list)
          */
         'customer_id'?: number;
@@ -2876,6 +3441,16 @@ export class RequestService extends BaseService {
          * Контрагент
          */
         'customer_name'?: string;
+        
+        /**
+         * Телефон контрагента
+         */
+        'customer_phone'?: string;
+        
+        /**
+         * Email контрагента
+         */
+        'customer_email'?: string;
         
         /**
          * Вид запроса (ID берем из запроса - request_type)
@@ -2888,9 +3463,19 @@ export class RequestService extends BaseService {
         'transport_kind_id'?: string;
         
         /**
+         * Вид перевозки
+         */
+        'transport_kind_name'?: string;
+        
+        /**
          * Тип транспорта (ID берем из запроса - transport_type)
          */
         'transport_type_id'?: number;
+        
+        /**
+         * Тип транспорта
+         */
+        'transport_type_name'?: number;
         
         /**
          * Наименование груза
@@ -3116,6 +3701,11 @@ export class RequestService extends BaseService {
         'incoterms_id'?: number;
         
         /**
+         * Условия поставки по Инкотермс
+         */
+        'incoterms_name'?: string;
+        
+        /**
          * Город/Порт (ID берем из запроса - direction_city)
          */
         'incoterms_city_id'?: number;
@@ -3124,6 +3714,46 @@ export class RequestService extends BaseService {
          * Город/Порт
          */
         'incoterms_city_name'?: string;
+        
+        /**
+         * Ставки дали
+         */
+        'rates'?: string;
+        
+        /**
+         * Минимальная ставка Подрядчик ID
+         */
+        'rate_contractor_id'?: number;
+        
+        /**
+         * Минимальная ставка Подрядчик
+         */
+        'rate_contractor_name'?: string;
+        
+        /**
+         * Минимальная ставка Срок, дней
+         */
+        'rate_delivery_days'?: string;
+        
+        /**
+         * Минимальная ставка Сумма
+         */
+        'rate_delivery_cost'?: string;
+        
+        /**
+         * Профит сумма
+         */
+        'profit_amount'?: string;
+        
+        /**
+         * Профит процент
+         */
+        'profit_percent'?: string;
+        
+        /**
+         * Ставка клиенту
+         */
+        'bid_client'?: string;
         
         /**
          * Услуги включаемые в ставку (ID берем из запроса - request_services)
@@ -3181,6 +3811,11 @@ export class RequestService extends BaseService {
         'manager_executor_name'?: string;
         
         /**
+         * Дата создания
+         */
+        'time_add'?: string;
+        
+        /**
          * Документы (файлы)
          */
         'documents_file'?: {
@@ -3212,6 +3847,11 @@ export class RequestService extends BaseService {
   ): Observable<{
 
 /**
+ * ID
+ */
+'id': number;
+
+/**
  * Клиент (ID берем из запроса - customer_list)
  */
 'customer_id'?: number;
@@ -3220,6 +3860,16 @@ export class RequestService extends BaseService {
  * Контрагент
  */
 'customer_name'?: string;
+
+/**
+ * Телефон контрагента
+ */
+'customer_phone'?: string;
+
+/**
+ * Email контрагента
+ */
+'customer_email'?: string;
 
 /**
  * Вид запроса (ID берем из запроса - request_type)
@@ -3232,9 +3882,19 @@ export class RequestService extends BaseService {
 'transport_kind_id'?: string;
 
 /**
+ * Вид перевозки
+ */
+'transport_kind_name'?: string;
+
+/**
  * Тип транспорта (ID берем из запроса - transport_type)
  */
 'transport_type_id'?: number;
+
+/**
+ * Тип транспорта
+ */
+'transport_type_name'?: number;
 
 /**
  * Наименование груза
@@ -3460,6 +4120,11 @@ export class RequestService extends BaseService {
 'incoterms_id'?: number;
 
 /**
+ * Условия поставки по Инкотермс
+ */
+'incoterms_name'?: string;
+
+/**
  * Город/Порт (ID берем из запроса - direction_city)
  */
 'incoterms_city_id'?: number;
@@ -3468,6 +4133,46 @@ export class RequestService extends BaseService {
  * Город/Порт
  */
 'incoterms_city_name'?: string;
+
+/**
+ * Ставки дали
+ */
+'rates'?: string;
+
+/**
+ * Минимальная ставка Подрядчик ID
+ */
+'rate_contractor_id'?: number;
+
+/**
+ * Минимальная ставка Подрядчик
+ */
+'rate_contractor_name'?: string;
+
+/**
+ * Минимальная ставка Срок, дней
+ */
+'rate_delivery_days'?: string;
+
+/**
+ * Минимальная ставка Сумма
+ */
+'rate_delivery_cost'?: string;
+
+/**
+ * Профит сумма
+ */
+'profit_amount'?: string;
+
+/**
+ * Профит процент
+ */
+'profit_percent'?: string;
+
+/**
+ * Ставка клиенту
+ */
+'bid_client'?: string;
 
 /**
  * Услуги включаемые в ставку (ID берем из запроса - request_services)
@@ -3523,6 +4228,11 @@ export class RequestService extends BaseService {
  * Ответственный исполнитель
  */
 'manager_executor_name'?: string;
+
+/**
+ * Дата создания
+ */
+'time_add'?: string;
 
 /**
  * Документы (файлы)
@@ -3534,6 +4244,11 @@ export class RequestService extends BaseService {
       map((r: StrictHttpResponse<{
 
 /**
+ * ID
+ */
+'id': number;
+
+/**
  * Клиент (ID берем из запроса - customer_list)
  */
 'customer_id'?: number;
@@ -3542,6 +4257,16 @@ export class RequestService extends BaseService {
  * Контрагент
  */
 'customer_name'?: string;
+
+/**
+ * Телефон контрагента
+ */
+'customer_phone'?: string;
+
+/**
+ * Email контрагента
+ */
+'customer_email'?: string;
 
 /**
  * Вид запроса (ID берем из запроса - request_type)
@@ -3554,9 +4279,19 @@ export class RequestService extends BaseService {
 'transport_kind_id'?: string;
 
 /**
+ * Вид перевозки
+ */
+'transport_kind_name'?: string;
+
+/**
  * Тип транспорта (ID берем из запроса - transport_type)
  */
 'transport_type_id'?: number;
+
+/**
+ * Тип транспорта
+ */
+'transport_type_name'?: number;
 
 /**
  * Наименование груза
@@ -3782,6 +4517,11 @@ export class RequestService extends BaseService {
 'incoterms_id'?: number;
 
 /**
+ * Условия поставки по Инкотермс
+ */
+'incoterms_name'?: string;
+
+/**
  * Город/Порт (ID берем из запроса - direction_city)
  */
 'incoterms_city_id'?: number;
@@ -3790,6 +4530,46 @@ export class RequestService extends BaseService {
  * Город/Порт
  */
 'incoterms_city_name'?: string;
+
+/**
+ * Ставки дали
+ */
+'rates'?: string;
+
+/**
+ * Минимальная ставка Подрядчик ID
+ */
+'rate_contractor_id'?: number;
+
+/**
+ * Минимальная ставка Подрядчик
+ */
+'rate_contractor_name'?: string;
+
+/**
+ * Минимальная ставка Срок, дней
+ */
+'rate_delivery_days'?: string;
+
+/**
+ * Минимальная ставка Сумма
+ */
+'rate_delivery_cost'?: string;
+
+/**
+ * Профит сумма
+ */
+'profit_amount'?: string;
+
+/**
+ * Профит процент
+ */
+'profit_percent'?: string;
+
+/**
+ * Ставка клиенту
+ */
+'bid_client'?: string;
 
 /**
  * Услуги включаемые в ставку (ID берем из запроса - request_services)
@@ -3845,6 +4625,11 @@ export class RequestService extends BaseService {
  * Ответственный исполнитель
  */
 'manager_executor_name'?: string;
+
+/**
+ * Дата создания
+ */
+'time_add'?: string;
 
 /**
  * Документы (файлы)
@@ -3854,6 +4639,11 @@ export class RequestService extends BaseService {
 }>): {
 
 /**
+ * ID
+ */
+'id': number;
+
+/**
  * Клиент (ID берем из запроса - customer_list)
  */
 'customer_id'?: number;
@@ -3862,6 +4652,16 @@ export class RequestService extends BaseService {
  * Контрагент
  */
 'customer_name'?: string;
+
+/**
+ * Телефон контрагента
+ */
+'customer_phone'?: string;
+
+/**
+ * Email контрагента
+ */
+'customer_email'?: string;
 
 /**
  * Вид запроса (ID берем из запроса - request_type)
@@ -3874,9 +4674,19 @@ export class RequestService extends BaseService {
 'transport_kind_id'?: string;
 
 /**
+ * Вид перевозки
+ */
+'transport_kind_name'?: string;
+
+/**
  * Тип транспорта (ID берем из запроса - transport_type)
  */
 'transport_type_id'?: number;
+
+/**
+ * Тип транспорта
+ */
+'transport_type_name'?: number;
 
 /**
  * Наименование груза
@@ -4102,6 +4912,11 @@ export class RequestService extends BaseService {
 'incoterms_id'?: number;
 
 /**
+ * Условия поставки по Инкотермс
+ */
+'incoterms_name'?: string;
+
+/**
  * Город/Порт (ID берем из запроса - direction_city)
  */
 'incoterms_city_id'?: number;
@@ -4110,6 +4925,46 @@ export class RequestService extends BaseService {
  * Город/Порт
  */
 'incoterms_city_name'?: string;
+
+/**
+ * Ставки дали
+ */
+'rates'?: string;
+
+/**
+ * Минимальная ставка Подрядчик ID
+ */
+'rate_contractor_id'?: number;
+
+/**
+ * Минимальная ставка Подрядчик
+ */
+'rate_contractor_name'?: string;
+
+/**
+ * Минимальная ставка Срок, дней
+ */
+'rate_delivery_days'?: string;
+
+/**
+ * Минимальная ставка Сумма
+ */
+'rate_delivery_cost'?: string;
+
+/**
+ * Профит сумма
+ */
+'profit_amount'?: string;
+
+/**
+ * Профит процент
+ */
+'profit_percent'?: string;
+
+/**
+ * Ставка клиенту
+ */
+'bid_client'?: string;
 
 /**
  * Услуги включаемые в ставку (ID берем из запроса - request_services)
@@ -4165,6 +5020,11 @@ export class RequestService extends BaseService {
  * Ответственный исполнитель
  */
 'manager_executor_name'?: string;
+
+/**
+ * Дата создания
+ */
+'time_add'?: string;
 
 /**
  * Документы (файлы)
@@ -4211,6 +5071,11 @@ export class RequestService extends BaseService {
  * Тип транспорта (ID берем из запроса - transport_type)
  */
 'transport_type_id': number;
+
+/**
+ * Тип транспорта
+ */
+'transport_type_name'?: number;
 
 /**
  * Наименование груза
@@ -4398,6 +5263,11 @@ export class RequestService extends BaseService {
  * Условия поставки по Инкотермс (ID берем из запроса - request_incoterms)
  */
 'incoterms_id'?: number;
+
+/**
+ * Условия поставки по Инкотермс
+ */
+'incoterms_name'?: string;
 
 /**
  * Город/Порт (ID берем из запроса - direction_city)
@@ -4494,6 +5364,11 @@ export class RequestService extends BaseService {
 'transport_type_id': number;
 
 /**
+ * Тип транспорта
+ */
+'transport_type_name'?: number;
+
+/**
  * Наименование груза
  */
 'cargo_description': string;
@@ -4681,6 +5556,11 @@ export class RequestService extends BaseService {
 'incoterms_id'?: number;
 
 /**
+ * Условия поставки по Инкотермс
+ */
+'incoterms_name'?: string;
+
+/**
  * Город/Порт (ID берем из запроса - direction_city)
  */
 'incoterms_city_id'?: number;
@@ -4759,7 +5639,7 @@ export class RequestService extends BaseService {
       body?: {
 
 /**
- * ID запроса
+ * ID
  */
 'id': number;
 
@@ -4782,6 +5662,11 @@ export class RequestService extends BaseService {
  * Тип транспорта (ID берем из запроса - transport_type)
  */
 'transport_type_id'?: number;
+
+/**
+ * Тип транспорта
+ */
+'transport_type_name'?: number;
 
 /**
  * Наименование груза
@@ -4969,6 +5854,11 @@ export class RequestService extends BaseService {
  * Условия поставки по Инкотермс (ID берем из запроса - request_incoterms)
  */
 'incoterms_id'?: number;
+
+/**
+ * Условия поставки по Инкотермс
+ */
+'incoterms_name'?: string;
 
 /**
  * Город/Порт (ID берем из запроса - direction_city)
@@ -5045,7 +5935,7 @@ export class RequestService extends BaseService {
       body?: {
 
 /**
- * ID запроса
+ * ID
  */
 'id': number;
 
@@ -5068,6 +5958,11 @@ export class RequestService extends BaseService {
  * Тип транспорта (ID берем из запроса - transport_type)
  */
 'transport_type_id'?: number;
+
+/**
+ * Тип транспорта
+ */
+'transport_type_name'?: number;
 
 /**
  * Наименование груза
@@ -5255,6 +6150,11 @@ export class RequestService extends BaseService {
  * Условия поставки по Инкотермс (ID берем из запроса - request_incoterms)
  */
 'incoterms_id'?: number;
+
+/**
+ * Условия поставки по Инкотермс
+ */
+'incoterms_name'?: string;
 
 /**
  * Город/Порт (ID берем из запроса - direction_city)

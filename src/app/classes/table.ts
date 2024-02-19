@@ -22,9 +22,9 @@ export abstract class Table<T extends { id: number }, A = never, F = never> impl
   filter?: F;
   column?: string[];
   sortableColumns?: string[];
-  
+
   readonly xlsxMimeType = 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet';
- 
+
   protected abstract load<T>(params: LoadParams<T, F>): Observable<{ total: number, items: T[], column?: string[], sort?: string[] }>;
 
   protected removedMessage: string = 'Запись удалена';
@@ -42,7 +42,7 @@ export abstract class Table<T extends { id: number }, A = never, F = never> impl
   @ViewChild('exportDialogRef') exportDialogRef?: TemplateRef<void>;
   @ViewChild('importDialogRef') importDialogRef?: TemplateRef<{file: File, text: string}>;
   private aliases = new Map<A, (keyof T)[]>();
-  
+
   @ViewChild('file', { static: true }) file?: ElementRef;
 
   constructor(
@@ -265,32 +265,41 @@ export abstract class Table<T extends { id: number }, A = never, F = never> impl
   registerAlias(alias: A, fields: (keyof T)[]): void {
     this.aliases.set(alias, fields);
   }
-  
+
   protected exportData(): Observable<{data: string; name: string}> {
     return NEVER;
   }
-  
-  protected importData(body: {data: string; name: string}): Observable<{import_key: string; text: string}> {
+
+  protected importData(body: {data: string; name: string}): Observable<{result: any;import_key: string; text: string}> {
     return NEVER;
   }
-  
+
   protected importDataConfirm(body: {import_key: string}): Observable<any> {
     return NEVER;
   }
-  
+
+  protected importResult(body: {import_key: string}): Observable<any> {
+    return NEVER;
+  }
+
   confirmExport(): void {
     if (!this.exportDialogRef) {
       console.log(`Не найден шаблон для подтверждения экспорта в файл`);
       return;
     }
     this.dialog.open(this.exportDialogRef).afterClosed().subscribe(res => {
+
+
       if (res) {
         this.exportFile();
+console.log('окно экспорт');
       }
     });
   }
 
   private doImport(file: File): void {
+    console.log(file);
+
     if (!this.importDialogRef) {
       console.log(`Не найден шаблон для подтверждения импорта из файла`);
       return;
@@ -308,9 +317,24 @@ export abstract class Table<T extends { id: number }, A = never, F = never> impl
         console.log(`data`, data);
         const payload = { data, name: fileName };
         this.importData(payload).subscribe({
-          next: ({ import_key, text }) => {
-            this.dialog.open(this.importDialogRef!, { data: {...payload, text} }).afterClosed().subscribe(res => {
+          // next: ({ import_key, text }) => {
+          next: (e) => {
+            console.log(e);
+            const text =e.text;
+            const res =e.result;
+            const import_key=e.import_key;
+            this.dialog.open(this.importDialogRef!, { data: {...payload, text, res} }).afterClosed().subscribe(res => {
               if (!res) {
+                this.importResult({ import_key }).subscribe({
+                  next: ({name, data}) => {
+                    const dataUri = `data:${this.xlsxMimeType};base64,${data}`;
+                    const a = document.createElement('a');
+                    a.href = dataUri;
+                    a.download = name;
+                    a.click();
+                  },
+                  error: (err) => this.snackBar.open(`Не удалось скачать файл с результатами обработки: ` + err.error.error_message, undefined, this.snackBarWithShortDuration)
+                });
                 return;
               }
               this.importDataConfirm({ import_key }).subscribe({
@@ -329,7 +353,7 @@ export abstract class Table<T extends { id: number }, A = never, F = never> impl
     reader.addEventListener('error', () => this.snackBar.open(`Ошибка чтения файла ${fileName} `, undefined, this.snackBarWithShortDuration), false);
     reader.readAsDataURL(file);
   }
-  
+
   private exportFile(): void {
     this.exportData().subscribe({
       next: ({name, data}) => {
@@ -342,7 +366,7 @@ export abstract class Table<T extends { id: number }, A = never, F = never> impl
       error: err => this.snackBar.open(`Не удалось экспортировать данные: ` + err.error?.error_message, undefined, this.snackBarWithShortDuration)
     })
   }
-  
+
   importFile(): void {
     const input = this.file?.nativeElement as HTMLInputElement | undefined;
     if (input) {
@@ -350,7 +374,7 @@ export abstract class Table<T extends { id: number }, A = never, F = never> impl
       input.click();
     }
   }
-  
+
   selectFileForImport(): void {
     const files = this.file?.nativeElement.files as File[] | undefined;
     const file = files?.[0];
@@ -364,7 +388,7 @@ export abstract class Table<T extends { id: number }, A = never, F = never> impl
     }
     this.doImport(file);
   }
-  
+
 
 
 }

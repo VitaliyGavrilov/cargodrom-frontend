@@ -123,7 +123,7 @@
 </div>
 <app-paginator [total]="total" [count]="count" [start]="start" [limits]="limits" (startChange)="onStartChange($event)"
   (countChange)="onCountChange($event)"></app-paginator>
-  
+
 <ng-template #exportDialogRef let-data>
   <h1 mat-dialog-title>Экспорт</h1>
   <div mat-dialog-content>
@@ -139,10 +139,14 @@
   <h1 mat-dialog-title>Импорт</h1>
   <div mat-dialog-content>
     Импортировать данные о подрядчиках из файла {{data.name}} ?
-    {{ data.text }}
+  </div>
+  <div mat-dialog-content>
+    {{ data.res.error.text }}
   </div>
   <div mat-dialog-actions align="end">
-    <button mat-button [mat-dialog-close]="true" cdkFocusInitial>Да</button>
-    <button mat-button mat-dialog-close>Нет</button>
+    <button mat-button [mat-dialog-close]="true" cdkFocusInitial>Сохранить данные</button>
+    <button mat-button mat-dialog-close>Скачать файл с результатами обработки</button>
+
+
   </div>
 </ng-template>

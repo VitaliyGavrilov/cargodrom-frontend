@@ -174,7 +174,7 @@ export class ContractorService extends BaseService {
 /**
  * Вид подрядчика (ID берем из запроса - contractor_type)
  */
-'type_id'?: number;
+'type_id'?: string;
 
 /**
  * Членство в ассоциациях
@@ -544,7 +544,7 @@ export class ContractorService extends BaseService {
         /**
          * Вид подрядчика (ID берем из запроса - contractor_type)
          */
-        'type_id'?: number;
+        'type_id'?: string;
         
         /**
          * Членство в ассоциациях
@@ -970,7 +970,7 @@ export class ContractorService extends BaseService {
 /**
  * Вид подрядчика (ID берем из запроса - contractor_type)
  */
-'type_id'?: number;
+'type_id'?: string;
 
 /**
  * Членство в ассоциациях
@@ -1323,7 +1323,7 @@ export class ContractorService extends BaseService {
 /**
  * Вид подрядчика (ID берем из запроса - contractor_type)
  */
-'type_id'?: number;
+'type_id'?: string;
 
 /**
  * Членство в ассоциациях
@@ -1674,7 +1674,7 @@ export class ContractorService extends BaseService {
 /**
  * Вид подрядчика (ID берем из запроса - contractor_type)
  */
-'type_id'?: number;
+'type_id'?: string;
 
 /**
  * Членство в ассоциациях
@@ -2728,7 +2728,7 @@ export class ContractorService extends BaseService {
 /**
  * Вид подрядчика (ID берем из запроса - contractor_type)
  */
-'type_id'?: number;
+'type_id'?: string;
 
 /**
  * Членство в ассоциациях
@@ -3069,7 +3069,7 @@ export class ContractorService extends BaseService {
         /**
          * Вид подрядчика (ID берем из запроса - contractor_type)
          */
-        'type_id'?: number;
+        'type_id'?: string;
         
         /**
          * Членство в ассоциациях
@@ -3423,7 +3423,7 @@ export class ContractorService extends BaseService {
 /**
  * Вид подрядчика (ID берем из запроса - contractor_type)
  */
-'type_id'?: number;
+'type_id'?: string;
 
 /**
  * Членство в ассоциациях
@@ -3755,7 +3755,7 @@ export class ContractorService extends BaseService {
 /**
  * Вид подрядчика (ID берем из запроса - contractor_type)
  */
-'type_id'?: number;
+'type_id'?: string;
 
 /**
  * Членство в ассоциациях
@@ -4085,7 +4085,7 @@ export class ContractorService extends BaseService {
 /**
  * Вид подрядчика (ID берем из запроса - contractor_type)
  */
-'type_id'?: number;
+'type_id'?: string;
 
 /**
  * Членство в ассоциациях
@@ -4409,7 +4409,7 @@ export class ContractorService extends BaseService {
 /**
  * Вид подрядчика (ID берем из запроса - contractor_type)
  */
-'type_id': number;
+'type_id': string;
 
 /**
  * Членство в ассоциациях (ID берем из запроса - system_association)
@@ -4605,7 +4605,7 @@ export class ContractorService extends BaseService {
 /**
  * Вид подрядчика (ID берем из запроса - contractor_type)
  */
-'type_id': number;
+'type_id': string;
 
 /**
  * Членство в ассоциациях (ID берем из запроса - system_association)
@@ -4810,7 +4810,7 @@ export class ContractorService extends BaseService {
 /**
  * Вид подрядчика (ID берем из запроса - contractor_type)
  */
-'type_id'?: number;
+'type_id'?: string;
 
 /**
  * Членство в ассоциациях (ID берем из запроса - system_association)
@@ -5006,7 +5006,7 @@ export class ContractorService extends BaseService {
 /**
  * Вид подрядчика (ID берем из запроса - contractor_type)
  */
-'type_id'?: number;
+'type_id'?: string;
 
 /**
  * Членство в ассоциациях (ID берем из запроса - system_association)
@@ -7621,9 +7621,10 @@ export class ContractorService extends BaseService {
 'import_key'?: string;
 
 /**
- * Текст обновления
+ * Результат обновления
  */
-'text'?: string;
+'result'?: {
+};
 }>> {
     const rb = new RequestBuilder(this.rootUrl, ContractorService.ContractorImportPath, 'post');
     if (params) {
@@ -7643,9 +7644,10 @@ export class ContractorService extends BaseService {
         'import_key'?: string;
         
         /**
-         * Текст обновления
+         * Результат обновления
          */
-        'text'?: string;
+        'result'?: {
+        };
         }>;
       })
     );
@@ -7685,9 +7687,10 @@ export class ContractorService extends BaseService {
 'import_key'?: string;
 
 /**
- * Текст обновления
+ * Результат обновления
  */
-'text'?: string;
+'result'?: {
+};
 }> {
     return this.contractorImport$Response(params, context).pipe(
       map((r: StrictHttpResponse<{
@@ -7698,9 +7701,10 @@ export class ContractorService extends BaseService {
 'import_key'?: string;
 
 /**
- * Текст обновления
+ * Результат обновления
  */
-'text'?: string;
+'result'?: {
+};
 }>): {
 
 /**
@@ -7709,9 +7713,10 @@ export class ContractorService extends BaseService {
 'import_key'?: string;
 
 /**
- * Текст обновления
+ * Результат обновления
  */
-'text'?: string;
+'result'?: {
+};
 } => r.body)
     );
   }
@@ -7727,17 +7732,15 @@ export class ContractorService extends BaseService {
    * This method provides access to the full `HttpResponse`, allowing access to response headers.
    * To access only the response body, use `contractorImportConfirm()` instead.
    *
-   * This method sends `application/json` and handles request body of type `application/json`.
+   * This method doesn't expect any request body.
    */
   contractorImportConfirm$Response(
     params?: {
-      body?: {
 
-/**
- * Код обновления
- */
-'import_key'?: string;
-}
+    /**
+     * Код обновления
+     */
+      import_key?: string;
     },
     context?: HttpContext
   ): Observable<StrictHttpResponse<{
@@ -7747,9 +7750,9 @@ export class ContractorService extends BaseService {
  */
 'result': 'OK';
 }>> {
-    const rb = new RequestBuilder(this.rootUrl, ContractorService.ContractorImportConfirmPath, 'post');
+    const rb = new RequestBuilder(this.rootUrl, ContractorService.ContractorImportConfirmPath, 'get');
     if (params) {
-      rb.body(params.body, 'application/json');
+      rb.query('import_key', params.import_key, {});
     }
 
     return this.http.request(
@@ -7776,17 +7779,15 @@ export class ContractorService extends BaseService {
    * This method provides access only to the response body.
    * To access the full response (for headers, for example), `contractorImportConfirm$Response()` instead.
    *
-   * This method sends `application/json` and handles request body of type `application/json`.
+   * This method doesn't expect any request body.
    */
   contractorImportConfirm(
     params?: {
-      body?: {
 
-/**
- * Код обновления
- */
-'import_key'?: string;
-}
+    /**
+     * Код обновления
+     */
+      import_key?: string;
     },
     context?: HttpContext
   ): Observable<{
@@ -7809,6 +7810,124 @@ export class ContractorService extends BaseService {
  * Статус выполнения
  */
 'result': 'OK';
+} => r.body)
+    );
+  }
+
+  /** Path part for operation `contractorImportResult()` */
+  static readonly ContractorImportResultPath = '/contractor_import_result';
+
+  /**
+   * Получение файла с результатами обработки импорта в XLSX.
+   *
+   *
+   *
+   * This method provides access to the full `HttpResponse`, allowing access to response headers.
+   * To access only the response body, use `contractorImportResult()` instead.
+   *
+   * This method doesn't expect any request body.
+   */
+  contractorImportResult$Response(
+    params?: {
+
+    /**
+     * Код обновления
+     */
+      import_key?: string;
+    },
+    context?: HttpContext
+  ): Observable<StrictHttpResponse<{
+
+/**
+ * Наименование
+ */
+'name'?: string;
+
+/**
+ * Base64 строка файла
+ */
+'data'?: string;
+}>> {
+    const rb = new RequestBuilder(this.rootUrl, ContractorService.ContractorImportResultPath, 'get');
+    if (params) {
+      rb.query('import_key', params.import_key, {});
+    }
+
+    return this.http.request(
+      rb.build({ responseType: 'json', accept: 'application/json', context })
+    ).pipe(
+      filter((r: any): r is HttpResponse<any> => r instanceof HttpResponse),
+      map((r: HttpResponse<any>) => {
+        return r as StrictHttpResponse<{
+        
+        /**
+         * Наименование
+         */
+        'name'?: string;
+        
+        /**
+         * Base64 строка файла
+         */
+        'data'?: string;
+        }>;
+      })
+    );
+  }
+
+  /**
+   * Получение файла с результатами обработки импорта в XLSX.
+   *
+   *
+   *
+   * This method provides access only to the response body.
+   * To access the full response (for headers, for example), `contractorImportResult$Response()` instead.
+   *
+   * This method doesn't expect any request body.
+   */
+  contractorImportResult(
+    params?: {
+
+    /**
+     * Код обновления
+     */
+      import_key?: string;
+    },
+    context?: HttpContext
+  ): Observable<{
+
+/**
+ * Наименование
+ */
+'name'?: string;
+
+/**
+ * Base64 строка файла
+ */
+'data'?: string;
+}> {
+    return this.contractorImportResult$Response(params, context).pipe(
+      map((r: StrictHttpResponse<{
+
+/**
+ * Наименование
+ */
+'name'?: string;
+
+/**
+ * Base64 строка файла
+ */
+'data'?: string;
+}>): {
+
+/**
+ * Наименование
+ */
+'name'?: string;
+
+/**
+ * Base64 строка файла
+ */
+'data'?: string;
 } => r.body)
     );
   }
