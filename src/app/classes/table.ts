@@ -324,7 +324,8 @@ console.log('окно экспорт');
             const res =e.result;
             const import_key=e.import_key;
             this.dialog.open(this.importDialogRef!, { data: {...payload, text, res} }).afterClosed().subscribe(res => {
-              if (!res) {
+
+              if (res===2) {
                 this.importResult({ import_key }).subscribe({
                   next: ({name, data}) => {
                     const dataUri = `data:${this.xlsxMimeType};base64,${data}`;
@@ -332,18 +333,22 @@ console.log('окно экспорт');
                     a.href = dataUri;
                     a.download = name;
                     a.click();
+                    this.snackBar.open('Данные импортированы успешно', undefined, this.snackBarWithShortDuration);
+                    this.onStartChange(0);
                   },
                   error: (err) => this.snackBar.open(`Не удалось скачать файл с результатами обработки: ` + err.error.error_message, undefined, this.snackBarWithShortDuration)
                 });
-                return;
               }
-              this.importDataConfirm({ import_key }).subscribe({
-                next: () => {
-                  this.snackBar.open('Данные импортированы успешно', undefined, this.snackBarWithShortDuration);
-                  this.onStartChange(0);
-                },
-                error: (err) => this.snackBar.open(`Не удалось импортировать данные: ` + err.error.error_message, undefined, this.snackBarWithShortDuration)
-              });
+
+              if (res===1) {
+                this.importDataConfirm({ import_key }).subscribe({
+                  next: () => {
+                    this.snackBar.open('Данные импортированы успешно', undefined, this.snackBarWithShortDuration);
+                    this.onStartChange(0);
+                  },
+                  error: (err) => this.snackBar.open(`Не удалось импортировать данные: ` + err.error.error_message, undefined, this.snackBarWithShortDuration)
+                });
+              }
             });
           },
           error: (err) => this.snackBar.open(`Не удалось импортировать данные: ` + err.error.error_message, undefined, this.snackBarWithShortDuration)

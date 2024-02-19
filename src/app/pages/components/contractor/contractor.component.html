@@ -141,12 +141,13 @@
     Импортировать данные о подрядчиках из файла {{data.name}} ?
   </div>
   <div mat-dialog-content>
-    {{ data.res.error.text }}
+    <p>{{ data.res.error.text }}</p>
+    <p>{{ data.res.insert.text }}</p>
+    <p>{{ data.res.update.text }}</p>
   </div>
   <div mat-dialog-actions align="end">
-    <button mat-button [mat-dialog-close]="true" cdkFocusInitial>Сохранить данные</button>
-    <button mat-button mat-dialog-close>Скачать файл с результатами обработки</button>
-
-
+    <button *ngIf="data.res.insert && data.res.update" mat-button [mat-dialog-close]="1">Сохранить данные</button>
+    <button mat-button [mat-dialog-close]="2">Скачать файл с результатами обработки</button>
+    <button mat-button mat-dialog-close>ОТМЕНА</button>
   </div>
 </ng-template>
