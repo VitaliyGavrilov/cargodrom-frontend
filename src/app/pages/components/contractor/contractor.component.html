@@ -141,9 +141,9 @@
     Импортировать данные о подрядчиках из файла {{data.name}} ?
   </div>
   <div mat-dialog-content>
-    <p>{{ data.res.error.text }}</p>
-    <p>{{ data.res.insert.text }}</p>
-    <p>{{ data.res.update.text }}</p>
+    <p *ngIf="data.res.error">{{ data.res.error.text }}</p>
+    <p *ngIf="data.res.insert">{{ data.res.insert.text }}</p>
+    <p *ngIf="data.res.update">{{ data.res.update.text }}</p>
   </div>
   <div mat-dialog-actions align="end">
     <button *ngIf="data.res.insert && data.res.update" mat-button [mat-dialog-close]="1">Сохранить данные</button>
