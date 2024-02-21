@@ -43,6 +43,11 @@ export class RequestService extends BaseService {
       id?: string;
 
     /**
+     * Период
+     */
+      time_add?: any;
+
+    /**
      * Статус запроса (ID берем из запроса - request_status)
      */
       status_id?: Array<string>;
@@ -538,6 +543,7 @@ export class RequestService extends BaseService {
     const rb = new RequestBuilder(this.rootUrl, RequestService.RequestListPath, 'get');
     if (params) {
       rb.query('id', params.id, {});
+      rb.query('time_add', params.time_add, {});
       rb.query('status_id', params.status_id, {"style":"form","explode":false});
       rb.query('request_type_id', params.request_type_id, {});
       rb.query('status_crm_id', params.status_crm_id, {"style":"form","explode":false});
@@ -991,6 +997,11 @@ export class RequestService extends BaseService {
      * Поиск запроса по номеру...
      */
       id?: string;
+
+    /**
+     * Период
+     */
+      time_add?: any;
 
     /**
      * Статус запроса (ID берем из запроса - request_status)

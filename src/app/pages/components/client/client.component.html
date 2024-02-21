@@ -152,8 +152,16 @@
     <tr mat-row *matRowDef="let row; columns: column;"></tr>
   </table>
 </div>
-<app-paginator [total]="total" [count]="count" [start]="start" [limits]="limits" (startChange)="onStartChange($event)"
-  (countChange)="onCountChange($event)"></app-paginator>
+
+<app-paginator
+  [total]="total"
+  [count]="count"
+  [start]="start"
+  [limits]="limits"
+  (startChange)="onStartChange($event)"
+  (countChange)="onCountChange($event)">
+</app-paginator>
+
 <ng-template #exportDialogRef let-data>
   <h1 mat-dialog-title>Экспорт</h1>
   <div mat-dialog-content>

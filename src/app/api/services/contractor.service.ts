@@ -6584,7 +6584,7 @@ export class ContractorService extends BaseService {
 /**
  * Имя
  */
-'name_i'?: string;
+'name_i': string;
 
 /**
  * Отчество
@@ -6714,7 +6714,7 @@ export class ContractorService extends BaseService {
 /**
  * Имя
  */
-'name_i'?: string;
+'name_i': string;
 
 /**
  * Отчество
