@@ -177,6 +177,16 @@ export class ContractorService extends BaseService {
 'type_id'?: string;
 
 /**
+ * Тип контрагента
+ */
+'counterparty_name'?: string;
+
+/**
+ * Тип контрагента (ID берем из запроса - system_counterparty)
+ */
+'counterparty_id'?: number;
+
+/**
  * Членство в ассоциациях
  */
 'association_name'?: Array<string>;
@@ -207,9 +217,9 @@ export class ContractorService extends BaseService {
 'request_format_id'?: string;
 
 /**
- * Исключить Подрядчика из торгов
+ * Участник торгов
  */
-'exclude_from_trade'?: boolean;
+'allow_trade'?: boolean;
 
 /**
  * Рейтинг в системе (NPS)
@@ -547,6 +557,16 @@ export class ContractorService extends BaseService {
         'type_id'?: string;
         
         /**
+         * Тип контрагента
+         */
+        'counterparty_name'?: string;
+        
+        /**
+         * Тип контрагента (ID берем из запроса - system_counterparty)
+         */
+        'counterparty_id'?: number;
+        
+        /**
          * Членство в ассоциациях
          */
         'association_name'?: Array<string>;
@@ -577,9 +597,9 @@ export class ContractorService extends BaseService {
         'request_format_id'?: string;
         
         /**
-         * Исключить Подрядчика из торгов
+         * Участник торгов
          */
-        'exclude_from_trade'?: boolean;
+        'allow_trade'?: boolean;
         
         /**
          * Рейтинг в системе (NPS)
@@ -973,6 +993,16 @@ export class ContractorService extends BaseService {
 'type_id'?: string;
 
 /**
+ * Тип контрагента
+ */
+'counterparty_name'?: string;
+
+/**
+ * Тип контрагента (ID берем из запроса - system_counterparty)
+ */
+'counterparty_id'?: number;
+
+/**
  * Членство в ассоциациях
  */
 'association_name'?: Array<string>;
@@ -1003,9 +1033,9 @@ export class ContractorService extends BaseService {
 'request_format_id'?: string;
 
 /**
- * Исключить Подрядчика из торгов
+ * Участник торгов
  */
-'exclude_from_trade'?: boolean;
+'allow_trade'?: boolean;
 
 /**
  * Рейтинг в системе (NPS)
@@ -1326,6 +1356,16 @@ export class ContractorService extends BaseService {
 'type_id'?: string;
 
 /**
+ * Тип контрагента
+ */
+'counterparty_name'?: string;
+
+/**
+ * Тип контрагента (ID берем из запроса - system_counterparty)
+ */
+'counterparty_id'?: number;
+
+/**
  * Членство в ассоциациях
  */
 'association_name'?: Array<string>;
@@ -1356,9 +1396,9 @@ export class ContractorService extends BaseService {
 'request_format_id'?: string;
 
 /**
- * Исключить Подрядчика из торгов
+ * Участник торгов
  */
-'exclude_from_trade'?: boolean;
+'allow_trade'?: boolean;
 
 /**
  * Рейтинг в системе (NPS)
@@ -1677,6 +1717,16 @@ export class ContractorService extends BaseService {
 'type_id'?: string;
 
 /**
+ * Тип контрагента
+ */
+'counterparty_name'?: string;
+
+/**
+ * Тип контрагента (ID берем из запроса - system_counterparty)
+ */
+'counterparty_id'?: number;
+
+/**
  * Членство в ассоциациях
  */
 'association_name'?: Array<string>;
@@ -1707,9 +1757,9 @@ export class ContractorService extends BaseService {
 'request_format_id'?: string;
 
 /**
- * Исключить Подрядчика из торгов
+ * Участник торгов
  */
-'exclude_from_trade'?: boolean;
+'allow_trade'?: boolean;
 
 /**
  * Рейтинг в системе (NPS)
@@ -2731,6 +2781,16 @@ export class ContractorService extends BaseService {
 'type_id'?: string;
 
 /**
+ * Тип контрагента
+ */
+'counterparty_name'?: string;
+
+/**
+ * Тип контрагента (ID берем из запроса - system_counterparty)
+ */
+'counterparty_id'?: number;
+
+/**
  * Членство в ассоциациях
  */
 'association_name'?: Array<string>;
@@ -2761,9 +2821,9 @@ export class ContractorService extends BaseService {
 'request_format_id'?: string;
 
 /**
- * Исключить Подрядчика из торгов
+ * Участник торгов
  */
-'exclude_from_trade'?: boolean;
+'allow_trade'?: boolean;
 
 /**
  * Рейтинг в системе (NPS)
@@ -3072,6 +3132,16 @@ export class ContractorService extends BaseService {
         'type_id'?: string;
         
         /**
+         * Тип контрагента
+         */
+        'counterparty_name'?: string;
+        
+        /**
+         * Тип контрагента (ID берем из запроса - system_counterparty)
+         */
+        'counterparty_id'?: number;
+        
+        /**
          * Членство в ассоциациях
          */
         'association_name'?: Array<string>;
@@ -3102,9 +3172,9 @@ export class ContractorService extends BaseService {
         'request_format_id'?: string;
         
         /**
-         * Исключить Подрядчика из торгов
+         * Участник торгов
          */
-        'exclude_from_trade'?: boolean;
+        'allow_trade'?: boolean;
         
         /**
          * Рейтинг в системе (NPS)
@@ -3426,6 +3496,16 @@ export class ContractorService extends BaseService {
 'type_id'?: string;
 
 /**
+ * Тип контрагента
+ */
+'counterparty_name'?: string;
+
+/**
+ * Тип контрагента (ID берем из запроса - system_counterparty)
+ */
+'counterparty_id'?: number;
+
+/**
  * Членство в ассоциациях
  */
 'association_name'?: Array<string>;
@@ -3456,9 +3536,9 @@ export class ContractorService extends BaseService {
 'request_format_id'?: string;
 
 /**
- * Исключить Подрядчика из торгов
+ * Участник торгов
  */
-'exclude_from_trade'?: boolean;
+'allow_trade'?: boolean;
 
 /**
  * Рейтинг в системе (NPS)
@@ -3758,6 +3838,16 @@ export class ContractorService extends BaseService {
 'type_id'?: string;
 
 /**
+ * Тип контрагента
+ */
+'counterparty_name'?: string;
+
+/**
+ * Тип контрагента (ID берем из запроса - system_counterparty)
+ */
+'counterparty_id'?: number;
+
+/**
  * Членство в ассоциациях
  */
 'association_name'?: Array<string>;
@@ -3788,9 +3878,9 @@ export class ContractorService extends BaseService {
 'request_format_id'?: string;
 
 /**
- * Исключить Подрядчика из торгов
+ * Участник торгов
  */
-'exclude_from_trade'?: boolean;
+'allow_trade'?: boolean;
 
 /**
  * Рейтинг в системе (NPS)
@@ -4088,6 +4178,16 @@ export class ContractorService extends BaseService {
 'type_id'?: string;
 
 /**
+ * Тип контрагента
+ */
+'counterparty_name'?: string;
+
+/**
+ * Тип контрагента (ID берем из запроса - system_counterparty)
+ */
+'counterparty_id'?: number;
+
+/**
  * Членство в ассоциациях
  */
 'association_name'?: Array<string>;
@@ -4118,9 +4218,9 @@ export class ContractorService extends BaseService {
 'request_format_id'?: string;
 
 /**
- * Исключить Подрядчика из торгов
+ * Участник торгов
  */
-'exclude_from_trade'?: boolean;
+'allow_trade'?: boolean;
 
 /**
  * Рейтинг в системе (NPS)
@@ -4412,6 +4512,11 @@ export class ContractorService extends BaseService {
 'type_id': string;
 
 /**
+ * Тип контрагента (ID берем из запроса - system_counterparty)
+ */
+'counterparty_id'?: number;
+
+/**
  * Членство в ассоциациях (ID берем из запроса - system_association)
  */
 'association_id'?: Array<string>;
@@ -4427,9 +4532,9 @@ export class ContractorService extends BaseService {
 'request_format_id': string;
 
 /**
- * Исключить Подрядчика из торгов
+ * Участник торгов
  */
-'exclude_from_trade'?: boolean;
+'allow_trade'?: boolean;
 
 /**
  * Контактные лица
@@ -4608,6 +4713,11 @@ export class ContractorService extends BaseService {
 'type_id': string;
 
 /**
+ * Тип контрагента (ID берем из запроса - system_counterparty)
+ */
+'counterparty_id'?: number;
+
+/**
  * Членство в ассоциациях (ID берем из запроса - system_association)
  */
 'association_id'?: Array<string>;
@@ -4623,9 +4733,9 @@ export class ContractorService extends BaseService {
 'request_format_id': string;
 
 /**
- * Исключить Подрядчика из торгов
+ * Участник торгов
  */
-'exclude_from_trade'?: boolean;
+'allow_trade'?: boolean;
 
 /**
  * Контактные лица
@@ -4813,6 +4923,11 @@ export class ContractorService extends BaseService {
 'type_id'?: string;
 
 /**
+ * Тип контрагента (ID берем из запроса - system_counterparty)
+ */
+'counterparty_id'?: number;
+
+/**
  * Членство в ассоциациях (ID берем из запроса - system_association)
  */
 'association_id'?: Array<string>;
@@ -4828,9 +4943,9 @@ export class ContractorService extends BaseService {
 'request_format_id'?: string;
 
 /**
- * Исключить Подрядчика из торгов
+ * Участник торгов
  */
-'exclude_from_trade'?: boolean;
+'allow_trade'?: boolean;
 
 /**
  * Контактные лица
@@ -5009,6 +5124,11 @@ export class ContractorService extends BaseService {
 'type_id'?: string;
 
 /**
+ * Тип контрагента (ID берем из запроса - system_counterparty)
+ */
+'counterparty_id'?: number;
+
+/**
  * Членство в ассоциациях (ID берем из запроса - system_association)
  */
 'association_id'?: Array<string>;
@@ -5024,9 +5144,9 @@ export class ContractorService extends BaseService {
 'request_format_id'?: string;
 
 /**
- * Исключить Подрядчика из торгов
+ * Участник торгов
  */
-'exclude_from_trade'?: boolean;
+'allow_trade'?: boolean;
 
 /**
  * Контактные лица
@@ -7275,7 +7395,7 @@ export class ContractorService extends BaseService {
   static readonly ContractorTypePath = '/contractor_type';
 
   /**
-   * Виды подрядчиков.
+   * Вид подрядчика.
    *
    *
    *
@@ -7299,6 +7419,11 @@ export class ContractorService extends BaseService {
  * Наименование
  */
 'name'?: string;
+
+/**
+ * Контакты обязательны
+ */
+'contact_required'?: boolean;
 }>>> {
     const rb = new RequestBuilder(this.rootUrl, ContractorService.ContractorTypePath, 'get');
     if (params) {
@@ -7320,13 +7445,18 @@ export class ContractorService extends BaseService {
          * Наименование
          */
         'name'?: string;
+        
+        /**
+         * Контакты обязательны
+         */
+        'contact_required'?: boolean;
         }>>;
       })
     );
   }
 
   /**
-   * Виды подрядчиков.
+   * Вид подрядчика.
    *
    *
    *
@@ -7350,6 +7480,11 @@ export class ContractorService extends BaseService {
  * Наименование
  */
 'name'?: string;
+
+/**
+ * Контакты обязательны
+ */
+'contact_required'?: boolean;
 }>> {
     return this.contractorType$Response(params, context).pipe(
       map((r: StrictHttpResponse<Array<{
@@ -7363,6 +7498,11 @@ export class ContractorService extends BaseService {
  * Наименование
  */
 'name'?: string;
+
+/**
+ * Контакты обязательны
+ */
+'contact_required'?: boolean;
 }>>): Array<{
 
 /**
@@ -7374,6 +7514,11 @@ export class ContractorService extends BaseService {
  * Наименование
  */
 'name'?: string;
+
+/**
+ * Контакты обязательны
+ */
+'contact_required'?: boolean;
 }> => r.body)
     );
   }

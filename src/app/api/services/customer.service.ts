@@ -317,12 +317,12 @@ export class CustomerService extends BaseService {
 'source_id'?: number;
 
 /**
- * Тип клиента
+ * Тип контрагента
  */
 'counterparty_name'?: string;
 
 /**
- * Тип клиента (ID берем из запроса - system_counterparty)
+ * Тип контрагента (ID берем из запроса - system_counterparty)
  */
 'counterparty_id'?: number;
 
@@ -682,12 +682,12 @@ export class CustomerService extends BaseService {
         'source_id'?: number;
         
         /**
-         * Тип клиента
+         * Тип контрагента
          */
         'counterparty_name'?: string;
         
         /**
-         * Тип клиента (ID берем из запроса - system_counterparty)
+         * Тип контрагента (ID берем из запроса - system_counterparty)
          */
         'counterparty_id'?: number;
         
@@ -1099,12 +1099,12 @@ export class CustomerService extends BaseService {
 'source_id'?: number;
 
 /**
- * Тип клиента
+ * Тип контрагента
  */
 'counterparty_name'?: string;
 
 /**
- * Тип клиента (ID берем из запроса - system_counterparty)
+ * Тип контрагента (ID берем из запроса - system_counterparty)
  */
 'counterparty_id'?: number;
 
@@ -1448,12 +1448,12 @@ export class CustomerService extends BaseService {
 'source_id'?: number;
 
 /**
- * Тип клиента
+ * Тип контрагента
  */
 'counterparty_name'?: string;
 
 /**
- * Тип клиента (ID берем из запроса - system_counterparty)
+ * Тип контрагента (ID берем из запроса - system_counterparty)
  */
 'counterparty_id'?: number;
 
@@ -1795,12 +1795,12 @@ export class CustomerService extends BaseService {
 'source_id'?: number;
 
 /**
- * Тип клиента
+ * Тип контрагента
  */
 'counterparty_name'?: string;
 
 /**
- * Тип клиента (ID берем из запроса - system_counterparty)
+ * Тип контрагента (ID берем из запроса - system_counterparty)
  */
 'counterparty_id'?: number;
 
@@ -2845,12 +2845,12 @@ export class CustomerService extends BaseService {
 'source_id'?: number;
 
 /**
- * Тип клиента
+ * Тип контрагента
  */
 'counterparty_name'?: string;
 
 /**
- * Тип клиента (ID берем из запроса - system_counterparty)
+ * Тип контрагента (ID берем из запроса - system_counterparty)
  */
 'counterparty_id'?: number;
 
@@ -3188,12 +3188,12 @@ export class CustomerService extends BaseService {
         'source_id'?: number;
         
         /**
-         * Тип клиента
+         * Тип контрагента
          */
         'counterparty_name'?: string;
         
         /**
-         * Тип клиента (ID берем из запроса - system_counterparty)
+         * Тип контрагента (ID берем из запроса - system_counterparty)
          */
         'counterparty_id'?: number;
         
@@ -3544,12 +3544,12 @@ export class CustomerService extends BaseService {
 'source_id'?: number;
 
 /**
- * Тип клиента
+ * Тип контрагента
  */
 'counterparty_name'?: string;
 
 /**
- * Тип клиента (ID берем из запроса - system_counterparty)
+ * Тип контрагента (ID берем из запроса - system_counterparty)
  */
 'counterparty_id'?: number;
 
@@ -3878,12 +3878,12 @@ export class CustomerService extends BaseService {
 'source_id'?: number;
 
 /**
- * Тип клиента
+ * Тип контрагента
  */
 'counterparty_name'?: string;
 
 /**
- * Тип клиента (ID берем из запроса - system_counterparty)
+ * Тип контрагента (ID берем из запроса - system_counterparty)
  */
 'counterparty_id'?: number;
 
@@ -4210,12 +4210,12 @@ export class CustomerService extends BaseService {
 'source_id'?: number;
 
 /**
- * Тип клиента
+ * Тип контрагента
  */
 'counterparty_name'?: string;
 
 /**
- * Тип клиента (ID берем из запроса - system_counterparty)
+ * Тип контрагента (ID берем из запроса - system_counterparty)
  */
 'counterparty_id'?: number;
 
@@ -4531,7 +4531,7 @@ export class CustomerService extends BaseService {
 'source_id'?: number;
 
 /**
- * Тип клиента (ID берем из запроса - system_counterparty)
+ * Тип контрагента (ID берем из запроса - system_counterparty)
  */
 'counterparty_id'?: number;
 
@@ -4810,7 +4810,7 @@ export class CustomerService extends BaseService {
 'source_id'?: number;
 
 /**
- * Тип клиента (ID берем из запроса - system_counterparty)
+ * Тип контрагента (ID берем из запроса - system_counterparty)
  */
 'counterparty_id'?: number;
 
@@ -5098,7 +5098,7 @@ export class CustomerService extends BaseService {
 'source_id'?: number;
 
 /**
- * Тип клиента (ID берем из запроса - system_counterparty)
+ * Тип контрагента (ID берем из запроса - system_counterparty)
  */
 'counterparty_id'?: number;
 
@@ -5372,7 +5372,7 @@ export class CustomerService extends BaseService {
 'source_id'?: number;
 
 /**
- * Тип клиента (ID берем из запроса - system_counterparty)
+ * Тип контрагента (ID берем из запроса - system_counterparty)
  */
 'counterparty_id'?: number;
 

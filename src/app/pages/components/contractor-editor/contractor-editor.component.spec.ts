@@ -31,6 +31,7 @@ describe('ContractorEditorComponent', () => {
           provide: SystemService, useValue: <SystemService>{
             systemTaxSystem: () => of([]) as Observable<any>,
             systemAssociation: () => of([]) as Observable<any>,
+            systemCounterparty: () => of([]) as Observable<any>,
           }
         },
       ],
