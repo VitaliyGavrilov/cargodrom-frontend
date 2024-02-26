@@ -178,8 +178,14 @@
   <div mat-dialog-content>
     Импортировать данные о клиентах из файла {{data.name}} ?
   </div>
+  <div mat-dialog-content>
+    <p *ngIf="data.res.error">{{ data.res.error.text }}</p>
+    <p *ngIf="data.res.insert">{{ data.res.insert.text }}</p>
+    <p *ngIf="data.res.update">{{ data.res.update.text }}</p>
+  </div>
   <div mat-dialog-actions align="end">
-    <button mat-button [mat-dialog-close]="true" cdkFocusInitial>Да</button>
-    <button mat-button mat-dialog-close>Нет</button>
+    <button *ngIf="data.res.insert || data.res.update" mat-button [mat-dialog-close]="1">Сохранить данные</button>
+    <button mat-button [mat-dialog-close]="2">Скачать файл с результатами обработки</button>
+    <button mat-button mat-dialog-close>ОТМЕНА</button>
   </div>
 </ng-template>

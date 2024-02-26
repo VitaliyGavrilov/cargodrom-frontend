@@ -7310,4 +7310,215 @@ export class CustomerService extends BaseService {
     );
   }
 
+  /** Path part for operation `customerImportConfirm()` */
+  static readonly CustomerImportConfirmPath = '/customer_import_confirm';
+
+  /**
+   * Подтверждение импорта клиентов в XLSX.
+   *
+   *
+   *
+   * This method provides access to the full `HttpResponse`, allowing access to response headers.
+   * To access only the response body, use `customerImportConfirm()` instead.
+   *
+   * This method doesn't expect any request body.
+   */
+  customerImportConfirm$Response(
+    params?: {
+
+    /**
+     * Код обновления
+     */
+      import_key?: string;
+    },
+    context?: HttpContext
+  ): Observable<StrictHttpResponse<{
+
+/**
+ * Статус выполнения
+ */
+'result': 'OK';
+}>> {
+    const rb = new RequestBuilder(this.rootUrl, CustomerService.CustomerImportConfirmPath, 'get');
+    if (params) {
+      rb.query('import_key', params.import_key, {});
+    }
+
+    return this.http.request(
+      rb.build({ responseType: 'json', accept: 'application/json', context })
+    ).pipe(
+      filter((r: any): r is HttpResponse<any> => r instanceof HttpResponse),
+      map((r: HttpResponse<any>) => {
+        return r as StrictHttpResponse<{
+        
+        /**
+         * Статус выполнения
+         */
+        'result': 'OK';
+        }>;
+      })
+    );
+  }
+
+  /**
+   * Подтверждение импорта клиентов в XLSX.
+   *
+   *
+   *
+   * This method provides access only to the response body.
+   * To access the full response (for headers, for example), `customerImportConfirm$Response()` instead.
+   *
+   * This method doesn't expect any request body.
+   */
+  customerImportConfirm(
+    params?: {
+
+    /**
+     * Код обновления
+     */
+      import_key?: string;
+    },
+    context?: HttpContext
+  ): Observable<{
+
+/**
+ * Статус выполнения
+ */
+'result': 'OK';
+}> {
+    return this.customerImportConfirm$Response(params, context).pipe(
+      map((r: StrictHttpResponse<{
+
+/**
+ * Статус выполнения
+ */
+'result': 'OK';
+}>): {
+
+/**
+ * Статус выполнения
+ */
+'result': 'OK';
+} => r.body)
+    );
+  }
+
+  /** Path part for operation `customerImportResult()` */
+  static readonly CustomerImportResultPath = '/customer_import_result';
+
+  /**
+   * Получение файла с результатами обработки импорта в XLSX.
+   *
+   *
+   *
+   * This method provides access to the full `HttpResponse`, allowing access to response headers.
+   * To access only the response body, use `customerImportResult()` instead.
+   *
+   * This method doesn't expect any request body.
+   */
+  customerImportResult$Response(
+    params?: {
+
+    /**
+     * Код обновления
+     */
+      import_key?: string;
+    },
+    context?: HttpContext
+  ): Observable<StrictHttpResponse<{
+
+/**
+ * Наименование
+ */
+'name'?: string;
+
+/**
+ * Base64 строка файла
+ */
+'data'?: string;
+}>> {
+    const rb = new RequestBuilder(this.rootUrl, CustomerService.CustomerImportResultPath, 'get');
+    if (params) {
+      rb.query('import_key', params.import_key, {});
+    }
+
+    return this.http.request(
+      rb.build({ responseType: 'json', accept: 'application/json', context })
+    ).pipe(
+      filter((r: any): r is HttpResponse<any> => r instanceof HttpResponse),
+      map((r: HttpResponse<any>) => {
+        return r as StrictHttpResponse<{
+        
+        /**
+         * Наименование
+         */
+        'name'?: string;
+        
+        /**
+         * Base64 строка файла
+         */
+        'data'?: string;
+        }>;
+      })
+    );
+  }
+
+  /**
+   * Получение файла с результатами обработки импорта в XLSX.
+   *
+   *
+   *
+   * This method provides access only to the response body.
+   * To access the full response (for headers, for example), `customerImportResult$Response()` instead.
+   *
+   * This method doesn't expect any request body.
+   */
+  customerImportResult(
+    params?: {
+
+    /**
+     * Код обновления
+     */
+      import_key?: string;
+    },
+    context?: HttpContext
+  ): Observable<{
+
+/**
+ * Наименование
+ */
+'name'?: string;
+
+/**
+ * Base64 строка файла
+ */
+'data'?: string;
+}> {
+    return this.customerImportResult$Response(params, context).pipe(
+      map((r: StrictHttpResponse<{
+
+/**
+ * Наименование
+ */
+'name'?: string;
+
+/**
+ * Base64 строка файла
+ */
+'data'?: string;
+}>): {
+
+/**
+ * Наименование
+ */
+'name'?: string;
+
+/**
+ * Base64 строка файла
+ */
+'data'?: string;
+} => r.body)
+    );
+  }
+
 }
