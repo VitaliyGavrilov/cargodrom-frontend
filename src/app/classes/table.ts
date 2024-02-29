@@ -282,6 +282,10 @@ export abstract class Table<T extends { id: number }, A = never, F = never> impl
     return NEVER;
   }
 
+  protected importTemplate(): Observable<{data: string; name: string}> {
+    return NEVER;
+  }
+
   confirmExport(): void {
     if (!this.exportDialogRef) {
       console.log(`Не найден шаблон для подтверждения экспорта в файл`);
@@ -361,6 +365,19 @@ console.log('окно экспорт');
 
   private exportFile(): void {
     this.exportData().subscribe({
+      next: ({name, data}) => {
+        const dataUri = `data:${this.xlsxMimeType};base64,${data}`;
+        const a = document.createElement('a');
+        a.href = dataUri;
+        a.download = name;
+        a.click();
+      },
+      error: err => this.snackBar.open(`Не удалось экспортировать данные: ` + err.error?.error_message, undefined, this.snackBarWithShortDuration)
+    })
+  }
+
+  exportFileTemplate(): void {
+    this.importTemplate().subscribe({
       next: ({name, data}) => {
         const dataUri = `data:${this.xlsxMimeType};base64,${data}`;
         const a = document.createElement('a');

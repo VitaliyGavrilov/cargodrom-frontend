@@ -43,7 +43,7 @@ export class RequestService extends BaseService {
       id?: string;
 
     /**
-     * Период (dd.mm.YYYY-dd.mm.YYYY)
+     * Период (day, week, month, dd.mm.YYYY-dd.mm.YYYY)
      */
       time_add?: any;
 
@@ -999,7 +999,7 @@ export class RequestService extends BaseService {
       id?: string;
 
     /**
-     * Период (dd.mm.YYYY-dd.mm.YYYY)
+     * Период (day, week, month, dd.mm.YYYY-dd.mm.YYYY)
      */
       time_add?: any;
 

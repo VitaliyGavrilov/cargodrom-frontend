@@ -7866,6 +7866,113 @@ export class ContractorService extends BaseService {
     );
   }
 
+  /** Path part for operation `contractorImportTemplate()` */
+  static readonly ContractorImportTemplatePath = '/contractor_import_template';
+
+  /**
+   * Шаблон экспорта контрагентов в XLSX.
+   *
+   *
+   *
+   * This method provides access to the full `HttpResponse`, allowing access to response headers.
+   * To access only the response body, use `contractorImportTemplate()` instead.
+   *
+   * This method doesn't expect any request body.
+   */
+  contractorImportTemplate$Response(
+    params?: {
+    },
+    context?: HttpContext
+  ): Observable<StrictHttpResponse<{
+
+/**
+ * Наименование
+ */
+'name'?: string;
+
+/**
+ * Base64 строка файла
+ */
+'data'?: string;
+}>> {
+    const rb = new RequestBuilder(this.rootUrl, ContractorService.ContractorImportTemplatePath, 'get');
+    if (params) {
+    }
+
+    return this.http.request(
+      rb.build({ responseType: 'json', accept: 'application/json', context })
+    ).pipe(
+      filter((r: any): r is HttpResponse<any> => r instanceof HttpResponse),
+      map((r: HttpResponse<any>) => {
+        return r as StrictHttpResponse<{
+        
+        /**
+         * Наименование
+         */
+        'name'?: string;
+        
+        /**
+         * Base64 строка файла
+         */
+        'data'?: string;
+        }>;
+      })
+    );
+  }
+
+  /**
+   * Шаблон экспорта контрагентов в XLSX.
+   *
+   *
+   *
+   * This method provides access only to the response body.
+   * To access the full response (for headers, for example), `contractorImportTemplate$Response()` instead.
+   *
+   * This method doesn't expect any request body.
+   */
+  contractorImportTemplate(
+    params?: {
+    },
+    context?: HttpContext
+  ): Observable<{
+
+/**
+ * Наименование
+ */
+'name'?: string;
+
+/**
+ * Base64 строка файла
+ */
+'data'?: string;
+}> {
+    return this.contractorImportTemplate$Response(params, context).pipe(
+      map((r: StrictHttpResponse<{
+
+/**
+ * Наименование
+ */
+'name'?: string;
+
+/**
+ * Base64 строка файла
+ */
+'data'?: string;
+}>): {
+
+/**
+ * Наименование
+ */
+'name'?: string;
+
+/**
+ * Base64 строка файла
+ */
+'data'?: string;
+} => r.body)
+    );
+  }
+
   /** Path part for operation `contractorImportConfirm()` */
   static readonly ContractorImportConfirmPath = '/contractor_import_confirm';
 
