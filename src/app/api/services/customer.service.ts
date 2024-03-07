@@ -7173,6 +7173,113 @@ export class CustomerService extends BaseService {
     );
   }
 
+  /** Path part for operation `customerImportTemplate()` */
+  static readonly CustomerImportTemplatePath = '/customer_import_template';
+
+  /**
+   * Шаблон экспорта клиентов в XLSX.
+   *
+   *
+   *
+   * This method provides access to the full `HttpResponse`, allowing access to response headers.
+   * To access only the response body, use `customerImportTemplate()` instead.
+   *
+   * This method doesn't expect any request body.
+   */
+  customerImportTemplate$Response(
+    params?: {
+    },
+    context?: HttpContext
+  ): Observable<StrictHttpResponse<{
+
+/**
+ * Наименование
+ */
+'name'?: string;
+
+/**
+ * Base64 строка файла
+ */
+'data'?: string;
+}>> {
+    const rb = new RequestBuilder(this.rootUrl, CustomerService.CustomerImportTemplatePath, 'get');
+    if (params) {
+    }
+
+    return this.http.request(
+      rb.build({ responseType: 'json', accept: 'application/json', context })
+    ).pipe(
+      filter((r: any): r is HttpResponse<any> => r instanceof HttpResponse),
+      map((r: HttpResponse<any>) => {
+        return r as StrictHttpResponse<{
+        
+        /**
+         * Наименование
+         */
+        'name'?: string;
+        
+        /**
+         * Base64 строка файла
+         */
+        'data'?: string;
+        }>;
+      })
+    );
+  }
+
+  /**
+   * Шаблон экспорта клиентов в XLSX.
+   *
+   *
+   *
+   * This method provides access only to the response body.
+   * To access the full response (for headers, for example), `customerImportTemplate$Response()` instead.
+   *
+   * This method doesn't expect any request body.
+   */
+  customerImportTemplate(
+    params?: {
+    },
+    context?: HttpContext
+  ): Observable<{
+
+/**
+ * Наименование
+ */
+'name'?: string;
+
+/**
+ * Base64 строка файла
+ */
+'data'?: string;
+}> {
+    return this.customerImportTemplate$Response(params, context).pipe(
+      map((r: StrictHttpResponse<{
+
+/**
+ * Наименование
+ */
+'name'?: string;
+
+/**
+ * Base64 строка файла
+ */
+'data'?: string;
+}>): {
+
+/**
+ * Наименование
+ */
+'name'?: string;
+
+/**
+ * Base64 строка файла
+ */
+'data'?: string;
+} => r.body)
+    );
+  }
+
   /** Path part for operation `customerImport()` */
   static readonly CustomerImportPath = '/customer_import';
 

@@ -100,7 +100,7 @@ export class RequestService extends BaseService {
     /**
      * Вид перевозки (ID берем из запроса - transport_kind)
      */
-      transport_kind_id?: number;
+      transport_kind_id?: string;
 
     /**
      * Начальная позиция
@@ -1056,7 +1056,7 @@ export class RequestService extends BaseService {
     /**
      * Вид перевозки (ID берем из запроса - transport_kind)
      */
-      transport_kind_id?: number;
+      transport_kind_id?: string;
 
     /**
      * Начальная позиция
@@ -7680,6 +7680,744 @@ export class RequestService extends BaseService {
  */
 'services_id'?: Array<string>;
 }> => r.body)
+    );
+  }
+
+  /** Path part for operation `requestExport()` */
+  static readonly RequestExportPath = '/request_export';
+
+  /**
+   * Экспорт запросов в XLSX.
+   *
+   *
+   *
+   * This method provides access to the full `HttpResponse`, allowing access to response headers.
+   * To access only the response body, use `requestExport()` instead.
+   *
+   * This method doesn't expect any request body.
+   */
+  requestExport$Response(
+    params?: {
+
+    /**
+     * Поиск запроса по номеру...
+     */
+      id?: string;
+
+    /**
+     * Период (day, week, month, dd.mm.YYYY-dd.mm.YYYY)
+     */
+      time_add?: any;
+
+    /**
+     * Статус запроса (ID берем из запроса - request_status)
+     */
+      status_id?: Array<string>;
+
+    /**
+     * Вид запроса (ID берем из запроса - request_type)
+     */
+      request_type_id?: number;
+
+    /**
+     * Статус CRM (ID берем из запроса - request_status_crm)
+     */
+      status_crm_id?: Array<string>;
+
+    /**
+     * Страна отправления (ID берем из запроса - direction_country)
+     */
+      departure_country_id?: number;
+
+    /**
+     * Страна назначения (ID берем из запроса - direction_country)
+     */
+      arrival_country_id?: number;
+
+    /**
+     * Клиент (ID берем из запроса - customer_list)
+     */
+      customer_id?: number;
+
+    /**
+     * Подрядчик (ID берем из запроса - contractor_list)
+     */
+      contractor_id?: number;
+
+    /**
+     * Город отправления (ID берем из запроса - direction_city)
+     */
+      departure_city_id?: number;
+
+    /**
+     * Город назначения (ID берем из запроса - direction_city)
+     */
+      arrival_city_id?: number;
+
+    /**
+     * Сотрудник (ID берем из запроса - company_employee_list)
+     */
+      manager_executor_id?: number;
+
+    /**
+     * Вид перевозки (ID берем из запроса - transport_kind)
+     */
+      transport_kind_id?: string;
+
+    /**
+     * Сортировка
+     */
+      sort?: Array<{
+
+/**
+ * Поле
+ */
+'field': 'id' | 'time_add';
+
+/**
+ * Направление сортировки
+ */
+'dir': 'asc' | 'desc';
+}>;
+    },
+    context?: HttpContext
+  ): Observable<StrictHttpResponse<{
+
+/**
+ * Наименование
+ */
+'name'?: string;
+
+/**
+ * Base64 строка файла
+ */
+'data'?: string;
+}>> {
+    const rb = new RequestBuilder(this.rootUrl, RequestService.RequestExportPath, 'get');
+    if (params) {
+      rb.query('id', params.id, {});
+      rb.query('time_add', params.time_add, {});
+      rb.query('status_id', params.status_id, {"style":"form","explode":false});
+      rb.query('request_type_id', params.request_type_id, {});
+      rb.query('status_crm_id', params.status_crm_id, {"style":"form","explode":false});
+      rb.query('departure_country_id', params.departure_country_id, {});
+      rb.query('arrival_country_id', params.arrival_country_id, {});
+      rb.query('customer_id', params.customer_id, {});
+      rb.query('contractor_id', params.contractor_id, {});
+      rb.query('departure_city_id', params.departure_city_id, {});
+      rb.query('arrival_city_id', params.arrival_city_id, {});
+      rb.query('manager_executor_id', params.manager_executor_id, {});
+      rb.query('transport_kind_id', params.transport_kind_id, {});
+      rb.query('sort', params.sort, {"style":"form","explode":false});
+    }
+
+    return this.http.request(
+      rb.build({ responseType: 'json', accept: 'application/json', context })
+    ).pipe(
+      filter((r: any): r is HttpResponse<any> => r instanceof HttpResponse),
+      map((r: HttpResponse<any>) => {
+        return r as StrictHttpResponse<{
+        
+        /**
+         * Наименование
+         */
+        'name'?: string;
+        
+        /**
+         * Base64 строка файла
+         */
+        'data'?: string;
+        }>;
+      })
+    );
+  }
+
+  /**
+   * Экспорт запросов в XLSX.
+   *
+   *
+   *
+   * This method provides access only to the response body.
+   * To access the full response (for headers, for example), `requestExport$Response()` instead.
+   *
+   * This method doesn't expect any request body.
+   */
+  requestExport(
+    params?: {
+
+    /**
+     * Поиск запроса по номеру...
+     */
+      id?: string;
+
+    /**
+     * Период (day, week, month, dd.mm.YYYY-dd.mm.YYYY)
+     */
+      time_add?: any;
+
+    /**
+     * Статус запроса (ID берем из запроса - request_status)
+     */
+      status_id?: Array<string>;
+
+    /**
+     * Вид запроса (ID берем из запроса - request_type)
+     */
+      request_type_id?: number;
+
+    /**
+     * Статус CRM (ID берем из запроса - request_status_crm)
+     */
+      status_crm_id?: Array<string>;
+
+    /**
+     * Страна отправления (ID берем из запроса - direction_country)
+     */
+      departure_country_id?: number;
+
+    /**
+     * Страна назначения (ID берем из запроса - direction_country)
+     */
+      arrival_country_id?: number;
+
+    /**
+     * Клиент (ID берем из запроса - customer_list)
+     */
+      customer_id?: number;
+
+    /**
+     * Подрядчик (ID берем из запроса - contractor_list)
+     */
+      contractor_id?: number;
+
+    /**
+     * Город отправления (ID берем из запроса - direction_city)
+     */
+      departure_city_id?: number;
+
+    /**
+     * Город назначения (ID берем из запроса - direction_city)
+     */
+      arrival_city_id?: number;
+
+    /**
+     * Сотрудник (ID берем из запроса - company_employee_list)
+     */
+      manager_executor_id?: number;
+
+    /**
+     * Вид перевозки (ID берем из запроса - transport_kind)
+     */
+      transport_kind_id?: string;
+
+    /**
+     * Сортировка
+     */
+      sort?: Array<{
+
+/**
+ * Поле
+ */
+'field': 'id' | 'time_add';
+
+/**
+ * Направление сортировки
+ */
+'dir': 'asc' | 'desc';
+}>;
+    },
+    context?: HttpContext
+  ): Observable<{
+
+/**
+ * Наименование
+ */
+'name'?: string;
+
+/**
+ * Base64 строка файла
+ */
+'data'?: string;
+}> {
+    return this.requestExport$Response(params, context).pipe(
+      map((r: StrictHttpResponse<{
+
+/**
+ * Наименование
+ */
+'name'?: string;
+
+/**
+ * Base64 строка файла
+ */
+'data'?: string;
+}>): {
+
+/**
+ * Наименование
+ */
+'name'?: string;
+
+/**
+ * Base64 строка файла
+ */
+'data'?: string;
+} => r.body)
+    );
+  }
+
+  /** Path part for operation `requestImportTemplate()` */
+  static readonly RequestImportTemplatePath = '/request_import_template';
+
+  /**
+   * Шаблон экспорта запросов в XLSX.
+   *
+   *
+   *
+   * This method provides access to the full `HttpResponse`, allowing access to response headers.
+   * To access only the response body, use `requestImportTemplate()` instead.
+   *
+   * This method doesn't expect any request body.
+   */
+  requestImportTemplate$Response(
+    params?: {
+    },
+    context?: HttpContext
+  ): Observable<StrictHttpResponse<{
+
+/**
+ * Наименование
+ */
+'name'?: string;
+
+/**
+ * Base64 строка файла
+ */
+'data'?: string;
+}>> {
+    const rb = new RequestBuilder(this.rootUrl, RequestService.RequestImportTemplatePath, 'get');
+    if (params) {
+    }
+
+    return this.http.request(
+      rb.build({ responseType: 'json', accept: 'application/json', context })
+    ).pipe(
+      filter((r: any): r is HttpResponse<any> => r instanceof HttpResponse),
+      map((r: HttpResponse<any>) => {
+        return r as StrictHttpResponse<{
+        
+        /**
+         * Наименование
+         */
+        'name'?: string;
+        
+        /**
+         * Base64 строка файла
+         */
+        'data'?: string;
+        }>;
+      })
+    );
+  }
+
+  /**
+   * Шаблон экспорта запросов в XLSX.
+   *
+   *
+   *
+   * This method provides access only to the response body.
+   * To access the full response (for headers, for example), `requestImportTemplate$Response()` instead.
+   *
+   * This method doesn't expect any request body.
+   */
+  requestImportTemplate(
+    params?: {
+    },
+    context?: HttpContext
+  ): Observable<{
+
+/**
+ * Наименование
+ */
+'name'?: string;
+
+/**
+ * Base64 строка файла
+ */
+'data'?: string;
+}> {
+    return this.requestImportTemplate$Response(params, context).pipe(
+      map((r: StrictHttpResponse<{
+
+/**
+ * Наименование
+ */
+'name'?: string;
+
+/**
+ * Base64 строка файла
+ */
+'data'?: string;
+}>): {
+
+/**
+ * Наименование
+ */
+'name'?: string;
+
+/**
+ * Base64 строка файла
+ */
+'data'?: string;
+} => r.body)
+    );
+  }
+
+  /** Path part for operation `requestImport()` */
+  static readonly RequestImportPath = '/request_import';
+
+  /**
+   * Импорт запросов в XLSX.
+   *
+   *
+   *
+   * This method provides access to the full `HttpResponse`, allowing access to response headers.
+   * To access only the response body, use `requestImport()` instead.
+   *
+   * This method sends `application/json` and handles request body of type `application/json`.
+   */
+  requestImport$Response(
+    params?: {
+      body?: {
+
+/**
+ * Наименование
+ */
+'name': string;
+
+/**
+ * Base64 строка файла
+ */
+'data': string;
+}
+    },
+    context?: HttpContext
+  ): Observable<StrictHttpResponse<{
+
+/**
+ * Код обновления
+ */
+'import_key'?: string;
+
+/**
+ * Результат обновления
+ */
+'result'?: {
+};
+}>> {
+    const rb = new RequestBuilder(this.rootUrl, RequestService.RequestImportPath, 'post');
+    if (params) {
+      rb.body(params.body, 'application/json');
+    }
+
+    return this.http.request(
+      rb.build({ responseType: 'json', accept: 'application/json', context })
+    ).pipe(
+      filter((r: any): r is HttpResponse<any> => r instanceof HttpResponse),
+      map((r: HttpResponse<any>) => {
+        return r as StrictHttpResponse<{
+        
+        /**
+         * Код обновления
+         */
+        'import_key'?: string;
+        
+        /**
+         * Результат обновления
+         */
+        'result'?: {
+        };
+        }>;
+      })
+    );
+  }
+
+  /**
+   * Импорт запросов в XLSX.
+   *
+   *
+   *
+   * This method provides access only to the response body.
+   * To access the full response (for headers, for example), `requestImport$Response()` instead.
+   *
+   * This method sends `application/json` and handles request body of type `application/json`.
+   */
+  requestImport(
+    params?: {
+      body?: {
+
+/**
+ * Наименование
+ */
+'name': string;
+
+/**
+ * Base64 строка файла
+ */
+'data': string;
+}
+    },
+    context?: HttpContext
+  ): Observable<{
+
+/**
+ * Код обновления
+ */
+'import_key'?: string;
+
+/**
+ * Результат обновления
+ */
+'result'?: {
+};
+}> {
+    return this.requestImport$Response(params, context).pipe(
+      map((r: StrictHttpResponse<{
+
+/**
+ * Код обновления
+ */
+'import_key'?: string;
+
+/**
+ * Результат обновления
+ */
+'result'?: {
+};
+}>): {
+
+/**
+ * Код обновления
+ */
+'import_key'?: string;
+
+/**
+ * Результат обновления
+ */
+'result'?: {
+};
+} => r.body)
+    );
+  }
+
+  /** Path part for operation `requestImportConfirm()` */
+  static readonly RequestImportConfirmPath = '/request_import_confirm';
+
+  /**
+   * Подтверждение импорта запросов в XLSX.
+   *
+   *
+   *
+   * This method provides access to the full `HttpResponse`, allowing access to response headers.
+   * To access only the response body, use `requestImportConfirm()` instead.
+   *
+   * This method doesn't expect any request body.
+   */
+  requestImportConfirm$Response(
+    params?: {
+
+    /**
+     * Код обновления
+     */
+      import_key?: string;
+    },
+    context?: HttpContext
+  ): Observable<StrictHttpResponse<{
+
+/**
+ * Статус выполнения
+ */
+'result': 'OK';
+}>> {
+    const rb = new RequestBuilder(this.rootUrl, RequestService.RequestImportConfirmPath, 'get');
+    if (params) {
+      rb.query('import_key', params.import_key, {});
+    }
+
+    return this.http.request(
+      rb.build({ responseType: 'json', accept: 'application/json', context })
+    ).pipe(
+      filter((r: any): r is HttpResponse<any> => r instanceof HttpResponse),
+      map((r: HttpResponse<any>) => {
+        return r as StrictHttpResponse<{
+        
+        /**
+         * Статус выполнения
+         */
+        'result': 'OK';
+        }>;
+      })
+    );
+  }
+
+  /**
+   * Подтверждение импорта запросов в XLSX.
+   *
+   *
+   *
+   * This method provides access only to the response body.
+   * To access the full response (for headers, for example), `requestImportConfirm$Response()` instead.
+   *
+   * This method doesn't expect any request body.
+   */
+  requestImportConfirm(
+    params?: {
+
+    /**
+     * Код обновления
+     */
+      import_key?: string;
+    },
+    context?: HttpContext
+  ): Observable<{
+
+/**
+ * Статус выполнения
+ */
+'result': 'OK';
+}> {
+    return this.requestImportConfirm$Response(params, context).pipe(
+      map((r: StrictHttpResponse<{
+
+/**
+ * Статус выполнения
+ */
+'result': 'OK';
+}>): {
+
+/**
+ * Статус выполнения
+ */
+'result': 'OK';
+} => r.body)
+    );
+  }
+
+  /** Path part for operation `requestImportResult()` */
+  static readonly RequestImportResultPath = '/request_import_result';
+
+  /**
+   * Получение файла с результатами обработки импорта в XLSX.
+   *
+   *
+   *
+   * This method provides access to the full `HttpResponse`, allowing access to response headers.
+   * To access only the response body, use `requestImportResult()` instead.
+   *
+   * This method doesn't expect any request body.
+   */
+  requestImportResult$Response(
+    params?: {
+
+    /**
+     * Код обновления
+     */
+      import_key?: string;
+    },
+    context?: HttpContext
+  ): Observable<StrictHttpResponse<{
+
+/**
+ * Наименование
+ */
+'name'?: string;
+
+/**
+ * Base64 строка файла
+ */
+'data'?: string;
+}>> {
+    const rb = new RequestBuilder(this.rootUrl, RequestService.RequestImportResultPath, 'get');
+    if (params) {
+      rb.query('import_key', params.import_key, {});
+    }
+
+    return this.http.request(
+      rb.build({ responseType: 'json', accept: 'application/json', context })
+    ).pipe(
+      filter((r: any): r is HttpResponse<any> => r instanceof HttpResponse),
+      map((r: HttpResponse<any>) => {
+        return r as StrictHttpResponse<{
+        
+        /**
+         * Наименование
+         */
+        'name'?: string;
+        
+        /**
+         * Base64 строка файла
+         */
+        'data'?: string;
+        }>;
+      })
+    );
+  }
+
+  /**
+   * Получение файла с результатами обработки импорта в XLSX.
+   *
+   *
+   *
+   * This method provides access only to the response body.
+   * To access the full response (for headers, for example), `requestImportResult$Response()` instead.
+   *
+   * This method doesn't expect any request body.
+   */
+  requestImportResult(
+    params?: {
+
+    /**
+     * Код обновления
+     */
+      import_key?: string;
+    },
+    context?: HttpContext
+  ): Observable<{
+
+/**
+ * Наименование
+ */
+'name'?: string;
+
+/**
+ * Base64 строка файла
+ */
+'data'?: string;
+}> {
+    return this.requestImportResult$Response(params, context).pipe(
+      map((r: StrictHttpResponse<{
+
+/**
+ * Наименование
+ */
+'name'?: string;
+
+/**
+ * Base64 строка файла
+ */
+'data'?: string;
+}>): {
+
+/**
+ * Наименование
+ */
+'name'?: string;
+
+/**
+ * Base64 строка файла
+ */
+'data'?: string;
+} => r.body)
     );
   }
 

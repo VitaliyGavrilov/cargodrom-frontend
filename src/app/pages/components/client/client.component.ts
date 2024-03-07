@@ -56,6 +56,10 @@ export class ClientComponent extends Table<Client, 'name', ClientFilter> {
     return this.customerService.customerImportResult({import_key: body.import_key})
   }
 
+  protected override importTemplate(): Observable<{data: string; name: string}> {
+    return this.customerService.customerImportTemplate(this.filter as any) as Observable<{data: string; name: string}>;
+  }
+
 
 
 }
