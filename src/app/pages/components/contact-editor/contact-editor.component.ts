@@ -55,19 +55,23 @@ export class ContactEditorComponent implements OnInit, OnDestroy, OnChanges, Con
       whatsapp: ['', []],
       telegram: ['', []],
       wechat: ['', []],
-      responsible_direction: [{}],
+      // responsible_direction: [{}],
       place: [''],
-      responsible_param: fb.group({
-        import: [{}, []],
-        export: [{}, []],
-        local: [[], []],
-      }),
+      // responsible_param: fb.group({
+      //   import: [{}, []],
+      //   export: [{}, []],
+      //   local: [[], []],
+      //   responsible_param1:[[],[]]
+
+      // }),
+
+      direction:[[],[]]
+
     });
   }
 
   writeValue(contact: Partial<Contact>): void {
     this.contactForm.patchValue(contact);
-    this.onResponsibleDirectionChange(contact.responsible_direction || []);
   }
 
   registerOnChange(fn: any): void {
@@ -97,7 +101,7 @@ export class ContactEditorComponent implements OnInit, OnDestroy, OnChanges, Con
     this.destroy$.next();
     this.destroy$.complete();
   }
-  
+
   ngOnChanges(changes: SimpleChanges): void {
     if (changes['homeCountryId']) {
       if (typeof this.homeCountryId === 'number') {
@@ -109,16 +113,6 @@ export class ContactEditorComponent implements OnInit, OnDestroy, OnChanges, Con
   validate(control: AbstractControl): ValidationErrors | null {
     return control.value && this.contactForm.valid ? null : { contact: true };
   }
-  
-  onResponsibleDirectionChange(value: string[]) {
-    for (const dir of responsibilityDirections) {
-      const control = this.contactForm.get(['responsible_param', dir]);
-      const enabled  = value.includes(dir);
-      if (enabled) {
-        control?.enable();
-      } else {
-        control?.disable();
-      }
-    }
-  }
+
+
 }

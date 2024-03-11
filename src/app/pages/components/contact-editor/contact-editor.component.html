@@ -55,7 +55,7 @@
       <div class="form-data"><input type="text" name="wechat" formControlName="wechat" placeholder="—"></div>
     </div>
   </div>
-  <app-trade-direction formControlName="responsible_direction" (ngModelChange)="onResponsibleDirectionChange($event)"></app-trade-direction>
+  <!-- <app-trade-direction formControlName="responsible_direction" (ngModelChange)="onResponsibleDirectionChange($event)"></app-trade-direction> -->
   <div class="options">
     <div class="lnk">
       <div class="ttl">Зона ответственности</div>
@@ -63,10 +63,12 @@
         <span>{{ showResponsibilities ? 'Скрыть' : 'Показать' }}</span>
       </div>
     </div>
-    <div class="lnk-data" [ngStyle]="{'display': showResponsibilities ? 'block' : 'none' }" formGroupName="responsible_param">
-      <app-responsibility-matrix formControlName="export" [homeCountry]="homeCountry" [countries]="countries" type="export"></app-responsibility-matrix>
-      <app-responsibility-matrix formControlName="import" [homeCountry]="homeCountry" [countries]="countries" type="import"></app-responsibility-matrix>
-      <app-responsibility-row formControlName="local" [homeCountry]="homeCountry"></app-responsibility-row>
+
+    <div class="lnk-data" [ngStyle]="{'display': showResponsibilities ? 'block' : 'none' }">
+      <!-- <app-responsibility-matrix formControlName="export" [homeCountry]="homeCountry" [countries]="countries" type="export"></app-responsibility-matrix> -->
+      <!-- <app-responsibility-matrix formControlName="import" [homeCountry]="homeCountry" [countries]="countries" type="import"></app-responsibility-matrix>
+      <app-responsibility-row formControlName="local" [homeCountry]="homeCountry"></app-responsibility-row> -->
+      <app-responsibility formControlName="direction" [countries]="countries"></app-responsibility>
     </div>
   </div>
 </form>

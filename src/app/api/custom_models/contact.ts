@@ -18,12 +18,20 @@ export interface Contact {
   whatsapp: string;
   wechat: string;
   responsible_direction: string[];
-  responsible_param: AllResponsibilities;
+  // responsible_param: AllResponsibilities;
   time_add: string;
   time_edit: string;
   city_name: string;
+
+  direction:AreaOfResponsibility[];
 }
 
+export interface AreaOfResponsibility {
+  direction_departure?: number | string
+  direction_arrival?: number | string
+  direction_items?:TransportSubKind[]
+}
+//Старые типы для зоны ответственности контактов
 export const responsibilityDirections = ['export', 'import', 'local'] as const;
 export type ResponsibilityDirection = typeof responsibilityDirections[number];
 

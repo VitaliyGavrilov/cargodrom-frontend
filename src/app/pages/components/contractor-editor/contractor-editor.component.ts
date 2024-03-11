@@ -103,6 +103,7 @@ export class ContractorEditorComponent implements OnInit {
     this.getRequestFormats();
     this.getTaxSystems();
     this.getCounterparty();
+
   }
 
   ngOnDestroy(): void {
@@ -135,6 +136,8 @@ export class ContractorEditorComponent implements OnInit {
   }
 
   save(): void {
+    console.log(this.contractorForm.value);
+
     if (!this.contractorForm.valid) {
       this.snackBar.open('Не все поля заполнены корректно', undefined, this.snackBarWithLongDuration);
       return;
@@ -182,6 +185,8 @@ export class ContractorEditorComponent implements OnInit {
   }
 
   private updateContractor(body: any) {
+    console.log(body);
+
     this.contractorService.contractorUpdate({ body }).pipe().subscribe({
       next: () => this.snackBar.open(`Подрядчик сохранен`, undefined, this.snackBarWithShortDuration),
       error: (err) => this.snackBar.open(`Ошибка сохранения подрядчика: ` + err.error.error_message, undefined, this.snackBarWithShortDuration)
@@ -189,6 +194,7 @@ export class ContractorEditorComponent implements OnInit {
   }
 
   private createContractor(body: any) {
+    console.log(body);
     this.contractorService.contractorCreate({ body }).pipe().subscribe({
       next: ({ id }) => {
         this.goToContractor(id);
@@ -251,6 +257,7 @@ export class ContractorEditorComponent implements OnInit {
     const id = Number(this.route.snapshot.paramMap.get('id'));
     this.contractorService.contractorInfo({ id })
       .pipe(tap(contractor => {
+        console.log('инициализация едитора',contractor);
         // currently, when contactor doesn't exist the service returns HTTP 200 with empty response body instead of HTTP 404
         // therefore we have to handle that case manually
         if (!contractor) {

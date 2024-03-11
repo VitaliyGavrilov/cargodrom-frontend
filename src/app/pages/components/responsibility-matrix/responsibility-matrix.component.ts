@@ -76,6 +76,8 @@ export class ResponsibilityMatrixComponent implements ControlValueAccessor {
 
   addCountry(): void {
     this.targetCountries.push(this.country!);
+    console.log(this.targetCountries);
+
     this.targetCountries.sort(byName);
     this.responsibilities[this.country!.id] = [];
     this.country = undefined;
@@ -182,7 +184,7 @@ export class ResponsibilityMatrixComponent implements ControlValueAccessor {
     this.onChange(value);
     this.onTouched();
   }
-  
+
   setDisabledState(isDisabled: boolean): void {
     this.disabled = isDisabled;
   }

@@ -1,0 +1,96 @@
+<table class="t1">
+  <tbody>
+    <tr>
+
+      <th class="name">
+        <div class="border-b">Направления:</div>
+
+        <div class="qwer">
+          <div class="l mp0 border-r">Страна отправления</div>
+          <div class="l mp0">Страна назначения</div>
+        </div>
+      </th>
+
+      <th class="all bg s e">
+        <div class="l">Все виды</div>
+        <label>
+          <mat-checkbox
+            class="show-all"
+            [checked]="allChecked()"
+            [indeterminate]="!allComplete()"
+            (change)="allChange($event)">
+          </mat-checkbox>
+          <i></i>
+        </label>
+      </th>
+
+      <th *ngFor="let kind of kinds" [ngClass]="kind.classes">
+        <div class="l">
+          <span class="ico" [ngClass]="kind.type"></span>
+          <span>{{kind.name}}</span>
+        </div>
+        <label>
+          <mat-checkbox
+            class="show-all"
+            [checked]="allCheckedForKind(kind.kind)"
+            [indeterminate]="!allCompleteForKind(kind.kind)"
+            (change)="allChangeForKind(kind.kind, $event)">
+          </mat-checkbox>
+          <i></i>
+        </label>
+      </th>
+
+    </tr>
+
+    <tr class="row" *ngFor="let direction of directions; let i = index">
+      <td class="">
+
+        <div class="dir-block">
+          <mat-form-field appearance="outline" class="ui-select mw50 ">
+            <mat-select [(ngModel)]="direction.direction_departure" class="border-none">
+              <mat-option *ngFor="let country of countries;" [value]="country.id">{{ country.name }}</mat-option>
+            </mat-select>
+          </mat-form-field>
+
+          <mat-form-field appearance="outline" class="ui-select mw50">
+            <mat-select [(ngModel)]="direction.direction_arrival">
+              <mat-option *ngFor="let country of countries;" [value]="country.id">{{ country.name }}</mat-option>
+            </mat-select>
+          </mat-form-field>
+
+          <span class="btn-del" (click)="removeDirection(i)"></span>
+        </div>
+
+      </td>
+
+      <td class="bg s e">
+        <label>
+          <mat-checkbox class="show-all"
+            [checked]="allCheckedForCountry(i)"
+            [indeterminate]="!allCompleteForCountry(i)"
+            (change)="allChangeForCountry(i, $event)">
+          </mat-checkbox>
+          <i></i>
+        </label>
+      </td>
+
+      <td *ngFor="let kind of kinds" [ngClass]="kind.classes">
+        <label>
+          <mat-checkbox
+            class="show-all"
+            [checked]="checkedForCountryAndKind(i, kind.kind)"
+            (change)="changeForCountryAndKind(i, kind.kind, $event)">
+          </mat-checkbox>
+          <i></i>
+        </label>
+      </td>
+
+    </tr>
+  </tbody>
+</table>
+
+<div class="user-item">
+  <div class="form-block-title">
+    <span class="btn v add" (click)=addDirection()>Добавить</span>
+  </div>
+</div>
