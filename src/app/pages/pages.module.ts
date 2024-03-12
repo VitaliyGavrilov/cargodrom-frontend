@@ -30,6 +30,7 @@ import { PlaceEditorComponent } from './components/place-editor/place-editor.com
 import { RequestServicesComponent } from './components/request-services-editor/request-services-editor.component';
 import { ResponsibilityComponent } from './components/responsibility/responsibility.component';
 
+
 @NgModule({
   declarations: [
     DashboardComponent,
@@ -57,6 +58,7 @@ import { ResponsibilityComponent } from './components/responsibility/responsibil
     ResponsibilityComponent,
     PlaceEditorComponent,
     RequestServicesComponent,
+
   ],
   imports: [
     CommonModule,

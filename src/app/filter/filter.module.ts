@@ -9,6 +9,8 @@ import { UniversalFilterComponent } from './components/universal-filter/universa
 import { MaterialModule } from '@cargodrom/material/material.module';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { TableFilterComponent } from './table-filter/table-filter.component';
+import { RadioFilterComponent } from './components/radio-filter/radio-filter.component';
+import { SearchSelectFilterComponent } from './components/search-select-filter/search-select-filter.component';
 
 
 
@@ -21,6 +23,8 @@ import { TableFilterComponent } from './table-filter/table-filter.component';
     CheckboxFilterComponent,
     UniversalFilterComponent,
     TableFilterComponent,
+    RadioFilterComponent,
+    SearchSelectFilterComponent
   ],
   imports: [
     CommonModule,

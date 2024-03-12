@@ -11,13 +11,15 @@ export class TableFilterComponent implements OnInit {
 
   showMore = false;
 
+  asd=false;
+
   constructor(
     public filterService: FilterService,
   ) { }
 
   ngOnInit(): void {
   }
-  
+
   toggleMore(): void {
     this.showMore = !this.showMore;
   }

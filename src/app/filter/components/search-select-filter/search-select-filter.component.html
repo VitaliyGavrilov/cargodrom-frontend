@@ -1,0 +1,14 @@
+<div>
+  <div class="title">{{ filterControl.name }}:</div>
+  <div class="data select" [formGroup]="form">
+    <input appearance="outline" class="ui-select" formControlName="name" style="height: 38.75px;"
+      type="text"
+      [matAutocomplete]="auto"
+      (keyup)="search($event)"
+      placeholder="—">
+    <mat-autocomplete  #auto="matAutocomplete">
+      <mat-option *ngFor="let item of test;" [value]="item.name" (click)='change(item)'>{{ item.name }}</mat-option>
+    </mat-autocomplete>
+
+  </div>
+</div>

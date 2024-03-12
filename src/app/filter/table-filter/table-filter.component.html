@@ -15,8 +15,15 @@
     </div>
   </div>
   <div class="add show" [ngClass]="{'hidden': !showMore}">
-    <div class="row">
+    <!-- <div class="row">
       <app-universal-filter class="item" *ngFor="let control of filterService.searchFilterSchema?.additional" [filterControl]="control"></app-universal-filter>
+    </div> -->
+
+    <div class="row">
+      <app-universal-filter class="item w1" *ngFor="let control of filterService.searchFilterSchema?.additional?.slice(0,4)" [filterControl]="control"></app-universal-filter>
+    </div>
+    <div class="row">
+      <app-universal-filter class="item w1" *ngFor="let control of filterService.searchFilterSchema?.additional?.slice(4)" [filterControl]="control"></app-universal-filter>
     </div>
   </div>
 </div>

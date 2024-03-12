@@ -2,7 +2,7 @@ import { emailValidator, innValidator } from './../../../validators/pattern-vali
 import { Component, OnDestroy, OnInit, ViewChild, ViewEncapsulation } from '@angular/core';
 import { FormArray, FormBuilder, FormGroup, MinLengthValidator, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
-import { Observable, Subject, find, map, pipe, takeUntil, tap, retry } from 'rxjs';
+import { Observable, Subject, find, map, pipe, takeUntil, tap, retry, debounce, debounceTime, distinctUntilChanged } from 'rxjs';
 import { ContractorService } from './../../../api/services/contractor.service';
 import { City, Client, ClientGroup, Contractor, ContractorRequestFormat, Country, Currency, Customer, DirectionCity, Employee, FileDocument, TaxSystem, RequestFile } from 'src/app/api/custom_models';
 import { CargoService, CompanyService, CustomerService, DirectionService, RequestService, SystemService, TransportService } from 'src/app/api/services';
@@ -74,20 +74,20 @@ export class RequestEditorComponent implements OnInit, OnDestroy {
   //переменные окружения
   production = environment.production;
   //статичные данные
-  selectedStacking="staking__true"
-  selected = "option2";
+  // selectedStacking="staking__true"
+  // selected = "option2";
 
-  stakingArr =[
-    {
-      value: true,
-      text: 'стакинг'
-      // url: типо путь до картинки будет тут, для селектора, должно сработать
-    },
-    {
-      value: false,
-      text: ' не стакинг'
-    }
-  ];
+  // stakingArr =[
+  //   {
+  //     value: true,
+  //     text: 'стакинг'
+  //     // url: типо путь до картинки будет тут, для селектора, должно сработать
+  //   },
+  //   {
+  //     value: false,
+  //     text: ' не стакинг'
+  //   }
+  // ];
   @ViewChild('fileList', { static: false }) fileList!: FileListComponent;
   @ViewChild('fileListDanger', { static: false }) fileListDanger!: FileListComponent;
   //КОНСТРУКТОР
@@ -723,7 +723,7 @@ export class RequestEditorComponent implements OnInit, OnDestroy {
     this.customerService.customerList({name:string})
       .pipe(
         tap((customer) => this.customers = customer.items as unknown as Customer[]),
-        takeUntil(this._destroy$)
+        takeUntil(this._destroy$),
       ).subscribe();
   }
   private getRequestFormats() {

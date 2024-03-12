@@ -16,196 +16,227 @@
           fill="#DB563B"></path>
       </svg><span>Экспорт данных</span></a>
     <div class="div"></div>
-    <!-- <app-universal-filter *ngFor="let control of filterService.searchFilterSchema?.main" [filterControl]="control"></app-universal-filter> -->
+    <app-universal-filter *ngFor="let control of filterService.searchFilterSchema?.header" [filterControl]="control"></app-universal-filter>
   </div>
 </div>
 
-<!-- <app-table-filter></app-table-filter>
+<app-table-filter></app-table-filter>
+
 <div class="table-list">
   <table mat-table [dataSource]="rows">
+
+    <ng-container matColumnDef="common">
+      <th mat-header-cell *matHeaderCellDef class="w10">
+        <div class="td-block">
+          <div class="column w20" [attr.title]="getColTitle('id')" (click)="sort('id')" [ngClass]="getSortClass('id')">№</div>
+          <div class="column w50" [attr.title]="getColTitle('time_add')" (click)="sort('time_add')" [ngClass]="getSortClass('time_add')">Дата</div>
+          <div class="column nowrap">К/С/О</div>
+        </div>
+      </th>
+
+      <td mat-cell *matCellDef="let request" class="w10">
+        <div class="td-block">
+          <div class="column w20">{{request.id}}</div>
+          <div class="column w50">{{request.time_add}}</div>
+          <div class="column kso">
+            <div class="kso-block">
+              <div class="kso-item"></div>
+              <div class="kso-item"></div>
+              <div class="kso-item"></div>
+            </div>
+
+          </div>
+        </div>
+      </td>
+    </ng-container>
+
     <ng-container matColumnDef="customer">
+      <th mat-header-cell *matHeaderCellDef class="w20">
+        <div class="td-block">
+          <div class="column">Клиент</div>
+        </div>
+      </th>
+      <td mat-cell *matCellDef="let client" class="w20">
+        <div class="td-block">
+          <div class="column">{{ client.customer_name }}, {{client.customer_phone}}, {{client.customer_email}}</div>
+        </div>
+      </td>
+    </ng-container>
+
+    <ng-container matColumnDef="transport">
       <th mat-header-cell *matHeaderCellDef>
         <div class="td-block">
-          <div class="column w10" [attr.title]="getColTitle('id')">№</div>
+          <div class="column">Транспорт</div>
         </div>
       </th>
       <td mat-cell *matCellDef="let client">
         <div class="td-block">
-          <div class="column w10">{{ client.id }}</div>
+
+          <div *ngIf="client.transport_kind_id==='avia'">
+            <svg width="21" height="20" viewBox="0 0 21 20" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <path d="M20.636 10.0449L16.9866 9.01727V7.41992C16.9866 6.63672 16.3143 6 15.4877 6C14.6613 6 13.989 6.63672 13.989 7.41992V8.17322L12.0068 7.61511L12.0042 3.75586C12.0042 3.71875 11.8452 0 10.5063 0C9.16852 0 9.00946 3.71875 9.00946 3.75586V7.61053L7.01105 8.17328V7.41992C7.01105 6.63672 6.33875 6 5.51227 6C4.68573 6 4.01343 6.63672 4.01343 7.41992V9.0174L0.364441 10.0449C0.148804 10.1055 0 10.3027 0 10.5264V12.3682C0 12.5078 0.0585327 12.6416 0.161987 12.7363C0.254211 12.8213 0.375183 12.8682 0.499634 12.8682C0.513733 12.8682 0.527893 12.8672 0.542053 12.8662L9.00946 12.1398V14.3264L5.61957 16.3799C5.47028 16.4707 5.37854 16.6328 5.37854 16.8076V17.5C5.37854 17.7764 5.60199 18 5.87817 18H9.31091C9.52667 19.04 9.89081 20 10.5063 20C11.1223 20 11.4867 19.04 11.7026 18H15.1218C15.398 18 15.6215 17.7764 15.6215 17.5V16.8076C15.6215 16.6328 15.5297 16.4707 15.3804 16.3799L12.0042 14.3347V12.141L20.4575 12.8662C20.4721 12.8672 20.4858 12.8682 20.5004 12.8682C20.6253 12.8682 20.7453 12.8213 20.838 12.7363C20.9415 12.6416 21 12.5078 21 12.3682V10.5264C21 10.3027 20.8507 10.1055 20.636 10.0449ZM14.9882 7.41992C14.9882 7.18848 15.2126 7 15.4877 7C15.7629 7 15.9874 7.18848 15.9874 7.41992V8.73596L14.9882 8.45459V7.41992ZM5.01263 7.41992C5.01263 7.18848 5.23706 7 5.51227 7C5.78741 7 6.01184 7.18848 6.01184 7.41992V8.45465L5.01263 8.73602V7.41992ZM6.52509 17L9.01215 15.4935C9.02057 15.6901 9.05389 16.2943 9.14496 17H6.52509ZM11.8687 17C11.9589 16.3015 11.9924 15.7044 12.0012 15.5016L14.4749 17H11.8687ZM20.0008 11.8232L11.5504 11.0986C11.5431 11.0983 11.5366 11.1017 11.5293 11.1017C11.5206 11.1013 11.5134 11.0967 11.5046 11.0967C11.4529 11.0967 11.4058 11.1115 11.3589 11.126C11.3579 11.1264 11.3567 11.1263 11.3556 11.1267C11.2372 11.1643 11.1422 11.243 11.0804 11.3483C11.0753 11.3566 11.0689 11.3634 11.0643 11.3721C11.0416 11.4163 11.03 11.4646 11.0214 11.5153C11.019 11.5289 11.011 11.5397 11.0098 11.5537C11.0095 11.5579 11.0114 11.5615 11.0112 11.5657C11.0105 11.5765 11.0049 11.5857 11.0049 11.5967V15.4238C11.0049 16.2666 10.7591 17.8379 10.5063 18.6289C10.2546 17.8379 10.0087 16.2666 10.0087 15.4238V11.5967C10.0087 11.3693 9.85443 11.1854 9.64709 11.1245C9.64264 11.123 9.63782 11.1232 9.6333 11.1218C9.59259 11.1111 9.55316 11.0967 9.50909 11.0967C9.49884 11.0967 9.49036 11.1019 9.48029 11.1025C9.46973 11.1025 9.46021 11.0979 9.44958 11.0986L0.999207 11.8232V10.9053L9.62811 8.47559C9.6347 8.47369 9.63916 8.46869 9.64557 8.46661C9.8537 8.40625 10.0087 8.22205 10.0087 7.99414V3.75586C10.0087 2.92773 10.2741 1.72754 10.5063 1.19824C10.7396 1.72656 11.0049 2.92773 11.0049 3.75586L11.0079 7.99414C11.0079 8.00513 11.0134 8.01428 11.0141 8.02509C11.0163 8.05981 11.0251 8.09155 11.0342 8.12451C11.0426 8.15503 11.0495 8.18494 11.0633 8.21283C11.0773 8.24127 11.0964 8.26501 11.1155 8.29034C11.135 8.31628 11.1531 8.3418 11.1773 8.3634C11.2 8.38385 11.2264 8.39825 11.253 8.41443C11.2824 8.43237 11.3107 8.44952 11.3438 8.46112C11.354 8.46472 11.3613 8.4726 11.3719 8.47559L20.0008 10.9053V11.8232Z" fill="#83909E">
+              </path>
+            </svg>
+          </div>
+
+          <div *ngIf="client.transport_kind_id==='road'">
+            <svg width="21" height="18" viewBox="0 0 21 18" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <path d="M20.5 2H19V0.5C19 0.223633 18.7764 0 18.5 0H2.5C2.22363 0 2 0.223633 2 0.5V2H0.5C0.223633 2 0 2.22363 0 2.5V6.5C0 6.77637 0.223633 7 0.5 7H2V7.5V15.5V17.5C2 17.7764 2.22363 18 2.5 18H5.5C5.77637 18 6 17.7764 6 17.5V16H15V17.5C15 17.7764 15.2236 18 15.5 18H18.5C18.7764 18 19 17.7764 19 17.5V15.5V7.5V7H20.5C20.7764 7 21 6.77637 21 6.5V2.5C21 2.22363 20.7764 2 20.5 2ZM2 6H1V3H2V6ZM5 17H3V16H4.5H5V17ZM5.5 15H5V14H16V15H15.5H5.5ZM18 17H16V16H16.5H18V17ZM18 15H17V13.5C17 13.2236 16.7764 13 16.5 13H4.5C4.22363 13 4 13.2236 4 13.5V15H3V8H6.00098V9.5V11.5C6.00098 11.7764 6.22461 12 6.50098 12H14.499C14.7754 12 14.999 11.7764 14.999 11.5V9.5V8H18V15ZM13.999 10V11H7.00098V10H13.999ZM7.00098 9V8H13.999V9H7.00098ZM18 2.5V6.5V7H14.499H6.50098H3V6.5V2.5V1H18V2.5ZM20 6H19V3H20V6Z" fill="#83909E">
+              </path>
+            </svg>
+          </div>
+
+          <div *ngIf="client.transport_kind_id==='sea'">
+            <svg width="25" height="18" viewBox="0 0 25 18" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <path d="M24.5 15C23.1582 15 22.5908 15.6475 22.1348 16.167C21.7109 16.6504 21.4043 17 20.5 17C20.2117 17 19.997 16.9543 19.807 16.8902L22.8926 8.82422C22.9463 8.68359 22.9346 8.52734 22.8594 8.39648C22.7852 8.2666 22.6562 8.17676 22.5078 8.15234L20 7.7356V2.5C20 2.22363 19.7764 2 19.5 2H18V0.5C18 0.223633 17.7764 0 17.5 0H7.5C7.22363 0 7 0.223633 7 0.5V2H5.5C5.22363 2 5 2.22363 5 2.5V7.73566L2.49268 8.15234C2.34473 8.17676 2.21533 8.2666 2.14111 8.39648C2.06641 8.52734 2.0542 8.68359 2.10791 8.82422L5.19299 16.8902C5.00299 16.9543 4.78827 17 4.5 17C3.5957 17 3.28955 16.6504 2.86523 16.167C2.40918 15.6475 1.8418 15 0.5 15C0.223633 15 0 15.2236 0 15.5C0 15.7764 0.223633 16 0.5 16C1.38867 16 1.69287 16.3467 2.11328 16.8262C2.57178 17.3496 3.14258 18 4.5 18C5.85742 18 6.42773 17.3496 6.88672 16.8262C7.30762 16.3467 7.61133 16 8.5 16C9.38867 16 9.69238 16.3467 10.1133 16.8262C10.5723 17.3496 11.1426 18 12.5 18C13.8574 18 14.4277 17.3496 14.8867 16.8262C15.3076 16.3467 15.6113 16 16.5 16C17.3887 16 17.6924 16.3467 18.1133 16.8262C18.5723 17.3496 19.1426 18 20.5 18C21.8574 18 22.4277 17.3496 22.8867 16.8262C23.3076 16.3467 23.6113 16 24.5 16C24.7764 16 25 15.7764 25 15.5C25 15.2236 24.7764 15 24.5 15ZM8 1H17V2H8V1ZM6 3H7.5H17.5H19V7.56946L12.582 6.50293C12.5547 6.49823 12.5276 6.50708 12.5001 6.50714C12.4725 6.50708 12.4456 6.49823 12.418 6.50293L6 7.56946V3ZM10.8652 16.167C10.4092 15.6475 9.8418 15 8.5 15C7.1582 15 6.59082 15.6475 6.13477 16.167C6.09869 16.2081 6.06506 16.2417 6.03021 16.2808L3.26025 9.03809L12 7.58594V16.9461C11.468 16.8354 11.1973 16.5457 10.8652 16.167ZM16.5 15C15.1582 15 14.5908 15.6475 14.1348 16.167C13.8027 16.5457 13.532 16.8354 13 16.9461V7.58594L21.7402 9.03809L18.9698 16.2808C18.9349 16.2417 18.9013 16.2081 18.8652 16.167C18.4092 15.6475 17.8418 15 16.5 15ZM10 4.5C10 4.77637 9.77637 5 9.5 5H7.5C7.22363 5 7 4.77637 7 4.5C7 4.22363 7.22363 4 7.5 4H9.5C9.77637 4 10 4.22363 10 4.5ZM13.5 5H11.5C11.2236 5 11 4.77637 11 4.5C11 4.22363 11.2236 4 11.5 4H13.5C13.7764 4 14 4.22363 14 4.5C14 4.77637 13.7764 5 13.5 5ZM15 4.5C15 4.22363 15.2236 4 15.5 4H17.5C17.7764 4 18 4.22363 18 4.5C18 4.77637 17.7764 5 17.5 5H15.5C15.2236 5 15 4.77637 15 4.5Z" fill="#83909E">
+              </path>
+            </svg>
+          </div>
+
+          <div *ngIf="client.transport_kind_id==='rd'">
+            <svg width="23" height="22" viewBox="0 0 23 22" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <path d="M13.9713 7.19846C13.9127 7.42414 13.7106 7.57265 13.4879 7.57265C13.4469 7.57265 13.4039 7.56776 13.362 7.55604L11.4879 7.06656L9.6139 7.55604C9.3434 7.63224 9.07386 7.46518 9.00453 7.19846C8.93422 6.93173 9.09437 6.65817 9.36195 6.58881L11.362 6.06611C11.444 6.04462 11.5319 6.04462 11.6139 6.06611L13.6139 6.58881C13.8815 6.65817 14.0416 6.93173 13.9713 7.19846ZM13.6139 8.5897L11.6139 8.06701C11.5319 8.04551 11.444 8.04551 11.362 8.06701L9.36195 8.5897C9.09437 8.65907 8.93422 8.93263 9.00453 9.19935C9.07386 9.46705 9.3434 9.63314 9.6139 9.55693L11.4879 9.06746L13.362 9.55693C13.4039 9.56866 13.4469 9.57354 13.4879 9.57354C13.7106 9.57354 13.9127 9.42504 13.9713 9.19935C14.0416 8.93263 13.8815 8.65907 13.6139 8.5897ZM3.98793 15.4971V6.21462V5.49261V2.25679C3.98793 2.0272 4.1432 1.82789 4.36586 1.7722L11.3659 0.00578385C11.3684 0.00505112 11.3711 0.00621124 11.3737 0.00553964C11.4088 -0.00288703 11.444 0.00303612 11.4802 0.0025476C11.5217 0.00169272 11.5621 -0.00423033 11.6027 0.00560077C11.6051 0.00621144 11.6076 0.00511225 11.61 0.00578395L18.61 1.7722C18.8327 1.82789 18.9879 2.0272 18.9879 2.25679V5.49261V6.21462V15.4971C18.9879 15.7736 18.7643 15.9973 18.4879 15.9973H4.48793C4.21156 15.9973 3.98793 15.7736 3.98793 15.4971ZM17.9879 14.9969V6.60383L11.4879 4.96357L4.98793 6.60383V14.9969H17.9879ZM17.9879 2.64661L11.9879 1.13226V4.05838L17.9879 5.57273V5.49261V2.64661ZM4.98793 5.49261V5.57273L10.9879 4.05838V1.13226L4.98793 2.64661V5.49261ZM8.98793 12.4957C8.98793 13.3233 8.31508 13.9964 7.48793 13.9964C6.66078 13.9964 5.98793 13.3233 5.98793 12.4957C5.98793 11.6682 6.66078 10.9951 7.48793 10.9951C8.31508 10.9951 8.98793 11.6682 8.98793 12.4957ZM7.98793 12.4957C7.98793 12.2202 7.76332 11.9955 7.48793 11.9955C7.21254 11.9955 6.98793 12.2202 6.98793 12.4957C6.98793 12.7713 7.21254 12.996 7.48793 12.996C7.76332 12.996 7.98793 12.7713 7.98793 12.4957ZM16.9879 12.4957C16.9879 13.3233 16.3151 13.9964 15.4879 13.9964C14.6608 13.9964 13.9879 13.3233 13.9879 12.4957C13.9879 11.6682 14.6608 10.9951 15.4879 10.9951C16.3151 10.9951 16.9879 11.6682 16.9879 12.4957ZM15.9879 12.4957C15.9879 12.2202 15.7633 11.9955 15.4879 11.9955C15.2125 11.9955 14.9879 12.2202 14.9879 12.4957C14.9879 12.7713 15.2125 12.996 15.4879 12.996C15.7633 12.996 15.9879 12.7713 15.9879 12.4957ZM5.48793 16.9978C5.21156 16.9978 4.98793 17.2215 4.98793 17.498C4.98793 17.7745 5.21156 17.9982 5.48793 17.9982H17.4879C17.7643 17.9982 17.9879 17.7745 17.9879 17.498C17.9879 17.2215 17.7643 16.9978 17.4879 16.9978H5.48793ZM4.48793 19.9991H18.4879C18.7643 19.9991 18.9879 19.7754 18.9879 19.4989C18.9879 19.2224 18.7643 18.9987 18.4879 18.9987H4.48793C4.21156 18.9987 3.98793 19.2224 3.98793 19.4989C3.98793 19.7754 4.21156 19.9991 4.48793 19.9991ZM19.4879 20.9996H3.48793C3.21156 20.9996 2.98793 21.2233 2.98793 21.4998C2.98793 21.7763 3.21156 22 3.48793 22H19.4879C19.7643 22 19.9879 21.7763 19.9879 21.4998C19.9879 21.2233 19.7643 20.9996 19.4879 20.9996ZM3.43812 17.0818C3.20863 16.9284 2.89857 16.9899 2.74476 17.2205L0.0836305 21.2223C-0.0692015 21.4529 -0.0067015 21.7636 0.223279 21.916C0.30824 21.9726 0.404431 22 0.499646 22C0.661267 22 0.819959 21.9218 0.916638 21.7772L3.57777 17.7755C3.7306 17.5449 3.6681 17.2342 3.43812 17.0818ZM22.9157 21.2223L20.2545 17.2205C20.1012 16.9899 19.7907 16.9294 19.5612 17.0818C19.3317 17.2342 19.2692 17.5449 19.4225 17.7755L22.0836 21.7772C22.1793 21.9218 22.3385 22 22.4996 22C22.5953 22 22.6911 21.9726 22.777 21.916C23.0065 21.7636 23.069 21.4529 22.9157 21.2223Z" fill="#83909E">
+              </path>
+            </svg>
+          </div>
+
+          <div class="column">{{ client.transport_type_name }}</div>
         </div>
       </td>
     </ng-container>
+
     <ng-container matColumnDef="direction">
       <th mat-header-cell *matHeaderCellDef>
         <div class="td-block">
-          <div class="column w10" [attr.title]="getColTitle('id')">№</div>
+          <div class="column">Откуда</div>
+          <div class="column">Куда</div>
         </div>
       </th>
       <td mat-cell *matCellDef="let client">
         <div class="td-block">
-          <div class="column w10">{{ client.id }}</div>
+          <div class="column">{{client.departure_country_name}}, {{ client.departure_city_name}}</div>
+          <div class="column">{{client.arrival_country_name}}, {{ client.arrival_city_name }}</div>
         </div>
       </td>
     </ng-container>
-    <ng-container matColumnDef="contact">
+
+    <ng-container matColumnDef="cargo">
       <th mat-header-cell *matHeaderCellDef>
         <div class="td-block">
-          <div class="column w10" [attr.title]="getColTitle('id')">№</div>
+          <div class="column">Параметры груза</div>
         </div>
       </th>
       <td mat-cell *matCellDef="let client">
         <div class="td-block">
-          <div class="column w10">{{ client.id }}</div>
+          <div class="column">{{ client.cargo_description }},{{client.cargo_places_count}} мест,{{client.cargo_places_weight}} кг, {{client.cargo_places_volume}} м3</div>
         </div>
       </td>
     </ng-container>
-    <ng-container matColumnDef="orders">
-      <th mat-header-cell *matHeaderCellDef>
+
+    <ng-container matColumnDef="incoterms">
+      <th mat-header-cell *matHeaderCellDef >
         <div class="td-block">
-          <div class="column w10" [attr.title]="getColTitle('id')">№</div>
+          <div class="column w50">INC</div>
+          <div class="column w50">Ставки дали</div>
         </div>
       </th>
       <td mat-cell *matCellDef="let client">
         <div class="td-block">
-          <div class="column w10">{{ client.id }}</div>
+          <div class="column w50">{{ client.incoterms_name }}</div>
+          <div class="column w50">{{ client.rates }}</div>
         </div>
       </td>
     </ng-container>
-    <ng-container matColumnDef="status">
-      <th mat-header-cell *matHeaderCellDef>
-        <div class="td-block">
-          <div class="column w10" [attr.title]="getColTitle('id')">№</div>
-        </div>
-      </th>
-      <td mat-cell *matCellDef="let client">
-        <div class="td-block">
-          <div class="column w10">{{ client.id }}</div>
-        </div>
-      </td>
-    </ng-container>
-    <ng-container matColumnDef="manager">
-      <th mat-header-cell *matHeaderCellDef>
-        <div class="td-block">
-          <div class="column w10" [attr.title]="getColTitle('id')">№</div>
-        </div>
-      </th>
-      <td mat-cell *matCellDef="let client">
-        <div class="td-block">
-          <div class="column w10">{{ client.id }}</div>
-        </div>
-      </td>
-    </ng-container>
-    <ng-container matColumnDef="settings">
-      <th mat-header-cell *matHeaderCellDef>
-        <div class="td-block">
-          <div class="column w10" [attr.title]="getColTitle('id')">№</div>
-        </div>
-      </th>
-      <td mat-cell *matCellDef="let client">
-        <div class="td-block">
-          <div class="column w10">{{ client.id }}</div>
-        </div>
-      </td>
-    </ng-container> -->
-    <!-- <ng-container matColumnDef="direction">
-      <th mat-header-cell *matHeaderCellDef class="w15">
-        <div class="td-block">
-          <div class="column w50" [attr.title]="getColTitle('country_name')" (click)="sort('country_name')" [ngClass]="getSortClass('country_name')">
-            Страна</div>
-          <div class="column w50" [attr.title]="getColTitle('city_name')" (click)="sort('city_name')" [ngClass]="getSortClass('city_name')">Город
-          </div>
-        </div>
-      </th>
-      <td mat-cell *matCellDef="let client">
-        <div class="td-block">
-          <div class="column w50">{{ client.country_name }}</div>
-          <div class="column w50">{{ client.city_name }}</div>
-        </div>
-      </td>
-    </ng-container>
-    <ng-container matColumnDef="contact">
-      <th mat-header-cell *matHeaderCellDef>
-        <div class="td-block">
-          <div class="column w60" [attr.title]="getColTitle('document_contact_fio')" (click)="sort('document_contact_fio')"
-            [ngClass]="getSortClass('document_contact_fio')">Контактное лицо</div>
-          <div class="column w40" [attr.title]="getColTitle('document_contact_phone')" (click)="sort('document_contact_phone')"
-            [ngClass]="getSortClass('document_contact_phone')">Телефон</div>
-        </div>
-      </th>
-      <td mat-cell *matCellDef="let client">
-        <div class="td-block">
-          <div class="column w60">{{ client.document_contact_fio }}</div>
-          <div class="column w40">{{ client.document_contact_phone }}</div>
-        </div>
-      </td>
-    </ng-container>
-    <ng-container matColumnDef="orders">
+
+    <ng-container matColumnDef="rate">
       <th mat-header-cell *matHeaderCellDef class="w15">
         <div class="td-block-column">
-          <div class="td-block-title">Заказы</div>
+          <div class="td-block-title">Минимальная ставка</div>
           <div class="td-block-line">
-            <div class="column center w30" [attr.title]="getColTitle('order_count')" (click)="sort('order_count')"
-              [ngClass]="getSortClass('order_count')">Кол-во</div>
-            <div class="column center" [attr.title]="getColTitle('order_day_last')" (click)="sort('order_day_last')"
-              [ngClass]="getSortClass('order_day_last')">С последнего</div>
-            <div class="column center w30" [attr.title]="getColTitle('order_delay_payment')" (click)="sort('order_delay_payment')"
-              [ngClass]="getSortClass('order_delay_payment')">Просрочка</div>
+            <div class="column w40">Подрядчик</div>
+            <div class="column center nowrap">Срок, дн.</div>
+            <div class="column right w40">Сумма</div>
           </div>
         </div>
       </th>
       <td mat-cell *matCellDef="let client">
         <div class="td-block-line">
-          <div class="column center w30 bold gray">{{ client.order_count }}</div>
-          <div class="column center bold gray">{{ client.order_day_last }}</div>
-          <div class="column center w30 bold gray">{{ client.order_delay_payment }}</div>
+          <div class="column center w30 bold gray">{{ client.rate_contractor_name }}</div>
+          <div class="column center bold gray">{{ client.rate_delivery_days }}</div>
+          <div class="column center w30 bold gray">{{ client.rate_delivery_cost }}</div>
         </div>
       </td>
     </ng-container>
+
+    <ng-container matColumnDef="profit">
+      <th mat-header-cell *matHeaderCellDef class="w190px">
+        <div class="td-block-column">
+          <div class="td-block-title">Профит</div>
+          <div class="td-block-line">
+            <div class="column center w50">Сумма</div>
+            <div class="column center w50">%</div>
+          </div>
+        </div>
+      </th>
+      <td mat-cell *matCellDef="let client">
+        <div class="td-block-line">
+          <div class="column center w50 gray bold">{{ client.profit_amount }}</div>
+          <div class="column center w50 gray bold">{{ client.profit_percent }}</div>
+        </div>
+      </td>
+    </ng-container>
+
+    <ng-container matColumnDef="bid">
+      <th mat-header-cell *matHeaderCellDef >
+        <div class="td-block">
+          <div class="column">Ставка клиенту</div>
+        </div>
+      </th>
+      <td mat-cell *matCellDef="let client">
+        <div class="td-block">
+          <div class="column">{{ client.bid_client }}</div>
+        </div>
+      </td>
+    </ng-container>
+
     <ng-container matColumnDef="status">
-      <th mat-header-cell *matHeaderCellDef class="w15">
+      <th mat-header-cell *matHeaderCellDef>
         <div class="td-block">
-          <div class="column w50" [attr.title]="getColTitle('interaction_name')" (click)="sort('interaction_name')"
-            [ngClass]="getSortClass('interaction_name')">Взаимодействие</div>
-          <div class="column w50" [attr.title]="getColTitle('status_name')" (click)="sort('status_name')" [ngClass]="getSortClass('status_name')">
-            Статус</div>
+          <div class="column w50">Статус CRM</div>
+          <div class="column w50">Сотрудник</div>
         </div>
       </th>
       <td mat-cell *matCellDef="let client">
         <div class="td-block">
-          <div class="column w50">{{ client.interaction_name }}</div>
-          <div class="column w50">{{ client.status_name }}</div>
+          <div class="column w50">{{ client.status_id }}</div>
+          <div class="column w50">{{ client.manager_executor_name }}</div>
         </div>
       </td>
     </ng-container>
-    <ng-container matColumnDef="manager">
-      <th mat-header-cell *matHeaderCellDef class="w15">
-        <div class="td-block">
-          <div class="column w50" [attr.title]="getColTitle('manager_name')" (click)="sort('manager_name')" [ngClass]="getSortClass('manager_name')">
-            Менеджер</div>
-          <div class="column w50" [attr.title]="getColTitle('manager_sale_name')" (click)="sort('manager_sale_name')"
-            [ngClass]="getSortClass('manager_sale_name')">Менеджер продаж</div>
-        </div>
-      </th>
-      <td mat-cell *matCellDef="let client">
-        <div class="td-block">
-          <div class="column w50">{{ client.manager_name }}</div>
-          <div class="column w50">{{ client.manager_sale_name }}</div>
-        </div>
-      </td>
-    </ng-container>
+
     <ng-container matColumnDef="settings">
       <th mat-header-cell *matHeaderCellDef class="setting">
         <div class="setting-link"></div>
       </th>
-      <td mat-cell *matCellDef="let client" class="setting">
-        <a class="link-pic link-edit ico ico-pencil fn-link" [routerLink]="[client.id]" title="Редактировать"></a>
-      </td>
-    </ng-container> -->
 
-    <!-- <tr mat-header-row *matHeaderRowDef="column"></tr>
+      <td mat-cell *matCellDef="let client" class="setting">
+        <!-- <a class="link-pic link-edit ico ico-pencil fn-link" [routerLink]="[client.id]" title="Редактировать"></a> -->
+        <!-- <a class="link-pic link-edit ico ico-pencil fn-link" [routerLink]="['pages/request/edit', client.id]" title="Редактировать"></a> -->
+        <a class="link-pic link-edit ico ico-pencil fn-link" [routerLink]="['edit', client.id]" title="Редактировать"></a>
+      </td>
+    </ng-container>
+
+    <tr mat-header-row *matHeaderRowDef="column"></tr>
     <tr mat-row *matRowDef="let row; columns: column;"></tr>
+
   </table>
 </div>
-<app-paginator [total]="total" [count]="count" [start]="start" [limits]="limits" (startChange)="onStartChange($event)"
-  (countChange)="onCountChange($event)"></app-paginator>
- -->
+
+<app-paginator
+  [total]="total"
+  [count]="count"
+  [start]="start"
+  [limits]="limits"
+  (startChange)="onStartChange($event)"
+  (countChange)="onCountChange($event)">
+</app-paginator>

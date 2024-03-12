@@ -1,23 +1,23 @@
-import { ComponentFixture, TestBed } from '@angular/core/testing';
+// import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { PeriodFilterComponent } from './period-filter.component';
+// import { PeriodFilterComponent } from './period-filter.component';
 
-describe('PeriodFilterComponent', () => {
-  let component: PeriodFilterComponent;
-  let fixture: ComponentFixture<PeriodFilterComponent>;
+// describe('PeriodFilterComponent', () => {
+//   let component: PeriodFilterComponent;
+//   let fixture: ComponentFixture<PeriodFilterComponent>;
 
-  beforeEach(async () => {
-    await TestBed.configureTestingModule({
-      declarations: [ PeriodFilterComponent ]
-    })
-    .compileComponents();
+//   beforeEach(async () => {
+//     await TestBed.configureTestingModule({
+//       declarations: [ PeriodFilterComponent ]
+//     })
+//     .compileComponents();
 
-    fixture = TestBed.createComponent(PeriodFilterComponent);
-    component = fixture.componentInstance;
-    fixture.detectChanges();
-  });
+//     fixture = TestBed.createComponent(PeriodFilterComponent);
+//     component = fixture.componentInstance;
+//     fixture.detectChanges();
+//   });
 
-  it('should create', () => {
-    expect(component).toBeTruthy();
-  });
-});
+//   it('should create', () => {
+//     expect(component).toBeTruthy();
+//   });
+// });

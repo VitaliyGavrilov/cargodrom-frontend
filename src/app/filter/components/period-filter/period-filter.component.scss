@@ -1,0 +1,69 @@
+.df{
+  display: flex;
+}
+
+
+.period{
+  display: flex;
+  margin-top: 10px;
+  margin-left: 14px;
+
+  // border-bottom: 1px #DB563B solid;
+
+  position: relative;
+
+  align-items: center;
+
+  width: 175px;
+
+
+}
+
+.border-on{
+  border-bottom: 1px #DB563B solid;
+  color: #DB563B ;
+}
+
+.border-off{
+ border-bottom: none;
+}
+
+.test{
+  display: none;
+}
+
+.pl{
+  display: flex;
+  position: relative;
+}
+
+.test2{
+  font-size: 13px;
+  line-height: 13px;
+  max-height: 12px;
+
+  margin-right: 5px;
+
+}
+
+.test3{
+  width: 67px;
+}
+
+.calendar{
+  margin-right: 3px;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+

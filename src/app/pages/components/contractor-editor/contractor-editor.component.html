@@ -122,6 +122,7 @@
            </div>
          </div> -->
          <div class="form-item">
+
           <div class="form-label">Тип контрагента: <span class="req">•</span></div>
           <div class="form-data">
            <mat-form-field appearance="outline" class="ui-select">
@@ -129,6 +130,7 @@
                <mat-option *ngFor="let type of counterpartys;"  [value]="type.id">{{ type.name }}</mat-option>
              </mat-select>
              <mat-error *ngIf="contractorForm.controls['counterparty_id'].hasError('required')">
+
                Это поле обязательно
              </mat-error>
            </mat-form-field>

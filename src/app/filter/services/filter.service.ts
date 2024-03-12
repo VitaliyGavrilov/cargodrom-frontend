@@ -1,5 +1,5 @@
 import { Injectable, OnDestroy } from '@angular/core';
-import { Observable, Subject, map } from 'rxjs';
+import { BehaviorSubject, Observable, Subject, map } from 'rxjs';
 import { FilterControl, SearchFilterSchema } from 'src/app/api/custom_models';
 
 @Injectable()
@@ -15,6 +15,8 @@ export class FilterService implements OnDestroy {
   hasAdditional = false;
 
   private search$ = new Subject<void>();
+
+  public clearEmiter$ = new BehaviorSubject<void>(undefined);
 
   constructor(
 
@@ -57,6 +59,7 @@ export class FilterService implements OnDestroy {
       });
     }
     this.search$.next();
+    this.clearEmiter$.next();
   }
 
   onApply(): Observable<{ [field: string]: any }> {

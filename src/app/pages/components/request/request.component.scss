@@ -1,0 +1,19 @@
+.w190px{
+  width: 190px;
+}
+
+.kso-block{
+  display: flex;
+  flex-direction: row;
+  max-width: 46px;
+  height: 33px;
+
+  justify-content: space-between;
+
+}
+
+.kso-item{
+  height: 100%;
+  width: 8px;
+  background-color: #81DD7C;
+}
