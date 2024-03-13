@@ -314,7 +314,7 @@ export class RequestService extends BaseService {
 'cargo_cost'?: number;
 
 /**
- * Валюта по стоимости груза (ID берем из запроса - settings_get из поля currency)
+ * Валюта стоимости груза (ID берем из запроса - settings_get из поля currency)
  */
 'cargo_currency_id'?: string;
 
@@ -493,6 +493,11 @@ export class RequestService extends BaseService {
  * Статус CRM (ID берем из запроса - request_status_crm)
  */
 'status_crm_id'?: number;
+
+/**
+ * Статус CRM
+ */
+'status_crm_name'?: string;
 
 /**
  * Ответственный инициатор (ID берем из запроса - company_employee_list)
@@ -750,7 +755,7 @@ export class RequestService extends BaseService {
         'cargo_cost'?: number;
         
         /**
-         * Валюта по стоимости груза (ID берем из запроса - settings_get из поля currency)
+         * Валюта стоимости груза (ID берем из запроса - settings_get из поля currency)
          */
         'cargo_currency_id'?: string;
         
@@ -929,6 +934,11 @@ export class RequestService extends BaseService {
          * Статус CRM (ID берем из запроса - request_status_crm)
          */
         'status_crm_id'?: number;
+        
+        /**
+         * Статус CRM
+         */
+        'status_crm_name'?: string;
         
         /**
          * Ответственный инициатор (ID берем из запроса - company_employee_list)
@@ -1270,7 +1280,7 @@ export class RequestService extends BaseService {
 'cargo_cost'?: number;
 
 /**
- * Валюта по стоимости груза (ID берем из запроса - settings_get из поля currency)
+ * Валюта стоимости груза (ID берем из запроса - settings_get из поля currency)
  */
 'cargo_currency_id'?: string;
 
@@ -1449,6 +1459,11 @@ export class RequestService extends BaseService {
  * Статус CRM (ID берем из запроса - request_status_crm)
  */
 'status_crm_id'?: number;
+
+/**
+ * Статус CRM
+ */
+'status_crm_name'?: string;
 
 /**
  * Ответственный инициатор (ID берем из запроса - company_employee_list)
@@ -1682,7 +1697,7 @@ export class RequestService extends BaseService {
 'cargo_cost'?: number;
 
 /**
- * Валюта по стоимости груза (ID берем из запроса - settings_get из поля currency)
+ * Валюта стоимости груза (ID берем из запроса - settings_get из поля currency)
  */
 'cargo_currency_id'?: string;
 
@@ -1861,6 +1876,11 @@ export class RequestService extends BaseService {
  * Статус CRM (ID берем из запроса - request_status_crm)
  */
 'status_crm_id'?: number;
+
+/**
+ * Статус CRM
+ */
+'status_crm_name'?: string;
 
 /**
  * Ответственный инициатор (ID берем из запроса - company_employee_list)
@@ -2092,7 +2112,7 @@ export class RequestService extends BaseService {
 'cargo_cost'?: number;
 
 /**
- * Валюта по стоимости груза (ID берем из запроса - settings_get из поля currency)
+ * Валюта стоимости груза (ID берем из запроса - settings_get из поля currency)
  */
 'cargo_currency_id'?: string;
 
@@ -2271,6 +2291,11 @@ export class RequestService extends BaseService {
  * Статус CRM (ID берем из запроса - request_status_crm)
  */
 'status_crm_id'?: number;
+
+/**
+ * Статус CRM
+ */
+'status_crm_name'?: string;
 
 /**
  * Ответственный инициатор (ID берем из запроса - company_employee_list)
@@ -3205,7 +3230,7 @@ export class RequestService extends BaseService {
 'cargo_cost'?: number;
 
 /**
- * Валюта по стоимости груза (ID берем из запроса - settings_get из поля currency)
+ * Валюта стоимости груза (ID берем из запроса - settings_get из поля currency)
  */
 'cargo_currency_id'?: string;
 
@@ -3384,6 +3409,11 @@ export class RequestService extends BaseService {
  * Статус CRM (ID берем из запроса - request_status_crm)
  */
 'status_crm_id'?: number;
+
+/**
+ * Статус CRM
+ */
+'status_crm_name'?: string;
 
 /**
  * Ответственный инициатор (ID берем из запроса - company_employee_list)
@@ -3611,7 +3641,7 @@ export class RequestService extends BaseService {
         'cargo_cost'?: number;
         
         /**
-         * Валюта по стоимости груза (ID берем из запроса - settings_get из поля currency)
+         * Валюта стоимости груза (ID берем из запроса - settings_get из поля currency)
          */
         'cargo_currency_id'?: string;
         
@@ -3790,6 +3820,11 @@ export class RequestService extends BaseService {
          * Статус CRM (ID берем из запроса - request_status_crm)
          */
         'status_crm_id'?: number;
+        
+        /**
+         * Статус CRM
+         */
+        'status_crm_name'?: string;
         
         /**
          * Ответственный инициатор (ID берем из запроса - company_employee_list)
@@ -4030,7 +4065,7 @@ export class RequestService extends BaseService {
 'cargo_cost'?: number;
 
 /**
- * Валюта по стоимости груза (ID берем из запроса - settings_get из поля currency)
+ * Валюта стоимости груза (ID берем из запроса - settings_get из поля currency)
  */
 'cargo_currency_id'?: string;
 
@@ -4209,6 +4244,11 @@ export class RequestService extends BaseService {
  * Статус CRM (ID берем из запроса - request_status_crm)
  */
 'status_crm_id'?: number;
+
+/**
+ * Статус CRM
+ */
+'status_crm_name'?: string;
 
 /**
  * Ответственный инициатор (ID берем из запроса - company_employee_list)
@@ -4427,7 +4467,7 @@ export class RequestService extends BaseService {
 'cargo_cost'?: number;
 
 /**
- * Валюта по стоимости груза (ID берем из запроса - settings_get из поля currency)
+ * Валюта стоимости груза (ID берем из запроса - settings_get из поля currency)
  */
 'cargo_currency_id'?: string;
 
@@ -4606,6 +4646,11 @@ export class RequestService extends BaseService {
  * Статус CRM (ID берем из запроса - request_status_crm)
  */
 'status_crm_id'?: number;
+
+/**
+ * Статус CRM
+ */
+'status_crm_name'?: string;
 
 /**
  * Ответственный инициатор (ID берем из запроса - company_employee_list)
@@ -4822,7 +4867,7 @@ export class RequestService extends BaseService {
 'cargo_cost'?: number;
 
 /**
- * Валюта по стоимости груза (ID берем из запроса - settings_get из поля currency)
+ * Валюта стоимости груза (ID берем из запроса - settings_get из поля currency)
  */
 'cargo_currency_id'?: string;
 
@@ -5001,6 +5046,11 @@ export class RequestService extends BaseService {
  * Статус CRM (ID берем из запроса - request_status_crm)
  */
 'status_crm_id'?: number;
+
+/**
+ * Статус CRM
+ */
+'status_crm_name'?: string;
 
 /**
  * Ответственный инициатор (ID берем из запроса - company_employee_list)
@@ -5211,7 +5261,7 @@ export class RequestService extends BaseService {
 'cargo_cost'?: number;
 
 /**
- * Валюта по стоимости груза (ID берем из запроса - settings_get из поля currency)
+ * Валюта стоимости груза (ID берем из запроса - settings_get из поля currency)
  */
 'cargo_currency_id'?: string;
 
@@ -5502,7 +5552,7 @@ export class RequestService extends BaseService {
 'cargo_cost'?: number;
 
 /**
- * Валюта по стоимости груза (ID берем из запроса - settings_get из поля currency)
+ * Валюта стоимости груза (ID берем из запроса - settings_get из поля currency)
  */
 'cargo_currency_id'?: string;
 
@@ -5802,7 +5852,7 @@ export class RequestService extends BaseService {
 'cargo_cost'?: number;
 
 /**
- * Валюта по стоимости груза (ID берем из запроса - settings_get из поля currency)
+ * Валюта стоимости груза (ID берем из запроса - settings_get из поля currency)
  */
 'cargo_currency_id'?: string;
 
@@ -5900,6 +5950,11 @@ export class RequestService extends BaseService {
  * Статус CRM (ID берем из запроса - request_status_crm)
  */
 'status_crm_id'?: number;
+
+/**
+ * Статус CRM
+ */
+'status_crm_name'?: string;
 }
     },
     context?: HttpContext
@@ -6098,7 +6153,7 @@ export class RequestService extends BaseService {
 'cargo_cost'?: number;
 
 /**
- * Валюта по стоимости груза (ID берем из запроса - settings_get из поля currency)
+ * Валюта стоимости груза (ID берем из запроса - settings_get из поля currency)
  */
 'cargo_currency_id'?: string;
 
@@ -6196,6 +6251,11 @@ export class RequestService extends BaseService {
  * Статус CRM (ID берем из запроса - request_status_crm)
  */
 'status_crm_id'?: number;
+
+/**
+ * Статус CRM
+ */
+'status_crm_name'?: string;
 }
     },
     context?: HttpContext

@@ -1,5 +1,4 @@
-import { CustomerService } from './../../../api/services/customer.service';
-import { Client, ClientFilter, SearchFilterSchema } from './../../../api/custom_models';
+import { SearchFilterSchema } from './../../../api/custom_models';
 import { Component, ViewEncapsulation } from '@angular/core';
 import { LoadParams, Table } from '../../../classes';
 import { MatDialog } from '@angular/material/dialog';
@@ -14,22 +13,22 @@ import { Request, RequestFilter } from 'src/app/api/custom_models/request';
   selector: 'app-request',
   templateUrl: './request.component.html',
   styleUrls: ['./request.component.scss'],
+  encapsulation: ViewEncapsulation.None,
   providers: [FilterService]
 })
 export class RequestComponent extends Table<Request, 'id', RequestFilter> {
   sortField = 'id' as const;
 
-
   trackById = (_index: number, request: Request) => request.id!;
 
   constructor(
     private requestService: RequestService,
-
     filterService: FilterService,
     dialog: MatDialog,
     snackBar: MatSnackBar,
     route: ActivatedRoute,
     router: Router,
+
   ) {
     super(route, router, dialog, snackBar, filterService);
   }
@@ -40,6 +39,31 @@ export class RequestComponent extends Table<Request, 'id', RequestFilter> {
 
   protected override loadFilterSchema<T>(): Observable<SearchFilterSchema> {
     return this.requestService.requestListSearch().pipe(map(val => val as SearchFilterSchema));
+  }
+
+  protected override exportData(): Observable<{data: string; name: string}> {
+    const sort ={
+      "field": this.sortField,
+      "dir": this.sortDir
+    }
+    // return this.requestService.requestExport(this.filter as any) as Observable<{data: string; name: string}>;
+    return this.requestService.requestExport({...this.filter, 'sort': sort} as any) as Observable<{data: string; name: string}>;
+  }
+
+  protected override importData(body: {data: string; name: string}) {
+    return this.requestService.requestImport({body}) as any;
+  }
+
+  protected override importDataConfirm(body: {import_key: string}) {
+    return this.requestService.requestImportConfirm({import_key: body.import_key});
+  }
+
+  protected override importResult(body: {import_key: string}) {
+    return this.requestService.requestImportResult({import_key: body.import_key})
+  }
+
+  protected override importTemplate(): Observable<{data: string; name: string}> {
+    return this.requestService.requestImportTemplate(this.filter as any) as Observable<{data: string; name: string}>;
   }
 
 }

@@ -1,7 +1,6 @@
 import { ChangeDetectorRef, Component, Input, OnDestroy, OnInit } from '@angular/core';
 import { FilterPeriodControl } from 'src/app/api/custom_models';
 import { FilterService } from '../../services/filter.service';
-import { Data } from '@angular/router';
 import { formatDate } from '@angular/common';
 import { FormControl, FormGroup } from '@angular/forms';
 import { Subject, skip, takeUntil } from 'rxjs';

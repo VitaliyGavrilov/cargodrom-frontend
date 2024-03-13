@@ -41,11 +41,12 @@ export class ContractorComponent extends Table<Contractor, 'trade_rating', Contr
   }
 
   protected override exportData(): Observable<{data: string; name: string}> {
-    console.log(this.filter);
-    console.log(this.sortField);
-    
-
-    return this.contractorService.contractorExport(this.filter as any) as Observable<{data: string; name: string}>;
+    const sort ={
+      "field": this.sortField,
+      "dir": this.sortDir
+    }
+    // return this.contractorService.contractorExport(this.filter as any) as Observable<{data: string; name: string}>;
+    return this.contractorService.contractorExport({...this.filter, 'sort': sort} as any) as Observable<{data: string; name: string}>;
   }
 
   protected override importData(body: {data: string; name: string}) {

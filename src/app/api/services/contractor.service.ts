@@ -222,6 +222,11 @@ export class ContractorService extends BaseService {
 'allow_trade'?: boolean;
 
 /**
+ * Участник торгов
+ */
+'allow_trade_text'?: string;
+
+/**
  * Рейтинг в системе (NPS)
  */
 'rating_nps_text'?: string;
@@ -290,6 +295,11 @@ export class ContractorService extends BaseService {
  * Количество проигранных торгов
  */
 'trade_fail_count'?: number;
+
+/**
+ * Участие в торгах (результаты)
+ */
+'trade_count_text'?: number;
 
 /**
  * Количество контактных лиц
@@ -377,34 +387,6 @@ export class ContractorService extends BaseService {
 'wechat'?: string;
 
 /**
- * Ответственный за направления (ID берем из запроса - direction_type)
- */
-'responsible_direction'?: Array<string>;
-
-/**
- * Ответственный за направления (distination_country_id: {departure_country_id: [array of transport_sub_kind]}, ...)
- */
-'responsible_param'?: {
-
-/**
- * Импорт
- */
-'import'?: {
-};
-
-/**
- * Экспорт
- */
-'export'?: {
-};
-
-/**
- * Перевозки внутри страны
- */
-'local'?: Array<string>;
-};
-
-/**
  * Ответственный за направления
  */
 'direction'?: Array<{
@@ -452,9 +434,19 @@ export class ContractorService extends BaseService {
 'specialization'?: Array<string>;
 
 /**
+ * Специализация
+ */
+'specialization_text'?: any;
+
+/**
  * Загрузка грузов
  */
 'container'?: Array<string>;
+
+/**
+ * Загрузка грузов
+ */
+'container_text'?: string;
 
 /**
  * Время создания
@@ -623,6 +615,11 @@ export class ContractorService extends BaseService {
         'allow_trade'?: boolean;
         
         /**
+         * Участник торгов
+         */
+        'allow_trade_text'?: string;
+        
+        /**
          * Рейтинг в системе (NPS)
          */
         'rating_nps_text'?: string;
@@ -691,6 +688,11 @@ export class ContractorService extends BaseService {
          * Количество проигранных торгов
          */
         'trade_fail_count'?: number;
+        
+        /**
+         * Участие в торгах (результаты)
+         */
+        'trade_count_text'?: number;
         
         /**
          * Количество контактных лиц
@@ -778,34 +780,6 @@ export class ContractorService extends BaseService {
         'wechat'?: string;
         
         /**
-         * Ответственный за направления (ID берем из запроса - direction_type)
-         */
-        'responsible_direction'?: Array<string>;
-        
-        /**
-         * Ответственный за направления (distination_country_id: {departure_country_id: [array of transport_sub_kind]}, ...)
-         */
-        'responsible_param'?: {
-        
-        /**
-         * Импорт
-         */
-        'import'?: {
-        };
-        
-        /**
-         * Экспорт
-         */
-        'export'?: {
-        };
-        
-        /**
-         * Перевозки внутри страны
-         */
-        'local'?: Array<string>;
-        };
-        
-        /**
          * Ответственный за направления
          */
         'direction'?: Array<{
@@ -853,9 +827,19 @@ export class ContractorService extends BaseService {
         'specialization'?: Array<string>;
         
         /**
+         * Специализация
+         */
+        'specialization_text'?: any;
+        
+        /**
          * Загрузка грузов
          */
         'container'?: Array<string>;
+        
+        /**
+         * Загрузка грузов
+         */
+        'container_text'?: string;
         
         /**
          * Время создания
@@ -1080,6 +1064,11 @@ export class ContractorService extends BaseService {
 'allow_trade'?: boolean;
 
 /**
+ * Участник торгов
+ */
+'allow_trade_text'?: string;
+
+/**
  * Рейтинг в системе (NPS)
  */
 'rating_nps_text'?: string;
@@ -1148,6 +1137,11 @@ export class ContractorService extends BaseService {
  * Количество проигранных торгов
  */
 'trade_fail_count'?: number;
+
+/**
+ * Участие в торгах (результаты)
+ */
+'trade_count_text'?: number;
 
 /**
  * Количество контактных лиц
@@ -1235,34 +1229,6 @@ export class ContractorService extends BaseService {
 'wechat'?: string;
 
 /**
- * Ответственный за направления (ID берем из запроса - direction_type)
- */
-'responsible_direction'?: Array<string>;
-
-/**
- * Ответственный за направления (distination_country_id: {departure_country_id: [array of transport_sub_kind]}, ...)
- */
-'responsible_param'?: {
-
-/**
- * Импорт
- */
-'import'?: {
-};
-
-/**
- * Экспорт
- */
-'export'?: {
-};
-
-/**
- * Перевозки внутри страны
- */
-'local'?: Array<string>;
-};
-
-/**
  * Ответственный за направления
  */
 'direction'?: Array<{
@@ -1310,9 +1276,19 @@ export class ContractorService extends BaseService {
 'specialization'?: Array<string>;
 
 /**
+ * Специализация
+ */
+'specialization_text'?: any;
+
+/**
  * Загрузка грузов
  */
 'container'?: Array<string>;
+
+/**
+ * Загрузка грузов
+ */
+'container_text'?: string;
 
 /**
  * Время создания
@@ -1464,6 +1440,11 @@ export class ContractorService extends BaseService {
 'allow_trade'?: boolean;
 
 /**
+ * Участник торгов
+ */
+'allow_trade_text'?: string;
+
+/**
  * Рейтинг в системе (NPS)
  */
 'rating_nps_text'?: string;
@@ -1532,6 +1513,11 @@ export class ContractorService extends BaseService {
  * Количество проигранных торгов
  */
 'trade_fail_count'?: number;
+
+/**
+ * Участие в торгах (результаты)
+ */
+'trade_count_text'?: number;
 
 /**
  * Количество контактных лиц
@@ -1619,34 +1605,6 @@ export class ContractorService extends BaseService {
 'wechat'?: string;
 
 /**
- * Ответственный за направления (ID берем из запроса - direction_type)
- */
-'responsible_direction'?: Array<string>;
-
-/**
- * Ответственный за направления (distination_country_id: {departure_country_id: [array of transport_sub_kind]}, ...)
- */
-'responsible_param'?: {
-
-/**
- * Импорт
- */
-'import'?: {
-};
-
-/**
- * Экспорт
- */
-'export'?: {
-};
-
-/**
- * Перевозки внутри страны
- */
-'local'?: Array<string>;
-};
-
-/**
  * Ответственный за направления
  */
 'direction'?: Array<{
@@ -1694,9 +1652,19 @@ export class ContractorService extends BaseService {
 'specialization'?: Array<string>;
 
 /**
+ * Специализация
+ */
+'specialization_text'?: any;
+
+/**
  * Загрузка грузов
  */
 'container'?: Array<string>;
+
+/**
+ * Загрузка грузов
+ */
+'container_text'?: string;
 
 /**
  * Время создания
@@ -1846,6 +1814,11 @@ export class ContractorService extends BaseService {
 'allow_trade'?: boolean;
 
 /**
+ * Участник торгов
+ */
+'allow_trade_text'?: string;
+
+/**
  * Рейтинг в системе (NPS)
  */
 'rating_nps_text'?: string;
@@ -1914,6 +1887,11 @@ export class ContractorService extends BaseService {
  * Количество проигранных торгов
  */
 'trade_fail_count'?: number;
+
+/**
+ * Участие в торгах (результаты)
+ */
+'trade_count_text'?: number;
 
 /**
  * Количество контактных лиц
@@ -2001,34 +1979,6 @@ export class ContractorService extends BaseService {
 'wechat'?: string;
 
 /**
- * Ответственный за направления (ID берем из запроса - direction_type)
- */
-'responsible_direction'?: Array<string>;
-
-/**
- * Ответственный за направления (distination_country_id: {departure_country_id: [array of transport_sub_kind]}, ...)
- */
-'responsible_param'?: {
-
-/**
- * Импорт
- */
-'import'?: {
-};
-
-/**
- * Экспорт
- */
-'export'?: {
-};
-
-/**
- * Перевозки внутри страны
- */
-'local'?: Array<string>;
-};
-
-/**
  * Ответственный за направления
  */
 'direction'?: Array<{
@@ -2076,9 +2026,19 @@ export class ContractorService extends BaseService {
 'specialization'?: Array<string>;
 
 /**
+ * Специализация
+ */
+'specialization_text'?: any;
+
+/**
  * Загрузка грузов
  */
 'container'?: Array<string>;
+
+/**
+ * Загрузка грузов
+ */
+'container_text'?: string;
 
 /**
  * Время создания
@@ -2931,6 +2891,11 @@ export class ContractorService extends BaseService {
 'allow_trade'?: boolean;
 
 /**
+ * Участник торгов
+ */
+'allow_trade_text'?: string;
+
+/**
  * Рейтинг в системе (NPS)
  */
 'rating_nps_text'?: string;
@@ -2999,6 +2964,11 @@ export class ContractorService extends BaseService {
  * Количество проигранных торгов
  */
 'trade_fail_count'?: number;
+
+/**
+ * Участие в торгах (результаты)
+ */
+'trade_count_text'?: number;
 
 /**
  * Количество контактных лиц
@@ -3086,34 +3056,6 @@ export class ContractorService extends BaseService {
 'wechat'?: string;
 
 /**
- * Ответственный за направления (ID берем из запроса - direction_type)
- */
-'responsible_direction'?: Array<string>;
-
-/**
- * Ответственный за направления (distination_country_id: {departure_country_id: [array of transport_sub_kind]}, ...)
- */
-'responsible_param'?: {
-
-/**
- * Импорт
- */
-'import'?: {
-};
-
-/**
- * Экспорт
- */
-'export'?: {
-};
-
-/**
- * Перевозки внутри страны
- */
-'local'?: Array<string>;
-};
-
-/**
  * Ответственный за направления
  */
 'direction'?: Array<{
@@ -3161,9 +3103,19 @@ export class ContractorService extends BaseService {
 'specialization'?: Array<string>;
 
 /**
+ * Специализация
+ */
+'specialization_text'?: any;
+
+/**
  * Загрузка грузов
  */
 'container'?: Array<string>;
+
+/**
+ * Загрузка грузов
+ */
+'container_text'?: string;
 
 /**
  * Время создания
@@ -3303,6 +3255,11 @@ export class ContractorService extends BaseService {
         'allow_trade'?: boolean;
         
         /**
+         * Участник торгов
+         */
+        'allow_trade_text'?: string;
+        
+        /**
          * Рейтинг в системе (NPS)
          */
         'rating_nps_text'?: string;
@@ -3371,6 +3328,11 @@ export class ContractorService extends BaseService {
          * Количество проигранных торгов
          */
         'trade_fail_count'?: number;
+        
+        /**
+         * Участие в торгах (результаты)
+         */
+        'trade_count_text'?: number;
         
         /**
          * Количество контактных лиц
@@ -3458,34 +3420,6 @@ export class ContractorService extends BaseService {
         'wechat'?: string;
         
         /**
-         * Ответственный за направления (ID берем из запроса - direction_type)
-         */
-        'responsible_direction'?: Array<string>;
-        
-        /**
-         * Ответственный за направления (distination_country_id: {departure_country_id: [array of transport_sub_kind]}, ...)
-         */
-        'responsible_param'?: {
-        
-        /**
-         * Импорт
-         */
-        'import'?: {
-        };
-        
-        /**
-         * Экспорт
-         */
-        'export'?: {
-        };
-        
-        /**
-         * Перевозки внутри страны
-         */
-        'local'?: Array<string>;
-        };
-        
-        /**
          * Ответственный за направления
          */
         'direction'?: Array<{
@@ -3533,9 +3467,19 @@ export class ContractorService extends BaseService {
         'specialization'?: Array<string>;
         
         /**
+         * Специализация
+         */
+        'specialization_text'?: any;
+        
+        /**
          * Загрузка грузов
          */
         'container'?: Array<string>;
+        
+        /**
+         * Загрузка грузов
+         */
+        'container_text'?: string;
         
         /**
          * Время создания
@@ -3688,6 +3632,11 @@ export class ContractorService extends BaseService {
 'allow_trade'?: boolean;
 
 /**
+ * Участник торгов
+ */
+'allow_trade_text'?: string;
+
+/**
  * Рейтинг в системе (NPS)
  */
 'rating_nps_text'?: string;
@@ -3756,6 +3705,11 @@ export class ContractorService extends BaseService {
  * Количество проигранных торгов
  */
 'trade_fail_count'?: number;
+
+/**
+ * Участие в торгах (результаты)
+ */
+'trade_count_text'?: number;
 
 /**
  * Количество контактных лиц
@@ -3843,34 +3797,6 @@ export class ContractorService extends BaseService {
 'wechat'?: string;
 
 /**
- * Ответственный за направления (ID берем из запроса - direction_type)
- */
-'responsible_direction'?: Array<string>;
-
-/**
- * Ответственный за направления (distination_country_id: {departure_country_id: [array of transport_sub_kind]}, ...)
- */
-'responsible_param'?: {
-
-/**
- * Импорт
- */
-'import'?: {
-};
-
-/**
- * Экспорт
- */
-'export'?: {
-};
-
-/**
- * Перевозки внутри страны
- */
-'local'?: Array<string>;
-};
-
-/**
  * Ответственный за направления
  */
 'direction'?: Array<{
@@ -3918,9 +3844,19 @@ export class ContractorService extends BaseService {
 'specialization'?: Array<string>;
 
 /**
+ * Специализация
+ */
+'specialization_text'?: any;
+
+/**
  * Загрузка грузов
  */
 'container'?: Array<string>;
+
+/**
+ * Загрузка грузов
+ */
+'container_text'?: string;
 
 /**
  * Время создания
@@ -4051,6 +3987,11 @@ export class ContractorService extends BaseService {
 'allow_trade'?: boolean;
 
 /**
+ * Участник торгов
+ */
+'allow_trade_text'?: string;
+
+/**
  * Рейтинг в системе (NPS)
  */
 'rating_nps_text'?: string;
@@ -4119,6 +4060,11 @@ export class ContractorService extends BaseService {
  * Количество проигранных торгов
  */
 'trade_fail_count'?: number;
+
+/**
+ * Участие в торгах (результаты)
+ */
+'trade_count_text'?: number;
 
 /**
  * Количество контактных лиц
@@ -4206,34 +4152,6 @@ export class ContractorService extends BaseService {
 'wechat'?: string;
 
 /**
- * Ответственный за направления (ID берем из запроса - direction_type)
- */
-'responsible_direction'?: Array<string>;
-
-/**
- * Ответственный за направления (distination_country_id: {departure_country_id: [array of transport_sub_kind]}, ...)
- */
-'responsible_param'?: {
-
-/**
- * Импорт
- */
-'import'?: {
-};
-
-/**
- * Экспорт
- */
-'export'?: {
-};
-
-/**
- * Перевозки внутри страны
- */
-'local'?: Array<string>;
-};
-
-/**
  * Ответственный за направления
  */
 'direction'?: Array<{
@@ -4281,9 +4199,19 @@ export class ContractorService extends BaseService {
 'specialization'?: Array<string>;
 
 /**
+ * Специализация
+ */
+'specialization_text'?: any;
+
+/**
  * Загрузка грузов
  */
 'container'?: Array<string>;
+
+/**
+ * Загрузка грузов
+ */
+'container_text'?: string;
 
 /**
  * Время создания
@@ -4412,6 +4340,11 @@ export class ContractorService extends BaseService {
 'allow_trade'?: boolean;
 
 /**
+ * Участник торгов
+ */
+'allow_trade_text'?: string;
+
+/**
  * Рейтинг в системе (NPS)
  */
 'rating_nps_text'?: string;
@@ -4480,6 +4413,11 @@ export class ContractorService extends BaseService {
  * Количество проигранных торгов
  */
 'trade_fail_count'?: number;
+
+/**
+ * Участие в торгах (результаты)
+ */
+'trade_count_text'?: number;
 
 /**
  * Количество контактных лиц
@@ -4567,34 +4505,6 @@ export class ContractorService extends BaseService {
 'wechat'?: string;
 
 /**
- * Ответственный за направления (ID берем из запроса - direction_type)
- */
-'responsible_direction'?: Array<string>;
-
-/**
- * Ответственный за направления (distination_country_id: {departure_country_id: [array of transport_sub_kind]}, ...)
- */
-'responsible_param'?: {
-
-/**
- * Импорт
- */
-'import'?: {
-};
-
-/**
- * Экспорт
- */
-'export'?: {
-};
-
-/**
- * Перевозки внутри страны
- */
-'local'?: Array<string>;
-};
-
-/**
  * Ответственный за направления
  */
 'direction'?: Array<{
@@ -4642,9 +4552,19 @@ export class ContractorService extends BaseService {
 'specialization'?: Array<string>;
 
 /**
+ * Специализация
+ */
+'specialization_text'?: any;
+
+/**
  * Загрузка грузов
  */
 'container'?: Array<string>;
+
+/**
+ * Загрузка грузов
+ */
+'container_text'?: string;
 
 /**
  * Время создания
@@ -4810,17 +4730,6 @@ export class ContractorService extends BaseService {
  * WeChat
  */
 'wechat'?: string;
-
-/**
- * Ответственный за направления (ID берем из запроса - direction_type)
- */
-'responsible_direction'?: Array<string>;
-
-/**
- * Ответственный за направления (distination_country_id: {departure_country_id: [array of transport_sub_kind]}, ...)
- */
-'responsible_param'?: {
-};
 
 /**
  * Ответственный за направления
@@ -5032,17 +4941,6 @@ export class ContractorService extends BaseService {
  * WeChat
  */
 'wechat'?: string;
-
-/**
- * Ответственный за направления (ID берем из запроса - direction_type)
- */
-'responsible_direction'?: Array<string>;
-
-/**
- * Ответственный за направления (distination_country_id: {departure_country_id: [array of transport_sub_kind]}, ...)
- */
-'responsible_param'?: {
-};
 
 /**
  * Ответственный за направления
@@ -5270,17 +5168,6 @@ export class ContractorService extends BaseService {
 'wechat'?: string;
 
 /**
- * Ответственный за направления (ID берем из запроса - direction_type)
- */
-'responsible_direction'?: Array<string>;
-
-/**
- * Ответственный за направления (distination_country_id: {departure_country_id: [array of transport_sub_kind]}, ...)
- */
-'responsible_param'?: {
-};
-
-/**
  * Ответственный за направления
  */
 'direction'?: Array<{
@@ -5490,17 +5377,6 @@ export class ContractorService extends BaseService {
  * WeChat
  */
 'wechat'?: string;
-
-/**
- * Ответственный за направления (ID берем из запроса - direction_type)
- */
-'responsible_direction'?: Array<string>;
-
-/**
- * Ответственный за направления (distination_country_id: {departure_country_id: [array of transport_sub_kind]}, ...)
- */
-'responsible_param'?: {
-};
 
 /**
  * Ответственный за направления
@@ -5773,34 +5649,6 @@ export class ContractorService extends BaseService {
 'wechat'?: string;
 
 /**
- * Ответственный за направления (ID берем из запроса - direction_type)
- */
-'responsible_direction'?: Array<string>;
-
-/**
- * Ответственный за направления (distination_country_id: {departure_country_id: [array of transport_sub_kind]}, ...)
- */
-'responsible_param'?: {
-
-/**
- * Импорт
- */
-'import'?: {
-};
-
-/**
- * Экспорт
- */
-'export'?: {
-};
-
-/**
- * Перевозки внутри страны
- */
-'local'?: Array<string>;
-};
-
-/**
  * Ответственный за направления
  */
 'direction'?: Array<{
@@ -5920,34 +5768,6 @@ export class ContractorService extends BaseService {
          * WeChat
          */
         'wechat'?: string;
-        
-        /**
-         * Ответственный за направления (ID берем из запроса - direction_type)
-         */
-        'responsible_direction'?: Array<string>;
-        
-        /**
-         * Ответственный за направления (distination_country_id: {departure_country_id: [array of transport_sub_kind]}, ...)
-         */
-        'responsible_param'?: {
-        
-        /**
-         * Импорт
-         */
-        'import'?: {
-        };
-        
-        /**
-         * Экспорт
-         */
-        'export'?: {
-        };
-        
-        /**
-         * Перевозки внутри страны
-         */
-        'local'?: Array<string>;
-        };
         
         /**
          * Ответственный за направления
@@ -6107,34 +5927,6 @@ export class ContractorService extends BaseService {
 'wechat'?: string;
 
 /**
- * Ответственный за направления (ID берем из запроса - direction_type)
- */
-'responsible_direction'?: Array<string>;
-
-/**
- * Ответственный за направления (distination_country_id: {departure_country_id: [array of transport_sub_kind]}, ...)
- */
-'responsible_param'?: {
-
-/**
- * Импорт
- */
-'import'?: {
-};
-
-/**
- * Экспорт
- */
-'export'?: {
-};
-
-/**
- * Перевозки внутри страны
- */
-'local'?: Array<string>;
-};
-
-/**
  * Ответственный за направления
  */
 'direction'?: Array<{
@@ -6244,34 +6036,6 @@ export class ContractorService extends BaseService {
 'wechat'?: string;
 
 /**
- * Ответственный за направления (ID берем из запроса - direction_type)
- */
-'responsible_direction'?: Array<string>;
-
-/**
- * Ответственный за направления (distination_country_id: {departure_country_id: [array of transport_sub_kind]}, ...)
- */
-'responsible_param'?: {
-
-/**
- * Импорт
- */
-'import'?: {
-};
-
-/**
- * Экспорт
- */
-'export'?: {
-};
-
-/**
- * Перевозки внутри страны
- */
-'local'?: Array<string>;
-};
-
-/**
  * Ответственный за направления
  */
 'direction'?: Array<{
@@ -6377,34 +6141,6 @@ export class ContractorService extends BaseService {
  * WeChat
  */
 'wechat'?: string;
-
-/**
- * Ответственный за направления (ID берем из запроса - direction_type)
- */
-'responsible_direction'?: Array<string>;
-
-/**
- * Ответственный за направления (distination_country_id: {departure_country_id: [array of transport_sub_kind]}, ...)
- */
-'responsible_param'?: {
-
-/**
- * Импорт
- */
-'import'?: {
-};
-
-/**
- * Экспорт
- */
-'export'?: {
-};
-
-/**
- * Перевозки внутри страны
- */
-'local'?: Array<string>;
-};
 
 /**
  * Ответственный за направления
@@ -6540,34 +6276,6 @@ export class ContractorService extends BaseService {
 'wechat'?: string;
 
 /**
- * Ответственный за направления (ID берем из запроса - direction_type)
- */
-'responsible_direction'?: Array<string>;
-
-/**
- * Ответственный за направления (distination_country_id: {departure_country_id: [array of transport_sub_kind]}, ...)
- */
-'responsible_param'?: {
-
-/**
- * Импорт
- */
-'import'?: {
-};
-
-/**
- * Экспорт
- */
-'export'?: {
-};
-
-/**
- * Перевозки внутри страны
- */
-'local'?: Array<string>;
-};
-
-/**
  * Ответственный за направления
  */
 'direction'?: Array<{
@@ -6684,34 +6392,6 @@ export class ContractorService extends BaseService {
          * WeChat
          */
         'wechat'?: string;
-        
-        /**
-         * Ответственный за направления (ID берем из запроса - direction_type)
-         */
-        'responsible_direction'?: Array<string>;
-        
-        /**
-         * Ответственный за направления (distination_country_id: {departure_country_id: [array of transport_sub_kind]}, ...)
-         */
-        'responsible_param'?: {
-        
-        /**
-         * Импорт
-         */
-        'import'?: {
-        };
-        
-        /**
-         * Экспорт
-         */
-        'export'?: {
-        };
-        
-        /**
-         * Перевозки внутри страны
-         */
-        'local'?: Array<string>;
-        };
         
         /**
          * Ответственный за направления
@@ -6845,34 +6525,6 @@ export class ContractorService extends BaseService {
 'wechat'?: string;
 
 /**
- * Ответственный за направления (ID берем из запроса - direction_type)
- */
-'responsible_direction'?: Array<string>;
-
-/**
- * Ответственный за направления (distination_country_id: {departure_country_id: [array of transport_sub_kind]}, ...)
- */
-'responsible_param'?: {
-
-/**
- * Импорт
- */
-'import'?: {
-};
-
-/**
- * Экспорт
- */
-'export'?: {
-};
-
-/**
- * Перевозки внутри страны
- */
-'local'?: Array<string>;
-};
-
-/**
  * Ответственный за направления
  */
 'direction'?: Array<{
@@ -6982,34 +6634,6 @@ export class ContractorService extends BaseService {
 'wechat'?: string;
 
 /**
- * Ответственный за направления (ID берем из запроса - direction_type)
- */
-'responsible_direction'?: Array<string>;
-
-/**
- * Ответственный за направления (distination_country_id: {departure_country_id: [array of transport_sub_kind]}, ...)
- */
-'responsible_param'?: {
-
-/**
- * Импорт
- */
-'import'?: {
-};
-
-/**
- * Экспорт
- */
-'export'?: {
-};
-
-/**
- * Перевозки внутри страны
- */
-'local'?: Array<string>;
-};
-
-/**
  * Ответственный за направления
  */
 'direction'?: Array<{
@@ -7115,34 +6739,6 @@ export class ContractorService extends BaseService {
  * WeChat
  */
 'wechat'?: string;
-
-/**
- * Ответственный за направления (ID берем из запроса - direction_type)
- */
-'responsible_direction'?: Array<string>;
-
-/**
- * Ответственный за направления (distination_country_id: {departure_country_id: [array of transport_sub_kind]}, ...)
- */
-'responsible_param'?: {
-
-/**
- * Импорт
- */
-'import'?: {
-};
-
-/**
- * Экспорт
- */
-'export'?: {
-};
-
-/**
- * Перевозки внутри страны
- */
-'local'?: Array<string>;
-};
 
 /**
  * Ответственный за направления
@@ -7259,17 +6855,6 @@ export class ContractorService extends BaseService {
  * WeChat
  */
 'wechat'?: string;
-
-/**
- * Ответственный за направления (ID берем из запроса - direction_type)
- */
-'responsible_direction'?: Array<string>;
-
-/**
- * Ответственный за направления (distination_country_id: {departure_country_id: [array of transport_sub_kind]}, ...)
- */
-'responsible_param'?: {
-};
 
 /**
  * Ответственный за направления
@@ -7410,17 +6995,6 @@ export class ContractorService extends BaseService {
  * WeChat
  */
 'wechat'?: string;
-
-/**
- * Ответственный за направления (ID берем из запроса - direction_type)
- */
-'responsible_direction'?: Array<string>;
-
-/**
- * Ответственный за направления (distination_country_id: {departure_country_id: [array of transport_sub_kind]}, ...)
- */
-'responsible_param'?: {
-};
 
 /**
  * Ответственный за направления
@@ -7572,17 +7146,6 @@ export class ContractorService extends BaseService {
 'wechat'?: string;
 
 /**
- * Ответственный за направления (ID берем из запроса - direction_type)
- */
-'responsible_direction'?: Array<string>;
-
-/**
- * Ответственный за направления (distination_country_id: {departure_country_id: [array of transport_sub_kind]}, ...)
- */
-'responsible_param'?: {
-};
-
-/**
  * Ответственный за направления
  */
 'direction'?: Array<{
@@ -7716,17 +7279,6 @@ export class ContractorService extends BaseService {
  * WeChat
  */
 'wechat'?: string;
-
-/**
- * Ответственный за направления (ID берем из запроса - direction_type)
- */
-'responsible_direction'?: Array<string>;
-
-/**
- * Ответственный за направления (distination_country_id: {departure_country_id: [array of transport_sub_kind]}, ...)
- */
-'responsible_param'?: {
-};
 
 /**
  * Ответственный за направления

@@ -2,18 +2,22 @@
   width: 190px;
 }
 
-.kso-block{
+.td-block .kso-block{
   display: flex;
-  flex-direction: row;
-  max-width: 46px;
-  height: 33px;
-
-  justify-content: space-between;
-
+  padding: 0 ;
+  justify-content: center;
 }
 
 .kso-item{
-  height: 100%;
   width: 8px;
+  height: 28px;
   background-color: #81DD7C;
+  margin-left: 2px;
 }
+
+.kso-item:first-child{
+  margin-left: 0;
+}
+
+
+

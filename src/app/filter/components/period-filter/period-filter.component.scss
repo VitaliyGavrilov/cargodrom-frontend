@@ -1,7 +1,9 @@
+mat-date-range-input .mat-date-range-input-separator-hidden{
+  opacity: 1 !important;
+}
 .df{
   display: flex;
 }
-
 
 .period{
   display: flex;
@@ -15,8 +17,6 @@
   align-items: center;
 
   width: 175px;
-
-
 }
 
 .border-on{
@@ -43,7 +43,6 @@
   max-height: 12px;
 
   margin-right: 5px;
-
 }
 
 .test3{
@@ -53,6 +52,12 @@
 .calendar{
   margin-right: 3px;
 }
+
+
+
+
+
+
 
 
 

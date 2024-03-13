@@ -75,8 +75,6 @@ export abstract class Table<T extends { id: number }, A = never, F = never> impl
   protected loadRows(): void {
     const sortCol = this.getSort();
     this.load({ start: this.start, count: this.count, sort: JSON.stringify(sortCol) as unknown as SortColumn<T>[], ...this.filter }).subscribe(rows => {
-      console.log(rows);
-
       this.rows = rows ? rows.items as T[] : [];
       this.total = rows.total;
       this.column = rows.column;
@@ -91,8 +89,6 @@ export abstract class Table<T extends { id: number }, A = never, F = never> impl
   protected loadFilterSchema(): Observable<SearchFilterSchema> {
     return of({ header: [], main: [], additional: [] });
   }
-
-
 
   getIntParamSafely(queryParamMap: ParamMap, name: string, fallback: number): number {
     const value = queryParamMap.get(name);
@@ -288,24 +284,15 @@ export abstract class Table<T extends { id: number }, A = never, F = never> impl
 
   confirmExport(): void {
     if (!this.exportDialogRef) {
-      console.log(`Не найден шаблон для подтверждения экспорта в файл`);
       return;
     }
     this.dialog.open(this.exportDialogRef).afterClosed().subscribe(res => {
-
-
-      if (res) {
-        this.exportFile();
-console.log('окно экспорт');
-      }
+      if (res) { this.exportFile()}
     });
   }
 
   private doImport(file: File): void {
-    console.log(file);
-
     if (!this.importDialogRef) {
-      console.log(`Не найден шаблон для подтверждения импорта из файла`);
       return;
     }
     const fileName = file.name;
@@ -316,19 +303,14 @@ console.log('окно экспорт');
         const suffix = `;base64,`;
         const index = base64URL.indexOf(suffix);
         const data = base64URL.substring(index + suffix.length);
-        console.log(`index`, index);
-        console.log(`base64URL`, base64URL);
-        console.log(`data`, data);
         const payload = { data, name: fileName };
         this.importData(payload).subscribe({
           // next: ({ import_key, text }) => {
           next: (e) => {
-            console.log(e);
             const text =e.text;
             const res =e.result;
             const import_key=e.import_key;
             this.dialog.open(this.importDialogRef!, { data: {...payload, text, res} }).afterClosed().subscribe(res => {
-
               if (res===2) {
                 this.importResult({ import_key }).subscribe({
                   next: ({name, data}) => {
@@ -338,7 +320,8 @@ console.log('окно экспорт');
                     a.download = name;
                     a.click();
                     this.snackBar.open('Данные импортированы успешно', undefined, this.snackBarWithShortDuration);
-                    this.onStartChange(0);
+                    // this.onStartChange(0);
+                    // this.resetPage();
                   },
                   error: (err) => this.snackBar.open(`Не удалось скачать файл с результатами обработки: ` + err.error.error_message, undefined, this.snackBarWithShortDuration)
                 });
@@ -348,7 +331,8 @@ console.log('окно экспорт');
                 this.importDataConfirm({ import_key }).subscribe({
                   next: () => {
                     this.snackBar.open('Данные импортированы успешно', undefined, this.snackBarWithShortDuration);
-                    this.onStartChange(0);
+                    // this.onStartChange(0);
+                    this.resetPage();
                   },
                   error: (err) => this.snackBar.open(`Не удалось импортировать данные: ` + err.error.error_message, undefined, this.snackBarWithShortDuration)
                 });
@@ -391,6 +375,7 @@ console.log('окно экспорт');
 
   importFile(): void {
     const input = this.file?.nativeElement as HTMLInputElement | undefined;
+
     if (input) {
       input.value = '';
       input.click();
@@ -398,6 +383,7 @@ console.log('окно экспорт');
   }
 
   selectFileForImport(): void {
+    console.log('selectFileForImport');
     const files = this.file?.nativeElement.files as File[] | undefined;
     const file = files?.[0];
     if (!file?.name.endsWith('.xlsx')) {
@@ -410,7 +396,9 @@ console.log('окно экспорт');
     }
     this.doImport(file);
   }
-
+  resetPage(){
+    this.router.navigate([])
+  }
 
 
 }

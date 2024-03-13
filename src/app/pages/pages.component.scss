@@ -1,1 +1,21 @@
-
+//стили для фильтра-период
+mat-date-range-input .mat-date-range-input-separator-hidden{
+  opacity: 1 !important;
+}
+.border-on mat-date-range-input .mat-date-range-input-separator{
+  color: #DB563B;
+}
+//стили для селекторов в доп.фильтрах
+.w1 mat-form-field.mat-form-field-appearance-outline .mat-form-field-outline > * {
+  background: white;
+}
+//стили для кнопки шаблон для импорта
+.hoverr{
+  display: flex;
+}
+.placer .template {
+  display: none;
+}
+.hoverr:hover .template{
+  display: flex;
+}

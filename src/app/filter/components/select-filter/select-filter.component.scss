@@ -1,7 +1,10 @@
 .w100{
   min-width: 100%;
-  background-color: white;
 
+
+}
+.data .ui-select mat-form-field.mat-form-field-appearance-outline .mat-form-field-outline > * {
+  background: white !important;
 }
 
 

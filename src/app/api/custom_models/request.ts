@@ -560,22 +560,22 @@ export interface RequestFilter {
 }
 
 
-export interface RequestFilter {
+// export interface RequestFilter {
 
-  request_type_id?: number;
-
-
-  status_id?: string[];
+//   request_type_id?: number;
 
 
-  start?: number;
+//   status_id?: string[];
 
 
-  count?: number;
+//   start?: number;
 
 
-  sort?: SortColumn<Request>[];
-}
+//   count?: number;
+
+
+//   sort?: SortColumn<Request>[];
+// }
 
 
 
