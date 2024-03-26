@@ -694,7 +694,7 @@ export class RequestEditorComponent implements OnInit, OnDestroy {
   searchCustomer(e:any){
     this.getCustomersByName(e.target.value);
     this.requestForm.controls['customer_id'].reset();
-    
+
   }
   //поиск города оиправления
   searchDepartureCity(e:any){
@@ -896,6 +896,8 @@ export class RequestEditorComponent implements OnInit, OnDestroy {
         next: request => {
           this.getFile(id);
           this.getDangerFile(id);
+          console.log('получили данные запроса',request);
+
 
           request.cargo_places?.forEach(element => {
             this.addPlace()

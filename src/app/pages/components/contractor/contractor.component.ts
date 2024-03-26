@@ -18,6 +18,8 @@ import { FilterService } from 'src/app/filter/services/filter.service';
 export class ContractorComponent extends Table<Contractor, 'trade_rating', ContractorFilter> {
   sortField = 'name' as const;
 
+  params:any;
+
   trackById = (_index: number, contractor: Contractor) => contractor.id!;
 
   constructor(
@@ -33,6 +35,7 @@ export class ContractorComponent extends Table<Contractor, 'trade_rating', Contr
   }
 
   load<Contractor>(params: LoadParams<Contractor, ContractorFilter>): Observable<{ total: number; items: Contractor[]; }> {
+    this.params=params;
     return this.contractorService.contractorList(params as any) as unknown as Observable<{ total: number; items: Contractor[]; }>;
   }
 
@@ -41,12 +44,7 @@ export class ContractorComponent extends Table<Contractor, 'trade_rating', Contr
   }
 
   protected override exportData(): Observable<{data: string; name: string}> {
-    const sort ={
-      "field": this.sortField,
-      "dir": this.sortDir
-    }
-    // return this.contractorService.contractorExport(this.filter as any) as Observable<{data: string; name: string}>;
-    return this.contractorService.contractorExport({...this.filter, 'sort': sort} as any) as Observable<{data: string; name: string}>;
+    return this.contractorService.contractorExport(this.params as any) as Observable<{data: string; name: string}>;
   }
 
   protected override importData(body: {data: string; name: string}) {

@@ -18,6 +18,7 @@ import { FilterService } from 'src/app/filter/services/filter.service';
 export class ClientComponent extends Table<Client, 'name', ClientFilter> {
   sortField = 'name' as const;
 
+  params:any;
 
   trackById = (_index: number, client: Client) => client.id!;
 
@@ -33,6 +34,7 @@ export class ClientComponent extends Table<Client, 'name', ClientFilter> {
   }
 
   load<Client>(params: LoadParams<Client, ClientFilter>): Observable<{ total: number; items: Client[]; }> {
+    this.params=params;
     return this.customerService.customerList(params as any) as unknown as Observable<{ total: number; items: Client[]; column: string[], sort: string[] }>;
   }
 
@@ -41,12 +43,7 @@ export class ClientComponent extends Table<Client, 'name', ClientFilter> {
   }
 
   protected override exportData(): Observable<{data: string; name: string}> {
-    const sort ={
-      "field": this.sortField,
-      "dir": this.sortDir
-    }
-    // return this.customerService.customerExport(this.filter as any) as Observable<{data: string; name: string}>;
-    return this.customerService.customerExport({...this.filter, 'sort': sort} as any) as Observable<{data: string; name: string}>;
+    return this.customerService.customerExport(this.params as any) as Observable<{data: string; name: string}>;
   }
 
   protected override importData(body: {data: string; name: string}) {

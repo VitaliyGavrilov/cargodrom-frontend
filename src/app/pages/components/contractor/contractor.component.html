@@ -88,7 +88,9 @@
         </div>
       </td>
     </ng-container>
+
     <ng-container matColumnDef="rating">
+
       <th mat-header-cell *matHeaderCellDef class="w30">
         <div class="td-block">
           <div class="column w20" [attr.title]="getColTitle('rating_nps_text')" (click)="sort('rating_nps_text')" [ngClass]="getSortClass('rating_nps_text')">Рейтинг</div>
@@ -98,6 +100,7 @@
           <div class="column w10" [attr.title]="getColTitle('trade_rating')" (click)="sort('trade_rating')" [ngClass]="getSortClass('trade_rating')">ФОЗ</div>
         </div>
       </th>
+
       <td mat-cell *matCellDef="let contractor">
         <div class="td-block">
           <div class="column w20">{{ contractor.rating_nps_text }}</div>
@@ -109,16 +112,33 @@
                 <span class="fail">{{contractor.trade_fail_count}}</span>
                 )
               </span>
+          </div>
+
+          <div class="column w10">
+            <span *ngIf="!contractor.exclude_from_trade" class="success b">Есть</span>
+            <span *ngIf="contractor.exclude_from_trade" class="fail b">Нет</span>
+          </div>
+
+          <div class="column w40">{{ contractor.avg_answer_time }}</div>
+
+          <div class="column w10">
+            <div *ngIf="contractor.request_format_id==='text'">
+              <svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <path d="M0 12H16V13H0V12ZM0 16H11V15H0V16ZM10.7365 6.00769L11.3035 7H16V6H10.7321L10.7365 6.00769ZM9.58923 4H16V3H9.01782L9.58923 4ZM8 9H0V10H16V9H11.4464H8ZM1.15173 7H0L4 0L8 7H6.84827L6.27679 6H1.72314L1.15173 7ZM3.99994 2.01556L2.29456 5H5.70538L3.99994 2.01556Z" fill="#DB563B"/>
+              </svg>
             </div>
-            <div class="column w10">
-              <span *ngIf="!contractor.exclude_from_trade" class="success b">Есть</span>
-              <span *ngIf="contractor.exclude_from_trade" class="fail b">Нет</span>
+            <div *ngIf="contractor.request_format_id==='invite'">
+              <svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <path d="M6.91052 9.6228L9.55597 9.1297L16 2.18451L13.6219 0L7.17786 6.94513L6.91052 9.6228ZM8.13953 7.37891L13.6782 1.40955L14.5834 2.24109L9.04773 8.20721L8.03802 8.39545L8.13953 7.37891ZM3 15H13V16H3V15ZM15 6.20276L16 5.125V13H0V3H8.10999L7.18219 4H1V12H15V6.20276Z" fill="#DB563B"/>
+              </svg>
             </div>
-            <div class="column w40">{{ contractor.avg_answer_time }}</div>
-            <div class="column w10"></div>
+          </div>
+
         </div>
       </td>
+
     </ng-container>
+
     <ng-container matColumnDef="contact">
       <th mat-header-cell *matHeaderCellDef class="w25">
         <div class="td-block">

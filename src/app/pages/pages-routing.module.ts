@@ -13,6 +13,7 @@ import { RequestEditorComponent } from './components/request-editor/request-edit
 import { TariffComponent } from './components/tariff/tariff.component';
 import { PagesComponent } from './pages.component';
 import { ClientEditorComponent } from './components/client-editor/client-editor.component';
+import { AuthGuard } from '../auth/auth.guard';
 
 
 const routes: Routes = [
@@ -30,12 +31,14 @@ const routes: Routes = [
         component: DashboardComponent,
         pathMatch: 'full',
         title: 'Дашбоард',
+        canActivate: [AuthGuard],
       },
       {
         path: 'request',
         component: RequestComponent,
         pathMatch: 'full',
         title: 'Запросы',
+        canActivate: [AuthGuard],
 
       },
       {
@@ -43,6 +46,7 @@ const routes: Routes = [
         component: RequestEditorComponent,
         pathMatch: 'full',
         title: 'Редактирование запроса',
+        canActivate: [AuthGuard],
 
       },
       {
@@ -50,75 +54,88 @@ const routes: Routes = [
         component: RequestEditorComponent,
         pathMatch: 'full',
         title: 'Добавление запроса',
+        canActivate: [AuthGuard],
       },
       {
         path: 'bit',
         component: BitComponent,
         pathMatch: 'full',
         title: 'Ставки',
+        canActivate: [AuthGuard],
       },
       {
         path: 'order',
         component: OrderComponent,
         title: 'Заказы',
+        canActivate: [AuthGuard],
       },
       {
         path: 'tariff',
         component: TariffComponent,
         pathMatch: 'full',
         title: 'Тарифы',
+        canActivate: [AuthGuard],
       },
       {
         path: 'contractor',
         component: ContractorComponent,
         pathMatch: 'full',
         title: 'Подрядчики',
+        canActivate: [AuthGuard],
       },
       {
         path: 'contractor/add',
         component: ContractorEditorComponent,
         pathMatch: 'full',
         title: 'Добавление подрядчика',
+        canActivate: [AuthGuard],
       },
       {
         path: 'contractor/:id',
         component: ContractorEditorComponent,
         pathMatch: 'full',
         title: 'Редактирование подрядчика',
+        canActivate: [AuthGuard],
       },
       {
         path: 'report',
         component: ReportComponent,
         pathMatch: 'full',
         title: 'Отчеты',
+        canActivate: [AuthGuard],
       },
       {
         path: 'client',
         component: ClientComponent,
         pathMatch: 'full',
         title: 'Клиенты',
+        canActivate: [AuthGuard],
       },
       {
         path: 'client/add',
         component: ClientEditorComponent,
         pathMatch: 'full',
         title: 'Добавление клиента',
+        canActivate: [AuthGuard],
       },
       {
         path: 'client/:id',
         component: ClientEditorComponent,
         pathMatch: 'full',
         title: 'Редактирование клиента',
+        canActivate: [AuthGuard],
       },
       {
         path: 'guide',
         component: GuideComponent,
         pathMatch: 'full',
         title: 'Справочник',
+        canActivate: [AuthGuard],
       },
       {
         path: 'settings',
-        loadChildren: () => import('./modules/settings/settings.module').then(m => m.SettingsModule)
+        loadChildren: () => import('./modules/settings/settings.module').then(m => m.SettingsModule),
+        canActivate: [AuthGuard],
       },
     ]
   },

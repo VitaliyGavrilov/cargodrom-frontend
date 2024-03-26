@@ -177,7 +177,7 @@ export abstract class Table<T extends { id: number }, A = never, F = never> impl
     }
     this.start = 0;
     if (this.sortField === field) {
-      this.sortDir = this.sortDir === 'asc' ? 'desc' : 'asc';
+      this.sortDir = this.sortDir === 'asc' ? 'desc' : 'asc'; 
     } else {
       this.sortDir = 'asc';
       this.sortField = field;

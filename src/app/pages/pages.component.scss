@@ -1,14 +1,51 @@
-//стили для фильтра-период
-mat-date-range-input .mat-date-range-input-separator-hidden{
+//стили для фильтра-период в мейн фильтрах
+.main mat-date-range-input .mat-date-range-input-separator-hidden{
   opacity: 1 !important;
+  margin: 0 2px 0 0;
+  color: #606A74;
 }
-.border-on mat-date-range-input .mat-date-range-input-separator{
+.main .border-on .mat-date-range-input-separator{
   color: #DB563B;
 }
-//стили для селекторов в доп.фильтрах
-.w1 mat-form-field.mat-form-field-appearance-outline .mat-form-field-outline > * {
-  background: white;
+.main .data .mat-date-range-input-container input {
+  display: block;
+  font-size: 13px;
 }
+.main .data .mat-date-range-input {
+  height: 12.5px;
+  margin-right: 5px;
+}
+.main .data .mat-date-range-input-container {
+  height: 12.5px;
+}
+.main .data .mat-date-range-input-start-wrapper{
+  width: 66px;
+  height: 12.5px;
+  overflow: inherit;
+  line-height: 13px;
+}
+.main .data .mat-date-range-input-end-wrapper{
+  width: 66px;
+  height: 12.5px;
+  line-height: 13px;
+}
+.main .data .mat-date-range-input-separator{
+  height: 12.5px;
+  margin: 0 2px 0 1px;
+}
+.main .data .mat-date-range-input input{
+  margin: 0;
+  padding: 0;
+
+  box-sizing: border-box;
+
+  font-size: 13px;
+  line-height: 13px;
+  cursor: pointer;
+
+  height: 12.5px;
+}
+
 //стили для кнопки шаблон для импорта
 .hoverr{
   display: flex;
@@ -18,4 +55,33 @@ mat-date-range-input .mat-date-range-input-separator-hidden{
 }
 .hoverr:hover .template{
   display: flex;
+}
+
+//стили для фильтров селекторов(в зависимости от места разный дизайн)
+//в доп.фильтрах
+.additional .w100{
+  min-width: 100%;
+}
+.additional .select-filter-main {
+  display: none;
+}
+.additional mat-form-field.mat-form-field-appearance-outline .mat-form-field-outline > * {
+  background: white;
+}
+//в основ.фильтрах
+.main .select-filter-additional {
+  display: none;
+}
+.main .mat-select-value-text{
+  font-size: 13px;
+  line-height: 13px;
+}
+.main .value-selected .mat-select-value-text{
+  color: #DB563B;
+}
+.main .mat-select-arrow{
+  color: #DB563B;
+}
+.main .mat-select {
+  font-family: 'regular', 'arial', 'sans-serif';
 }

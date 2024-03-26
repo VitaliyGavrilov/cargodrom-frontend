@@ -16,5 +16,4 @@ export class SelectFilterComponent implements OnInit {
 
   ngOnInit(): void {
   }
-
 }

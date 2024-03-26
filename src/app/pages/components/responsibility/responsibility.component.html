@@ -2,12 +2,15 @@
   <tbody>
     <tr>
 
-      <th class="name">
-        <div class="border-b">Направления:</div>
+      <th class="name pm0">
+        <div class="table-header">
+          <div class="tab-title"> Направления:</div>
 
-        <div class="qwer">
-          <div class="l mp0 border-r">Страна отправления</div>
-          <div class="l mp0">Страна назначения</div>
+          <label class="tab-subtitles">
+            <div class="subtitle">Страна отправления</div>
+            <div class="subtitle">Страна назначения</div>
+
+          </label>
         </div>
       </th>
 
@@ -15,7 +18,7 @@
         <div class="l">Все виды</div>
         <label>
           <mat-checkbox
-            class="show-all"
+            class="show-all testclass"
             [checked]="allChecked()"
             [indeterminate]="!allComplete()"
             (change)="allChange($event)">
@@ -31,7 +34,7 @@
         </div>
         <label>
           <mat-checkbox
-            class="show-all"
+            class="show-all testclass"
             [checked]="allCheckedForKind(kind.kind)"
             [indeterminate]="!allCompleteForKind(kind.kind)"
             (change)="allChangeForKind(kind.kind, $event)">
@@ -43,7 +46,7 @@
     </tr>
 
     <tr class="row" *ngFor="let direction of directions; let i = index">
-      <td class="">
+      <td>
 
         <div class="dir-block">
           <mat-form-field appearance="outline" class="ui-select mw50 ">
@@ -65,7 +68,7 @@
 
       <td class="bg s e">
         <label>
-          <mat-checkbox class="show-all"
+          <mat-checkbox class="show-all testclass"
             [checked]="allCheckedForCountry(i)"
             [indeterminate]="!allCompleteForCountry(i)"
             (change)="allChangeForCountry(i, $event)">
@@ -77,7 +80,7 @@
       <td *ngFor="let kind of kinds" [ngClass]="kind.classes">
         <label>
           <mat-checkbox
-            class="show-all"
+            class="show-all testclass"
             [checked]="checkedForCountryAndKind(i, kind.kind)"
             (change)="changeForCountryAndKind(i, kind.kind, $event)">
           </mat-checkbox>

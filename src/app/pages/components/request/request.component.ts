@@ -19,6 +19,8 @@ import { Request, RequestFilter } from 'src/app/api/custom_models/request';
 export class RequestComponent extends Table<Request, 'id', RequestFilter> {
   sortField = 'id' as const;
 
+  params:any;
+
   trackById = (_index: number, request: Request) => request.id!;
 
   constructor(
@@ -28,12 +30,12 @@ export class RequestComponent extends Table<Request, 'id', RequestFilter> {
     snackBar: MatSnackBar,
     route: ActivatedRoute,
     router: Router,
-
   ) {
     super(route, router, dialog, snackBar, filterService);
   }
 
   load<Request>(params: LoadParams<Request, RequestFilter>): Observable<{ total: number; items: Request[]; }> {
+    this.params=params;
     return this.requestService.requestList(params as any) as unknown as Observable<{ total: number; items: Request[]; column: string[], sort: string[] }>;
   }
 
@@ -42,12 +44,7 @@ export class RequestComponent extends Table<Request, 'id', RequestFilter> {
   }
 
   protected override exportData(): Observable<{data: string; name: string}> {
-    const sort ={
-      "field": this.sortField,
-      "dir": this.sortDir
-    }
-    // return this.requestService.requestExport(this.filter as any) as Observable<{data: string; name: string}>;
-    return this.requestService.requestExport({...this.filter, 'sort': sort} as any) as Observable<{data: string; name: string}>;
+    return this.requestService.requestExport(this.params as any) as Observable<{data: string; name: string}>;
   }
 
   protected override importData(body: {data: string; name: string}) {

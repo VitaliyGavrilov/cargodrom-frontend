@@ -29,6 +29,7 @@ export class AuthService {
   }
 
   isAuthenticated(): boolean {
+    this.loadTokenFromStorage();
     return typeof this.tokenInfo?.token !== 'undefined';
   }
 
@@ -45,6 +46,7 @@ export class AuthService {
   private loadTokenFromStorage(): void {
     const tokenInfoString = this.storage.getItem(TOKEN_INFO_KEY);
     if (!tokenInfoString) {
+      this.tokenInfo=undefined;
       return;
     }
     try {
