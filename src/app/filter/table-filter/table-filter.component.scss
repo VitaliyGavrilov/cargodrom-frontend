@@ -1,3 +1,18 @@
 .filter .row .w1 {
   width: 1px;
 }
+
+.main .search-box{
+  display: none;
+}
+
+
+.filter .trade .item .btn.apply:before {
+  background-image:url(../../../assets/pic-btn-trade.svg);
+}
+
+.dn.item{
+  display: none;
+}
+
+

@@ -13,6 +13,7 @@ export class EditorHeaderComponent implements OnInit {
   @Input() name?: string;
   @Output() save = new EventEmitter<void>();
   @Output() remove = new EventEmitter<void>();
+  @Output() calc = new EventEmitter<void>();
 
   constructor(
     private location: Location,
@@ -31,6 +32,10 @@ export class EditorHeaderComponent implements OnInit {
 
   goBack(): void {
     this.location.back();
+  }
+
+  goCalc():void{
+    this.calc.emit();
   }
 
 }

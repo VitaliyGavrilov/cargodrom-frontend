@@ -7177,7 +7177,7 @@ export class CustomerService extends BaseService {
   static readonly CustomerImportTemplatePath = '/customer_import_template';
 
   /**
-   * Шаблон экспорта запросов в XLSX.
+   * Шаблон экспорта клиентов в XLSX.
    *
    *
    *
@@ -7228,7 +7228,7 @@ export class CustomerService extends BaseService {
   }
 
   /**
-   * Шаблон экспорта запросов в XLSX.
+   * Шаблон экспорта клиентов в XLSX.
    *
    *
    *

@@ -233,6 +233,10 @@ export class RequestEditorComponent implements OnInit, OnDestroy {
   goBack(): void {
     this.location.back();
   }
+  calc():void{
+    const id = Number(this.route.snapshot.paramMap.get('id'));
+    this.router.navigate(['pages/request/bidding', id]);
+  }
   //РЕДАКТИРОВАНИЕ ДАННЫХ ПЕРЕД ОТПРАВКОЙ
   planA(body:any){
     const data = {

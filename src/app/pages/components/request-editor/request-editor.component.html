@@ -1,4 +1,10 @@
-<app-editor-header [title]="title" (save)="save()" (remove)="remove()" [isEditMode]="isEditMode" ></app-editor-header>
+<app-editor-header
+  [title]="title"
+  (save)="save()"
+  (remove)="remove()"
+  (calc)="calc()"
+  [isEditMode]="isEditMode">
+</app-editor-header>
 
 <!-- <div class="edit-form"> -->
   <form class="edit-form request" [formGroup]="requestForm" (ngSubmit)="save()">

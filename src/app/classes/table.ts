@@ -7,6 +7,7 @@ import { MatSnackBarConfig } from '@angular/material/snack-bar';
 import { MatDialog } from '@angular/material/dialog';
 import { FilterService } from '../filter/services/filter.service';
 import { SearchFilterSchema } from '../api/custom_models';
+import { MatCheckboxChange } from '@angular/material/checkbox';
 
 export interface LoadParams<T, F> {
   start?: number;
@@ -22,6 +23,15 @@ export abstract class Table<T extends { id: number }, A = never, F = never> impl
   filter?: F;
   column?: string[];
   sortableColumns?: string[];
+
+  isBiddingMode=false;
+  isAllCheck:boolean=false;
+  arrRowsId:number[]=[];
+  quantityContractors:number=0;
+  currentRequest:any={};
+
+
+  contractorsSelectedForRequest:any=[]
 
   readonly xlsxMimeType = 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet';
 
@@ -55,6 +65,13 @@ export abstract class Table<T extends { id: number }, A = never, F = never> impl
   }
 
   ngOnInit(): void {
+    const segments = this.route.snapshot.url.map(s => s.path);
+    this.isBiddingMode = segments[1] === 'bidding';
+    if(this.isBiddingMode){
+      const id = Number(this.route.snapshot.paramMap.get('id'));
+      this.getRequestInfo(id);
+    }
+
     this.loadFilterSchema().subscribe(schema => {
       this.filterService.setSearchFilterSchema(schema);
     });
@@ -74,12 +91,23 @@ export abstract class Table<T extends { id: number }, A = never, F = never> impl
 
   protected loadRows(): void {
     const sortCol = this.getSort();
-    this.load({ start: this.start, count: this.count, sort: JSON.stringify(sortCol) as unknown as SortColumn<T>[], ...this.filter }).subscribe(rows => {
-      this.rows = rows ? rows.items as T[] : [];
-      this.total = rows.total;
-      this.column = rows.column;
-      this.sortableColumns = rows.sort;
-    });
+    this.load({ start: this.start, count: this.count, sort: JSON.stringify(sortCol) as unknown as SortColumn<T>[], ...this.filter })
+      .subscribe(rows => {
+        this.rows = rows ? rows.items as T[] : [];
+        this.total = rows.total;
+        this.column = rows.column;
+        if(this.isBiddingMode){
+          this.column?.unshift('checkbox');
+          this.column?.pop();
+          this.arrRowsId=[];
+          rows.items.forEach(element => {
+            this.arrRowsId.push(element.id)
+          });
+          this.getContractorsSelectRequest();
+        }
+        this.sortableColumns = rows.sort;
+        // this.getContractorsSelectRequest();
+      });
   }
 
   protected delete(params: { body: { id: number } }): Observable<void> {
@@ -177,7 +205,7 @@ export abstract class Table<T extends { id: number }, A = never, F = never> impl
     }
     this.start = 0;
     if (this.sortField === field) {
-      this.sortDir = this.sortDir === 'asc' ? 'desc' : 'asc'; 
+      this.sortDir = this.sortDir === 'asc' ? 'desc' : 'asc';
     } else {
       this.sortDir = 'asc';
       this.sortField = field;
@@ -282,6 +310,18 @@ export abstract class Table<T extends { id: number }, A = never, F = never> impl
     return NEVER;
   }
 
+  protected requestContractorSelectGet(id:number): Observable<any> {
+    return NEVER;
+  }
+
+  protected requestContractorSelectUpdate(body: {id: number; contractor_id: number[],checked:boolean}): Observable<any> {
+    return NEVER;
+  }
+
+  protected requestInfo(id:number): Observable<any> {
+    return NEVER;
+  }
+
   confirmExport(): void {
     if (!this.exportDialogRef) {
       return;
@@ -375,7 +415,6 @@ export abstract class Table<T extends { id: number }, A = never, F = never> impl
 
   importFile(): void {
     const input = this.file?.nativeElement as HTMLInputElement | undefined;
-
     if (input) {
       input.value = '';
       input.click();
@@ -396,9 +435,86 @@ export abstract class Table<T extends { id: number }, A = never, F = never> impl
     }
     this.doImport(file);
   }
+
   resetPage(){
     this.router.navigate([])
   }
 
+  getContractorsSelectRequest(){
+    const id = Number(this.route.snapshot.paramMap.get('id'));
+    this.requestContractorSelectGet(id).subscribe({
+      next: (contractors) => {
+        if(contractors){
+          this.quantityContractors=contractors.length;
+          this.contractorsSelectedForRequest=[];
+          this.rows.forEach((row)=>{
+            contractors.forEach((contractor:any)=>{
+              if(row.id===contractor.contractor_id){
+                this.contractorsSelectedForRequest.push(contractor.contractor_id);
+              }
+            })
+          })
+        } else {
+          this.quantityContractors=0;
+        }
+      },
+      complete:()=>  this.isAllCheckChange(),
+      error: (err) => this.snackBar.open(`Не получилось ID контрагентов выбранных для отправки запроса ` + err.error.error_message, undefined, this.snackBarWithShortDuration)
+    });
+  }
 
+  updateContractorSelectRequest(contractorId: number,{ checked }: MatCheckboxChange){
+    const requestId = Number(this.route.snapshot.paramMap.get('id'));
+    const check= checked? true:false;
+    this.requestContractorSelectUpdate({id:requestId, contractor_id:[contractorId], checked: check}).subscribe({
+      next: (e) => {
+        this.getContractorsSelectRequest();
+      },
+      error: (err) => this.snackBar.open(`Не получилось изменить список контракторов выбравших запрос ` + err.error.error_message, undefined, this.snackBarWithShortDuration)
+    });
+  }
+
+  updateAllContractorSelectRequest({ checked }: MatCheckboxChange){
+    const requestId = Number(this.route.snapshot.paramMap.get('id'));
+    const check= checked? true:false;
+    this.requestContractorSelectUpdate({id:requestId, contractor_id: this.arrRowsId, checked: check}).subscribe({
+      next: (e) => {
+        if(!check){
+          this.contractorsSelectedForRequest=[];
+        }
+        this.getContractorsSelectRequest();
+      },
+      error: (err) => this.snackBar.open(`Не получилось изменить список контракторов выбравших запрос ` + err.error.error_message, undefined, this.snackBarWithShortDuration)
+    });
+  }
+
+  isCheck(id:number){
+    let isCheck
+    this.contractorsSelectedForRequest.forEach((i:any)=>{
+      if(i===id){
+        isCheck=true;
+      }
+    })
+    return isCheck;
+  }
+
+  isAllCheckChange(){
+    const countChecked = this.contractorsSelectedForRequest.length;
+    this.isAllCheck = this.rows.length > 0 && countChecked === this.rows.length;
+    // return this.rows.length > 0 && countChecked === this.rows.length;
+  }
+
+  isIndeterminate(){
+    const countChecked = this.contractorsSelectedForRequest.length;
+    return this.rows.length > 0 && countChecked < this.rows.length && countChecked > 0;
+  }
+
+  getRequestInfo(id:number){
+    this.requestInfo(id).subscribe({
+      next: (request) => {
+        this.currentRequest=request;
+      },
+      error: (err) => this.snackBar.open(`Ошибка получения данных запроса ` + err.error.error_message, undefined, this.snackBarWithShortDuration)
+    });
+  }
 }

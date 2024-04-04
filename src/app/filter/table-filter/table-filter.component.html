@@ -1,10 +1,16 @@
-<div class="filter extend">
+<div class="filter extend" style="display: flex; justify-content: space-between; flex-direction: row;">
 
   <div class="base main">
 
     <app-universal-filter
       class="item"
       *ngFor="let control of filterService.searchFilterSchema?.main"
+      [filterControl]="control">
+    </app-universal-filter>
+
+    <app-universal-filter [ngClass]="isBiddingMode ? '' : 'dn' "
+      class="item"
+      *ngFor="let control of filterService.searchFilterSchema?.header"
       [filterControl]="control">
     </app-universal-filter>
 
@@ -45,4 +51,14 @@
     </div>
 
   </div>
+
+  <div *ngIf="isBiddingMode" style="display: flex;" class="trade">
+    <div class="item func">
+      <div>
+        <span class="btn apply"><span>Начать торги ({{quantityContractors}})</span></span>
+      </div>
+    </div>
+  </div>
+
 </div>
+

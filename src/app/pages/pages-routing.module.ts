@@ -16,6 +16,7 @@ import { ClientEditorComponent } from './components/client-editor/client-editor.
 import { AuthGuard } from '../auth/auth.guard';
 
 
+
 const routes: Routes = [
   {
     path: '',
@@ -54,6 +55,13 @@ const routes: Routes = [
         component: RequestEditorComponent,
         pathMatch: 'full',
         title: 'Добавление запроса',
+        canActivate: [AuthGuard],
+      },
+      {
+        path: 'request/bidding/:id',
+        component: ContractorComponent,
+        pathMatch: 'full',
+        title: 'Торги запроса',
         canActivate: [AuthGuard],
       },
       {

@@ -80,7 +80,7 @@ export class RequestService extends BaseService {
     /**
      * Подрядчик (ID берем из запроса - contractor_list)
      */
-      contractor_id?: number;
+      rate_contractor_id?: number;
 
     /**
      * Город отправления (ID берем из запроса - direction_city)
@@ -165,6 +165,11 @@ export class RequestService extends BaseService {
  * Email контрагента
  */
 'customer_email'?: string;
+
+/**
+ * Email контрагента
+ */
+'customer_text'?: string;
 
 /**
  * Вид запроса (ID берем из запроса - request_type)
@@ -324,6 +329,11 @@ export class RequestService extends BaseService {
 'cargo_readiness'?: string;
 
 /**
+ * Груз
+ */
+'cargo_text'?: string;
+
+/**
  * Признак возможности штабелировать груз (ID берем из запроса - cargo_package)
  */
 'cargo_places_stacking'?: boolean;
@@ -365,6 +375,11 @@ export class RequestService extends BaseService {
 'departure_point_name'?: string;
 
 /**
+ * Отправление
+ */
+'departure_text'?: string;
+
+/**
  * Адрес забора груза
  */
 'departure_address'?: string;
@@ -398,6 +413,11 @@ export class RequestService extends BaseService {
  * Аэропорт прибытия
  */
 'arrival_point_name'?: string;
+
+/**
+ * Прибытие
+ */
+'arrival_text'?: string;
 
 /**
  * Адрес доставки груза
@@ -555,7 +575,7 @@ export class RequestService extends BaseService {
       rb.query('departure_country_id', params.departure_country_id, {});
       rb.query('arrival_country_id', params.arrival_country_id, {});
       rb.query('customer_id', params.customer_id, {});
-      rb.query('contractor_id', params.contractor_id, {});
+      rb.query('rate_contractor_id', params.rate_contractor_id, {});
       rb.query('departure_city_id', params.departure_city_id, {});
       rb.query('arrival_city_id', params.arrival_city_id, {});
       rb.query('manager_executor_id', params.manager_executor_id, {});
@@ -606,6 +626,11 @@ export class RequestService extends BaseService {
          * Email контрагента
          */
         'customer_email'?: string;
+        
+        /**
+         * Email контрагента
+         */
+        'customer_text'?: string;
         
         /**
          * Вид запроса (ID берем из запроса - request_type)
@@ -765,6 +790,11 @@ export class RequestService extends BaseService {
         'cargo_readiness'?: string;
         
         /**
+         * Груз
+         */
+        'cargo_text'?: string;
+        
+        /**
          * Признак возможности штабелировать груз (ID берем из запроса - cargo_package)
          */
         'cargo_places_stacking'?: boolean;
@@ -806,6 +836,11 @@ export class RequestService extends BaseService {
         'departure_point_name'?: string;
         
         /**
+         * Отправление
+         */
+        'departure_text'?: string;
+        
+        /**
          * Адрес забора груза
          */
         'departure_address'?: string;
@@ -839,6 +874,11 @@ export class RequestService extends BaseService {
          * Аэропорт прибытия
          */
         'arrival_point_name'?: string;
+        
+        /**
+         * Прибытие
+         */
+        'arrival_text'?: string;
         
         /**
          * Адрес доставки груза
@@ -1046,7 +1086,7 @@ export class RequestService extends BaseService {
     /**
      * Подрядчик (ID берем из запроса - contractor_list)
      */
-      contractor_id?: number;
+      rate_contractor_id?: number;
 
     /**
      * Город отправления (ID берем из запроса - direction_city)
@@ -1131,6 +1171,11 @@ export class RequestService extends BaseService {
  * Email контрагента
  */
 'customer_email'?: string;
+
+/**
+ * Email контрагента
+ */
+'customer_text'?: string;
 
 /**
  * Вид запроса (ID берем из запроса - request_type)
@@ -1290,6 +1335,11 @@ export class RequestService extends BaseService {
 'cargo_readiness'?: string;
 
 /**
+ * Груз
+ */
+'cargo_text'?: string;
+
+/**
  * Признак возможности штабелировать груз (ID берем из запроса - cargo_package)
  */
 'cargo_places_stacking'?: boolean;
@@ -1331,6 +1381,11 @@ export class RequestService extends BaseService {
 'departure_point_name'?: string;
 
 /**
+ * Отправление
+ */
+'departure_text'?: string;
+
+/**
  * Адрес забора груза
  */
 'departure_address'?: string;
@@ -1364,6 +1419,11 @@ export class RequestService extends BaseService {
  * Аэропорт прибытия
  */
 'arrival_point_name'?: string;
+
+/**
+ * Прибытие
+ */
+'arrival_text'?: string;
 
 /**
  * Адрес доставки груза
@@ -1550,6 +1610,11 @@ export class RequestService extends BaseService {
 'customer_email'?: string;
 
 /**
+ * Email контрагента
+ */
+'customer_text'?: string;
+
+/**
  * Вид запроса (ID берем из запроса - request_type)
  */
 'request_type_id'?: number;
@@ -1707,6 +1772,11 @@ export class RequestService extends BaseService {
 'cargo_readiness'?: string;
 
 /**
+ * Груз
+ */
+'cargo_text'?: string;
+
+/**
  * Признак возможности штабелировать груз (ID берем из запроса - cargo_package)
  */
 'cargo_places_stacking'?: boolean;
@@ -1748,6 +1818,11 @@ export class RequestService extends BaseService {
 'departure_point_name'?: string;
 
 /**
+ * Отправление
+ */
+'departure_text'?: string;
+
+/**
  * Адрес забора груза
  */
 'departure_address'?: string;
@@ -1781,6 +1856,11 @@ export class RequestService extends BaseService {
  * Аэропорт прибытия
  */
 'arrival_point_name'?: string;
+
+/**
+ * Прибытие
+ */
+'arrival_text'?: string;
 
 /**
  * Адрес доставки груза
@@ -1965,6 +2045,11 @@ export class RequestService extends BaseService {
 'customer_email'?: string;
 
 /**
+ * Email контрагента
+ */
+'customer_text'?: string;
+
+/**
  * Вид запроса (ID берем из запроса - request_type)
  */
 'request_type_id'?: number;
@@ -2122,6 +2207,11 @@ export class RequestService extends BaseService {
 'cargo_readiness'?: string;
 
 /**
+ * Груз
+ */
+'cargo_text'?: string;
+
+/**
  * Признак возможности штабелировать груз (ID берем из запроса - cargo_package)
  */
 'cargo_places_stacking'?: boolean;
@@ -2163,6 +2253,11 @@ export class RequestService extends BaseService {
 'departure_point_name'?: string;
 
 /**
+ * Отправление
+ */
+'departure_text'?: string;
+
+/**
  * Адрес забора груза
  */
 'departure_address'?: string;
@@ -2196,6 +2291,11 @@ export class RequestService extends BaseService {
  * Аэропорт прибытия
  */
 'arrival_point_name'?: string;
+
+/**
+ * Прибытие
+ */
+'arrival_text'?: string;
 
 /**
  * Адрес доставки груза
@@ -3083,6 +3183,11 @@ export class RequestService extends BaseService {
 'customer_email'?: string;
 
 /**
+ * Email контрагента
+ */
+'customer_text'?: string;
+
+/**
  * Вид запроса (ID берем из запроса - request_type)
  */
 'request_type_id'?: number;
@@ -3240,6 +3345,11 @@ export class RequestService extends BaseService {
 'cargo_readiness'?: string;
 
 /**
+ * Груз
+ */
+'cargo_text'?: string;
+
+/**
  * Признак возможности штабелировать груз (ID берем из запроса - cargo_package)
  */
 'cargo_places_stacking'?: boolean;
@@ -3281,6 +3391,11 @@ export class RequestService extends BaseService {
 'departure_point_name'?: string;
 
 /**
+ * Отправление
+ */
+'departure_text'?: string;
+
+/**
  * Адрес забора груза
  */
 'departure_address'?: string;
@@ -3314,6 +3429,11 @@ export class RequestService extends BaseService {
  * Аэропорт прибытия
  */
 'arrival_point_name'?: string;
+
+/**
+ * Прибытие
+ */
+'arrival_text'?: string;
 
 /**
  * Адрес доставки груза
@@ -3494,6 +3614,11 @@ export class RequestService extends BaseService {
         'customer_email'?: string;
         
         /**
+         * Email контрагента
+         */
+        'customer_text'?: string;
+        
+        /**
          * Вид запроса (ID берем из запроса - request_type)
          */
         'request_type_id'?: number;
@@ -3651,6 +3776,11 @@ export class RequestService extends BaseService {
         'cargo_readiness'?: string;
         
         /**
+         * Груз
+         */
+        'cargo_text'?: string;
+        
+        /**
          * Признак возможности штабелировать груз (ID берем из запроса - cargo_package)
          */
         'cargo_places_stacking'?: boolean;
@@ -3692,6 +3822,11 @@ export class RequestService extends BaseService {
         'departure_point_name'?: string;
         
         /**
+         * Отправление
+         */
+        'departure_text'?: string;
+        
+        /**
          * Адрес забора груза
          */
         'departure_address'?: string;
@@ -3725,6 +3860,11 @@ export class RequestService extends BaseService {
          * Аэропорт прибытия
          */
         'arrival_point_name'?: string;
+        
+        /**
+         * Прибытие
+         */
+        'arrival_text'?: string;
         
         /**
          * Адрес доставки груза
@@ -3918,6 +4058,11 @@ export class RequestService extends BaseService {
 'customer_email'?: string;
 
 /**
+ * Email контрагента
+ */
+'customer_text'?: string;
+
+/**
  * Вид запроса (ID берем из запроса - request_type)
  */
 'request_type_id'?: number;
@@ -4075,6 +4220,11 @@ export class RequestService extends BaseService {
 'cargo_readiness'?: string;
 
 /**
+ * Груз
+ */
+'cargo_text'?: string;
+
+/**
  * Признак возможности штабелировать груз (ID берем из запроса - cargo_package)
  */
 'cargo_places_stacking'?: boolean;
@@ -4116,6 +4266,11 @@ export class RequestService extends BaseService {
 'departure_point_name'?: string;
 
 /**
+ * Отправление
+ */
+'departure_text'?: string;
+
+/**
  * Адрес забора груза
  */
 'departure_address'?: string;
@@ -4149,6 +4304,11 @@ export class RequestService extends BaseService {
  * Аэропорт прибытия
  */
 'arrival_point_name'?: string;
+
+/**
+ * Прибытие
+ */
+'arrival_text'?: string;
 
 /**
  * Адрес доставки груза
@@ -4320,6 +4480,11 @@ export class RequestService extends BaseService {
 'customer_email'?: string;
 
 /**
+ * Email контрагента
+ */
+'customer_text'?: string;
+
+/**
  * Вид запроса (ID берем из запроса - request_type)
  */
 'request_type_id'?: number;
@@ -4477,6 +4642,11 @@ export class RequestService extends BaseService {
 'cargo_readiness'?: string;
 
 /**
+ * Груз
+ */
+'cargo_text'?: string;
+
+/**
  * Признак возможности штабелировать груз (ID берем из запроса - cargo_package)
  */
 'cargo_places_stacking'?: boolean;
@@ -4518,6 +4688,11 @@ export class RequestService extends BaseService {
 'departure_point_name'?: string;
 
 /**
+ * Отправление
+ */
+'departure_text'?: string;
+
+/**
  * Адрес забора груза
  */
 'departure_address'?: string;
@@ -4551,6 +4726,11 @@ export class RequestService extends BaseService {
  * Аэропорт прибытия
  */
 'arrival_point_name'?: string;
+
+/**
+ * Прибытие
+ */
+'arrival_text'?: string;
 
 /**
  * Адрес доставки груза
@@ -4720,6 +4900,11 @@ export class RequestService extends BaseService {
 'customer_email'?: string;
 
 /**
+ * Email контрагента
+ */
+'customer_text'?: string;
+
+/**
  * Вид запроса (ID берем из запроса - request_type)
  */
 'request_type_id'?: number;
@@ -4877,6 +5062,11 @@ export class RequestService extends BaseService {
 'cargo_readiness'?: string;
 
 /**
+ * Груз
+ */
+'cargo_text'?: string;
+
+/**
  * Признак возможности штабелировать груз (ID берем из запроса - cargo_package)
  */
 'cargo_places_stacking'?: boolean;
@@ -4918,6 +5108,11 @@ export class RequestService extends BaseService {
 'departure_point_name'?: string;
 
 /**
+ * Отправление
+ */
+'departure_text'?: string;
+
+/**
  * Адрес забора груза
  */
 'departure_address'?: string;
@@ -4951,6 +5146,11 @@ export class RequestService extends BaseService {
  * Аэропорт прибытия
  */
 'arrival_point_name'?: string;
+
+/**
+ * Прибытие
+ */
+'arrival_text'?: string;
 
 /**
  * Адрес доставки груза
@@ -7802,7 +8002,7 @@ export class RequestService extends BaseService {
     /**
      * Подрядчик (ID берем из запроса - contractor_list)
      */
-      contractor_id?: number;
+      rate_contractor_id?: number;
 
     /**
      * Город отправления (ID берем из запроса - direction_city)
@@ -7863,7 +8063,7 @@ export class RequestService extends BaseService {
       rb.query('departure_country_id', params.departure_country_id, {});
       rb.query('arrival_country_id', params.arrival_country_id, {});
       rb.query('customer_id', params.customer_id, {});
-      rb.query('contractor_id', params.contractor_id, {});
+      rb.query('rate_contractor_id', params.rate_contractor_id, {});
       rb.query('departure_city_id', params.departure_city_id, {});
       rb.query('arrival_city_id', params.arrival_city_id, {});
       rb.query('manager_executor_id', params.manager_executor_id, {});
@@ -7948,7 +8148,7 @@ export class RequestService extends BaseService {
     /**
      * Подрядчик (ID берем из запроса - contractor_list)
      */
-      contractor_id?: number;
+      rate_contractor_id?: number;
 
     /**
      * Город отправления (ID берем из запроса - direction_city)
@@ -8477,6 +8677,1344 @@ export class RequestService extends BaseService {
  * Base64 строка файла
  */
 'data'?: string;
+} => r.body)
+    );
+  }
+
+  /** Path part for operation `requestContractorSelectGet()` */
+  static readonly RequestContractorSelectGetPath = '/request_contractor_select_get';
+
+  /**
+   * Получение ID контрагентов выбранных для отправки запроса.
+   *
+   *
+   *
+   * This method provides access to the full `HttpResponse`, allowing access to response headers.
+   * To access only the response body, use `requestContractorSelectGet()` instead.
+   *
+   * This method doesn't expect any request body.
+   */
+  requestContractorSelectGet$Response(
+    params: {
+
+    /**
+     * ID запроса
+     */
+      id: number;
+    },
+    context?: HttpContext
+  ): Observable<StrictHttpResponse<{
+
+/**
+ * ID Контрагента
+ */
+'contractor_id'?: number;
+
+/**
+ * Время создания
+ */
+'time_add'?: string;
+}>> {
+    const rb = new RequestBuilder(this.rootUrl, RequestService.RequestContractorSelectGetPath, 'get');
+    if (params) {
+      rb.query('id', params.id, {});
+    }
+
+    return this.http.request(
+      rb.build({ responseType: 'json', accept: 'application/json', context })
+    ).pipe(
+      filter((r: any): r is HttpResponse<any> => r instanceof HttpResponse),
+      map((r: HttpResponse<any>) => {
+        return r as StrictHttpResponse<{
+        
+        /**
+         * ID Контрагента
+         */
+        'contractor_id'?: number;
+        
+        /**
+         * Время создания
+         */
+        'time_add'?: string;
+        }>;
+      })
+    );
+  }
+
+  /**
+   * Получение ID контрагентов выбранных для отправки запроса.
+   *
+   *
+   *
+   * This method provides access only to the response body.
+   * To access the full response (for headers, for example), `requestContractorSelectGet$Response()` instead.
+   *
+   * This method doesn't expect any request body.
+   */
+  requestContractorSelectGet(
+    params: {
+
+    /**
+     * ID запроса
+     */
+      id: number;
+    },
+    context?: HttpContext
+  ): Observable<{
+
+/**
+ * ID Контрагента
+ */
+'contractor_id'?: number;
+
+/**
+ * Время создания
+ */
+'time_add'?: string;
+}> {
+    return this.requestContractorSelectGet$Response(params, context).pipe(
+      map((r: StrictHttpResponse<{
+
+/**
+ * ID Контрагента
+ */
+'contractor_id'?: number;
+
+/**
+ * Время создания
+ */
+'time_add'?: string;
+}>): {
+
+/**
+ * ID Контрагента
+ */
+'contractor_id'?: number;
+
+/**
+ * Время создания
+ */
+'time_add'?: string;
+} => r.body)
+    );
+  }
+
+  /** Path part for operation `requestContractorSelectUpdate()` */
+  static readonly RequestContractorSelectUpdatePath = '/request_contractor_select_update';
+
+  /**
+   * Обновление выбора контрагента для отправки запроса.
+   *
+   *
+   *
+   * This method provides access to the full `HttpResponse`, allowing access to response headers.
+   * To access only the response body, use `requestContractorSelectUpdate()` instead.
+   *
+   * This method sends `application/json` and handles request body of type `application/json`.
+   */
+  requestContractorSelectUpdate$Response(
+    params?: {
+      body?: {
+
+/**
+ * ID запроса
+ */
+'id': number;
+
+/**
+ * ID Контрагента
+ */
+'contractor_id': Array<number>;
+
+/**
+ * Признак
+ */
+'checked'?: boolean;
+}
+    },
+    context?: HttpContext
+  ): Observable<StrictHttpResponse<{
+
+/**
+ * Статус выполнения
+ */
+'result': 'OK';
+}>> {
+    const rb = new RequestBuilder(this.rootUrl, RequestService.RequestContractorSelectUpdatePath, 'post');
+    if (params) {
+      rb.body(params.body, 'application/json');
+    }
+
+    return this.http.request(
+      rb.build({ responseType: 'json', accept: 'application/json', context })
+    ).pipe(
+      filter((r: any): r is HttpResponse<any> => r instanceof HttpResponse),
+      map((r: HttpResponse<any>) => {
+        return r as StrictHttpResponse<{
+        
+        /**
+         * Статус выполнения
+         */
+        'result': 'OK';
+        }>;
+      })
+    );
+  }
+
+  /**
+   * Обновление выбора контрагента для отправки запроса.
+   *
+   *
+   *
+   * This method provides access only to the response body.
+   * To access the full response (for headers, for example), `requestContractorSelectUpdate$Response()` instead.
+   *
+   * This method sends `application/json` and handles request body of type `application/json`.
+   */
+  requestContractorSelectUpdate(
+    params?: {
+      body?: {
+
+/**
+ * ID запроса
+ */
+'id': number;
+
+/**
+ * ID Контрагента
+ */
+'contractor_id': Array<number>;
+
+/**
+ * Признак
+ */
+'checked'?: boolean;
+}
+    },
+    context?: HttpContext
+  ): Observable<{
+
+/**
+ * Статус выполнения
+ */
+'result': 'OK';
+}> {
+    return this.requestContractorSelectUpdate$Response(params, context).pipe(
+      map((r: StrictHttpResponse<{
+
+/**
+ * Статус выполнения
+ */
+'result': 'OK';
+}>): {
+
+/**
+ * Статус выполнения
+ */
+'result': 'OK';
+} => r.body)
+    );
+  }
+
+  /** Path part for operation `requestTranslate()` */
+  static readonly RequestTranslatePath = '/request_translate';
+
+  /**
+   * Данные перевода запроса.
+   *
+   *
+   *
+   * This method provides access to the full `HttpResponse`, allowing access to response headers.
+   * To access only the response body, use `requestTranslate()` instead.
+   *
+   * This method doesn't expect any request body.
+   */
+  requestTranslate$Response(
+    params: {
+
+    /**
+     * ID запроса
+     */
+      id: number;
+    },
+    context?: HttpContext
+  ): Observable<StrictHttpResponse<{
+
+/**
+ * ID
+ */
+'id': number;
+
+/**
+ * Русский язык
+ */
+'ru'?: {
+
+/**
+ * Страна отправления
+ */
+'departure_country_name'?: string;
+
+/**
+ * Город отправления
+ */
+'departure_city_name'?: string;
+
+/**
+ * Адрес забора груза
+ */
+'departure_address'?: string;
+
+/**
+ * Аэропорт вылета
+ */
+'departure_point_name'?: string;
+
+/**
+ * Страна назначения
+ */
+'arrival_country_name'?: string;
+
+/**
+ * Город назначения
+ */
+'arrival_city_name'?: string;
+
+/**
+ * Адрес доставки груза
+ */
+'arrival_address'?: string;
+
+/**
+ * Аэропорт прибытия
+ */
+'arrival_point_name'?: string;
+
+/**
+ * Условия поставки по Инкотермс
+ */
+'incoterms_name'?: string;
+
+/**
+ * Рейсы
+ */
+'departure_flight_name'?: string;
+
+/**
+ * Товар
+ */
+'cargo_description'?: string;
+
+/**
+ * Условия перевозки
+ */
+'cargo_сondition_carriage'?: string;
+
+/**
+ * Кол-во
+ */
+'cargo_places_count'?: number;
+
+/**
+ * Объем, м3
+ */
+'cargo_places_volume'?: number;
+
+/**
+ * Вес, кг
+ */
+'cargo_places_weight'?: number;
+
+/**
+ * Плотность, кг/м3
+ */
+'cargo_places_density'?: number;
+
+/**
+ * Оплачиваемый вес, кг
+ */
+'cargo_places_paid_weight'?: number;
+
+/**
+ * Габариты груза
+ */
+'cargo_dimensions'?: string;
+
+/**
+ * Примечание
+ */
+'comment'?: string;
+};
+
+/**
+ * Английский язык
+ */
+'en'?: {
+
+/**
+ * Country of dispatch
+ */
+'departure_country_name'?: string;
+
+/**
+ * City of dispatch
+ */
+'departure_city_name'?: string;
+
+/**
+ * Address of pick-up
+ */
+'departure_address'?: string;
+
+/**
+ * Airport of departure
+ */
+'departure_point_name'?: string;
+
+/**
+ * Country of delivery
+ */
+'arrival_country_name'?: string;
+
+/**
+ * City of delivery
+ */
+'arrival_city_name'?: string;
+
+/**
+ * Address of departure
+ */
+'arrival_address'?: string;
+
+/**
+ * Airport of destination
+ */
+'arrival_point_name'?: string;
+
+/**
+ * Terms of delivery
+ */
+'incoterms_name'?: string;
+
+/**
+ * Type of flights
+ */
+'departure_flight_name'?: string;
+
+/**
+ * Commodity
+ */
+'cargo_description'?: string;
+
+/**
+ * Condition of carriage
+ */
+'cargo_сondition_carriage'?: string;
+
+/**
+ * Total q-ty
+ */
+'cargo_places_count'?: number;
+
+/**
+ * Total m3
+ */
+'cargo_places_volume'?: number;
+
+/**
+ * Total kg
+ */
+'cargo_places_weight'?: number;
+
+/**
+ * Density
+ */
+'cargo_places_density'?: number;
+
+/**
+ * Chargeable weight, kg
+ */
+'cargo_places_paid_weight'?: number;
+
+/**
+ * Dimensions
+ */
+'cargo_dimensions'?: string;
+
+/**
+ * Notation
+ */
+'comment'?: string;
+};
+}>> {
+    const rb = new RequestBuilder(this.rootUrl, RequestService.RequestTranslatePath, 'get');
+    if (params) {
+      rb.query('id', params.id, {});
+    }
+
+    return this.http.request(
+      rb.build({ responseType: 'json', accept: 'application/json', context })
+    ).pipe(
+      filter((r: any): r is HttpResponse<any> => r instanceof HttpResponse),
+      map((r: HttpResponse<any>) => {
+        return r as StrictHttpResponse<{
+        
+        /**
+         * ID
+         */
+        'id': number;
+        
+        /**
+         * Русский язык
+         */
+        'ru'?: {
+        
+        /**
+         * Страна отправления
+         */
+        'departure_country_name'?: string;
+        
+        /**
+         * Город отправления
+         */
+        'departure_city_name'?: string;
+        
+        /**
+         * Адрес забора груза
+         */
+        'departure_address'?: string;
+        
+        /**
+         * Аэропорт вылета
+         */
+        'departure_point_name'?: string;
+        
+        /**
+         * Страна назначения
+         */
+        'arrival_country_name'?: string;
+        
+        /**
+         * Город назначения
+         */
+        'arrival_city_name'?: string;
+        
+        /**
+         * Адрес доставки груза
+         */
+        'arrival_address'?: string;
+        
+        /**
+         * Аэропорт прибытия
+         */
+        'arrival_point_name'?: string;
+        
+        /**
+         * Условия поставки по Инкотермс
+         */
+        'incoterms_name'?: string;
+        
+        /**
+         * Рейсы
+         */
+        'departure_flight_name'?: string;
+        
+        /**
+         * Товар
+         */
+        'cargo_description'?: string;
+        
+        /**
+         * Условия перевозки
+         */
+        'cargo_сondition_carriage'?: string;
+        
+        /**
+         * Кол-во
+         */
+        'cargo_places_count'?: number;
+        
+        /**
+         * Объем, м3
+         */
+        'cargo_places_volume'?: number;
+        
+        /**
+         * Вес, кг
+         */
+        'cargo_places_weight'?: number;
+        
+        /**
+         * Плотность, кг/м3
+         */
+        'cargo_places_density'?: number;
+        
+        /**
+         * Оплачиваемый вес, кг
+         */
+        'cargo_places_paid_weight'?: number;
+        
+        /**
+         * Габариты груза
+         */
+        'cargo_dimensions'?: string;
+        
+        /**
+         * Примечание
+         */
+        'comment'?: string;
+        };
+        
+        /**
+         * Английский язык
+         */
+        'en'?: {
+        
+        /**
+         * Country of dispatch
+         */
+        'departure_country_name'?: string;
+        
+        /**
+         * City of dispatch
+         */
+        'departure_city_name'?: string;
+        
+        /**
+         * Address of pick-up
+         */
+        'departure_address'?: string;
+        
+        /**
+         * Airport of departure
+         */
+        'departure_point_name'?: string;
+        
+        /**
+         * Country of delivery
+         */
+        'arrival_country_name'?: string;
+        
+        /**
+         * City of delivery
+         */
+        'arrival_city_name'?: string;
+        
+        /**
+         * Address of departure
+         */
+        'arrival_address'?: string;
+        
+        /**
+         * Airport of destination
+         */
+        'arrival_point_name'?: string;
+        
+        /**
+         * Terms of delivery
+         */
+        'incoterms_name'?: string;
+        
+        /**
+         * Type of flights
+         */
+        'departure_flight_name'?: string;
+        
+        /**
+         * Commodity
+         */
+        'cargo_description'?: string;
+        
+        /**
+         * Condition of carriage
+         */
+        'cargo_сondition_carriage'?: string;
+        
+        /**
+         * Total q-ty
+         */
+        'cargo_places_count'?: number;
+        
+        /**
+         * Total m3
+         */
+        'cargo_places_volume'?: number;
+        
+        /**
+         * Total kg
+         */
+        'cargo_places_weight'?: number;
+        
+        /**
+         * Density
+         */
+        'cargo_places_density'?: number;
+        
+        /**
+         * Chargeable weight, kg
+         */
+        'cargo_places_paid_weight'?: number;
+        
+        /**
+         * Dimensions
+         */
+        'cargo_dimensions'?: string;
+        
+        /**
+         * Notation
+         */
+        'comment'?: string;
+        };
+        }>;
+      })
+    );
+  }
+
+  /**
+   * Данные перевода запроса.
+   *
+   *
+   *
+   * This method provides access only to the response body.
+   * To access the full response (for headers, for example), `requestTranslate$Response()` instead.
+   *
+   * This method doesn't expect any request body.
+   */
+  requestTranslate(
+    params: {
+
+    /**
+     * ID запроса
+     */
+      id: number;
+    },
+    context?: HttpContext
+  ): Observable<{
+
+/**
+ * ID
+ */
+'id': number;
+
+/**
+ * Русский язык
+ */
+'ru'?: {
+
+/**
+ * Страна отправления
+ */
+'departure_country_name'?: string;
+
+/**
+ * Город отправления
+ */
+'departure_city_name'?: string;
+
+/**
+ * Адрес забора груза
+ */
+'departure_address'?: string;
+
+/**
+ * Аэропорт вылета
+ */
+'departure_point_name'?: string;
+
+/**
+ * Страна назначения
+ */
+'arrival_country_name'?: string;
+
+/**
+ * Город назначения
+ */
+'arrival_city_name'?: string;
+
+/**
+ * Адрес доставки груза
+ */
+'arrival_address'?: string;
+
+/**
+ * Аэропорт прибытия
+ */
+'arrival_point_name'?: string;
+
+/**
+ * Условия поставки по Инкотермс
+ */
+'incoterms_name'?: string;
+
+/**
+ * Рейсы
+ */
+'departure_flight_name'?: string;
+
+/**
+ * Товар
+ */
+'cargo_description'?: string;
+
+/**
+ * Условия перевозки
+ */
+'cargo_сondition_carriage'?: string;
+
+/**
+ * Кол-во
+ */
+'cargo_places_count'?: number;
+
+/**
+ * Объем, м3
+ */
+'cargo_places_volume'?: number;
+
+/**
+ * Вес, кг
+ */
+'cargo_places_weight'?: number;
+
+/**
+ * Плотность, кг/м3
+ */
+'cargo_places_density'?: number;
+
+/**
+ * Оплачиваемый вес, кг
+ */
+'cargo_places_paid_weight'?: number;
+
+/**
+ * Габариты груза
+ */
+'cargo_dimensions'?: string;
+
+/**
+ * Примечание
+ */
+'comment'?: string;
+};
+
+/**
+ * Английский язык
+ */
+'en'?: {
+
+/**
+ * Country of dispatch
+ */
+'departure_country_name'?: string;
+
+/**
+ * City of dispatch
+ */
+'departure_city_name'?: string;
+
+/**
+ * Address of pick-up
+ */
+'departure_address'?: string;
+
+/**
+ * Airport of departure
+ */
+'departure_point_name'?: string;
+
+/**
+ * Country of delivery
+ */
+'arrival_country_name'?: string;
+
+/**
+ * City of delivery
+ */
+'arrival_city_name'?: string;
+
+/**
+ * Address of departure
+ */
+'arrival_address'?: string;
+
+/**
+ * Airport of destination
+ */
+'arrival_point_name'?: string;
+
+/**
+ * Terms of delivery
+ */
+'incoterms_name'?: string;
+
+/**
+ * Type of flights
+ */
+'departure_flight_name'?: string;
+
+/**
+ * Commodity
+ */
+'cargo_description'?: string;
+
+/**
+ * Condition of carriage
+ */
+'cargo_сondition_carriage'?: string;
+
+/**
+ * Total q-ty
+ */
+'cargo_places_count'?: number;
+
+/**
+ * Total m3
+ */
+'cargo_places_volume'?: number;
+
+/**
+ * Total kg
+ */
+'cargo_places_weight'?: number;
+
+/**
+ * Density
+ */
+'cargo_places_density'?: number;
+
+/**
+ * Chargeable weight, kg
+ */
+'cargo_places_paid_weight'?: number;
+
+/**
+ * Dimensions
+ */
+'cargo_dimensions'?: string;
+
+/**
+ * Notation
+ */
+'comment'?: string;
+};
+}> {
+    return this.requestTranslate$Response(params, context).pipe(
+      map((r: StrictHttpResponse<{
+
+/**
+ * ID
+ */
+'id': number;
+
+/**
+ * Русский язык
+ */
+'ru'?: {
+
+/**
+ * Страна отправления
+ */
+'departure_country_name'?: string;
+
+/**
+ * Город отправления
+ */
+'departure_city_name'?: string;
+
+/**
+ * Адрес забора груза
+ */
+'departure_address'?: string;
+
+/**
+ * Аэропорт вылета
+ */
+'departure_point_name'?: string;
+
+/**
+ * Страна назначения
+ */
+'arrival_country_name'?: string;
+
+/**
+ * Город назначения
+ */
+'arrival_city_name'?: string;
+
+/**
+ * Адрес доставки груза
+ */
+'arrival_address'?: string;
+
+/**
+ * Аэропорт прибытия
+ */
+'arrival_point_name'?: string;
+
+/**
+ * Условия поставки по Инкотермс
+ */
+'incoterms_name'?: string;
+
+/**
+ * Рейсы
+ */
+'departure_flight_name'?: string;
+
+/**
+ * Товар
+ */
+'cargo_description'?: string;
+
+/**
+ * Условия перевозки
+ */
+'cargo_сondition_carriage'?: string;
+
+/**
+ * Кол-во
+ */
+'cargo_places_count'?: number;
+
+/**
+ * Объем, м3
+ */
+'cargo_places_volume'?: number;
+
+/**
+ * Вес, кг
+ */
+'cargo_places_weight'?: number;
+
+/**
+ * Плотность, кг/м3
+ */
+'cargo_places_density'?: number;
+
+/**
+ * Оплачиваемый вес, кг
+ */
+'cargo_places_paid_weight'?: number;
+
+/**
+ * Габариты груза
+ */
+'cargo_dimensions'?: string;
+
+/**
+ * Примечание
+ */
+'comment'?: string;
+};
+
+/**
+ * Английский язык
+ */
+'en'?: {
+
+/**
+ * Country of dispatch
+ */
+'departure_country_name'?: string;
+
+/**
+ * City of dispatch
+ */
+'departure_city_name'?: string;
+
+/**
+ * Address of pick-up
+ */
+'departure_address'?: string;
+
+/**
+ * Airport of departure
+ */
+'departure_point_name'?: string;
+
+/**
+ * Country of delivery
+ */
+'arrival_country_name'?: string;
+
+/**
+ * City of delivery
+ */
+'arrival_city_name'?: string;
+
+/**
+ * Address of departure
+ */
+'arrival_address'?: string;
+
+/**
+ * Airport of destination
+ */
+'arrival_point_name'?: string;
+
+/**
+ * Terms of delivery
+ */
+'incoterms_name'?: string;
+
+/**
+ * Type of flights
+ */
+'departure_flight_name'?: string;
+
+/**
+ * Commodity
+ */
+'cargo_description'?: string;
+
+/**
+ * Condition of carriage
+ */
+'cargo_сondition_carriage'?: string;
+
+/**
+ * Total q-ty
+ */
+'cargo_places_count'?: number;
+
+/**
+ * Total m3
+ */
+'cargo_places_volume'?: number;
+
+/**
+ * Total kg
+ */
+'cargo_places_weight'?: number;
+
+/**
+ * Density
+ */
+'cargo_places_density'?: number;
+
+/**
+ * Chargeable weight, kg
+ */
+'cargo_places_paid_weight'?: number;
+
+/**
+ * Dimensions
+ */
+'cargo_dimensions'?: string;
+
+/**
+ * Notation
+ */
+'comment'?: string;
+};
+}>): {
+
+/**
+ * ID
+ */
+'id': number;
+
+/**
+ * Русский язык
+ */
+'ru'?: {
+
+/**
+ * Страна отправления
+ */
+'departure_country_name'?: string;
+
+/**
+ * Город отправления
+ */
+'departure_city_name'?: string;
+
+/**
+ * Адрес забора груза
+ */
+'departure_address'?: string;
+
+/**
+ * Аэропорт вылета
+ */
+'departure_point_name'?: string;
+
+/**
+ * Страна назначения
+ */
+'arrival_country_name'?: string;
+
+/**
+ * Город назначения
+ */
+'arrival_city_name'?: string;
+
+/**
+ * Адрес доставки груза
+ */
+'arrival_address'?: string;
+
+/**
+ * Аэропорт прибытия
+ */
+'arrival_point_name'?: string;
+
+/**
+ * Условия поставки по Инкотермс
+ */
+'incoterms_name'?: string;
+
+/**
+ * Рейсы
+ */
+'departure_flight_name'?: string;
+
+/**
+ * Товар
+ */
+'cargo_description'?: string;
+
+/**
+ * Условия перевозки
+ */
+'cargo_сondition_carriage'?: string;
+
+/**
+ * Кол-во
+ */
+'cargo_places_count'?: number;
+
+/**
+ * Объем, м3
+ */
+'cargo_places_volume'?: number;
+
+/**
+ * Вес, кг
+ */
+'cargo_places_weight'?: number;
+
+/**
+ * Плотность, кг/м3
+ */
+'cargo_places_density'?: number;
+
+/**
+ * Оплачиваемый вес, кг
+ */
+'cargo_places_paid_weight'?: number;
+
+/**
+ * Габариты груза
+ */
+'cargo_dimensions'?: string;
+
+/**
+ * Примечание
+ */
+'comment'?: string;
+};
+
+/**
+ * Английский язык
+ */
+'en'?: {
+
+/**
+ * Country of dispatch
+ */
+'departure_country_name'?: string;
+
+/**
+ * City of dispatch
+ */
+'departure_city_name'?: string;
+
+/**
+ * Address of pick-up
+ */
+'departure_address'?: string;
+
+/**
+ * Airport of departure
+ */
+'departure_point_name'?: string;
+
+/**
+ * Country of delivery
+ */
+'arrival_country_name'?: string;
+
+/**
+ * City of delivery
+ */
+'arrival_city_name'?: string;
+
+/**
+ * Address of departure
+ */
+'arrival_address'?: string;
+
+/**
+ * Airport of destination
+ */
+'arrival_point_name'?: string;
+
+/**
+ * Terms of delivery
+ */
+'incoterms_name'?: string;
+
+/**
+ * Type of flights
+ */
+'departure_flight_name'?: string;
+
+/**
+ * Commodity
+ */
+'cargo_description'?: string;
+
+/**
+ * Condition of carriage
+ */
+'cargo_сondition_carriage'?: string;
+
+/**
+ * Total q-ty
+ */
+'cargo_places_count'?: number;
+
+/**
+ * Total m3
+ */
+'cargo_places_volume'?: number;
+
+/**
+ * Total kg
+ */
+'cargo_places_weight'?: number;
+
+/**
+ * Density
+ */
+'cargo_places_density'?: number;
+
+/**
+ * Chargeable weight, kg
+ */
+'cargo_places_paid_weight'?: number;
+
+/**
+ * Dimensions
+ */
+'cargo_dimensions'?: string;
+
+/**
+ * Notation
+ */
+'comment'?: string;
+};
 } => r.body)
     );
   }
