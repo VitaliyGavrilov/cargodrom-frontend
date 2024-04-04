@@ -9,6 +9,9 @@ input[type="number"] {
 ::-webkit-calendar-picker-indicator{
   background-image: url('../../../../assets/pic-btn-calendar.svg');
 }
+button{
+  border: none;
+}
 
 .form-block .form-item {
   box-sizing: border-box;

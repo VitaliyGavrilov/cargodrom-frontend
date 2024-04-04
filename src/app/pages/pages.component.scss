@@ -90,3 +90,54 @@
 .placer .search-filter{
   display: none;
 }
+
+
+
+.mat-checkbox.testclass label span{
+  display: none !important;
+}
+
+.mat-checkbox.testclass label {
+  cursor: pointer;
+  display: inline-block;
+  vertical-align: top;
+  position: relative;
+  border: 1px solid #E0E5EB;
+  background: #F7F9FC;
+  width: 18px;
+  height: 18px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.mat-checkbox.testclass label::after {
+  content: "";
+  display: block;
+  background: #F7F9FC;
+  width: 8px;
+  height: 8px;
+  margin: 0 ;
+  padding: 0;
+}
+
+.mat-checkbox.testclass.mat-checkbox-checked label::after{
+  content: "";
+  display: block;
+  background: #DB563B;
+  width: 8px;
+  height: 8px;
+  margin: 0 ;
+  padding: 0;
+
+}
+
+.mat-checkbox.testclass.mat-checkbox-indeterminate label::after{
+  content: "";
+  display: block;
+  background: #DB563B;
+  width: 10px;
+  height: 3px;
+  margin: 0 ;
+  padding: 0;
+}

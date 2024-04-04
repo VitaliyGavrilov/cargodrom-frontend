@@ -91,7 +91,7 @@
 
     <div class="info-block">
       <div class="title">Статус:</div>
-      <div class="subtitle">{{currentRequest.status_id}}</div>
+      <div class="subtitle">{{currentRequest.status_crm_name}}</div>
     </div>
 
   </div>
@@ -108,7 +108,7 @@
         <div class="td-block">
           <div class="column w10">
             <label>
-              <mat-checkbox
+              <mat-checkbox class="testclass"
                 [checked]="isAllCheck"
                 [indeterminate]="isIndeterminate()"
                 (change)="updateAllContractorSelectRequest($event)"
@@ -122,7 +122,7 @@
         <div class="td-block">
           <div class="column w10">
             <label>
-              <mat-checkbox
+              <mat-checkbox class="testclass"
                 [checked]="isCheck(contractor.id)"
                 (change)="updateContractorSelectRequest(contractor.id, $event)"
               ></mat-checkbox>

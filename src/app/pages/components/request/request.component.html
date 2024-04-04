@@ -256,7 +256,7 @@
       </th>
       <td mat-cell *matCellDef="let client">
         <div class="td-block">
-          <div class="column w50" *ngIf="client.status_id">{{ client.status_id }}</div>
+          <div class="column w50" *ngIf="client.status_id">{{ client.status_crm_name }}</div>
           <div class="column w50">{{ client.manager_executor_name }}</div>
         </div>
       </td>

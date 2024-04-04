@@ -6,8 +6,11 @@
   display: none;
 }
 
-
-.filter .trade .item .btn.apply:before {
+.filter .main .trade-btn{
+  border-left: 0;
+  margin-left: auto;
+}
+.filter .main .trade-btn .btn.apply:before {
   background-image:url(../../../assets/pic-btn-trade.svg);
 }
 

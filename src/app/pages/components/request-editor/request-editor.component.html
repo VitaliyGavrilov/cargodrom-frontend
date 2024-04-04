@@ -1,5 +1,6 @@
 <app-editor-header
   [title]="title"
+  [name]="requestForm.value.customer_name"
   (save)="save()"
   (remove)="remove()"
   (calc)="calc()"
@@ -354,7 +355,7 @@
                 <mat-form-field appearance="outline" class="ui-select">
                   <mat-select [ngClass]="'staking-'+requestForm.value.cargo_places_stacking" formControlName="cargo_places_stacking">
 
-                    <mat-option value="true">
+                    <mat-option value={{true}}>
                       <div class="stacking-div">
                         <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 14 14" fill="none">
                           <path id="Vector" d="M0 10V14H14V10H0ZM13 13H1V11H13V13ZM10 0H4V4H10V0ZM9 3H5V1H9V3ZM12 5.00049H2V9.00049H12V5.00049ZM11 8.00049H3V6.00049H11V8.00049Z" fill="#83909E"/>
@@ -362,7 +363,7 @@
                       </div>
                     </mat-option>
 
-                    <mat-option value="false">
+                    <mat-option value={{false}}>
                       <div class="stacking-div">
                         <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 14 14" fill="none">
                           <g id="III" clip-path="url(#clip0_2405_1643)">
@@ -656,6 +657,7 @@
       </div>
       <div class="fn">
         <button class="btn v save" (click)="save()"><span>сохранить</span></button>
+        <button class="btn v calc" *ngIf="isEditMode" (click)="save()" (click)="calc()"><span>Расчитать</span></button>
         <button class="btn v del" *ngIf="isEditMode" (click)="remove()"><span>Удалить</span></button>
         <button class="btn v cancel" (click)="goBack()"><span>отмена</span></button>
       </div>

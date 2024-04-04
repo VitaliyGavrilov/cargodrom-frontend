@@ -1,4 +1,5 @@
-<div class="filter extend" style="display: flex; justify-content: space-between; flex-direction: row;">
+<!-- <div class="filter extend" style="display: flex; justify-content: space-between; flex-direction: row;"> -->
+<div class="filter extend">
 
   <div class="base main">
 
@@ -23,10 +24,16 @@
       </div>
     </div>
 
-    <div class="item func">
+    <div class="item func" >
       <div>
         <span class="btn apply" (click)="filterService.apply()"><span>Применить</span></span>
         <span class="btn reset" (click)="filterService.reset()"><span></span></span>
+      </div>
+    </div>
+
+    <div class="item func trade-btn" *ngIf="isBiddingMode && quantityContractors! >0" >
+      <div>
+        <span class="btn apply"><span>Начать торги ({{quantityContractors}})</span></span>
       </div>
     </div>
 
@@ -52,13 +59,7 @@
 
   </div>
 
-  <div *ngIf="isBiddingMode" style="display: flex;" class="trade">
-    <div class="item func">
-      <div>
-        <span class="btn apply"><span>Начать торги ({{quantityContractors}})</span></span>
-      </div>
-    </div>
-  </div>
+
 
 </div>
 

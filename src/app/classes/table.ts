@@ -75,6 +75,7 @@ export abstract class Table<T extends { id: number }, A = never, F = never> impl
     this.loadFilterSchema().subscribe(schema => {
       this.filterService.setSearchFilterSchema(schema);
     });
+
     this.route.queryParamMap
       .pipe(takeUntil(this.destroy$))
       .subscribe(queryParamMap => {
@@ -87,6 +88,8 @@ export abstract class Table<T extends { id: number }, A = never, F = never> impl
         this.loadRows();
       });
     this.filterService.onApply().subscribe(filter => this.onFilterChange(filter as F));
+
+
   }
 
   protected loadRows(): void {
@@ -513,6 +516,11 @@ export abstract class Table<T extends { id: number }, A = never, F = never> impl
     this.requestInfo(id).subscribe({
       next: (request) => {
         this.currentRequest=request;
+        this.filterService.value["country_departure"]=this.currentRequest.departure_country_id;
+        this.filterService.value["country_arrival"]=this.currentRequest.arrival_country_id;
+        this.filterService.value["specialization"]=[this.currentRequest.transport_kind_id];
+        this.filterService.value["rating"]=this.currentRequest.request_type_id;
+        this.filterService.apply();
       },
       error: (err) => this.snackBar.open(`Ошибка получения данных запроса ` + err.error.error_message, undefined, this.snackBarWithShortDuration)
     });

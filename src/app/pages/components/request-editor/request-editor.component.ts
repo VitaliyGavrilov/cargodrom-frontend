@@ -195,7 +195,7 @@ export class RequestEditorComponent implements OnInit, OnDestroy {
     //   this.addPlace();
     //   this.addPlace();
     // };
-    this.subForm();
+    // this.subForm();
     // this.requestForm.get('cargo_readiness')?.clearValidators();
   }
   // Публичные методы:
@@ -262,6 +262,7 @@ export class RequestEditorComponent implements OnInit, OnDestroy {
 
       departure_city_id: body.departure_city_id,
       departure_country_id: body.departure_country_id,
+      departure_address: body.departure_address,
       arrival_city_id: body.arrival_city_id,
       arrival_country_id: body.arrival_country_id,
       arrival_address: body.arrival_address,
@@ -321,6 +322,7 @@ export class RequestEditorComponent implements OnInit, OnDestroy {
 
       departure_city_id: body.departure_city_id,
       departure_country_id: body.departure_country_id,
+      departure_address: body.departure_address,
       arrival_city_id: body.arrival_city_id,
       arrival_country_id: body.arrival_country_id,
       arrival_address: body.arrival_address,
@@ -389,6 +391,7 @@ export class RequestEditorComponent implements OnInit, OnDestroy {
 
       departure_city_id: body.departure_city_id,
       departure_country_id: body.departure_country_id,
+      departure_address: body.departure_address,
       arrival_city_id: body.arrival_city_id,
       arrival_country_id: body.arrival_country_id,
       arrival_address: body.arrival_address,
@@ -457,6 +460,7 @@ export class RequestEditorComponent implements OnInit, OnDestroy {
 
       departure_city_id: body.departure_city_id,
       departure_country_id: body.departure_country_id,
+      departure_address: body.departure_address,
       arrival_city_id: body.arrival_city_id,
       arrival_country_id: body.arrival_country_id,
       arrival_address: body.arrival_address,
@@ -937,375 +941,63 @@ export class RequestEditorComponent implements OnInit, OnDestroy {
     });
   }
   //ВАЛИДАЦИЯ
-  setValid(){
-    if(this.requestForm.value.request_type_id===1){
-      this.validateA();
-      return;
-    }
-    if(this.requestForm.value.request_type_id===2 && !this.requestForm.value.cargo_separately){
-      this.validateB();
-      return;
-    }
-    if(this.requestForm.value.request_type_id===2 && this.requestForm.value.cargo_separately){
-      this.validateC();
-      return;
-    }
-  }
-  //при индиактиве
-  validateA(){
-    //обяз
-    this.requestForm.get('cargo_package_id')?.setValidators([Validators.required]);
-    //не обяз
-    this.requestForm.get('cargo_type_id')?.clearValidators();
+  // setValid(){
+  //   if(this.requestForm.value.request_type_id===1){
+  //     this.validateA();
+  //     return;
+  //   }
+  //   if(this.requestForm.value.request_type_id===2 && !this.requestForm.value.cargo_separately){
+  //     this.validateB();
+  //     return;
+  //   }
+  //   if(this.requestForm.value.request_type_id===2 && this.requestForm.value.cargo_separately){
+  //     this.validateC();
+  //     return;
+  //   }
+  // }
+  // //при индиактиве
+  // validateA(){
+  //   //обяз
+  //   this.requestForm.get('cargo_package_id')?.setValidators([Validators.required]);
+  //   //не обяз
+  //   this.requestForm.get('cargo_type_id')?.clearValidators();
 
-    if(this.requestForm.value.transport_kind_id==='road'){
-      this.requestForm.get('incoterms_id')?.clearValidators();
-    } else {
-      this.requestForm.get('incoterms_id')?.setValidators([Validators.required]);
-    }
-  }
-  //при индиактиве, не раздельно
-  validateB(){
-    //обяз
-    this.requestForm.get('cargo_package_id')?.setValidators([Validators.required]);
-    //не обяз
-    this.requestForm.get('cargo_type_id')?.setValidators([Validators.required]);
+  //   if(this.requestForm.value.transport_kind_id==='road'){
+  //     this.requestForm.get('incoterms_id')?.clearValidators();
+  //   } else {
+  //     this.requestForm.get('incoterms_id')?.setValidators([Validators.required]);
+  //   }
+  // }
+  // //при индиактиве, не раздельно
+  // validateB(){
+  //   //обяз
+  //   this.requestForm.get('cargo_package_id')?.setValidators([Validators.required]);
+  //   //не обяз
+  //   this.requestForm.get('cargo_type_id')?.setValidators([Validators.required]);
 
-    if(this.requestForm.value.transport_kind_id==='road'){
-      this.requestForm.get('incoterms_id')?.clearValidators();
-    } else {
-      this.requestForm.get('incoterms_id')?.setValidators([Validators.required]);
-    }
-  }
-  //при индиактиве, не раздельно
-  validateC(){
-    //обяз
-    this.requestForm.get('cargo_package_id')?.clearValidators();
-    //не обяз
-    this.requestForm.get('cargo_type_id')?.setValidators([Validators.required]);
+  //   if(this.requestForm.value.transport_kind_id==='road'){
+  //     this.requestForm.get('incoterms_id')?.clearValidators();
+  //   } else {
+  //     this.requestForm.get('incoterms_id')?.setValidators([Validators.required]);
+  //   }
+  // }
+  // //при индиактиве, не раздельно
+  // validateC(){
+  //   //обяз
+  //   this.requestForm.get('cargo_package_id')?.clearValidators();
+  //   //не обяз
+  //   this.requestForm.get('cargo_type_id')?.setValidators([Validators.required]);
 
-    if(this.requestForm.value.transport_kind_id==='road'){
-      this.requestForm.get('incoterms_id')?.clearValidators();
-    } else {
-      this.requestForm.get('incoterms_id')?.setValidators([Validators.required]);
-    }
-  }
-  subForm(){
-    this.requestForm.valueChanges.subscribe((v) => {
-     this.setValid();
-    });
-  }
+  //   if(this.requestForm.value.transport_kind_id==='road'){
+  //     this.requestForm.get('incoterms_id')?.clearValidators();
+  //   } else {
+  //     this.requestForm.get('incoterms_id')?.setValidators([Validators.required]);
+  //   }
+  // }
+  // subForm(){
+  //   this.requestForm.valueChanges.subscribe((v) => {
+  //    this.setValid();
+  //   });
+  // }
 
 }
-
-
-
-// Обязательные поля для создания запроса()
-//это типо скелет нашей формы,в будущем форма в таком виде не будет отправляться
-
-// ОСНОВНЫЕ
-//контрагент = customer_id: число
-//вид запроса = request_type_id: число
-//вид перевозки = transport_kind_id: строка
-//тип транспорта = transport_type_id: число
-
-//ОПИСАНИЕ ГРУЗА
-//наименнование груза = cargo_description: строка
-
-//НАПРАВЛЕНИЕ
-//город отправления = departure_city_id: число
-//страна отправления = departure_country_id: число
-//город назначения = arrival_city_id: число
-//страна назначения = arrival_country_id: число
-//рейсы = departure_flight: строка
-
-
-//дальше пойдет описане какждого режима формы и его полей
-
-
-//Режим №1 БАЗОВЫЙ(planA)-------------------------------------------------------------------------------------
-//Признаки:
-//1. Вид запроса = индикатив
-// request_type_id: 1
-//2.Габариты и места = не раздельно(данного поля не будут на беке)
-// cargo_separately: false
-
-//Вариативность данного режима
-//1.Если выбрать видом перевозки авто(road), то будет не доступен весь блок Требуемых Услуг(так как бек ничего не возвращает для селкторов блока).
-//2.Если выбрать видом перевозки самолет(avia), то в блоке Направления появятся селекторы АЭРОПОРТ ВЫЛЕТА и АЭРОПОРТ ПРИБЫТИЯ.
-//3.Если выбрать видом перевозки самолет(avia), то в блоке Описание Груза появится ОПЛАЧИВАЕМЫЙ ВЕС.
-
-//  Основные поля базового режима:
-
-//контрагент = customer_id: число
-//вид запроса = request_type_id: число
-//вид перевозки = transport_kind_id: строка
-//тип транспорта = transport_type_id: число
-
-//наименнование груза = cargo_description: строка
-//вид упаковки = cargo_package_id: число
-
-//итого мест = cargo_places_count: число
-//итого вес = cargo_places_weight: число
-//итого обьем = cargo_places_volume: число
-//плотность = cargo_places_density: число
-//стоимость = cargo_cost: число
-//вид валюты = cargo_currency_id: число по моему, но в документации(создание запроса) написанно строка, надо уточнить
-
-//город отправления = departure_city_id: число
-//страна отправления = departure_country_id: число
-
-//город назначения = arrival_city_id: число
-//страна назначения = arrival_country_id: число
-//адресс назначения = arrival_address: строка
-
-//рейсы = departure_flight: строка
-
-//  Дополнительные поля базового режима:
-
-//Если выбрать видом перевозки самолет(avia),то
-//-оплачиваемый вес = cargo_places_paid_weight: число
-//-аэропорт вылета
-//-аэропорт приземления
-
-//Если выбрать видом перевозки(transport_kind_id) не авто(road), а самолет(avia), жд(rw) или море , то
-//-условия поставки = incoterms_id: число
-//-город/порт
-//-в ставку должно быть включенно = services: массив из числе по моему, но в документация из строк
-//-дополнительные услуги = services_optional: массив из числе по моему, но в документация из строк
-
-
-//Режим №2 БАЗОВЫЙ+(planB)-------------------------------------------------------------------------------------
-//Признаки:
-//1. Вид запроса = индикатив
-// request_type_id: 1
-//2.Габариты и места = раздельно
-// cargo_separately: true (данного поля не будет на беке)
-
-//Вариативность данного режима такая же как и в planA:
-//1.Если выбрать видом перевозки авто(road), то будет не доступен весь блок Требуемых Услуг(так как бек ничего не возвращает для селкторов блока).
-//2.Если выбрать видом перевозки самолет(avia), то в блоке Направления появятся селекторы АЭРОПОРТ ВЫЛЕТА и АЭРОПОРТ ПРИБЫТИЯ.
-//3.Если выбрать видом перевозки самолет(avia), то в блоке Описание Груза появится ОПЛАЧИВАЕМЫЙ ВЕС.
-
-//  Основные поля базового+ режима:
-
-//контрагент = customer_id: число
-//вид запроса = request_type_id: число
-//вид перевозки = transport_kind_id: строка
-//тип транспорта = transport_type_id: число
-
-//наименнование груза = cargo_description: строка
-//вид упаковки = cargo_package_id: число
-
-//места = cargo_places: массив мест[{
-// length: длина
-// width: ширина
-// height: высота
-// weight: вес
-// count: количество
-// volume: итого обьем места
-// total_weight: итого вес места
-// },]
-
-//итого мест = cargo_places_count: число
-//итого вес = cargo_places_weight: число
-//итого обьем = cargo_places_volume: число
-//плотность = cargo_places_density: число
-//стоимость = cargo_cost: число
-//вид валюты = cargo_currency_id: число по моему, но в документации(создание запроса) написанно строка, надо уточнить
-
-//город отправления = departure_city_id: число
-//страна отправления = departure_country_id: число
-//город назначения = arrival_city_id: число
-//страна назначения = arrival_country_id: число
-//адресс назначения = arrival_address: строка
-//рейсы = departure_flight: строка
-
-//  Дополнительные поля базового+ режима:
-
-//Если выбрать видом перевозки самолет(avia),то
-//-оплачиваемый вес = cargo_places_paid_weight: число
-//-аэропорт вылета
-//-аэропорт приземления
-
-//Если выбрать видом перевозки(transport_kind_id) не авто(road), а самолет(avia), жд(rw) или море , то
-//-условия поставки = incoterms_id: число
-//-в ставку должно быть включенно = services: массив из числе по моему, но в документация из строк
-//-дополнительные услуги = services_optional: массив из числе по моему, но в документация из строк
-
-
-//----------------------------------------------------------------------------------------------------------------
-///////////////////////////////////// Режим №3 РАСШИРЕННЫЙ(planC) ////////////////////////////////////////////////
-//----------------------------------------------------------------------------------------------------------------
-//Признаки:
-//1. Вид запроса = индикатив
-// request_type_id: 2
-//2.Габариты и места = не раздельно
-// cargo_separately: false (данного поля не будет на беке)
-
-//Вариативность:
-//1.Если выбрать видом перевозки авто(road), то будет не доступен весь блок Требуемых Услуг(так как бек ничего не возвращает для селкторов блока).
-//2.Если выбрать видом перевозки самолет(avia), то в блоке Направления появятся селекторы АЭРОПОРТ ВЫЛЕТА и АЭРОПОРТ ПРИБЫТИЯ.
-//3.Если выбрать видом перевозки самолет(avia), то в блоке Описание Груза появится ОПЛАЧИВАЕМЫЙ ВЕС.
-//4.Если выбрать, что нужен температурный режим(true), то в блоке Описание Груза появятся поля минимальная,максимальная температура и наличие температурного режима
-
-//  Основные поля расширенного режима:
-
-//контрагент = customer_id: число
-//вид запроса = request_type_id: число
-//вид перевозки = transport_kind_id: строка
-//тип транспорта = transport_type_id: число
-
-//наименнование груза = cargo_description: строка
-//тип груза = cargo_type_id: число
-
-//файл безрпастности наличие
-
-//итого мест = cargo_places_count: число
-//итого вес = cargo_places_weight: число
-//итого обьем = cargo_places_volume: число
-//плотность = cargo_places_density: число
-//стоимость = cargo_cost: число
-//вид валюты = cargo_currency_id: число по моему, но в документации(создание запроса) написанно строка, надо уточнить
-//готовность
-//вид упаковки = cargo_package_id: число
-//стакинг
-
-
-//город отправления = departure_city_id: число
-//страна отправления = departure_country_id: число
-//адрес забора груза
-
-//город назначения = arrival_city_id: число
-//страна назначения = arrival_country_id: число
-//адресс доставки груза = arrival_address: строка
-
-//рейсы = departure_flight: строка
-
-//дополнительная информация=
-
-//  Дополнительные поля расширенного режима:
-
-//Если подтвердить наличие температурного режима(true), то:
-//-температура {
-//   температурный режим
-//   температура мин
-//   температура макс
-// }
-
-//Если выбрать видом перевозки самолет(avia),то
-//-аэропорт вылета
-//-аэропорт приземления
-//-оплачиваемый вес = cargo_places_paid_weight: число
-
-//Если выбрать видом перевозки(transport_kind_id) не авто(road), а самолет(avia), жд(rw) или море , то
-//-порт
-//-условия поставки = incoterms_id: число
-//-в ставку должно быть включенно = services: массив из числе по моему, но в документация из строк
-//-дополнительные услуги = services_optional: массив из числе по моему, но в документация из строк
-
-
-//----------------------------------------------------------------------------------------------------------------
-///////////////////////////////////// Режим №4 РАСШИРЕННЫЙ+(planD) ///////////////////////////////////////////////
-//----------------------------------------------------------------------------------------------------------------
-//Признаки:
-//1. Вид запроса = индикатив
-// request_type_id: 2
-//2.Габариты и места = раздельно
-// cargo_separately: true (данного поля не будет на беке)
-
-//Вариативность:
-//1.Если выбрать видом перевозки авто(road), то будет не доступен весь блок Требуемых Услуг(так как бек ничего не возвращает для селкторов блока).
-//2.Если выбрать видом перевозки самолет(avia), то в блоке Направления появятся селекторы АЭРОПОРТ ВЫЛЕТА и АЭРОПОРТ ПРИБЫТИЯ.
-//3.Если выбрать видом перевозки самолет(avia), то в блоке Описание Груза появится ОПЛАЧИВАЕМЫЙ ВЕС.
-//4.Если выбрать, что нужен температурный режим(true), то в блоке Описание Груза появятся поля минимальная,максимальная температура и наличие температурного режима
-
-//  Основные поля расширенного режима:
-
-//контрагент = customer_id: число
-//вид запроса = request_type_id: число
-//вид перевозки = transport_kind_id: строка
-//тип транспорта = transport_type_id: число
-
-//наименнование груза = cargo_description: строка
-//тип груза = cargo_type_id: число
-
-//файл безрпастности наличие
-
-//места = cargo_places: массив мест[{
-// cargo_package_id: укаповка
-// stacking: стакинг
-// length: длина
-// width: ширина
-// height: высота
-// weight: вес
-// count: количество
-// volume: итого обьем места
-// total_weight: итого вес места
-// },]
-
-//итого мест = cargo_places_count: число
-//итого вес = cargo_places_weight: число
-//итого обьем = cargo_places_volume: число
-//плотность = cargo_places_density: число
-//стоимость = cargo_cost: число
-//вид валюты = cargo_currency_id: число по моему, но в документации(создание запроса) написанно строка, надо уточнить
-//готовность
-
-//город отправления = departure_city_id: число
-//страна отправления = departure_country_id: число
-//адрес забора груза
-
-//город назначения = arrival_city_id: число
-//страна назначения = arrival_country_id: число
-//адресс доставки груза = arrival_address: строка
-
-//рейсы = departure_flight: строка
-
-//дополнительная информация=
-
-//  Дополнительные поля расширенного режима:
-
-//Если подтвердить наличие температурного режима(true), то:
-//-температура {
-//   температурный режим
-//   температура мин
-//   температура макс
-// }
-
-//Если выбрать видом перевозки самолет(avia),то
-//-аэропорт вылета
-//-аэропорт приземления
-//-оплачиваемый вес = cargo_places_paid_weight: число
-
-//Если выбрать видом перевозки(transport_kind_id) не авто(road), а самолет(avia), жд(rw) или море , то
-//-порт
-//-условия поставки = incoterms_id: число
-//-в ставку должно быть включенно = services: массив из числе по моему, но в документация из строк
-//-дополнительные услуги = services_optional: массив из числе по моему, но в документация из строк
-
-
-//-ВАЛИДАЦИЯ-ВАЛИДАЦИЯ-ВАЛИДАЦИЯ-ВАЛИДАЦИЯ-ВАЛИДАЦИЯ-ВАЛИДАЦИЯ-ВАЛИДАЦИЯ-ВАЛИДАЦИЯ
-
-//Поля влияющие на валидацию:
-//-вид запроса
-//-вид перевозки
-//-места
-
-//Поля с валидцией:
-
-//котрагнет
-//вид запроса
-//вид перевозки
-//тип транспорта
-
-//наименнование груза
-//вид упаковки
-//тип груза
-
-//вид упаковки(в местах)
-
-//город
-//страна
-
-//условия поставки
