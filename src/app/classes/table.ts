@@ -25,9 +25,9 @@ export abstract class Table<T extends { id: number }, A = never, F = never> impl
   sortableColumns?: string[];
 
   isBiddingMode=false;
-  isAllCheck:boolean=false;
   arrRowsId:number[]=[];
   quantityContractors:number=0;
+  currentQuantityContractors:number=0
   currentRequest:any={};
 
 
@@ -70,6 +70,7 @@ export abstract class Table<T extends { id: number }, A = never, F = never> impl
     if(this.isBiddingMode){
       const id = Number(this.route.snapshot.paramMap.get('id'));
       this.getRequestInfo(id);
+
     }
 
     this.loadFilterSchema().subscribe(schema => {
@@ -461,7 +462,7 @@ export abstract class Table<T extends { id: number }, A = never, F = never> impl
           this.quantityContractors=0;
         }
       },
-      complete:()=>  this.isAllCheckChange(),
+      complete:()=>  this.currentQuantityContractors=this.contractorsSelectedForRequest.length,
       error: (err) => this.snackBar.open(`Не получилось ID контрагентов выбранных для отправки запроса ` + err.error.error_message, undefined, this.snackBarWithShortDuration)
     });
   }
@@ -501,15 +502,12 @@ export abstract class Table<T extends { id: number }, A = never, F = never> impl
     return isCheck;
   }
 
-  isAllCheckChange(){
-    const countChecked = this.contractorsSelectedForRequest.length;
-    this.isAllCheck = this.rows.length > 0 && countChecked === this.rows.length;
-    // return this.rows.length > 0 && countChecked === this.rows.length;
+  isAllCheck(){
+    return this.rows.length > 0 && this.currentQuantityContractors === this.rows.length;
   }
 
   isIndeterminate(){
-    const countChecked = this.contractorsSelectedForRequest.length;
-    return this.rows.length > 0 && countChecked < this.rows.length && countChecked > 0;
+    return this.rows.length > 0 && this.currentQuantityContractors < this.rows.length && this.currentQuantityContractors > 0;
   }
 
   getRequestInfo(id:number){
@@ -519,8 +517,9 @@ export abstract class Table<T extends { id: number }, A = never, F = never> impl
         this.filterService.value["country_departure"]=this.currentRequest.departure_country_id;
         this.filterService.value["country_arrival"]=this.currentRequest.arrival_country_id;
         this.filterService.value["specialization"]=[this.currentRequest.transport_kind_id];
-        this.filterService.value["rating"]=this.currentRequest.request_type_id;
+        // this.filterService.value["rating"]=this.currentRequest.request_type_id;
         this.filterService.apply();
+
       },
       error: (err) => this.snackBar.open(`Ошибка получения данных запроса ` + err.error.error_message, undefined, this.snackBarWithShortDuration)
     });

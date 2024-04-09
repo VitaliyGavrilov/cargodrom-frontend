@@ -141,3 +141,42 @@
   margin: 0 ;
   padding: 0;
 }
+
+//перевод запросов
+.edit-form .ru .form-block .form-row .form-item input{
+  background: transparent;
+}
+
+.edit-form .ru .form-block .form-row .form-item textarea{
+  background: transparent;
+}
+
+.edit-form .en .form-block .form-row .form-item .bg{
+  background: #F7F9FC;
+  border: 1px solid #E0E5EB;
+}
+
+.edit-form .en .form-block .form-row .form-item .form-label{
+  display: flex;
+  justify-content: space-between;
+}
+
+.edit-form .en .form-block .form-row .form-item .form-label span{
+  font-weight: 900;
+  display: flex;
+}
+.edit-form .en .form-block .form-row .form-item .form-label span::before{
+  display: flex;
+  justify-content: center;
+  margin-right: 3px;
+
+  content: '';
+  background: url(../../assets/pic-triangle-warning.svg) no-repeat ;
+  width: 10px;
+  height: 10px;
+  position: relative;
+}
+
+.edit-form .ru .form-block .form-row .form-block-title{
+  color: #606A74;
+}

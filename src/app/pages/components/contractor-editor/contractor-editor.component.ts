@@ -167,8 +167,6 @@ export class ContractorEditorComponent implements OnInit {
 
   onContractorTypeChange(e:any){
     if(e.contact_required){
-      console.log('1234');
-
       this.contractorForm.get('type_id')!.setValidators([Validators.required]);
     } else {
       this.contractorForm.get('type_id')!.setValidators([]);

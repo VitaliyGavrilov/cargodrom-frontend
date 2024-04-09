@@ -109,7 +109,7 @@
           <div class="column w10">
             <label>
               <mat-checkbox class="testclass"
-                [checked]="isAllCheck"
+                [checked]="isAllCheck()"
                 [indeterminate]="isIndeterminate()"
                 (change)="updateAllContractorSelectRequest($event)"
               ></mat-checkbox>

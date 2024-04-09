@@ -14,6 +14,7 @@ import { TariffComponent } from './components/tariff/tariff.component';
 import { PagesComponent } from './pages.component';
 import { ClientEditorComponent } from './components/client-editor/client-editor.component';
 import { AuthGuard } from '../auth/auth.guard';
+import { RequestEditorTranslateComponent } from './components/request-editor-translate/request-editor-translate.component';
 
 
 
@@ -55,6 +56,13 @@ const routes: Routes = [
         component: RequestEditorComponent,
         pathMatch: 'full',
         title: 'Добавление запроса',
+        canActivate: [AuthGuard],
+      },
+      {
+        path: 'request/edit/translate/:id',
+        component: RequestEditorTranslateComponent,
+        pathMatch: 'full',
+        title: 'Проверка перевода запроса',
         canActivate: [AuthGuard],
       },
       {

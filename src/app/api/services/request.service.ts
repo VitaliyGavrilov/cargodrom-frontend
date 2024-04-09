@@ -490,6 +490,21 @@ export class RequestService extends BaseService {
 'bid_client'?: string;
 
 /**
+ * Признак начала торгов
+ */
+'flag_bidding_start'?: boolean;
+
+/**
+ * Время начала торгов
+ */
+'time_bidding_start'?: string;
+
+/**
+ * Время рассылки информации по торгам
+ */
+'time_bidding_send'?: string;
+
+/**
  * Услуги включаемые в ставку (ID берем из запроса - request_services)
  */
 'services'?: Array<string>;
@@ -949,6 +964,21 @@ export class RequestService extends BaseService {
          * Ставка клиенту
          */
         'bid_client'?: string;
+        
+        /**
+         * Признак начала торгов
+         */
+        'flag_bidding_start'?: boolean;
+        
+        /**
+         * Время начала торгов
+         */
+        'time_bidding_start'?: string;
+        
+        /**
+         * Время рассылки информации по торгам
+         */
+        'time_bidding_send'?: string;
         
         /**
          * Услуги включаемые в ставку (ID берем из запроса - request_services)
@@ -1496,6 +1526,21 @@ export class RequestService extends BaseService {
 'bid_client'?: string;
 
 /**
+ * Признак начала торгов
+ */
+'flag_bidding_start'?: boolean;
+
+/**
+ * Время начала торгов
+ */
+'time_bidding_start'?: string;
+
+/**
+ * Время рассылки информации по торгам
+ */
+'time_bidding_send'?: string;
+
+/**
  * Услуги включаемые в ставку (ID берем из запроса - request_services)
  */
 'services'?: Array<string>;
@@ -1933,6 +1978,21 @@ export class RequestService extends BaseService {
 'bid_client'?: string;
 
 /**
+ * Признак начала торгов
+ */
+'flag_bidding_start'?: boolean;
+
+/**
+ * Время начала торгов
+ */
+'time_bidding_start'?: string;
+
+/**
+ * Время рассылки информации по торгам
+ */
+'time_bidding_send'?: string;
+
+/**
  * Услуги включаемые в ставку (ID берем из запроса - request_services)
  */
 'services'?: Array<string>;
@@ -2366,6 +2426,21 @@ export class RequestService extends BaseService {
  * Ставка клиенту
  */
 'bid_client'?: string;
+
+/**
+ * Признак начала торгов
+ */
+'flag_bidding_start'?: boolean;
+
+/**
+ * Время начала торгов
+ */
+'time_bidding_start'?: string;
+
+/**
+ * Время рассылки информации по торгам
+ */
+'time_bidding_send'?: string;
 
 /**
  * Услуги включаемые в ставку (ID берем из запроса - request_services)
@@ -3506,6 +3581,21 @@ export class RequestService extends BaseService {
 'bid_client'?: string;
 
 /**
+ * Признак начала торгов
+ */
+'flag_bidding_start'?: boolean;
+
+/**
+ * Время начала торгов
+ */
+'time_bidding_start'?: string;
+
+/**
+ * Время рассылки информации по торгам
+ */
+'time_bidding_send'?: string;
+
+/**
  * Услуги включаемые в ставку (ID берем из запроса - request_services)
  */
 'services'?: Array<string>;
@@ -3935,6 +4025,21 @@ export class RequestService extends BaseService {
          * Ставка клиенту
          */
         'bid_client'?: string;
+        
+        /**
+         * Признак начала торгов
+         */
+        'flag_bidding_start'?: boolean;
+        
+        /**
+         * Время начала торгов
+         */
+        'time_bidding_start'?: string;
+        
+        /**
+         * Время рассылки информации по торгам
+         */
+        'time_bidding_send'?: string;
         
         /**
          * Услуги включаемые в ставку (ID берем из запроса - request_services)
@@ -4381,6 +4486,21 @@ export class RequestService extends BaseService {
 'bid_client'?: string;
 
 /**
+ * Признак начала торгов
+ */
+'flag_bidding_start'?: boolean;
+
+/**
+ * Время начала торгов
+ */
+'time_bidding_start'?: string;
+
+/**
+ * Время рассылки информации по торгам
+ */
+'time_bidding_send'?: string;
+
+/**
  * Услуги включаемые в ставку (ID берем из запроса - request_services)
  */
 'services'?: Array<string>;
@@ -4803,6 +4923,21 @@ export class RequestService extends BaseService {
 'bid_client'?: string;
 
 /**
+ * Признак начала торгов
+ */
+'flag_bidding_start'?: boolean;
+
+/**
+ * Время начала торгов
+ */
+'time_bidding_start'?: string;
+
+/**
+ * Время рассылки информации по торгам
+ */
+'time_bidding_send'?: string;
+
+/**
  * Услуги включаемые в ставку (ID берем из запроса - request_services)
  */
 'services'?: Array<string>;
@@ -5223,6 +5358,21 @@ export class RequestService extends BaseService {
 'bid_client'?: string;
 
 /**
+ * Признак начала торгов
+ */
+'flag_bidding_start'?: boolean;
+
+/**
+ * Время начала торгов
+ */
+'time_bidding_start'?: string;
+
+/**
+ * Время рассылки информации по торгам
+ */
+'time_bidding_send'?: string;
+
+/**
  * Услуги включаемые в ставку (ID берем из запроса - request_services)
  */
 'services'?: Array<string>;
@@ -5536,6 +5686,11 @@ export class RequestService extends BaseService {
 'incoterms_city_id'?: number;
 
 /**
+ * Признак начала торгов
+ */
+'flag_bidding_start'?: boolean;
+
+/**
  * Услуги включаемые в ставку (ID берем из запроса - request_services)
  */
 'services'?: Array<string>;
@@ -5825,6 +5980,11 @@ export class RequestService extends BaseService {
  * Город/Порт (ID берем из запроса - direction_city)
  */
 'incoterms_city_id'?: number;
+
+/**
+ * Признак начала торгов
+ */
+'flag_bidding_start'?: boolean;
 
 /**
  * Услуги включаемые в ставку (ID берем из запроса - request_services)
@@ -6127,6 +6287,11 @@ export class RequestService extends BaseService {
 'incoterms_city_id'?: number;
 
 /**
+ * Признак начала торгов
+ */
+'flag_bidding_start'?: boolean;
+
+/**
  * Услуги включаемые в ставку (ID берем из запроса - request_services)
  */
 'services'?: Array<string>;
@@ -6426,6 +6591,11 @@ export class RequestService extends BaseService {
  * Город/Порт (ID берем из запроса - direction_city)
  */
 'incoterms_city_id'?: number;
+
+/**
+ * Признак начала торгов
+ */
+'flag_bidding_start'?: boolean;
 
 /**
  * Услуги включаемые в ставку (ID берем из запроса - request_services)
@@ -9006,9 +9176,14 @@ export class RequestService extends BaseService {
 'cargo_description'?: string;
 
 /**
+ * Тип груза
+ */
+'cargo_type_name'?: string;
+
+/**
  * Условия перевозки
  */
-'cargo_сondition_carriage'?: string;
+'cargo_condition_carriage'?: string;
 
 /**
  * Кол-во
@@ -9107,9 +9282,14 @@ export class RequestService extends BaseService {
 'cargo_description'?: string;
 
 /**
+ * Тип груза
+ */
+'cargo_type_name'?: string;
+
+/**
  * Condition of carriage
  */
-'cargo_сondition_carriage'?: string;
+'cargo_condition_carriage'?: string;
 
 /**
  * Total q-ty
@@ -9146,6 +9326,11 @@ export class RequestService extends BaseService {
  */
 'comment'?: string;
 };
+
+/**
+ * Поля автоматического перевода
+ */
+'translate_auto'?: Array<string>;
 }>> {
     const rb = new RequestBuilder(this.rootUrl, RequestService.RequestTranslatePath, 'get');
     if (params) {
@@ -9225,9 +9410,14 @@ export class RequestService extends BaseService {
         'cargo_description'?: string;
         
         /**
+         * Тип груза
+         */
+        'cargo_type_name'?: string;
+        
+        /**
          * Условия перевозки
          */
-        'cargo_сondition_carriage'?: string;
+        'cargo_condition_carriage'?: string;
         
         /**
          * Кол-во
@@ -9326,9 +9516,14 @@ export class RequestService extends BaseService {
         'cargo_description'?: string;
         
         /**
+         * Тип груза
+         */
+        'cargo_type_name'?: string;
+        
+        /**
          * Condition of carriage
          */
-        'cargo_сondition_carriage'?: string;
+        'cargo_condition_carriage'?: string;
         
         /**
          * Total q-ty
@@ -9365,6 +9560,11 @@ export class RequestService extends BaseService {
          */
         'comment'?: string;
         };
+        
+        /**
+         * Поля автоматического перевода
+         */
+        'translate_auto'?: Array<string>;
         }>;
       })
     );
@@ -9457,9 +9657,14 @@ export class RequestService extends BaseService {
 'cargo_description'?: string;
 
 /**
+ * Тип груза
+ */
+'cargo_type_name'?: string;
+
+/**
  * Условия перевозки
  */
-'cargo_сondition_carriage'?: string;
+'cargo_condition_carriage'?: string;
 
 /**
  * Кол-во
@@ -9558,9 +9763,14 @@ export class RequestService extends BaseService {
 'cargo_description'?: string;
 
 /**
+ * Тип груза
+ */
+'cargo_type_name'?: string;
+
+/**
  * Condition of carriage
  */
-'cargo_сondition_carriage'?: string;
+'cargo_condition_carriage'?: string;
 
 /**
  * Total q-ty
@@ -9597,6 +9807,11 @@ export class RequestService extends BaseService {
  */
 'comment'?: string;
 };
+
+/**
+ * Поля автоматического перевода
+ */
+'translate_auto'?: Array<string>;
 }> {
     return this.requestTranslate$Response(params, context).pipe(
       map((r: StrictHttpResponse<{
@@ -9667,9 +9882,14 @@ export class RequestService extends BaseService {
 'cargo_description'?: string;
 
 /**
+ * Тип груза
+ */
+'cargo_type_name'?: string;
+
+/**
  * Условия перевозки
  */
-'cargo_сondition_carriage'?: string;
+'cargo_condition_carriage'?: string;
 
 /**
  * Кол-во
@@ -9768,9 +9988,14 @@ export class RequestService extends BaseService {
 'cargo_description'?: string;
 
 /**
+ * Тип груза
+ */
+'cargo_type_name'?: string;
+
+/**
  * Condition of carriage
  */
-'cargo_сondition_carriage'?: string;
+'cargo_condition_carriage'?: string;
 
 /**
  * Total q-ty
@@ -9807,6 +10032,11 @@ export class RequestService extends BaseService {
  */
 'comment'?: string;
 };
+
+/**
+ * Поля автоматического перевода
+ */
+'translate_auto'?: Array<string>;
 }>): {
 
 /**
@@ -9875,9 +10105,14 @@ export class RequestService extends BaseService {
 'cargo_description'?: string;
 
 /**
+ * Тип груза
+ */
+'cargo_type_name'?: string;
+
+/**
  * Условия перевозки
  */
-'cargo_сondition_carriage'?: string;
+'cargo_condition_carriage'?: string;
 
 /**
  * Кол-во
@@ -9976,9 +10211,14 @@ export class RequestService extends BaseService {
 'cargo_description'?: string;
 
 /**
+ * Тип груза
+ */
+'cargo_type_name'?: string;
+
+/**
  * Condition of carriage
  */
-'cargo_сondition_carriage'?: string;
+'cargo_condition_carriage'?: string;
 
 /**
  * Total q-ty
@@ -10015,6 +10255,532 @@ export class RequestService extends BaseService {
  */
 'comment'?: string;
 };
+
+/**
+ * Поля автоматического перевода
+ */
+'translate_auto'?: Array<string>;
+} => r.body)
+    );
+  }
+
+  /** Path part for operation `requestTranslateSave()` */
+  static readonly RequestTranslateSavePath = '/request_translate_save';
+
+  /**
+   * Сохранение перевода запроса.
+   *
+   *
+   *
+   * This method provides access to the full `HttpResponse`, allowing access to response headers.
+   * To access only the response body, use `requestTranslateSave()` instead.
+   *
+   * This method sends `application/json` and handles request body of type `application/json`.
+   */
+  requestTranslateSave$Response(
+    params?: {
+      body?: {
+
+/**
+ * ID
+ */
+'id': number;
+
+/**
+ * Русский язык
+ */
+'ru'?: {
+
+/**
+ * Страна отправления
+ */
+'departure_country_name'?: string;
+
+/**
+ * Город отправления
+ */
+'departure_city_name'?: string;
+
+/**
+ * Адрес забора груза
+ */
+'departure_address'?: string;
+
+/**
+ * Аэропорт вылета
+ */
+'departure_point_name'?: string;
+
+/**
+ * Страна назначения
+ */
+'arrival_country_name'?: string;
+
+/**
+ * Город назначения
+ */
+'arrival_city_name'?: string;
+
+/**
+ * Адрес доставки груза
+ */
+'arrival_address'?: string;
+
+/**
+ * Аэропорт прибытия
+ */
+'arrival_point_name'?: string;
+
+/**
+ * Условия поставки по Инкотермс
+ */
+'incoterms_name'?: string;
+
+/**
+ * Рейсы
+ */
+'departure_flight_name'?: string;
+
+/**
+ * Товар
+ */
+'cargo_description'?: string;
+
+/**
+ * Тип груза
+ */
+'cargo_type_name'?: string;
+
+/**
+ * Условия перевозки
+ */
+'cargo_condition_carriage'?: string;
+
+/**
+ * Кол-во
+ */
+'cargo_places_count'?: number;
+
+/**
+ * Объем, м3
+ */
+'cargo_places_volume'?: number;
+
+/**
+ * Вес, кг
+ */
+'cargo_places_weight'?: number;
+
+/**
+ * Плотность, кг/м3
+ */
+'cargo_places_density'?: number;
+
+/**
+ * Оплачиваемый вес, кг
+ */
+'cargo_places_paid_weight'?: number;
+
+/**
+ * Габариты груза
+ */
+'cargo_dimensions'?: string;
+
+/**
+ * Примечание
+ */
+'comment'?: string;
+};
+
+/**
+ * Английский язык
+ */
+'en'?: {
+
+/**
+ * Country of dispatch
+ */
+'departure_country_name'?: string;
+
+/**
+ * City of dispatch
+ */
+'departure_city_name'?: string;
+
+/**
+ * Address of pick-up
+ */
+'departure_address'?: string;
+
+/**
+ * Airport of departure
+ */
+'departure_point_name'?: string;
+
+/**
+ * Country of delivery
+ */
+'arrival_country_name'?: string;
+
+/**
+ * City of delivery
+ */
+'arrival_city_name'?: string;
+
+/**
+ * Address of departure
+ */
+'arrival_address'?: string;
+
+/**
+ * Airport of destination
+ */
+'arrival_point_name'?: string;
+
+/**
+ * Terms of delivery
+ */
+'incoterms_name'?: string;
+
+/**
+ * Type of flights
+ */
+'departure_flight_name'?: string;
+
+/**
+ * Commodity
+ */
+'cargo_description'?: string;
+
+/**
+ * Тип груза
+ */
+'cargo_type_name'?: string;
+
+/**
+ * Condition of carriage
+ */
+'cargo_condition_carriage'?: string;
+
+/**
+ * Total q-ty
+ */
+'cargo_places_count'?: number;
+
+/**
+ * Total m3
+ */
+'cargo_places_volume'?: number;
+
+/**
+ * Total kg
+ */
+'cargo_places_weight'?: number;
+
+/**
+ * Density
+ */
+'cargo_places_density'?: number;
+
+/**
+ * Chargeable weight, kg
+ */
+'cargo_places_paid_weight'?: number;
+
+/**
+ * Dimensions
+ */
+'cargo_dimensions'?: string;
+
+/**
+ * Notation
+ */
+'comment'?: string;
+};
+}
+    },
+    context?: HttpContext
+  ): Observable<StrictHttpResponse<{
+
+/**
+ * Статус выполнения
+ */
+'result': 'OK';
+}>> {
+    const rb = new RequestBuilder(this.rootUrl, RequestService.RequestTranslateSavePath, 'post');
+    if (params) {
+      rb.body(params.body, 'application/json');
+    }
+
+    return this.http.request(
+      rb.build({ responseType: 'json', accept: 'application/json', context })
+    ).pipe(
+      filter((r: any): r is HttpResponse<any> => r instanceof HttpResponse),
+      map((r: HttpResponse<any>) => {
+        return r as StrictHttpResponse<{
+        
+        /**
+         * Статус выполнения
+         */
+        'result': 'OK';
+        }>;
+      })
+    );
+  }
+
+  /**
+   * Сохранение перевода запроса.
+   *
+   *
+   *
+   * This method provides access only to the response body.
+   * To access the full response (for headers, for example), `requestTranslateSave$Response()` instead.
+   *
+   * This method sends `application/json` and handles request body of type `application/json`.
+   */
+  requestTranslateSave(
+    params?: {
+      body?: {
+
+/**
+ * ID
+ */
+'id': number;
+
+/**
+ * Русский язык
+ */
+'ru'?: {
+
+/**
+ * Страна отправления
+ */
+'departure_country_name'?: string;
+
+/**
+ * Город отправления
+ */
+'departure_city_name'?: string;
+
+/**
+ * Адрес забора груза
+ */
+'departure_address'?: string;
+
+/**
+ * Аэропорт вылета
+ */
+'departure_point_name'?: string;
+
+/**
+ * Страна назначения
+ */
+'arrival_country_name'?: string;
+
+/**
+ * Город назначения
+ */
+'arrival_city_name'?: string;
+
+/**
+ * Адрес доставки груза
+ */
+'arrival_address'?: string;
+
+/**
+ * Аэропорт прибытия
+ */
+'arrival_point_name'?: string;
+
+/**
+ * Условия поставки по Инкотермс
+ */
+'incoterms_name'?: string;
+
+/**
+ * Рейсы
+ */
+'departure_flight_name'?: string;
+
+/**
+ * Товар
+ */
+'cargo_description'?: string;
+
+/**
+ * Тип груза
+ */
+'cargo_type_name'?: string;
+
+/**
+ * Условия перевозки
+ */
+'cargo_condition_carriage'?: string;
+
+/**
+ * Кол-во
+ */
+'cargo_places_count'?: number;
+
+/**
+ * Объем, м3
+ */
+'cargo_places_volume'?: number;
+
+/**
+ * Вес, кг
+ */
+'cargo_places_weight'?: number;
+
+/**
+ * Плотность, кг/м3
+ */
+'cargo_places_density'?: number;
+
+/**
+ * Оплачиваемый вес, кг
+ */
+'cargo_places_paid_weight'?: number;
+
+/**
+ * Габариты груза
+ */
+'cargo_dimensions'?: string;
+
+/**
+ * Примечание
+ */
+'comment'?: string;
+};
+
+/**
+ * Английский язык
+ */
+'en'?: {
+
+/**
+ * Country of dispatch
+ */
+'departure_country_name'?: string;
+
+/**
+ * City of dispatch
+ */
+'departure_city_name'?: string;
+
+/**
+ * Address of pick-up
+ */
+'departure_address'?: string;
+
+/**
+ * Airport of departure
+ */
+'departure_point_name'?: string;
+
+/**
+ * Country of delivery
+ */
+'arrival_country_name'?: string;
+
+/**
+ * City of delivery
+ */
+'arrival_city_name'?: string;
+
+/**
+ * Address of departure
+ */
+'arrival_address'?: string;
+
+/**
+ * Airport of destination
+ */
+'arrival_point_name'?: string;
+
+/**
+ * Terms of delivery
+ */
+'incoterms_name'?: string;
+
+/**
+ * Type of flights
+ */
+'departure_flight_name'?: string;
+
+/**
+ * Commodity
+ */
+'cargo_description'?: string;
+
+/**
+ * Тип груза
+ */
+'cargo_type_name'?: string;
+
+/**
+ * Condition of carriage
+ */
+'cargo_condition_carriage'?: string;
+
+/**
+ * Total q-ty
+ */
+'cargo_places_count'?: number;
+
+/**
+ * Total m3
+ */
+'cargo_places_volume'?: number;
+
+/**
+ * Total kg
+ */
+'cargo_places_weight'?: number;
+
+/**
+ * Density
+ */
+'cargo_places_density'?: number;
+
+/**
+ * Chargeable weight, kg
+ */
+'cargo_places_paid_weight'?: number;
+
+/**
+ * Dimensions
+ */
+'cargo_dimensions'?: string;
+
+/**
+ * Notation
+ */
+'comment'?: string;
+};
+}
+    },
+    context?: HttpContext
+  ): Observable<{
+
+/**
+ * Статус выполнения
+ */
+'result': 'OK';
+}> {
+    return this.requestTranslateSave$Response(params, context).pipe(
+      map((r: StrictHttpResponse<{
+
+/**
+ * Статус выполнения
+ */
+'result': 'OK';
+}>): {
+
+/**
+ * Статус выполнения
+ */
+'result': 'OK';
 } => r.body)
     );
   }

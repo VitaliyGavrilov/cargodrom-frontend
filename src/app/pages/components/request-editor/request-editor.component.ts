@@ -235,8 +235,9 @@ export class RequestEditorComponent implements OnInit, OnDestroy {
   }
   calc():void{
     const id = Number(this.route.snapshot.paramMap.get('id'));
-    this.router.navigate(['pages/request/bidding', id]);
+    this.router.navigate(['pages/request/edit/translate', id]);
   }
+  
   //РЕДАКТИРОВАНИЕ ДАННЫХ ПЕРЕД ОТПРАВКОЙ
   planA(body:any){
     const data = {

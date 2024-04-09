@@ -29,6 +29,7 @@ import { ResponsibilityRowComponent } from './components/responsibility-row/resp
 import { PlaceEditorComponent } from './components/place-editor/place-editor.component';
 import { RequestServicesComponent } from './components/request-services-editor/request-services-editor.component';
 import { ResponsibilityComponent } from './components/responsibility/responsibility.component';
+import { RequestEditorTranslateComponent } from './components/request-editor-translate/request-editor-translate.component';
 
 
 
@@ -59,6 +60,7 @@ import { ResponsibilityComponent } from './components/responsibility/responsibil
     ResponsibilityComponent,
     PlaceEditorComponent,
     RequestServicesComponent,
+    RequestEditorTranslateComponent,
 
   ],
   imports: [

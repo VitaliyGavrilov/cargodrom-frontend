@@ -1,0 +1,513 @@
+<div class="edit-form title">Проверьте перевод на английский</div>
+
+<div class="edit-form" >
+
+  <div style="display: flex;">
+    <form class="w50 ru" [formGroup]="requestFormTranslateRu">
+      <div class="title gr">Русский оригинал</div>
+      <div class="form-block">
+        <div class="form-row bg">
+          <div class="form-block-title">Направление</div>
+
+          <div class="form-item-layout">
+            <div class="form-item">
+              <div class="form-label">Страна нахождения: </div>
+              <div class="form-data">
+                <input formControlName="departure_country_name"
+                  type="text"
+                  readonly
+                >
+              </div>
+            </div>
+
+            <div class="form-item">
+              <div class="form-label">Город отправки: </div>
+              <div class="form-data">
+                <input formControlName="departure_city_name"
+                  type="text"
+                  readonly
+                >
+              </div>
+            </div>
+          </div>
+
+          <div class="form-item-layout">
+            <div class="form-item">
+              <div class="form-label">Адрес забора груза: </div>
+              <div class="form-data">
+                <input formControlName="departure_address"
+                  type="text"
+                  readonly
+                >
+              </div>
+            </div>
+          </div>
+
+          <div class="form-item-layout">
+            <div class="form-item">
+              <div class="form-label">Аэропорт вылета: </div>
+              <div class="form-data">
+                <input formControlName="departure_point_name"
+                  type="text"
+                  readonly
+                >
+              </div>
+            </div>
+          </div>
+
+
+          <div class="form-item-layout">
+            <div class="form-item">
+              <div class="form-label">Страна доставки: </div>
+              <div class="form-data">
+                <input formControlName="arrival_country_name"
+                  type="text"
+                  readonly
+                >
+              </div>
+            </div>
+            <div class="form-item">
+              <div class="form-label">Город доставки: </div>
+              <div class="form-data">
+                <input formControlName="arrival_city_name"
+                  type="text"
+                  readonly
+                >
+              </div>
+            </div>
+          </div>
+
+          <div class="form-item-layout">
+            <div class="form-item">
+              <div class="form-label">Адрес доставки: </div>
+              <div class="form-data">
+                <input formControlName="arrival_address"
+                  type="text"
+                  readonly
+                >
+              </div>
+            </div>
+          </div>
+
+          <div class="form-item-layout">
+            <div class="form-item">
+              <div class="form-label">Аэропорт прибытия: </div>
+              <div class="form-data">
+                <input formControlName="arrival_point_name"
+                  type="text"
+                  readonly
+                >
+              </div>
+            </div>
+          </div>
+
+
+          <div class="form-item-layout">
+            <div class="form-item">
+              <div class="form-label">Условия поставки: </div>
+              <div class="form-data">
+                <input formControlName="incoterms_name"
+                  type="text"
+                  readonly
+                >
+              </div>
+            </div>
+
+            <div class="form-item">
+              <div class="form-label">Тип перелета: </div>
+              <div class="form-data">
+                <input formControlName="departure_flight_name"
+                  type="text"
+                  readonly
+                >
+              </div>
+            </div>
+          </div>
+
+        </div>
+
+        <div class="form-row bg">
+          <div class="form-block-title">Описание груза</div>
+
+          <div class="form-item-layout">
+            <div class="form-item">
+              <div class="form-label">Товар: </div>
+              <div class="form-data">
+                <input formControlName="cargo_description"
+                  type="text"
+                  readonly
+                >
+              </div>
+            </div>
+          </div>
+
+          <div class="form-item-layout">
+            <div class="form-item">
+              <div class="form-label">Тип груза: </div>
+              <div class="form-data">
+                <input formControlName="cargo_type_name"
+                  type="text"
+                  readonly
+                >
+              </div>
+            </div>
+          </div>
+
+          <div class="form-item-layout">
+            <div class="form-item">
+              <div class="form-label">Условия перевозки: </div>
+              <div class="form-data">
+                <textarea style="resize: none;" formControlName="cargo_condition_carriage"
+                  type="text"
+                  readonly
+                ></textarea>
+              </div>
+            </div>
+          </div>
+
+          <div class="form-item-layout">
+            <div class="form-item">
+              <div class="form-label">Кол-во: </div>
+              <div class="form-data">
+                <input formControlName="cargo_places_count"
+                  type="text"
+                  readonly
+                >
+              </div>
+            </div>
+
+            <div class="form-item">
+              <div class="form-label">Объем м3: </div>
+              <div class="form-data">
+                <input formControlName="cargo_places_volume"
+                  type="text"
+                  readonly
+                >
+              </div>
+            </div>
+
+            <div class="form-item">
+              <div class="form-label">Вес, кг: </div>
+              <div class="form-data">
+                <input formControlName="cargo_places_weight"
+                  type="text"
+                  readonly
+                >
+              </div>
+            </div>
+
+            <div class="form-item">
+              <div class="form-label">Плотность: </div>
+              <div class="form-data">
+                <input formControlName="cargo_places_density"
+                  type="text"
+                  readonly
+                >
+              </div>
+            </div>
+
+            <div class="form-item" style="min-width: 130px;">
+              <div class="form-label">Оплачиваемый вес, кг: </div>
+              <div class="form-data">
+                <input formControlName="cargo_places_paid_weight"
+                  type="text"
+                  readonly
+                >
+              </div>
+            </div>
+
+          </div>
+
+          <div class="form-item-layout">
+            <div class="form-item">
+              <div class="form-label">Габариты: </div>
+              <div class="form-data">
+                <textarea formControlName="cargo_dimensions"
+                  readonly
+                ></textarea>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="form-row bg">
+
+          <div class="form-item-layout">
+            <div class="form-item">
+              <div class="form-label">Примечание: </div>
+              <div class="form-data">
+                <input formControlName="comment"
+                  readonly
+                  type="text"
+                >
+              </div>
+            </div>
+          </div>
+
+        </div>
+
+      </div>
+    </form>
+
+    <form class="w50 en" [formGroup]="requestFormTranslateNoRu" >
+      <div class="title bl">Английский перевод</div>
+      <div class="form-block">
+        <div class="form-row">
+          <div class="form-block-title">Route</div>
+
+          <div class="form-item-layout">
+            <div class="form-item">
+              <div class="form-label">Country of dispatch: </div>
+              <div class="form-data">
+                <input formControlName="departure_country_name"
+                  type="text"
+                  readonly
+                >
+              </div>
+            </div>
+
+            <div class="form-item">
+              <div class="form-label">City of dispatch: </div>
+              <div class="form-data">
+                <input formControlName="departure_city_name"
+                  type="text"
+                  readonly
+                >
+              </div>
+            </div>
+          </div>
+
+          <div class="form-item-layout">
+            <div class="form-item">
+              <div class="form-label">Address of pick-up: <span *ngIf="test('departure_address')">машинный перевод, обратите внимание</span></div>
+              <div class="form-data">
+                <input formControlName="departure_address"
+                  type="text"
+                  class="bg"
+                  [ngClass]="{'bg': test('departure_address') }"
+                  [readOnly]="!test('departure_address')"
+                >
+              </div>
+            </div>
+          </div>
+
+          <div class="form-item-layout">
+            <div class="form-item">
+              <div class="form-label">Airport of departure: </div>
+              <div class="form-data">
+                <input formControlName="departure_point_name"
+                  type="text"
+                  readonly
+                >
+              </div>
+            </div>
+          </div>
+
+
+          <div class="form-item-layout">
+            <div class="form-item">
+              <div class="form-label">Country of delivery: </div>
+              <div class="form-data">
+                <input formControlName="arrival_country_name"
+                  type="text"
+                  readonly
+                >
+              </div>
+            </div>
+            <div class="form-item">
+              <div class="form-label">City of delivery: </div>
+              <div class="form-data">
+                <input formControlName="arrival_city_name"
+                  type="text"
+                  readonly
+                >
+              </div>
+            </div>
+          </div>
+
+          <div class="form-item-layout">
+            <div class="form-item">
+              <div class="form-label">Address of delivery: <span *ngIf="test('arrival_address')">машинный перевод, обратите внимание</span></div>
+              <div class="form-data">
+                <input formControlName="arrival_address"
+                  type="text"
+                  [ngClass]="{'bg': test('arrival_address') }"
+                  [readOnly]="!test('arrival_address')"
+                >
+              </div>
+            </div>
+          </div>
+
+          <div class="form-item-layout">
+            <div class="form-item">
+              <div class="form-label">Airport of destination: </div>
+              <div class="form-data">
+                <input formControlName="arrival_point_name"
+                  type="text"
+                  readonly
+                >
+              </div>
+            </div>
+          </div>
+
+
+          <div class="form-item-layout">
+            <div class="form-item">
+              <div class="form-label">Terms of delivery: </div>
+              <div class="form-data">
+                <input formControlName="incoterms_name"
+                  type="text"
+                  readonly
+                >
+              </div>
+            </div>
+
+            <div class="form-item">
+              <div class="form-label">Type of flights: </div>
+              <div class="form-data">
+                <input formControlName="departure_flight_name"
+                  type="text"
+                  readonly
+                >
+              </div>
+            </div>
+          </div>
+
+        </div>
+
+        <div class="form-row">
+          <div class="form-block-title">Cargo Description</div>
+
+          <div class="form-item-layout">
+            <div class="form-item">
+              <div class="form-label">Commodity: <span *ngIf="test('cargo_description')">машинный перевод, обратите внимание</span></div>
+              <div class="form-data">
+                <input formControlName="cargo_description"
+                  type="text"
+                  [ngClass]="{'bg': test('cargo_description') }"
+                  [readOnly]="!test('cargo_description')"
+                >
+              </div>
+            </div>
+          </div>
+
+          <div class="form-item-layout">
+            <div class="form-item">
+              <div class="form-label">Type of cargo: </div>
+              <div class="form-data">
+                <input formControlName="cargo_type_name"
+                  type="text"
+                  readonly
+                >
+              </div>
+            </div>
+          </div>
+
+          <div class="form-item-layout">
+            <div class="form-item">
+              <div class="form-label">Condition of carriage: </div>
+              <div class="form-data">
+                <textarea style="resize: none;" formControlName="cargo_condition_carriage"
+                  type="text"
+                  readonly
+                ></textarea>
+              </div>
+            </div>
+          </div>
+
+          <div class="form-item-layout">
+            <div class="form-item">
+              <div class="form-label">Total q-ty: </div>
+              <div class="form-data">
+                <input formControlName="cargo_places_count"
+                  type="text"
+                  readonly
+                >
+              </div>
+            </div>
+
+            <div class="form-item">
+              <div class="form-label">Total m2: </div>
+              <div class="form-data">
+                <input formControlName="cargo_places_volume"
+                  type="text"
+                  readonly
+                >
+              </div>
+            </div>
+
+            <div class="form-item">
+              <div class="form-label">Total kg: </div>
+              <div class="form-data">
+                <input formControlName="cargo_places_weight"
+                  type="text"
+                  readonly
+                >
+              </div>
+            </div>
+
+            <div class="form-item">
+              <div class="form-label">Density: </div>
+              <div class="form-data">
+                <input formControlName="cargo_places_density"
+                  type="text"
+                  readonly
+                >
+              </div>
+            </div>
+
+            <div class="form-item" style="min-width: 130px;">
+              <div class="form-label">Chargeable weight, kg: </div>
+              <div class="form-data">
+                <input formControlName="cargo_places_paid_weight"
+                  type="text"
+                  readonly
+                >
+              </div>
+            </div>
+
+          </div>
+
+          <div class="form-item-layout">
+            <div class="form-item">
+              <div class="form-label">Dimensions: </div>
+              <div class="form-data">
+                <textarea formControlName="cargo_dimensions"
+                  readonly style="resize: none;"
+                ></textarea>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="form-row">
+
+          <div class="form-item-layout">
+            <div class="form-item">
+              <div class="form-label">Notation: <span *ngIf="test('comment')">машинный перевод, обратите внимание</span></div>
+              <div class="form-data">
+                <input formControlName="comment"
+                  type="text"
+                  [ngClass]="{'bg': test('comment') }"
+                  [readOnly]="!test('comment')"
+                >
+              </div>
+            </div>
+          </div>
+
+        </div>
+
+      </div>
+    </form>
+  </div>
+
+  <div class="hdr ftr">
+    <div class="title">
+    </div>
+    <div class="fn">
+      <button class="btn v save" (click)="save()"><span>Отправить</span></button>
+      <button class="btn v cancel" (click)="remove()"><span>Отмена</span></button>
+    </div>
+  </div>
+
+</div>

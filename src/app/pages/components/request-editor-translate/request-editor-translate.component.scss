@@ -1,0 +1,63 @@
+.w50{
+  width: 50%;
+}
+
+.form-block-title{
+padding-top: 0;
+}
+
+.form-item {
+  flex-grow: 1;
+}
+
+.edit-form.title{
+  margin: 20px auto;
+  color: black;
+  font-size: 28px;
+  line-height: 29px;
+  font-weight: 900;
+}
+.edit-form .title{
+  height: 70px;
+  display: flex;
+  justify-content: start;
+  align-items: center;
+  color: white;
+  padding-left: 40px;
+  font-size: 22px;
+  line-height: 23px;
+}
+
+
+
+.gr{
+  background-color: #C3CCD6;
+}
+
+.bl{
+  background-color: #4B66AD;
+}
+
+.form-block{
+  border: none;
+}
+
+.ru .form-block{
+  border: 4px solid #C3CCD6;
+  border-top: none;
+  border-right: none;
+}
+
+.en .form-block{
+  border: 4px solid #4B66AD;
+  border-top: none;
+}
+
+button{
+  border: none;
+}
+
+.btn.v.save:before {
+  background-image: url(../../../../assets/pic-btn-send-white.svg);
+}
+
