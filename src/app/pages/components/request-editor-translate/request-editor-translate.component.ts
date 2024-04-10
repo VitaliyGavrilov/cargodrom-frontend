@@ -96,8 +96,6 @@ export class RequestEditorTranslateComponent implements OnInit, OnDestroy {
   private getRequestTraqnslate(id:number){
     this.requestService.requestTranslate({id}).pipe().subscribe({
       next: (translate:any) => {
-        console.log(translate);
-
         this.requestFormTranslateRu.patchValue(translate.ru);
         this.requestFormTranslateNoRu.patchValue(translate.en );
         this.translateAuto=translate.translate_auto.en;
@@ -111,7 +109,7 @@ export class RequestEditorTranslateComponent implements OnInit, OnDestroy {
     this.requestService.requestTranslateSave({body:body}).pipe().subscribe({
       next: () => {
         this.snackBar.open(`Перевод изменен`, undefined, this.snackBarWithShortDuration);
-        this.router.navigate(['pages/request/bidding', this.requestId]);
+        window.location.reload();
       },
       error: (err) => this.snackBar.open(`Ошибка изменения перевода запроса: ` + err.error.error_message, undefined, this.snackBarWithShortDuration)
     });
@@ -120,9 +118,10 @@ export class RequestEditorTranslateComponent implements OnInit, OnDestroy {
   save(){
     this.updateRequestTraqnslate();
   }
+  send(){
+    this.router.navigate(['pages/request/bidding', this.requestId]);
+  }
   remove():void {
     window.location.reload();
   }
-
-
 }
