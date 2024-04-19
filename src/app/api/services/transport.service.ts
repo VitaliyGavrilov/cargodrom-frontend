@@ -43,7 +43,12 @@ export class TransportService extends BaseService {
 /**
  * ID
  */
-'id'?: string;
+'id'?: number;
+
+/**
+ * Ключ
+ */
+'key'?: string;
 
 /**
  * Наименование
@@ -64,7 +69,12 @@ export class TransportService extends BaseService {
         /**
          * ID
          */
-        'id'?: string;
+        'id'?: number;
+        
+        /**
+         * Ключ
+         */
+        'key'?: string;
         
         /**
          * Наименование
@@ -94,7 +104,12 @@ export class TransportService extends BaseService {
 /**
  * ID
  */
-'id'?: string;
+'id'?: number;
+
+/**
+ * Ключ
+ */
+'key'?: string;
 
 /**
  * Наименование
@@ -107,7 +122,12 @@ export class TransportService extends BaseService {
 /**
  * ID
  */
-'id'?: string;
+'id'?: number;
+
+/**
+ * Ключ
+ */
+'key'?: string;
 
 /**
  * Наименование
@@ -118,7 +138,12 @@ export class TransportService extends BaseService {
 /**
  * ID
  */
-'id'?: string;
+'id'?: number;
+
+/**
+ * Ключ
+ */
+'key'?: string;
 
 /**
  * Наименование
@@ -150,12 +175,17 @@ export class TransportService extends BaseService {
 /**
  * ID
  */
-'id'?: string;
+'id'?: number;
+
+/**
+ * Ключ
+ */
+'key'?: string;
 
 /**
  * Вид перевозки
  */
-'kind_id'?: string;
+'kind_id'?: number;
 
 /**
  * Наименование
@@ -176,12 +206,17 @@ export class TransportService extends BaseService {
         /**
          * ID
          */
-        'id'?: string;
+        'id'?: number;
+        
+        /**
+         * Ключ
+         */
+        'key'?: string;
         
         /**
          * Вид перевозки
          */
-        'kind_id'?: string;
+        'kind_id'?: number;
         
         /**
          * Наименование
@@ -211,12 +246,17 @@ export class TransportService extends BaseService {
 /**
  * ID
  */
-'id'?: string;
+'id'?: number;
+
+/**
+ * Ключ
+ */
+'key'?: string;
 
 /**
  * Вид перевозки
  */
-'kind_id'?: string;
+'kind_id'?: number;
 
 /**
  * Наименование
@@ -229,12 +269,17 @@ export class TransportService extends BaseService {
 /**
  * ID
  */
-'id'?: string;
+'id'?: number;
+
+/**
+ * Ключ
+ */
+'key'?: string;
 
 /**
  * Вид перевозки
  */
-'kind_id'?: string;
+'kind_id'?: number;
 
 /**
  * Наименование
@@ -245,12 +290,17 @@ export class TransportService extends BaseService {
 /**
  * ID
  */
-'id'?: string;
+'id'?: number;
+
+/**
+ * Ключ
+ */
+'key'?: string;
 
 /**
  * Вид перевозки
  */
-'kind_id'?: string;
+'kind_id'?: number;
 
 /**
  * Наименование
@@ -274,12 +324,12 @@ export class TransportService extends BaseService {
    * This method doesn't expect any request body.
    */
   transportType$Response(
-    params: {
+    params?: {
 
     /**
      * Вид перевозки
      */
-      kind_id: string;
+      kind_id?: number;
     },
     context?: HttpContext
   ): Observable<StrictHttpResponse<Array<{
@@ -288,6 +338,11 @@ export class TransportService extends BaseService {
  * ID
  */
 'id'?: number;
+
+/**
+ * Вид перевозки
+ */
+'kind_id'?: number;
 
 /**
  * Наименование
@@ -312,6 +367,11 @@ export class TransportService extends BaseService {
         'id'?: number;
         
         /**
+         * Вид перевозки
+         */
+        'kind_id'?: number;
+        
+        /**
          * Наименование
          */
         'name'?: string;
@@ -331,12 +391,12 @@ export class TransportService extends BaseService {
    * This method doesn't expect any request body.
    */
   transportType(
-    params: {
+    params?: {
 
     /**
      * Вид перевозки
      */
-      kind_id: string;
+      kind_id?: number;
     },
     context?: HttpContext
   ): Observable<Array<{
@@ -345,6 +405,11 @@ export class TransportService extends BaseService {
  * ID
  */
 'id'?: number;
+
+/**
+ * Вид перевозки
+ */
+'kind_id'?: number;
 
 /**
  * Наименование
@@ -360,6 +425,11 @@ export class TransportService extends BaseService {
 'id'?: number;
 
 /**
+ * Вид перевозки
+ */
+'kind_id'?: number;
+
+/**
  * Наименование
  */
 'name'?: string;
@@ -369,6 +439,11 @@ export class TransportService extends BaseService {
  * ID
  */
 'id'?: number;
+
+/**
+ * Вид перевозки
+ */
+'kind_id'?: number;
 
 /**
  * Наименование
@@ -392,12 +467,12 @@ export class TransportService extends BaseService {
    * This method doesn't expect any request body.
    */
   transportLoading$Response(
-    params: {
+    params?: {
 
     /**
      * Вид перевозки
      */
-      kind_id: string;
+      kind_id?: number;
     },
     context?: HttpContext
   ): Observable<StrictHttpResponse<Array<{
@@ -406,6 +481,11 @@ export class TransportService extends BaseService {
  * ID
  */
 'id'?: number;
+
+/**
+ * Вид перевозки
+ */
+'kind_id'?: number;
 
 /**
  * Наименование
@@ -430,6 +510,11 @@ export class TransportService extends BaseService {
         'id'?: number;
         
         /**
+         * Вид перевозки
+         */
+        'kind_id'?: number;
+        
+        /**
          * Наименование
          */
         'name'?: string;
@@ -449,12 +534,12 @@ export class TransportService extends BaseService {
    * This method doesn't expect any request body.
    */
   transportLoading(
-    params: {
+    params?: {
 
     /**
      * Вид перевозки
      */
-      kind_id: string;
+      kind_id?: number;
     },
     context?: HttpContext
   ): Observable<Array<{
@@ -463,6 +548,11 @@ export class TransportService extends BaseService {
  * ID
  */
 'id'?: number;
+
+/**
+ * Вид перевозки
+ */
+'kind_id'?: number;
 
 /**
  * Наименование
@@ -478,6 +568,11 @@ export class TransportService extends BaseService {
 'id'?: number;
 
 /**
+ * Вид перевозки
+ */
+'kind_id'?: number;
+
+/**
  * Наименование
  */
 'name'?: string;
@@ -487,6 +582,11 @@ export class TransportService extends BaseService {
  * ID
  */
 'id'?: number;
+
+/**
+ * Вид перевозки
+ */
+'kind_id'?: number;
 
 /**
  * Наименование
@@ -510,12 +610,12 @@ export class TransportService extends BaseService {
    * This method doesn't expect any request body.
    */
   transportBody$Response(
-    params: {
+    params?: {
 
     /**
      * Вид перевозки
      */
-      kind_id: string;
+      kind_id?: number;
     },
     context?: HttpContext
   ): Observable<StrictHttpResponse<Array<{
@@ -524,6 +624,11 @@ export class TransportService extends BaseService {
  * ID
  */
 'id'?: number;
+
+/**
+ * Вид перевозки
+ */
+'kind_id'?: number;
 
 /**
  * Наименование
@@ -548,6 +653,11 @@ export class TransportService extends BaseService {
         'id'?: number;
         
         /**
+         * Вид перевозки
+         */
+        'kind_id'?: number;
+        
+        /**
          * Наименование
          */
         'name'?: string;
@@ -567,12 +677,12 @@ export class TransportService extends BaseService {
    * This method doesn't expect any request body.
    */
   transportBody(
-    params: {
+    params?: {
 
     /**
      * Вид перевозки
      */
-      kind_id: string;
+      kind_id?: number;
     },
     context?: HttpContext
   ): Observable<Array<{
@@ -581,6 +691,11 @@ export class TransportService extends BaseService {
  * ID
  */
 'id'?: number;
+
+/**
+ * Вид перевозки
+ */
+'kind_id'?: number;
 
 /**
  * Наименование
@@ -596,6 +711,11 @@ export class TransportService extends BaseService {
 'id'?: number;
 
 /**
+ * Вид перевозки
+ */
+'kind_id'?: number;
+
+/**
  * Наименование
  */
 'name'?: string;
@@ -605,6 +725,11 @@ export class TransportService extends BaseService {
  * ID
  */
 'id'?: number;
+
+/**
+ * Вид перевозки
+ */
+'kind_id'?: number;
 
 /**
  * Наименование

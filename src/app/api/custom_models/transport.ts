@@ -3,7 +3,8 @@ export type TransportSubKind = typeof TransportSubKinds[number];
 
 //Вид перевозки
 export interface TransportKind {
-  id: string;
+  id: number;
+  key:string;
   name: string;
 }
 //Тип транспорта

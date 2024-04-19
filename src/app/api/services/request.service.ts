@@ -100,7 +100,7 @@ export class RequestService extends BaseService {
     /**
      * Вид перевозки (ID берем из запроса - transport_kind)
      */
-      transport_kind_id?: string;
+      transport_kind_id?: number;
 
     /**
      * Начальная позиция
@@ -118,14 +118,14 @@ export class RequestService extends BaseService {
       sort?: Array<{
 
 /**
- * Поле
+ * Поле сортировки
  */
-'field': 'id' | 'time_add';
+'field'?: 'id' | 'time_add';
 
 /**
  * Направление сортировки
  */
-'dir': 'asc' | 'desc';
+'dir'?: 'asc' | 'desc';
 }>;
     },
     context?: HttpContext
@@ -179,7 +179,7 @@ export class RequestService extends BaseService {
 /**
  * Вид перевозки (ID берем из запроса - transport_kind)
  */
-'transport_kind_id'?: string;
+'transport_kind_id'?: number;
 
 /**
  * Вид перевозки
@@ -655,7 +655,7 @@ export class RequestService extends BaseService {
         /**
          * Вид перевозки (ID берем из запроса - transport_kind)
          */
-        'transport_kind_id'?: string;
+        'transport_kind_id'?: number;
         
         /**
          * Вид перевозки
@@ -1136,7 +1136,7 @@ export class RequestService extends BaseService {
     /**
      * Вид перевозки (ID берем из запроса - transport_kind)
      */
-      transport_kind_id?: string;
+      transport_kind_id?: number;
 
     /**
      * Начальная позиция
@@ -1154,14 +1154,14 @@ export class RequestService extends BaseService {
       sort?: Array<{
 
 /**
- * Поле
+ * Поле сортировки
  */
-'field': 'id' | 'time_add';
+'field'?: 'id' | 'time_add';
 
 /**
  * Направление сортировки
  */
-'dir': 'asc' | 'desc';
+'dir'?: 'asc' | 'desc';
 }>;
     },
     context?: HttpContext
@@ -1215,7 +1215,7 @@ export class RequestService extends BaseService {
 /**
  * Вид перевозки (ID берем из запроса - transport_kind)
  */
-'transport_kind_id'?: string;
+'transport_kind_id'?: number;
 
 /**
  * Вид перевозки
@@ -1667,7 +1667,7 @@ export class RequestService extends BaseService {
 /**
  * Вид перевозки (ID берем из запроса - transport_kind)
  */
-'transport_kind_id'?: string;
+'transport_kind_id'?: number;
 
 /**
  * Вид перевозки
@@ -2117,7 +2117,7 @@ export class RequestService extends BaseService {
 /**
  * Вид перевозки (ID берем из запроса - transport_kind)
  */
-'transport_kind_id'?: string;
+'transport_kind_id'?: number;
 
 /**
  * Вид перевозки
@@ -2517,6 +2517,963 @@ export class RequestService extends BaseService {
  * Поля сортировки
  */
 'sort'?: Array<string>;
+} => r.body)
+    );
+  }
+
+  /** Path part for operation `requestListParam()` */
+  static readonly RequestListParamPath = '/request_list_param';
+
+  /**
+   * Параметры вывода запросов.
+   *
+   *
+   *
+   * This method provides access to the full `HttpResponse`, allowing access to response headers.
+   * To access only the response body, use `requestListParam()` instead.
+   *
+   * This method doesn't expect any request body.
+   */
+  requestListParam$Response(
+    params?: {
+    },
+    context?: HttpContext
+  ): Observable<StrictHttpResponse<{
+
+/**
+ * Параметры поиска
+ */
+'search'?: Array<{
+
+/**
+ * Поиск в заголовке
+ */
+'header'?: Array<{
+
+/**
+ * Переменная
+ */
+'field'?: string;
+
+/**
+ * Элемент формы
+ */
+'form'?: 'autocomplete' | 'period' | 'select' | 'text' | 'checkbox' | 'checkbox_reset';
+
+/**
+ * Наименование
+ */
+'name'?: string;
+
+/**
+ * Источник
+ */
+'source'?: string;
+
+/**
+ * Массив данных
+ */
+'array'?: Array<{
+
+/**
+ * ID
+ */
+'id'?: string;
+
+/**
+ * Наименование
+ */
+'name'?: string;
+}>;
+}>;
+
+/**
+ * Поиск основной
+ */
+'main'?: Array<{
+
+/**
+ * Переменная
+ */
+'field'?: string;
+
+/**
+ * Элемент формы
+ */
+'form'?: 'autocomplete' | 'period' | 'select' | 'text' | 'checkbox' | 'checkbox_reset';
+
+/**
+ * Наименование
+ */
+'name'?: string;
+
+/**
+ * Источник
+ */
+'source'?: string;
+
+/**
+ * Массив данных
+ */
+'array'?: Array<{
+
+/**
+ * ID
+ */
+'id'?: string;
+
+/**
+ * Наименование
+ */
+'name'?: string;
+}>;
+}>;
+
+/**
+ * Поиск расширенный
+ */
+'additional'?: Array<{
+
+/**
+ * Переменная
+ */
+'field'?: string;
+
+/**
+ * Элемент формы
+ */
+'form'?: 'autocomplete' | 'period' | 'select' | 'text' | 'checkbox' | 'checkbox_reset';
+
+/**
+ * Наименование
+ */
+'name'?: string;
+
+/**
+ * Источник
+ */
+'source'?: string;
+
+/**
+ * Массив данных
+ */
+'array'?: Array<{
+
+/**
+ * ID
+ */
+'id'?: string;
+
+/**
+ * Наименование
+ */
+'name'?: string;
+}>;
+}>;
+}>;
+
+/**
+ * Параметры таблицы
+ */
+'table'?: Array<{
+
+/**
+ * Блок колонок
+ */
+'column'?: Array<string>;
+
+/**
+ * Данные колонок
+ */
+'items'?: Array<{
+
+/**
+ * Поле
+ */
+'field'?: string;
+
+/**
+ * Заголовок поля
+ */
+'title'?: string;
+
+/**
+ * Ширина поля
+ */
+'width'?: number;
+}>;
+}>;
+
+/**
+ * Параметры сортировки
+ */
+'order'?: Array<{
+
+/**
+ * Поле
+ */
+'field'?: string;
+
+/**
+ * Сортировка по умолчанию
+ */
+'dir'?: string;
+}>;
+}>> {
+    const rb = new RequestBuilder(this.rootUrl, RequestService.RequestListParamPath, 'get');
+    if (params) {
+    }
+
+    return this.http.request(
+      rb.build({ responseType: 'json', accept: 'application/json', context })
+    ).pipe(
+      filter((r: any): r is HttpResponse<any> => r instanceof HttpResponse),
+      map((r: HttpResponse<any>) => {
+        return r as StrictHttpResponse<{
+        
+        /**
+         * Параметры поиска
+         */
+        'search'?: Array<{
+        
+        /**
+         * Поиск в заголовке
+         */
+        'header'?: Array<{
+        
+        /**
+         * Переменная
+         */
+        'field'?: string;
+        
+        /**
+         * Элемент формы
+         */
+        'form'?: 'autocomplete' | 'period' | 'select' | 'text' | 'checkbox' | 'checkbox_reset';
+        
+        /**
+         * Наименование
+         */
+        'name'?: string;
+        
+        /**
+         * Источник
+         */
+        'source'?: string;
+        
+        /**
+         * Массив данных
+         */
+        'array'?: Array<{
+        
+        /**
+         * ID
+         */
+        'id'?: string;
+        
+        /**
+         * Наименование
+         */
+        'name'?: string;
+        }>;
+        }>;
+        
+        /**
+         * Поиск основной
+         */
+        'main'?: Array<{
+        
+        /**
+         * Переменная
+         */
+        'field'?: string;
+        
+        /**
+         * Элемент формы
+         */
+        'form'?: 'autocomplete' | 'period' | 'select' | 'text' | 'checkbox' | 'checkbox_reset';
+        
+        /**
+         * Наименование
+         */
+        'name'?: string;
+        
+        /**
+         * Источник
+         */
+        'source'?: string;
+        
+        /**
+         * Массив данных
+         */
+        'array'?: Array<{
+        
+        /**
+         * ID
+         */
+        'id'?: string;
+        
+        /**
+         * Наименование
+         */
+        'name'?: string;
+        }>;
+        }>;
+        
+        /**
+         * Поиск расширенный
+         */
+        'additional'?: Array<{
+        
+        /**
+         * Переменная
+         */
+        'field'?: string;
+        
+        /**
+         * Элемент формы
+         */
+        'form'?: 'autocomplete' | 'period' | 'select' | 'text' | 'checkbox' | 'checkbox_reset';
+        
+        /**
+         * Наименование
+         */
+        'name'?: string;
+        
+        /**
+         * Источник
+         */
+        'source'?: string;
+        
+        /**
+         * Массив данных
+         */
+        'array'?: Array<{
+        
+        /**
+         * ID
+         */
+        'id'?: string;
+        
+        /**
+         * Наименование
+         */
+        'name'?: string;
+        }>;
+        }>;
+        }>;
+        
+        /**
+         * Параметры таблицы
+         */
+        'table'?: Array<{
+        
+        /**
+         * Блок колонок
+         */
+        'column'?: Array<string>;
+        
+        /**
+         * Данные колонок
+         */
+        'items'?: Array<{
+        
+        /**
+         * Поле
+         */
+        'field'?: string;
+        
+        /**
+         * Заголовок поля
+         */
+        'title'?: string;
+        
+        /**
+         * Ширина поля
+         */
+        'width'?: number;
+        }>;
+        }>;
+        
+        /**
+         * Параметры сортировки
+         */
+        'order'?: Array<{
+        
+        /**
+         * Поле
+         */
+        'field'?: string;
+        
+        /**
+         * Сортировка по умолчанию
+         */
+        'dir'?: string;
+        }>;
+        }>;
+      })
+    );
+  }
+
+  /**
+   * Параметры вывода запросов.
+   *
+   *
+   *
+   * This method provides access only to the response body.
+   * To access the full response (for headers, for example), `requestListParam$Response()` instead.
+   *
+   * This method doesn't expect any request body.
+   */
+  requestListParam(
+    params?: {
+    },
+    context?: HttpContext
+  ): Observable<{
+
+/**
+ * Параметры поиска
+ */
+'search'?: Array<{
+
+/**
+ * Поиск в заголовке
+ */
+'header'?: Array<{
+
+/**
+ * Переменная
+ */
+'field'?: string;
+
+/**
+ * Элемент формы
+ */
+'form'?: 'autocomplete' | 'period' | 'select' | 'text' | 'checkbox' | 'checkbox_reset';
+
+/**
+ * Наименование
+ */
+'name'?: string;
+
+/**
+ * Источник
+ */
+'source'?: string;
+
+/**
+ * Массив данных
+ */
+'array'?: Array<{
+
+/**
+ * ID
+ */
+'id'?: string;
+
+/**
+ * Наименование
+ */
+'name'?: string;
+}>;
+}>;
+
+/**
+ * Поиск основной
+ */
+'main'?: Array<{
+
+/**
+ * Переменная
+ */
+'field'?: string;
+
+/**
+ * Элемент формы
+ */
+'form'?: 'autocomplete' | 'period' | 'select' | 'text' | 'checkbox' | 'checkbox_reset';
+
+/**
+ * Наименование
+ */
+'name'?: string;
+
+/**
+ * Источник
+ */
+'source'?: string;
+
+/**
+ * Массив данных
+ */
+'array'?: Array<{
+
+/**
+ * ID
+ */
+'id'?: string;
+
+/**
+ * Наименование
+ */
+'name'?: string;
+}>;
+}>;
+
+/**
+ * Поиск расширенный
+ */
+'additional'?: Array<{
+
+/**
+ * Переменная
+ */
+'field'?: string;
+
+/**
+ * Элемент формы
+ */
+'form'?: 'autocomplete' | 'period' | 'select' | 'text' | 'checkbox' | 'checkbox_reset';
+
+/**
+ * Наименование
+ */
+'name'?: string;
+
+/**
+ * Источник
+ */
+'source'?: string;
+
+/**
+ * Массив данных
+ */
+'array'?: Array<{
+
+/**
+ * ID
+ */
+'id'?: string;
+
+/**
+ * Наименование
+ */
+'name'?: string;
+}>;
+}>;
+}>;
+
+/**
+ * Параметры таблицы
+ */
+'table'?: Array<{
+
+/**
+ * Блок колонок
+ */
+'column'?: Array<string>;
+
+/**
+ * Данные колонок
+ */
+'items'?: Array<{
+
+/**
+ * Поле
+ */
+'field'?: string;
+
+/**
+ * Заголовок поля
+ */
+'title'?: string;
+
+/**
+ * Ширина поля
+ */
+'width'?: number;
+}>;
+}>;
+
+/**
+ * Параметры сортировки
+ */
+'order'?: Array<{
+
+/**
+ * Поле
+ */
+'field'?: string;
+
+/**
+ * Сортировка по умолчанию
+ */
+'dir'?: string;
+}>;
+}> {
+    return this.requestListParam$Response(params, context).pipe(
+      map((r: StrictHttpResponse<{
+
+/**
+ * Параметры поиска
+ */
+'search'?: Array<{
+
+/**
+ * Поиск в заголовке
+ */
+'header'?: Array<{
+
+/**
+ * Переменная
+ */
+'field'?: string;
+
+/**
+ * Элемент формы
+ */
+'form'?: 'autocomplete' | 'period' | 'select' | 'text' | 'checkbox' | 'checkbox_reset';
+
+/**
+ * Наименование
+ */
+'name'?: string;
+
+/**
+ * Источник
+ */
+'source'?: string;
+
+/**
+ * Массив данных
+ */
+'array'?: Array<{
+
+/**
+ * ID
+ */
+'id'?: string;
+
+/**
+ * Наименование
+ */
+'name'?: string;
+}>;
+}>;
+
+/**
+ * Поиск основной
+ */
+'main'?: Array<{
+
+/**
+ * Переменная
+ */
+'field'?: string;
+
+/**
+ * Элемент формы
+ */
+'form'?: 'autocomplete' | 'period' | 'select' | 'text' | 'checkbox' | 'checkbox_reset';
+
+/**
+ * Наименование
+ */
+'name'?: string;
+
+/**
+ * Источник
+ */
+'source'?: string;
+
+/**
+ * Массив данных
+ */
+'array'?: Array<{
+
+/**
+ * ID
+ */
+'id'?: string;
+
+/**
+ * Наименование
+ */
+'name'?: string;
+}>;
+}>;
+
+/**
+ * Поиск расширенный
+ */
+'additional'?: Array<{
+
+/**
+ * Переменная
+ */
+'field'?: string;
+
+/**
+ * Элемент формы
+ */
+'form'?: 'autocomplete' | 'period' | 'select' | 'text' | 'checkbox' | 'checkbox_reset';
+
+/**
+ * Наименование
+ */
+'name'?: string;
+
+/**
+ * Источник
+ */
+'source'?: string;
+
+/**
+ * Массив данных
+ */
+'array'?: Array<{
+
+/**
+ * ID
+ */
+'id'?: string;
+
+/**
+ * Наименование
+ */
+'name'?: string;
+}>;
+}>;
+}>;
+
+/**
+ * Параметры таблицы
+ */
+'table'?: Array<{
+
+/**
+ * Блок колонок
+ */
+'column'?: Array<string>;
+
+/**
+ * Данные колонок
+ */
+'items'?: Array<{
+
+/**
+ * Поле
+ */
+'field'?: string;
+
+/**
+ * Заголовок поля
+ */
+'title'?: string;
+
+/**
+ * Ширина поля
+ */
+'width'?: number;
+}>;
+}>;
+
+/**
+ * Параметры сортировки
+ */
+'order'?: Array<{
+
+/**
+ * Поле
+ */
+'field'?: string;
+
+/**
+ * Сортировка по умолчанию
+ */
+'dir'?: string;
+}>;
+}>): {
+
+/**
+ * Параметры поиска
+ */
+'search'?: Array<{
+
+/**
+ * Поиск в заголовке
+ */
+'header'?: Array<{
+
+/**
+ * Переменная
+ */
+'field'?: string;
+
+/**
+ * Элемент формы
+ */
+'form'?: 'autocomplete' | 'period' | 'select' | 'text' | 'checkbox' | 'checkbox_reset';
+
+/**
+ * Наименование
+ */
+'name'?: string;
+
+/**
+ * Источник
+ */
+'source'?: string;
+
+/**
+ * Массив данных
+ */
+'array'?: Array<{
+
+/**
+ * ID
+ */
+'id'?: string;
+
+/**
+ * Наименование
+ */
+'name'?: string;
+}>;
+}>;
+
+/**
+ * Поиск основной
+ */
+'main'?: Array<{
+
+/**
+ * Переменная
+ */
+'field'?: string;
+
+/**
+ * Элемент формы
+ */
+'form'?: 'autocomplete' | 'period' | 'select' | 'text' | 'checkbox' | 'checkbox_reset';
+
+/**
+ * Наименование
+ */
+'name'?: string;
+
+/**
+ * Источник
+ */
+'source'?: string;
+
+/**
+ * Массив данных
+ */
+'array'?: Array<{
+
+/**
+ * ID
+ */
+'id'?: string;
+
+/**
+ * Наименование
+ */
+'name'?: string;
+}>;
+}>;
+
+/**
+ * Поиск расширенный
+ */
+'additional'?: Array<{
+
+/**
+ * Переменная
+ */
+'field'?: string;
+
+/**
+ * Элемент формы
+ */
+'form'?: 'autocomplete' | 'period' | 'select' | 'text' | 'checkbox' | 'checkbox_reset';
+
+/**
+ * Наименование
+ */
+'name'?: string;
+
+/**
+ * Источник
+ */
+'source'?: string;
+
+/**
+ * Массив данных
+ */
+'array'?: Array<{
+
+/**
+ * ID
+ */
+'id'?: string;
+
+/**
+ * Наименование
+ */
+'name'?: string;
+}>;
+}>;
+}>;
+
+/**
+ * Параметры таблицы
+ */
+'table'?: Array<{
+
+/**
+ * Блок колонок
+ */
+'column'?: Array<string>;
+
+/**
+ * Данные колонок
+ */
+'items'?: Array<{
+
+/**
+ * Поле
+ */
+'field'?: string;
+
+/**
+ * Заголовок поля
+ */
+'title'?: string;
+
+/**
+ * Ширина поля
+ */
+'width'?: number;
+}>;
+}>;
+
+/**
+ * Параметры сортировки
+ */
+'order'?: Array<{
+
+/**
+ * Поле
+ */
+'field'?: string;
+
+/**
+ * Сортировка по умолчанию
+ */
+'dir'?: string;
+}>;
 } => r.body)
     );
   }
@@ -3270,7 +4227,7 @@ export class RequestService extends BaseService {
 /**
  * Вид перевозки (ID берем из запроса - transport_kind)
  */
-'transport_kind_id'?: string;
+'transport_kind_id'?: number;
 
 /**
  * Вид перевозки
@@ -3716,7 +4673,7 @@ export class RequestService extends BaseService {
         /**
          * Вид перевозки (ID берем из запроса - transport_kind)
          */
-        'transport_kind_id'?: string;
+        'transport_kind_id'?: number;
         
         /**
          * Вид перевозки
@@ -4175,7 +5132,7 @@ export class RequestService extends BaseService {
 /**
  * Вид перевозки (ID берем из запроса - transport_kind)
  */
-'transport_kind_id'?: string;
+'transport_kind_id'?: number;
 
 /**
  * Вид перевозки
@@ -4612,7 +5569,7 @@ export class RequestService extends BaseService {
 /**
  * Вид перевозки (ID берем из запроса - transport_kind)
  */
-'transport_kind_id'?: string;
+'transport_kind_id'?: number;
 
 /**
  * Вид перевозки
@@ -5047,7 +6004,7 @@ export class RequestService extends BaseService {
 /**
  * Вид перевозки (ID берем из запроса - transport_kind)
  */
-'transport_kind_id'?: string;
+'transport_kind_id'?: number;
 
 /**
  * Вид перевозки
@@ -5476,7 +6433,7 @@ export class RequestService extends BaseService {
 /**
  * Вид перевозки (ID берем из запроса - transport_kind)
  */
-'transport_kind_id': string;
+'transport_kind_id': number;
 
 /**
  * Тип транспорта (ID берем из запроса - transport_type)
@@ -5772,7 +6729,7 @@ export class RequestService extends BaseService {
 /**
  * Вид перевозки (ID берем из запроса - transport_kind)
  */
-'transport_kind_id': string;
+'transport_kind_id': number;
 
 /**
  * Тип транспорта (ID берем из запроса - transport_type)
@@ -6077,7 +7034,7 @@ export class RequestService extends BaseService {
 /**
  * Вид перевозки (ID берем из запроса - transport_kind)
  */
-'transport_kind_id'?: string;
+'transport_kind_id'?: number;
 
 /**
  * Тип транспорта (ID берем из запроса - transport_type)
@@ -6383,7 +7340,7 @@ export class RequestService extends BaseService {
 /**
  * Вид перевозки (ID берем из запроса - transport_kind)
  */
-'transport_kind_id'?: string;
+'transport_kind_id'?: number;
 
 /**
  * Тип транспорта (ID берем из запроса - transport_type)
@@ -7652,6 +8609,11 @@ export class RequestService extends BaseService {
 'id'?: number;
 
 /**
+ * Ключ
+ */
+'key'?: string;
+
+/**
  * Наименование
  */
 'name'?: string;
@@ -7671,6 +8633,11 @@ export class RequestService extends BaseService {
          * ID
          */
         'id'?: number;
+        
+        /**
+         * Ключ
+         */
+        'key'?: string;
         
         /**
          * Наименование
@@ -7703,6 +8670,11 @@ export class RequestService extends BaseService {
 'id'?: number;
 
 /**
+ * Ключ
+ */
+'key'?: string;
+
+/**
  * Наименование
  */
 'name'?: string;
@@ -7716,6 +8688,11 @@ export class RequestService extends BaseService {
 'id'?: number;
 
 /**
+ * Ключ
+ */
+'key'?: string;
+
+/**
  * Наименование
  */
 'name'?: string;
@@ -7725,6 +8702,11 @@ export class RequestService extends BaseService {
  * ID
  */
 'id'?: number;
+
+/**
+ * Ключ
+ */
+'key'?: string;
 
 /**
  * Наименование
@@ -7753,7 +8735,7 @@ export class RequestService extends BaseService {
     /**
      * Вид перевозки (ID берем из запроса - transport_kind)
      */
-      kind_id: string;
+      kind_id: number;
     },
     context?: HttpContext
   ): Observable<StrictHttpResponse<Array<{
@@ -7810,7 +8792,7 @@ export class RequestService extends BaseService {
     /**
      * Вид перевозки (ID берем из запроса - transport_kind)
      */
-      kind_id: string;
+      kind_id: number;
     },
     context?: HttpContext
   ): Observable<Array<{
@@ -7871,7 +8853,7 @@ export class RequestService extends BaseService {
     /**
      * Вид перевозки (ID берем из запроса - transport_kind)
      */
-      kind_id: string;
+      kind_id: number;
     },
     context?: HttpContext
   ): Observable<StrictHttpResponse<Array<{
@@ -7928,7 +8910,7 @@ export class RequestService extends BaseService {
     /**
      * Вид перевозки (ID берем из запроса - transport_kind)
      */
-      kind_id: string;
+      kind_id: number;
     },
     context?: HttpContext
   ): Observable<Array<{
@@ -7989,7 +8971,7 @@ export class RequestService extends BaseService {
     /**
      * Вид перевозки (ID берем из запроса - transport_kind)
      */
-      kind_id: string;
+      kind_id: number;
     },
     context?: HttpContext
   ): Observable<StrictHttpResponse<Array<{
@@ -8056,7 +9038,7 @@ export class RequestService extends BaseService {
     /**
      * Вид перевозки (ID берем из запроса - transport_kind)
      */
-      kind_id: string;
+      kind_id: number;
     },
     context?: HttpContext
   ): Observable<Array<{
@@ -8192,7 +9174,7 @@ export class RequestService extends BaseService {
     /**
      * Вид перевозки (ID берем из запроса - transport_kind)
      */
-      transport_kind_id?: string;
+      transport_kind_id?: number;
 
     /**
      * Сортировка
@@ -8200,14 +9182,14 @@ export class RequestService extends BaseService {
       sort?: Array<{
 
 /**
- * Поле
+ * Поле сортировки
  */
-'field': 'id' | 'time_add';
+'field'?: 'id' | 'time_add';
 
 /**
  * Направление сортировки
  */
-'dir': 'asc' | 'desc';
+'dir'?: 'asc' | 'desc';
 }>;
     },
     context?: HttpContext
@@ -8338,7 +9320,7 @@ export class RequestService extends BaseService {
     /**
      * Вид перевозки (ID берем из запроса - transport_kind)
      */
-      transport_kind_id?: string;
+      transport_kind_id?: number;
 
     /**
      * Сортировка
@@ -8346,14 +9328,14 @@ export class RequestService extends BaseService {
       sort?: Array<{
 
 /**
- * Поле
+ * Поле сортировки
  */
-'field': 'id' | 'time_add';
+'field'?: 'id' | 'time_add';
 
 /**
  * Направление сортировки
  */
-'dir': 'asc' | 'desc';
+'dir'?: 'asc' | 'desc';
 }>;
     },
     context?: HttpContext

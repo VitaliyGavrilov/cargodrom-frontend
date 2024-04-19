@@ -107,7 +107,7 @@ const routes: Routes = [
         canActivate: [AuthGuard],
       },
       {
-        path: 'contractor/:id',
+        path: 'contractor/edit/:id',
         component: ContractorEditorComponent,
         pathMatch: 'full',
         title: 'Редактирование подрядчика',
@@ -121,21 +121,21 @@ const routes: Routes = [
         canActivate: [AuthGuard],
       },
       {
-        path: 'client',
+        path: 'customer',
         component: ClientComponent,
         pathMatch: 'full',
         title: 'Клиенты',
         canActivate: [AuthGuard],
       },
       {
-        path: 'client/add',
+        path: 'customer/add',
         component: ClientEditorComponent,
         pathMatch: 'full',
         title: 'Добавление клиента',
         canActivate: [AuthGuard],
       },
       {
-        path: 'client/:id',
+        path: 'customer/edit/:id',
         component: ClientEditorComponent,
         pathMatch: 'full',
         title: 'Редактирование клиента',

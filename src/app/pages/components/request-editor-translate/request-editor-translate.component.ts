@@ -1,4 +1,4 @@
-import { Component, OnDestroy, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit, ViewEncapsulation } from '@angular/core';
 import { FormBuilder, FormGroup } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Subject} from 'rxjs';
@@ -12,7 +12,7 @@ import { MatSnackBar, MatSnackBarConfig } from '@angular/material/snack-bar';
   selector: 'app-request-editor-translate',
   templateUrl: './request-editor-translate.component.html',
   styleUrls: ['./request-editor-translate.component.scss'],
-  // encapsulation: ViewEncapsulation.None,
+  encapsulation: ViewEncapsulation.None,
 })
 
 export class RequestEditorTranslateComponent implements OnInit, OnDestroy {

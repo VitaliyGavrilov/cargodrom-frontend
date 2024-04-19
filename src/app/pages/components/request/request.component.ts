@@ -16,6 +16,7 @@ import { Request, RequestFilter } from 'src/app/api/custom_models/request';
   encapsulation: ViewEncapsulation.None,
   providers: [FilterService]
 })
+
 export class RequestComponent extends Table<Request, 'id', RequestFilter> {
   sortField = 'id' as const;
 
@@ -34,9 +35,13 @@ export class RequestComponent extends Table<Request, 'id', RequestFilter> {
     super(route, router, dialog, snackBar, filterService);
   }
 
-  load<Request>(params: LoadParams<Request, RequestFilter>): Observable<{ total: number; items: Request[]; }> {
+  load<Request>(params?: LoadParams<Request, RequestFilter>): Observable<{ total: number; items: Request[];sort_new:any; }> {
     this.params=params;
-    return this.requestService.requestList(params as any) as unknown as Observable<{ total: number; items: Request[]; column: string[], sort: string[] }>;
+    return this.requestService.requestList(params as any) as unknown as Observable<{ total: number; items: Request[]; column: string[], sort?: string[],sort_new:any }>;
+  }
+
+  protected override loadFilterSchemaTest(): Observable<any>  {
+    return this.requestService.requestListParam().pipe(map(val => val as any));
   }
 
   protected override loadFilterSchema<T>(): Observable<SearchFilterSchema> {
@@ -62,5 +67,4 @@ export class RequestComponent extends Table<Request, 'id', RequestFilter> {
   protected override importTemplate(): Observable<{data: string; name: string}> {
     return this.requestService.requestImportTemplate(this.filter as any) as Observable<{data: string; name: string}>;
   }
-
 }

@@ -38,6 +38,10 @@ export class ClientComponent extends Table<Client, 'name', ClientFilter> {
     return this.customerService.customerList(params as any) as unknown as Observable<{ total: number; items: Client[]; column: string[], sort: string[] }>;
   }
 
+  protected override loadFilterSchemaTest(): Observable<any>  {
+    return this.customerService.customerListParam().pipe(map(val => val as any));
+  }
+
   protected override loadFilterSchema<T>(): Observable<SearchFilterSchema> {
     return this.customerService.customerListSearch().pipe(map(val => val as SearchFilterSchema));
   }

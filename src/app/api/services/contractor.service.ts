@@ -83,14 +83,14 @@ export class ContractorService extends BaseService {
       sort?: Array<{
 
 /**
- * Поле
+ * Поле сортировки
  */
-'field': 'id' | 'name' | 'rating_nps_text' | 'trade_rating' | 'exclude_from_trade' | 'avg_answer_time';
+'field'?: 'id' | 'name' | 'rating_nps_text' | 'trade_rating' | 'allow_trade' | 'avg_answer_time';
 
 /**
  * Направление сортировки
  */
-'dir': 'asc' | 'desc';
+'dir'?: 'asc' | 'desc';
 }>;
     },
     context?: HttpContext
@@ -925,14 +925,14 @@ export class ContractorService extends BaseService {
       sort?: Array<{
 
 /**
- * Поле
+ * Поле сортировки
  */
-'field': 'id' | 'name' | 'rating_nps_text' | 'trade_rating' | 'exclude_from_trade' | 'avg_answer_time';
+'field'?: 'id' | 'name' | 'rating_nps_text' | 'trade_rating' | 'allow_trade' | 'avg_answer_time';
 
 /**
  * Направление сортировки
  */
-'dir': 'asc' | 'desc';
+'dir'?: 'asc' | 'desc';
 }>;
     },
     context?: HttpContext
@@ -2060,6 +2060,963 @@ export class ContractorService extends BaseService {
  * Поля сортировки
  */
 'sort'?: Array<string>;
+} => r.body)
+    );
+  }
+
+  /** Path part for operation `contractorListParam()` */
+  static readonly ContractorListParamPath = '/contractor_list_param';
+
+  /**
+   * Параметры вывода контрагентов.
+   *
+   *
+   *
+   * This method provides access to the full `HttpResponse`, allowing access to response headers.
+   * To access only the response body, use `contractorListParam()` instead.
+   *
+   * This method doesn't expect any request body.
+   */
+  contractorListParam$Response(
+    params?: {
+    },
+    context?: HttpContext
+  ): Observable<StrictHttpResponse<{
+
+/**
+ * Параметры поиска
+ */
+'search'?: Array<{
+
+/**
+ * Поиск в заголовке
+ */
+'header'?: Array<{
+
+/**
+ * Переменная
+ */
+'field'?: string;
+
+/**
+ * Элемент формы
+ */
+'form'?: 'autocomplete' | 'period' | 'select' | 'text' | 'checkbox' | 'checkbox_reset';
+
+/**
+ * Наименование
+ */
+'name'?: string;
+
+/**
+ * Источник
+ */
+'source'?: string;
+
+/**
+ * Массив данных
+ */
+'array'?: Array<{
+
+/**
+ * ID
+ */
+'id'?: string;
+
+/**
+ * Наименование
+ */
+'name'?: string;
+}>;
+}>;
+
+/**
+ * Поиск основной
+ */
+'main'?: Array<{
+
+/**
+ * Переменная
+ */
+'field'?: string;
+
+/**
+ * Элемент формы
+ */
+'form'?: 'autocomplete' | 'period' | 'select' | 'text' | 'checkbox' | 'checkbox_reset';
+
+/**
+ * Наименование
+ */
+'name'?: string;
+
+/**
+ * Источник
+ */
+'source'?: string;
+
+/**
+ * Массив данных
+ */
+'array'?: Array<{
+
+/**
+ * ID
+ */
+'id'?: string;
+
+/**
+ * Наименование
+ */
+'name'?: string;
+}>;
+}>;
+
+/**
+ * Поиск расширенный
+ */
+'additional'?: Array<{
+
+/**
+ * Переменная
+ */
+'field'?: string;
+
+/**
+ * Элемент формы
+ */
+'form'?: 'autocomplete' | 'period' | 'select' | 'text' | 'checkbox' | 'checkbox_reset';
+
+/**
+ * Наименование
+ */
+'name'?: string;
+
+/**
+ * Источник
+ */
+'source'?: string;
+
+/**
+ * Массив данных
+ */
+'array'?: Array<{
+
+/**
+ * ID
+ */
+'id'?: string;
+
+/**
+ * Наименование
+ */
+'name'?: string;
+}>;
+}>;
+}>;
+
+/**
+ * Параметры таблицы
+ */
+'table'?: Array<{
+
+/**
+ * Блок колонок
+ */
+'column'?: Array<string>;
+
+/**
+ * Данные колонок
+ */
+'items'?: Array<{
+
+/**
+ * Поле
+ */
+'field'?: string;
+
+/**
+ * Заголовок поля
+ */
+'title'?: string;
+
+/**
+ * Ширина поля
+ */
+'width'?: number;
+}>;
+}>;
+
+/**
+ * Параметры сортировки
+ */
+'order'?: Array<{
+
+/**
+ * Поле
+ */
+'field'?: string;
+
+/**
+ * Сортировка по умолчанию
+ */
+'dir'?: string;
+}>;
+}>> {
+    const rb = new RequestBuilder(this.rootUrl, ContractorService.ContractorListParamPath, 'get');
+    if (params) {
+    }
+
+    return this.http.request(
+      rb.build({ responseType: 'json', accept: 'application/json', context })
+    ).pipe(
+      filter((r: any): r is HttpResponse<any> => r instanceof HttpResponse),
+      map((r: HttpResponse<any>) => {
+        return r as StrictHttpResponse<{
+        
+        /**
+         * Параметры поиска
+         */
+        'search'?: Array<{
+        
+        /**
+         * Поиск в заголовке
+         */
+        'header'?: Array<{
+        
+        /**
+         * Переменная
+         */
+        'field'?: string;
+        
+        /**
+         * Элемент формы
+         */
+        'form'?: 'autocomplete' | 'period' | 'select' | 'text' | 'checkbox' | 'checkbox_reset';
+        
+        /**
+         * Наименование
+         */
+        'name'?: string;
+        
+        /**
+         * Источник
+         */
+        'source'?: string;
+        
+        /**
+         * Массив данных
+         */
+        'array'?: Array<{
+        
+        /**
+         * ID
+         */
+        'id'?: string;
+        
+        /**
+         * Наименование
+         */
+        'name'?: string;
+        }>;
+        }>;
+        
+        /**
+         * Поиск основной
+         */
+        'main'?: Array<{
+        
+        /**
+         * Переменная
+         */
+        'field'?: string;
+        
+        /**
+         * Элемент формы
+         */
+        'form'?: 'autocomplete' | 'period' | 'select' | 'text' | 'checkbox' | 'checkbox_reset';
+        
+        /**
+         * Наименование
+         */
+        'name'?: string;
+        
+        /**
+         * Источник
+         */
+        'source'?: string;
+        
+        /**
+         * Массив данных
+         */
+        'array'?: Array<{
+        
+        /**
+         * ID
+         */
+        'id'?: string;
+        
+        /**
+         * Наименование
+         */
+        'name'?: string;
+        }>;
+        }>;
+        
+        /**
+         * Поиск расширенный
+         */
+        'additional'?: Array<{
+        
+        /**
+         * Переменная
+         */
+        'field'?: string;
+        
+        /**
+         * Элемент формы
+         */
+        'form'?: 'autocomplete' | 'period' | 'select' | 'text' | 'checkbox' | 'checkbox_reset';
+        
+        /**
+         * Наименование
+         */
+        'name'?: string;
+        
+        /**
+         * Источник
+         */
+        'source'?: string;
+        
+        /**
+         * Массив данных
+         */
+        'array'?: Array<{
+        
+        /**
+         * ID
+         */
+        'id'?: string;
+        
+        /**
+         * Наименование
+         */
+        'name'?: string;
+        }>;
+        }>;
+        }>;
+        
+        /**
+         * Параметры таблицы
+         */
+        'table'?: Array<{
+        
+        /**
+         * Блок колонок
+         */
+        'column'?: Array<string>;
+        
+        /**
+         * Данные колонок
+         */
+        'items'?: Array<{
+        
+        /**
+         * Поле
+         */
+        'field'?: string;
+        
+        /**
+         * Заголовок поля
+         */
+        'title'?: string;
+        
+        /**
+         * Ширина поля
+         */
+        'width'?: number;
+        }>;
+        }>;
+        
+        /**
+         * Параметры сортировки
+         */
+        'order'?: Array<{
+        
+        /**
+         * Поле
+         */
+        'field'?: string;
+        
+        /**
+         * Сортировка по умолчанию
+         */
+        'dir'?: string;
+        }>;
+        }>;
+      })
+    );
+  }
+
+  /**
+   * Параметры вывода контрагентов.
+   *
+   *
+   *
+   * This method provides access only to the response body.
+   * To access the full response (for headers, for example), `contractorListParam$Response()` instead.
+   *
+   * This method doesn't expect any request body.
+   */
+  contractorListParam(
+    params?: {
+    },
+    context?: HttpContext
+  ): Observable<{
+
+/**
+ * Параметры поиска
+ */
+'search'?: Array<{
+
+/**
+ * Поиск в заголовке
+ */
+'header'?: Array<{
+
+/**
+ * Переменная
+ */
+'field'?: string;
+
+/**
+ * Элемент формы
+ */
+'form'?: 'autocomplete' | 'period' | 'select' | 'text' | 'checkbox' | 'checkbox_reset';
+
+/**
+ * Наименование
+ */
+'name'?: string;
+
+/**
+ * Источник
+ */
+'source'?: string;
+
+/**
+ * Массив данных
+ */
+'array'?: Array<{
+
+/**
+ * ID
+ */
+'id'?: string;
+
+/**
+ * Наименование
+ */
+'name'?: string;
+}>;
+}>;
+
+/**
+ * Поиск основной
+ */
+'main'?: Array<{
+
+/**
+ * Переменная
+ */
+'field'?: string;
+
+/**
+ * Элемент формы
+ */
+'form'?: 'autocomplete' | 'period' | 'select' | 'text' | 'checkbox' | 'checkbox_reset';
+
+/**
+ * Наименование
+ */
+'name'?: string;
+
+/**
+ * Источник
+ */
+'source'?: string;
+
+/**
+ * Массив данных
+ */
+'array'?: Array<{
+
+/**
+ * ID
+ */
+'id'?: string;
+
+/**
+ * Наименование
+ */
+'name'?: string;
+}>;
+}>;
+
+/**
+ * Поиск расширенный
+ */
+'additional'?: Array<{
+
+/**
+ * Переменная
+ */
+'field'?: string;
+
+/**
+ * Элемент формы
+ */
+'form'?: 'autocomplete' | 'period' | 'select' | 'text' | 'checkbox' | 'checkbox_reset';
+
+/**
+ * Наименование
+ */
+'name'?: string;
+
+/**
+ * Источник
+ */
+'source'?: string;
+
+/**
+ * Массив данных
+ */
+'array'?: Array<{
+
+/**
+ * ID
+ */
+'id'?: string;
+
+/**
+ * Наименование
+ */
+'name'?: string;
+}>;
+}>;
+}>;
+
+/**
+ * Параметры таблицы
+ */
+'table'?: Array<{
+
+/**
+ * Блок колонок
+ */
+'column'?: Array<string>;
+
+/**
+ * Данные колонок
+ */
+'items'?: Array<{
+
+/**
+ * Поле
+ */
+'field'?: string;
+
+/**
+ * Заголовок поля
+ */
+'title'?: string;
+
+/**
+ * Ширина поля
+ */
+'width'?: number;
+}>;
+}>;
+
+/**
+ * Параметры сортировки
+ */
+'order'?: Array<{
+
+/**
+ * Поле
+ */
+'field'?: string;
+
+/**
+ * Сортировка по умолчанию
+ */
+'dir'?: string;
+}>;
+}> {
+    return this.contractorListParam$Response(params, context).pipe(
+      map((r: StrictHttpResponse<{
+
+/**
+ * Параметры поиска
+ */
+'search'?: Array<{
+
+/**
+ * Поиск в заголовке
+ */
+'header'?: Array<{
+
+/**
+ * Переменная
+ */
+'field'?: string;
+
+/**
+ * Элемент формы
+ */
+'form'?: 'autocomplete' | 'period' | 'select' | 'text' | 'checkbox' | 'checkbox_reset';
+
+/**
+ * Наименование
+ */
+'name'?: string;
+
+/**
+ * Источник
+ */
+'source'?: string;
+
+/**
+ * Массив данных
+ */
+'array'?: Array<{
+
+/**
+ * ID
+ */
+'id'?: string;
+
+/**
+ * Наименование
+ */
+'name'?: string;
+}>;
+}>;
+
+/**
+ * Поиск основной
+ */
+'main'?: Array<{
+
+/**
+ * Переменная
+ */
+'field'?: string;
+
+/**
+ * Элемент формы
+ */
+'form'?: 'autocomplete' | 'period' | 'select' | 'text' | 'checkbox' | 'checkbox_reset';
+
+/**
+ * Наименование
+ */
+'name'?: string;
+
+/**
+ * Источник
+ */
+'source'?: string;
+
+/**
+ * Массив данных
+ */
+'array'?: Array<{
+
+/**
+ * ID
+ */
+'id'?: string;
+
+/**
+ * Наименование
+ */
+'name'?: string;
+}>;
+}>;
+
+/**
+ * Поиск расширенный
+ */
+'additional'?: Array<{
+
+/**
+ * Переменная
+ */
+'field'?: string;
+
+/**
+ * Элемент формы
+ */
+'form'?: 'autocomplete' | 'period' | 'select' | 'text' | 'checkbox' | 'checkbox_reset';
+
+/**
+ * Наименование
+ */
+'name'?: string;
+
+/**
+ * Источник
+ */
+'source'?: string;
+
+/**
+ * Массив данных
+ */
+'array'?: Array<{
+
+/**
+ * ID
+ */
+'id'?: string;
+
+/**
+ * Наименование
+ */
+'name'?: string;
+}>;
+}>;
+}>;
+
+/**
+ * Параметры таблицы
+ */
+'table'?: Array<{
+
+/**
+ * Блок колонок
+ */
+'column'?: Array<string>;
+
+/**
+ * Данные колонок
+ */
+'items'?: Array<{
+
+/**
+ * Поле
+ */
+'field'?: string;
+
+/**
+ * Заголовок поля
+ */
+'title'?: string;
+
+/**
+ * Ширина поля
+ */
+'width'?: number;
+}>;
+}>;
+
+/**
+ * Параметры сортировки
+ */
+'order'?: Array<{
+
+/**
+ * Поле
+ */
+'field'?: string;
+
+/**
+ * Сортировка по умолчанию
+ */
+'dir'?: string;
+}>;
+}>): {
+
+/**
+ * Параметры поиска
+ */
+'search'?: Array<{
+
+/**
+ * Поиск в заголовке
+ */
+'header'?: Array<{
+
+/**
+ * Переменная
+ */
+'field'?: string;
+
+/**
+ * Элемент формы
+ */
+'form'?: 'autocomplete' | 'period' | 'select' | 'text' | 'checkbox' | 'checkbox_reset';
+
+/**
+ * Наименование
+ */
+'name'?: string;
+
+/**
+ * Источник
+ */
+'source'?: string;
+
+/**
+ * Массив данных
+ */
+'array'?: Array<{
+
+/**
+ * ID
+ */
+'id'?: string;
+
+/**
+ * Наименование
+ */
+'name'?: string;
+}>;
+}>;
+
+/**
+ * Поиск основной
+ */
+'main'?: Array<{
+
+/**
+ * Переменная
+ */
+'field'?: string;
+
+/**
+ * Элемент формы
+ */
+'form'?: 'autocomplete' | 'period' | 'select' | 'text' | 'checkbox' | 'checkbox_reset';
+
+/**
+ * Наименование
+ */
+'name'?: string;
+
+/**
+ * Источник
+ */
+'source'?: string;
+
+/**
+ * Массив данных
+ */
+'array'?: Array<{
+
+/**
+ * ID
+ */
+'id'?: string;
+
+/**
+ * Наименование
+ */
+'name'?: string;
+}>;
+}>;
+
+/**
+ * Поиск расширенный
+ */
+'additional'?: Array<{
+
+/**
+ * Переменная
+ */
+'field'?: string;
+
+/**
+ * Элемент формы
+ */
+'form'?: 'autocomplete' | 'period' | 'select' | 'text' | 'checkbox' | 'checkbox_reset';
+
+/**
+ * Наименование
+ */
+'name'?: string;
+
+/**
+ * Источник
+ */
+'source'?: string;
+
+/**
+ * Массив данных
+ */
+'array'?: Array<{
+
+/**
+ * ID
+ */
+'id'?: string;
+
+/**
+ * Наименование
+ */
+'name'?: string;
+}>;
+}>;
+}>;
+
+/**
+ * Параметры таблицы
+ */
+'table'?: Array<{
+
+/**
+ * Блок колонок
+ */
+'column'?: Array<string>;
+
+/**
+ * Данные колонок
+ */
+'items'?: Array<{
+
+/**
+ * Поле
+ */
+'field'?: string;
+
+/**
+ * Заголовок поля
+ */
+'title'?: string;
+
+/**
+ * Ширина поля
+ */
+'width'?: number;
+}>;
+}>;
+
+/**
+ * Параметры сортировки
+ */
+'order'?: Array<{
+
+/**
+ * Поле
+ */
+'field'?: string;
+
+/**
+ * Сортировка по умолчанию
+ */
+'dir'?: string;
+}>;
 } => r.body)
     );
   }
@@ -7715,14 +8672,14 @@ export class ContractorService extends BaseService {
       sort?: Array<{
 
 /**
- * Поле
+ * Поле сортировки
  */
-'field': 'id' | 'name' | 'rating_nps_text' | 'trade_rating' | 'exclude_from_trade' | 'avg_answer_time';
+'field'?: 'id' | 'name' | 'rating_nps_text' | 'trade_rating' | 'allow_trade' | 'avg_answer_time';
 
 /**
  * Направление сортировки
  */
-'dir': 'asc' | 'desc';
+'dir'?: 'asc' | 'desc';
 }>;
     },
     context?: HttpContext
@@ -7819,14 +8776,14 @@ export class ContractorService extends BaseService {
       sort?: Array<{
 
 /**
- * Поле
+ * Поле сортировки
  */
-'field': 'id' | 'name' | 'rating_nps_text' | 'trade_rating' | 'exclude_from_trade' | 'avg_answer_time';
+'field'?: 'id' | 'name' | 'rating_nps_text' | 'trade_rating' | 'allow_trade' | 'avg_answer_time';
 
 /**
  * Направление сортировки
  */
-'dir': 'asc' | 'desc';
+'dir'?: 'asc' | 'desc';
 }>;
     },
     context?: HttpContext

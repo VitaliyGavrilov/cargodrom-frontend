@@ -35,12 +35,12 @@ export abstract class Editor<T> implements OnInit {
   nameForHeader?: string;
 
   private currentTitle = '';
-  
+
   protected abstract create(params: { body: Omit<T, 'id'> }): Observable<{id: number}>;
   protected abstract read(params: { id: number }): Observable<T>;
   protected abstract update(params: { body: Partial<T> }): Observable<void>;
   protected abstract delete(params: { body: { id: number } }): Observable<void>;
-  
+
   protected abstract getNameForHeader(body: T): string;
 
   constructor(
@@ -78,20 +78,22 @@ export abstract class Editor<T> implements OnInit {
     this.systemService.systemCurrency().subscribe(
       currencies => this.currencies = currencies ? (currencies as Currency[]).sort(byField('code', 'asc', 'case-insensitive')) : []
     );
+    console.log(this.currencies);
+
   }
-  
+
   loadHeadPositions(): void {
     this.systemService.systemHeadPosition().subscribe(
       positions => this.headPositions = positions ? (positions as HeadPosition[]).sort(byField('name', 'asc', 'case-insensitive')) : []
     );
   }
-  
+
   loadBusinessKinds(): void {
     this.systemService.systemBusiness().subscribe(
       kinds => this.businessKinds = kinds ? (kinds as BusinessKind[]).sort(byField('num', 'asc', 'numeric')) : []
     );
   }
-  
+
   loadInteractionKinds(): void {
     this.systemService.systemInteraction().subscribe(
       kinds => this.interactionKinds = kinds ? (kinds as InteractionKind[]).sort(byField('num', 'asc', 'numeric')) : []
@@ -103,7 +105,7 @@ export abstract class Editor<T> implements OnInit {
       kinds => this.contactSources = kinds ? (kinds as ContactSource[]).sort(byField('name', 'asc', 'case-insensitive')) : []
     );
   }
-  
+
   loadClientStatuses(): void {
     this.systemService.systemCustomerStatus().subscribe(
       kinds => this.clientStatuses = kinds ? (kinds as ClientStatus[]).sort(byField('name', 'asc', 'case-insensitive')) : []
@@ -153,7 +155,7 @@ export abstract class Editor<T> implements OnInit {
     this.showMessage(message);
     this.goBack();
   }
-  
+
   showMessageAndSwitchToEditMode(message: string, id: number): void {
     this.showMessage(message);
     this.router.navigate(['..', id], {replaceUrl: true, relativeTo: this.route});
@@ -225,7 +227,7 @@ export abstract class Editor<T> implements OnInit {
         error: (err) => this.showError('Ошибка', err)
       });
   }
-  
+
   protected afterCreate(body: {id: number}): Observable<{id: number}> {
     return of ({id: body.id});
   }
@@ -233,7 +235,7 @@ export abstract class Editor<T> implements OnInit {
   protected afterUpdate(): Observable<void> {
     return of (undefined);
   }
-  
+
   protected afterDelete(): Observable<void> {
     return of(undefined);
   }

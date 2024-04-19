@@ -2,7 +2,7 @@ import { MatSnackBar } from '@angular/material/snack-bar';
 import { ActivatedRoute, ParamMap, Router } from '@angular/router';
 import { SortColumn } from '../api/custom_models/sort-column';
 import { Directive, OnInit, OnDestroy, ViewChild, TemplateRef, ElementRef } from '@angular/core';
-import { NEVER, Observable, of, Subject, takeUntil } from 'rxjs';
+import { NEVER, Observable, of, Subject, takeUntil, tap } from 'rxjs';
 import { MatSnackBarConfig } from '@angular/material/snack-bar';
 import { MatDialog } from '@angular/material/dialog';
 import { FilterService } from '../filter/services/filter.service';
@@ -21,8 +21,8 @@ export abstract class Table<T extends { id: number }, A = never, F = never> impl
   snackBarWithShortDuration: MatSnackBarConfig = { duration: 1000 };
   snackBarWithLongDuration: MatSnackBarConfig = { duration: 5000 };
   filter?: F;
-  column?: string[];
-  sortableColumns?: string[];
+  column?: string[]=[];
+  sortableColumns?: string[]=[];
 
   isBiddingMode=false;
   arrRowsId:number[]=[];
@@ -30,12 +30,14 @@ export abstract class Table<T extends { id: number }, A = never, F = never> impl
   currentQuantityContractors:number=0
   currentRequest:any={};
 
+  schemaTest:any
+
 
   contractorsSelectedForRequest:any=[]
 
   readonly xlsxMimeType = 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet';
 
-  protected abstract load<T>(params: LoadParams<T, F>): Observable<{ total: number, items: T[], column?: string[], sort?: string[] }>;
+  protected abstract load<T>(params?: LoadParams<T, F>): Observable<{ total: number, items: T[], column?: string[], sort?: string[],sort_new?:any }>;
 
   protected removedMessage: string = 'Запись удалена';
 
@@ -70,47 +72,32 @@ export abstract class Table<T extends { id: number }, A = never, F = never> impl
     if(this.isBiddingMode){
       const id = Number(this.route.snapshot.paramMap.get('id'));
       this.getRequestInfo(id);
-
     }
-
-    this.loadFilterSchema().subscribe(schema => {
-      this.filterService.setSearchFilterSchema(schema);
+    this.filterService.onApply().subscribe(filter => {
+      this.onFilterChange(filter as F);
     });
+    this.getListParam();
+  }
 
-    this.route.queryParamMap
-      .pipe(takeUntil(this.destroy$))
-      .subscribe(queryParamMap => {
-        this.start = this.getIntParamSafely(queryParamMap, 'start', this.start);
-        this.count = this.getIntEnumParamSafely(queryParamMap, 'count', this.limits, this.count);
-        this.sortField = this.getStringParamSafely(queryParamMap, 'sortCol', this.sortField as string) as keyof T;
-        this.sortDir = this.getEnumParamSafely(queryParamMap, 'sortDir', ['asc', 'desc'], this.sortDir) as 'asc' | 'desc';
-        this.filter = this.getJsonParamSafely(queryParamMap, 'filter', {}) as F;
-        this.filterService.setValue(this.filter as any);
-        this.loadRows();
-      });
-    this.filterService.onApply().subscribe(filter => this.onFilterChange(filter as F));
-
-
+  ngOnDestroy(): void {
+    this.destroy$.next();
+    this.destroy$.complete();
   }
 
   protected loadRows(): void {
     const sortCol = this.getSort();
     this.load({ start: this.start, count: this.count, sort: JSON.stringify(sortCol) as unknown as SortColumn<T>[], ...this.filter })
       .subscribe(rows => {
+        console.log('rows', rows);
         this.rows = rows ? rows.items as T[] : [];
         this.total = rows.total;
-        this.column = rows.column;
         if(this.isBiddingMode){
-          this.column?.unshift('checkbox');
-          this.column?.pop();
           this.arrRowsId=[];
-          rows.items.forEach(element => {
-            this.arrRowsId.push(element.id)
+          rows.items.forEach((element:any) => {
+            this.arrRowsId.push(element.id);
           });
           this.getContractorsSelectRequest();
         }
-        this.sortableColumns = rows.sort;
-        // this.getContractorsSelectRequest();
       });
   }
 
@@ -264,11 +251,6 @@ export abstract class Table<T extends { id: number }, A = never, F = never> impl
     return 'сортировать по возрастанию';
   }
 
-  ngOnDestroy(): void {
-    this.destroy$.next();
-    this.destroy$.complete();
-  }
-
   private getSort(): SortColumn<T>[] {
     const sortCol: SortColumn<T>[] = [];
     const sortField = this.sortField as unknown as A;
@@ -326,6 +308,10 @@ export abstract class Table<T extends { id: number }, A = never, F = never> impl
     return NEVER;
   }
 
+  protected loadFilterSchemaTest(): Observable<any> {
+    return NEVER;
+  }
+
   confirmExport(): void {
     if (!this.exportDialogRef) {
       return;
@@ -370,7 +356,6 @@ export abstract class Table<T extends { id: number }, A = never, F = never> impl
                   error: (err) => this.snackBar.open(`Не удалось скачать файл с результатами обработки: ` + err.error.error_message, undefined, this.snackBarWithShortDuration)
                 });
               }
-
               if (res===1) {
                 this.importDataConfirm({ import_key }).subscribe({
                   next: () => {
@@ -426,7 +411,6 @@ export abstract class Table<T extends { id: number }, A = never, F = never> impl
   }
 
   selectFileForImport(): void {
-    console.log('selectFileForImport');
     const files = this.file?.nativeElement.files as File[] | undefined;
     const file = files?.[0];
     if (!file?.name.endsWith('.xlsx')) {
@@ -519,9 +503,59 @@ export abstract class Table<T extends { id: number }, A = never, F = never> impl
         this.filterService.value["specialization"]=[this.currentRequest.transport_kind_id];
         // this.filterService.value["rating"]=this.currentRequest.request_type_id;
         this.filterService.apply();
-
       },
       error: (err) => this.snackBar.open(`Ошибка получения данных запроса ` + err.error.error_message, undefined, this.snackBarWithShortDuration)
     });
   }
+
+  getListParam(){
+    this.loadFilterSchemaTest().subscribe({
+      next: (schema) => {
+        this.filterService.setSearchFilterSchema(schema.search);
+
+        schema.column.forEach((col:any)=>{
+          this.column?.push(col.column);
+        })
+        schema.sort.forEach((sor:any)=>{
+          this.sortableColumns?.push(sor.field);
+        })
+
+        if(this.isBiddingMode){
+          this.column?.unshift('checkbox');
+          this.column?.pop();
+        }
+
+        this.sortField = schema.sort[0].field;
+        this.sortDir = schema.sort[0].dir;
+
+        this.router.navigate(['.'], {
+          queryParams: { sortField: schema.sort[0].field, sortDir: schema.sort[0].dir },
+          queryParamsHandling: 'merge',
+          relativeTo: this.route,
+        });
+        // this.filterService.apply();
+      },
+      error: (err) => this.snackBar.open(`Ошибка получения параметров вывода таблицы ` + err.error.error_message, undefined, this.snackBarWithShortDuration),
+      complete:()=> {
+        this.subscribeRouteQueryParamMap();
+      }
+    });
+  }
+
+  subscribeRouteQueryParamMap(){
+    this.route.queryParamMap
+      .pipe(
+        tap((queryParamMap)=>{
+          this.start = this.getIntParamSafely(queryParamMap, 'start', this.start);
+          this.count = this.getIntEnumParamSafely(queryParamMap, 'count', this.limits, this.count);
+          this.sortField = this.getStringParamSafely(queryParamMap, 'sortCol', this.sortField as string) as keyof T;
+          this.sortDir = this.getEnumParamSafely(queryParamMap, 'sortDir', ['asc', 'desc'], this.sortDir) as 'asc' | 'desc';
+          this.filter = this.getJsonParamSafely(queryParamMap, 'filter', {}) as F;
+          this.filterService.setValue(this.filter as any);
+          this.loadRows();
+        }),
+        takeUntil(this.destroy$)
+      ).subscribe();
+  }
+
 }

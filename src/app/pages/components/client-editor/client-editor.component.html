@@ -319,8 +319,8 @@
           <div class="form-item">
             <div class="form-label">Валюта счета:</div>
             <mat-form-field appearance="outline" class="ui-select">
-              <mat-select formControlName="currency">
-                <mat-option *ngFor="let currency of currencies;" [value]="currency.code">{{ currency.name }}</mat-option>
+              <mat-select formControlName="bank_currency_id">
+                <mat-option *ngFor="let currency of currencies;" [value]="currency.id">{{ currency.name }}</mat-option>
               </mat-select>
               <mat-error *ngIf="form.controls['manager_id'].hasError('required')">
                 Это поле обязательно

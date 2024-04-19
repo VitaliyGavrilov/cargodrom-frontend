@@ -78,14 +78,14 @@ export class CustomerService extends BaseService {
       sort?: Array<{
 
 /**
- * Поле
+ * Поле сортировки
  */
-'field': 'id' | 'name' | 'order_count' | 'order_day_last' | 'order_delay_payment';
+'field'?: 'id' | 'name' | 'order_count' | 'order_day_last' | 'order_delay_payment';
 
 /**
  * Направление сортировки
  */
-'dir': 'asc' | 'desc';
+'dir'?: 'asc' | 'desc';
 }>;
     },
     context?: HttpContext
@@ -295,6 +295,11 @@ export class CustomerService extends BaseService {
  * Валюта счета (ID берем из запроса - /system_currency)
  */
 'currency'?: string;
+
+/**
+ * Валюта счета (ID берем из запроса - /system_currency)
+ */
+'bank_currency_id'?: number;
 
 /**
  * Группа
@@ -662,6 +667,11 @@ export class CustomerService extends BaseService {
         'currency'?: string;
         
         /**
+         * Валюта счета (ID берем из запроса - /system_currency)
+         */
+        'bank_currency_id'?: number;
+        
+        /**
          * Группа
          */
         'group_name'?: string;
@@ -860,14 +870,14 @@ export class CustomerService extends BaseService {
       sort?: Array<{
 
 /**
- * Поле
+ * Поле сортировки
  */
-'field': 'id' | 'name' | 'order_count' | 'order_day_last' | 'order_delay_payment';
+'field'?: 'id' | 'name' | 'order_count' | 'order_day_last' | 'order_delay_payment';
 
 /**
  * Направление сортировки
  */
-'dir': 'asc' | 'desc';
+'dir'?: 'asc' | 'desc';
 }>;
     },
     context?: HttpContext
@@ -1077,6 +1087,11 @@ export class CustomerService extends BaseService {
  * Валюта счета (ID берем из запроса - /system_currency)
  */
 'currency'?: string;
+
+/**
+ * Валюта счета (ID берем из запроса - /system_currency)
+ */
+'bank_currency_id'?: number;
 
 /**
  * Группа
@@ -1428,6 +1443,11 @@ export class CustomerService extends BaseService {
 'currency'?: string;
 
 /**
+ * Валюта счета (ID берем из запроса - /system_currency)
+ */
+'bank_currency_id'?: number;
+
+/**
  * Группа
  */
 'group_name'?: string;
@@ -1775,6 +1795,11 @@ export class CustomerService extends BaseService {
 'currency'?: string;
 
 /**
+ * Валюта счета (ID берем из запроса - /system_currency)
+ */
+'bank_currency_id'?: number;
+
+/**
  * Группа
  */
 'group_name'?: string;
@@ -1914,6 +1939,963 @@ export class CustomerService extends BaseService {
  * Поля сортировки
  */
 'sort'?: Array<string>;
+} => r.body)
+    );
+  }
+
+  /** Path part for operation `customerListParam()` */
+  static readonly CustomerListParamPath = '/customer_list_param';
+
+  /**
+   * Параметры вывода клиентов.
+   *
+   *
+   *
+   * This method provides access to the full `HttpResponse`, allowing access to response headers.
+   * To access only the response body, use `customerListParam()` instead.
+   *
+   * This method doesn't expect any request body.
+   */
+  customerListParam$Response(
+    params?: {
+    },
+    context?: HttpContext
+  ): Observable<StrictHttpResponse<{
+
+/**
+ * Параметры поиска
+ */
+'search'?: Array<{
+
+/**
+ * Поиск в заголовке
+ */
+'header'?: Array<{
+
+/**
+ * Переменная
+ */
+'field'?: string;
+
+/**
+ * Элемент формы
+ */
+'form'?: 'autocomplete' | 'period' | 'select' | 'text' | 'checkbox' | 'checkbox_reset';
+
+/**
+ * Наименование
+ */
+'name'?: string;
+
+/**
+ * Источник
+ */
+'source'?: string;
+
+/**
+ * Массив данных
+ */
+'array'?: Array<{
+
+/**
+ * ID
+ */
+'id'?: string;
+
+/**
+ * Наименование
+ */
+'name'?: string;
+}>;
+}>;
+
+/**
+ * Поиск основной
+ */
+'main'?: Array<{
+
+/**
+ * Переменная
+ */
+'field'?: string;
+
+/**
+ * Элемент формы
+ */
+'form'?: 'autocomplete' | 'period' | 'select' | 'text' | 'checkbox' | 'checkbox_reset';
+
+/**
+ * Наименование
+ */
+'name'?: string;
+
+/**
+ * Источник
+ */
+'source'?: string;
+
+/**
+ * Массив данных
+ */
+'array'?: Array<{
+
+/**
+ * ID
+ */
+'id'?: string;
+
+/**
+ * Наименование
+ */
+'name'?: string;
+}>;
+}>;
+
+/**
+ * Поиск расширенный
+ */
+'additional'?: Array<{
+
+/**
+ * Переменная
+ */
+'field'?: string;
+
+/**
+ * Элемент формы
+ */
+'form'?: 'autocomplete' | 'period' | 'select' | 'text' | 'checkbox' | 'checkbox_reset';
+
+/**
+ * Наименование
+ */
+'name'?: string;
+
+/**
+ * Источник
+ */
+'source'?: string;
+
+/**
+ * Массив данных
+ */
+'array'?: Array<{
+
+/**
+ * ID
+ */
+'id'?: string;
+
+/**
+ * Наименование
+ */
+'name'?: string;
+}>;
+}>;
+}>;
+
+/**
+ * Параметры таблицы
+ */
+'table'?: Array<{
+
+/**
+ * Блок колонок
+ */
+'column'?: Array<string>;
+
+/**
+ * Данные колонок
+ */
+'items'?: Array<{
+
+/**
+ * Поле
+ */
+'field'?: string;
+
+/**
+ * Заголовок поля
+ */
+'title'?: string;
+
+/**
+ * Ширина поля
+ */
+'width'?: number;
+}>;
+}>;
+
+/**
+ * Параметры сортировки
+ */
+'order'?: Array<{
+
+/**
+ * Поле
+ */
+'field'?: string;
+
+/**
+ * Сортировка по умолчанию
+ */
+'dir'?: string;
+}>;
+}>> {
+    const rb = new RequestBuilder(this.rootUrl, CustomerService.CustomerListParamPath, 'get');
+    if (params) {
+    }
+
+    return this.http.request(
+      rb.build({ responseType: 'json', accept: 'application/json', context })
+    ).pipe(
+      filter((r: any): r is HttpResponse<any> => r instanceof HttpResponse),
+      map((r: HttpResponse<any>) => {
+        return r as StrictHttpResponse<{
+        
+        /**
+         * Параметры поиска
+         */
+        'search'?: Array<{
+        
+        /**
+         * Поиск в заголовке
+         */
+        'header'?: Array<{
+        
+        /**
+         * Переменная
+         */
+        'field'?: string;
+        
+        /**
+         * Элемент формы
+         */
+        'form'?: 'autocomplete' | 'period' | 'select' | 'text' | 'checkbox' | 'checkbox_reset';
+        
+        /**
+         * Наименование
+         */
+        'name'?: string;
+        
+        /**
+         * Источник
+         */
+        'source'?: string;
+        
+        /**
+         * Массив данных
+         */
+        'array'?: Array<{
+        
+        /**
+         * ID
+         */
+        'id'?: string;
+        
+        /**
+         * Наименование
+         */
+        'name'?: string;
+        }>;
+        }>;
+        
+        /**
+         * Поиск основной
+         */
+        'main'?: Array<{
+        
+        /**
+         * Переменная
+         */
+        'field'?: string;
+        
+        /**
+         * Элемент формы
+         */
+        'form'?: 'autocomplete' | 'period' | 'select' | 'text' | 'checkbox' | 'checkbox_reset';
+        
+        /**
+         * Наименование
+         */
+        'name'?: string;
+        
+        /**
+         * Источник
+         */
+        'source'?: string;
+        
+        /**
+         * Массив данных
+         */
+        'array'?: Array<{
+        
+        /**
+         * ID
+         */
+        'id'?: string;
+        
+        /**
+         * Наименование
+         */
+        'name'?: string;
+        }>;
+        }>;
+        
+        /**
+         * Поиск расширенный
+         */
+        'additional'?: Array<{
+        
+        /**
+         * Переменная
+         */
+        'field'?: string;
+        
+        /**
+         * Элемент формы
+         */
+        'form'?: 'autocomplete' | 'period' | 'select' | 'text' | 'checkbox' | 'checkbox_reset';
+        
+        /**
+         * Наименование
+         */
+        'name'?: string;
+        
+        /**
+         * Источник
+         */
+        'source'?: string;
+        
+        /**
+         * Массив данных
+         */
+        'array'?: Array<{
+        
+        /**
+         * ID
+         */
+        'id'?: string;
+        
+        /**
+         * Наименование
+         */
+        'name'?: string;
+        }>;
+        }>;
+        }>;
+        
+        /**
+         * Параметры таблицы
+         */
+        'table'?: Array<{
+        
+        /**
+         * Блок колонок
+         */
+        'column'?: Array<string>;
+        
+        /**
+         * Данные колонок
+         */
+        'items'?: Array<{
+        
+        /**
+         * Поле
+         */
+        'field'?: string;
+        
+        /**
+         * Заголовок поля
+         */
+        'title'?: string;
+        
+        /**
+         * Ширина поля
+         */
+        'width'?: number;
+        }>;
+        }>;
+        
+        /**
+         * Параметры сортировки
+         */
+        'order'?: Array<{
+        
+        /**
+         * Поле
+         */
+        'field'?: string;
+        
+        /**
+         * Сортировка по умолчанию
+         */
+        'dir'?: string;
+        }>;
+        }>;
+      })
+    );
+  }
+
+  /**
+   * Параметры вывода клиентов.
+   *
+   *
+   *
+   * This method provides access only to the response body.
+   * To access the full response (for headers, for example), `customerListParam$Response()` instead.
+   *
+   * This method doesn't expect any request body.
+   */
+  customerListParam(
+    params?: {
+    },
+    context?: HttpContext
+  ): Observable<{
+
+/**
+ * Параметры поиска
+ */
+'search'?: Array<{
+
+/**
+ * Поиск в заголовке
+ */
+'header'?: Array<{
+
+/**
+ * Переменная
+ */
+'field'?: string;
+
+/**
+ * Элемент формы
+ */
+'form'?: 'autocomplete' | 'period' | 'select' | 'text' | 'checkbox' | 'checkbox_reset';
+
+/**
+ * Наименование
+ */
+'name'?: string;
+
+/**
+ * Источник
+ */
+'source'?: string;
+
+/**
+ * Массив данных
+ */
+'array'?: Array<{
+
+/**
+ * ID
+ */
+'id'?: string;
+
+/**
+ * Наименование
+ */
+'name'?: string;
+}>;
+}>;
+
+/**
+ * Поиск основной
+ */
+'main'?: Array<{
+
+/**
+ * Переменная
+ */
+'field'?: string;
+
+/**
+ * Элемент формы
+ */
+'form'?: 'autocomplete' | 'period' | 'select' | 'text' | 'checkbox' | 'checkbox_reset';
+
+/**
+ * Наименование
+ */
+'name'?: string;
+
+/**
+ * Источник
+ */
+'source'?: string;
+
+/**
+ * Массив данных
+ */
+'array'?: Array<{
+
+/**
+ * ID
+ */
+'id'?: string;
+
+/**
+ * Наименование
+ */
+'name'?: string;
+}>;
+}>;
+
+/**
+ * Поиск расширенный
+ */
+'additional'?: Array<{
+
+/**
+ * Переменная
+ */
+'field'?: string;
+
+/**
+ * Элемент формы
+ */
+'form'?: 'autocomplete' | 'period' | 'select' | 'text' | 'checkbox' | 'checkbox_reset';
+
+/**
+ * Наименование
+ */
+'name'?: string;
+
+/**
+ * Источник
+ */
+'source'?: string;
+
+/**
+ * Массив данных
+ */
+'array'?: Array<{
+
+/**
+ * ID
+ */
+'id'?: string;
+
+/**
+ * Наименование
+ */
+'name'?: string;
+}>;
+}>;
+}>;
+
+/**
+ * Параметры таблицы
+ */
+'table'?: Array<{
+
+/**
+ * Блок колонок
+ */
+'column'?: Array<string>;
+
+/**
+ * Данные колонок
+ */
+'items'?: Array<{
+
+/**
+ * Поле
+ */
+'field'?: string;
+
+/**
+ * Заголовок поля
+ */
+'title'?: string;
+
+/**
+ * Ширина поля
+ */
+'width'?: number;
+}>;
+}>;
+
+/**
+ * Параметры сортировки
+ */
+'order'?: Array<{
+
+/**
+ * Поле
+ */
+'field'?: string;
+
+/**
+ * Сортировка по умолчанию
+ */
+'dir'?: string;
+}>;
+}> {
+    return this.customerListParam$Response(params, context).pipe(
+      map((r: StrictHttpResponse<{
+
+/**
+ * Параметры поиска
+ */
+'search'?: Array<{
+
+/**
+ * Поиск в заголовке
+ */
+'header'?: Array<{
+
+/**
+ * Переменная
+ */
+'field'?: string;
+
+/**
+ * Элемент формы
+ */
+'form'?: 'autocomplete' | 'period' | 'select' | 'text' | 'checkbox' | 'checkbox_reset';
+
+/**
+ * Наименование
+ */
+'name'?: string;
+
+/**
+ * Источник
+ */
+'source'?: string;
+
+/**
+ * Массив данных
+ */
+'array'?: Array<{
+
+/**
+ * ID
+ */
+'id'?: string;
+
+/**
+ * Наименование
+ */
+'name'?: string;
+}>;
+}>;
+
+/**
+ * Поиск основной
+ */
+'main'?: Array<{
+
+/**
+ * Переменная
+ */
+'field'?: string;
+
+/**
+ * Элемент формы
+ */
+'form'?: 'autocomplete' | 'period' | 'select' | 'text' | 'checkbox' | 'checkbox_reset';
+
+/**
+ * Наименование
+ */
+'name'?: string;
+
+/**
+ * Источник
+ */
+'source'?: string;
+
+/**
+ * Массив данных
+ */
+'array'?: Array<{
+
+/**
+ * ID
+ */
+'id'?: string;
+
+/**
+ * Наименование
+ */
+'name'?: string;
+}>;
+}>;
+
+/**
+ * Поиск расширенный
+ */
+'additional'?: Array<{
+
+/**
+ * Переменная
+ */
+'field'?: string;
+
+/**
+ * Элемент формы
+ */
+'form'?: 'autocomplete' | 'period' | 'select' | 'text' | 'checkbox' | 'checkbox_reset';
+
+/**
+ * Наименование
+ */
+'name'?: string;
+
+/**
+ * Источник
+ */
+'source'?: string;
+
+/**
+ * Массив данных
+ */
+'array'?: Array<{
+
+/**
+ * ID
+ */
+'id'?: string;
+
+/**
+ * Наименование
+ */
+'name'?: string;
+}>;
+}>;
+}>;
+
+/**
+ * Параметры таблицы
+ */
+'table'?: Array<{
+
+/**
+ * Блок колонок
+ */
+'column'?: Array<string>;
+
+/**
+ * Данные колонок
+ */
+'items'?: Array<{
+
+/**
+ * Поле
+ */
+'field'?: string;
+
+/**
+ * Заголовок поля
+ */
+'title'?: string;
+
+/**
+ * Ширина поля
+ */
+'width'?: number;
+}>;
+}>;
+
+/**
+ * Параметры сортировки
+ */
+'order'?: Array<{
+
+/**
+ * Поле
+ */
+'field'?: string;
+
+/**
+ * Сортировка по умолчанию
+ */
+'dir'?: string;
+}>;
+}>): {
+
+/**
+ * Параметры поиска
+ */
+'search'?: Array<{
+
+/**
+ * Поиск в заголовке
+ */
+'header'?: Array<{
+
+/**
+ * Переменная
+ */
+'field'?: string;
+
+/**
+ * Элемент формы
+ */
+'form'?: 'autocomplete' | 'period' | 'select' | 'text' | 'checkbox' | 'checkbox_reset';
+
+/**
+ * Наименование
+ */
+'name'?: string;
+
+/**
+ * Источник
+ */
+'source'?: string;
+
+/**
+ * Массив данных
+ */
+'array'?: Array<{
+
+/**
+ * ID
+ */
+'id'?: string;
+
+/**
+ * Наименование
+ */
+'name'?: string;
+}>;
+}>;
+
+/**
+ * Поиск основной
+ */
+'main'?: Array<{
+
+/**
+ * Переменная
+ */
+'field'?: string;
+
+/**
+ * Элемент формы
+ */
+'form'?: 'autocomplete' | 'period' | 'select' | 'text' | 'checkbox' | 'checkbox_reset';
+
+/**
+ * Наименование
+ */
+'name'?: string;
+
+/**
+ * Источник
+ */
+'source'?: string;
+
+/**
+ * Массив данных
+ */
+'array'?: Array<{
+
+/**
+ * ID
+ */
+'id'?: string;
+
+/**
+ * Наименование
+ */
+'name'?: string;
+}>;
+}>;
+
+/**
+ * Поиск расширенный
+ */
+'additional'?: Array<{
+
+/**
+ * Переменная
+ */
+'field'?: string;
+
+/**
+ * Элемент формы
+ */
+'form'?: 'autocomplete' | 'period' | 'select' | 'text' | 'checkbox' | 'checkbox_reset';
+
+/**
+ * Наименование
+ */
+'name'?: string;
+
+/**
+ * Источник
+ */
+'source'?: string;
+
+/**
+ * Массив данных
+ */
+'array'?: Array<{
+
+/**
+ * ID
+ */
+'id'?: string;
+
+/**
+ * Наименование
+ */
+'name'?: string;
+}>;
+}>;
+}>;
+
+/**
+ * Параметры таблицы
+ */
+'table'?: Array<{
+
+/**
+ * Блок колонок
+ */
+'column'?: Array<string>;
+
+/**
+ * Данные колонок
+ */
+'items'?: Array<{
+
+/**
+ * Поле
+ */
+'field'?: string;
+
+/**
+ * Заголовок поля
+ */
+'title'?: string;
+
+/**
+ * Ширина поля
+ */
+'width'?: number;
+}>;
+}>;
+
+/**
+ * Параметры сортировки
+ */
+'order'?: Array<{
+
+/**
+ * Поле
+ */
+'field'?: string;
+
+/**
+ * Сортировка по умолчанию
+ */
+'dir'?: string;
+}>;
 } => r.body)
     );
   }
@@ -2825,6 +3807,11 @@ export class CustomerService extends BaseService {
 'currency'?: string;
 
 /**
+ * Валюта счета (ID берем из запроса - /system_currency)
+ */
+'bank_currency_id'?: number;
+
+/**
  * Группа
  */
 'group_name'?: string;
@@ -3166,6 +4153,11 @@ export class CustomerService extends BaseService {
          * Валюта счета (ID берем из запроса - /system_currency)
          */
         'currency'?: string;
+        
+        /**
+         * Валюта счета (ID берем из запроса - /system_currency)
+         */
+        'bank_currency_id'?: number;
         
         /**
          * Группа
@@ -3524,6 +4516,11 @@ export class CustomerService extends BaseService {
 'currency'?: string;
 
 /**
+ * Валюта счета (ID берем из запроса - /system_currency)
+ */
+'bank_currency_id'?: number;
+
+/**
  * Группа
  */
 'group_name'?: string;
@@ -3858,6 +4855,11 @@ export class CustomerService extends BaseService {
 'currency'?: string;
 
 /**
+ * Валюта счета (ID берем из запроса - /system_currency)
+ */
+'bank_currency_id'?: number;
+
+/**
  * Группа
  */
 'group_name'?: string;
@@ -4188,6 +5190,11 @@ export class CustomerService extends BaseService {
  * Валюта счета (ID берем из запроса - /system_currency)
  */
 'currency'?: string;
+
+/**
+ * Валюта счета (ID берем из запроса - /system_currency)
+ */
+'bank_currency_id'?: number;
 
 /**
  * Группа
@@ -4521,6 +5528,11 @@ export class CustomerService extends BaseService {
 'currency'?: string;
 
 /**
+ * Валюта счета (ID берем из запроса - /system_currency)
+ */
+'bank_currency_id'?: number;
+
+/**
  * Группа (ID берем из запроса - customer_group_list)
  */
 'group_id'?: number;
@@ -4798,6 +5810,11 @@ export class CustomerService extends BaseService {
  * Валюта счета (ID берем из запроса - /system_currency)
  */
 'currency'?: string;
+
+/**
+ * Валюта счета (ID берем из запроса - /system_currency)
+ */
+'bank_currency_id'?: number;
 
 /**
  * Группа (ID берем из запроса - customer_group_list)
@@ -5088,6 +6105,11 @@ export class CustomerService extends BaseService {
 'currency'?: string;
 
 /**
+ * Валюта счета (ID берем из запроса - /system_currency)
+ */
+'bank_currency_id'?: number;
+
+/**
  * Группа (ID берем из запроса - customer_group_list)
  */
 'group_id'?: number;
@@ -5360,6 +6382,11 @@ export class CustomerService extends BaseService {
  * Валюта счета (ID берем из запроса - /system_currency)
  */
 'currency'?: string;
+
+/**
+ * Валюта счета (ID берем из запроса - /system_currency)
+ */
+'bank_currency_id'?: number;
 
 /**
  * Группа (ID берем из запроса - customer_group_list)
@@ -7025,14 +8052,14 @@ export class CustomerService extends BaseService {
       sort?: Array<{
 
 /**
- * Поле
+ * Поле сортировки
  */
-'field': 'id' | 'name' | 'order_count' | 'order_day_last' | 'order_delay_payment';
+'field'?: 'id' | 'name' | 'order_count' | 'order_day_last' | 'order_delay_payment';
 
 /**
  * Направление сортировки
  */
-'dir': 'asc' | 'desc';
+'dir'?: 'asc' | 'desc';
 }>;
     },
     context?: HttpContext
@@ -7123,14 +8150,14 @@ export class CustomerService extends BaseService {
       sort?: Array<{
 
 /**
- * Поле
+ * Поле сортировки
  */
-'field': 'id' | 'name' | 'order_count' | 'order_day_last' | 'order_delay_payment';
+'field'?: 'id' | 'name' | 'order_count' | 'order_day_last' | 'order_delay_payment';
 
 /**
  * Направление сортировки
  */
-'dir': 'asc' | 'desc';
+'dir'?: 'asc' | 'desc';
 }>;
     },
     context?: HttpContext

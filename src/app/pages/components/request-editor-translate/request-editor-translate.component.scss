@@ -6,7 +6,7 @@
 padding-top: 0;
 }
 
-.form-item {
+.edit-form .form-item {
   flex-grow: 1;
 }
 
@@ -20,14 +20,12 @@ padding-top: 0;
 .edit-form .title{
   height: 70px;
   display: flex;
-  justify-content: start;
   align-items: center;
   color: white;
   padding-left: 40px;
   font-size: 22px;
   line-height: 23px;
 }
-
 
 
 .gr{

@@ -46,15 +46,61 @@
   height: 12.5px;
 }
 
+div.mat-calendar-body-cell-content{
+  border-radius: 6px;
+}
+
+div.mat-calendar-body-selected {
+  background: #DB563B;
+}
+.mat-calendar-body-in-range::before {
+  background: #83909E;
+}
+.mat-calendar-body-cell:not(.mat-calendar-body-disabled):hover > .mat-calendar-body-cell-content:not(.mat-calendar-body-selected):not(.mat-calendar-body-comparison-identical) {
+  background-color: gray;
+}
+
 //стили для кнопки шаблон для импорта
 .hoverr{
   display: flex;
 }
+// .placer .template {
+//   display: none;
+//   transition-duration: 0.5s;
+//   transition-behavior: allow-discrete;
+//   opacity: 0;
+//   max-width: 0px;
+//   text-wrap: nowrap;
+//   margin-left: 0px;
+// }
+// .hoverr:hover .template{
+//   display: flex;
+//   opacity: 1;
+//   @starting-style{
+//     opacity: -1;
+//     max-width: 0px;
+//     margin-left: 0px;
+//   }
+//   margin-left: 24px;
+//   max-width: 200px;
+// }
+
 .placer .template {
   display: none;
+
+  max-width: 0px;
+  text-wrap: nowrap;
+  margin-left: 0px;
+  opacity: 0;
+  transition: 2s;
 }
 .hoverr:hover .template{
+
   display: flex;
+  opacity: 1;
+  margin-left: 24px;
+  max-width: 200px;
+  transition: 1s;
 }
 
 //стили для фильтров селекторов(в зависимости от места разный дизайн)
@@ -179,4 +225,50 @@
 
 .edit-form .ru .form-block .form-row .form-block-title{
   color: #606A74;
+}
+
+//мат диалог
+
+h1.mat-dialog-title{
+  font-size: 26px;
+  line-height: 30px;
+  color: #4b66ad;
+  text-decoration: none;
+}
+
+.mat-dialog-actions button.save{
+  background: #DB563B;
+  color: #fff;
+}
+.mat-dialog-actions button.download{
+  background: #4b66ad;
+  color: #fff;
+}
+.mat-dialog-actions button.cancel{
+  background: #606A74;
+  color: #fff;
+}
+
+
+//выравниваю высоту заголовков подстолбцов в таблицах
+.table-list .td-block-line {
+  max-height: 50%;
+}
+
+//выравниваю стрелочку сортировки
+.sort-dir-asc::after {
+  left: 2px;
+}
+.sort-dir-desc::after {
+  left: 2px;
+}
+
+
+//
+.edit-form .radio-btn input:checked .radio-btn{
+  border: red solid 1px;
+}
+
+.radio-btn :checked + span {
+  border-color: #DB563B;
 }

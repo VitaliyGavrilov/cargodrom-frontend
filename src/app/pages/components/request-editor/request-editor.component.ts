@@ -36,7 +36,7 @@ export class RequestEditorComponent implements OnInit, OnDestroy {
   request: Partial<Request> = {};
   //состояния
   isEditMode: boolean = false;
-  isFormSubmitted = false;
+
   //форма
   requestForm: FormGroup;
   //массивы для приходящих данных полей формы
@@ -112,7 +112,7 @@ export class RequestEditorComponent implements OnInit, OnDestroy {
       customer_id: [ , [Validators.required]],// + (customer это клиент,должен быть контрактор)
       customer_name: ['',[Validators.required]],
       request_type_id: [1, [Validators.required]],// +
-      transport_kind_id: ['', [Validators.required]],// +
+      transport_kind_id: [, [Validators.required]],// +
       transport_type_id: ['', [Validators.required]],// +
       //ОПИСАНИЕ ГРУЗА
       cargo_description: ['', [Validators.required,Validators.minLength(2)]],// +
@@ -202,13 +202,13 @@ export class RequestEditorComponent implements OnInit, OnDestroy {
   //СОХРАНЕНИЕ,УДАЛЕНИЕ,ОТМЕНА,НАЗАД
   save(): void {
     const body = this.requestForm.value;
-    this.isFormSubmitted=true;
-    console.log(body);
+    // this.isFormSubmitted=true;
+    // console.log(body);
 
-    if (!this.requestForm.valid ) {
-      this.snackBar.open('Не все поля заполнены', undefined, this.snackBarWithLongDuration);
-      return;
-    }
+    // if (!this.requestForm.valid ) {
+    //   this.snackBar.open('Не все поля заполнены', undefined, this.snackBarWithLongDuration);
+    //   return;
+    // }
 
     if(body.request_type_id===1 && body.cargo_separately == false) {
       console.log('План А вызван');
@@ -237,7 +237,7 @@ export class RequestEditorComponent implements OnInit, OnDestroy {
     const id = Number(this.route.snapshot.paramMap.get('id'));
     this.router.navigate(['pages/request/edit/translate', id]);
   }
-  
+
   //РЕДАКТИРОВАНИЕ ДАННЫХ ПЕРЕД ОТПРАВКОЙ
   planA(body:any){
     const data = {
@@ -581,6 +581,8 @@ export class RequestEditorComponent implements OnInit, OnDestroy {
     this.requestForm.patchValue({
       customer_id: contractor.id,
     });
+
+
   }
   //изменение инкотермс
   onIncotermsChange(incotem:any){
@@ -644,10 +646,6 @@ export class RequestEditorComponent implements OnInit, OnDestroy {
     this.requestForm.controls['departure_point_id'].reset();
     this.requestForm.controls['services'].reset();
     this.requestForm.controls['services_optional'].reset();
-
-    //запоминаем и используем текущий вид перевозки
-    // this.currentTransportationFormat = this.requestForm.value.transport_kind_id;
-    console.log(this.requestForm.value.transport_kind_id)
     this.getTransportFormatsById(this.requestForm.value.transport_kind_id);
     this.getIncoterms(this.requestForm.value.transport_kind_id);
     this.getRequestServices(this.requestForm.value.transport_kind_id);
@@ -749,7 +747,7 @@ export class RequestEditorComponent implements OnInit, OnDestroy {
         takeUntil(this._destroy$)
       ).subscribe();
   }
-  private getTransportFormatsById(id:string) {
+  private getTransportFormatsById(id:number) {
     this.transportService.transportType({kind_id:id})
       .pipe(
         tap((transportFormats) => this.transportFormats = transportFormats as TransportType[]),
@@ -814,14 +812,14 @@ export class RequestEditorComponent implements OnInit, OnDestroy {
         takeUntil(this._destroy$)
       ).subscribe();
   }
-  private getDeparturePoint(city_id: number, transport_kind_id: string) {
+  private getDeparturePoint(city_id: number, transport_kind_id: number) {
     this.directionService.directionPoint({city_id, transport_kind_id})
       .pipe(
         tap((departurePoint) => this.departurePoint=departurePoint as DirectionPoint[]),
         takeUntil(this._destroy$)
       ).subscribe();
   }
-  private getArrivalPoint(city_id: number, transport_kind_id: string) {
+  private getArrivalPoint(city_id: number, transport_kind_id: number) {
     this.directionService.directionPoint({city_id, transport_kind_id})
       .pipe(
         tap(arrivalPoint => this.arrivalPoint=arrivalPoint as DirectionPoint[]),
@@ -843,21 +841,21 @@ export class RequestEditorComponent implements OnInit, OnDestroy {
         takeUntil(this._destroy$)
       ).subscribe();
   }
-  private getIncoterms(kind_id: string) {
+  private getIncoterms(kind_id: number) {
     this.requestService.requestIncoterms({kind_id})
       .pipe(
         tap((incoterms)=>this.incoterms=incoterms as Incoterms[]),
         takeUntil(this._destroy$)
       ).subscribe();
   }
-  private getRequestServices(kind_id:string) {
+  private getRequestServices(kind_id:number) {
     this.requestService.requestServices({kind_id})
       .pipe(
         tap((services)=>this.services=services as RequestServices[]),
         takeUntil(this._destroy$)
       ).subscribe();
   }
-  private getRequestServicesAdditional(kind_id:string) {
+  private getRequestServicesAdditional(kind_id:number) {
     this.requestService.requestServicesAdditional({kind_id})
       .pipe(
         tap((servicesAdditionals)=>this.servicesAdditionals=servicesAdditionals as RequestServices[]),

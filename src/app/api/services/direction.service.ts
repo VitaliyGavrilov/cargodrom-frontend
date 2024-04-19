@@ -46,6 +46,11 @@ export class DirectionService extends BaseService {
 'id'?: number;
 
 /**
+ * Ключ
+ */
+'key'?: string;
+
+/**
  * Наименование
  */
 'name'?: string;
@@ -65,6 +70,11 @@ export class DirectionService extends BaseService {
          * ID
          */
         'id'?: number;
+        
+        /**
+         * Ключ
+         */
+        'key'?: string;
         
         /**
          * Наименование
@@ -97,6 +107,11 @@ export class DirectionService extends BaseService {
 'id'?: number;
 
 /**
+ * Ключ
+ */
+'key'?: string;
+
+/**
  * Наименование
  */
 'name'?: string;
@@ -110,6 +125,11 @@ export class DirectionService extends BaseService {
 'id'?: number;
 
 /**
+ * Ключ
+ */
+'key'?: string;
+
+/**
  * Наименование
  */
 'name'?: string;
@@ -119,6 +139,11 @@ export class DirectionService extends BaseService {
  * ID
  */
 'id'?: number;
+
+/**
+ * Ключ
+ */
+'key'?: string;
 
 /**
  * Наименование
@@ -1022,9 +1047,9 @@ export class DirectionService extends BaseService {
       city_id: number;
 
     /**
-     * ID способа доставки (ID берем из запроса - transport_kind_id)
+     * ID способа доставки (ID берем из запроса - transport_kind)
      */
-      transport_kind_id: string;
+      transport_kind_id: number;
 
     /**
      * Поисковая строка
@@ -1141,9 +1166,9 @@ export class DirectionService extends BaseService {
       city_id: number;
 
     /**
-     * ID способа доставки (ID берем из запроса - transport_kind_id)
+     * ID способа доставки (ID берем из запроса - transport_kind)
      */
-      transport_kind_id: string;
+      transport_kind_id: number;
 
     /**
      * Поисковая строка
@@ -1416,7 +1441,12 @@ export class DirectionService extends BaseService {
 /**
  * ID
  */
-'id'?: string;
+'id'?: number;
+
+/**
+ * Ключ
+ */
+'key'?: string;
 
 /**
  * Наименование
@@ -1437,7 +1467,12 @@ export class DirectionService extends BaseService {
         /**
          * ID
          */
-        'id'?: string;
+        'id'?: number;
+        
+        /**
+         * Ключ
+         */
+        'key'?: string;
         
         /**
          * Наименование
@@ -1467,7 +1502,12 @@ export class DirectionService extends BaseService {
 /**
  * ID
  */
-'id'?: string;
+'id'?: number;
+
+/**
+ * Ключ
+ */
+'key'?: string;
 
 /**
  * Наименование
@@ -1480,7 +1520,12 @@ export class DirectionService extends BaseService {
 /**
  * ID
  */
-'id'?: string;
+'id'?: number;
+
+/**
+ * Ключ
+ */
+'key'?: string;
 
 /**
  * Наименование
@@ -1491,7 +1536,12 @@ export class DirectionService extends BaseService {
 /**
  * ID
  */
-'id'?: string;
+'id'?: number;
+
+/**
+ * Ключ
+ */
+'key'?: string;
 
 /**
  * Наименование

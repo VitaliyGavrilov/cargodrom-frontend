@@ -92,7 +92,8 @@ export class ClientEditorComponent extends Editor<Client> implements OnInit {
       bank_kpp: ['', []],
       bank_payment_account: ['', []],
       bank_correspondent_account: ['', []],
-      currency: ['', []],
+      // currency: ['', []],
+      bank_currency_id: ['', []],
 
       accountant_fio: ['', []],
       accountant_phone: ['', []],
@@ -123,7 +124,7 @@ export class ClientEditorComponent extends Editor<Client> implements OnInit {
     this.loadCurrencies();
   }
 
- 
+
   private afterRead(client: Client): void {
     this.getCities(client.country_id!);
     this.documents = client.documents_file || [];
