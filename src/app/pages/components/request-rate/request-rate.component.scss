@@ -1,0 +1,236 @@
+// .cargo-info{
+//   flex-grow: 1;
+//   border: solid red 1px;
+// }
+
+.df{
+  display: flex;
+}
+
+.form-col{
+  flex-grow: 1;
+  border-right: 1px solid #C3CCD6;
+  margin: -40px 0 -40px 0;
+  width: 0;
+  max-width: 381px;
+  padding: 40px;
+}
+.form-col:first-child{
+  margin-left: -40px;
+}
+.form-col:last-child{
+  margin-right: -40px;
+  border-right: 0;
+}
+
+
+
+.form-block .form-col .form-block-sub-title + .form-item-layout {
+  margin-top: 25px;
+}
+
+.form-col textarea{
+  background: none;
+  height: 150px;
+  border: none;
+  padding: 0;
+  margin: 0;
+  width: 100%;
+  line-height: 30px;
+  resize: none;
+}
+
+.form-col .form-col-title{
+  color: #2C3640;
+  font-weight: bold;
+  font-size: 20px;
+  line-height: 20px;
+  padding-bottom: 25px;
+}
+
+.form-row .form-row-title{
+  color: #2C3640;
+  font-weight: bold;
+  font-size: 20px;
+  line-height: 20px;
+  padding-bottom: 25px;
+}
+
+.file-box{
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+  border-radius: 6px;
+  height: 15px;
+  padding: 10px 10px;
+  margin-right: 5px;
+  margin-bottom: 15px;
+  color: #DB563B;
+  text-wrap: nowrap;
+  cursor: pointer;
+}
+.file-box:hover{
+  opacity: 0.7;
+}
+
+.wrap{
+  flex-wrap: wrap;
+}
+
+.radio{
+  margin-left: 20px;
+  margin-bottom: 25px;
+}
+
+// .form-row .mat-tab-group {
+//   margin: 0 -40px;
+//   max-width: 1142px ;
+// }
+
+// .form-row .mat-tab-header{
+//   padding-left: 40px;
+//   padding-right: 250px;
+// }
+
+// .form-row .mat-tab-label{
+//   border: 1px solid #C3CCD6;
+//   border-bottom: 0;
+//   border-right: 0;
+// }
+// .form-row .mat-tab-label:last-child{
+//   border-right: 1px solid #C3CCD6;
+// }
+
+// .form-row .mat-tab-body-wrapper{
+//   padding: 40px;
+//   background-color: white;
+//   margin-bottom: -40px;
+// }
+
+// .form-row .mat-ink-bar{
+//   display: none;
+// }
+
+// .form-row .mat-tab-label:focus:not(.mat-tab-disabled) {
+//   opacity: 1;
+//   background-color: white;
+// }
+
+// .form-row .mat-tab-label-active{
+//   background-color: white;
+//   opacity: 1;
+// }
+
+.rate_labels{
+  height: 40px;
+  margin-bottom: -40px;
+  display: flex;
+}
+
+.rate_label{
+
+  height: 100%;
+  width: 100px;
+  border-right: 1px solid #C3CCD6;
+  border-top: 1px solid #C3CCD6;
+}
+.rate_label:first-child{
+  border-left: 1px solid #C3CCD6;
+}
+
+.active-rate{
+  background-color: white;
+}
+
+.btn-add-rate{
+  background-color: #DB563B;
+  border: none;
+  width: 100px;
+  height: 80%;
+  margin: 5px;
+  border-radius: 6px;
+  color: white;
+}
+
+.btn-dup-rate{
+  width: 100px;
+  height: 80%;
+  background-color: #4B66AD;
+  border: none;
+  margin: 5px;
+  margin-left: 0;
+  border-radius: 6px;
+  color: white;
+}
+
+.kg{
+  display: flex;
+  align-items: center;
+  gap: 5px;
+}
+
+.rate .form-item-layout{
+  
+}
+
+.charges{
+  display: flex;
+  margin-top: 40px;
+
+}
+
+.included-fees{
+  width: 65%;
+}
+
+.list-charges{
+  width: 35%;
+}
+
+.dn{
+  display: none;
+}
+
+
+
+
+.mat-primary .mat-pseudo-checkbox-checked, .mat-primary .mat-pseudo-checkbox-indeterminate {
+  background: #DB563B;
+}
+.mat-primary .mat-option.mat-selected:not(.mat-option-disabled) {
+  color: #DB563B;
+}
+
+
+.mat-calendar-body-cell.selected
+{
+  background-color:#DB563B;
+  border-radius: 6px;
+
+}
+.drop-calendar
+{
+  width:30rem
+}
+
+.test1234{
+  background: #F7F9FC;
+  border: 1px solid #E0E5EB;
+  color: #2C3640;
+  font-size: 15px;
+  line-height: 15px;
+  border-radius: 6px;
+  width: 206px;
+  box-sizing: border-box;
+  padding: 11px 13px 9px;
+  height: 39.88px;
+  white-space: nowrap;
+
+  overflow: hidden;
+  text-overflow: ellipsis;
+  text-align: left;
+}
+
+.mat-menu-panel{
+  width: 206px;
+}
+
+

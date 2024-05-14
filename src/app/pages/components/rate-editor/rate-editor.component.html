@@ -1,0 +1,179 @@
+<form [formGroup]="rateForm" class="form-item-table-row">
+
+  <div class="form-row bg ">
+
+    <div class="form-item-layout mb40px">
+      <div class="form-row-title">Rates</div>
+
+      <label class="radio">
+        <input type="radio" [value]="true" formControlName="details">
+        <i></i>
+        <span>With Details</span>
+      </label>
+
+      <label class="radio">
+        <input type="radio" [value]="false" formControlName="details">
+        <i></i>
+        <span>With single Amount</span>
+      </label>
+
+    </div>
+
+    <div class="rate_labels">
+      <div *ngFor="let rate of rates; let i=index">
+        <div class="rate_label"  (click)="onChangeRate(i)" [ngClass]="{'active-rate':i===test}"> Rate{{i+1}}</div>
+      </div>
+
+      <button class="btn-add-rate" (click)="onAddRate()">Add Rate</button>
+      <button class="btn-dup-rate">Duplicate Rate</button>
+      <button class="btn-dup-rate" (click)="onDeleteRate()">Delete Rate</button>
+    </div>
+
+  </div>
+
+  <div class="form-row rate">
+    <div class="form-item-layout">
+
+      <div class="form-item i10">
+        <div class="form-label">Chargeable weight:</div>
+        <div class="form-data">
+          <span class="kg"><input formControlName="chargeable_weight" type="text" readonly>kg</span>
+        </div>
+      </div>
+
+      <div class="form-item">
+        <div class="form-label">Airline:</div>
+        <div class="form-data">
+          <input type="text"  formControlName="airline"  readonly >
+        </div>
+      </div>
+
+      <div class="form-item i10">
+        <div class="form-label">Airline (iata):<span class="req">•</span></div>
+        <div class="form-data">
+          <mat-form-field appearance="outline" class="ui-select">
+           <mat-select formControlName="airline_id">
+            <mat-option
+              *ngFor="let transportCarrier of transportCarrier;"
+              [value]="transportCarrier.id"
+              (click)="onAirlineIataChange(transportCarrier)"
+              >
+              {{ transportCarrier.iata }}
+            </mat-option>
+           </mat-select>
+         </mat-form-field>
+        </div>
+      </div>
+
+      <div class="form-item">
+        <div class="form-label">Route:</div>
+        <div class="form-data">
+          <!-- <div>{{requestEn.cargo_type_name}}</div> -->
+        </div>
+      </div>
+
+      <div class="form-item">
+        <div class="form-label">The departure schedule:</div>
+        <div class="form-data">
+          <mat-form-field appearance="outline" class="ui-select">
+            <mat-select formControlName="departure_schedule" multiple>
+              <mat-option
+                *ngFor="let day of daysOfTheWeek;"
+                [value]="day.id"
+                >
+                {{ day.day }}
+              </mat-option>
+            </mat-select>
+          </mat-form-field>
+        </div>
+      </div>
+
+      <div class="form-item">
+        <div class="form-label">The nearest flight etd:</div>
+        <div class="form-data">
+          <!-- <div class="test1234">
+            {{testTextData(daysSelected)}}
+          </div>
+           <div>
+            <span *ngFor="let test of daysSelected">{{test}}</span>
+          </div> -->
+
+          <button class="test1234"  [matMenuTriggerFor]="menu">{{testTextData()}}</button>
+          <mat-menu #menu="matMenu">
+            <div (click)="$event.stopPropagation()">
+              <mat-calendar #calendar
+                (selectedChange)="select($event,calendar)"
+                [dateClass]="isSelected">
+              </mat-calendar>
+            </div>
+          </mat-menu>
+
+        </div>
+      </div>
+
+    </div>
+
+    <div class="charges">
+
+      <div class="included-fees" >
+        <div>The rate includes following charges</div>
+
+        <div formArrayName="charges" *ngFor="let charge of charges.controls; let i = index;">
+          <div [formGroupName]="i" *ngIf="charge.value.test1==true">
+
+            <div style="display: flex; gap: 10px; margin-top: 40px;">
+
+              <label class="radio">
+                <input  type="checkbox" formControlName="test1" >
+                <i></i>
+              </label>
+              <!-- <mat-checkbox  [disabled]="testbul" formControlName="test1">
+              </mat-checkbox> -->
+
+              <div>
+                <input type="text" formControlName="test2" />
+              </div>
+
+            </div>
+
+          </div>
+        </div>
+
+      </div>
+
+      <div class="list-charges">
+        <div>List of Charges</div>
+
+        <div formArrayName="charges" *ngFor="let charge of charges.controls; let i = index;">
+          <div [formGroupName]="i" *ngIf="charge.value.test1==false">
+
+            <div style="display: flex; gap: 10px; margin-top: 40px;">
+
+              <label class="radio">
+                <input  type="checkbox" formControlName="test1">
+                <i></i>
+              </label>
+              <!-- <mat-checkbox  [disabled]="testbul" formControlName="test1">
+              </mat-checkbox> -->
+
+              <div>
+                <input type="text" formControlName="test2" />
+              </div>
+
+            </div>
+
+          </div>
+        </div>
+
+      </div>
+
+    </div>
+
+    <button (click)="addCharge()">addCharge</button>
+
+  </div>
+
+</form>
+
+
+

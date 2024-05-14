@@ -27,17 +27,24 @@
         </label>
       </th>
 
-      <th *ngFor="let kind of kinds" [ngClass]="kind.classes">
+      <!-- <th *ngFor="let kind of kinds" [ngClass]="kind.classes"> -->
+      <th *ngFor="let kind of kinds" [ngClass]="setClassIcon(kind)">
         <div class="l">
-          <span class="ico" [ngClass]="kind.type"></span>
+          <span class="ico" [ngClass]="setClassIcon(kind)"></span>
           <span>{{kind.name}}</span>
         </div>
         <label>
-          <mat-checkbox
+          <!-- <mat-checkbox
             class="show-all testclass"
             [checked]="allCheckedForKind(kind.kind)"
             [indeterminate]="!allCompleteForKind(kind.kind)"
             (change)="allChangeForKind(kind.kind, $event)">
+          </mat-checkbox> -->
+          <mat-checkbox
+            class="show-all testclass"
+            [checked]="allCheckedForKind(kind.id)"
+            [indeterminate]="!allCompleteForKind(kind.id)"
+            (change)="allChangeForKind(kind.id, $event)">
           </mat-checkbox>
           <i></i>
         </label>
@@ -79,10 +86,15 @@
 
       <td *ngFor="let kind of kinds" [ngClass]="kind.classes">
         <label>
-          <mat-checkbox
+          <!-- <mat-checkbox
             class="show-all testclass"
             [checked]="checkedForCountryAndKind(i, kind.kind)"
             (change)="changeForCountryAndKind(i, kind.kind, $event)">
+          </mat-checkbox> -->
+          <mat-checkbox
+            class="show-all testclass"
+            [checked]="checkedForCountryAndKind(i, kind.id)"
+            (change)="changeForCountryAndKind(i, kind.id, $event)">
           </mat-checkbox>
           <i></i>
         </label>

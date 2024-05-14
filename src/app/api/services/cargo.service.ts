@@ -156,6 +156,11 @@ export class CargoService extends BaseService {
  * Наименование
  */
 'name'?: string;
+
+/**
+ * Параметры
+ */
+'param'?: string;
 }>>> {
     const rb = new RequestBuilder(this.rootUrl, CargoService.CargoTypePath, 'get');
     if (params) {
@@ -177,6 +182,11 @@ export class CargoService extends BaseService {
          * Наименование
          */
         'name'?: string;
+        
+        /**
+         * Параметры
+         */
+        'param'?: string;
         }>>;
       })
     );
@@ -207,6 +217,11 @@ export class CargoService extends BaseService {
  * Наименование
  */
 'name'?: string;
+
+/**
+ * Параметры
+ */
+'param'?: string;
 }>> {
     return this.cargoType$Response(params, context).pipe(
       map((r: StrictHttpResponse<Array<{
@@ -220,6 +235,11 @@ export class CargoService extends BaseService {
  * Наименование
  */
 'name'?: string;
+
+/**
+ * Параметры
+ */
+'param'?: string;
 }>>): Array<{
 
 /**
@@ -231,6 +251,11 @@ export class CargoService extends BaseService {
  * Наименование
  */
 'name'?: string;
+
+/**
+ * Параметры
+ */
+'param'?: string;
 }> => r.body)
     );
   }

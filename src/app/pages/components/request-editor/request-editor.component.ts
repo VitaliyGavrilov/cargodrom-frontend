@@ -170,6 +170,10 @@ export class RequestEditorComponent implements OnInit, OnDestroy {
       //эти данные не нужны для создания и редактирования, но понадобятся потом
     });
   }
+
+  linkRate(){
+    this.router.navigate(['pages/request/rate', this.id]);
+  }
   //МЕТОДЫ ЖЦ
   ngOnDestroy(): void {
     this._destroy$.next(null);

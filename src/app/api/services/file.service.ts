@@ -1222,9 +1222,14 @@ export class FileService extends BaseService {
   ): Observable<StrictHttpResponse<{
 
 /**
- * Статус выполнения
+ * Наименование
  */
-'result': 'OK';
+'name'?: string;
+
+/**
+ * Base64 строка файла
+ */
+'data'?: string;
 }>> {
     const rb = new RequestBuilder(this.rootUrl, FileService.FileDownloadPath, 'get');
     if (params) {
@@ -1239,9 +1244,14 @@ export class FileService extends BaseService {
         return r as StrictHttpResponse<{
         
         /**
-         * Статус выполнения
+         * Наименование
          */
-        'result': 'OK';
+        'name'?: string;
+        
+        /**
+         * Base64 строка файла
+         */
+        'data'?: string;
         }>;
       })
     );
@@ -1269,23 +1279,38 @@ export class FileService extends BaseService {
   ): Observable<{
 
 /**
- * Статус выполнения
+ * Наименование
  */
-'result': 'OK';
+'name'?: string;
+
+/**
+ * Base64 строка файла
+ */
+'data'?: string;
 }> {
     return this.fileDownload$Response(params, context).pipe(
       map((r: StrictHttpResponse<{
 
 /**
- * Статус выполнения
+ * Наименование
  */
-'result': 'OK';
+'name'?: string;
+
+/**
+ * Base64 строка файла
+ */
+'data'?: string;
 }>): {
 
 /**
- * Статус выполнения
+ * Наименование
  */
-'result': 'OK';
+'name'?: string;
+
+/**
+ * Base64 строка файла
+ */
+'data'?: string;
 } => r.body)
     );
   }

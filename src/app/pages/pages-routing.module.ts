@@ -15,6 +15,7 @@ import { PagesComponent } from './pages.component';
 import { ClientEditorComponent } from './components/client-editor/client-editor.component';
 import { AuthGuard } from '../auth/auth.guard';
 import { RequestEditorTranslateComponent } from './components/request-editor-translate/request-editor-translate.component';
+import { RequestRateComponent } from './components/request-rate/request-rate.component';
 
 
 
@@ -63,6 +64,13 @@ const routes: Routes = [
         component: RequestEditorTranslateComponent,
         pathMatch: 'full',
         title: 'Проверка перевода запроса',
+        canActivate: [AuthGuard],
+      },
+      {
+        path: 'request/rate/:id',
+        component: RequestRateComponent,
+        pathMatch: 'full',
+        title: 'Rate',
         canActivate: [AuthGuard],
       },
       {
