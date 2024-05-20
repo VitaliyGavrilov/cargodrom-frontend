@@ -66,6 +66,7 @@ export class RequestEditorComponent implements OnInit, OnDestroy {
   currentPlacesDensity: number = 0 ;
   currentDepartureCountryName:string='';
   currentArrivalCountryName:string='';
+  transport_kind_id?:number;
   //снек бар
   snackBarWithShortDuration: MatSnackBarConfig = { duration: 1000 };
   snackBarWithLongDuration: MatSnackBarConfig = { duration: 3000 };
@@ -112,7 +113,7 @@ export class RequestEditorComponent implements OnInit, OnDestroy {
       customer_id: [ , [Validators.required]],// + (customer это клиент,должен быть контрактор)
       customer_name: ['',[Validators.required]],
       request_type_id: [1, [Validators.required]],// +
-      transport_kind_id: [, [Validators.required]],// +
+      transport_kind_id: ['', [Validators.required]],// +
       transport_type_id: ['', [Validators.required]],// +
       //ОПИСАНИЕ ГРУЗА
       cargo_description: ['', [Validators.required,Validators.minLength(2)]],// +
@@ -284,12 +285,12 @@ export class RequestEditorComponent implements OnInit, OnDestroy {
       services_optional: body.services_optional,
     }
     //удаляем доп поля
-    if(body.transport_kind_id !== 'avia') {
+    if(body.transport_kind_id !== 1) {
       delete data.departure_point_id;
       delete data.arrival_point_id;
       delete data.cargo_places_paid_weight;
     }
-    if(body.transport_kind_id === 'road'){
+    if(body.transport_kind_id === 2){
       delete data.incoterms_city_id;
       delete data.incoterms_id;
       delete data.services;
@@ -344,12 +345,12 @@ export class RequestEditorComponent implements OnInit, OnDestroy {
       services_optional: body.services_optional,
     }
     //удаляем доп поля
-    if(body.transport_kind_id !== 'avia') {
+    if(body.transport_kind_id !== 1) {
       delete data.departure_point_id;
       delete data.arrival_point_id;
       delete data.cargo_places_paid_weight;
     }
-    if(body.transport_kind_id === 'road'){
+    if(body.transport_kind_id === 2){
       delete data.incoterms_city_id;
       delete data.incoterms_id;
       delete data.services;
@@ -419,12 +420,12 @@ export class RequestEditorComponent implements OnInit, OnDestroy {
     if(!body.cargo_temperature.cargo_temperature_control) {
       delete data.cargo_temperature;
     }
-    if(body.transport_kind_id !== 'avia') {
+    if(body.transport_kind_id !== 1) {
       delete data.departure_point_id;
       delete data.arrival_point_id;
       delete data.cargo_places_paid_weight;
     }
-    if(body.transport_kind_id === 'road'){
+    if(body.transport_kind_id === 2){
       delete data.incoterms_city_id;
       delete data.incoterms_id;
       delete data.services;
@@ -488,12 +489,12 @@ export class RequestEditorComponent implements OnInit, OnDestroy {
     if(!body.cargo_temperature.cargo_temperature_control) {
       delete data.cargo_temperature;
     }
-    if(body.transport_kind_id !== 'avia') {
+    if(body.transport_kind_id !== 1) {
       delete data.departure_point_id;
       delete data.arrival_point_id;
       delete data.cargo_places_paid_weight;
     }
-    if(body.transport_kind_id === 'road'){
+    if(body.transport_kind_id === 2){
       delete data.incoterms_city_id;
       delete data.incoterms_id;
       delete data.services;
@@ -644,16 +645,23 @@ export class RequestEditorComponent implements OnInit, OnDestroy {
 
   }
   //изменение поля вида перевозки
-  onTransportationFormatsChange() {
+  onTransportationFormatsChange(e:any) {
     this.requestForm.controls['transport_type_id'].reset();
     this.requestForm.controls['incoterms_id'].reset();
     this.requestForm.controls['departure_point_id'].reset();
     this.requestForm.controls['services'].reset();
     this.requestForm.controls['services_optional'].reset();
+    this.transport_kind_id=e;
     this.getTransportFormatsById(this.requestForm.value.transport_kind_id);
     this.getIncoterms(this.requestForm.value.transport_kind_id);
     this.getRequestServices(this.requestForm.value.transport_kind_id);
     this.getRequestServicesAdditional(this.requestForm.value.transport_kind_id);
+  }
+  //изменение поля тип груза
+  onCargoTypeChange(e:any) {
+    if(e.param !=='temperature'){
+      this.requestForm.controls['cargo_temperature'].reset();
+    }
   }
   //изменение поля города отправления
   onDepartureCityChange(city: DirectionCity): void {
@@ -898,25 +906,35 @@ export class RequestEditorComponent implements OnInit, OnDestroy {
     const id = Number(this.route.snapshot.paramMap.get('id'));
     this.id = id;
     this.requestService.requestInfo({id})
-      .pipe(tap(request => {
-        if (!request) {
-          throw ({ error: { error_message: `Запрос не существует` } });
-        }
-      }))
+      .pipe(
+        tap(request => {
+          console.log('получили данные запроса',request);
+          if (!request) {
+            throw ({ error: { error_message: `Запрос не существует` } });
+          } else {
+            request.cargo_places?.forEach(element => {
+              this.addPlace();
+            });
+            this.requestForm.patchValue(request);
+          }
+          this.transport_kind_id=request.transport_kind_id;
+        }),
+        takeUntil(this._destroy$),
+      )
       .subscribe({
         next: request => {
+          // this.requestForm.patchValue(request);
+          // this.getFile(id);
+          // this.getDangerFile(id);
+          // this.getTransportFormatsById(this.requestForm.value.transport_kind_id);
+          // this.getIncoterms(this.requestForm.value.transport_kind_id);
+          // this.getRequestServices(this.requestForm.value.transport_kind_id);
+          // this.getRequestServicesAdditional(this.requestForm.value.transport_kind_id);
+          // this.getArrivalPoint(this.requestForm.value.arrival_city_id, this.requestForm.value.transport_kind_id);
+          // this.getDeparturePoint(this.requestForm.value.departure_city_id, this.requestForm.value.transport_kind_id);
           this.getFile(id);
           this.getDangerFile(id);
-          console.log('получили данные запроса',request);
-
-
-          request.cargo_places?.forEach(element => {
-            this.addPlace()
-          });
-
-          this.requestForm.patchValue(request);
-          //тут нужны будут еще проверки
-          this.getTransportFormatsById(this.requestForm.value.transport_kind_id);
+          this.getTransportFormatsById(request.transport_kind_id!);
           this.getIncoterms(this.requestForm.value.transport_kind_id);
           this.getRequestServices(this.requestForm.value.transport_kind_id);
           this.getRequestServicesAdditional(this.requestForm.value.transport_kind_id);

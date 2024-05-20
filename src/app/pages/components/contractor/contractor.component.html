@@ -166,7 +166,15 @@
       <td mat-cell *matCellDef="let contractor">
         <div class="td-block">
           <div class="column w50">
-            <span class="type" *ngFor="let spec of contractor.specialization" [ngClass]="spec"></span>
+             <span class="type" *ngFor="let spec of contractor.specialization" [ngClass]="getSpecializationClass(spec)"></span>
+            <!-- <span class="type" *ngFor="let spec of contractor.specialization" [ngClass]="spec"></span> -->
+            <!-- <span class="type" *ngFor="let spec of contractor.specialization"
+              [ngClass]="spec===1? 'avia': '' "
+              [ngClass]="spec===2? 'road': '' "
+              [ngClass]="spec===3? 'rw': '' "
+              [ngClass]="spec===4? 'sea': '' "
+              >
+            </span> -->
           </div>
           <div class="column w50">{{ contractor.container.join(', ') }}</div>
         </div>
@@ -257,6 +265,7 @@
 
     <tr mat-header-row *matHeaderRowDef="column"></tr>
     <tr mat-row *matRowDef="let row; columns: column;"></tr>
+    
   </table>
 </div>
 

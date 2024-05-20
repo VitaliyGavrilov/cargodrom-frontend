@@ -130,14 +130,20 @@
   width: 164px;
 }
 
+
 th.air{
 
 }
+th.all.bg+th.air{
+  border-left: 1px solid #9ca6b1;
+}
+
+th.all.bg{
+  border-left: 1px solid #9ca6b1;
+}
 
 th.road{
-
   background: #778490;
-
 }
 th.air + th.road{
   border-left: 1px solid #9ca6b1;
@@ -151,11 +157,54 @@ th.road+th.rail{
 }
 
 th.sea{
-
   background: #778490;
 }
 th.rail+th.sea{
   border-left: 1px solid #9ca6b1;
+}
+
+
+td.air{
+
+}
+.bg.s.e+td.air{
+  border-left: 1px solid #e0e5eb;
+}
+
+.t1 .row td.road{
+  background-color: #f7f9fc;
+}
+td.air + td.road{
+  border-left: 1px solid #e0e5eb;
+}
+
+td.rail{
+
+}
+td.road+td.rail{
+  border-left: 1px solid #e0e5eb;
+}
+
+.t1 .row td.sea{
+  background: #f7f9fc;
+}
+td.rail+td.sea{
+  border-left: 1px solid #e0e5eb;
+}
+
+.t1 td {
+  padding: 15px 5px 12px;
+  text-align: center;
+}
+.t1 th {
+  padding: 8px 5px 13px;
+}
+
+.t1 .e {
+  padding-right: 10px;
+}
+.t1 .s {
+  padding-left: 10px;
 }
 
 

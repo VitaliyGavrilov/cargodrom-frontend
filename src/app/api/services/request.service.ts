@@ -11914,6 +11914,11 @@ export class RequestService extends BaseService {
 'rates'?: Array<{
 
 /**
+ * ID
+ */
+'id'?: number;
+
+/**
  * Тип ставки
  */
 'rate_type': 'detail' | 'single';
@@ -12194,6 +12199,11 @@ export class RequestService extends BaseService {
          * Ставки
          */
         'rates'?: Array<{
+        
+        /**
+         * ID
+         */
+        'id'?: number;
         
         /**
          * Тип ставки
@@ -12491,6 +12501,11 @@ export class RequestService extends BaseService {
 'rates'?: Array<{
 
 /**
+ * ID
+ */
+'id'?: number;
+
+/**
  * Тип ставки
  */
 'rate_type': 'detail' | 'single';
@@ -12764,6 +12779,11 @@ export class RequestService extends BaseService {
 'rates'?: Array<{
 
 /**
+ * ID
+ */
+'id'?: number;
+
+/**
  * Тип ставки
  */
 'rate_type': 'detail' | 'single';
@@ -13033,6 +13053,11 @@ export class RequestService extends BaseService {
  * Ставки
  */
 'rates'?: Array<{
+
+/**
+ * ID
+ */
+'id'?: number;
 
 /**
  * Тип ставки
@@ -13196,135 +13221,16 @@ export class RequestService extends BaseService {
    * This method provides access to the full `HttpResponse`, allowing access to response headers.
    * To access only the response body, use `requestRatesSave()` instead.
    *
-   * This method doesn't expect any request body.
+   * This method sends `application/json` and handles request body of type `application/json`.
    */
   requestRatesSave$Response(
-    params: {
-
-    /**
-     * UID запроса (из URL)
-     */
-      uid: string;
-    },
-    context?: HttpContext
-  ): Observable<StrictHttpResponse<{
+    params?: {
+      body?: {
 
 /**
  * UID
  */
 'uid': string;
-
-/**
- * Country of dispatch
- */
-'departure_country_name'?: string;
-
-/**
- * City of dispatch
- */
-'departure_city_name'?: string;
-
-/**
- * Address of pick-up
- */
-'departure_address'?: string;
-
-/**
- * Airport of departure
- */
-'departure_point_name'?: string;
-
-/**
- * Country of delivery
- */
-'arrival_country_name'?: string;
-
-/**
- * City of delivery
- */
-'arrival_city_name'?: string;
-
-/**
- * Address of departure
- */
-'arrival_address'?: string;
-
-/**
- * Airport of destination
- */
-'arrival_point_name'?: string;
-
-/**
- * Terms of delivery
- */
-'incoterms_name'?: string;
-
-/**
- * Type of flights
- */
-'departure_flight_name'?: string;
-
-/**
- * Commodity
- */
-'cargo_description'?: string;
-
-/**
- * Тип груза
- */
-'cargo_type_name'?: string;
-
-/**
- * Condition of carriage
- */
-'cargo_condition_carriage'?: string;
-
-/**
- * Total q-ty
- */
-'cargo_places_count'?: number;
-
-/**
- * Total m3
- */
-'cargo_places_volume'?: number;
-
-/**
- * Total kg
- */
-'cargo_places_weight'?: number;
-
-/**
- * Density
- */
-'cargo_places_density'?: number;
-
-/**
- * Chargeable weight, kg
- */
-'cargo_places_paid_weight'?: number;
-
-/**
- * Dimensions
- */
-'cargo_dimensions'?: string;
-
-/**
- * Notation
- */
-'comment'?: string;
-
-/**
- * Документы (файлы)
- */
-'documents_file'?: {
-};
-
-/**
- * Паспорта безопасности (файлы)
- */
-'cargo_file'?: {
-};
 
 /**
  * Ставки
@@ -13422,66 +13328,19 @@ export class RequestService extends BaseService {
 'select'?: boolean;
 }>;
 }>;
+}
+    },
+    context?: HttpContext
+  ): Observable<StrictHttpResponse<{
 
 /**
- * Расходы
+ * Статус выполнения
  */
-'charges'?: Array<{
-
-/**
- * Наименование переменной
- */
-'field_name': string;
-
-/**
- * Наименование
- */
-'name': string;
-
-/**
- * Заголовок
- */
-'title': string;
-
-/**
- * Примечание
- */
-'note': string;
-
-/**
- * Единица изменений
- */
-'unit': string;
-
-/**
- * Возможно минимальное значение
- */
-'field_min'?: boolean;
-
-/**
- * Возможно фиксированное значение
- */
-'field_fix'?: boolean;
-
-/**
- * Возможен комментарий
- */
-'field_comment'?: boolean;
-
-/**
- * Признак выбранного
- */
-'status'?: boolean;
-
-/**
- * Запрет изменения
- */
-'requare'?: boolean;
-}>;
+'result': 'OK';
 }>> {
-    const rb = new RequestBuilder(this.rootUrl, RequestService.RequestRatesSavePath, 'get');
+    const rb = new RequestBuilder(this.rootUrl, RequestService.RequestRatesSavePath, 'post');
     if (params) {
-      rb.query('uid', params.uid, {});
+      rb.body(params.body, 'application/json');
     }
 
     return this.http.request(
@@ -13492,274 +13351,9 @@ export class RequestService extends BaseService {
         return r as StrictHttpResponse<{
         
         /**
-         * UID
+         * Статус выполнения
          */
-        'uid': string;
-        
-        /**
-         * Country of dispatch
-         */
-        'departure_country_name'?: string;
-        
-        /**
-         * City of dispatch
-         */
-        'departure_city_name'?: string;
-        
-        /**
-         * Address of pick-up
-         */
-        'departure_address'?: string;
-        
-        /**
-         * Airport of departure
-         */
-        'departure_point_name'?: string;
-        
-        /**
-         * Country of delivery
-         */
-        'arrival_country_name'?: string;
-        
-        /**
-         * City of delivery
-         */
-        'arrival_city_name'?: string;
-        
-        /**
-         * Address of departure
-         */
-        'arrival_address'?: string;
-        
-        /**
-         * Airport of destination
-         */
-        'arrival_point_name'?: string;
-        
-        /**
-         * Terms of delivery
-         */
-        'incoterms_name'?: string;
-        
-        /**
-         * Type of flights
-         */
-        'departure_flight_name'?: string;
-        
-        /**
-         * Commodity
-         */
-        'cargo_description'?: string;
-        
-        /**
-         * Тип груза
-         */
-        'cargo_type_name'?: string;
-        
-        /**
-         * Condition of carriage
-         */
-        'cargo_condition_carriage'?: string;
-        
-        /**
-         * Total q-ty
-         */
-        'cargo_places_count'?: number;
-        
-        /**
-         * Total m3
-         */
-        'cargo_places_volume'?: number;
-        
-        /**
-         * Total kg
-         */
-        'cargo_places_weight'?: number;
-        
-        /**
-         * Density
-         */
-        'cargo_places_density'?: number;
-        
-        /**
-         * Chargeable weight, kg
-         */
-        'cargo_places_paid_weight'?: number;
-        
-        /**
-         * Dimensions
-         */
-        'cargo_dimensions'?: string;
-        
-        /**
-         * Notation
-         */
-        'comment'?: string;
-        
-        /**
-         * Документы (файлы)
-         */
-        'documents_file'?: {
-        };
-        
-        /**
-         * Паспорта безопасности (файлы)
-         */
-        'cargo_file'?: {
-        };
-        
-        /**
-         * Ставки
-         */
-        'rates'?: Array<{
-        
-        /**
-         * Тип ставки
-         */
-        'rate_type': 'detail' | 'single';
-        
-        /**
-         * Порядковый номер
-         */
-        'num'?: string;
-        
-        /**
-         * Транспортная компания (Airline) (ID берем из запроса - transport_carrier)
-         */
-        'carrier_id': number;
-        
-        /**
-         * Маршрут (Route) (ID берем из запроса - transport_route)
-         */
-        'route_id': number;
-        
-        /**
-         * Расписание отправления (Departure schedule)
-         */
-        'departure_schedule'?: Array<string>;
-        
-        /**
-         * Ближайшие рейсы (Nearest flight etd)
-         */
-        'nearest_flight'?: Array<string>;
-        
-        /**
-         * Стоимость (Cost)
-         */
-        'total_cost'?: number;
-        
-        /**
-         * Включение прибыли (Profit is included)
-         */
-        'profit_include'?: boolean;
-        
-        /**
-         * Комментарий (Your Comment)
-         */
-        'comment'?: number;
-        
-        /**
-         * Значения ставок
-         */
-        'values'?: Array<{
-        
-        /**
-         * Наименование поля
-         */
-        'field': string;
-        
-        /**
-         * Минимальная цена
-         */
-        'min'?: number;
-        
-        /**
-         * Цена за единицу
-         */
-        'price'?: number;
-        
-        /**
-         * Количество
-         */
-        'value'?: number;
-        
-        /**
-         * Фиксированная надбавка
-         */
-        'fix'?: number;
-        
-        /**
-         * Общая стоимость
-         */
-        'cost'?: number;
-        
-        /**
-         * Комментарий
-         */
-        'comment'?: number;
-        
-        /**
-         * Признак выбора
-         */
-        'select'?: boolean;
-        }>;
-        }>;
-        
-        /**
-         * Расходы
-         */
-        'charges'?: Array<{
-        
-        /**
-         * Наименование переменной
-         */
-        'field_name': string;
-        
-        /**
-         * Наименование
-         */
-        'name': string;
-        
-        /**
-         * Заголовок
-         */
-        'title': string;
-        
-        /**
-         * Примечание
-         */
-        'note': string;
-        
-        /**
-         * Единица изменений
-         */
-        'unit': string;
-        
-        /**
-         * Возможно минимальное значение
-         */
-        'field_min'?: boolean;
-        
-        /**
-         * Возможно фиксированное значение
-         */
-        'field_fix'?: boolean;
-        
-        /**
-         * Возможен комментарий
-         */
-        'field_comment'?: boolean;
-        
-        /**
-         * Признак выбранного
-         */
-        'status'?: boolean;
-        
-        /**
-         * Запрет изменения
-         */
-        'requare'?: boolean;
-        }>;
+        'result': 'OK';
         }>;
       })
     );
@@ -13773,832 +13367,136 @@ export class RequestService extends BaseService {
    * This method provides access only to the response body.
    * To access the full response (for headers, for example), `requestRatesSave$Response()` instead.
    *
-   * This method doesn't expect any request body.
+   * This method sends `application/json` and handles request body of type `application/json`.
    */
   requestRatesSave(
-    params: {
+    params?: {
+      body?: {
 
-    /**
-     * UID запроса (из URL)
-     */
-      uid: string;
+/**
+ * UID
+ */
+'uid': string;
+
+/**
+ * Ставки
+ */
+'rates'?: Array<{
+
+/**
+ * Тип ставки
+ */
+'rate_type': 'detail' | 'single';
+
+/**
+ * Порядковый номер
+ */
+'num'?: string;
+
+/**
+ * Транспортная компания (Airline) (ID берем из запроса - transport_carrier)
+ */
+'carrier_id': number;
+
+/**
+ * Маршрут (Route) (ID берем из запроса - transport_route)
+ */
+'route_id': number;
+
+/**
+ * Расписание отправления (Departure schedule)
+ */
+'departure_schedule'?: Array<string>;
+
+/**
+ * Ближайшие рейсы (Nearest flight etd)
+ */
+'nearest_flight'?: Array<string>;
+
+/**
+ * Стоимость (Cost)
+ */
+'total_cost'?: number;
+
+/**
+ * Включение прибыли (Profit is included)
+ */
+'profit_include'?: boolean;
+
+/**
+ * Комментарий (Your Comment)
+ */
+'comment'?: number;
+
+/**
+ * Значения ставок
+ */
+'values'?: Array<{
+
+/**
+ * Наименование поля
+ */
+'field': string;
+
+/**
+ * Минимальная цена
+ */
+'min'?: number;
+
+/**
+ * Цена за единицу
+ */
+'price'?: number;
+
+/**
+ * Количество
+ */
+'value'?: number;
+
+/**
+ * Фиксированная надбавка
+ */
+'fix'?: number;
+
+/**
+ * Общая стоимость
+ */
+'cost'?: number;
+
+/**
+ * Комментарий
+ */
+'comment'?: number;
+
+/**
+ * Признак выбора
+ */
+'select'?: boolean;
+}>;
+}>;
+}
     },
     context?: HttpContext
   ): Observable<{
 
 /**
- * UID
+ * Статус выполнения
  */
-'uid': string;
-
-/**
- * Country of dispatch
- */
-'departure_country_name'?: string;
-
-/**
- * City of dispatch
- */
-'departure_city_name'?: string;
-
-/**
- * Address of pick-up
- */
-'departure_address'?: string;
-
-/**
- * Airport of departure
- */
-'departure_point_name'?: string;
-
-/**
- * Country of delivery
- */
-'arrival_country_name'?: string;
-
-/**
- * City of delivery
- */
-'arrival_city_name'?: string;
-
-/**
- * Address of departure
- */
-'arrival_address'?: string;
-
-/**
- * Airport of destination
- */
-'arrival_point_name'?: string;
-
-/**
- * Terms of delivery
- */
-'incoterms_name'?: string;
-
-/**
- * Type of flights
- */
-'departure_flight_name'?: string;
-
-/**
- * Commodity
- */
-'cargo_description'?: string;
-
-/**
- * Тип груза
- */
-'cargo_type_name'?: string;
-
-/**
- * Condition of carriage
- */
-'cargo_condition_carriage'?: string;
-
-/**
- * Total q-ty
- */
-'cargo_places_count'?: number;
-
-/**
- * Total m3
- */
-'cargo_places_volume'?: number;
-
-/**
- * Total kg
- */
-'cargo_places_weight'?: number;
-
-/**
- * Density
- */
-'cargo_places_density'?: number;
-
-/**
- * Chargeable weight, kg
- */
-'cargo_places_paid_weight'?: number;
-
-/**
- * Dimensions
- */
-'cargo_dimensions'?: string;
-
-/**
- * Notation
- */
-'comment'?: string;
-
-/**
- * Документы (файлы)
- */
-'documents_file'?: {
-};
-
-/**
- * Паспорта безопасности (файлы)
- */
-'cargo_file'?: {
-};
-
-/**
- * Ставки
- */
-'rates'?: Array<{
-
-/**
- * Тип ставки
- */
-'rate_type': 'detail' | 'single';
-
-/**
- * Порядковый номер
- */
-'num'?: string;
-
-/**
- * Транспортная компания (Airline) (ID берем из запроса - transport_carrier)
- */
-'carrier_id': number;
-
-/**
- * Маршрут (Route) (ID берем из запроса - transport_route)
- */
-'route_id': number;
-
-/**
- * Расписание отправления (Departure schedule)
- */
-'departure_schedule'?: Array<string>;
-
-/**
- * Ближайшие рейсы (Nearest flight etd)
- */
-'nearest_flight'?: Array<string>;
-
-/**
- * Стоимость (Cost)
- */
-'total_cost'?: number;
-
-/**
- * Включение прибыли (Profit is included)
- */
-'profit_include'?: boolean;
-
-/**
- * Комментарий (Your Comment)
- */
-'comment'?: number;
-
-/**
- * Значения ставок
- */
-'values'?: Array<{
-
-/**
- * Наименование поля
- */
-'field': string;
-
-/**
- * Минимальная цена
- */
-'min'?: number;
-
-/**
- * Цена за единицу
- */
-'price'?: number;
-
-/**
- * Количество
- */
-'value'?: number;
-
-/**
- * Фиксированная надбавка
- */
-'fix'?: number;
-
-/**
- * Общая стоимость
- */
-'cost'?: number;
-
-/**
- * Комментарий
- */
-'comment'?: number;
-
-/**
- * Признак выбора
- */
-'select'?: boolean;
-}>;
-}>;
-
-/**
- * Расходы
- */
-'charges'?: Array<{
-
-/**
- * Наименование переменной
- */
-'field_name': string;
-
-/**
- * Наименование
- */
-'name': string;
-
-/**
- * Заголовок
- */
-'title': string;
-
-/**
- * Примечание
- */
-'note': string;
-
-/**
- * Единица изменений
- */
-'unit': string;
-
-/**
- * Возможно минимальное значение
- */
-'field_min'?: boolean;
-
-/**
- * Возможно фиксированное значение
- */
-'field_fix'?: boolean;
-
-/**
- * Возможен комментарий
- */
-'field_comment'?: boolean;
-
-/**
- * Признак выбранного
- */
-'status'?: boolean;
-
-/**
- * Запрет изменения
- */
-'requare'?: boolean;
-}>;
+'result': 'OK';
 }> {
     return this.requestRatesSave$Response(params, context).pipe(
       map((r: StrictHttpResponse<{
 
 /**
- * UID
+ * Статус выполнения
  */
-'uid': string;
-
-/**
- * Country of dispatch
- */
-'departure_country_name'?: string;
-
-/**
- * City of dispatch
- */
-'departure_city_name'?: string;
-
-/**
- * Address of pick-up
- */
-'departure_address'?: string;
-
-/**
- * Airport of departure
- */
-'departure_point_name'?: string;
-
-/**
- * Country of delivery
- */
-'arrival_country_name'?: string;
-
-/**
- * City of delivery
- */
-'arrival_city_name'?: string;
-
-/**
- * Address of departure
- */
-'arrival_address'?: string;
-
-/**
- * Airport of destination
- */
-'arrival_point_name'?: string;
-
-/**
- * Terms of delivery
- */
-'incoterms_name'?: string;
-
-/**
- * Type of flights
- */
-'departure_flight_name'?: string;
-
-/**
- * Commodity
- */
-'cargo_description'?: string;
-
-/**
- * Тип груза
- */
-'cargo_type_name'?: string;
-
-/**
- * Condition of carriage
- */
-'cargo_condition_carriage'?: string;
-
-/**
- * Total q-ty
- */
-'cargo_places_count'?: number;
-
-/**
- * Total m3
- */
-'cargo_places_volume'?: number;
-
-/**
- * Total kg
- */
-'cargo_places_weight'?: number;
-
-/**
- * Density
- */
-'cargo_places_density'?: number;
-
-/**
- * Chargeable weight, kg
- */
-'cargo_places_paid_weight'?: number;
-
-/**
- * Dimensions
- */
-'cargo_dimensions'?: string;
-
-/**
- * Notation
- */
-'comment'?: string;
-
-/**
- * Документы (файлы)
- */
-'documents_file'?: {
-};
-
-/**
- * Паспорта безопасности (файлы)
- */
-'cargo_file'?: {
-};
-
-/**
- * Ставки
- */
-'rates'?: Array<{
-
-/**
- * Тип ставки
- */
-'rate_type': 'detail' | 'single';
-
-/**
- * Порядковый номер
- */
-'num'?: string;
-
-/**
- * Транспортная компания (Airline) (ID берем из запроса - transport_carrier)
- */
-'carrier_id': number;
-
-/**
- * Маршрут (Route) (ID берем из запроса - transport_route)
- */
-'route_id': number;
-
-/**
- * Расписание отправления (Departure schedule)
- */
-'departure_schedule'?: Array<string>;
-
-/**
- * Ближайшие рейсы (Nearest flight etd)
- */
-'nearest_flight'?: Array<string>;
-
-/**
- * Стоимость (Cost)
- */
-'total_cost'?: number;
-
-/**
- * Включение прибыли (Profit is included)
- */
-'profit_include'?: boolean;
-
-/**
- * Комментарий (Your Comment)
- */
-'comment'?: number;
-
-/**
- * Значения ставок
- */
-'values'?: Array<{
-
-/**
- * Наименование поля
- */
-'field': string;
-
-/**
- * Минимальная цена
- */
-'min'?: number;
-
-/**
- * Цена за единицу
- */
-'price'?: number;
-
-/**
- * Количество
- */
-'value'?: number;
-
-/**
- * Фиксированная надбавка
- */
-'fix'?: number;
-
-/**
- * Общая стоимость
- */
-'cost'?: number;
-
-/**
- * Комментарий
- */
-'comment'?: number;
-
-/**
- * Признак выбора
- */
-'select'?: boolean;
-}>;
-}>;
-
-/**
- * Расходы
- */
-'charges'?: Array<{
-
-/**
- * Наименование переменной
- */
-'field_name': string;
-
-/**
- * Наименование
- */
-'name': string;
-
-/**
- * Заголовок
- */
-'title': string;
-
-/**
- * Примечание
- */
-'note': string;
-
-/**
- * Единица изменений
- */
-'unit': string;
-
-/**
- * Возможно минимальное значение
- */
-'field_min'?: boolean;
-
-/**
- * Возможно фиксированное значение
- */
-'field_fix'?: boolean;
-
-/**
- * Возможен комментарий
- */
-'field_comment'?: boolean;
-
-/**
- * Признак выбранного
- */
-'status'?: boolean;
-
-/**
- * Запрет изменения
- */
-'requare'?: boolean;
-}>;
+'result': 'OK';
 }>): {
 
 /**
- * UID
+ * Статус выполнения
  */
-'uid': string;
-
-/**
- * Country of dispatch
- */
-'departure_country_name'?: string;
-
-/**
- * City of dispatch
- */
-'departure_city_name'?: string;
-
-/**
- * Address of pick-up
- */
-'departure_address'?: string;
-
-/**
- * Airport of departure
- */
-'departure_point_name'?: string;
-
-/**
- * Country of delivery
- */
-'arrival_country_name'?: string;
-
-/**
- * City of delivery
- */
-'arrival_city_name'?: string;
-
-/**
- * Address of departure
- */
-'arrival_address'?: string;
-
-/**
- * Airport of destination
- */
-'arrival_point_name'?: string;
-
-/**
- * Terms of delivery
- */
-'incoterms_name'?: string;
-
-/**
- * Type of flights
- */
-'departure_flight_name'?: string;
-
-/**
- * Commodity
- */
-'cargo_description'?: string;
-
-/**
- * Тип груза
- */
-'cargo_type_name'?: string;
-
-/**
- * Condition of carriage
- */
-'cargo_condition_carriage'?: string;
-
-/**
- * Total q-ty
- */
-'cargo_places_count'?: number;
-
-/**
- * Total m3
- */
-'cargo_places_volume'?: number;
-
-/**
- * Total kg
- */
-'cargo_places_weight'?: number;
-
-/**
- * Density
- */
-'cargo_places_density'?: number;
-
-/**
- * Chargeable weight, kg
- */
-'cargo_places_paid_weight'?: number;
-
-/**
- * Dimensions
- */
-'cargo_dimensions'?: string;
-
-/**
- * Notation
- */
-'comment'?: string;
-
-/**
- * Документы (файлы)
- */
-'documents_file'?: {
-};
-
-/**
- * Паспорта безопасности (файлы)
- */
-'cargo_file'?: {
-};
-
-/**
- * Ставки
- */
-'rates'?: Array<{
-
-/**
- * Тип ставки
- */
-'rate_type': 'detail' | 'single';
-
-/**
- * Порядковый номер
- */
-'num'?: string;
-
-/**
- * Транспортная компания (Airline) (ID берем из запроса - transport_carrier)
- */
-'carrier_id': number;
-
-/**
- * Маршрут (Route) (ID берем из запроса - transport_route)
- */
-'route_id': number;
-
-/**
- * Расписание отправления (Departure schedule)
- */
-'departure_schedule'?: Array<string>;
-
-/**
- * Ближайшие рейсы (Nearest flight etd)
- */
-'nearest_flight'?: Array<string>;
-
-/**
- * Стоимость (Cost)
- */
-'total_cost'?: number;
-
-/**
- * Включение прибыли (Profit is included)
- */
-'profit_include'?: boolean;
-
-/**
- * Комментарий (Your Comment)
- */
-'comment'?: number;
-
-/**
- * Значения ставок
- */
-'values'?: Array<{
-
-/**
- * Наименование поля
- */
-'field': string;
-
-/**
- * Минимальная цена
- */
-'min'?: number;
-
-/**
- * Цена за единицу
- */
-'price'?: number;
-
-/**
- * Количество
- */
-'value'?: number;
-
-/**
- * Фиксированная надбавка
- */
-'fix'?: number;
-
-/**
- * Общая стоимость
- */
-'cost'?: number;
-
-/**
- * Комментарий
- */
-'comment'?: number;
-
-/**
- * Признак выбора
- */
-'select'?: boolean;
-}>;
-}>;
-
-/**
- * Расходы
- */
-'charges'?: Array<{
-
-/**
- * Наименование переменной
- */
-'field_name': string;
-
-/**
- * Наименование
- */
-'name': string;
-
-/**
- * Заголовок
- */
-'title': string;
-
-/**
- * Примечание
- */
-'note': string;
-
-/**
- * Единица изменений
- */
-'unit': string;
-
-/**
- * Возможно минимальное значение
- */
-'field_min'?: boolean;
-
-/**
- * Возможно фиксированное значение
- */
-'field_fix'?: boolean;
-
-/**
- * Возможен комментарий
- */
-'field_comment'?: boolean;
-
-/**
- * Признак выбранного
- */
-'status'?: boolean;
-
-/**
- * Запрет изменения
- */
-'requare'?: boolean;
-}>;
+'result': 'OK';
 } => r.body)
     );
   }

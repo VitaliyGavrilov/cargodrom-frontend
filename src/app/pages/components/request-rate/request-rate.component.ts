@@ -89,6 +89,7 @@ export class RequestRateComponent implements OnInit, OnDestroy {
     this.id = id;
     this.getRequest();
     this.getRequestTraqnslate();
+    this.getRequestRates();
 
     this.requestForm.valueChanges
       .pipe(
@@ -199,5 +200,50 @@ export class RequestRateComponent implements OnInit, OnDestroy {
       });
   }
 
+  //получаем данные перевода запроса
+  private getRequestRates(){
+    this.requestService.requestRates({uid: '638d85d28962c195e5ff113ad5e01e43'})
+      .pipe(
+        tap((rates)=> {
+          if (!rates) {
+            throw ({ error: { error_message: `Запрос не существует` } });
+          }
+        }), takeUntil(this._destroy$))
+      .subscribe({
+        next: (rates:any) => {
+          console.log('getRequestRates', rates);
+        },
+        error: (err) => {
+          this.snackBar.open(`Ошибка получения перевода запроса: ` + err.error.error_message, undefined, this.snackBarWithShortDuration)
+        }
+      });
+  }
+
 
 }
+
+// "charges": {
+//   "1": {
+//     "field_name": "freight",
+//     "name": "Airfreight rate",
+//     "title": "Тариф авиаперевозки",
+//     "note": "",
+//     "unit": "kg",
+//     "field_min": true,
+//     "field_fix": false,
+//     "field_comment": false,
+//     "status": true,
+//     "requare": true
+//   },
+
+
+// freight": {
+//   "field": "freight",
+//   "min": 400,
+//   "price": 1.71,
+//   "value": 2500,
+//   "fix": 0,
+//   "cost": 4275,
+//   "comment": "",
+//   "select": true
+// },

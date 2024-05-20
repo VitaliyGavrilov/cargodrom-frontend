@@ -8,6 +8,7 @@ import { unknownCountry } from 'src/app/constants';
 import { CargoPackage } from 'src/app/api/custom_models/cargo';
 import { CargoService, TransportService } from 'src/app/api/services';
 import { MatSnackBar, MatSnackBarConfig } from '@angular/material/snack-bar';
+import { TransportCarrier } from 'src/app/api/custom_models/transport';
 
 @Component({
   selector: 'app-rate-editor',
@@ -45,7 +46,7 @@ export class RateEditorComponent implements OnInit, OnDestroy, OnChanges, Contro
   private _destroy$ = new Subject();
 
   rateForm: FormGroup;
-  transportCarrier:any=[];
+  transportCarrier:TransportCarrier[]=[];
 
   snackBarWithShortDuration: MatSnackBarConfig = { duration: 1000 };
   snackBarWithLongDuration: MatSnackBarConfig = { duration: 3000 };
@@ -114,17 +115,9 @@ export class RateEditorComponent implements OnInit, OnDestroy, OnChanges, Contro
   // Методы ЖЦ
   ngOnInit(): void {
     this.getTransportCarrier();
-    this.rateForm.valueChanges
-      .pipe(
-        takeUntil(this._destroy$)
-      )
-      .subscribe(value => {
-        this.onChange(value);
-      });
-    this.rateForm.statusChanges
-      .pipe(
-        takeUntil(this._destroy$)
-      )
+    this.rateForm.valueChanges.pipe(takeUntil(this._destroy$))
+      .subscribe(value => {this.onChange(value);});
+    this.rateForm.statusChanges.pipe(takeUntil(this._destroy$))
       .subscribe(() => {
         if (!this.touched) {
           this.onTouched();
@@ -165,7 +158,6 @@ export class RateEditorComponent implements OnInit, OnDestroy, OnChanges, Contro
   onChangeRate(i:number): void {
     this.indexRateChange.emit(i);
   }
-
   // Charges
   onDeletePlace(): void {
     // this.removePlace.emit();
@@ -186,17 +178,17 @@ export class RateEditorComponent implements OnInit, OnDestroy, OnChanges, Contro
   consoleLog(e:any){
     console.log(e);
   }
-  onAirlineIataChange(e:any){
+  onAirlineIataChange(transportCarrier:TransportCarrier){
     this.rateForm.patchValue({
-      airline: e.name,
-      airline_iata: e.iata,
-      airline_id: e.id,
+      airline: transportCarrier.name,
+      airline_iata: transportCarrier.iata,
+      airline_id: transportCarrier.id,
     });
   }
 
   testTextData(){
     let text='';
-    // let m=''
+    let m=''
     // this.daysSelectedObj.forEach((e:any) => {
     //   if(this.daysSelected.length<=1){
     //     text = e.day + e.mount;
@@ -204,12 +196,30 @@ export class RateEditorComponent implements OnInit, OnDestroy, OnChanges, Contro
 
     //   }
     // });
-    this.daysSelected.forEach((i)=>{
-      text=i+text
+
+    // this.daysSelected.forEach((i)=>{
+    //   text=i+text
+    // })
+
+    m=this.daysSelectedObj[0]?.mount;
+
+    this.daysSelectedObj.forEach((i)=>{
+      text= text + i.day + i.mount + ', ';
+
+
+      // if(m===i.mount){
+      //   text=text+i.day
+
+      // }
+      // if(m!==i.mount){
+
+      //   text=text+m
+      //   text=text+i.day
+      //   m=i.mount
+      //   text=text+m
+
+      // }
     })
-
-
-
     return text;
   }
 
@@ -227,9 +237,11 @@ export class RateEditorComponent implements OnInit, OnDestroy, OnChanges, Contro
     // const date = ("00" + event.getDate()).slice(-2) + "-" + event.toLocaleString('ru', {month: 'long',day: 'numeric'}).split(' ')[1] + "-" + (event.getFullYear());
     const date = ("00" + event.getDate()).slice(-2) + "-" + event.toLocaleString('en-US', { month: 'short' });
     const dateTest ={
-      day:("00" + event.getDate()).slice(-2) ,
-      mount:event.toLocaleString('en-US', { month: 'short' }) ,
+      day:("00" + event.getDate()).slice(-2),
+      mount:event.toLocaleString('en-US', { month: 'short' }),
     }
+    console.log('calendar',calendar);
+
 
     // console.log(event.toDateString(),'toDateString');
     // console.log(event.getMonth(),'getMount');
@@ -240,25 +252,24 @@ export class RateEditorComponent implements OnInit, OnDestroy, OnChanges, Contro
     // else this.daysSelected.splice(index, 1);
     if (index < 0) {
       this.daysSelected.push(date);
-      this.daysSelectedObj.push(dateTest)
+      this.daysSelectedObj.push(dateTest);
     } else {
       this.daysSelected.splice(index, 1);
-      this.daysSelectedObj.splice(index, 1)
+      this.daysSelectedObj.splice(index, 1);
     }
     calendar.updateTodaysDate();
     console.log(this.daysSelected,'daysSelected');
     console.log(this.daysSelectedObj,'daysSelectedObj');
-
   }
 
   // Приватные методы
-  // получаем перевозчиков(airline and airline iata)
+  // получаем перевозчиков(airline and airline iata controls)
   private getTransportCarrier():void{
     this.transportService.transportCarrier({kind_id:this.requestKindId})
       .pipe(
         tap(transportCarrier => {
           if (!transportCarrier) {
-            throw ({ error: { error_message: `Перевозчиков не существует` } });
+            throw ({ error: { error_message: `Перевозчиков не существует`} });
           }
         }),
         takeUntil(this._destroy$),
@@ -267,7 +278,7 @@ export class RateEditorComponent implements OnInit, OnDestroy, OnChanges, Contro
         next: (transportCarrier) => {
           this.transportCarrier=transportCarrier;
         },
-        error: (err: any) => {
+        error: (err) => {
           this.snackBar.open(`Ошибка запроса перевозчиков: ` + err.error.error_message, undefined, this.snackBarWithShortDuration);
         }
       });

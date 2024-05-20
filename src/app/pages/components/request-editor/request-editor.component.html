@@ -48,10 +48,10 @@
             <div class="form-label">Вид перевозки <span class="req">•</span></div>
             <div class="form-data">
 
-              <label class="radio-btn" (change)="onTransportationFormatsChange()" >
+              <label class="radio-btn" (change)="onTransportationFormatsChange(1)" >
                 <input type="radio"
                   name="transport_kind_id"
-                  value=1
+                  value={{1}}
                   formControlName="transport_kind_id"
                   [checked]="requestForm.value.transport_kind_id===1"
                 >
@@ -63,10 +63,10 @@
                 </span>
               </label>
 
-              <label class="radio-btn" (change)="onTransportationFormatsChange()">
+              <label class="radio-btn" (change)="onTransportationFormatsChange(2)">
                 <input type="radio"
                   name="transport_kind_id"
-                  value=2
+                  value={{2}}
                   formControlName="transport_kind_id"
                   [checked]="requestForm.value.transport_kind_id===2"
                 >
@@ -78,10 +78,10 @@
                 </span>
               </label>
 
-              <label class="radio-btn" (change)="onTransportationFormatsChange()">
+              <label class="radio-btn" (change)="onTransportationFormatsChange(4)">
                 <input type="radio"
                   name="transport_kind_id"
-                  value=4
+                  value={{4}}
                   formControlName="transport_kind_id"
                   [checked]="requestForm.value.transport_kind_id===4"
                 >
@@ -93,10 +93,10 @@
                 </span>
               </label>
 
-              <label class="radio-btn" (change)="onTransportationFormatsChange()">
+              <label class="radio-btn" (change)="onTransportationFormatsChange(3)">
                 <input type="radio"
                   name="transport_kind_id"
-                  value=3
+                  value={{3}}
                   formControlName="transport_kind_id"
                   [checked]="requestForm.value.transport_kind_id===3"
                 >
@@ -168,6 +168,7 @@
                 <mat-option
                   *ngFor="let cargoType of cargoTypes;"
                   [value]="cargoType.id"
+                  (click)="onCargoTypeChange(cargoType)"
                 >
                 {{ cargoType.name }}
                 </mat-option>
@@ -179,7 +180,7 @@
       </div>
     </div>
 
-    <div class="form-row" *ngIf="requestForm.value.request_type_id===2" formGroupName="cargo_temperature">
+    <div class="form-row" *ngIf="requestForm.value.request_type_id===2 && requestForm.value.cargo_type_id===14" formGroupName="cargo_temperature">
       <div class="form-item-layout ">
 
         <div class="form-item i2 max-w-fc">
@@ -466,7 +467,7 @@
             </div>
           </div>
 
-          <div class="form-item i4" *ngIf="requestForm.value.transport_kind_id==='1'">
+          <div class="form-item i4" *ngIf="transport_kind_id ===1">
             <div class="form-label ">Аэропорт вылета:</div>
             <div class="form-data">
               <mat-form-field appearance="outline" class="ui-select">
@@ -533,7 +534,7 @@
             </div>
           </div>
 
-          <div class="form-item i4" *ngIf="requestForm.value.transport_kind_id==='1'">
+          <div class="form-item i4" *ngIf="transport_kind_id ===1">
             <div class="form-label">Аэропорт прибытия:</div>
               <div class="form-data">
                 <mat-form-field appearance="outline" class="ui-select">
@@ -572,8 +573,8 @@
 
     </div>
     <!-- Блок ТРЕБУЕМЫЕ УСЛУГИ -->
-    <div class="form-block-title" *ngIf="requestForm.value.transport_kind_id ==='1'|| requestForm.value.transport_kind_id ==='3' || requestForm.value.transport_kind_id ==='4'">Требуемые услуги</div>
-    <div class="form-block" *ngIf="requestForm.value.transport_kind_id ==='1'|| requestForm.value.transport_kind_id ==='3' || requestForm.value.transport_kind_id ==='4'">
+    <div class="form-block-title" *ngIf="transport_kind_id ===1 || transport_kind_id ===3 || transport_kind_id === 4">Требуемые услуги</div>
+    <div class="form-block" *ngIf="transport_kind_id ===1 || transport_kind_id ===3 || transport_kind_id === 4">
 
       <div class="form-row">
         <div class="form-item-layout">
@@ -619,7 +620,7 @@
         </div>
       </div>
 
-      <div class="form-row" *ngIf="requestForm.value.transport_kind_id !=='2'">
+      <div class="form-row" *ngIf="transport_kind_id ===1 || transport_kind_id ===3 || transport_kind_id === 4">
         <div class="form-item-layout">
 
           <div class="form-item i2">

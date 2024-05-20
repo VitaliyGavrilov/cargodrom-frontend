@@ -35,22 +35,17 @@ export class ContractorComponent extends Table<Contractor, 'trade_rating', Contr
     super(route, router, dialog, snackBar, filter);
     this.registerAlias('trade_rating', ['trade_count', 'trade_success_count', 'trade_fail_count']);
   }
-
   //методы для таблицы
   load<Contractor>(params: LoadParams<Contractor, ContractorFilter>): Observable<{ total: number; items: Contractor[]; }> {
     this.params=params;
     return this.contractorService.contractorList(params as any) as unknown as Observable<{ total: number; items: Contractor[]; }>;
   }
-
   protected override loadFilterSchemaTest(): Observable<any>  {
     return this.contractorService.contractorListParam().pipe(map(val => val as any));
   }
-
-
   protected override loadFilterSchema(): Observable<SearchFilterSchema> {
     return this.contractorService.contractorListSearch().pipe(map(val => val as SearchFilterSchema));
   }
-
   //методы для импорта экспорта
   protected override exportData(): Observable<{data: string; name: string}> {
     return this.contractorService.contractorExport(this.params as any) as Observable<{data: string; name: string}>;
@@ -62,12 +57,11 @@ export class ContractorComponent extends Table<Contractor, 'trade_rating', Contr
     return this.contractorService.contractorImportConfirm({import_key: body.import_key});
   }
   protected override importResult(body: {import_key: string}) {
-    return this.contractorService.contractorImportResult({import_key: body.import_key})
+    return this.contractorService.contractorImportResult({import_key: body.import_key});
   }
   protected override importTemplate(): Observable<{data: string; name: string}> {
     return this.contractorService.contractorImportTemplate(this.filter as any) as Observable<{data: string; name: string}>;
   }
-
   //методы для торгов
   protected override requestContractorSelectGet(id:number): Observable<any> {
     return this.requestService.requestContractorSelectGet({id:id});
@@ -79,5 +73,12 @@ export class ContractorComponent extends Table<Contractor, 'trade_rating', Contr
     return this.requestService.requestInfo({id:id});
   }
 
-
+  getSpecializationClass(n:number){
+    let classSpec='';
+    if(n===1)classSpec='avia';
+    if(n===2)classSpec='road';
+    if(n===3)classSpec='rw';
+    if(n===4)classSpec='sea';
+    return classSpec;
+  }
 }

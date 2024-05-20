@@ -14,7 +14,7 @@
         </div>
       </th>
 
-      <th class="all bg s e">
+      <th class="all bg ">
         <div class="l">Все виды</div>
         <label>
           <mat-checkbox
@@ -84,7 +84,7 @@
         </label>
       </td>
 
-      <td *ngFor="let kind of kinds" [ngClass]="kind.classes">
+      <td *ngFor="let kind of kinds" [ngClass]="setClassIcon(kind)">
         <label>
           <!-- <mat-checkbox
             class="show-all testclass"
