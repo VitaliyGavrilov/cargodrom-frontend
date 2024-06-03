@@ -8,7 +8,8 @@ import { unknownCountry } from 'src/app/constants';
 import { CargoPackage } from 'src/app/api/custom_models/cargo';
 import { CargoService, TransportService } from 'src/app/api/services';
 import { MatSnackBar, MatSnackBarConfig } from '@angular/material/snack-bar';
-import { TransportCarrier } from 'src/app/api/custom_models/transport';
+import { TransportCarrier, TransportRoute } from 'src/app/api/custom_models/transport';
+import { formatDate } from '@angular/common';
 
 @Component({
   selector: 'app-rate-editor',
@@ -33,6 +34,8 @@ export class RateEditorComponent implements OnInit, OnDestroy, OnChanges, Contro
   @Input() requestKindId?:number;
   @Input() rates?:any;
   @Input() test?:number;
+  @Input() charge?:any;
+  @Input() weight?:number;
 
   @Output() removeRate = new EventEmitter<void>();
   @Output() addRate = new EventEmitter<void>();
@@ -46,7 +49,8 @@ export class RateEditorComponent implements OnInit, OnDestroy, OnChanges, Contro
   private _destroy$ = new Subject();
 
   rateForm: FormGroup;
-  transportCarrier:TransportCarrier[]=[];
+  transportCarrier: TransportCarrier[]=[];
+  transportRoute: TransportRoute[]=[];
 
   snackBarWithShortDuration: MatSnackBarConfig = { duration: 1000 };
   snackBarWithLongDuration: MatSnackBarConfig = { duration: 3000 };
@@ -56,7 +60,13 @@ export class RateEditorComponent implements OnInit, OnDestroy, OnChanges, Contro
 
   testbul=false;
 
+  currentAirline:TransportCarrier={};
+
   daysOfTheWeek=[
+    {
+      day:'Sunday',
+      id:0
+    },
     {
       day:'Monday',
       id:1
@@ -81,13 +91,7 @@ export class RateEditorComponent implements OnInit, OnDestroy, OnChanges, Contro
       day:'Saturday',
       id:6
     },
-    {
-      day:'Sunday',
-      id:7
-    }
   ]
-
-  testArrDate=[]
 
   constructor(
     private fb: FormBuilder,
@@ -96,27 +100,54 @@ export class RateEditorComponent implements OnInit, OnDestroy, OnChanges, Contro
     private snackBar: MatSnackBar,
   ) {
     this.rateForm = this.fb.group({
-      details: [false,[]],
-      charges: fb.array([
-        this.fb.group({
-          test1: [false, []],
-          test2: ['pole 1-2', []],
-        }),], []),
-      chargeable_weight: [,[]],
-      airline: [,[]],
-      airline_id: [,[]],
-      airline_iata: [,[]],
-      route: [,[]],
+      carrier_id: [,[]],
+      comment: [,[]],
       departure_schedule: [,[]],
-      nearest_flight_etd: [[],[]],
+      id: [,[]],
+      nearest_flight: [,[]],
+      num: [,[]],
+      profit_include: [true,[]],
+      rate_type: ['nodetail',[]],
+      route_id: [,[]],
+      total_cost: [,[]],
+      values: fb.array([
+        // this.fb.group({
+        //   comment: [,[]],
+        //   cost: [,[]],
+        //   field: [,[]],
+        //   fix: [,[]],
+        //   min: [,[]],
+        //   price: [,[]],
+        //   select: [,[]],
+        //   value: [,[]],
+        // })
+      ], []),
     });
   }
 
   // Методы ЖЦ
   ngOnInit(): void {
+    this.charge.forEach((i:any)=>{
+      this.charges.push(this.fb.group({
+        comment: [,[]],
+        cost: [,[]],
+        field: [i.field_name,[]],
+        fix: [,[]],
+        min: [,[]],
+        price: [,[]],
+        select: [i.status,[]],
+        value: [i.unit==='kg'?this.weight:0,[]],
+      }));
+      this.rateForm.markAsTouched();
+    });
     this.getTransportCarrier();
+    this.getTransportRoute();
     this.rateForm.valueChanges.pipe(takeUntil(this._destroy$))
-      .subscribe(value => {this.onChange(value);});
+      .subscribe(value => {
+        // console.log('curent rate===', this.test ,value);
+        this.onChange(value)
+        // this.calckTotalCost()
+      ;});
     this.rateForm.statusChanges.pipe(takeUntil(this._destroy$))
       .subscribe(() => {
         if (!this.touched) {
@@ -124,22 +155,22 @@ export class RateEditorComponent implements OnInit, OnDestroy, OnChanges, Contro
           this.touched = true;
         }
       });
+    this.rateForm.markAsTouched();
   }
   ngOnDestroy(): void {
     this._destroy$.next(null);
     this._destroy$.complete();
   }
   ngOnChanges(changes: SimpleChanges): void {
-    // this.onCalkTotalVolumeAndWeight()
+    if(this.rateForm.value.rate_type==='detail') this.calckTotalCost();
   }
 
   // ControlValueAccessor
-  writeValue(contact: Partial<Contact>): void {
+  writeValue(contact: any): void {
     this.rateForm.patchValue(contact);
   }
   registerOnChange(fn: any): void {
     this.onChange = fn;
-    // this.onCalkTotalVolumeAndWeight()
   }
   registerOnTouched(fn: any): void {
     this.onTouched = fn;
@@ -158,108 +189,169 @@ export class RateEditorComponent implements OnInit, OnDestroy, OnChanges, Contro
   onChangeRate(i:number): void {
     this.indexRateChange.emit(i);
   }
+  onDuplicateRate(): void {
+    this.duplicateRate.emit();
+  }
+
   // Charges
   onDeletePlace(): void {
     // this.removePlace.emit();
   }
   addCharge() {
     this.charges.push(this.fb.group({
-      test1: [false,[]],
-      test2: ['',[]],
-      test3:['',[]],
+      comment: [,[]],
+      cost: [,[]],
+      field: [,[]],
+      fix: [,[]],
+      min: [,[]],
+      price: [,[]],
+      select: [false,[]],
+      value: [,[]],
     }));
     this.rateForm.markAsTouched();
   }
   get charges() {
-    return <FormArray>this.rateForm.get('charges');
+    return <FormArray>this.rateForm.get('values');
   }
 
   // Публичные методы
-  consoleLog(e:any){
-    console.log(e);
-  }
-  onAirlineIataChange(transportCarrier:TransportCarrier){
-    this.rateForm.patchValue({
-      airline: transportCarrier.name,
-      airline_iata: transportCarrier.iata,
-      airline_id: transportCarrier.id,
+  // onAirlineIataChange(transportCarrier:any){
+  //   this.currentAirline=transportCarrier;
+  // }
+  returnAirlineName(id:number):string{
+    let name:any=''
+    this.transportCarrier.forEach((i:TransportCarrier)=>{
+      if(id==i.id){
+        name=i.name;
+      };
     });
+    return name;
+  }
+  returnAirlineIata(id:number):string{
+    let name:any=''
+    this.transportCarrier.forEach((i:TransportCarrier)=>{
+      if(id==i.id){
+        name=i.iata;
+      };
+    });
+    return name;
   }
 
-  testTextData(){
-    let text='';
-    let m=''
-    // this.daysSelectedObj.forEach((e:any) => {
-    //   if(this.daysSelected.length<=1){
-    //     text = e.day + e.mount;
-    //   } else {
-
-    //   }
-    // });
-
-    // this.daysSelected.forEach((i)=>{
-    //   text=i+text
-    // })
-
-    m=this.daysSelectedObj[0]?.mount;
-
-    this.daysSelectedObj.forEach((i)=>{
-      text= text + i.day + i.mount + ', ';
-
-
-      // if(m===i.mount){
-      //   text=text+i.day
-
-      // }
-      // if(m!==i.mount){
-
-      //   text=text+m
-      //   text=text+i.day
-      //   m=i.mount
-      //   text=text+m
-
-      // }
+  testResetForm(){
+    this.charges.controls.forEach((e:any)=>{
+      e.controls['comment'].reset();
+      e.controls['cost'].reset();
+      // e.controls['field'].reset();
+      e.controls['fix'].reset();
+      e.controls['min'].reset();
+      e.controls['price'].reset();
+      // e.controls['select'].reset();
+      // e.controls['value'].reset();
     })
-    return text;
+    this.rateForm.controls['total_cost'].reset()
+  }
+
+  //Calck
+  calck(control:any){
+    if(control.value.min){
+      control.patchValue({
+        cost: control.value.min<control.value.price * control.value.value?control.value.price * control.value.value:control.value.min
+      });
+    } else {
+      control.patchValue({cost: control.value.price * control.value.value});
+    }
+    // if(this.rateForm.value.rate_type==='detail') this.calckTotalCost();
+  }
+  calckCost(control:any){
+    control.patchValue({
+      value: control.value.cost,
+      price: 1,
+    });
+    // if(this.rateForm.value.rate_type==='detail') this.calckTotalCost();
+  }
+  calckTotalCost(){
+    let cost=0;
+    this.rateForm.value.values.forEach((v:any)=>{
+      if(v.select)cost=cost+v.cost
+    });
+    this.rateForm.patchValue({total_cost:cost});
   }
 
   // Datepicker multy
+  testTextData(){
+    let text='';
+    let dateOnj:any=[]
+    // this.daysSelectedObj.forEach((i)=>{
+    //   text= text + i.day +  ' ' + i.mount + ', ';
+    // });
+    this.rateForm.value.nearest_flight?.forEach((e:any)=>{
+      const date = new Date(e);
+      const dateTest ={
+        // day:("00" + date.getDate()).slice(-2),
+        day: date.toLocaleString('en-US', { day: 'numeric' }),
+        mount:date.toLocaleString('en-US', { month: 'short' }),
+        // mountId: date.toLocaleString('en-US',{month: 'numeric'})
+        date: e,
+      }
+      dateOnj?.push(dateTest);
+    })
+    const sortedArray=dateOnj.sort((a:any, b:any) => new Date(a.date) > new Date(b.date)? 1 : -1);
+
+    // let sortedArray=dateOnj.sort((a:any, b:any) => a.mountId < b.mountId ? -1 : 1 && a.day < b.day );
+    // let dateArrSortD=dateArrSortM.sort((a:any, b:any) => a.day > b.day ? 1 : -1);
+
+    // const sortedArray = dateOnj.map((object:any) => ({ ...object }))
+    // .sort((a:any, b:any) => a.mountId > b.mountId ? 1 : -1 || a.day > b.day ? 1 : -1);
+
+    // sortedArray?.forEach((i:any,index:number)=>{
+    //   text= text + i.day + ' ' + i.mount + ', ';
+    // });
+
+    sortedArray?.forEach((i:any,index:number)=>{
+      let ind=index+1;
+      if(sortedArray[ind]?.mount===i.mount){
+        text= text + i.day + ',';
+      } else {
+        // text= text + i.day + ' ' + i.mount + ', ';
+        text= text + i.day + ' ' + i.mount + (sortedArray.length==ind?'':', ');
+      }
+    });
+
+    return text;
+  }
   isSelected = (event: any) => {
     // const date = ("00" + event.getDate()).slice(-2) + "-" + event.toLocaleString('ru', {month: 'long',day: 'numeric'}).split(' ')[1] + "-" + (event.getFullYear());
-    const date = ("00" + event.getDate()).slice(-2) + "-" + event.toLocaleString('en-US', { month: 'short' });
+    // const date = ("00" + event.getDate()).slice(-2) + "-" + event.toLocaleString('en-US', { month: 'short' });
+    const date=formatDate(event,'yyyy-MM-dd','en-US');
     // const date ={
     //   day:("00" + event.getDate()).slice(-2) ,
     //   mount:event.toLocaleString('en-US', { month: 'short' }) ,
     // }
-    return this.daysSelected.find(x => x == date) ? "selected" : '';
+    // return this.daysSelected.find(x => x == date) ? "selected" : '';
+    return this.rateForm.value.nearest_flight?.find((x:any) => x == date) ? "selected" : '';
   }
   select(event: any, calendar: any) {
-    // const date = ("00" + event.getDate()).slice(-2) + "-" + event.toLocaleString('ru', {month: 'long',day: 'numeric'}).split(' ')[1] + "-" + (event.getFullYear());
-    const date = ("00" + event.getDate()).slice(-2) + "-" + event.toLocaleString('en-US', { month: 'short' });
-    const dateTest ={
-      day:("00" + event.getDate()).slice(-2),
-      mount:event.toLocaleString('en-US', { month: 'short' }),
-    }
-    console.log('calendar',calendar);
-
-
-    // console.log(event.toDateString(),'toDateString');
-    // console.log(event.getMonth(),'getMount');
-    // console.log(event.toLocaleString('en-US', { month: 'short' }),'toLocaleString');
-
-    const index = this.daysSelected.findIndex(x => x == date);
-    // if (index < 0) this.daysSelected.push(date);
-    // else this.daysSelected.splice(index, 1);
+    const date=formatDate(event,'yyyy-MM-dd','en-US');
+    // const test =  (event.getFullYear()) + "-" + event.toLocaleString('en-US',{month: 'numeric'}) + "-" + event.toLocaleString('en-US',{day: 'numeric'}) + event.getMonth();
+    // const date = ("00" + event.getDate()).slice(-2) + "-" + event.toLocaleString('en-US', { month: 'short' });
+    // const dateTest ={
+    //   day:("00" + event.getDate()).slice(-2),
+    //   mount:event.toLocaleString('en-US', { month: 'short' }),
+    //   // mountId: new Number(formatDate(event,'MM','en-US'))
+    //   mountId: event.toLocaleString('en-US',{month: 'numeric'})
+    // }
+    if(this.rateForm.value.nearest_flight===null)this.rateForm.value.nearest_flight=[]
+    const index = this.rateForm.value.nearest_flight.findIndex((x:any) => x == date);
     if (index < 0) {
-      this.daysSelected.push(date);
-      this.daysSelectedObj.push(dateTest);
+      // this.daysSelected.push(date);
+      // this.daysSelectedObj.push(dateTest);
+      this.rateForm.value.nearest_flight.push(date);
     } else {
-      this.daysSelected.splice(index, 1);
-      this.daysSelectedObj.splice(index, 1);
+      // this.daysSelected.splice(index, 1);
+      // this.daysSelectedObj.splice(index, 1);
+      this.rateForm.value.nearest_flight.splice(index, 1);
     }
     calendar.updateTodaysDate();
-    console.log(this.daysSelected,'daysSelected');
-    console.log(this.daysSelectedObj,'daysSelectedObj');
   }
 
   // Приватные методы
@@ -280,6 +372,26 @@ export class RateEditorComponent implements OnInit, OnDestroy, OnChanges, Contro
         },
         error: (err) => {
           this.snackBar.open(`Ошибка запроса перевозчиков: ` + err.error.error_message, undefined, this.snackBarWithShortDuration);
+        }
+      });
+  }
+  // получаем маршруты(route)
+  private getTransportRoute():void{
+    this.transportService.transportRoute({kind_id:this.requestKindId})
+      .pipe(
+        tap(transportRoute => {
+          if (!transportRoute) {
+            throw ({ error: { error_message: `Маршрутов не существует`} });
+          }
+        }),
+        takeUntil(this._destroy$),
+      )
+      .subscribe({
+        next: (transportRoute) => {
+          this.transportRoute=transportRoute;
+        },
+        error: (err) => {
+          this.snackBar.open(`Ошибка запроса маршрутов: ` + err.error.error_message, undefined, this.snackBarWithShortDuration);
         }
       });
   }
@@ -364,3 +476,120 @@ export class RateEditorComponent implements OnInit, OnDestroy, OnChanges, Contro
       // other_charges: [false,[]]
 
 }
+
+
+// <div class="charges">
+
+//       <div class="included-fees" >
+//         <div>The rate includes following charges</div>
+
+//         <div formArrayName="values" *ngFor="let charge of charges.controls; let i = index;">
+//           <div [formGroupName]="i" *ngIf="charge.value.test1==true">
+
+//             <div style="display: flex; gap: 10px; margin-top: 40px;">
+
+//               <label class="radio">
+//                 <input  type="checkbox" formControlName="test1" >
+//                 <i></i>
+//               </label>
+//               <!-- <mat-checkbox  [disabled]="testbul" formControlName="test1">
+//               </mat-checkbox> -->
+
+//               <div >
+//                 <input type="text" formControlName="test2" />
+//               </div>
+
+//             </div>
+
+//           </div>
+//         </div>
+
+//       </div>
+
+//       <div class="list-charges">
+//         <div>List of Charges</div>
+
+//         <div formArrayName="values" *ngFor="let charge of charges.controls; let i = index;">
+//           <div [formGroupName]="i" *ngIf="charge.value.test1==false">
+
+//             <div style="display: flex; gap: 10px; margin-top: 40px;">
+
+//               <label class="radio">
+//                 <input  type="checkbox" formControlName="test1">
+//                 <i></i>
+//               </label>
+//               <!-- <mat-checkbox  [disabled]="testbul" formControlName="test1">
+//               </mat-checkbox> -->
+
+//               <div>
+//                 <input type="text" formControlName="test2" />
+//               </div>
+
+//             </div>
+
+//           </div>
+//         </div>
+
+//       </div>
+
+//     </div>
+
+//     <div class="charges" style="border: 1px solid red;">
+
+//       <div class="included-fees" >
+//         <div>The rate includes following charges</div>
+
+//         <div formArrayName="values" *ngFor="let charge of charge; let i = index;">
+//           <div *ngIf="charge.status===true">
+
+//             <div style="display: flex; gap: 10px; margin-top: 40px;">
+
+//               <label class="radio">
+//                 <input  type="checkbox" checked="true" [disabled]="charge.requare===true">
+//                 <i></i>
+//               </label>
+//               <!-- <mat-checkbox  [disabled]="testbul" formControlName="test1">
+//               </mat-checkbox> -->
+
+//               <div style="width: 140px;">{{charge.name}}</div>
+
+//               <div>
+//                 <input type="text"  />
+//               </div>
+
+//             </div>
+
+//           </div>
+//         </div>
+
+//       </div>
+
+//       <div class="list-charges">
+//         <div>List of Charges</div>
+
+//         <div formArrayName="values" *ngFor="let charge of charge; let i = index;">
+//           <div *ngIf="charge.status===false">
+
+//             <div style="display: flex; gap: 10px; margin-top: 40px;">
+
+//               <label class="radio">
+//                 <input  type="checkbox" [disabled]="charge.requare===true" >
+//                 <i></i>
+//               </label>
+//               <!-- <mat-checkbox  [disabled]="testbul" formControlName="test1">
+//               </mat-checkbox> -->
+
+//               <div style="width: 140px;">{{charge.name}}</div>
+
+//               <div>
+//                 <input type="text"  />
+//               </div>
+
+//             </div>
+
+//           </div>
+//         </div>
+
+//       </div>
+
+//     </div>

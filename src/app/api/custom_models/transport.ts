@@ -21,4 +21,16 @@ export interface TransportCarrier {
   iata?: string;
 }
 
-// form-item-table-row
+export interface TransportRoute {
+  id?: number,
+  kind_id?: number,
+  carrier_id?: number,
+  country_id_departure?: number,
+  country_id_arrival?: number,
+  city_id_departure?: number,
+  city_id_arrival?: number,
+  point_id_departure?: number,
+  point_id_arrival?: number,
+  name?: string,
+}
+

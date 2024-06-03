@@ -43,11 +43,14 @@ export class RequestRateComponent implements OnInit, OnDestroy {
   @ViewChild('fileListDanger', { static: false }) fileListDanger!: FileListComponent;
 
   requestForm: FormGroup;
-  request: Partial<Request> = {};
+  // request: Partial<Request> = {};
+  request: any;
   requestEn: any = {};
   files:any
 
   test=0;
+
+  testStructyra:any=[];
 
   transportCarrier:any=[];
 
@@ -71,6 +74,7 @@ export class RequestRateComponent implements OnInit, OnDestroy {
     private fileSevice: FileService,
   ) {
     this.requestForm = this.fb.group({
+      uid: [,[]],
       rates: fb.array([], []),
     });
 
@@ -84,38 +88,27 @@ export class RequestRateComponent implements OnInit, OnDestroy {
     this._destroy$.complete();
   }
   ngOnInit(): void {
-    console.log('ngOnInit', this.test);
     const id = Number(this.route.snapshot.paramMap.get('id'));
     this.id = id;
-    this.getRequest();
-    this.getRequestTraqnslate();
     this.getRequestRates();
-
-    this.requestForm.valueChanges
-      .pipe(
-        takeUntil(this._destroy$)
-      )
-      .subscribe(value => {
-        console.log('rates', value);
-      });
   }
 
   //ВЛОЖЕННАЯ ФОРМА РЕДАКТИРОВАНИ РЕЙТОВ
   removeRate(i: number): void {
     this.rates.removeAt(i);
-
     this.requestForm.markAsTouched();
     this.test=this.rates.length-1;
   }
   addRate() {
-    this.rates.push(this.fb.control({
-      chargeable_weight: this.request.cargo_places_weight
-    }));
+    this.rates.push(this.fb.control(
+      {
+
+      }
+    ));
     this.test=this.rates.length-1;
     this.requestForm.markAsTouched();
   }
   duplicateRate(){
-    console.log(this.requestForm.value);
     this.rates.push(this.fb.control(this.requestForm.value.rates[this.test]));
     this.requestForm.markAsTouched();
   }
@@ -124,61 +117,20 @@ export class RequestRateComponent implements OnInit, OnDestroy {
   }
 
   // Публичные методы:
+  consoleLog(){
+    console.log(this.requestForm.value);
+  }
   indexRateChange(e:any){
     this.test=e;
   }
   copyDispatchText(){
-    window.navigator.clipboard.writeText(this.request.departure_text!)
+    window.navigator.clipboard.writeText('1')
   }
   copyDestinationText(){
-    window.navigator.clipboard.writeText(this.request.arrival_text!)
+    window.navigator.clipboard.writeText('2')
   }
 
   // Приватные методы:
-  //получаем данные запроса
-  private getRequest():void{
-    this.requestService.requestInfo({id:this.id})
-      .pipe(
-        tap(request => {
-          console.log(request);
-          // if (!request) {
-          //   throw ({ error: { error_message: `Запрос не существует` } });
-          // }
-        }),
-        takeUntil(this._destroy$))
-      .subscribe({
-        next: request => {
-          this.request=request;
-          // this.getTransportCarrier();
-          if(this.rates.length === 0){
-            this.addRate();
-          };
-        },
-        error: (err: any) => {
-          this.snackBar.open(`Запрос не найден: ` + err.error.error_message, undefined, this.snackBarWithShortDuration);
-          // this.goBack();
-        }
-      });
-  }
-  //получаем данные перевода запроса
-  private getRequestTraqnslate(){
-    this.requestService.requestTranslate({id: this.id})
-      .pipe(
-        tap((translate)=> {
-          // if (!translate) {
-          //   throw ({ error: { error_message: `Запрос не существует` } });
-          // }
-        }), takeUntil(this._destroy$))
-      .subscribe({
-        next: (translate:any) => {
-          this.requestEn=translate.en;
-        },
-        error: (err) => {
-          this.snackBar.open(`Ошибка получения перевода запроса: ` + err.error.error_message, undefined, this.snackBarWithShortDuration)
-        }
-      });
-  }
-
   getFile(id:number):void{
     this.fileSevice.fileDownload({id: id})
       .pipe(
@@ -200,30 +152,54 @@ export class RequestRateComponent implements OnInit, OnDestroy {
       });
   }
 
-  //получаем данные перевода запроса
+  //получаем данные запроса и рейтов
   private getRequestRates(){
-    this.requestService.requestRates({uid: '638d85d28962c195e5ff113ad5e01e43'})
+    this.requestService.requestRates({uid: "638d85d28962c195e5ff113ad5e01e43"})
       .pipe(
         tap((rates)=> {
+          console.log('getRequestRates', rates);
           if (!rates) {
             throw ({ error: { error_message: `Запрос не существует` } });
           }
-        }), takeUntil(this._destroy$))
+          rates.rates?.forEach((e:any) => {
+            this.addRate();
+            this.requestForm.patchValue(rates);
+          });
+        }),
+        takeUntil(this._destroy$))
       .subscribe({
         next: (rates:any) => {
-          console.log('getRequestRates', rates);
+          this.testStructyra=rates.charges;
+          this.request=rates;
         },
         error: (err) => {
           this.snackBar.open(`Ошибка получения перевода запроса: ` + err.error.error_message, undefined, this.snackBarWithShortDuration)
         }
       });
   }
-
-
+  //сохраняем рейты
+  saveRequestRates(){
+    console.log(this.requestForm.value);
+    this.requestService.requestRatesSave({body:this.requestForm.value})
+      .pipe(
+        tap((res)=> {
+          console.log(res);
+          if (!res) {
+            throw ({ error: { error_message: `Ошибка сохранения` } });
+          }
+        }),
+        takeUntil(this._destroy$))
+      .subscribe({
+        next: (res:any) => {
+        },
+        error: (err) => {
+          this.snackBar.open(`Ошибка получения перевода запроса: ` + err.error.error_message, undefined, this.snackBarWithShortDuration)
+        }
+      });
+  }
 }
 
-// "charges": {
-//   "1": {
+//    {
 //     "field_name": "freight",
 //     "name": "Airfreight rate",
 //     "title": "Тариф авиаперевозки",
@@ -236,8 +212,7 @@ export class RequestRateComponent implements OnInit, OnDestroy {
 //     "requare": true
 //   },
 
-
-// freight": {
+//  {
 //   "field": "freight",
 //   "min": 400,
 //   "price": 1.71,
@@ -246,4 +221,24 @@ export class RequestRateComponent implements OnInit, OnDestroy {
 //   "cost": 4275,
 //   "comment": "",
 //   "select": true
+// },
+
+
+//    {
+//   "field_name": "freight",
+//   "name": "Airfreight rate",
+//   "title": "Тариф авиаперевозки",
+//   "note": "",
+//   "unit": "kg",
+//   "field_min": true,
+//   "field_fix": false,
+//   "field_comment": false,
+//   "status": true,
+//   "requare": true
+//   "min": 400,
+//   "price": 1.71,
+//   "value": 2500,
+//   "fix": 0,
+//   "cost": 4275,
+//   "comment": "",
 // },

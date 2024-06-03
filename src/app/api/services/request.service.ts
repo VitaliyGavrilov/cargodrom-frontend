@@ -13501,4 +13501,111 @@ export class RequestService extends BaseService {
     );
   }
 
+  /** Path part for operation `requestSaveBidding()` */
+  static readonly RequestSaveBiddingPath = '/request_save_bidding';
+
+  /**
+   * Проверка и сохранения выбора контрагентов для отправки запроса.
+   *
+   *
+   *
+   * This method provides access to the full `HttpResponse`, allowing access to response headers.
+   * To access only the response body, use `requestSaveBidding()` instead.
+   *
+   * This method sends `application/json` and handles request body of type `application/json`.
+   */
+  requestSaveBidding$Response(
+    params?: {
+      body?: {
+
+/**
+ * ID запроса
+ */
+'id': number;
+
+/**
+ * Подтверждение (игнорировать ошибки)
+ */
+'confirm'?: boolean;
+}
+    },
+    context?: HttpContext
+  ): Observable<StrictHttpResponse<{
+
+/**
+ * Статус выполнения
+ */
+'result': 'OK';
+}>> {
+    const rb = new RequestBuilder(this.rootUrl, RequestService.RequestSaveBiddingPath, 'post');
+    if (params) {
+      rb.body(params.body, 'application/json');
+    }
+
+    return this.http.request(
+      rb.build({ responseType: 'json', accept: 'application/json', context })
+    ).pipe(
+      filter((r: any): r is HttpResponse<any> => r instanceof HttpResponse),
+      map((r: HttpResponse<any>) => {
+        return r as StrictHttpResponse<{
+        
+        /**
+         * Статус выполнения
+         */
+        'result': 'OK';
+        }>;
+      })
+    );
+  }
+
+  /**
+   * Проверка и сохранения выбора контрагентов для отправки запроса.
+   *
+   *
+   *
+   * This method provides access only to the response body.
+   * To access the full response (for headers, for example), `requestSaveBidding$Response()` instead.
+   *
+   * This method sends `application/json` and handles request body of type `application/json`.
+   */
+  requestSaveBidding(
+    params?: {
+      body?: {
+
+/**
+ * ID запроса
+ */
+'id': number;
+
+/**
+ * Подтверждение (игнорировать ошибки)
+ */
+'confirm'?: boolean;
+}
+    },
+    context?: HttpContext
+  ): Observable<{
+
+/**
+ * Статус выполнения
+ */
+'result': 'OK';
+}> {
+    return this.requestSaveBidding$Response(params, context).pipe(
+      map((r: StrictHttpResponse<{
+
+/**
+ * Статус выполнения
+ */
+'result': 'OK';
+}>): {
+
+/**
+ * Статус выполнения
+ */
+'result': 'OK';
+} => r.body)
+    );
+  }
+
 }

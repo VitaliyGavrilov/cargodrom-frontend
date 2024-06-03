@@ -168,6 +168,11 @@ export class TransportService extends BaseService {
    */
   transportSubKind$Response(
     params?: {
+
+    /**
+     * Вид перевозки
+     */
+      kind_id?: number;
     },
     context?: HttpContext
   ): Observable<StrictHttpResponse<Array<{
@@ -194,6 +199,7 @@ export class TransportService extends BaseService {
 }>>> {
     const rb = new RequestBuilder(this.rootUrl, TransportService.TransportSubKindPath, 'get');
     if (params) {
+      rb.query('kind_id', params.kind_id, {});
     }
 
     return this.http.request(
@@ -239,6 +245,11 @@ export class TransportService extends BaseService {
    */
   transportSubKind(
     params?: {
+
+    /**
+     * Вид перевозки
+     */
+      kind_id?: number;
     },
     context?: HttpContext
   ): Observable<Array<{
