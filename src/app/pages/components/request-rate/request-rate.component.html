@@ -6,19 +6,28 @@
     <div class="form-row df">
       <div class="form-col">
 
-        <div class="form-col-title">Route os Transportation</div>
+        <div class="form-col-title">Route of Transportation</div>
 
         <div class="form-item-layout">
           <div class="form-item">
             <div class="form-label">Dispatch</div>
             <div class="form-data">
-              <div style="width: 100%; color: #2C3640; font-weight: bold;">{{request?.departure_country_name}}, {{request?.departure_city_name}}, {{request?.departure_address}},{{request?.departure_point_name}}</div>
-              <div style="margin-top: 10px;margin-bottom: 10px; font-size: 13px; color: black;">{{request?.departure_point_name}}</div>
+              <div>
+                {{request?.departure_country_name}},
+                {{request?.departure_city_name}},
+                {{request?.departure_address}}
+              </div>
+              <div class="transport-point">{{request?.departure_point_name}}</div>
             </div>
 
-            <div style="display: flex;">
+            <div class="copy-map">
               <button (click)="copyDispatchText()" class="btn-copy">Copy</button>
-              <a class="btn-map" title="Open dispatch address in Google maps" style="font-size: 13.3px; display: flex; align-items: end;" href="https://www.google.com/maps/search/?api=1&amp;query={{request?.departure_country_name}},{{request?.departure_city_name}},{{request?.departure_address}},{{request?.departure_point_name}}" target="_blank">On map</a>
+              <a class="btn-map"
+                title="Open dispatch address in Google maps"
+                href="https://www.google.com/maps/search/?api=1&amp;query={{request?.departure_country_name}},{{request?.departure_city_name}},{{request?.departure_address}},{{request?.departure_point_name}}"
+                target="_blank">
+                On map
+              </a>
             </div>
 
           </div>
@@ -28,12 +37,21 @@
           <div class="form-item">
             <div class="form-label">Destination</div>
             <div class="form-data">
-              <div style="width: 100%; color: #2C3640; font-weight: 550;">{{request?.arrival_country_name}}, {{request?.arrival_city_name}}, {{request?.arrival_address}}</div>
-              <div style="margin-top: 10px;margin-bottom: 10px; font-size: 13px; color: black;">{{request?.arrival_point_name}}</div>
+              <div>
+                {{request?.arrival_country_name}},
+                {{request?.arrival_city_name}},
+                {{request?.arrival_address}}
+              </div>
+              <div class="transport-point">{{request?.arrival_point_name}}</div>
             </div>
-            <div style="display: flex;">
+            <div class="copy-map">
               <button (click)="copyDestinationText()" class="btn-copy">Copy</button>
-              <a class="btn-map" title="Open destination address in Google maps" style="font-size: 13.3px; display: flex; align-items: end;" href="https://www.google.com/maps/search/?api=1&amp;query={{request?.arrival_country_name}},{{request?.arrival_city_name}},{{request?.arrival_address}},{{request?.arrival_point_name}}" target="_blank">On map</a>
+              <a class="btn-map"
+                title="Open destination address in Google maps"
+                href="https://www.google.com/maps/search/?api=1&amp;query={{request?.arrival_country_name}},{{request?.arrival_city_name}},{{request?.arrival_address}},{{request?.arrival_point_name}}"
+                target="_blank"
+                > On map
+              </a>
             </div>
 
           </div>
@@ -49,13 +67,13 @@
           <div class="form-item">
             <div class="form-label">Type of cargo:</div>
             <div class="form-data">
-              <div style="color: #2C3640;">{{requestEn.cargo_type_name}}</div>
+              <div>{{requestEn.cargo_type_name}}</div>
             </div>
           </div>
           <div class="form-item">
             <div class="form-label">Cargo name:</div>
             <div class="form-data">
-              <div style="color: #2C3640;">{{request?.cargo_description}}</div>
+              <div>{{request?.cargo_description}}</div>
             </div>
           </div>
         </div>
@@ -64,13 +82,13 @@
           <div class="form-item">
             <div class="form-label">Cargo readiness:</div>
             <div class="form-data">
-              <div style="color: #2C3640;">{{request.cargo_readiness}}</div>
+              <div>{{request.cargo_readiness}}</div>
             </div>
           </div>
           <div class="form-item">
             <div class="form-label">Incoterms</div>
             <div class="form-data">
-              <div style="color: #2C3640;">{{request?.incoterms_name}}</div>
+              <div>{{request?.incoterms_name}}</div>
             </div>
           </div>
         </div>
@@ -79,7 +97,15 @@
           <div class="form-item">
             <div class="form-label">Details total:</div>
             <div class="form-data">
-              <div style="color: #2C3640;">{{request.cargo_places_count}}pcs / {{request.cargo_places_volume}}m3 / {{request.cargo_places_weight}}kg / {{request.cargo_places_density}}kg/m3</div>
+              <div class="details-total">
+                {{request.cargo_places_count}}<span> pcs </span>
+                <span class="space">/</span>
+                {{request.cargo_places_volume}}<span> m<sup class="sup">3</sup></span>
+                <span class="space">/</span>
+                {{request.cargo_places_weight}}<span> kg</span>
+                <span class="space">/</span>
+                {{request.cargo_places_density  | number:'1.0-1'}}<span> kg/m<sup class="sup">3</sup></span>
+              </div>
             </div>
           </div>
         </div>
@@ -88,7 +114,7 @@
           <div class="form-item">
             <div class="form-label">Conditions of carriage:</div>
             <div class="form-data">
-              <div style="color: #2C3640;">{{request.cargo_condition_carriage}} </div>
+              <div>{{request.cargo_condition_carriage}} </div>
             </div>
           </div>
         </div>

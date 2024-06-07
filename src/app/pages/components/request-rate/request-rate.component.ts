@@ -100,13 +100,16 @@ export class RequestRateComponent implements OnInit, OnDestroy {
     this.test=this.rates.length-1;
   }
   addRate() {
-    this.rates.push(this.fb.control(
-      {
+    if(this.rates.length<8){
+      this.rates.push(this.fb.control(
+        {
 
-      }
-    ));
-    this.test=this.rates.length-1;
-    this.requestForm.markAsTouched();
+        }
+      ));
+      this.test=this.rates.length-1;
+      this.requestForm.markAsTouched();
+    }
+
   }
   duplicateRate(){
     this.rates.push(this.fb.control(this.requestForm.value.rates[this.test]));

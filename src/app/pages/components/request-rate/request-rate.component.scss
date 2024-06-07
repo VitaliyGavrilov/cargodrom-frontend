@@ -3,6 +3,47 @@
 //   border: solid red 1px;
 // }
 
+
+.form-block .form-item-layout + .form-item-layout {
+  margin-top: 40px;
+}
+div{
+  text-rendering: optimizeLegibility
+}
+.edit-form {
+  width: 1280px;;
+}
+.edit-form.title {
+  font-size: 26px;
+  line-height: 30px;
+  font-weight: bold;
+  color: #2C3640;
+}
+.form-col  .form-label {
+  text-transform: none;
+  font-size: 12px;
+  line-height: 12px;
+  font-weight: normal;
+  margin-bottom: 15px;
+}
+
+.details-total{
+  text-wrap: nowrap;
+}
+.details-total span{
+
+  font-size: 15px;
+  font-weight: normal;
+}
+.space{
+  margin: 0 7px;
+  color: #606A74;
+  font-size: 17px;
+}
+.details-total sup{
+  font-size: 10px;
+}
+
 .df{
   display: flex;
 }
@@ -14,6 +55,8 @@
   width: 0;
   max-width: 381px;
   padding: 40px;
+  font-weight: bold;
+  color: #2C3640;
 }
 .form-col:first-child{
   margin-left: -40px;
@@ -122,70 +165,219 @@
 //   opacity: 1;
 // }
 
-.rate_labels{
-  height: 40px;
-  margin-bottom: -40px;
-  display: flex;
+//rate block and input detail mod
+.rate-block-title{
+  display: flex; align-items: baseline;
+  margin-bottom: 20px;
 }
 
+// rate labels
+.rate_labels{
+  height: 45px;  margin-bottom: -40px;  display: flex;
+}
 .rate_label{
+  display: flex;  justify-content: center;  align-items: center;
+  height: 100%;  width: 130px;
+  border-right: 1px solid #C3CCD6;  border-top: 1px solid #C3CCD6;
+  font-weight: bold;
+  cursor: pointer;
+} .rate_label:first-child{ border-left: 1px solid #C3CCD6;}
+.active-rate{
+  background-color: white;
+  color: #2C3640;
+  font-weight: bold;  font-size: 17px;  line-height: 17px;
+}
+// rate labels-btn
+.rate_labels-btns{
+  border: none;
+  width: fit-content;
+  height: 80%;
+  margin: 5px 0 5px 5px;
+  border-radius: 6px;
+  color: white;
   display: flex;
   justify-content: center;
   align-items: center;
-
-  height: 100%;
-  width: 100px;
-  border-right: 1px solid #C3CCD6;
-  border-top: 1px solid #C3CCD6;
+  padding: 5px 10px;
+  cursor: pointer;
 }
-.rate_label:first-child{
-  border-left: 1px solid #C3CCD6;
-}
-
-.active-rate{
-  background-color: white;
-}
-
 .btn-add-rate{
   background-color: #DB563B;
-  border: none;
-  width: 100px;
-  height: 80%;
-  margin: 5px;
-  border-radius: 6px;
-  color: white;
 }
-
 .btn-dup-rate{
-  width: 100px;
-  height: 80%;
   background-color: #4B66AD;
-  border: none;
-  margin: 5px;
-  margin-left: 0;
-  border-radius: 6px;
-  color: white;
+}
+.btn-del-rate{
+  background-color: black;
+}
+// rate labels-btn icons
+.icon-btn-plus{
+  background-image: url(../../../../assets/pic-btn-plus.svg);
+  background-repeat: no-repeat;
+  width: 10px;
+  height: 10px;
+  margin-right: 5px;
+}
+.icon-btn-del{
+  background-image: url(../../../../assets/pic-btn-del.svg);
+  background-size: contain;
+  background-repeat: no-repeat;
+  width: 15px;
+  height: 15px;
+  margin-right: 5px;
 }
 
-.kg{
-  display: flex;
-  align-items: center;
+//CHARGEABLE WEIGHT
+.kg {
+  display: flex;  align-items: center;
   gap: 5px;
 }
-
-.rate .form-item-layout{
-
+//THE DEPARTURE SCHEDULE:
+.mat-primary .mat-pseudo-checkbox-checked, .mat-primary .mat-pseudo-checkbox-indeterminate {
+  background: #DB563B;
+}
+.mat-primary .mat-option.mat-selected:not(.mat-option-disabled) {
+  color: #DB563B;
+}
+.calendar-icon{
+  background-image: url(../../../../assets/pic-btn-calendar.svg);
+  width: 15px;
+  height: 15px;
+  background-repeat: no-repeat;
+}
+.calendar{
+  background: #F7F9FC;
+  border: 1px solid #E0E5EB;
+  color: #2C3640;
+  font-size: 15px;
+  border-radius: 6px;
+  width: 206px;
+  box-sizing: border-box;
+  padding: 11px 13px 9px;
+  height: 39.88px;
+  display: flex;
+  cursor: pointer;
+}
+.calendar-value{
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  text-align: left;
+  width: 100%;
+}
+.departure-schedule mat-form-field.mat-form-field-appearance-outline .mat-select-arrow {
+  background: url(../../../../assets/pic-btn-calendar.svg) no-repeat;
+  width: 15px;
+  height: 15px;
+}
+//THE NEAREST FLIGHT ETD:
+.mat-calendar-body-cell.selected{
+  background-color:#DB563B;
+  border-radius: 6px;
+}
+.drop-calendar
+{
+  width:30rem
+}
+.mat-menu-panel{
+  width: 206px;
 }
 
-
+//  Charges
+.charges{
+  display: flex;
+  margin-top: 40px;
+  padding-top: 40px;
+  border-top: 1px solid #E0E5EB;
+  margin-bottom: 40px;
+  padding-bottom: 40px;
+  border-bottom: 1px solid #E0E5EB;
+}
 
 .included-fees{
-  width: 65%;
+  display: flex;   align-items: baseline;  justify-content: space-between;
+  width: 100%;  margin-bottom: 25px;
+}
+.list-charges{
+  display: flex;  align-items: baseline;  justify-content: space-between;
+  width: 100%;  margin-bottom: 25px;
+}
+//charges chexbox
+.form-block [type="checkbox"]:checked + i + span {
+  font-weight: bold;
+  font-size: 17px;
+}
+.form-block  [type="checkbox"] + i + span {
+  color: #2C3640;
+}
+//charges values
+.charges-values .form-data{
+  display: flex;
+  text-wrap: nowrap;
+  align-items: baseline;
+}
+.unit{
+  width: 55px;
+  display: block;
+  margin-left: 5px;
+}
+.list-charges .unit{
+  margin-right: 80px;
+}
+.charges-values:last-child .unit{
+  width: 10px;
 }
 
-.list-charges{
-  width: 35%;
+//total cost
+.total{
+  display: flex;
+  gap:40px;
+  align-items: center;
+
 }
+.total .total-detail{
+  display: flex;
+  gap:5px;
+  font-weight: bold;
+  font-size: 22px;
+  line-height: 22px;
+  color: #2C3640;
+}
+.total .total-nodetail{
+  display: flex;
+  gap:5px;
+  font-weight: bold;
+  font-size: 22px;
+  line-height: 22px;
+  color: #2C3640;
+  align-items: baseline;
+}
+.total-nodetail .total-cost{
+  background: #F7F9FC;
+  border: 1px solid #E0E5EB;
+  color: #2C3640;
+  border-radius: 6px;
+  padding: 11px 7px 9px;
+  font-weight: bold;
+  font-size: 22px;
+  line-height: 22px;
+  max-width: 70px;
+  text-align: end;
+}
+.color-red{
+  color: #DB563B;
+}
+.form-block .total [type=checkbox]:checked + i + span {
+  font-weight: normal;
+  font-size: 16px;
+}
+
+
+
+
+
+
+
 
 .dn{
   display: none;
@@ -194,30 +386,10 @@
 
 
 
-.mat-primary .mat-pseudo-checkbox-checked, .mat-primary .mat-pseudo-checkbox-indeterminate {
-  background: #DB563B;
-}
-.mat-primary .mat-option.mat-selected:not(.mat-option-disabled) {
-  color: #DB563B;
-}
-
-
-.mat-calendar-body-cell.selected
-{
-  background-color:#DB563B;
-  border-radius: 6px;
-
-}
-.drop-calendar
-{
-  width:30rem
-}
 
 
 
-.mat-menu-panel{
-  width: 206px;
-}
+
 
 
 
@@ -231,7 +403,7 @@ input::-webkit-inner-spin-button {
 input[type='number'] {
   -moz-appearance: textfield;
 }
-.form-block input[type="number"], .form-block select {
+.form-block .charges input[type="number"], .form-block select {
   font-family: 'regular', 'arial', 'sans-serif';
   background: #F7F9FC;
   border: 1px solid #E0E5EB;
@@ -241,7 +413,8 @@ input[type='number'] {
   border-radius: 6px;
   width: 100%;
   box-sizing: border-box;
-  padding: 11px 7px 9px;
+  padding: 11px 10px 9px;
+  text-align: end;
 }
 
 .form-block input[type="number"][readonly], .form-block select[readonly], .form-block textarea[readonly] {
@@ -250,15 +423,7 @@ input[type='number'] {
   color: #2C3640;
 }
 
-.charges{
-  display: flex;
-  margin-top: 40px;
-  padding-top: 40px;
-  border-top: 1px solid #E0E5EB;
-  margin-bottom: 40px;
-  padding-bottom: 40px;
-  border-bottom: 1px solid #E0E5EB;
-}
+
 
 .charges-values{
   // width: 125px;
@@ -275,30 +440,23 @@ input[type='number'] {
 //   margin-right: 0px;
 // }
 
-.charges-values .form-data{
-  font-size: 13px;
-  line-height: 13px;
-  display: flex;
-  text-wrap: nowrap;
-  align-items: baseline;
-}
+
 
 .input-box{
   display: flex;
   align-items: baseline;
 
 }
-
+// cross and equal
 .cross{
   background-image: url(../../../../assets/pic-btn-cancel-black.svg);
-  // background-image: url(../../../../assets/pic-btn-copy.svg);
-  // background-image: url(../../../../assets/pic-btn-map.svg);
-
   background-size: contain;
-  width: 10px;
-  height: 10px;
-  margin-right: 20px;
-  margin-left: 10px;
+  width: 10px;  height: 10px;
+  margin: 0 10px;
+}
+.equal{
+  color: black;
+  margin-right: 10px;
 }
 
 .br{
@@ -306,28 +464,16 @@ input[type='number'] {
   padding-right: 10px;
   margin-right: 10px;
 }
-.unit{
-  width: 45px;
-  display: block;
-  margin-left: 5px;
+
+.transport-point{
+  margin-top: 15px;
+  font-weight: normal;
 }
 
-.btn-save-rates{
-  background-color: #DB563B;
-  border: none;
-  border-radius: 6px;
-  padding: 10px;
-  color: white;
+.copy-map{
   display: flex;
-  width: 120px;
-}
-.icon-btn-save-rates{
-  background-image: url(../../../../assets/pic-btn-send-white.svg);
-  background-repeat: no-repeat;
-  width: 20px;
-  height: 20px;
-  display: block;
-  margin-right: 5px;
+  align-items: baseline;
+  margin-top: 15px;
 }
 
 .btn-copy{
@@ -337,8 +483,10 @@ input[type='number'] {
   border: none;
   color: #DB563B;
   width: 70px;
+  cursor: pointer;
+  padding: 0;
+  height: 20px;
 }
-
 .btn-map{
   background-image: url(../../../../assets/pic-btn-map.svg);
   background-repeat: no-repeat;
@@ -349,55 +497,42 @@ input[type='number'] {
   text-decoration: none;
   display: flex;
   padding-left: 18px;
-
-}
-
-.calendar-icon{
-  background-image: url(../../../../assets/pic-btn-calendar.svg);
-  width: 15px;
-  height: 15px;
-  background-repeat: no-repeat;
-}
-.calendar{
-  background: #F7F9FC;
-  border: 1px solid #E0E5EB;
-  color: #2C3640;
-  font-size: 15px;
-  line-height: 15px;
-  border-radius: 6px;
-  width: 206px;
-  box-sizing: border-box;
-  padding: 11px 13px 9px;
-  height: 39.88px;
+  font-weight: normal;
+  font-size: 14px;
   display: flex;
-
-}
-.calendar-value{
-  white-space: nowrap;
-  overflow: hidden;
-  text-overflow: ellipsis;
-  text-align: left;
-  width: 100%;
+  align-items: center;
+  height: 20px;
 }
 
-.departure-schedule mat-form-field.mat-form-field-appearance-outline .mat-select-arrow {
-  background: url(../../../../assets/pic-btn-calendar.svg) no-repeat;
-  width: 15px;
+
+
+
+
+.form-block-sub-title{
+  margin-bottom: 40px;
+}
+
+//  btn save rates
+.btn-save-rates{
+  background-color: #DB563B;
+  border: none;
+  border-radius: 6px;
+  padding: 10px;
+  color: white;
+  display: flex;
+  width: 120px;
+  cursor: pointer;
+}
+.icon-btn-save-rates{
+  background-image: url(../../../../assets/pic-btn-send-white.svg);
+  background-repeat: no-repeat;
+  width: 20px;
   height: 15px;
+  display: block;
+  margin-right: 5px;
 }
 
-.form-block .form-data.total input[type="number"][readonly], .form-block .form-data.total span{
-  color:red;
-  border:none;
-  font-size: 20px;
-  font-weight: bold;
-  
-}
-.form-block .form-data.total input[type="number"]{
-  font-size: 20px;
-  font-weight: bold;
 
-}
 
 
 

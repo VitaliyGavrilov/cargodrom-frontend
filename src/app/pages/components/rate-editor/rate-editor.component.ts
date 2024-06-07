@@ -234,7 +234,7 @@ export class RateEditorComponent implements OnInit, OnDestroy, OnChanges, Contro
         name=i.iata;
       };
     });
-    return name;
+    return id===undefined?' ? ':name
   }
 
   testResetForm(){
