@@ -44,6 +44,7 @@ export class RequestEditorTranslateComponent implements OnInit, OnDestroy {
       arrival_address: [, []],
       arrival_point_name: [, []],
       incoterms_name: [, []],
+      incoterms_city_name:[,[]],
       departure_flight_name: [, []],
       cargo_description: [, []],
       cargo_type_name: [, []],
@@ -66,6 +67,7 @@ export class RequestEditorTranslateComponent implements OnInit, OnDestroy {
       arrival_address: [, []],
       arrival_point_name: [, []],
       incoterms_name: [, []],
+      incoterms_city_name:[,[]],
       departure_flight_name: [, []],
       cargo_description: [, []],
       cargo_type_name: [, []],
@@ -96,6 +98,8 @@ export class RequestEditorTranslateComponent implements OnInit, OnDestroy {
   private getRequestTraqnslate(id:number){
     this.requestService.requestTranslate({id}).pipe().subscribe({
       next: (translate:any) => {
+        console.log('get',translate);
+
         this.requestFormTranslateRu.patchValue(translate.ru);
         this.requestFormTranslateNoRu.patchValue(translate.en );
         this.translateAuto=translate.translate_auto.en;
@@ -105,11 +109,13 @@ export class RequestEditorTranslateComponent implements OnInit, OnDestroy {
   }
 
   private updateRequestTraqnslate(){
+    console.log('save',{id:this.requestId, ru:this.requestFormTranslateRu.value, en:this.requestFormTranslateNoRu.value});
+
     const body:any={id:this.requestId, ru:this.requestFormTranslateRu.value, en:this.requestFormTranslateNoRu.value}
     this.requestService.requestTranslateSave({body:body}).pipe().subscribe({
       next: () => {
         this.snackBar.open(`Перевод изменен`, undefined, this.snackBarWithShortDuration);
-        window.location.reload();
+        // window.location.reload();
       },
       error: (err) => this.snackBar.open(`Ошибка изменения перевода запроса: ` + err.error.error_message, undefined, this.snackBarWithShortDuration)
     });

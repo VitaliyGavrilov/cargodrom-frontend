@@ -173,7 +173,7 @@ export class RequestEditorComponent implements OnInit, OnDestroy {
   }
 
   linkRate(){
-    this.router.navigate(['pages/request/rate', this.id]);
+    this.router.navigate(['pages/request/rate', '638d85d28962c195e5ff113ad5e01e43']);
   }
   //МЕТОДЫ ЖЦ
   ngOnDestroy(): void {

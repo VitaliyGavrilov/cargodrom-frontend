@@ -50,7 +50,7 @@ div.mat-calendar-body-cell-content{
   border-radius: 6px;
 }
 
-div.mat-calendar-body-selected {
+div.mat-calendar-body-selected,.mat-calendar-body-cell.selected .mat-calendar-body-cell-content{
   background: #DB563B;
 }
 .mat-calendar-body-in-range::before {

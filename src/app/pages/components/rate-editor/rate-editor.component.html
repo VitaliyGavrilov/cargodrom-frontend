@@ -6,13 +6,13 @@
       <div class="form-row-title color-blue">Rates</div>
 
       <label class="radio">
-        <input type="radio" value="detail" formControlName="rate_type" (change)="testResetForm()">
+        <input type="radio" value="detail" formControlName="rate_type" (change)="onRateTypeChange()">
         <i></i>
         <span>With Details</span>
       </label>
 
       <label class="radio">
-        <input type="radio" value="nodetail" formControlName="rate_type" (change)="testResetForm()">
+        <input type="radio" value="nodetail" formControlName="rate_type" (change)="onRateTypeChange()">
         <i></i>
         <span>With single Amount</span>
       </label>
@@ -21,9 +21,10 @@
 
     <div class="rate_labels">
       <div *ngFor="let rate of rates; let i=index"
-        [ngClass]="{'active-rate':i===test}"
+        [ngClass]="{'active-rate':i===currentRateNumber}"
         (click)="onChangeRate(i)"
-        class="rate_label">Rate #{{i+1}} ({{returnAirlineIata(rate.carrier_id)}})
+        class="rate_label">
+        Rate #{{i+1}} ({{returnAirlineIata(rate.carrier_id)}})
       </div>
       <button class="btn-add-rate rate_labels-btns" (click)="onAddRate()"><span class="icon-btn-plus"></span>Add Rate</button>
       <button class="btn-dup-rate rate_labels-btns" (click)="onDuplicateRate()"><span class="icon-btn-plus"></span>Duplicate Rate</button>
@@ -102,17 +103,17 @@
       <div class="form-item">
         <div class="form-label">The nearest flight etd:</div>
         <div class="form-data">
-          <button class="calendar"  [matMenuTriggerFor]="menu">
-            <div class="calendar-value">
-              {{testTextData()}}
-            </div>
+          <button class="calendar" [matMenuTriggerFor]="menu">
+            <div class="calendar-value">{{returnSelectDateText()}}</div>
             <div class="calendar-icon"></div>
           </button>
           <mat-menu #menu="matMenu">
             <div (click)="$event.stopPropagation()">
-              <mat-calendar #calendar
-                (selectedChange)="select($event,calendar)"
-                [dateClass]="isSelected">
+              <mat-calendar
+                #calendar
+                (selectedChange)="selectDate($event,calendar)"
+                [dateClass]="isSelectedDate"
+                >
               </mat-calendar>
             </div>
           </mat-menu>
@@ -128,7 +129,7 @@
         <div class="form-block-sub-title">The rate includes following charges</div>
         <div formArrayName="values" *ngFor="let chargeValue of charges.controls; let i = index;">
           <div [formGroupName]="i" [ngSwitch]="chargeValue.value.field">
-            <ng-template *ngFor="let chargeModel of charge;let i = index;" [ngSwitchCase]="chargeModel.field_name">
+            <ng-template *ngFor="let chargeModel of chargeModel;let i = index;" [ngSwitchCase]="chargeModel.field_name">
 
               <div *ngIf="chargeValue.value.select" class="included-fees" >
 
@@ -248,7 +249,7 @@
         <div class="form-block-sub-title">List of Charges</div>
         <div formArrayName="values" *ngFor="let chargeValue of charges.controls; let i = index;" >
           <div [formGroupName]="i" [ngSwitch]="chargeValue.value.field">
-            <ng-template *ngFor="let chargeModel of charge;let i = index;" [ngSwitchCase]="chargeModel.field_name">
+            <ng-template *ngFor="let chargeModel of chargeModel;let i = index;" [ngSwitchCase]="chargeModel.field_name">
               <div *ngIf="!chargeValue.value.select" class="list-charges">
 
                 <label class="">
@@ -283,7 +284,7 @@
         <div class="form-block-sub-title">The rate includes following charges</div>
         <div formArrayName="values" *ngFor="let chargeValue of charges.controls; let i = index;">
           <div [formGroupName]="i" [ngSwitch]="chargeValue.value.field">
-            <ng-template *ngFor="let chargeModel of charge;let i = index;" [ngSwitchCase]="chargeModel.field_name">
+            <ng-template *ngFor="let chargeModel of chargeModel;let i = index;" [ngSwitchCase]="chargeModel.field_name">
               <div *ngIf="chargeValue.value.select" class="included-fees">
 
                 <label *ngIf="!chargeModel.requare">
@@ -308,7 +309,7 @@
         <div class="form-block-sub-title">List of Charges</div>
         <div formArrayName="values" *ngFor="let chargeValue of charges.controls; let i = index;" >
           <div [formGroupName]="i" [ngSwitch]="chargeValue.value.field">
-            <ng-template *ngFor="let chargeModel of charge;let i = index;" [ngSwitchCase]="chargeModel.field_name">
+            <ng-template *ngFor="let chargeModel of chargeModel;let i = index;" [ngSwitchCase]="chargeModel.field_name">
               <div *ngIf="!chargeValue.value.select" class="list-charges">
 
                 <label>
@@ -357,6 +358,15 @@
   </div>
 
 </form>
+
+<ng-template #deleteRateDialogRef let-data>
+  <h1 mat-dialog-title>Delete rate?</h1>
+  <div mat-dialog-content>After deletion, restoration will not be possible</div>
+  <div mat-dialog-actions align="end">
+    <button mat-button [mat-dialog-close]="true" cdkFocusInitial>Delete</button>
+    <button mat-button mat-dialog-close>Cancel</button>
+  </div>
+</ng-template>
 
 
 

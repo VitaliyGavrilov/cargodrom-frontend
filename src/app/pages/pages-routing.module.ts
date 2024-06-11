@@ -67,7 +67,7 @@ const routes: Routes = [
         canActivate: [AuthGuard],
       },
       {
-        path: 'request/rate/:id',
+        path: 'request/rate/:uid',
         component: RequestRateComponent,
         pathMatch: 'full',
         title: 'Rate',

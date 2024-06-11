@@ -1,4 +1,4 @@
-<div class="edit-form title">Rate Request # {{id}}</div>
+<div class="edit-form title">Rate Request # {{request?.id}} <div class="time-add">Date: <span>{{request?.time_add}}</span></div></div>
 
 <form class="edit-form" [formGroup]="requestForm">
   <div class="form-block">
@@ -67,7 +67,7 @@
           <div class="form-item">
             <div class="form-label">Type of cargo:</div>
             <div class="form-data">
-              <div>{{requestEn.cargo_type_name}}</div>
+              <div>{{request?.cargo_type_name}}</div>
             </div>
           </div>
           <div class="form-item">
@@ -82,13 +82,13 @@
           <div class="form-item">
             <div class="form-label">Cargo readiness:</div>
             <div class="form-data">
-              <div>{{request.cargo_readiness}}</div>
+              <div>{{request?.cargo_readiness}}</div>
             </div>
           </div>
           <div class="form-item">
             <div class="form-label">Incoterms</div>
             <div class="form-data">
-              <div>{{request?.incoterms_name}}</div>
+              <div>{{request?.incoterms_name}} {{request?.incoterms_city_name}}</div>
             </div>
           </div>
         </div>
@@ -98,13 +98,13 @@
             <div class="form-label">Details total:</div>
             <div class="form-data">
               <div class="details-total">
-                {{request.cargo_places_count}}<span> pcs </span>
+                {{request?.cargo_places_count}}<span> pcs </span>
                 <span class="space">/</span>
-                {{request.cargo_places_volume}}<span> m<sup class="sup">3</sup></span>
+                {{request?.cargo_places_volume}}<span> m<sup class="sup">3</sup></span>
                 <span class="space">/</span>
-                {{request.cargo_places_weight}}<span> kg</span>
+                {{request?.cargo_places_weight}}<span> kg</span>
                 <span class="space">/</span>
-                {{request.cargo_places_density  | number:'1.0-1'}}<span> kg/m<sup class="sup">3</sup></span>
+                {{request?.cargo_places_density  | number:'1.0-1'}}<span> kg/m<sup class="sup">3</sup></span>
               </div>
             </div>
           </div>
@@ -114,7 +114,7 @@
           <div class="form-item">
             <div class="form-label">Conditions of carriage:</div>
             <div class="form-data">
-              <div>{{request.cargo_condition_carriage}} </div>
+              <div>{{request?.cargo_condition_carriage}} </div>
             </div>
           </div>
         </div>
@@ -123,104 +123,59 @@
 
       <div class="form-col">
         <div class="form-col-title">Dimensions</div>
-        <textarea>{{request.cargo_dimensions}}</textarea>
+        <textarea>{{request?.cargo_dimensions}}</textarea>
       </div>
 
     </div>
 
     <div class="form-row">
       <div class="form-row-title">Comment</div>
-      <div>{{requestEn.comment}}</div>
+      <div class="comment">{{request?.comment}}</div>
     </div>
 
     <div class="form-row">
       <div class="form-row-title">Attached Files</div>
       <div class="form-item-layout wrap">
-
         <div class="file-box"
-          *ngFor="let documentsFile of request.documents_file;"
+          *ngFor="let documentsFile of request?.documents_file;"
           (click)="getFile(documentsFile.id)"
         >
-          {{documentsFile.file_name}}
+          {{documentsFile?.file_name}}
         </div>
 
         <div class="file-box"
-          *ngFor="let cargoFile of request.cargo_file;"
+          *ngFor="let cargoFile of request?.cargo_file;"
           (click)="getFile(cargoFile.id)"
         >
-          {{cargoFile.file_name}}
+          {{cargoFile?.file_name}}
         </div>
-
-        <!-- <input class="ui-file-input"
-          type="file"
-          [accept]="xlsxMimeType"
-          #file /> -->
-
-
-
       </div>
-
     </div>
-
-    <!-- <div class="form-row bg ">
-
-      <div class="form-item-layout mb40px">
-        <div class="form-row-title">Rates</div>
-
-        <label class="radio">
-          <input type="radio" [value]="true">
-          <i></i>
-          <span>With Details</span>
-        </label>
-
-        <label class="radio">
-          <input type="radio" [value]="false">
-          <i></i>
-          <span>With single Amount</span>
-        </label>
-
-      </div>
-
-      <div class="rate_labels">
-        <div *ngFor="let rate of rates.controls; let i=index">
-          <div class="rate_label" (click)="indexRateChange(i)" [ngClass]="{'active-rate':i===test}"> Rate</div>
-        </div>
-
-        <button class="btn-add-rate" (click)="addRate()">Add Rate</button>
-        <button class="btn-dup-rate" (click)="duplicateRate()">Duplicate Rate</button>
-        <button class="btn-dup-rate" (click)="removeRate(test)">Delete Rate</button>
-      </div>
-
-    </div> -->
 
     <div class="form-row rate" formArrayName="rates">
       <div *ngFor="let rate of rates.controls; let i=index">
-        <!-- <app-rate-editor
-          *ngIf="i===test"
-          [formControlName]="i"
-          [requestKindId]="request.transport_kind_id">
-        </app-rate-editor> -->
-
         <app-rate-editor
           (removeRate)="removeRate(i)"
           (addRate)="addRate()"
           (indexRateChange)="indexRateChange($event)"
           (duplicateRate)="duplicateRate()"
-          [ngClass]="{'dn':i!==test}"
+          [ngClass]="{'dn':i!==currentRateNumber}"
           [formControlName]="i"
           [requestKindId]="request.transport_kind_id"
           [rates]="requestForm.value.rates"
-          [test]="test"
-          [charge]="testStructyra"
+          [currentRateNumber]="currentRateNumber"
+          [chargeModel]="chargeModel"
           [weight]="request.cargo_places_weight"
         >
         </app-rate-editor>
       </div>
-
     </div>
 
     <div class="form-row bg" style="display: flex;justify-content: end;">
-      <button type="submit" class="btn-save-rates" (click)="saveRequestRates()"><span class="icon-btn-save-rates"></span>Send Rates</button>
+      <button type="submit" class="btn-save-rates" (click)="saveRequestRates()">
+        <span class="icon-btn-save-rates"></span>
+        Send Rates
+      </button>
     </div>
 
   </div>
