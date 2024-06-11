@@ -66,13 +66,13 @@ const routes: Routes = [
         title: 'Проверка перевода запроса',
         canActivate: [AuthGuard],
       },
-      {
-        path: 'request/rate/:uid',
-        component: RequestRateComponent,
-        pathMatch: 'full',
-        title: 'Rate',
-        canActivate: [AuthGuard],
-      },
+      // {
+      //   path: 'request/rate/:uid',
+      //   component: RequestRateComponent,
+      //   pathMatch: 'full',
+      //   title: 'Rate',
+      //   canActivate: [AuthGuard],
+      // },
       {
         path: 'request/bidding/:id',
         component: ContractorComponent,

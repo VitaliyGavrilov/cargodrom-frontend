@@ -1,3 +1,12 @@
+input[type='number'] {
+  -moz-appearance: textfield;
+}
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+    /* display: none; <- Crashes Chrome on hover */
+    -webkit-appearance: none;
+    margin: 0; /* <-- Apparently some margin are still there even though it's hidden */
+}
 .w50{
   width: 50%;
 }
@@ -69,6 +78,14 @@ button{
   border-radius: 6px;
   width: 100%;
   box-sizing: border-box;
-  padding: 11px 13px 9px;
+  padding: 11px 6px 9px;
 }
 
+.form-block textarea {
+  padding: 11px 6px 9px;
+  text-wrap: nowrap;
+}
+textarea::-webkit-scrollbar {
+  width: 0px;
+  height: 0px;
+  }
