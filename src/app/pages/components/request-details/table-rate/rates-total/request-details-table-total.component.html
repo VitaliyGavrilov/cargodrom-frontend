@@ -1,0 +1,532 @@
+<div class="subheader">
+  <div class="request-info">
+    <div  style="border-right: 1px solid #C3CCD6">
+      <div class="title">
+        Запрос №{{currentRequest.id}}
+      </div>
+      <div >
+        {{currentRequest.customer_name}}
+      </div>
+    </div>
+
+    <div class="info-block">
+      <div class="title">Дата:</div>
+      <div >
+        {{currentRequest.time_add}}
+      </div>
+    </div>
+
+    <div class="info-block">
+      <div class="title">Откуда:</div>
+      <div>
+        {{currentRequest.departure_country_name}}
+        ({{currentRequest.departure_city_name}})
+      </div>
+    </div>
+
+    <div class="info-block">
+      <div class="title">Куда:</div>
+      <div >
+        {{currentRequest.arrival_country_name}}
+        ({{currentRequest.arrival_city_name}})
+      </div>
+    </div>
+
+    <div class="info-block">
+      <div class="title">Груз:</div>
+      <div >
+        {{currentRequest.cargo_text}}
+      </div>
+    </div>
+
+    <div class="info-block">
+      <div class="title">INC:</div>
+      <div>
+        {{currentRequest.incoterms_name}}
+      </div>
+    </div>
+
+    <div class="info-block">
+      <div class="title">Статус:</div>
+      <div>
+        {{currentRequest.status_crm_name}}
+      </div>
+    </div>
+  </div>
+
+  <div class="request-actions">
+    <button class="det">Детали</button>
+    <button class="edi" (click)="editRequestNav()">Правка</button>
+    <button class="dub" (click)="dubCurRequest()">Дубль</button>
+    <button class="del">Удалить</button>
+  </div>
+</div>
+
+<div class="subtitle">Коммерческие предложения: 0</div>
+<div class="kp-none">Коммерческих предложений нет</div>
+
+<div style="display: flex; align-items: center;">
+  <div class="subtitle">Ставки: 5/8</div>
+  <div class="rate-links">
+    <div (click)="onTableMethodChange('final')" [ngClass]="detailsMethod==='final'? 'table-active':'' ">Итоговые</div>
+    <div (click)="onTableMethodChange('customs')" [ngClass]="detailsMethod==='customs'? 'table-active':'' ">До границы</div>
+    <div (click)="onTableMethodChange('point')" [ngClass]="detailsMethod==='point'? 'table-active':'' ">Склад (СВХ)</div>
+    <div (click)="onTableMethodChange('transporter')" [ngClass]="detailsMethod==='transporter'? 'table-active':'' ">Вывоз</div>
+  </div>
+</div>
+
+<app-table-filter class="table-filter"
+  [isBiddingMode]="isBiddingMode"
+  [isRateDetailsMode]="isRateDetailsMode"
+  [quantityContractors]="quantityContractors"
+  (saveBidding)="saveContractorSelectRequest()">
+</app-table-filter>
+
+
+<div class="table-list">
+  <table mat-table [dataSource]="rows" multiTemplateDataRows>
+
+    <ng-container matColumnDef="time">
+      <th mat-header-cell *matHeaderCellDef class="w10">
+        <div class="td-block">
+          <div class="column ">Дата запроса</div>
+          <div class="column">Дата ответа</div>
+        </div>
+      </th>
+      <td mat-cell *matCellDef="let contractor" class="w10">
+        <div class="td-block">
+          <div class="column">{{ contractor.time_request }}</div>
+          <div class="column">{{ contractor.time_answer }}</div>
+        </div>
+      </td>
+    </ng-container>
+
+    <ng-container matColumnDef="contractor">
+      <th mat-header-cell *matHeaderCellDef >
+        <div class="td-block">
+          <div class="column w10">Подрядчик</div>
+          <div class="column w5">AIR</div>
+          <div class="column w10">Авиалиния</div>
+          <div class="column w35">Маршрут</div>
+          <div class="column w5">Тип</div>
+          <div class="column w15">Расписание</div>
+          <div class="column w10">Срок.дн.</div>
+        </div>
+      </th>
+      <td mat-cell *matCellDef="let contractor">
+        <div class="td-block">
+          <div class="column w10">{{ contractor.contractor_text }}</div>
+          <div class="column w5">{{ contractor.carrier_iata }}</div>
+          <div class="column w10">{{ contractor.carrier_text }}</div>
+          <span class="pic-i"></span>
+          <div class="column w35">{{ contractor.route_text }}</div>
+          <div class="column w5 transport_type">
+            <div [ngClass]="contractor.kind_key"></div>
+          </div>
+          <div class="column w15">{{ contractor.departure_schedule_text.join(', ') }}</div>
+          <div class="column w10">{{ contractor.transit_time }}</div>
+        </div>
+      </td>
+    </ng-container>
+
+    <ng-container matColumnDef="rating">
+      <th mat-header-cell *matHeaderCellDef class="w5">
+        <div class="td-block">
+          <div class="column">Ставка</div>
+        </div>
+      </th>
+      <td mat-cell *matCellDef="let contractor" class="w5">
+        <div class="td-block">
+          <div class="column">{{ contractor.total_cost_text }}</div>
+        </div>
+      </td>
+    </ng-container>
+
+    <ng-container matColumnDef="nearest_flight" class="w20">
+      <th mat-header-cell *matHeaderCellDef>
+        <div class="td-block">
+          <div class="column">Свободные места</div>
+        </div>
+      </th>
+      <td mat-cell *matCellDef="let contractor" class="w20">
+        <div class="td-block">
+          <div class="column">{{ contractor.nearest_flight_text}}</div>
+        </div>
+      </td>
+    </ng-container>
+
+    <ng-container matColumnDef="select">
+      <th mat-header-cell *matHeaderCellDef class="w64px">
+        <div class="td-block">
+          <div class="column">
+            <label class="checkbox-label">
+              <mat-checkbox class="testclass"
+                [indeterminate]="isIndeterminateDetailsCheckedCheck()"
+                [checked]="isAllDetailsCheckedCheck()"
+                (change)="updateAllArrDetailsCheckedCheck($event)">
+              </mat-checkbox>
+            </label>
+          </div>
+        </div>
+      </th>
+      <td mat-cell *matCellDef="let contractor" class="w64px">
+        <div class="td-block">
+          <div class="column">
+            <label class="checkbox-label">
+              <mat-checkbox class="testclass"
+              [checked]="isDetailsCheckedCheck(contractor.id)"
+              (change)="updateArrDetailsCheckedCheck(contractor.id,$event)">
+              </mat-checkbox>
+            </label>
+          </div>
+        </div>
+      </td>
+    </ng-container>
+
+    <ng-container matColumnDef="checked">
+      <th mat-header-cell *matHeaderCellDef class="w64px">
+        <div class="td-block">
+          <div class="column">КП</div>
+        </div>
+      </th>
+      <td mat-cell *matCellDef="let contractor" class="w64px">
+        <div class="td-block">
+          <label class="switch outer">
+            <input type="checkbox" [checked]="contractor.selected" (change)="onSwitcherChange($event)" >
+            <div class="switcher">
+              <span class="bg"></span>
+              <span class="thumb"></span>
+            </div>
+          </label>
+        </div>
+      </td>
+    </ng-container>
+
+    <!-- details point -->
+    <ng-container matColumnDef="items">
+      <th mat-header-cell *matHeaderCellDef>
+        <div class="td-block">
+          <div class="column">Наименнование Аэропорта</div>
+          <div class="column">Вид рейса</div>
+          <div class="column">Наименнование статей затрат</div>
+        </div>
+      </th>
+      <td mat-cell *matCellDef="let contractor">
+        <div class="td-block">
+          <div class="column"></div>
+          <div class="column"></div>
+          <div class="column"></div>
+        </div>
+      </td>
+    </ng-container>
+
+    <ng-container matColumnDef="cost">
+      <th mat-header-cell *matHeaderCellDef>
+        <div class="td-block">
+          <div class="column">Сумма</div>
+        </div>
+      </th>
+      <td mat-cell *matCellDef="let contractor">
+        <div class="td-block">
+          <div class="column"></div>
+        </div>
+      </td>
+    </ng-container>
+
+    <ng-container matColumnDef="notice">
+      <th mat-header-cell *matHeaderCellDef>
+        <div class="td-block">
+          <div class="column">Примечание</div>
+        </div>
+      </th>
+      <td mat-cell *matCellDef="let contractor">
+        <div class="td-block">
+          <div class="column"></div>
+        </div>
+      </td>
+    </ng-container>
+
+    <!-- details point -->
+    <ng-container matColumnDef="route">
+      <th mat-header-cell *matHeaderCellDef class="w30">
+        <div class="td-block">
+          <div class="column w20" [attr.title]="getColTitle('rating_nps_text')" (click)="sort('rating_nps_text')" [ngClass]="getSortClass('rating_nps_text')">Рейтинг</div>
+          <div class="column w30" [attr.title]="getColTitle('trade_rating')" (click)="sort('trade_rating')" [ngClass]="getSortClass('trade_rating')">Результаты торгов</div>
+          <div class="column w10" [attr.title]="getColTitle('exclude_from_trade')" (click)="sort('exclude_from_trade')" [ngClass]="getSortClass('exclude_from_trade')">Допуск</div>
+          <div class="column w40" [attr.title]="getColTitle('avg_answer_time')" (click)="sort('avg_answer_time')" [ngClass]="getSortClass('avg_answer_time')">Средняя скорость ответа</div>
+          <div class="column w10" [attr.title]="getColTitle('trade_rating')" (click)="sort('trade_rating')" [ngClass]="getSortClass('trade_rating')">ФОЗ</div>
+        </div>
+      </th>
+
+      <td mat-cell *matCellDef="let contractor">
+        <div class="td-block">
+          <div class="column w20">{{ contractor.rating_nps_text }}</div>
+          <div class="column w30">{{contractor.trade_count }}
+            <span class="gray">
+              (
+                <span class="success">{{contractor.trade_success_count}}</span>
+                /
+                <span class="fail">{{contractor.trade_fail_count}}</span>
+                )
+              </span>
+          </div>
+
+          <div class="column w10">
+            <span *ngIf="!contractor.exclude_from_trade" class="success b">Есть</span>
+            <span *ngIf="contractor.exclude_from_trade" class="fail b">Нет</span>
+          </div>
+
+          <div class="column w40">{{ contractor.avg_answer_time }}</div>
+
+          <div class="column w10">
+            <div *ngIf="contractor.request_format_id==='text'">
+              <svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <path d="M0 12H16V13H0V12ZM0 16H11V15H0V16ZM10.7365 6.00769L11.3035 7H16V6H10.7321L10.7365 6.00769ZM9.58923 4H16V3H9.01782L9.58923 4ZM8 9H0V10H16V9H11.4464H8ZM1.15173 7H0L4 0L8 7H6.84827L6.27679 6H1.72314L1.15173 7ZM3.99994 2.01556L2.29456 5H5.70538L3.99994 2.01556Z" fill="#DB563B"/>
+              </svg>
+            </div>
+            <div *ngIf="contractor.request_format_id==='invite'">
+              <svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <path d="M6.91052 9.6228L9.55597 9.1297L16 2.18451L13.6219 0L7.17786 6.94513L6.91052 9.6228ZM8.13953 7.37891L13.6782 1.40955L14.5834 2.24109L9.04773 8.20721L8.03802 8.39545L8.13953 7.37891ZM3 15H13V16H3V15ZM15 6.20276L16 5.125V13H0V3H8.10999L7.18219 4H1V12H15V6.20276Z" fill="#DB563B"/>
+              </svg>
+            </div>
+          </div>
+
+        </div>
+      </td>
+    </ng-container>
+
+    <ng-container matColumnDef="period">
+      <th mat-header-cell *matHeaderCellDef class="w25">
+        <div class="td-block">
+          <div class="column w50" [attr.title]="getColTitle('contact_name')" (click)="sort('contact_name')" [ngClass]="getSortClass('contact_name')">Контактные лица</div>
+          <div class="column w50" [attr.title]="getColTitle('contact_info')" (click)="sort('contact_info')" [ngClass]="getSortClass('contact_info')">Связь</div>
+        </div>
+      </th>
+      <td mat-cell *matCellDef="let contractor">
+        <div class="td-block">
+          <div class="column w25">
+            <ng-container *ngFor="let contact of contractor.contacts">
+              {{ contact.name_f }} <span class="gray" *ngIf="contact.city_name">({{contact.city_name}})</span>
+            </ng-container>
+          </div>
+          <div class="column w75 gray">
+            <ng-container *ngFor="let contact of contractor.contacts">
+              Тел.: <span class="bk">{{contact.phone}}</span>, E-mail.: <span class="bk">{{contact.email}}</span>
+            </ng-container>
+          </div>
+        </div>
+      </td>
+    </ng-container>
+
+    <ng-container matColumnDef="rates">
+      <th mat-header-cell *matHeaderCellDef class="w25">
+        <div class="td-block">
+          <div class="column w50" [attr.title]="getColTitle('contact_name')" (click)="sort('contact_name')" [ngClass]="getSortClass('contact_name')">Контактные лица</div>
+          <div class="column w50" [attr.title]="getColTitle('contact_info')" (click)="sort('contact_info')" [ngClass]="getSortClass('contact_info')">Связь</div>
+        </div>
+      </th>
+      <td mat-cell *matCellDef="let contractor">
+        <div class="td-block">
+          <div class="column w25">
+            <ng-container *ngFor="let contact of contractor.contacts">
+              {{ contact.name_f }} <span class="gray" *ngIf="contact.city_name">({{contact.city_name}})</span>
+            </ng-container>
+          </div>
+          <div class="column w75 gray">
+            <ng-container *ngFor="let contact of contractor.contacts">
+              Тел.: <span class="bk">{{contact.phone}}</span>, E-mail.: <span class="bk">{{contact.email}}</span>
+            </ng-container>
+          </div>
+        </div>
+      </td>
+    </ng-container>
+
+    <ng-container matColumnDef="details">
+      <th mat-header-cell *matHeaderCellDef class="setting w64px">
+        <div class="setting-link"></div>
+      </th>
+      <td mat-cell *matCellDef="let contractor" class="w64px">
+        <div class="td-block">
+          <div class="column">
+            <div
+              (click)="onRateInfoChange(requestId,contractor.id)"
+              (click)="(expandedElement = expandedElement === contractor ? null : contractor);
+              $event.stopPropagation();"
+              [ngClass]="expandedElement===contractor?'arrow-close':'arrow-open'">
+            </div>
+          </div>
+        </div>
+      </td>
+    </ng-container>
+
+    <ng-container matColumnDef="expandedDetail" >
+      <td  mat-cell *matCellDef="let element" [attr.colspan]='column?.length'>
+        <div class="example-element-detail" *ngIf="element===expandedElement">
+          <div class="example-element-block">
+
+            <div class="first_row">
+
+              <div class="first_col">
+
+                <div class="cost_block">
+                  <div class="cost">{{expandedElementInfo?.total_cost_text}}</div>
+                </div>
+
+                <div class="contractor_block">
+                  <div style="display: flex; justify-content: space-between;">
+                    <div class="agent_block">
+                      <div class="label">Агент авиалинии:</div>
+                      <div>{{expandedElementInfo?.carrier_text}}</div>
+                      <div class="detailed">Подробнее  ></div>
+                    </div>
+
+                    <div class="link_block">
+                      <div class="pic msg"></div>
+                      <div class="pic phone"></div>
+                      <div class="pic mail"></div>
+                    </div>
+                  </div>
+
+                  <div style="display: flex; justify-content: space-between; margin-top: 40px;">
+                    <div class="rating_block">
+                      <div class="label">Рейтинг в системе:</div>
+                      <div class="stars">
+                        <div class="star_sel"></div>
+                        <div class="star_no-sel"></div>
+                      </div>
+                      <div>{{expandedElementInfo?.contractor.trade_count_text}} NSP</div>
+                    </div>
+
+                    <div class="pct_block">
+                      <div class="label">% выигранных торгов:</div>
+                      <div class="flags">
+                        <div><span class="red_flag"></span>{{expandedElementInfo?.contractor.trade_fail_count}}</div>
+                        <div><span class="green_flag"></span>{{expandedElementInfo?.contractor.trade_success_count}}</div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+
+              </div>
+
+              <div class="second_col">
+                <div class="title">Данные по ставке</div>
+
+                <div class="items">
+                  <div class="item">
+                    <div class="label">Транзитный срок:</div>
+                    <div>{{expandedElementInfo?.valid_time}}</div>
+                  </div>
+                  <div class="item">
+                    <div class="label">Ставка до:</div>
+                    <div>{{expandedElementInfo?.contractor.trade_success_count}}</div>
+                  </div>
+                </div>
+
+                <div class="items">
+                  <div class="item">
+                    <div class="label">Линия:</div>
+                    <div>{{expandedElementInfo?.carrier_text}}</div>
+                  </div>
+                  <div class="item">
+                    <div class="label">Маршрут:</div>
+                    <div>{{expandedElementInfo?.route_text}}</div>
+                  </div>
+                </div>
+
+                <div class="items">
+                  <div class="item">
+                    <div class="label">Плотность груза (кг/м3):</div>
+                    <div>{{expandedElementInfo?.request.cargo_places_density}}</div>
+                  </div>
+                  <div class="item">
+                    <div class="label">Оплачиваемый вес (кг):</div>
+                    <div>{{expandedElementInfo?.request.cargo_places_paid_weight}}</div>
+                  </div>
+                </div>
+
+                <div class="items">
+                  <div class="item">
+                    <div class="label">Кол-во мест:</div>
+                    <div>{{expandedElementInfo?.request.cargo_places_count}}</div>
+                  </div>
+                  <div class="item">
+                    <div class="label">Вес брутто, кг:</div>
+                    <div>{{expandedElementInfo?.request.cargo_places_weight}}</div>
+                  </div>
+                </div>
+
+                <div class="items">
+                  <div class="item">
+                    <div class="label">Свободные места:</div>
+                    <div>{{element.nearest_flight_text}}</div>
+                  </div>
+                  <div class="item">
+                    <div class="label">Дни вылета:</div>
+                    <div>{{expandedElementInfo?.departure_schedule_text.join(', ').toUpperCase()}}</div>
+                  </div>
+                </div>
+              </div>
+
+              <div class="third_col">
+                <div class="title">В ставку включено <span>/ не включено</span></div>
+                <div class="items">
+                  <div class="on_block">
+                    <div *ngFor="let item of expandedElementInfo?.values">
+                      <div class="item" *ngIf="item.select">
+                        <div class="name"><span class="pic"></span>{{item.name}}</div>
+                        <div class="label">Включено: <span>{{item.cost_text}}</span></div>
+                      </div>
+                    </div>
+                  </div>
+
+                  <div class="off_block">
+                    <div *ngFor="let item of expandedElementInfo?.values">
+                      <div class="item" *ngIf="!item.select">
+                        <div class="name"><span class="pic"></span>{{item.name}}</div>
+                        <div class="label">Не включено</div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+            </div>
+
+            <div class="second_row">
+              <div class="comment_block">
+                <div class="label">
+                  <span class="pic-i-grey">i</span>Примечание:
+                </div>
+                <div class="comment">{{ expandedElementInfo?.comment }}</div>
+              </div>
+            </div>
+
+          </div>
+
+          <div class="action-bar">
+            <button class="edit"></button>
+            <button class="dub"></button>
+            <button class="del"></button>
+          </div>
+          <!-- <div class="column">{{ element.departure_schedule_text.join(', ') }}</div> -->
+        </div>
+      </td>
+    </ng-container>
+
+    <tr mat-header-row *matHeaderRowDef="column"></tr>
+    <tr mat-row *matRowDef="let element; columns: column;" class="example-element-row" [class.example-expanded-row]="expandedElement === element"></tr>
+    <tr mat-row *matRowDef="let row; columns: ['expandedDetail']" class="example-detail-row"></tr>
+
+  </table>
+</div>
+
+<app-paginator
+  [total]="total"
+  [count]="count"
+  [start]="start"
+  [limits]="limits"
+  (startChange)="onStartChange($event)"
+  (countChange)="onCountChange($event)">
+</app-paginator>
+

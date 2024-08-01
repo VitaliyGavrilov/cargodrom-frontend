@@ -19,7 +19,11 @@ export class AutocompleteFilterComponent implements OnInit, OnDestroy {
       distinctUntilChanged(),
       rxjsFilter(val => val === '' || val.length > 1),
     )
-      .subscribe(() => this.filter.apply());
+      .subscribe(() => {
+        this.filter.apply()
+        console.log(123);
+
+      });
   }
 
   ngOnInit(): void {

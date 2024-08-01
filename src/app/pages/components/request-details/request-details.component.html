@@ -1,0 +1,15 @@
+Запрос
+
+4коммерческие предложения
+
+ставки
+
+<div (click)="test('total')">total</div>
+<div (click)="test('border')">border</div>
+<div (click)="test('stock')">stock</div>
+<div (click)="test('export')">export</div>
+
+<app-request-details-table-border *ngIf="detailsMode==='border'" ></app-request-details-table-border>
+<app-request-details-table-export *ngIf="detailsMode==='export'"></app-request-details-table-export>
+<app-request-details-table-stock  *ngIf="detailsMode==='stock'"></app-request-details-table-stock>
+<app-request-details-table-total  *ngIf="detailsMode==='total'"></app-request-details-table-total>

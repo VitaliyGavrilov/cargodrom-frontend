@@ -34,6 +34,12 @@ import { RequestRateComponent } from './components/request-rate/request-rate.com
 import { RateEditorComponent } from './components/rate-editor/rate-editor.component';
 
 import { ClipboardModule } from '@angular/cdk/clipboard';
+import { RequestDetailsComponent } from './components/request-details/request-details.component';
+import { RequestDetailsTableBorderComponent } from './components/request-details/table-rate/rates-border/request-details-table-border.component';
+import { RequestDetailsTableExportComponent } from './components/request-details/table-rate/rates-export/request-details-table-export.component';
+import { RequestDetailsTableStockComponent } from './components/request-details/table-rate/rates-stock/request-details-table-stock.component';
+import { RequestDetailsTableTotalComponent } from './components/request-details/table-rate/rates-total/request-details-table-total.component';
+import { HttpClientModule } from '@angular/common/http';
 
 
 
@@ -68,6 +74,13 @@ import { ClipboardModule } from '@angular/cdk/clipboard';
     RequestRateComponent,
 
     RateEditorComponent,
+    RequestDetailsComponent,
+
+    RequestDetailsTableBorderComponent,
+    RequestDetailsTableExportComponent,
+    RequestDetailsTableStockComponent,
+    RequestDetailsTableTotalComponent,
+
   ],
   imports: [
     CommonModule,

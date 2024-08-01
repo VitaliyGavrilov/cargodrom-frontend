@@ -18,4 +18,62 @@
   display: none;
 }
 
+.testu{
+  margin-left: auto;
+}
 
+
+.detail-btn{
+  border: 0;
+  display: flex;
+  flex-direction: row;
+  margin: 12px;
+  margin-left: auto;
+  gap: 12px;
+
+  button{
+    display: block;
+    padding: 9px 8px 7px;
+    width: 64px;
+    height: 56px;
+    box-sizing: border-box;
+    font-size: 10px;
+    line-height: 10px;
+    text-transform: uppercase;
+    text-align: center;
+    color: black;
+    cursor: pointer;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+    background: white;
+    border-radius: 6px;
+    border: 0;
+  }
+  button::before{
+    content: "";
+    width: 18px;
+    height: 18px;
+    display: block;
+    background: no-repeat 50% 50%;
+    margin: 0 auto 10px auto;
+  }
+  .plus-rate::before{
+    background-image:url(../../../assets/pic-btn-rate-plus.svg);
+  }
+  button.plus-rate{
+    background-color: #DB563B;
+    color: white;
+  }
+  .dub::before{
+    background-image:url(../../../assets/pic-btn-double.svg);
+  }
+  .torg::before{
+    background-image:url(../../../assets/pic-btn-trade-red.svg);
+  }
+  .del::before{
+    background-image:url(../../../assets/pic-btn-del.svg);
+  }
+  button.del{
+    background-color: #606A74;
+    color: white;
+  }
+}

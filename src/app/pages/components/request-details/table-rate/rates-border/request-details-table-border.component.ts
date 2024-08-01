@@ -1,23 +1,33 @@
-import { ContractorFilter } from './../../../api/custom_models/contractor-filter';
-import { ContractorService } from './../../../api/services/contractor.service';
+import { ContractorFilter } from './../../../../../api/custom_models/contractor-filter';
+import { ContractorService } from './../../../../../api/services/contractor.service';
 import { Component } from '@angular/core';
-import { Contractor, SearchFilterSchema } from '../../../api/custom_models';
-import { LoadParams, Table } from '../../../classes';
+import { Contractor, SearchFilterSchema } from '../../../../../api/custom_models';
+import { LoadParams, Table } from '../../../../../classes';
 import { MatDialog } from '@angular/material/dialog';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Observable, map, of } from 'rxjs';
 import { FilterService } from 'src/app/filter/services/filter.service';
 import { RequestService } from 'src/app/api/services';
+import {animate, state, style, transition, trigger} from '@angular/animations';
 @Component({
-  selector: 'app-contractor',
-  templateUrl: './contractor.component.html',
-  styleUrls: ['./contractor.component.scss'],
-  providers: [FilterService]
+  selector: 'app-request-details-table-border',
+  templateUrl: './request-details-table-border.component.html',
+  styleUrls: ['./request-details-table-border.component.scss'],
+  providers: [FilterService],
+  // animations: [
+  //   trigger('detailExpand', [
+  //     state('collapsed,void', style({height: '0px', minHeight: '0', })),
+  //     state('expanded', style({height: '*',})),
+  //     transition('expanded <=> collapsed', animate('225ms cubic-bezier(0.4, 0.0, 0.2, 1)')),
+  //   ]),
+  // ],
 })
 
-export class ContractorComponent extends Table<Contractor, 'trade_rating', ContractorFilter> {
+export class RequestDetailsTableBorderComponent extends Table<Contractor, 'trade_rating', ContractorFilter> {
   sortField = 'name' as const;
+
+  expandedElement: any | null;
 
   params:any;
 
@@ -39,13 +49,15 @@ export class ContractorComponent extends Table<Contractor, 'trade_rating', Contr
   load<Contractor>(params: LoadParams<Contractor, ContractorFilter>): Observable<{ total: number; items: Contractor[]; }> {
     this.params=params;
     return this.contractorService.contractorList(params as any) as unknown as Observable<{ total: number; items: Contractor[]; }>;
+
+
   }
   protected override loadFilterSchemaTest(): Observable<any>  {
     return this.contractorService.contractorListParam().pipe(map(val => val as any));
   }
-  // protected override loadFilterSchema(): Observable<SearchFilterSchema> {
-  //   return this.contractorService.contractorListSearch().pipe(map(val => val as SearchFilterSchema));
-  // }
+  protected override loadFilterSchema(): Observable<SearchFilterSchema> {
+    return this.contractorService.contractorList().pipe(map(val => val as SearchFilterSchema));
+  }
   //методы для импорта экспорта
   protected override exportData(): Observable<{data: string; name: string}> {
     return this.contractorService.contractorExport(this.params as any) as Observable<{data: string; name: string}>;
@@ -83,5 +95,14 @@ export class ContractorComponent extends Table<Contractor, 'trade_rating', Contr
     if(n===3)classSpec='rw';
     if(n===4)classSpec='sea';
     return classSpec;
+  }
+
+  test(e:any){
+    console.log(e);
+    console.log(this.column);
+    console.log(this.rows);
+
+
+
   }
 }

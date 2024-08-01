@@ -1,9 +1,7 @@
 .edit-form .torg{
   margin-top: auto;
   margin-bottom: auto;
-  flex-grow: 1;
+  min-width: 526px;
+  flex-grow: 0;
 }
 
-.edit-form .fg{
-  flex-grow: 1;
-}

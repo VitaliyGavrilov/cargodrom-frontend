@@ -45,9 +45,9 @@ export class RequestComponent extends Table<Request, 'id', RequestFilter> {
     return this.requestService.requestListParam().pipe(map(val => val as any));
   }
 
-  protected override loadFilterSchema<T>(): Observable<SearchFilterSchema> {
-    return this.requestService.requestListSearch().pipe(map(val => val as SearchFilterSchema));
-  }
+  // protected override loadFilterSchema<T>(): Observable<SearchFilterSchema> {
+  //   return this.requestService.requestListSearch().pipe(map(val => val as SearchFilterSchema));
+  // }
 
   protected override exportData(): Observable<{data: string; name: string}> {
     return this.requestService.requestExport(this.params as any) as Observable<{data: string; name: string}>;

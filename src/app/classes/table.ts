@@ -10,6 +10,7 @@ import { SearchFilterSchema } from '../api/custom_models';
 import { MatCheckboxChange } from '@angular/material/checkbox';
 
 export interface LoadParams<T, F> {
+  id?:number;
   start?: number;
   count?: number;
   sort?: SortColumn<T>[];
@@ -29,11 +30,16 @@ export abstract class Table<T extends { id: number }, A = never, F = never> impl
   quantityContractors:number=0;
   currentQuantityContractors:number=0
   currentRequest:any={};
+  contractorsSelectedForRequest:any=[];
+
+  isRateDetailsMode=false;
+  detailsMethod:string='';
+  requestId:number=0;
 
   schemaTest:any
 
 
-  contractorsSelectedForRequest:any=[]
+
 
   readonly xlsxMimeType = 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet';
 
@@ -53,13 +59,14 @@ export abstract class Table<T extends { id: number }, A = never, F = never> impl
   @ViewChild('removeDialogRef') removeDialogRef!: TemplateRef<T>;
   @ViewChild('exportDialogRef') exportDialogRef?: TemplateRef<void>;
   @ViewChild('importDialogRef') importDialogRef?: TemplateRef<{file: File, text: string}>;
+  @ViewChild('saveBiddingRef') saveBiddingRef?: TemplateRef<void>;
   private aliases = new Map<A, (keyof T)[]>();
 
   @ViewChild('file', { static: true }) file?: ElementRef;
 
   constructor(
     private route: ActivatedRoute,
-    private router: Router,
+    protected router: Router,
     private dialog: MatDialog,
     protected snackBar: MatSnackBar,
     protected filterService: FilterService,
@@ -69,14 +76,19 @@ export abstract class Table<T extends { id: number }, A = never, F = never> impl
   ngOnInit(): void {
     const segments = this.route.snapshot.url.map(s => s.path);
     this.isBiddingMode = segments[1] === 'bidding';
-    if(this.isBiddingMode){
-      const id = Number(this.route.snapshot.paramMap.get('id'));
-      this.getRequestInfo(id);
+    this.isRateDetailsMode = segments[1] === 'details';
+
+    if(this.isRateDetailsMode || this.isBiddingMode){
+      if(this.isRateDetailsMode) this.detailsMethod=segments[2];
+      this.requestId = Number(this.route.snapshot.paramMap.get('id'));
+      this.getRequestInfo(this.requestId);
     }
+
     this.filterService.onApply().subscribe(filter => {
       this.onFilterChange(filter as F);
     });
     this.getListParam();
+    this.subscribeRouteQueryParamMap();
   }
 
   ngOnDestroy(): void {
@@ -86,11 +98,17 @@ export abstract class Table<T extends { id: number }, A = never, F = never> impl
 
   protected loadRows(): void {
     const sortCol = this.getSort();
-    this.load({ start: this.start, count: this.count, sort: JSON.stringify(sortCol) as unknown as SortColumn<T>[], ...this.filter })
+    const params = this.isRateDetailsMode?
+      { request_id:91, method: this.detailsMethod, start: this.start, count: this.count, ...this.filter }
+      :
+      { start: this.start, count: this.count, sort: JSON.stringify(sortCol) as unknown as SortColumn<T>[], ...this.filter  };
+
+    this.load(params)
       .subscribe(rows => {
         console.log('rows', rows);
         this.rows = rows ? rows.items as T[] : [];
         this.total = rows.total;
+
         if(this.isBiddingMode){
           this.arrRowsId=[];
           rows.items.forEach((element:any) => {
@@ -98,6 +116,7 @@ export abstract class Table<T extends { id: number }, A = never, F = never> impl
           });
           this.getContractorsSelectRequest();
         }
+
       });
   }
 
@@ -303,12 +322,15 @@ export abstract class Table<T extends { id: number }, A = never, F = never> impl
   protected requestContractorSelectUpdate(body: {id: number; contractor_id: number[],checked:boolean}): Observable<any> {
     return NEVER;
   }
+  protected requestSaveBidding(body: {id: number, confirm:boolean}): Observable<any> {
+    return NEVER;
+  }
 
   protected requestInfo(id:number): Observable<any> {
     return NEVER;
   }
 
-  protected loadFilterSchemaTest(): Observable<any> {
+  protected loadFilterSchemaTest(par:any): Observable<any> {
     return NEVER;
   }
 
@@ -476,6 +498,27 @@ export abstract class Table<T extends { id: number }, A = never, F = never> impl
     });
   }
 
+  saveContractorSelectRequest() {
+    const requestId = Number(this.route.snapshot.paramMap.get('id'));
+    this.requestSaveBidding({id:requestId,confirm: false})
+      .pipe(
+        tap(()=>{}),
+        takeUntil(this.destroy$))
+      .subscribe({
+        next:()=>{},
+        error:(err)=>{
+          this.dialog.open(this.saveBiddingRef!, { data: {err} }).afterClosed()
+            .subscribe(res => {
+              if(res){
+                this.requestSaveBidding({id:requestId, confirm: true})
+                .pipe(tap((res)=>{}), takeUntil(this.destroy$))
+                .subscribe()
+              }
+            })
+        }
+      })
+  }
+
   isCheck(id:number){
     let isCheck
     this.contractorsSelectedForRequest.forEach((i:any)=>{
@@ -498,19 +541,24 @@ export abstract class Table<T extends { id: number }, A = never, F = never> impl
     this.requestInfo(id).subscribe({
       next: (request) => {
         this.currentRequest=request;
-        this.filterService.value["country_departure"]=this.currentRequest.departure_country_id;
-        this.filterService.value["country_arrival"]=this.currentRequest.arrival_country_id;
-        this.filterService.value["specialization"]=[this.currentRequest.transport_kind_id];
-        // this.filterService.value["rating"]=this.currentRequest.request_type_id;
-        this.filterService.apply();
+        if(this.isBiddingMode){
+          this.filterService.value["country_departure"]=this.currentRequest.departure_country_id;
+          this.filterService.value["country_arrival"]=this.currentRequest.arrival_country_id;
+          this.filterService.value["specialization"]=[this.currentRequest.transport_kind_id];
+          // this.filterService.value["rating"]=this.currentRequest.request_type_id;
+          this.filterService.apply();
+        }
       },
       error: (err) => this.snackBar.open(`Ошибка получения данных запроса ` + err.error.error_message, undefined, this.snackBarWithShortDuration)
     });
   }
 
   getListParam(){
-    this.loadFilterSchemaTest().subscribe({
+    const param=this.isRateDetailsMode?{request_id:this.requestId ,method:this.detailsMethod }:null;
+    this.loadFilterSchemaTest(param).pipe(tap(),takeUntil(this.destroy$)).subscribe({
       next: (schema) => {
+        console.log(schema);
+
         this.filterService.setSearchFilterSchema(schema.search);
 
         schema.column.forEach((col:any)=>{
@@ -525,19 +573,19 @@ export abstract class Table<T extends { id: number }, A = never, F = never> impl
           this.column?.pop();
         }
 
-        this.sortField = schema.sort[0].field;
-        this.sortDir = schema.sort[0].dir;
+        // this.sortField = schema.sort[0].field;
+        // this.sortDir = schema.sort[0].dir;
 
-        this.router.navigate(['.'], {
-          queryParams: { sortField: schema.sort[0].field, sortDir: schema.sort[0].dir },
-          queryParamsHandling: 'merge',
-          relativeTo: this.route,
-        });
+        // this.router.navigate(['.'], {
+        //   queryParams: { sortCol: schema.sort[0].field, sortDir: schema.sort[0].dir },
+        //   queryParamsHandling: 'merge',
+        //   relativeTo: this.route,
+        // });
         // this.filterService.apply();
       },
       error: (err) => this.snackBar.open(`Ошибка получения параметров вывода таблицы ` + err.error.error_message, undefined, this.snackBarWithShortDuration),
       complete:()=> {
-        this.subscribeRouteQueryParamMap();
+        // this.subscribeRouteQueryParamMap();
       }
     });
   }

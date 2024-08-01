@@ -24,16 +24,23 @@
       </div>
     </div>
 
-    <div class="item func" >
+    <div class="item func">
       <div>
         <span class="btn apply" (click)="filterService.apply()"><span>Применить</span></span>
         <span class="btn reset" (click)="filterService.reset()"><span></span></span>
       </div>
     </div>
 
+    <div class="detail-btn"  *ngIf="isRateDetailsMode">
+      <button class="plus-rate">+ СТАВКА</button>
+      <button class="dub">ДУБЛЬ</button>
+      <button class="torg">ТОРГИ</button>
+      <button class="del">УДАЛИТЬ</button>
+    </div>
+
     <div class="item func trade-btn" *ngIf="isBiddingMode && quantityContractors! >0" >
       <div>
-        <span class="btn apply"><span>Начать торги ({{quantityContractors}})</span></span>
+        <span class="btn apply" (click)="saveBiddingBtn()"><span>Начать торги ({{quantityContractors}})</span></span>
       </div>
     </div>
 
@@ -62,4 +69,5 @@
 
 
 </div>
+
 

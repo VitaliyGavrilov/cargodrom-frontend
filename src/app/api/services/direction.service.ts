@@ -1044,7 +1044,7 @@ export class DirectionService extends BaseService {
     /**
      * ID города (ID берем из запроса - direction_city)
      */
-      city_id: number;
+      city_id?: number;
 
     /**
      * ID способа доставки (ID берем из запроса - transport_kind)
@@ -1163,7 +1163,7 @@ export class DirectionService extends BaseService {
     /**
      * ID города (ID берем из запроса - direction_city)
      */
-      city_id: number;
+      city_id?: number;
 
     /**
      * ID способа доставки (ID берем из запроса - transport_kind)

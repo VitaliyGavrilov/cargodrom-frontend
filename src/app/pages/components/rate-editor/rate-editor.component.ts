@@ -55,13 +55,13 @@ export class RateEditorComponent implements OnInit, OnDestroy, OnChanges, Contro
   transportRoute: TransportRoute[]=[];
 
   daysOfTheWeek=[
-    { day:'Sunday', id:0 },
     { day:'Monday', id:1 },
     { day:'Tuesday', id:2 },
     { day:'Wednesday', id:3 },
     { day:'Thursday', id:4 },
     { day:'Friday', id:5 },
     { day:'Saturday', id:6 },
+    { day:'Sunday', id:7 },
   ]
 
   @ViewChild('deleteRateDialogRef') deleteRateDialogRef?: TemplateRef<void>;
@@ -83,6 +83,10 @@ export class RateEditorComponent implements OnInit, OnDestroy, OnChanges, Contro
       rate_type: ['nodetail',[]],
       route_id: [,[]],
       total_cost: [,[]],
+      transit_time: this.fb.group({
+        transit_time_from: [, []],
+        transit_time_to: [, []],
+      }),
       values: fb.array([
         // this.fb.group({
         //   comment: [,[]],

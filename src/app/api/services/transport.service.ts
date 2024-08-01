@@ -770,6 +770,11 @@ export class TransportService extends BaseService {
      * Вид перевозки
      */
       kind_id?: number;
+
+    /**
+     * Наименование
+     */
+      name?: string;
     },
     context?: HttpContext
   ): Observable<StrictHttpResponse<Array<{
@@ -797,6 +802,7 @@ export class TransportService extends BaseService {
     const rb = new RequestBuilder(this.rootUrl, TransportService.TransportCarrierPath, 'get');
     if (params) {
       rb.query('kind_id', params.kind_id, {});
+      rb.query('name', params.name, {});
     }
 
     return this.http.request(
@@ -847,6 +853,11 @@ export class TransportService extends BaseService {
      * Вид перевозки
      */
       kind_id?: number;
+
+    /**
+     * Наименование
+     */
+      name?: string;
     },
     context?: HttpContext
   ): Observable<Array<{
@@ -1304,6 +1315,113 @@ export class TransportService extends BaseService {
  * Пункт прибытия
  */
 'point_id_arrival'?: number;
+
+/**
+ * Наименование
+ */
+'name'?: string;
+}> => r.body)
+    );
+  }
+
+  /** Path part for operation `transportPointAction()` */
+  static readonly TransportPointActionPath = '/transport_point_action';
+
+  /**
+   * Тип операции.
+   *
+   *
+   *
+   * This method provides access to the full `HttpResponse`, allowing access to response headers.
+   * To access only the response body, use `transportPointAction()` instead.
+   *
+   * This method doesn't expect any request body.
+   */
+  transportPointAction$Response(
+    params?: {
+    },
+    context?: HttpContext
+  ): Observable<StrictHttpResponse<Array<{
+
+/**
+ * ID
+ */
+'id'?: number;
+
+/**
+ * Наименование
+ */
+'name'?: string;
+}>>> {
+    const rb = new RequestBuilder(this.rootUrl, TransportService.TransportPointActionPath, 'get');
+    if (params) {
+    }
+
+    return this.http.request(
+      rb.build({ responseType: 'json', accept: 'application/json', context })
+    ).pipe(
+      filter((r: any): r is HttpResponse<any> => r instanceof HttpResponse),
+      map((r: HttpResponse<any>) => {
+        return r as StrictHttpResponse<Array<{
+        
+        /**
+         * ID
+         */
+        'id'?: number;
+        
+        /**
+         * Наименование
+         */
+        'name'?: string;
+        }>>;
+      })
+    );
+  }
+
+  /**
+   * Тип операции.
+   *
+   *
+   *
+   * This method provides access only to the response body.
+   * To access the full response (for headers, for example), `transportPointAction$Response()` instead.
+   *
+   * This method doesn't expect any request body.
+   */
+  transportPointAction(
+    params?: {
+    },
+    context?: HttpContext
+  ): Observable<Array<{
+
+/**
+ * ID
+ */
+'id'?: number;
+
+/**
+ * Наименование
+ */
+'name'?: string;
+}>> {
+    return this.transportPointAction$Response(params, context).pipe(
+      map((r: StrictHttpResponse<Array<{
+
+/**
+ * ID
+ */
+'id'?: number;
+
+/**
+ * Наименование
+ */
+'name'?: string;
+}>>): Array<{
+
+/**
+ * ID
+ */
+'id'?: number;
 
 /**
  * Наименование

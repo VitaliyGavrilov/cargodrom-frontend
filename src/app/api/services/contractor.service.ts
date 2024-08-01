@@ -167,6 +167,16 @@ export class ContractorService extends BaseService {
 'language_id'?: string;
 
 /**
+ * Агент транспортной компании
+ */
+'carrier_name'?: string;
+
+/**
+ * Агент транспортной компании (ID берем из запроса - transport_carrier)
+ */
+'carrier_id'?: number;
+
+/**
  * Вид подрядчика
  */
 'type_name'?: string;
@@ -458,16 +468,6 @@ export class ContractorService extends BaseService {
  */
 'time_edit'?: string;
 }>;
-
-/**
- * Параметры таблицы
- */
-'column'?: Array<string>;
-
-/**
- * Поля сортировки
- */
-'sort'?: Array<string>;
 }>> {
     const rb = new RequestBuilder(this.rootUrl, ContractorService.ContractorListPath, 'get');
     if (params) {
@@ -558,6 +558,16 @@ export class ContractorService extends BaseService {
          * Язык общения (ID берем из запроса - settings_get из поля language)
          */
         'language_id'?: string;
+        
+        /**
+         * Агент транспортной компании
+         */
+        'carrier_name'?: string;
+        
+        /**
+         * Агент транспортной компании (ID берем из запроса - transport_carrier)
+         */
+        'carrier_id'?: number;
         
         /**
          * Вид подрядчика
@@ -851,16 +861,6 @@ export class ContractorService extends BaseService {
          */
         'time_edit'?: string;
         }>;
-        
-        /**
-         * Параметры таблицы
-         */
-        'column'?: Array<string>;
-        
-        /**
-         * Поля сортировки
-         */
-        'sort'?: Array<string>;
         }>;
       })
     );
@@ -1009,6 +1009,16 @@ export class ContractorService extends BaseService {
 'language_id'?: string;
 
 /**
+ * Агент транспортной компании
+ */
+'carrier_name'?: string;
+
+/**
+ * Агент транспортной компании (ID берем из запроса - transport_carrier)
+ */
+'carrier_id'?: number;
+
+/**
  * Вид подрядчика
  */
 'type_name'?: string;
@@ -1300,16 +1310,6 @@ export class ContractorService extends BaseService {
  */
 'time_edit'?: string;
 }>;
-
-/**
- * Параметры таблицы
- */
-'column'?: Array<string>;
-
-/**
- * Поля сортировки
- */
-'sort'?: Array<string>;
 }> {
     return this.contractorList$Response(params, context).pipe(
       map((r: StrictHttpResponse<{
@@ -1385,6 +1385,16 @@ export class ContractorService extends BaseService {
 'language_id'?: string;
 
 /**
+ * Агент транспортной компании
+ */
+'carrier_name'?: string;
+
+/**
+ * Агент транспортной компании (ID берем из запроса - transport_carrier)
+ */
+'carrier_id'?: number;
+
+/**
  * Вид подрядчика
  */
 'type_name'?: string;
@@ -1676,16 +1686,6 @@ export class ContractorService extends BaseService {
  */
 'time_edit'?: string;
 }>;
-
-/**
- * Параметры таблицы
- */
-'column'?: Array<string>;
-
-/**
- * Поля сортировки
- */
-'sort'?: Array<string>;
 }>): {
 
 /**
@@ -1759,6 +1759,16 @@ export class ContractorService extends BaseService {
 'language_id'?: string;
 
 /**
+ * Агент транспортной компании
+ */
+'carrier_name'?: string;
+
+/**
+ * Агент транспортной компании (ID берем из запроса - transport_carrier)
+ */
+'carrier_id'?: number;
+
+/**
  * Вид подрядчика
  */
 'type_name'?: string;
@@ -2050,16 +2060,6 @@ export class ContractorService extends BaseService {
  */
 'time_edit'?: string;
 }>;
-
-/**
- * Параметры таблицы
- */
-'column'?: Array<string>;
-
-/**
- * Поля сортировки
- */
-'sort'?: Array<string>;
 } => r.body)
     );
   }
@@ -3021,693 +3021,6 @@ export class ContractorService extends BaseService {
     );
   }
 
-  /** Path part for operation `contractorListSearch()` */
-  static readonly ContractorListSearchPath = '/contractor_list_search';
-
-  /**
-   * Параметры формы поиска.
-   *
-   *
-   *
-   * This method provides access to the full `HttpResponse`, allowing access to response headers.
-   * To access only the response body, use `contractorListSearch()` instead.
-   *
-   * This method doesn't expect any request body.
-   */
-  contractorListSearch$Response(
-    params?: {
-    },
-    context?: HttpContext
-  ): Observable<StrictHttpResponse<{
-
-/**
- * Поиск в заголовке
- */
-'header'?: Array<{
-
-/**
- * Переменная
- */
-'field'?: string;
-
-/**
- * Элемент формы
- */
-'form'?: 'autocomplete' | 'period' | 'select' | 'text' | 'checkbox' | 'checkbox_reset';
-
-/**
- * Наименование
- */
-'name'?: string;
-
-/**
- * Источник
- */
-'source'?: string;
-
-/**
- * Массив данных
- */
-'array'?: Array<{
-
-/**
- * ID
- */
-'id'?: string;
-
-/**
- * Наименование
- */
-'name'?: string;
-}>;
-}>;
-
-/**
- * Поиск основной
- */
-'main'?: Array<{
-
-/**
- * Переменная
- */
-'field'?: string;
-
-/**
- * Элемент формы
- */
-'form'?: 'autocomplete' | 'period' | 'select' | 'text' | 'checkbox' | 'checkbox_reset';
-
-/**
- * Наименование
- */
-'name'?: string;
-
-/**
- * Источник
- */
-'source'?: string;
-
-/**
- * Массив данных
- */
-'array'?: Array<{
-
-/**
- * ID
- */
-'id'?: string;
-
-/**
- * Наименование
- */
-'name'?: string;
-}>;
-}>;
-
-/**
- * Поиск расширенный
- */
-'additional'?: Array<{
-
-/**
- * Переменная
- */
-'field'?: string;
-
-/**
- * Элемент формы
- */
-'form'?: 'autocomplete' | 'period' | 'select' | 'text' | 'checkbox' | 'checkbox_reset';
-
-/**
- * Наименование
- */
-'name'?: string;
-
-/**
- * Источник
- */
-'source'?: string;
-
-/**
- * Массив данных
- */
-'array'?: Array<{
-
-/**
- * ID
- */
-'id'?: string;
-
-/**
- * Наименование
- */
-'name'?: string;
-}>;
-}>;
-}>> {
-    const rb = new RequestBuilder(this.rootUrl, ContractorService.ContractorListSearchPath, 'get');
-    if (params) {
-    }
-
-    return this.http.request(
-      rb.build({ responseType: 'json', accept: 'application/json', context })
-    ).pipe(
-      filter((r: any): r is HttpResponse<any> => r instanceof HttpResponse),
-      map((r: HttpResponse<any>) => {
-        return r as StrictHttpResponse<{
-        
-        /**
-         * Поиск в заголовке
-         */
-        'header'?: Array<{
-        
-        /**
-         * Переменная
-         */
-        'field'?: string;
-        
-        /**
-         * Элемент формы
-         */
-        'form'?: 'autocomplete' | 'period' | 'select' | 'text' | 'checkbox' | 'checkbox_reset';
-        
-        /**
-         * Наименование
-         */
-        'name'?: string;
-        
-        /**
-         * Источник
-         */
-        'source'?: string;
-        
-        /**
-         * Массив данных
-         */
-        'array'?: Array<{
-        
-        /**
-         * ID
-         */
-        'id'?: string;
-        
-        /**
-         * Наименование
-         */
-        'name'?: string;
-        }>;
-        }>;
-        
-        /**
-         * Поиск основной
-         */
-        'main'?: Array<{
-        
-        /**
-         * Переменная
-         */
-        'field'?: string;
-        
-        /**
-         * Элемент формы
-         */
-        'form'?: 'autocomplete' | 'period' | 'select' | 'text' | 'checkbox' | 'checkbox_reset';
-        
-        /**
-         * Наименование
-         */
-        'name'?: string;
-        
-        /**
-         * Источник
-         */
-        'source'?: string;
-        
-        /**
-         * Массив данных
-         */
-        'array'?: Array<{
-        
-        /**
-         * ID
-         */
-        'id'?: string;
-        
-        /**
-         * Наименование
-         */
-        'name'?: string;
-        }>;
-        }>;
-        
-        /**
-         * Поиск расширенный
-         */
-        'additional'?: Array<{
-        
-        /**
-         * Переменная
-         */
-        'field'?: string;
-        
-        /**
-         * Элемент формы
-         */
-        'form'?: 'autocomplete' | 'period' | 'select' | 'text' | 'checkbox' | 'checkbox_reset';
-        
-        /**
-         * Наименование
-         */
-        'name'?: string;
-        
-        /**
-         * Источник
-         */
-        'source'?: string;
-        
-        /**
-         * Массив данных
-         */
-        'array'?: Array<{
-        
-        /**
-         * ID
-         */
-        'id'?: string;
-        
-        /**
-         * Наименование
-         */
-        'name'?: string;
-        }>;
-        }>;
-        }>;
-      })
-    );
-  }
-
-  /**
-   * Параметры формы поиска.
-   *
-   *
-   *
-   * This method provides access only to the response body.
-   * To access the full response (for headers, for example), `contractorListSearch$Response()` instead.
-   *
-   * This method doesn't expect any request body.
-   */
-  contractorListSearch(
-    params?: {
-    },
-    context?: HttpContext
-  ): Observable<{
-
-/**
- * Поиск в заголовке
- */
-'header'?: Array<{
-
-/**
- * Переменная
- */
-'field'?: string;
-
-/**
- * Элемент формы
- */
-'form'?: 'autocomplete' | 'period' | 'select' | 'text' | 'checkbox' | 'checkbox_reset';
-
-/**
- * Наименование
- */
-'name'?: string;
-
-/**
- * Источник
- */
-'source'?: string;
-
-/**
- * Массив данных
- */
-'array'?: Array<{
-
-/**
- * ID
- */
-'id'?: string;
-
-/**
- * Наименование
- */
-'name'?: string;
-}>;
-}>;
-
-/**
- * Поиск основной
- */
-'main'?: Array<{
-
-/**
- * Переменная
- */
-'field'?: string;
-
-/**
- * Элемент формы
- */
-'form'?: 'autocomplete' | 'period' | 'select' | 'text' | 'checkbox' | 'checkbox_reset';
-
-/**
- * Наименование
- */
-'name'?: string;
-
-/**
- * Источник
- */
-'source'?: string;
-
-/**
- * Массив данных
- */
-'array'?: Array<{
-
-/**
- * ID
- */
-'id'?: string;
-
-/**
- * Наименование
- */
-'name'?: string;
-}>;
-}>;
-
-/**
- * Поиск расширенный
- */
-'additional'?: Array<{
-
-/**
- * Переменная
- */
-'field'?: string;
-
-/**
- * Элемент формы
- */
-'form'?: 'autocomplete' | 'period' | 'select' | 'text' | 'checkbox' | 'checkbox_reset';
-
-/**
- * Наименование
- */
-'name'?: string;
-
-/**
- * Источник
- */
-'source'?: string;
-
-/**
- * Массив данных
- */
-'array'?: Array<{
-
-/**
- * ID
- */
-'id'?: string;
-
-/**
- * Наименование
- */
-'name'?: string;
-}>;
-}>;
-}> {
-    return this.contractorListSearch$Response(params, context).pipe(
-      map((r: StrictHttpResponse<{
-
-/**
- * Поиск в заголовке
- */
-'header'?: Array<{
-
-/**
- * Переменная
- */
-'field'?: string;
-
-/**
- * Элемент формы
- */
-'form'?: 'autocomplete' | 'period' | 'select' | 'text' | 'checkbox' | 'checkbox_reset';
-
-/**
- * Наименование
- */
-'name'?: string;
-
-/**
- * Источник
- */
-'source'?: string;
-
-/**
- * Массив данных
- */
-'array'?: Array<{
-
-/**
- * ID
- */
-'id'?: string;
-
-/**
- * Наименование
- */
-'name'?: string;
-}>;
-}>;
-
-/**
- * Поиск основной
- */
-'main'?: Array<{
-
-/**
- * Переменная
- */
-'field'?: string;
-
-/**
- * Элемент формы
- */
-'form'?: 'autocomplete' | 'period' | 'select' | 'text' | 'checkbox' | 'checkbox_reset';
-
-/**
- * Наименование
- */
-'name'?: string;
-
-/**
- * Источник
- */
-'source'?: string;
-
-/**
- * Массив данных
- */
-'array'?: Array<{
-
-/**
- * ID
- */
-'id'?: string;
-
-/**
- * Наименование
- */
-'name'?: string;
-}>;
-}>;
-
-/**
- * Поиск расширенный
- */
-'additional'?: Array<{
-
-/**
- * Переменная
- */
-'field'?: string;
-
-/**
- * Элемент формы
- */
-'form'?: 'autocomplete' | 'period' | 'select' | 'text' | 'checkbox' | 'checkbox_reset';
-
-/**
- * Наименование
- */
-'name'?: string;
-
-/**
- * Источник
- */
-'source'?: string;
-
-/**
- * Массив данных
- */
-'array'?: Array<{
-
-/**
- * ID
- */
-'id'?: string;
-
-/**
- * Наименование
- */
-'name'?: string;
-}>;
-}>;
-}>): {
-
-/**
- * Поиск в заголовке
- */
-'header'?: Array<{
-
-/**
- * Переменная
- */
-'field'?: string;
-
-/**
- * Элемент формы
- */
-'form'?: 'autocomplete' | 'period' | 'select' | 'text' | 'checkbox' | 'checkbox_reset';
-
-/**
- * Наименование
- */
-'name'?: string;
-
-/**
- * Источник
- */
-'source'?: string;
-
-/**
- * Массив данных
- */
-'array'?: Array<{
-
-/**
- * ID
- */
-'id'?: string;
-
-/**
- * Наименование
- */
-'name'?: string;
-}>;
-}>;
-
-/**
- * Поиск основной
- */
-'main'?: Array<{
-
-/**
- * Переменная
- */
-'field'?: string;
-
-/**
- * Элемент формы
- */
-'form'?: 'autocomplete' | 'period' | 'select' | 'text' | 'checkbox' | 'checkbox_reset';
-
-/**
- * Наименование
- */
-'name'?: string;
-
-/**
- * Источник
- */
-'source'?: string;
-
-/**
- * Массив данных
- */
-'array'?: Array<{
-
-/**
- * ID
- */
-'id'?: string;
-
-/**
- * Наименование
- */
-'name'?: string;
-}>;
-}>;
-
-/**
- * Поиск расширенный
- */
-'additional'?: Array<{
-
-/**
- * Переменная
- */
-'field'?: string;
-
-/**
- * Элемент формы
- */
-'form'?: 'autocomplete' | 'period' | 'select' | 'text' | 'checkbox' | 'checkbox_reset';
-
-/**
- * Наименование
- */
-'name'?: string;
-
-/**
- * Источник
- */
-'source'?: string;
-
-/**
- * Массив данных
- */
-'array'?: Array<{
-
-/**
- * ID
- */
-'id'?: string;
-
-/**
- * Наименование
- */
-'name'?: string;
-}>;
-}>;
-} => r.body)
-    );
-  }
-
   /** Path part for operation `contractorInfo()` */
   static readonly ContractorInfoPath = '/contractor_info';
 
@@ -3791,6 +3104,16 @@ export class ContractorService extends BaseService {
  * Язык общения (ID берем из запроса - settings_get из поля language)
  */
 'language_id'?: string;
+
+/**
+ * Агент транспортной компании
+ */
+'carrier_name'?: string;
+
+/**
+ * Агент транспортной компании (ID берем из запроса - transport_carrier)
+ */
+'carrier_id'?: number;
 
 /**
  * Вид подрядчика
@@ -4155,6 +3478,16 @@ export class ContractorService extends BaseService {
          * Язык общения (ID берем из запроса - settings_get из поля language)
          */
         'language_id'?: string;
+        
+        /**
+         * Агент транспортной компании
+         */
+        'carrier_name'?: string;
+        
+        /**
+         * Агент транспортной компании (ID берем из запроса - transport_carrier)
+         */
+        'carrier_id'?: number;
         
         /**
          * Вид подрядчика
@@ -4534,6 +3867,16 @@ export class ContractorService extends BaseService {
 'language_id'?: string;
 
 /**
+ * Агент транспортной компании
+ */
+'carrier_name'?: string;
+
+/**
+ * Агент транспортной компании (ID берем из запроса - transport_carrier)
+ */
+'carrier_id'?: number;
+
+/**
  * Вид подрядчика
  */
 'type_name'?: string;
@@ -4889,6 +4232,16 @@ export class ContractorService extends BaseService {
 'language_id'?: string;
 
 /**
+ * Агент транспортной компании
+ */
+'carrier_name'?: string;
+
+/**
+ * Агент транспортной компании (ID берем из запроса - transport_carrier)
+ */
+'carrier_id'?: number;
+
+/**
  * Вид подрядчика
  */
 'type_name'?: string;
@@ -5240,6 +4593,16 @@ export class ContractorService extends BaseService {
  * Язык общения (ID берем из запроса - settings_get из поля language)
  */
 'language_id'?: string;
+
+/**
+ * Агент транспортной компании
+ */
+'carrier_name'?: string;
+
+/**
+ * Агент транспортной компании (ID берем из запроса - transport_carrier)
+ */
+'carrier_id'?: number;
 
 /**
  * Вид подрядчика
@@ -5594,6 +4957,11 @@ export class ContractorService extends BaseService {
 'language_id': string;
 
 /**
+ * Агент транспортной компании (ID берем из запроса - transport_carrier)
+ */
+'carrier_id'?: number;
+
+/**
  * Вид подрядчика (ID берем из запроса - contractor_type)
  */
 'type_id': string;
@@ -5803,6 +5171,11 @@ export class ContractorService extends BaseService {
  * Язык общения (ID берем из запроса - settings_get из поля language)
  */
 'language_id': string;
+
+/**
+ * Агент транспортной компании (ID берем из запроса - transport_carrier)
+ */
+'carrier_id'?: number;
 
 /**
  * Вид подрядчика (ID берем из запроса - contractor_type)
@@ -6025,6 +5398,11 @@ export class ContractorService extends BaseService {
 'language_id'?: string;
 
 /**
+ * Агент транспортной компании (ID берем из запроса - transport_carrier)
+ */
+'carrier_id'?: number;
+
+/**
  * Вид подрядчика (ID берем из запроса - contractor_type)
  */
 'type_id'?: string;
@@ -6234,6 +5612,11 @@ export class ContractorService extends BaseService {
  * Язык общения (ID берем из запроса - settings_get из поля language)
  */
 'language_id'?: string;
+
+/**
+ * Агент транспортной компании (ID берем из запроса - transport_carrier)
+ */
+'carrier_id'?: number;
 
 /**
  * Вид подрядчика (ID берем из запроса - contractor_type)

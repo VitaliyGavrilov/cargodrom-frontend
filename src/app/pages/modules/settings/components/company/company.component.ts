@@ -31,6 +31,8 @@ export class CompanyComponent extends Table<Company> {
   }
 
   load<Company>(params: { start?: number; count?: number; sort?: SortColumn<Company>[]; }): Observable<{ total: number; items: Company[]; }> {
+    
+
     return this.companyService.companyList(params as any) as unknown as Observable<{ total: number; items: Company[]; }>;
   }
 

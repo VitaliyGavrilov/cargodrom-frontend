@@ -24,7 +24,7 @@ export class EmployeeComponent extends Table<Employee, 'fio'> {
 
   override removedMessage = `Сотрудник удален`;
   sortField = 'fio' as const;
-  override nameField = 'fio' as const;
+  // override nameField = 'fio' as const;
 
   constructor(
     private companyService: CompanyService,
@@ -38,7 +38,14 @@ export class EmployeeComponent extends Table<Employee, 'fio'> {
     this.registerAlias('fio', ['name_f', 'name_i', 'name_o']);
   }
 
+  // override ngOnInit(): void {
+  //   this.loadRows()
+
+  // }
+
   load<Employee>(params: { start?: number; count?: number; sort?: SortColumn<Employee>[]; }): Observable<{ total: number; items: Employee[]; }> {
+    console.log(1234);
+
     return this.companyService.companyEmployeeList(params as any) as unknown as Observable<{ total: number; items: Employee[]; }>;
   }
 

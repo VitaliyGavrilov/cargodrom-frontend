@@ -35,6 +35,7 @@ export class ClientGroupComponent extends Table<ClientGroup> {
   }
 
   load<ClientGroup>(params: { start?: number; count?: number; sort?: SortColumn<ClientGroup>[]; }): Observable<{ total: number; items: ClientGroup[]; }> {
+    
     return this.customerService.customerGroupList(params as any) as unknown as Observable<{ total: number; items: ClientGroup[]; }>;
   }
 

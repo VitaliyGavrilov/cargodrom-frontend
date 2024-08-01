@@ -2,7 +2,10 @@
 //   flex-grow: 1;
 //   border: solid red 1px;
 // }
-
+.w110{
+  flex-grow: 0;
+  max-width: 110px;
+}
 
 
 .logo-box{
@@ -442,7 +445,7 @@ input::-webkit-inner-spin-button {
 input[type='number'] {
   -moz-appearance: textfield;
 }
-.form-block .charges input[type="number"], .form-block select {
+.form-block .charges input[type="number"], .form-block select , .form-item-layout input[type="number"]{
   font-family: 'regular', 'arial', 'sans-serif';
   background: #F7F9FC;
   border: 1px solid #E0E5EB;

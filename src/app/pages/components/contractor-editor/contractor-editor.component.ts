@@ -1,6 +1,6 @@
 import { CountryService } from './../../services/country.service';
 import { environment } from './../../../../environments/environment';
-import { Subject, takeUntil, tap } from 'rxjs';
+import { debounceTime, distinctUntilChanged, Subject, takeUntil, tap } from 'rxjs';
 import { City } from './../../../api/custom_models/city';
 import { Association } from './../../../api/custom_models/association';
 import { Country } from './../../../api/custom_models/country';
@@ -13,7 +13,7 @@ import { MatSnackBar, MatSnackBarConfig } from '@angular/material/snack-bar';
 import { CityService } from '../../services/city.service';
 import { Location } from '@angular/common';
 import { TaxSystem } from 'src/app/api/custom_models';
-import { SystemService } from 'src/app/api/services';
+import { SystemService, TransportService } from 'src/app/api/services';
 import { Counterparty } from 'src/app/api/custom_models/counterparty';
 
 
@@ -55,6 +55,9 @@ export class ContractorEditorComponent implements OnInit {
   // counterpartys:Counterparty[]=[];
   counterpartys:any[]=[];
   // private _destroy$ = new Subject();
+  transportCarrier:any[]=[];
+
+  change$ = new Subject<string|undefined>();
 
   constructor(
     private route: ActivatedRoute,
@@ -66,6 +69,7 @@ export class ContractorEditorComponent implements OnInit {
     private router: Router,
     private location: Location,
     private systemService: SystemService,
+    private transportService: TransportService
   ) {
     this.contractorForm = this.fb.group({
       id: [''],
@@ -88,7 +92,21 @@ export class ContractorEditorComponent implements OnInit {
       // exclude_from_trade: [false]
       allow_trade:[false],
       counterparty_id: ['', [Validators.required]],
+      transportCarrier_name:[,[]],
+      carrier_id:[,[]]
     });
+
+    this.change$.pipe(
+      debounceTime(1000),
+      distinctUntilChanged(),
+      // rxjsFilter(val => val === '' || val.length > 1),
+    )
+      .subscribe((e) => {
+        this.getTransportCarrier(e)
+
+        console.log(e);
+
+      });
   }
 
   ngOnInit(): void {
@@ -105,11 +123,16 @@ export class ContractorEditorComponent implements OnInit {
     this.getTaxSystems();
     this.getCounterparty();
 
+
   }
 
   ngOnDestroy(): void {
     // this._destroy$.next(null);
     // this._destroy$.complete();
+  }
+
+  onChange(query: string|undefined) {
+    this.change$.next(query);
   }
 
   goBack(): void {
@@ -222,6 +245,17 @@ export class ContractorEditorComponent implements OnInit {
   //     ).subscribe();
   // }
 
+
+  onTransportCarrierChange(i:any){
+    console.log(i);
+
+  }
+
+  getTransportCarrier(e:any){
+    this.transportService.transportCarrier({name:e})
+      .subscribe(transportCarrier => this.transportCarrier = transportCarrier);
+  }
+
   private getCounterparty(){
     this.systemService.systemCounterparty()
       .subscribe(counterpartys => this.counterpartys = counterpartys as Counterparty[]);
@@ -289,3 +323,5 @@ export class ContractorEditorComponent implements OnInit {
   }
 
 }
+
+
