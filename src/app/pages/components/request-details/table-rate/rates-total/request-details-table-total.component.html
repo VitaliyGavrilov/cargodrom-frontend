@@ -1,59 +1,5 @@
 <div class="subheader">
-  <div class="request-info">
-    <div  style="border-right: 1px solid #C3CCD6">
-      <div class="title">
-        Запрос №{{currentRequest.id}}
-      </div>
-      <div >
-        {{currentRequest.customer_name}}
-      </div>
-    </div>
-
-    <div class="info-block">
-      <div class="title">Дата:</div>
-      <div >
-        {{currentRequest.time_add}}
-      </div>
-    </div>
-
-    <div class="info-block">
-      <div class="title">Откуда:</div>
-      <div>
-        {{currentRequest.departure_country_name}}
-        ({{currentRequest.departure_city_name}})
-      </div>
-    </div>
-
-    <div class="info-block">
-      <div class="title">Куда:</div>
-      <div >
-        {{currentRequest.arrival_country_name}}
-        ({{currentRequest.arrival_city_name}})
-      </div>
-    </div>
-
-    <div class="info-block">
-      <div class="title">Груз:</div>
-      <div >
-        {{currentRequest.cargo_text}}
-      </div>
-    </div>
-
-    <div class="info-block">
-      <div class="title">INC:</div>
-      <div>
-        {{currentRequest.incoterms_name}}
-      </div>
-    </div>
-
-    <div class="info-block">
-      <div class="title">Статус:</div>
-      <div>
-        {{currentRequest.status_crm_name}}
-      </div>
-    </div>
-  </div>
-
+  <app-request-info-block [request]="currentRequest"></app-request-info-block>
   <div class="request-actions">
     <button class="det">Детали</button>
     <button class="edi" (click)="editRequestNav()">Правка</button>
@@ -472,7 +418,7 @@
                 <div class="title">В ставку включено <span>/ не включено</span></div>
                 <div class="items">
                   <div class="on_block">
-                    <div *ngFor="let item of expandedElementInfo?.values">
+                    <div *ngFor="let item of expandedElementInfo?.values" class="last-item">
                       <div class="item" *ngIf="item.select">
                         <div class="name"><span class="pic"></span>{{item.name}}</div>
                         <div class="label">Включено: <span>{{item.cost_text}}</span></div>
@@ -481,7 +427,7 @@
                   </div>
 
                   <div class="off_block">
-                    <div *ngFor="let item of expandedElementInfo?.values">
+                    <div *ngFor="let item of expandedElementInfo?.values" class="last-item">
                       <div class="item" *ngIf="!item.select">
                         <div class="name"><span class="pic"></span>{{item.name}}</div>
                         <div class="label">Не включено</div>

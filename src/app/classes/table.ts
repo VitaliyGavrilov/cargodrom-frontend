@@ -561,7 +561,7 @@ export abstract class Table<T extends { id: number }, A = never, F = never> impl
 
         this.filterService.setSearchFilterSchema(schema.search);
 
-        schema.column.forEach((col:any)=>{
+        schema.table.forEach((col:any)=>{
           this.column?.push(col.column);
         })
         schema.sort.forEach((sor:any)=>{

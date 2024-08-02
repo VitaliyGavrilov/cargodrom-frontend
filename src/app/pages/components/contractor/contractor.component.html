@@ -58,50 +58,15 @@
     #file
     (change)="selectFileForImport()"
   />
-
-  <div class="request" *ngIf="isBiddingMode" style="display: flex;gap: 24px;">
-
+  <div style="display: flex;" *ngIf="isBiddingMode">
     <div style="border-right: 1px solid #C3CCD6">
       <div class="title color-r">Торги запроса</div>
       <div class="subtitle">Всего подрядчиков: {{total}}</div>
     </div>
-
-    <div  style="border-right: 1px solid #C3CCD6">
-      <div class="title">Запрос №{{currentRequest.id}}</div>
-      <div class="subtitle">{{currentRequest.customer_name}}</div>
-    </div>
-
-    <div class="info-block">
-      <div class="title">Дата:</div>
-      <div class="subtitle">{{currentRequest.time_add}}</div>
-    </div>
-
-    <div class="info-block">
-      <div class="title">Откуда:</div>
-      <div class="subtitle">{{currentRequest.departure_country_name}} ({{currentRequest.departure_city_name}})</div>
-    </div>
-
-    <div class="info-block">
-      <div class="title">Куда:</div>
-      <div class="subtitle">{{currentRequest.arrival_country_name}} ({{currentRequest.arrival_city_name}})</div>
-    </div>
-
-    <div class="info-block">
-      <div class="title">Груз:</div>
-      <div class="subtitle">{{currentRequest.cargo_text}}</div>
-    </div>
-
-    <div class="info-block">
-      <div class="title">INC:</div>
-      <div class="subtitle">{{currentRequest.incoterms_name}}</div>
-    </div>
-
-    <div class="info-block">
-      <div class="title">Статус:</div>
-      <div class="subtitle">{{currentRequest.status_crm_name}}</div>
-    </div>
-
+    <app-request-info-block [request]="currentRequest"></app-request-info-block>
   </div>
+
+
 
 </div>
 

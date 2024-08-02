@@ -92,7 +92,7 @@ export class ContractorEditorComponent implements OnInit {
       // exclude_from_trade: [false]
       allow_trade:[false],
       counterparty_id: ['', [Validators.required]],
-      transportCarrier_name:[,[]],
+      carrier_name:[,[]],
       carrier_id:[,[]]
     });
 
@@ -237,18 +237,11 @@ export class ContractorEditorComponent implements OnInit {
     });
   }
 
-  // private getCounterparty() {
-  //   this.systemService.systemCounterparty()
-  //     .pipe(
-  //       tap((counterpartys) => this.counterpartys = counterpartys as any),
-  //       takeUntil(this._destroy$)
-  //     ).subscribe();
-  // }
-
 
   onTransportCarrierChange(i:any){
-    console.log(i);
-
+    this.contractorForm.patchValue({
+      carrier_id:i.id
+    })
   }
 
   getTransportCarrier(e:any){

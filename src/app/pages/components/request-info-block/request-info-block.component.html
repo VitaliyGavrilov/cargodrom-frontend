@@ -1,0 +1,36 @@
+<div class="request">
+  <div class="info-block">
+    <div class="title">Запрос №{{request.id}}</div>
+    <div class="subtitle">{{request.customer_name}}</div>
+  </div>
+
+  <div class="info-block">
+    <div class="title">Дата:</div>
+    <div class="subtitle">{{request.time_add}}</div>
+  </div>
+
+  <div class="info-block">
+    <div class="title">Откуда:</div>
+    <div class="subtitle">{{request.departure_country_name}} ({{request.departure_city_name}})</div>
+  </div>
+
+  <div class="info-block">
+    <div class="title">Куда:</div>
+    <div class="subtitle">{{request.arrival_country_name}} ({{request.arrival_city_name}})</div>
+  </div>
+
+  <div class="info-block">
+    <div class="title">Груз:</div>
+    <div class="subtitle">{{request.cargo_text}}</div>
+  </div>
+
+  <div class="info-block">
+    <div class="title">INC:</div>
+    <div class="subtitle">{{request.incoterms_name}}</div>
+  </div>
+
+  <div class="info-block">
+    <div class="title">Статус:</div>
+    <div class="subtitle">{{request.status_crm_name}}</div>
+  </div>
+</div>

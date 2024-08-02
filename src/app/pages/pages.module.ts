@@ -40,6 +40,7 @@ import { RequestDetailsTableExportComponent } from './components/request-details
 import { RequestDetailsTableStockComponent } from './components/request-details/table-rate/rates-stock/request-details-table-stock.component';
 import { RequestDetailsTableTotalComponent } from './components/request-details/table-rate/rates-total/request-details-table-total.component';
 import { HttpClientModule } from '@angular/common/http';
+import { RequestInfoBlock } from './components/request-info-block/request-info-block.component';
 
 
 
@@ -80,6 +81,7 @@ import { HttpClientModule } from '@angular/common/http';
     RequestDetailsTableExportComponent,
     RequestDetailsTableStockComponent,
     RequestDetailsTableTotalComponent,
+    RequestInfoBlock,
 
   ],
   imports: [
