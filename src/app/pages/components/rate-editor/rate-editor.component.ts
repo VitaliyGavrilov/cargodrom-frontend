@@ -268,6 +268,8 @@ export class RateEditorComponent implements OnInit, OnDestroy, OnChanges, Contro
     return this.rateForm.value.nearest_flight?.find((x:any) => x == date) ? "selected" : '';
   }
   selectDate(event: any, calendar: any) {
+    console.log(event,calendar);
+
     const date=formatDate(event,'yyyy-MM-dd','en-US');
     if(this.rateForm.value.nearest_flight===null) this.rateForm.value.nearest_flight=[];
     const index = this.rateForm.value.nearest_flight.findIndex((x:any) => x == date);

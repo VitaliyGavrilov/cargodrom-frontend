@@ -127,6 +127,10 @@ div{
   line-height: 20px;
   padding-bottom: 25px;
 }
+div.mat-calendar-body-selected, .mat-calendar-body-cell.selected .mat-calendar-body-cell-content {
+  background: #DB563B;
+  border-radius: 6px;
+}
 
 .form-row .form-row-title{
   color: #2C3640;
@@ -225,7 +229,8 @@ div{
   border-right: 1px solid #C3CCD6;  border-top: 1px solid #C3CCD6;
   font-weight: bold;
   cursor: pointer;
-} .rate_label:first-child{ border-left: 1px solid #C3CCD6;}
+}
+.rate_label:first-child{ border-left: 1px solid #C3CCD6;}
 .active-rate{
   background-color: white;
   color: #2C3640;

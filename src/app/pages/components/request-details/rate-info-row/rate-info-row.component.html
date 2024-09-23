@@ -1,0 +1,155 @@
+<div class="example-element-block">
+
+  <div class="first_row">
+
+    <div class="first_col" [ngSwitch]="detailsMethod">
+      <ng-content select="[test1]"></ng-content>
+      <ng-template [ngSwitchDefault]>
+        <div class="contractor_block" >
+          <div style="display: flex; justify-content: space-between;">
+            <div class="agent_block">
+              <div class="label">Агент авиалинии:</div>
+              <div>{{rate?.carrier_text}}</div>
+              <div class="detailed">Подробнее  ></div>
+            </div>
+            <div class="link_block">
+              <div class="pic msg"></div>
+              <div class="pic phone"></div>
+              <div class="pic mail"></div>
+            </div>
+          </div>
+          <div style="display: flex; justify-content: space-between; margin-top: 40px;">
+            <div class="rating_block">
+              <div class="label">Рейтинг в системе:</div>
+              <div class="stars">
+                <div class="star_sel"></div>
+                <div class="star_no-sel"></div>
+              </div>
+              <div>{{rate?.contractor?.rating_nps_text}}</div>
+            </div>
+            <div class="pct_block">
+              <div class="label">% выигранных торгов:</div>
+              <div class="flags">
+                <div><span class="red_flag"></span>{{rate?.contractor?.trade_fail_count}}</div>
+                <div><span class="green_flag"></span>{{rate?.contractor?.trade_success_count}}</div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </ng-template>
+
+      <ng-template [ngSwitchCase]="'point'">
+        <div class="airport_block">
+          <div class="label">Аэропорт:</div>
+          <div class="data">{{rate?.point?.name}}</div>
+          <div class="details">?????? 142015, Московская область, г. Домодедово, территория "Аэропорт "Домодедово", строение 7/1</div>
+        </div>
+      </ng-template>
+
+    </div>
+
+    <div class="second_col" [ngSwitch]="detailsMethod">
+      <ng-template [ngSwitchCase]="'customs'">
+        <div class="title">Данные по ставке</div>
+        <div class="items">
+          <ng-container *ngTemplateOutlet="rateDataItem; context: { label: 'Транзитный срок:', data: rate?.valid_time }"></ng-container>
+          <ng-container *ngTemplateOutlet="rateDataItem; context: { label: 'Ставка до:', data: rate?.contractor?.trade_success_count }"></ng-container>
+          <ng-container *ngTemplateOutlet="rateDataItem; context: { label: 'Линия:', data: rate?.carrier_text }"></ng-container>
+          <ng-container *ngTemplateOutlet="rateDataItem; context: { label: 'Маршрут:', data: rate?.route_text }"></ng-container>
+          <ng-container *ngTemplateOutlet="rateDataItem; context: { label: 'Плотность груза (кг/м3):', data: rate?.request?.cargo_places_density }"></ng-container>
+          <ng-container *ngTemplateOutlet="rateDataItem; context: { label: 'Оплачиваемый вес (кг):', data: rate?.request?.cargo_places_paid_weight }"></ng-container>
+          <ng-container *ngTemplateOutlet="rateDataItem; context: { label: 'Кол-во мест:', data: rate?.request?.cargo_places_count }"></ng-container>
+          <ng-container *ngTemplateOutlet="rateDataItem; context: { label: 'Вес брутто, кг:', data: rate?.request?.cargo_places_weight }"></ng-container>
+          <ng-container *ngTemplateOutlet="rateDataItem; context: { label: 'Свободные места:', data: rate?.nearest_flight_text }"></ng-container>
+          <ng-container *ngTemplateOutlet="rateDataItem; context: { label: 'Дни вылета:', data: rate?.departure_schedule_text?.join(', ').toUpperCase() }"></ng-container>
+        </div>
+      </ng-template>
+
+      <ng-template [ngSwitchCase]="'point'">
+        <div class="title">Данные по ставке</div>
+        <div class="items">
+          <ng-container *ngTemplateOutlet="rateDataItem; context: { label: 'Оплачиваемый вес (кг):', data: rate?.request?.cargo_places_paid_weight}"></ng-container>
+          <ng-container *ngTemplateOutlet="rateDataItem; context: { label: 'Фактический вес (кг):', data: rate?.request?.cargo_places_weight }"></ng-container>
+          <ng-container *ngTemplateOutlet="rateDataItem; context: { label: 'Кол-во мест:', data: rate?.request?.cargo_places_count}"></ng-container>
+          <ng-container *ngTemplateOutlet="rateDataItem; context: { label: 'Объем (м3):', data: '???' }"></ng-container>
+          <ng-container *ngTemplateOutlet="rateDataItem; context: { label: 'График работы (будни):', data: '???'}"></ng-container>
+          <ng-container *ngTemplateOutlet="rateDataItem; context: { label: 'График работы (вых.):', data: '???' }"></ng-container>
+        </div>
+      </ng-template>
+
+      <ng-template [ngSwitchCase]="'transporter'">
+        <div class="title">Данные по ставке</div>
+        <div class="items">
+          <ng-container *ngTemplateOutlet="rateDataItem; context: { label: 'Фактический вес (кг):', data: rate?.request?.cargo_places_weight }"></ng-container>
+          <ng-container *ngTemplateOutlet="rateDataItem; context: { label: 'Оплачиваемый вес (кг):', data: rate?.request?.cargo_places_paid_weight }"></ng-container>
+          <ng-container *ngTemplateOutlet="rateDataItem; context: { label: 'Дни вылета:', data: rate?.departure_schedule_text?.join(', ').toUpperCase()}"></ng-container>
+          <ng-container *ngTemplateOutlet="rateDataItem; context: { label: 'Срок:', data: '????' }"></ng-container>
+          <ng-container *ngTemplateOutlet="rateDataItem; context: { label: 'Авиалиния:', data: rate?.departure_schedule_text?.join(', ').toUpperCase()}"></ng-container>
+          <ng-container *ngTemplateOutlet="rateDataItem; context: { label: 'Объем (м3):', data: '????' }"></ng-container>
+          <ng-container *ngTemplateOutlet="rateDataItem; context: { label: 'Маршрут:', data: '????' }"></ng-container>
+        </div>
+      </ng-template>
+    </div>
+
+    <div class="third_col"  [ngSwitch]="detailsMethod">
+
+      <ng-template [ngSwitchDefault]>
+        <div class="title">В ставку включено <span>/ не включено</span></div>
+        <div class="charges">
+          <div *ngFor="let item of sort(rate?.values)" class="charge" [ngClass]="item.select?'on':'off'">
+            <div class="name"><span class="pic"></span>{{item.name}}</div>
+            <div class="label">{{item.select?'Включено:':'Не включено'}} <span *ngIf="item.select">{{item.cost_text}}</span></div>
+          </div>
+        </div>
+      </ng-template>
+
+      <ng-template [ngSwitchCase]="'transporter'">
+        <div class="title">В ставку включено</div>
+        <div class="paths head">
+          <div>Тип ТС</div>
+          <div style="flex-grow: 1;">Маршрут</div>
+          <div>Срок, дн.</div>
+          <div style="flex-grow: 2;">Примечание</div>
+          <div>Ставка, руб.</div>
+        </div>
+
+        <div class="paths" *ngFor="let item of rate?.values">
+          <div>{{item.kind.name}}</div>
+          <div style="flex-grow: 1;">{{item.arrival_city.name}}-{{item.departure_city.name}}</div>
+          <div>{{item.days_min}}-{{item.days_max}}</div>
+          <div style="flex-grow: 2;">{{item.comment}}</div>
+          <div>{{item.amount}}</div>
+        </div>
+      </ng-template>
+
+      <ng-content select="[test2]"></ng-content>
+
+    </div>
+
+  </div>
+
+  <div class="second_row">
+    <div class="comment_block">
+      <div class="label">
+        <span class="pic-i-grey">i</span>Примечание:
+      </div>
+      <div class="comment">{{ rate?.comment }}</div>
+    </div>
+  </div>
+
+  <!-- <div class="action-bar">
+    <button class="edit"></button>
+    <button class="dub"></button>
+    <button class="del"></button>
+  </div> -->
+
+</div>
+
+<ng-template #rateDataItem let-label="label" let-data="data">
+  <div class="item">
+    <div class="label">{{label}}</div>
+    <div>{{data}}</div>
+  </div>
+</ng-template>
+
+

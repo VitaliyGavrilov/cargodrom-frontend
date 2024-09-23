@@ -34,13 +34,13 @@ import { RequestRateComponent } from './components/request-rate/request-rate.com
 import { RateEditorComponent } from './components/rate-editor/rate-editor.component';
 
 import { ClipboardModule } from '@angular/cdk/clipboard';
-import { RequestDetailsComponent } from './components/request-details/request-details.component';
-import { RequestDetailsTableBorderComponent } from './components/request-details/table-rate/rates-border/request-details-table-border.component';
-import { RequestDetailsTableExportComponent } from './components/request-details/table-rate/rates-export/request-details-table-export.component';
-import { RequestDetailsTableStockComponent } from './components/request-details/table-rate/rates-stock/request-details-table-stock.component';
-import { RequestDetailsTableTotalComponent } from './components/request-details/table-rate/rates-total/request-details-table-total.component';
 import { HttpClientModule } from '@angular/common/http';
 import { RequestInfoBlock } from './components/request-info-block/request-info-block.component';
+import { RequestDetails } from './components/request-details/request-details.component';
+import { RateInfoRow } from './components/request-details/rate-info-row/rate-info-row.component';
+import { RateAddPoint } from './components/request-details/rate-add-point/rate-add-point.component';
+import { RateAddTransporter } from './components/request-details/rate-add-transporter/rate-add-transporter.component';
+
 
 
 
@@ -73,15 +73,15 @@ import { RequestInfoBlock } from './components/request-info-block/request-info-b
     RequestServicesComponent,
     RequestEditorTranslateComponent,
     RequestRateComponent,
+    RequestDetails,
 
     RateEditorComponent,
-    RequestDetailsComponent,
 
-    RequestDetailsTableBorderComponent,
-    RequestDetailsTableExportComponent,
-    RequestDetailsTableStockComponent,
-    RequestDetailsTableTotalComponent,
+
     RequestInfoBlock,
+    RateInfoRow,
+    RateAddPoint,
+    RateAddTransporter,
 
   ],
   imports: [

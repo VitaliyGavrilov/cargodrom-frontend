@@ -31,23 +31,26 @@
       </div>
     </div>
 
-    <div class="detail-btn"  *ngIf="isRateDetailsMode">
-      <button class="plus-rate">+ СТАВКА</button>
+    <ng-content></ng-content>
+
+    <!-- <div class="detail-btn" *ngIf="isRateDetailsMode">
+      <button class="plus-rate"><span style="text-wrap: nowrap">+ СТАВКА</span></button>
       <button class="dub">ДУБЛЬ</button>
       <button class="torg">ТОРГИ</button>
       <button class="del">УДАЛИТЬ</button>
-    </div>
+    </div> -->
 
-    <div class="item func trade-btn" *ngIf="isBiddingMode && quantityContractors! >0" >
+    <div class="item func trade-btn" *ngIf="isBiddingMode && quantityContractors! > 0" >
       <div>
-        <span class="btn apply" (click)="saveBiddingBtn()"><span>Начать торги ({{quantityContractors}})</span></span>
+        <span class="btn apply" (click)="saveBiddingBtn()">
+          <span>Начать торги ({{quantityContractors}})</span>
+        </span>
       </div>
     </div>
 
   </div>
 
   <div class="add show additional" [ngClass]="{'hidden': !showMore}">
-
     <div class="row">
       <app-universal-filter
         class="item w1"
@@ -63,10 +66,7 @@
         [filterControl]="control">
       </app-universal-filter>
     </div>
-
   </div>
-
-
 
 </div>
 

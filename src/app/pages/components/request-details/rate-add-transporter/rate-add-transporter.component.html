@@ -1,0 +1,166 @@
+<form class="edit-form" [formGroup]="rateForm">
+  <div class="form-block">
+    <div class="form-row">
+      <div class="form-item-layout">
+
+        <!-- <div class="form-item i10">
+          <div class="form-label">Оплачиваемый вес:</div>
+          <div class="form-data">
+            <input type="number" [value]="weight" readonly >
+          </div>
+        </div> -->
+
+        <ng-container *ngTemplateOutlet="formItemSelector; context: { label: 'Подрядчик:', control: 'contractor_id', data: contractorList }"></ng-container>
+        <ng-container *ngTemplateOutlet="formItemSelector; context: { label: 'Наименнование Аэропорта:', control: 'point_id', data: pointList }"></ng-container>
+        <ng-container *ngTemplateOutlet="formItemSelector; context: { label: 'Вид прайса:', control: 'point_action_id', data: pointActionList }"></ng-container>
+
+        <button (click)="addCharge()" (click)="renderRows()" class="btn-add-rate">
+          <span class="icon-btn-save-rates"></span>
+          Добавить ставку
+        </button>
+
+      </div>
+    </div>
+
+    <div class="table-list">
+      <table mat-table formArrayName="values" [dataSource]="charges.controls" >
+
+        <ng-container matColumnDef="del">
+          <th mat-header-cell *matHeaderCellDef >
+            <div class="td-block">
+              <div class="column center w20">Тип ТС</div>
+              <div class="column center">Отправка</div>
+              <div class="column center">Получение</div>
+              <div class="column center w10">Срок от</div>
+              <div class="column center w10">Срок до</div>
+            </div>
+          </th>
+
+          <td mat-cell *matCellDef="let element;let i = index;" [formGroupName]="i" style="background-color: #F7F9FC;">
+            <div class="td-block">
+
+              <div class="column w20">
+                <mat-form-field appearance="outline" class="ui-select">
+                  <mat-select formControlName='kind_id'>
+                    <mat-option *ngFor="let i of transportKinds;" [value]="i.id">
+                      {{ i.name }}
+                    </mat-option>
+                   </mat-select>
+                </mat-form-field>
+              </div>
+
+              <div class="column">
+                <mat-form-field appearance="outline" class="ui-select">
+                  <mat-select formControlName='departure_city_id'>
+                    <mat-option *ngFor="let i of directionCitys;" [value]="i.id">
+                      {{ i.name }}
+                    </mat-option>
+                   </mat-select>
+                </mat-form-field>
+              </div>
+
+              <div class="column">
+                <mat-form-field appearance="outline" class="ui-select">
+                  <mat-select formControlName='arrival_city_id'>
+                    <mat-option *ngFor="let i of directionCitys;" [value]="i.id">
+                      {{ i.name }}
+                    </mat-option>
+                   </mat-select>
+                </mat-form-field>
+              </div>
+
+              <div class="column w10">
+                <input type="number" formControlName="days_min">
+              </div>
+
+              <div class="column w10">
+                <input type="number" formControlName="days_max">
+              </div>
+            </div>
+          </td>
+        </ng-container>
+
+        <ng-container matColumnDef="price">
+          <th mat-header-cell *matHeaderCellDef class="w50">
+            <div class="td-block">
+              <div class="column center ">Примечание</div>
+              <div class="column center w20">Ставка</div>
+            </div>
+          </th>
+          <td mat-cell *matCellDef="let element;let i = index;" [formGroupName]="i" class="w50">
+            <div class="td-block">
+              <div class="column">
+                <input type="text" formControlName="comment">
+              </div>
+
+              <div class="column w20">
+                <input type="number" (ngModelChange)="calckRateCost()" formControlName="amount">
+              </div>
+            </div>
+          </td>
+        </ng-container>
+
+        <ng-container matColumnDef="set">
+          <th mat-header-cell *matHeaderCellDef class="w5">
+            <div class="setting-link"></div>
+          </th>
+          <td mat-cell *matCellDef="let element;let i = index;" [formGroupName]="i" class="w5">
+            <div class="td-block" >
+              <div class="btn-del-charge" (click)="removeCharge(i)"></div>
+            </div>
+          </td>
+        </ng-container>
+
+        <tr mat-header-row *matHeaderRowDef="['del','price','set']"></tr>
+        <tr mat-row *matRowDef="let row; columns: ['del','price','set'];"></tr>
+      </table>
+
+    </div>
+
+    <div class="form-row" >
+      <div class="form-item" style="margin-bottom: 20px; width: 100px;">
+        <div class="form-label">Сумма:</div>
+        <div class="form-data">
+          <!-- <input type="number" formControlName="cost" readonly> -->
+          <input type="number" [value]="calckRateCost()" readonly>
+        </div>
+      </div>
+
+      <div class="form-item">
+        <div class="form-label">Примечание:</div>
+        <div class="form-data">
+          <input type="text" formControlName="comment">
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+  <div style="display: flex;justify-content: end;">
+    <button type="submit" class="btn-save-rates" (click)="rateSave()">
+      <span class="icon-btn-save-rates"></span>
+      Сохранить
+    </button>
+  </div>
+
+</form>
+
+
+
+<ng-template #formItemSelector let-label="label" let-control="control" let-data="data">
+  <div class="form-item" [formGroup]="rateForm">
+    <div class="form-label">{{label}}</div>
+    <div class="form-data">
+      <mat-form-field appearance="outline" class="ui-select">
+        <mat-select [formControlName]='control'>
+         <mat-option
+           *ngFor="let i of data;"
+           [value]="i.id"
+           >
+           {{ i.name }}
+         </mat-option>
+        </mat-select>
+      </mat-form-field>
+    </div>
+  </div>
+</ng-template>

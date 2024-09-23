@@ -1,0 +1,180 @@
+<form class="edit-form" [formGroup]="rateForm">
+  <div class="form-block">
+    <div class="form-row">
+      <div class="form-item-layout">
+
+        <div class="form-item">
+          <div class="form-label">Оплачиваемый вес:</div>
+          <div class="form-data">
+            <input type="text" [value]="weight" readonly>
+          </div>
+        </div>
+
+        <!-- <div class="form-item">
+          <div class="form-label">Подрядчик:</div>
+          <div class="form-data">
+            <mat-form-field appearance="outline" class="ui-select">
+              <mat-select formControlName="contractor_id">
+               <mat-option
+                 *ngFor="let transportRoute of contractorList;"
+                 [value]="transportRoute.id"
+                 >
+                 {{ transportRoute.name }}
+               </mat-option>
+              </mat-select>
+            </mat-form-field>
+          </div>
+        </div> -->
+
+        <!-- <div class="form-item">
+          <div class="form-label">Наименнование Аэропорта:</div>
+          <div class="form-data">
+            <mat-form-field appearance="outline" class="ui-select">
+              <mat-select formControlName="point_id">
+               <mat-option
+                 *ngFor="let poinst of pointList;"
+                 [value]="poinst.id"
+                 >
+                 {{ poinst.name }}
+               </mat-option>
+              </mat-select>
+            </mat-form-field>
+          </div>
+        </div> -->
+
+        <!-- <div class="form-item">
+          <div class="form-label">Вид прайса:</div>
+          <div class="form-data">
+            <mat-form-field appearance="outline" class="ui-select">
+              <mat-select formControlName="point_action_id">
+               <mat-option
+                 *ngFor="let poinst of pointActionList;"
+                 [value]="poinst.id"
+                 >
+                 {{ poinst.name }}
+               </mat-option>
+              </mat-select>
+            </mat-form-field>
+          </div>
+        </div> -->
+
+        <ng-container *ngTemplateOutlet="formItemSelector; context: { label: 'Подрядчик:', control: 'contractor_id', data: contractorList }"></ng-container>
+        <ng-container *ngTemplateOutlet="formItemSelector; context: { label: 'Наименнование Аэропорта:', control: 'point_id', data: pointList }"></ng-container>
+        <ng-container *ngTemplateOutlet="formItemSelector; context: { label: 'Вид прайса:', control: 'point_action_id', data: pointActionList }"></ng-container>
+
+      </div>
+
+    </div>
+
+    <div class="charges-block" style="display: flex;">
+
+      <div class="charge_on">
+        В ставку включено
+        <div formArrayName="values" *ngFor="let chargeValue of charges.controls; let i = index;" class="w100">
+          <div [formGroupName]="i" [ngSwitch]="chargeValue.value.field" class="w100">
+            <div *ngIf="chargeValue.value.select" class="charge w100">
+              <ng-template
+                [ngSwitchCase]="chargeModel.field_name"
+                *ngFor="let chargeModel of chargesShema;
+                let i = index;"
+              >
+                <label>
+                  <input  type="checkbox" formControlName="select" (change)="calckRateCost()">
+                  <i></i>
+                  {{chargeModel.title}}
+                </label>
+                <span class="unit l" *ngIf="!chargeModel.field_comment">
+                  <input type="number" formControlName="price" (ngModelChange)="calckChargeCost(chargeValue)" >$/{{chargeModel.unit}}
+                </span>
+                <div class="cross" *ngIf="!chargeModel.field_comment"></div>
+                <span class="unit m" *ngIf="!chargeModel.field_comment">
+                  <input type="number" formControlName="value" (ngModelChange)="calckChargeCost(chargeValue)" [readonly]="chargeModel.unit==='kg'">{{chargeModel.unit}}
+                </span>
+                <div class="equal" *ngIf="!chargeModel.field_comment">═</div>
+                <span class="comment" *ngIf="chargeModel.field_comment"><input type="text" formControlName="comment"></span>
+                <span class="unit s">
+                  <input type="number" formControlName="cost" [readonly]="!chargeModel.field_comment" (ngModelChange)="chargeModel.field_comment?calckCommentChargePrice(chargeValue):calckRateCost()">$
+                </span>
+              </ng-template>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="charge_off">
+        Не включено
+        <div formArrayName="values" *ngFor="let chargeValue of charges.controls; let i = index;" class="w100">
+          <div [formGroupName]="i" [ngSwitch]="chargeValue.value.field" class="w100">
+            <div *ngIf="!chargeValue.value.select" class="charge w100">
+              <ng-template
+                [ngSwitchCase]="chargeModel.field_name"
+                *ngFor="let chargeModel of chargesShema;
+                let i = index;"
+              >
+                <label style="height: 37px; align-items: center; display: flex;">
+                  <!-- <input  type="checkbox" formControlName="select" (change)="calckRateCost()" (ngModelChange)="calckChargeCost(chargeValue)"> -->
+                  <input  type="checkbox" formControlName="select" (change)="calckRateCost()">
+                  <i></i>
+                  {{chargeModel.title}}
+                </label>
+
+                <!-- <span class="unit s"><input type="number" readonly formControlName="cost" >$</span> -->
+              </ng-template>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- <div class="form-row" style="display: flex; flex-direction: column;">
+      Сумма
+      <input type="number" formControlName="cost" readonly style="margin-bottom: 20px; width: 100px;">
+      Примечание
+      <input type="text" formControlName="comment">
+    </div> -->
+
+    <div class="form-row" >
+      <div class="form-item" style="margin-bottom: 20px; width: 100px;">
+        <div class="form-label">Сумма:</div>
+        <div class="form-data">
+          <input type="number" formControlName="cost" readonly>
+        </div>
+      </div>
+
+      <div class="form-item">
+        <div class="form-label">Примечание:</div>
+        <div class="form-data">
+          <input type="text" formControlName="comment">
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+  <div style="display: flex;justify-content: end;">
+    <button type="submit" class="btn-save-rates" (click)="rateSave()">
+      <span class="icon-btn-save-rates"></span>
+      Сохранить
+    </button>
+  </div>
+
+</form>
+
+<ng-template #formItemSelector let-label="label" let-control="control" let-data="data">
+  <div class="form-item" [formGroup]="rateForm">
+    <div class="form-label">{{label}}</div>
+    <div class="form-data">
+      <mat-form-field appearance="outline" class="ui-select">
+        <mat-select [formControlName]='control'>
+         <mat-option
+           *ngFor="let i of data;"
+           [value]="i.id"
+           >
+           {{ i.name }}
+         </mat-option>
+        </mat-select>
+      </mat-form-field>
+    </div>
+  </div>
+</ng-template>
+

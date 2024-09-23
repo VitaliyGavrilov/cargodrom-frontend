@@ -16,11 +16,9 @@ import { ClientEditorComponent } from './components/client-editor/client-editor.
 import { AuthGuard } from '../auth/auth.guard';
 import { RequestEditorTranslateComponent } from './components/request-editor-translate/request-editor-translate.component';
 import { RequestRateComponent } from './components/request-rate/request-rate.component';
-import { RequestDetailsComponent } from './components/request-details/request-details.component';
-import { RequestDetailsTableTotalComponent } from './components/request-details/table-rate/rates-total/request-details-table-total.component';
-import { RequestDetailsTableStockComponent } from './components/request-details/table-rate/rates-stock/request-details-table-stock.component';
-import { RequestDetailsTableBorderComponent } from './components/request-details/table-rate/rates-border/request-details-table-border.component';
-import { RequestDetailsTableExportComponent } from './components/request-details/table-rate/rates-export/request-details-table-export.component';
+import { RequestDetails } from './components/request-details/request-details.component';
+
+
 
 
 
@@ -80,28 +78,28 @@ const routes: Routes = [
       },
       {
         path: 'request/details/final/:id',
-        component: RequestDetailsTableTotalComponent,
+        component: RequestDetails,
         pathMatch: 'full',
         title: 'Request Details',
         canActivate: [AuthGuard],
       },
       {
         path: 'request/details/customs/:id',
-        component: RequestDetailsTableTotalComponent,
+        component: RequestDetails,
         pathMatch: 'full',
         title: 'Request Details',
         canActivate: [AuthGuard],
       },
       {
         path: 'request/details/point/:id',
-        component: RequestDetailsTableTotalComponent,
+        component: RequestDetails,
         pathMatch: 'full',
         title: 'Request Details',
         canActivate: [AuthGuard],
       },
       {
         path: 'request/details/transporter/:id',
-        component: RequestDetailsTableTotalComponent,
+        component: RequestDetails,
         pathMatch: 'full',
         title: 'Request Details',
         canActivate: [AuthGuard],

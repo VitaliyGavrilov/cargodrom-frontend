@@ -16,7 +16,6 @@ td.setting {
   top: 0;
 }
 
-
 .link-edit {
   background: url('../../../../assets/pic-btn-edit.svg') no-repeat center center;
   display: inline-block;
@@ -28,9 +27,35 @@ td.setting {
   vertical-align: top;
 }
 
-
 .subheader .placer .filter-item .search-filter{
   display: none;
+}
+
+
+.main_page_info{
+  display: flex;
+  .back_btn{
+
+  }
+  .rate_info{
+    border-right: 1px solid #C3CCD6;
+    margin-right: 24px;
+    .title{
+      color:#DB563B;
+      font-size: 26px;
+      font-weight: 700;
+      line-height: 26px;
+      text-align: left;
+      margin-bottom: 5px;
+    }
+    .subtitle{
+      font-size: 13px;
+      font-weight: 400;
+      line-height: 12px;
+      text-align: left;
+      color: #606A74;
+    }
+  }
 }
 
 

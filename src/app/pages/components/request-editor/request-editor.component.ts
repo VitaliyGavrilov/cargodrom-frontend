@@ -113,7 +113,7 @@ export class RequestEditorComponent implements OnInit, OnDestroy {
       customer_id: [ , [Validators.required]],// + (customer это клиент,должен быть контрактор)
       customer_name: ['',[Validators.required]],
       request_type_id: [1, [Validators.required]],// +
-      transport_kind_id: ['', [Validators.required]],// +
+      transport_kind_id: [, [Validators.required]],// +
       transport_type_id: ['', [Validators.required]],// +
       //ОПИСАНИЕ ГРУЗА
       cargo_description: ['', [Validators.required,Validators.minLength(2)]],// +

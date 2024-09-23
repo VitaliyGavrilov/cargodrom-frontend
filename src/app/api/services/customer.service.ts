@@ -2052,7 +2052,7 @@ export class CustomerService extends BaseService {
 /**
  * Блок колонок
  */
-'column'?: Array<string>;
+'column'?: string;
 
 /**
  * Данные колонок
@@ -2243,7 +2243,7 @@ export class CustomerService extends BaseService {
         /**
          * Блок колонок
          */
-        'column'?: Array<string>;
+        'column'?: string;
         
         /**
          * Данные колонок
@@ -2443,7 +2443,7 @@ export class CustomerService extends BaseService {
 /**
  * Блок колонок
  */
-'column'?: Array<string>;
+'column'?: string;
 
 /**
  * Данные колонок
@@ -2626,7 +2626,7 @@ export class CustomerService extends BaseService {
 /**
  * Блок колонок
  */
-'column'?: Array<string>;
+'column'?: string;
 
 /**
  * Данные колонок
@@ -2807,7 +2807,7 @@ export class CustomerService extends BaseService {
 /**
  * Блок колонок
  */
-'column'?: Array<string>;
+'column'?: string;
 
 /**
  * Данные колонок

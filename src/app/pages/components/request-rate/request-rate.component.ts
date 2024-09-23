@@ -1,25 +1,13 @@
-import { emailValidator, innValidator } from '../../../validators/pattern-validator';
-import { Component, ElementRef, OnDestroy, OnInit, ViewChild, ViewEncapsulation } from '@angular/core';
-import { FormArray, FormBuilder, FormGroup, MinLengthValidator, Validators } from '@angular/forms';
+import { Component, OnDestroy, OnInit, ViewEncapsulation } from '@angular/core';
+import { FormArray, FormBuilder, FormGroup } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
-import { Observable, Subject, find, map, pipe, takeUntil, tap, retry, debounce, debounceTime, distinctUntilChanged } from 'rxjs';
-import { ContractorService } from '../../../api/services/contractor.service';
-import { City, Client, ClientGroup, Contractor, ContractorRequestFormat, Country, Currency, Customer, DirectionCity, Employee, FileDocument, TaxSystem, RequestFile } from 'src/app/api/custom_models';
-import { CargoService, CompanyService, CustomerService, DirectionService, FileService, RequestService, SystemService, TransportService } from 'src/app/api/services';
-import { Editor } from 'src/app/classes/editor';
-import { Location, getLocaleMonthNames } from '@angular/common';
+import { Subject, takeUntil, tap } from 'rxjs';
+import { CargoService, CustomerService, DirectionService, FileService, RequestService, SystemService, TransportService } from 'src/app/api/services';
+import { Location } from '@angular/common';
 import { CityService } from '../../services/city.service';
 import { CountryService } from '../../services/country.service';
-import { byField } from 'src/app/constants';
-import { FileListComponent } from '../file-list/file-list.component';
-import { TransportKind, TransportSubKind, TransportType } from 'src/app/api/custom_models/transport';
-import { Incoterms, Request, RequestFormat, RequestServices } from 'src/app/api/custom_models/request';
-import { CargoPackage, CargoType } from 'src/app/api/custom_models/cargo';
-import { DirectionFlight, DirectionPoint,  } from 'src/app/api/custom_models/direction';
-import {MatButtonToggleModule} from '@angular/material/button-toggle';
 import { MatSnackBar, MatSnackBarConfig } from '@angular/material/snack-bar';
 import { environment } from '../../../../environments/environment';
-import { ClipboardModule } from '@angular/cdk/clipboard';
 
 @Component({
   selector: 'app-request-rate',
@@ -49,17 +37,8 @@ export class RequestRateComponent implements OnInit, OnDestroy {
   constructor(
     private route: ActivatedRoute,
     private fb: FormBuilder,
-    private customerService: CustomerService,
-    private transportService: TransportService,
     private requestService: RequestService,
-    private cargoService: CargoService,
-    private directionService: DirectionService,
-    private countryService: CountryService,
-    private cityService: CityService,
-    private systemService: SystemService,
     private snackBar: MatSnackBar,
-    private location: Location,
-    private router: Router,
     private fileSevice: FileService,
   ) {
     this.requestForm = this.fb.group({
@@ -74,6 +53,9 @@ export class RequestRateComponent implements OnInit, OnDestroy {
   }
   ngOnInit(): void {
     const uid = this.route.snapshot.paramMap.get('uid');
+    this.requestForm.patchValue({
+      uid:uid
+    })
     this.getRequestRates(uid);
   }
 
@@ -140,9 +122,11 @@ export class RequestRateComponent implements OnInit, OnDestroy {
         tap((rates)=> {
           console.log('getRequestRates', rates);
           if (!rates) throw ({ error: { error_message: `Запрос не существует` } });
+          this.rates.push(this.fb.control({}));
           rates.rates?.forEach((e:any) => {
             this.addRate();
             this.requestForm.patchValue(rates);
+
           });
         }),
         takeUntil(this._destroy$))

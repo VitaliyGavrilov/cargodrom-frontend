@@ -1,0 +1,73 @@
+.edit-form{
+  width: 1480px;
+  max-height: 80vh;
+  // overflow-y: auto;
+  margin: 0 auto;
+  overflow-y: auto;
+  height: fit-content;
+}
+
+.table-list{
+  border-top: 1px solid #E0E5EB;
+  border-bottom: 1px solid #E0E5EB;
+
+  padding: 40px 0;
+
+  table{
+    border-left: 1px solid rgba(0, 0, 0, 0.12);
+    border-right: 1px solid rgba(0, 0, 0, 0.12);
+  }
+
+  .btn-del-charge{
+    width: 14px;
+    height: 16px;
+    background-image: url(../../../../../assets/pic-btn-del-gray.svg);
+    margin: 0 auto;
+    cursor: pointer;
+  }
+}
+.table-list table tr:nth-child(odd) td {
+  background: white;
+}
+
+
+//  btn save rates
+.btn-save-rates{
+  margin-top: 24px;
+  background-color: #DB563B;
+  border: none;
+  border-radius: 6px;
+  padding: 10px;
+  color: white;
+  display: flex;
+  width: 120px;
+  cursor: pointer;
+}
+.icon-btn-save-rates{
+  background-image: url(../../../../../assets/pic-btn-send-white.svg);
+  background-repeat: no-repeat;
+  width: 20px;
+  height: 15px;
+  display: block;
+  margin-right: 5px;
+}
+
+.btn-add-rate{
+  display: flex;
+  width: 159px;
+  height: 40px;
+  border-radius: 6px;
+  border: none;
+  background-color: #DB563B;
+  margin-top: 17px;
+  margin-left: 24px;
+  color: white;
+  padding: 13px;
+}
+
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+}
+
+

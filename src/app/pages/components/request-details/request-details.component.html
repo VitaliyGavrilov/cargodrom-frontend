@@ -1,15 +1,235 @@
-Запрос
+<div class="subheader">
+  <app-request-info-block [request]="currentRequest"></app-request-info-block>
+  <div class="request-actions">
+    <button class="det">Детали</button>
+    <button class="edi" (click)="editRequestNav()">Правка</button>
+    <button class="dub" (click)="dubCurRequest()">Дубль</button>
+    <button class="del">Удалить</button>
+  </div>
+</div>
 
-4коммерческие предложения
+<div class="subtitle">Коммерческие предложения: 0</div>
+<div class="kp-none">Коммерческих предложений нет</div>
 
-ставки
+<div style="display: flex; align-items: center;">
+  <div class="subtitle">Ставки: 5/8</div>
+  <div class="rate-links">
+    <div (click)="onTableMethodChange('final')" [ngClass]="detailsMethod==='final'? 'table-active':'' ">Итоговые</div>
+    <div (click)="onTableMethodChange('customs')" [ngClass]="detailsMethod==='customs'? 'table-active':'' ">До границы</div>
+    <div (click)="onTableMethodChange('point')" [ngClass]="detailsMethod==='point'? 'table-active':'' ">Склад (СВХ)</div>
+    <div (click)="onTableMethodChange('transporter')" [ngClass]="detailsMethod==='transporter'? 'table-active':'' ">Вывоз</div>
+  </div>
+</div>
 
-<div (click)="test('total')">total</div>
-<div (click)="test('border')">border</div>
-<div (click)="test('stock')">stock</div>
-<div (click)="test('export')">export</div>
+<app-table-filter
+  class="table-filter"
+  [isBiddingMode]="isBiddingMode"
+  [isRateDetailsMode]="isRateDetailsMode"
+  [quantityContractors]="quantityContractors"
+  (saveBidding)="saveContractorSelectRequest()"
+  >
+    <div class="detail-btn" *ngIf="isRateDetailsMode">
+      <button class="plus-rate" (click)="openAddRateDialog()"><span style="text-wrap: nowrap" >+ СТАВКА</span></button>
+      <button class="dub">ДУБЛЬ</button>
+      <button class="torg">ТОРГИ</button>
+      <button class="del">УДАЛИТЬ</button>
+    </div>
+</app-table-filter>
 
-<app-request-details-table-border *ngIf="detailsMode==='border'" ></app-request-details-table-border>
-<app-request-details-table-export *ngIf="detailsMode==='export'"></app-request-details-table-export>
-<app-request-details-table-stock  *ngIf="detailsMode==='stock'"></app-request-details-table-stock>
-<app-request-details-table-total  *ngIf="detailsMode==='total'"></app-request-details-table-total>
+<div class="table-list">
+  <table mat-table [dataSource]="rows" multiTemplateDataRows>
+    <ng-container *ngFor="let col of columnsData"
+      [matColumnDef]="col.column"
+      [ngSwitch]="col.column"
+    >
+      <!-- обычные элементы табл -->
+      <ng-template [ngSwitchDefault]>
+        <th mat-header-cell *matHeaderCellDef [style.width]="col.width" [class]="col.class">
+          <div class="td-block">
+            <div class="column" *ngFor="let miniCol of col.items" [style.width]="miniCol.width" [class]="miniCol.class">{{miniCol.title}}</div>
+          </div>
+        </th>
+        <td mat-cell *matCellDef="let item" [style.width]="col.width" [class]="col.class">
+          <div class="td-block">
+            <div class="column" *ngFor="let miniCol of col.items" [style.width]="miniCol.width" [class]="miniCol.class">{{ item[miniCol.field] }}</div>
+          </div>
+        </td>
+      </ng-template>
+      <!-- select столбец -->
+      <ng-template [ngSwitchCase]="'select'">
+        <th mat-header-cell *matHeaderCellDef [style.width]="col.width" [class]="col.class">
+          <label class="checkbox-label">
+            <mat-checkbox class="testclass"
+              [indeterminate]="isIndeterminateDetailsCheckedCheck()"
+              [checked]="isAllDetailsCheckedCheck()"
+              (change)="updateAllArrDetailsCheckedCheck($event)">
+            </mat-checkbox>
+          </label>
+        </th>
+        <td mat-cell *matCellDef="let item" [style.width]="col.width" [class]="col.class">
+          <div class="td-block">
+            <label class="checkbox-label" *ngIf="col.column==='select'">
+              <mat-checkbox class="testclass"
+              [checked]="isDetailsCheckedCheck(item.id)"
+              (change)="updateArrDetailsCheckedCheck(item.id,$event)">
+              </mat-checkbox>
+            </label>
+          </div>
+        </td>
+      </ng-template>
+      <!-- checked столбец -->
+      <ng-template [ngSwitchCase]="'checked'">
+        <th mat-header-cell *matHeaderCellDef [style.width]="col.width" [class]="col.class">
+          <div class="td-block">КП</div>
+        </th>
+        <td mat-cell *matCellDef="let item" [style.width]="col.width" [class]="col.class">
+          <div class="td-block">
+            <label class="switch outer" *ngIf="col.column==='checked'">
+              <!-- (change)="item.selected=!item.selected"  (change)="onSwitcherChange(item.selected, item.id)"  -->
+              <input type="checkbox"  [checked]="item.selected" (change)="item.selected=!item.selected; onSwitcherChange(item)" >
+              <div class="switcher">
+                <span class="bg"></span>
+                <span class="thumb"></span>
+              </div>
+            </label>
+          </div>
+        </td>
+      </ng-template>
+      <!-- details столбец -->
+      <ng-template [ngSwitchCase]="'details'">
+        <th mat-header-cell *matHeaderCellDef [style.width]="col.width" [class]="col.class">
+          <div class="setting-link"></div>
+        </th>
+        <td mat-cell *matCellDef="let item" [style.width]="col.width" [class]="col.class">
+          <div class="td-block"
+            style="cursor: pointer;"
+            (click)="(expandedElement = expandedElement === item ? null : item);
+            $event.stopPropagation();">
+            <div class="column">
+              <div [ngClass]="expandedElement===item?'arrow-close':'arrow-open'"></div>
+            </div>
+          </div>
+        </td>
+      </ng-template>
+
+    </ng-container>
+
+    <!-- РАСШИРЕННАЯ СТРОКА -->
+    <ng-container matColumnDef="expandedDetail" >
+      <td mat-cell *matCellDef="let element" [attr.colspan]='column?.length' [ngSwitch]="detailsMethod">
+
+        <ng-template [ngSwitchDefault]>
+          <div class="example-element-detail" *ngIf="element===expandedElement">
+            <app-rate-info-row [rate]="expandedElement" [detailsMethod]="detailsMethod">
+              <div test1 class="cost_block" select='test1'>
+                <div class="cost">{{expandedElement?.total_cost_text}}</div>
+              </div>
+
+              <div test2 class="action-bar" >
+                <button class="edit" (click)="openEditRateDialog()"></button>
+                <button class="dub"></button>
+                <button class="del"></button>
+              </div>
+            </app-rate-info-row>
+          </div>
+        </ng-template>
+
+        <ng-template [ngSwitchCase]="'final'">
+          <div class="example-element-detail" *ngIf="element===expandedElement">
+
+            <div class="costs">
+              <ng-container *ngTemplateOutlet="costRateBox; context: { label: 'Итоговая ставка:', sum: '165 450 Р' }"></ng-container>
+              ≈
+              <ng-container *ngTemplateOutlet="costRateBox; context: { label: 'До границы:', sum: '165 450 Р' }"></ng-container>
+              +
+              <ng-container *ngTemplateOutlet="costRateBox; context: { label: 'Склад (СВХ):', sum: '165 450 Р' }"></ng-container>
+              +
+              <ng-container *ngTemplateOutlet="costRateBox; context: { label: 'Вывоз:', sum: '165 450 Р' }"></ng-container>
+            </div>
+
+            <app-rate-info-row [rate]="expandedElement" [detailsMethod]="'customs'">
+              <div test1 class="cost_block" select='test1'>
+                <div class="cost">{{expandedElement?.total_cost_text}}</div>
+              </div>
+
+              <div test2 class="action-bar" >
+                <button class="edit" (click)="openEditRateDialog()"></button>
+                <button class="dub"></button>
+                <button class="del"></button>
+              </div>
+            </app-rate-info-row>
+
+            <app-rate-info-row [rate]="expandedElement" [detailsMethod]="'point'">
+              <div test1 class="cost_block" select='test1'>
+                <div class="cost">{{expandedElement?.total_cost_text}}</div>
+              </div>
+
+              <div test2 class="action-bar" >
+                <button class="edit" (click)="openDialogRateEditPoint()"></button>
+                <button class="dub"></button>
+                <button class="del"></button>
+              </div>
+            </app-rate-info-row>
+
+            <app-rate-info-row [rate]="expandedElement" [detailsMethod]="'transporter'">
+              <div test1 class="cost_block" select='test1'>
+                <div class="cost">{{expandedElement?.total_cost_text}}</div>
+              </div>
+
+              <div test2 class="action-bar" >
+                <button class="edit" (click)="openDialogRateEditTransporter()"></button>
+                <button class="dub"></button>
+                <button class="del"></button>
+              </div>
+            </app-rate-info-row>
+
+          </div>
+        </ng-template>
+
+      </td>
+    </ng-container>
+
+    <tr mat-header-row *matHeaderRowDef="column"></tr>
+    <tr mat-row *matRowDef="let element; columns: column;" class="example-element-row" [class.example-expanded-row]="expandedElement === element"></tr>
+    <tr mat-row *matRowDef="let row; columns: ['expandedDetail']" class="example-detail-row"></tr>
+
+  </table>
+</div>
+
+<app-paginator
+  [total]="total"
+  [count]="count"
+  [start]="start"
+  [limits]="limits"
+  (startChange)="onStartChange($event)"
+  (countChange)="onCountChange($event)">
+</app-paginator>
+
+<ng-template #rateAddPointDialogRef let-data>
+  <app-rate-add-point
+    [rate]="data"
+    [chargesShema]="schemaCharges"
+    [weight]="currentRequest.cargo_places_paid_weight"
+    [requestId]="currentRequest.id"
+    [transportKindId]="currentRequest.transport_kind_id"
+    [cityId]="currentRequest.arrival_city_id">
+  </app-rate-add-point>
+</ng-template>
+
+<ng-template #rateAddTransporterDialogRef let-data>
+  <app-rate-add-transporter
+    [rate]="data"
+    [chargesShema]="schemaCharges"
+    [weight]="currentRequest.cargo_places_paid_weight"
+    [requestId]="currentRequest.id"
+    [transportKindId]="currentRequest.transport_kind_id"
+    [cityId]="currentRequest.arrival_city_id">
+  </app-rate-add-transporter>
+</ng-template>
+
+<ng-template #costRateBox let-label="label" let-sum="sum">
+  <div class="cost">
+    <div class="label">{{label}}</div>
+    <div class="sum">{{sum}}</div>
+  </div>
+</ng-template>

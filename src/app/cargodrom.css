@@ -392,9 +392,12 @@ input[type="checkbox"], input[type="radio"], label { vertical-align: middle; }
 .form-block .form-item.f { flex-shrink: 0; }
 .form-block .form-label { font-size: 10px; line-height: 10px; color: #606A74; text-transform: uppercase; margin-bottom: 7px; }
 .form-block .form-label sup { margin-top: -3px; vertical-align: top; display: inline-block; }
-.form-block input[type="text"], .form-block select, .form-block textarea { font-family: 'regular', 'arial', 'sans-serif'; background: #F7F9FC; border: 1px solid #E0E5EB; color: #2C3640; font-size: 15px; line-height: 15px; border-radius: 6px; width: 100%; box-sizing: border-box; padding: 11px 13px 9px; }
+/* .form-block input[type="text"], .form-block select, .form-block textarea { font-family: 'regular', 'arial', 'sans-serif'; background: #F7F9FC; border: 1px solid #E0E5EB; color: #2C3640; font-size: 15px; line-height: 15px; border-radius: 6px; width: 100%; box-sizing: border-box; padding: 11px 13px 9px; }
 .form-block input[type="text"][readonly], .form-block select[readonly], .form-block textarea[readonly] { background: transparent; border: 1px dashed #C3CCD6; color: #2C3640; }
-.form-block input[type="text"]::placeholder { color: #606A74; }
+.form-block input[type="text"]::placeholder { color: #606A74; } */
+.form-block input[type="text"], input[type="number"],.form-block select, .form-block textarea { font-family: 'regular', 'arial', 'sans-serif'; background: #F7F9FC; border: 1px solid #E0E5EB; color: #2C3640; font-size: 15px; line-height: 15px; border-radius: 6px; width: 100%; box-sizing: border-box; padding: 11px 13px 9px; }
+.form-block input[type="text"][readonly],input[type="number"][readonly], .form-block select[readonly], .form-block textarea[readonly] { background: transparent; border: 1px dashed #C3CCD6; color: #2C3640; }
+.form-block input[type="text"]::placeholder,input[type="number"]::placeholder { color: #606A74; }
 .form-block .form-row.bg input[type="text"] { background: #fff; }
 .form-block .form-row.bg input[type="text"][readonly] { background: #EDF2F7; }
 .form-block .form-row.bg textarea { background: #fff; resize: none; }
@@ -911,6 +914,8 @@ app-settings { display: flex; flex-direction: column; flex: 1 1 auto; }
 .table-list th .td-block-line .column { background: #83909E; height: 100%; }
 
 .table-list .w5 { width: 5%; flex-grow: 0 !important; }
+.table-list .w6 { width: 6%; flex-grow: 0 !important; }
+.table-list .w7 { width: 7%; flex-grow: 0 !important; }
 .table-list .w10 { width: 10%; flex-grow: 0 !important; }
 .table-list .w15 { width: 15%; flex-grow: 0 !important; }
 .table-list .w20 { width: 20%; flex-grow: 0 !important; }

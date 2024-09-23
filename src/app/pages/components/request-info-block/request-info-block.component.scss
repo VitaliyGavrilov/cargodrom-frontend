@@ -22,3 +22,21 @@
   text-align: left;
   color: #2C3640;
 }
+.request .info-block:first-child{
+  border-right: 1px solid #C3CCD6;
+  .title{
+    font-size: 26px;
+    font-weight: 700;
+    line-height: 26px;
+    text-align: left;
+    color: #4B66AD;
+  }
+  .subtitle{
+    font-size: 13px;
+    font-weight: 400;
+    line-height: 12px;
+    text-align: left;
+    color: #606A74;
+  }
+}
+

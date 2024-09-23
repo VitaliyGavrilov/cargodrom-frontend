@@ -1,0 +1,345 @@
+.example-element-block{
+  background-color: white;
+  width: 100%;
+  border: #E0E5EB 1px solid;
+  display: flex;
+  flex-direction: column;
+  color: #2C3640;
+  position: relative;
+  .first_row{
+    display: flex;
+    .title{
+      font-size: 22px;
+      font-weight: 700;
+      line-height: 22px;
+      margin-bottom: 40px;
+      span{color: #606A74;}
+    }
+    .first_col{
+      font-weight: 700;
+      font-size: 22px;
+      line-height: 26px;
+      width: 25%;
+      border-right: #E0E5EB 1px solid;
+      .cost_block{
+        border-bottom: #E0E5EB 1px solid;
+        padding: 40px;
+        .cost{
+          color: #DB563B;
+          font-size: 48px;
+          font-weight: 700;
+          line-height: 48px;
+        }
+      }
+      .contractor_block{
+        padding: 40px;
+        .agent_block{
+          .detailed{
+            margin-top: 10px;
+            color: #DB563B;
+            font-weight: 400;
+            font-size: 13px;
+            line-height: 12px;
+          }
+        }
+        .link_block{
+          display: flex;
+          flex-direction: column;
+          gap: 16px;
+          .pic{
+            width: 16px;
+            height: 16px;
+          }
+          .mail{background-image: url(../../../../../assets/pic-card-mail.svg);}
+          .msg{background-image: url(../../../../../assets/pic-card-msg.svg);}
+          .phone{background-image: url(../../../../../assets/pic-card-phone.svg);}
+        }
+        .rating_block{
+          .stars{
+            display: flex;
+            gap: 2px;
+            margin-bottom: 10px;
+            .star_sel{
+              display: flex;
+              background-image: url(../../../../../assets/pic-star-sel.svg);
+              background-position: center;
+              width: 20px;
+              height: 20px;
+            }
+            .star_no-sel{
+              display: flex;
+              background-image: url(../../../../../assets/pic-star.svg);
+              background-position: center;
+              width: 20px;
+              height: 20px;
+            }
+          }
+        }
+        .pct_block{
+          .flags{
+            display: flex;
+            gap: 18px;
+            .red_flag{
+              display: flex;
+              background-image: url(../../../../../assets/pic-flag-minus.svg);
+              background-position: center;
+              width: 20px;
+              height: 21px;
+              margin-bottom: 10px;
+            }
+            .green_flag{
+              display: block;
+              background-image: url(../../../../../assets/pic-flag-plus.svg);
+              background-position: center;
+              width: 20px;
+              height: 21px;
+              margin-bottom: 10px;
+            }
+          }
+        }
+      }
+      .airport_block{
+        padding: 40px;
+        .label{
+          font-size: 13px;
+          font-weight: 400;
+          line-height: 12px;
+        }
+        .data{
+          font-size: 15px;
+          font-weight: 700;
+          line-height: 14px;
+          margin-bottom: 20px;
+        }
+        .details{
+          font-size: 13px;
+          font-weight: 400;
+          line-height: 18px;
+        }
+      }
+    }
+    .second_col{
+      width: 25%;
+      padding: 40px;
+      border-right: #E0E5EB 1px solid;
+      font-size: 15px;
+      font-weight: 700;
+      line-height: 14px;
+      .items{
+        display: flex;
+        flex-wrap: wrap;
+        row-gap: 20px;
+        .item{
+          width: 50%;
+        }
+      }
+      .items:last-child{
+        margin-bottom: 0;
+      }
+
+    }
+    .third_col{
+      width: 50%;
+      padding: 40px;
+      font-size: 15px;
+      font-weight: 400;
+      line-height: 14px;
+
+      .paths{
+        display: flex;
+        font-size: 15px;
+        font-weight: 700;
+        line-height: 14px;
+        margin-bottom: 20px;
+        div{
+          width: 10%;
+        }
+      }
+
+      .paths.head{
+        color: #606A74;
+        font-size: 13px;
+        line-height: 12px;
+        font-weight: 400;
+        margin-bottom: 10px;
+      }
+
+      // .items{
+      //   display: flex;
+      //   justify-content: space-between;
+      //   .label{
+      //     margin: 10px 0 0 0;
+      //     span{
+      //       font-weight: 700;
+      //       color: #4B66AD;
+      //       width: fit-content;
+      //     }
+      //   }
+      //   .item{
+      //     margin-bottom: 20px;
+      //     .name{
+      //       display: flex;
+      //     }
+      //   }
+
+      //   .on_block{
+      //     width: 50%;
+      //     .pic{
+      //       margin-right: 10px;
+      //       display: block;
+      //       width: 12px;
+      //       height: 12px;
+      //       background-image: url(../../../../../assets/pic-tick-in-ring.svg);
+      //     }
+      //     .last-item:last-child .item{
+      //       margin-bottom: 0;
+      //     }
+
+      //   }
+      //   .off_block{
+      //     width: 50%;
+      //     color: #606A74;
+      //     .pic{
+      //       margin-right: 10px;
+      //       display: block;
+      //       width: 12px;
+      //       height: 12px;
+      //       background-image: url(../../../../../assets/pic-cross-in-ring.svg);
+      //     }
+      //     .last-item:last-child .item{
+      //       margin-bottom: 0;
+      //     }
+      //   }
+      // }
+
+      .charges{
+        display: flex;
+        flex-direction: column;
+        flex-wrap: wrap;
+        max-height: 270px;
+        gap: 20px;
+        .charge{
+          width: 50%;
+
+          .name{
+            display: flex;
+
+          }
+        }
+        // .charge:last-child{
+        //   margin: 0;
+        // }
+        .label{
+          margin: 0;
+          margin-top: 10px;
+          span{
+            font-weight: 700;
+            color: #4B66AD;
+            width: fit-content;
+          }
+        }
+        .pic{
+          margin-right: 10px;
+          display: block;
+          width: 12px;
+          height: 12px;
+        }
+        .charge.on {
+          .pic{
+            background-image: url(../../../../../assets/pic-tick-in-ring.svg);
+          }
+        }
+        .charge.off {
+          color: #606A74;
+          .pic{
+            background-image: url(../../../../../assets/pic-cross-in-ring.svg);
+          }
+        }
+
+      }
+    }
+  }
+  .second_row{
+    border-top: #E0E5EB 1px solid;
+    padding: 40px;
+    .comment_block{
+      height: 50px;
+      width: 100%;
+      .pic-i-grey{
+        display: flex;
+        width: 12px;
+        height: 12px;
+        border-radius: 50%;
+        color: white;
+        background-color:#83909E;
+        font-size: 10px;
+        font-weight: 700;
+        line-height: 10px;
+        text-align: center;
+        justify-content: center;
+        align-items: center;
+        margin-right: 5px;
+      }
+      .label{
+        display: flex;
+        align-content: baseline;
+        flex-wrap: wrap;
+        line-height: normal;
+      }
+      .comment{
+      }
+    }
+  }
+  .label{
+    color: #606A74;
+    font-size: 13px;
+    line-height: 12px;
+    font-weight: 400;
+    margin-bottom: 10px;
+  }
+}
+
+// .action-bar{
+//   position: absolute;
+//   top: 30px;
+//   right: -10px;
+//   display: flex;
+//   flex-direction: column;
+//   gap: 10px;
+//   button{
+//     height: 40px;
+//     width: 40px;
+//     border-radius: 6px;
+//     display: block;
+//     box-sizing: border-box;
+//     cursor: pointer;
+//     box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+//     background: white;
+//     border: 0;
+//   }
+//   button::before{
+//     content: "";
+//     width: 18px;
+//     height: 18px;
+//     display: block;
+//     background: no-repeat 50% 50%;
+//     margin: 11px auto;
+//   }
+//   .edit::before{
+//     background-image:url(../../../../../assets/pic-btn-edit-w.svg);
+//   }
+//   button.edit{
+//     background-color: #DB563B;
+//   }
+//   .dub::before{
+//     background-image:url(../../../../../assets/pic-btn-double.svg);
+//   }
+//   .del::before{
+//     background-image:url(../../../../../assets/pic-btn-del.svg);
+//   }
+//   button.del{
+//     background-color: #606A74;
+//   }
+// }
+
+

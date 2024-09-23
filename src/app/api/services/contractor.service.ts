@@ -60,12 +60,12 @@ export class ContractorService extends BaseService {
     /**
      * Направление откуда (ID берем из запроса - direction_country)
      */
-      country_departure?: number;
+      country_departure_id?: number;
 
     /**
      * Направление куда (ID берем из запроса - direction_country)
      */
-      country_arrival?: number;
+      country_arrival_id?: number;
 
     /**
      * Начальная позиция
@@ -475,8 +475,8 @@ export class ContractorService extends BaseService {
       rb.query('specialization', params.specialization, {"style":"form","explode":false});
       rb.query('rating', params.rating, {});
       rb.query('allow_trade', params.allow_trade, {});
-      rb.query('country_departure', params.country_departure, {});
-      rb.query('country_arrival', params.country_arrival, {});
+      rb.query('country_departure_id', params.country_departure_id, {});
+      rb.query('country_arrival_id', params.country_arrival_id, {});
       rb.query('start', params.start, {});
       rb.query('count', params.count, {});
       rb.query('sort', params.sort, {"style":"form","explode":false});
@@ -902,12 +902,12 @@ export class ContractorService extends BaseService {
     /**
      * Направление откуда (ID берем из запроса - direction_country)
      */
-      country_departure?: number;
+      country_departure_id?: number;
 
     /**
      * Направление куда (ID берем из запроса - direction_country)
      */
-      country_arrival?: number;
+      country_arrival_id?: number;
 
     /**
      * Начальная позиция
@@ -2223,7 +2223,7 @@ export class ContractorService extends BaseService {
 /**
  * Блок колонок
  */
-'column'?: Array<string>;
+'column'?: string;
 
 /**
  * Данные колонок
@@ -2414,7 +2414,7 @@ export class ContractorService extends BaseService {
         /**
          * Блок колонок
          */
-        'column'?: Array<string>;
+        'column'?: string;
         
         /**
          * Данные колонок
@@ -2614,7 +2614,7 @@ export class ContractorService extends BaseService {
 /**
  * Блок колонок
  */
-'column'?: Array<string>;
+'column'?: string;
 
 /**
  * Данные колонок
@@ -2797,7 +2797,7 @@ export class ContractorService extends BaseService {
 /**
  * Блок колонок
  */
-'column'?: Array<string>;
+'column'?: string;
 
 /**
  * Данные колонок
@@ -2978,7 +2978,7 @@ export class ContractorService extends BaseService {
 /**
  * Блок колонок
  */
-'column'?: Array<string>;
+'column'?: string;
 
 /**
  * Данные колонок
@@ -8042,12 +8042,12 @@ export class ContractorService extends BaseService {
     /**
      * Направление откуда (ID берем из запроса - direction_country)
      */
-      country_departure?: number;
+      country_departure_id?: number;
 
     /**
      * Направление куда (ID берем из запроса - direction_country)
      */
-      country_arrival?: number;
+      country_arrival_id?: number;
 
     /**
      * Сортировка
@@ -8084,8 +8084,8 @@ export class ContractorService extends BaseService {
       rb.query('specialization', params.specialization, {"style":"form","explode":false});
       rb.query('rating', params.rating, {});
       rb.query('allow_trade', params.allow_trade, {});
-      rb.query('country_departure', params.country_departure, {});
-      rb.query('country_arrival', params.country_arrival, {});
+      rb.query('country_departure_id', params.country_departure_id, {});
+      rb.query('country_arrival_id', params.country_arrival_id, {});
       rb.query('sort', params.sort, {"style":"form","explode":false});
     }
 
@@ -8146,12 +8146,12 @@ export class ContractorService extends BaseService {
     /**
      * Направление откуда (ID берем из запроса - direction_country)
      */
-      country_departure?: number;
+      country_departure_id?: number;
 
     /**
      * Направление куда (ID берем из запроса - direction_country)
      */
-      country_arrival?: number;
+      country_arrival_id?: number;
 
     /**
      * Сортировка
