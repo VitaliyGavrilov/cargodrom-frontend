@@ -69,7 +69,7 @@
 
       <td mat-cell *matCellDef="let request" class="w10">
         <div class="td-block">
-          <div class="column w20">{{request.id}}</div>
+          <div class="column w20" (click)="navigateOnDetails(request.id)">{{request.id}}</div>
           <div class="column w50">{{request.time_add}}</div>
           <div class="column kso-block">
             <div class="kso-item"></div>

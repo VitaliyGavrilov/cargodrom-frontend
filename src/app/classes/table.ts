@@ -562,7 +562,7 @@ export abstract class Table<T extends { id: number }, A = never, F = never> impl
         if(this.isRateDetailsMode){
           this.schemaCharges=schema.forms.charges
         }
-        console.log(schema);
+        console.log('schema',schema);
 
         this.filterService.setSearchFilterSchema(schema.search);
 
@@ -584,13 +584,14 @@ export abstract class Table<T extends { id: number }, A = never, F = never> impl
 
         // this.sortField = schema.sort[0].field;
         // this.sortDir = schema.sort[0].dir;
-
-        // this.router.navigate(['.'], {
-        //   queryParams: { sortCol: schema.sort[0].field, sortDir: schema.sort[0].dir },
-        //   queryParamsHandling: 'merge',
-        //   relativeTo: this.route,
-        // });
         // this.filterService.apply();
+
+        this.router.navigate(['.'], {
+          queryParams: { sortCol: schema.sort[0].field, sortDir: schema.sort[0].dir },
+          queryParamsHandling: 'merge',
+          relativeTo: this.route,
+        });
+
       },
       error: (err) => this.snackBar.open(`Ошибка получения параметров вывода таблицы ` + err.error.error_message, undefined, this.snackBarWithShortDuration),
       complete:()=> {

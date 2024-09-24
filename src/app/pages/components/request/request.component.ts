@@ -68,4 +68,8 @@ export class RequestComponent extends Table<Request, 'id', RequestFilter> {
   protected override importTemplate(): Observable<{data: string; name: string}> {
     return this.requestService.requestImportTemplate(this.filter as any) as Observable<{data: string; name: string}>;
   }
+
+  navigateOnDetails(requestId:any){
+    this.router.navigate(['pages/request/details/customs', requestId])
+  }
 }

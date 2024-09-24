@@ -341,60 +341,66 @@ export class RequestDetails extends Table<any, 'trade_rating', ContractorFilter>
   }
 
   openAddRateDialog(){
-    if (this.detailsMethod==='point') {
-      this.openDialogRateAddPoint();
-    } else if(this.detailsMethod==='transporter') {
-      this.openDialogRateAddTransporter();
-    }
+    if (this.detailsMethod==='point') this.openPointRateCreater();
+    if (this.detailsMethod==='transporter') this.openTransporterRateCreater();
   }
-
-  openDialogRateAddPoint(): void {
-    if (!this.rateAddPointDialogRef) { return }
-    this.matDialog.open(this.rateAddPointDialogRef)
-      .afterClosed()
-      .subscribe(res => {
-        if (res) { console.log('matdialog', res);
-        }
-    });
+  openTransporterRateCreater(): void {
+    this.matDialog.open(this.rateAddTransporterDialogRef!)
   }
-  openDialogRateAddTransporter(): void {
-    if (!this.rateAddTransporterDialogRef) { return }
-    this.matDialog.open(this.rateAddTransporterDialogRef)
-      .afterClosed()
-      .subscribe(res => {
-        if (res) { console.log('matdialog', res);
-        }
-    });
+  openPointRateCreater(): void {
+    this.matDialog.open(this.rateAddPointDialogRef!)
   }
 
   openEditRateDialog(){
-    if (this.detailsMethod==='point') {
-      this.openDialogRateEditPoint();
-    } else if (this.detailsMethod==='transporter') {
-      this.openDialogRateEditTransporter();
-    }
+    if (this.detailsMethod==='point') this.openPointRateEditor();
+    if (this.detailsMethod==='transporter') this.openTransporterRateEditor();
   }
-
-  openDialogRateEditTransporter(): void {
-    if (!this.rateAddTransporterDialogRef) { return }
-    this.matDialog.open(this.rateAddTransporterDialogRef,{data: this.expandedElement})
-      .afterClosed()
-      .subscribe(res => {
-        if (res) { console.log('matdialog', res);
-        }
-    });
+  openTransporterRateEditor(): void {
+    this.matDialog.open(this.rateAddTransporterDialogRef!,{data: this.expandedElement})
   }
-
-  openDialogRateEditPoint(): void {
-    if (!this.rateAddPointDialogRef) { return }
-    this.matDialog.open(this.rateAddPointDialogRef,{data: this.expandedElement})
-      .afterClosed()
-      .subscribe(res => {
-        console.log('matdialog', res);
-      });
+  openPointRateEditor(): void {
+    this.matDialog.open(this.rateAddPointDialogRef!,{data: this.expandedElement})
   }
 
   testDialogClose(){
     this.matDialog.closeAll()
   }
+
+  // openDialogRateEditTransporter(): void {
+  //   if (!this.rateAddTransporterDialogRef) { return }
+  //   this.matDialog.open(this.rateAddTransporterDialogRef,{data: this.expandedElement})
+  //     .afterClosed()
+  //     .subscribe(res => {
+  //       if (res) { console.log('matdialog', res);
+  //       }
+  //   });
+  // }
+
+  // openDialogRateEditPoint(): void {
+  //   if (!this.rateAddPointDialogRef) { return }
+  //   this.matDialog.open(this.rateAddPointDialogRef,{data: this.expandedElement})
+  //     .afterClosed()
+  //     .subscribe(res => {
+  //       console.log('matdialog', res);
+  //     });
+  // }
+
+  // openDialogRateAddPoint(): void {
+  //   if (!this.rateAddPointDialogRef) { return }
+  //   this.matDialog.open(this.rateAddPointDialogRef)
+  //     .afterClosed()
+  //     .subscribe(res => {
+  //       if (res) { console.log('matdialog', res);
+  //       }
+  //   });
+  // }
+  // openDialogRateAddTransporter(): void {
+  //   if (!this.rateAddTransporterDialogRef) { return }
+  //   this.matDialog.open(this.rateAddTransporterDialogRef)
+  //     .afterClosed()
+  //     .subscribe(res => {
+  //       if (res) { console.log('matdialog', res);
+  //       }
+  //   });
+  // }
 }

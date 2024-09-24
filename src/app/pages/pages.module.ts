@@ -40,6 +40,7 @@ import { RequestDetails } from './components/request-details/request-details.com
 import { RateInfoRow } from './components/request-details/rate-info-row/rate-info-row.component';
 import { RateAddPoint } from './components/request-details/rate-add-point/rate-add-point.component';
 import { RateAddTransporter } from './components/request-details/rate-add-transporter/rate-add-transporter.component';
+import { RateAddCustoms } from './components/request-details/rate-add-customs/rate-add-customs.component';
 
 
 
@@ -82,6 +83,7 @@ import { RateAddTransporter } from './components/request-details/rate-add-transp
     RateInfoRow,
     RateAddPoint,
     RateAddTransporter,
+    RateAddCustoms,
 
   ],
   imports: [

@@ -121,15 +121,16 @@
         <ng-template [ngSwitchDefault]>
           <div class="example-element-detail" *ngIf="element===expandedElement">
             <app-rate-info-row [rate]="expandedElement" [detailsMethod]="detailsMethod">
+
               <div test1 class="cost_block" select='test1'>
                 <div class="cost">{{expandedElement?.total_cost_text}}</div>
               </div>
-
               <div test2 class="action-bar" >
                 <button class="edit" (click)="openEditRateDialog()"></button>
                 <button class="dub"></button>
                 <button class="del"></button>
               </div>
+
             </app-rate-info-row>
           </div>
         </ng-template>
@@ -165,7 +166,7 @@
               </div>
 
               <div test2 class="action-bar" >
-                <button class="edit" (click)="openDialogRateEditPoint()"></button>
+                <button class="edit" (click)="openPointRateEditor()"></button>
                 <button class="dub"></button>
                 <button class="del"></button>
               </div>
@@ -177,7 +178,7 @@
               </div>
 
               <div test2 class="action-bar" >
-                <button class="edit" (click)="openDialogRateEditTransporter()"></button>
+                <button class="edit" (click)="openTransporterRateEditor()"></button>
                 <button class="dub"></button>
                 <button class="del"></button>
               </div>

@@ -1,0 +1,95 @@
+.edit-form{
+  width: 1480px;
+  // height: 80vh;
+  // overflow-y: auto;
+  margin: 0 auto;
+  max-height: 95vh;
+  // overflow-y: auto;
+
+  overflow-y: auto;
+  height: fit-content;
+}
+.charges-block{
+  display: flex;
+  justify-content: space-between;
+  min-height: 300px;
+  border-top: 1px solid #E0E5EB;
+  border-bottom: 1px solid #E0E5EB;
+  padding: 40px 0;
+  .charge_on{
+    width: 62%;
+    label{
+      width: 400px;
+    }
+  }
+  .charge_off{
+    width: 30%;
+  }
+
+}
+
+.w100{
+  width: 100%;
+}
+.charge{
+  display: flex;
+  justify-content: space-between;
+  margin-top: 20px;
+  align-items: baseline;
+  .unit.l{
+    width: 135px;
+  }
+  .unit.m{
+    width: 120px;
+  }
+  .unit.s{
+    width: 90px;
+  }
+  .unit input{
+    width: 75px;
+    margin-right: 5px;
+    padding-left: 6px;
+    padding-right: 6px;
+    text-align: right;
+  }
+  .comment input{
+    width: 340px;
+  }
+  .cross{
+    background-image: url(../../../../../assets/pic-btn-cancel-black.svg);
+    background-size: contain;
+    width: 10px;
+    height: 10px;
+  }
+  .equal{
+    color: black;
+  }
+}
+
+//  btn save rates
+.btn-save-rates{
+  margin-top: 24px;
+  background-color: #DB563B;
+  border: none;
+  border-radius: 6px;
+  padding: 10px;
+  color: white;
+  display: flex;
+  width: 120px;
+  cursor: pointer;
+}
+.icon-btn-save-rates{
+  background-image: url(../../../../../assets/pic-btn-send-white.svg);
+  background-repeat: no-repeat;
+  width: 20px;
+  height: 15px;
+  display: block;
+  margin-right: 5px;
+}
+
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+}
+
+
