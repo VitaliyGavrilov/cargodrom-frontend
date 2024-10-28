@@ -9,6 +9,8 @@ import { Observable, map, of, takeUntil, tap } from 'rxjs';
 import { FilterService } from 'src/app/filter/services/filter.service';
 import { RequestService } from 'src/app/api/services';
 import { MatCheckboxChange } from '@angular/material/checkbox';
+import { RateAddCustoms } from './rate-add-customs/rate-add-customs.component';
+import { LogoutComponent } from 'src/app/auth/components/logout/logout.component';
 
 interface LoadRows{
   id?:number| undefined;
@@ -40,14 +42,41 @@ interface LoadRows{
 export class RequestDetails extends Table<any, 'trade_rating', ContractorFilter> {
   sortField = 'contractor_id' as const;
   expandedElement: any | null;
-  expandedElementInfo: any | null;
+  // expandedElementInfo: any | null;
   arrDetailsCheckedCheck:number[]=[];
-  testswi=true
-  params:any;
-  trackById = (_index: number, contractor: LoadRows) => contractor.id!;
+  // testswi=true
+  // params:any;
+  // trackById = (_index: number, contractor: LoadRows) => contractor.id!;
 
-  @ViewChild('rateAddPointDialogRef') rateAddPointDialogRef?: TemplateRef<void>;
-  @ViewChild('rateAddTransporterDialogRef') rateAddTransporterDialogRef?: TemplateRef<void>;
+  isExpandedRequestInfo:boolean=false;
+  expandedRequestInfoItems:any=[
+    {
+      field: 'Дата',
+      data: 'arrival_city_name'
+    },
+    {
+      field: 'Дата',
+      data: 'arrival_city_name'
+    },
+    {
+      field: 'Дата',
+      data: 'arrival_city_name'
+    },
+    {
+      field: 'Дата',
+      data: 'arrival_city_name'
+    },
+    {
+      field: 'Дата',
+      data: 'arrival_city_name'
+    },
+  ]
+
+  @ViewChild('ratePointDialogRef') ratePointDialogRef?: TemplateRef<void>;
+  @ViewChild('rateTransporterDialogRef') rateTransporterDialogRef?: TemplateRef<void>;
+  @ViewChild('rateСustomsDialogRef') rateСustomsDialogRef?: TemplateRef<void>;
+  @ViewChild('dialogRef') dialogRef!: TemplateRef<void>;
+  // @ViewChild(RateAddCustoms) RateAddCustoms!: RateAddCustoms;
 
   constructor(
     private contractorService: ContractorService,
@@ -58,207 +87,166 @@ export class RequestDetails extends Table<any, 'trade_rating', ContractorFilter>
     router: Router,
     filter: FilterService,
     private matDialog: MatDialog,
-
-  ) {
-    super(route, router, dialog, snackBar, filter);
-  }
+  ) { super(route, router, dialog, snackBar, filter) }
 
   //методы для таблицы
-  load<LoadRows>(params: LoadParams<any, any>): Observable<{ total: number; items: LoadRows[]; }> {
-    if(this.detailsMethod==='final') {
-      return this.requestService.requestRateFinalList(params as any) as unknown as Observable<{ total: number; items: LoadRows[]; }>;
-    } else if (this.detailsMethod==='customs') {
-      return this.requestService.requestRateCustomsList(params as any) as unknown as Observable<{ total: number; items: LoadRows[]; }>
-    } else if (this.detailsMethod==='point') {
-      return this.requestService.requestRatePointList(params as any) as unknown as Observable<{ total: number; items: LoadRows[]; }>
-    } else {
-      return this.requestService.requestRateTransporterList(params as any) as unknown as Observable<{ total: number; items: LoadRows[]; }>
-    }
+  load<LoadRows>(params: LoadParams<any, any>): Observable<{ total: number; items: LoadRows[] }> {
+    const methodMap: { [key: string]: Function } = {
+      final: this.requestService.requestRateFinalList.bind(this.requestService),
+      customs: this.requestService.requestRateCustomsList.bind(this.requestService),
+      point: this.requestService.requestRatePointList.bind(this.requestService),
+      transporter: this.requestService.requestRateTransporterList.bind(this.requestService),
+    };
+    const loadMethod = methodMap[this.detailsMethod];
+    return loadMethod(params) as Observable<{ total: number; items: LoadRows[] }>;
   }
   protected override loadFilterSchemaTest(par:any): Observable<any>  {
     return this.requestService.requestRateListParam(par).pipe(map(val => val as any));
   }
-  protected override exportData(): Observable<{data: string; name: string}> {
-    return this.contractorService.contractorExport(this.params as any) as Observable<{data: string; name: string}>;
-  }
-  protected override importData(body: {data: string; name: string}) {
-    return this.contractorService.contractorImport({body}) as any;
-  }
-  protected override importDataConfirm(body: {import_key: string}) {
-    return this.contractorService.contractorImportConfirm({import_key: body.import_key});
-  }
-  protected override importResult(body: {import_key: string}) {
-    return this.contractorService.contractorImportResult({import_key: body.import_key});
-  }
-  protected override importTemplate(): Observable<{data: string; name: string}> {
-    return this.contractorService.contractorImportTemplate(this.filter as any) as Observable<{data: string; name: string}>;
-  }
-  protected override requestContractorSelectGet(id:number): Observable<any> {
-    return this.requestService.requestContractorSelectGet({id:id});
-  }
-  protected override requestContractorSelectUpdate(body: {id: number; contractor_id: number[],checked:boolean}) {
-    return this.requestService.requestContractorSelectUpdate({body});
-  }
   protected override requestInfo(id: number) {
     return this.requestService.requestInfo({id:id});
   }
-  protected override requestSaveBidding(body:{id:number,confirm: boolean}){
-    return this.requestService.requestSaveBidding({body})
+  //
+  getVal(obj: any, path: string): any {
+    if (!path.includes('/')) {
+        return obj[path] !== undefined ? obj[path] : null;
+    }
+    const keys = path.split('/');
+    for (const key of keys) {
+      if (obj && obj.hasOwnProperty(key)) {
+          obj = obj[key];
+      } else {
+          return null; // Если ключ не найден, возвращаем null
+      }
+    }
+    return obj !== undefined ? obj : null; // Проверка на undefined
   }
-
-
-  // onRateInfoChange(request_id:number,rate_id:number){
-  //   if(this.detailsMethod==='final') {
-  //     this.getRequestFinalInfo(request_id,rate_id)
-  //   } else if (this.detailsMethod==='customs') {
-  //     this.getRequestCustomsInfo(request_id,rate_id)
-  //   } else if (this.detailsMethod==='point') {
-  //     this.getRequestPointInfo(request_id,rate_id)
-  //   } else {
-  //     this.getRequestTransporterInfo(request_id,rate_id)
-  //   }
-  // }
-  // getRequestFinalInfo(request_id:number,rate_id:number){
-  //   this.requestService.requestRateFinalInfo({id:rate_id, request_id:request_id})
-  //     .pipe(tap((info)=>{}),takeUntil(this.destroy$))
-  //     .subscribe({
-  //       next: (info) =>{
-  //         this.expandedElementInfo=info;
-
-  //         console.log(info);
-  //       },
-  //       error:(err)=>{
-
-  //       }
-  //     })
-  // }
-  // getRequestCustomsInfo(request_id:number,rate_id:number){
-  //   this.requestService.requestRateCustomsInfo({id:rate_id, request_id:request_id})
-  //     .pipe(tap((info)=>{}),takeUntil(this.destroy$))
-  //     .subscribe({
-  //       next: (info) =>{
-  //         this.expandedElementInfo=info;
-
-  //         console.log('requestRateCustomsInfo',info);
-  //       },
-  //       error:(err)=>{
-
-  //       }
-  //     })
-  // }
-  // getRequestPointInfo(request_id:number,rate_id:number){
-  //   this.requestService.requestRatePointInfo({id:rate_id, request_id:request_id})
-  //     .pipe(tap((info)=>{}),takeUntil(this.destroy$))
-  //     .subscribe({
-  //       next: (info) =>{
-  //         this.expandedElementInfo=info;
-
-  //         console.log(info);
-  //       },
-  //       error:(err)=>{
-  //       }
-  //     })
-  // }
-  // getRequestTransporterInfo(request_id:number,rate_id:number){
-  //   this.requestService.requestRateTransporterInfo({id:rate_id, request_id:request_id})
-  //     .pipe(tap((info)=>{}),takeUntil(this.destroy$))
-  //     .subscribe({
-  //       next: (info) =>{
-  //         this.expandedElementInfo=info;
-
-  //         console.log(info);
-  //       },
-  //       error:(err)=>{
-  //       }
-  //     })
-  // }
-
-
-  getSpecializationClass(n:number){
-    let classSpec='';
-    if(n===1)classSpec='avia';
-    if(n===2)classSpec='road';
-    if(n===3)classSpec='rw';
-    if(n===4)classSpec='sea';
-    return classSpec;
+  // REQUEST HANDLERS
+  onDetailsRequestBtnClick(){
+    this.isExpandedRequestInfo=!this.isExpandedRequestInfo;
   }
-
-  onSwitcherChange(e:any){
-    const body:any={id:e.id, selected:e.selected};
-    if (this.detailsMethod==='customs') {
-      this.rateСustomsSelectedChange(body)
-    } else if (this.detailsMethod==='point') {
-      this.ratePointSelectedChange(body)
+  onEditRequestBtnClick(){
+    this.navToRequestEditor();
+  }
+  onDubRequestBtnClick(){
+    this.createRequest(this.currentRequest)
+  }
+  onDeleteRequestBtnClick(){
+    this.openDeleteRequestDialog('Вы уверенны, что хотите удалить запрос?', 'Удаление запроса')
+  }
+  // KP HANDLERS
+  // RATE METODS CHANGE
+  onTableMethodChange(method:any){
+    this.router.navigate(['pages/request/details', method, this.requestId])
+  }
+  // HANDLING CHECKBOX ACTIONS
+  onAddRateBtnClick(){
+    this.openRateEditor();
+  }
+  onDubSelectRateBtnClick(){
+    this.duplicateRate(this.arrDetailsCheckedCheck);
+    this.arrDetailsCheckedCheck=[];
+    // const body: any = { id: i.id, selected: !i.selected };
+    // this.saveRate(body);
+  }
+  onBidSelectRateBtnClick(){
+    this.snackBar.open(`Торги в данный момент не доступны, количество выбранных элементов: `+this.arrDetailsCheckedCheck.length, undefined, this.snackBarWithShortDuration);
+    this.arrDetailsCheckedCheck=[];
+  }
+  onDelSelectRateBtnClick(){
+    this.openDeleteRateDialog('Вы уверенны, что хотите удалить '+ this.arrDetailsCheckedCheck.length + ' ставок', this.arrDetailsCheckedCheck, 'Удаление ставок');
+    this.arrDetailsCheckedCheck=[];
+  }
+  // SWITCHER CHANGE(Online checkbox,checked col, ios-Swither)
+  onCommercialOfferChange(i:any){
+    const body: any = { id: i.id, selected: !i.selected };
+    this.saveRate(body);
+  }
+  // CHECKBOX CHANGE IN TABLE
+  onCheckboxHeaderTableChange({ checked }: MatCheckboxChange) {
+    if (checked) {
+      this.arrDetailsCheckedCheck = [...new Set([...this.arrDetailsCheckedCheck, ...this.rows.map(i => i.id)])];
     } else {
-      this.rateTransporterSelectedChange(body)
-      // this.prikol(this.requestService.requestRateTransporterSave({body:body}))
+      const rowIds = new Set(this.rows.map(i => i.id));
+      this.arrDetailsCheckedCheck = this.arrDetailsCheckedCheck.filter(id => !rowIds.has(id));
     }
   }
-
-  // prikol(i:any){
-  //   i.pipe(
-  //     takeUntil(this.destroy$),
-  //   )
-  //   .subscribe();
-  // }
-
-  rateСustomsSelectedChange(body:any){
-    this.requestService.requestRateCustomsSave({body:body})
-      .pipe(
-        tap(contractor => {
-          console.log(contractor);
-        }),
-        takeUntil(this.destroy$),
-      )
-      .subscribe({
-        next: (contractor) => {
-        },
-        error: (err) => {
-          this.snackBar.open(`Ошибка запроса маршрутов: ` + err.error.error_message, undefined, this.snackBarWithShortDuration);
-        }
-      });
+  onCheckboxBodyTableChange(contractor_id: number, { checked }: MatCheckboxChange) {
+    if (checked) {
+      if (!this.arrDetailsCheckedCheck.includes(contractor_id)) {
+        this.arrDetailsCheckedCheck.push(contractor_id);
+      }
+    } else {
+      this.arrDetailsCheckedCheck = this.arrDetailsCheckedCheck.filter(id => id !== contractor_id);
+    }
   }
-
-  rateTransporterSelectedChange(body:any){
-    this.requestService.requestRateTransporterSave({body:body})
-      .pipe(
-        tap(contractor => {
-          console.log(contractor);
-        }),
-        takeUntil(this.destroy$),
-      )
-      .subscribe({
-        next: (contractor) => {
-        },
-        error: (err) => {
-          this.snackBar.open(`Ошибка запроса маршрутов: ` + err.error.error_message, undefined, this.snackBarWithShortDuration);
-        }
-      });
+  // CHECKBOX states
+  isCheckboxBodyTableChecked(contractor_id: number): boolean {
+    return this.arrDetailsCheckedCheck.includes(contractor_id);
   }
-  ratePointSelectedChange(body:any){
-    this.requestService.requestRatePointSave({body:body})
-      .pipe(
-        tap(contractor => {
-          console.log(contractor);
-        }),
-        takeUntil(this.destroy$),
-      )
-      .subscribe({
-        next: (contractor) => {
-        },
-        error: (err) => {
-          this.snackBar.open(`Ошибка запроса маршрутов: ` + err.error.error_message, undefined, this.snackBarWithShortDuration);
-        }
-      });
+  isCheckboxHeaderTableChecked(): boolean {
+    const arrIdRows = new Set(this.rows.map((i: any) => i.id));
+    const arrIdRowsCheck = new Set(this.arrDetailsCheckedCheck.filter(id => arrIdRows.has(id)));
+    return arrIdRows.size > 0 && arrIdRows.size === arrIdRowsCheck.size;
   }
-
-  editRequestNav(){
+  isCheckboxHeaderTableIndeterminate(): boolean {
+    const arrIdRows = new Set(this.rows.map((i: any) => i.id));
+    const arrIdRowsCheck = this.arrDetailsCheckedCheck.filter(id => arrIdRows.has(id));
+    return arrIdRows.size > arrIdRowsCheck.length && arrIdRowsCheck.length > 0;
+  }
+  // TOGGLE EXPANDED ROW
+  onOpenDetailsRateBtnClick(item:any){
+    this.expandedElement = this.expandedElement === item ? null : item;
+  }
+  // HANDLERS in EXPANDED ROW
+  onEditRateBtnClick(){
+    this.openRateEditor(this.expandedElement);
+  }
+  onDubSingleRateBtnClick(){
+    this.duplicateRate([this.expandedElement.id]);
+  }
+  onDelSingleRateBtnClick(){
+    this.openDeleteRateDialog('Вы уверенны, что хотите удалить ставку №'+ this.expandedElement.id, [this.expandedElement.id], 'Удаление ставки')
+  }
+  // Link to request editor page
+  navToRequestEditor(){
     this.router.navigate(['pages/request/edit', this.requestId])
   }
-
-  dubCurRequest(){
-    console.log(this.currentRequest);
-    this.requestService.requestCreate({body:this.currentRequest})
+  // Link to requests table page
+  navToRequestsTable(){
+    this.router.navigate(['pages/request'])
+  }
+  // Link to rate table
+  navToRateTable(){
+    this.router.navigate(['pages/request'])
+  }
+  // OPEN DIALOG
+  openRateEditor(data?: any) {
+    const rateEditors: { [key: string]: { ref: any; config?: any } } = {
+      point:       { ref: this.ratePointDialogRef },
+      transporter: { ref: this.rateTransporterDialogRef },
+      customs:     { ref: this.rateСustomsDialogRef, config: { height: '85vh' } },
+    };
+    const editor = rateEditors[this.detailsMethod];
+    if (editor) {
+      this.matDialog.open(editor.ref, { data: data, ...editor.config });
+    }
+  }
+  openDeleteRateDialog(message:string, data:any, title:string){
+    this.matDialog.open(this.dialogRef,{ data: {message:message, title:title}}).afterClosed().subscribe(res => {
+      if (res) {
+        this.deleteRate(data);
+      }
+    });
+  }
+  openDeleteRequestDialog(message:string, title:string){
+    this.matDialog.open(this.dialogRef,{ data: {message:message, title:title}}).afterClosed().subscribe(res => {
+      if (res) { this.deleteRequest(this.requestId)}
+    });
+  }
+  // REQUESTS TO BACKEND
+  createRequest(body:any){//dub request
+    this.requestService.requestCreate({body:body})
       .pipe(
         tap((e)=>{
           console.log(e);
@@ -266,141 +254,85 @@ export class RequestDetails extends Table<any, 'trade_rating', ContractorFilter>
         takeUntil(this.destroy$)
       ).subscribe();
   }
-
-  onTableMethodChange(method:any){
-    this.router.navigate(['pages/request/details', method, this.requestId])
+  saveRate(body: any) {
+    const methodMap: { [key: string]: (body: any) => Observable<any> } = {
+      customs: () => this.requestService.requestRateCustomsSave({ body }),
+      point: () => this.requestService.requestRatePointSave({ body }),
+      transporter: () => this.requestService.requestRateTransporterSave({ body })
+    };
+    const requestMethod = methodMap[this.detailsMethod];
+    requestMethod({body:body})
+      .pipe(
+        tap(contractor => {
+          console.log(contractor);
+        }),
+        takeUntil(this.destroy$),
+      )
+      .subscribe({
+        next: (contractor) => {
+          this.snackBar.open(`кп успех`, undefined, this.snackBarWithShortDuration);
+        },
+        error: (err) => {
+          this.snackBar.open(`Ошибка запроса маршрутов: ` + err.error.error_message, undefined, this.snackBarWithShortDuration);
+        }
+      });
   }
-
-  isDetailsCheckedCheck(contractor_id:number){
-    let isCheck
-    this.arrDetailsCheckedCheck.forEach((i:any)=>{
-      if(i===contractor_id){
-        isCheck=true;
+  duplicateRate(body:any){
+    this.requestService.requestRateDouble({ body: { id: body } })
+    .pipe(
+      tap(contractor => {
+        console.log(contractor);
+      }),
+      takeUntil(this.destroy$),
+    )
+    .subscribe({
+      next: (contractor) => {
+        this.snackBar.open(`Количество дублированных ставок: `+ body.length, undefined, this.snackBarWithShortDuration);
+        this.loadRows();
+      },
+      error: (err) => {
+        this.snackBar.open(`Ошибка дублирования: ` + err.error.error_message, undefined, this.snackBarWithShortDuration);
       }
-    })
-    return isCheck;
-  }
-
-  updateArrDetailsCheckedCheck(contractor_id:number,{ checked }: MatCheckboxChange){
-    if(checked){
-      this.arrDetailsCheckedCheck.push(contractor_id)
-    } else {
-      this.arrDetailsCheckedCheck=this.arrDetailsCheckedCheck.filter((number) => number !== contractor_id)
-    }
-  }
-
-  isAllDetailsCheckedCheck(){
-    let arrIdRows:number[]=[];
-    let arrIdRowsCheck:number[]=[];
-
-    this.rows.forEach((i:any)=>{
-      arrIdRows.push(i.id);
     });
-    this.arrDetailsCheckedCheck.forEach((i:any)=>{
-      this.rows.forEach((ir:any)=>{
-        if(i===ir.id){
-          arrIdRowsCheck.push(i);
+  }
+  deleteRate(body:any){
+    const deleteRate: Observable<any> = this.detailsMethod === 'finale'
+    ? this.requestService.requestRateFinaleDelete({ body: { id: body } })
+    : this.requestService.requestRateDelete({ body: { id: body } });
+
+    deleteRate.pipe(
+      tap(contractor => {
+        console.log(contractor);
+      }),
+      takeUntil(this.destroy$),
+    )
+    .subscribe({
+      next: (contractor) => {
+        this.snackBar.open(`Ставка удалена`, undefined, this.snackBarWithShortDuration);
+        this.loadRows();
+      },
+      error: (err) => {
+        this.snackBar.open(`Ошибка удаления ставки: ` + err.error.error_message, undefined, this.snackBarWithShortDuration);
+      }
+    });
+  }
+  deleteRequest(id:number){
+    this.requestService.requestDelete({body:{id:id}})
+      .pipe(
+        tap(contractor => {
+          console.log(contractor);
+        }),
+        takeUntil(this.destroy$),
+      )
+      .subscribe({
+        next: (contractor) => {
+          this.snackBar.open(`Запрос удален`, undefined, this.snackBarWithShortDuration);
+          this.navToRequestsTable();
+        },
+        error: (err) => {
+          this.snackBar.open(`Ошибка удаления запроса: ` + err.error.error_message, undefined, this.snackBarWithShortDuration);
         }
       });
-    });
-    return this.arrDetailsCheckedCheck.length > 0 && arrIdRows.sort().toString()===arrIdRowsCheck.sort().toString();
   }
 
-  isIndeterminateDetailsCheckedCheck(){
-    let arrIdRows:number[]=[];
-    let arrIdRowsCheck:number[]=[];
-
-    this.rows.forEach((i:any)=>{
-      arrIdRows.push(i.id);
-    });
-    this.arrDetailsCheckedCheck.forEach((i:any)=>{
-      this.rows.forEach((ir:any)=>{
-        if(i===ir.id){
-          arrIdRowsCheck.push(i);
-        }
-      });
-    });
-    return arrIdRows.length>arrIdRowsCheck.length && arrIdRowsCheck.length > 0;
-  }
-
-  updateAllArrDetailsCheckedCheck({ checked }: MatCheckboxChange){
-    if(checked){
-      this.rows.forEach((i:any)=>{
-        this.arrDetailsCheckedCheck.push(i.id);
-      })
-      this.arrDetailsCheckedCheck=[...new Set(this.arrDetailsCheckedCheck)];
-    } else {
-      this.arrDetailsCheckedCheck.forEach((i:any)=>{
-        this.rows.forEach((ir:any)=>{
-          if(i===ir.id){
-            this.arrDetailsCheckedCheck=this.arrDetailsCheckedCheck.filter((number) => number !== i)
-          }
-        });
-      });
-    }
-  }
-
-  openAddRateDialog(){
-    if (this.detailsMethod==='point') this.openPointRateCreater();
-    if (this.detailsMethod==='transporter') this.openTransporterRateCreater();
-  }
-  openTransporterRateCreater(): void {
-    this.matDialog.open(this.rateAddTransporterDialogRef!)
-  }
-  openPointRateCreater(): void {
-    this.matDialog.open(this.rateAddPointDialogRef!)
-  }
-
-  openEditRateDialog(){
-    if (this.detailsMethod==='point') this.openPointRateEditor();
-    if (this.detailsMethod==='transporter') this.openTransporterRateEditor();
-  }
-  openTransporterRateEditor(): void {
-    this.matDialog.open(this.rateAddTransporterDialogRef!,{data: this.expandedElement})
-  }
-  openPointRateEditor(): void {
-    this.matDialog.open(this.rateAddPointDialogRef!,{data: this.expandedElement})
-  }
-
-  testDialogClose(){
-    this.matDialog.closeAll()
-  }
-
-  // openDialogRateEditTransporter(): void {
-  //   if (!this.rateAddTransporterDialogRef) { return }
-  //   this.matDialog.open(this.rateAddTransporterDialogRef,{data: this.expandedElement})
-  //     .afterClosed()
-  //     .subscribe(res => {
-  //       if (res) { console.log('matdialog', res);
-  //       }
-  //   });
-  // }
-
-  // openDialogRateEditPoint(): void {
-  //   if (!this.rateAddPointDialogRef) { return }
-  //   this.matDialog.open(this.rateAddPointDialogRef,{data: this.expandedElement})
-  //     .afterClosed()
-  //     .subscribe(res => {
-  //       console.log('matdialog', res);
-  //     });
-  // }
-
-  // openDialogRateAddPoint(): void {
-  //   if (!this.rateAddPointDialogRef) { return }
-  //   this.matDialog.open(this.rateAddPointDialogRef)
-  //     .afterClosed()
-  //     .subscribe(res => {
-  //       if (res) { console.log('matdialog', res);
-  //       }
-  //   });
-  // }
-  // openDialogRateAddTransporter(): void {
-  //   if (!this.rateAddTransporterDialogRef) { return }
-  //   this.matDialog.open(this.rateAddTransporterDialogRef)
-  //     .afterClosed()
-  //     .subscribe(res => {
-  //       if (res) { console.log('matdialog', res);
-  //       }
-  //   });
-  // }
 }

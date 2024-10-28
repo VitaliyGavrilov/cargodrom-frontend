@@ -69,8 +69,7 @@ export abstract class Table<T extends { id: number }, A = never, F = never> impl
     private dialog: MatDialog,
     protected snackBar: MatSnackBar,
     protected filterService: FilterService,
-  ) {
-  }
+  ) {}
 
   ngOnInit(): void {
     const segments = this.route.snapshot.url.map(s => s.path);
@@ -79,7 +78,6 @@ export abstract class Table<T extends { id: number }, A = never, F = never> impl
 
     if(this.isRateDetailsMode || this.isBiddingMode){
       if(this.isRateDetailsMode) this.detailsMethod=segments[2];
-
       this.requestId = Number(this.route.snapshot.paramMap.get('id'));
       this.getRequestInfo(this.requestId);
     }
@@ -88,7 +86,7 @@ export abstract class Table<T extends { id: number }, A = never, F = never> impl
       this.onFilterChange(filter as F);
     });
     this.getListParam();
-    this.subscribeRouteQueryParamMap();
+    // this.subscribeRouteQueryParamMap();
   }
 
   ngOnDestroy(): void {
@@ -98,11 +96,9 @@ export abstract class Table<T extends { id: number }, A = never, F = never> impl
 
   protected loadRows(): void {
     const sortCol = this.getSort();
-    const params = this.isRateDetailsMode?
-      { request_id:91, method: this.detailsMethod, start: this.start, count: this.count, ...this.filter }
-      :
-      { start: this.start, count: this.count, sort: JSON.stringify(sortCol) as unknown as SortColumn<T>[], ...this.filter  };
-
+    const params = this.isRateDetailsMode
+      ? { request_id:this.requestId, method: this.detailsMethod, start: this.start, count: this.count, ...this.filter }
+      : { start: this.start, count: this.count, sort: JSON.stringify(sortCol) as unknown as SortColumn<T>[], ...this.filter  };
     this.load(params)
       .subscribe(rows => {
         console.log('rows', rows);
@@ -123,6 +119,7 @@ export abstract class Table<T extends { id: number }, A = never, F = never> impl
   protected delete(params: { body: { id: number } }): Observable<void> {
     return of();
   }
+
 
   protected loadFilterSchema(): Observable<SearchFilterSchema> {
     return of({ header: [], main: [], additional: [] });
@@ -239,6 +236,8 @@ export abstract class Table<T extends { id: number }, A = never, F = never> impl
   isSortable(name: keyof T | A): boolean {
     return Array.isArray(this.sortableColumns) && this.sortableColumns.includes(name as any);
   }
+
+
 
   confirmRemove(row: T): void {
     this.dialog.open(this.removeDialogRef, { data: row }).afterClosed().subscribe(res => {
@@ -557,53 +556,54 @@ export abstract class Table<T extends { id: number }, A = never, F = never> impl
 
   getListParam(){
     const param=this.isRateDetailsMode?{request_id:this.requestId ,method:this.detailsMethod }:null;
-    this.loadFilterSchemaTest(param).pipe(tap(),takeUntil(this.destroy$)).subscribe({
-      next: (schema) => {
-        if(this.isRateDetailsMode){
-          this.schemaCharges=schema.forms.charges
-        }
-        console.log('schema',schema);
+    this.loadFilterSchemaTest(param)
+      .pipe(
+        tap((schema)=>{
+          this.sortField = schema.sort[0].field;
+          this.sortDir = schema.sort[0].dir;
+        }),
+        takeUntil(this.destroy$),
+      )
+      .subscribe({
+        next: (schema) => {
+          // if(this.isRateDetailsMode){
+          //   this.schemaCharges=schema.forms.charges
+          // }
+          console.log('schema',schema);
 
-        this.filterService.setSearchFilterSchema(schema.search);
+          this.filterService.setSearchFilterSchema(schema.search);
 
-        schema.table.forEach((col:any)=>{
-          this.column?.push(col.column);
-        })
-        schema.sort.forEach((sor:any)=>{
-          this.sortableColumns?.push(sor.field);
-        })
+          schema.table.forEach((col:any)=>{
+            this.column?.push(col.column);
+          })
+          schema.sort.forEach((sor:any)=>{
+            this.sortableColumns?.push(sor.field);
+          })
 
-        if(this.isBiddingMode){
-          this.column?.unshift('checkbox');
-          this.column?.pop();
-        }
-
-        if(this.isRateDetailsMode){
-          this.columnsData=schema.table
-        }
-
-        // this.sortField = schema.sort[0].field;
-        // this.sortDir = schema.sort[0].dir;
-        // this.filterService.apply();
-
-        this.router.navigate(['.'], {
-          queryParams: { sortCol: schema.sort[0].field, sortDir: schema.sort[0].dir },
-          queryParamsHandling: 'merge',
-          relativeTo: this.route,
-        });
-
-      },
-      error: (err) => this.snackBar.open(`Ошибка получения параметров вывода таблицы ` + err.error.error_message, undefined, this.snackBarWithShortDuration),
-      complete:()=> {
-        // this.subscribeRouteQueryParamMap();
-      }
-    });
+          if(this.isBiddingMode){
+            this.column?.unshift('checkbox');
+            this.column?.pop();
+          }
+          if(this.isRateDetailsMode){
+            this.columnsData=schema.table;
+            this.schemaCharges=schema.forms.charges;
+          }
+          // this.router.navigate(['.'], {
+          //   queryParams: { sortCol: schema.sort[0].field, sortDir: schema.sort[0].dir },
+          //   queryParamsHandling: 'merge',
+          //   relativeTo: this.route,
+          // });
+        },
+        error: (err) => this.snackBar.open(`Ошибка получения параметров вывода таблицы ` + err.error.error_message, undefined, this.snackBarWithShortDuration),
+        complete:()=> {this.subscribeRouteQueryParamMap();}
+      });
   }
 
   subscribeRouteQueryParamMap(){
     this.route.queryParamMap
       .pipe(
         tap((queryParamMap)=>{
+          // console.log(queryParamMap);
           this.start = this.getIntParamSafely(queryParamMap, 'start', this.start);
           this.count = this.getIntEnumParamSafely(queryParamMap, 'count', this.limits, this.count);
           this.sortField = this.getStringParamSafely(queryParamMap, 'sortCol', this.sortField as string) as keyof T;
@@ -615,5 +615,6 @@ export abstract class Table<T extends { id: number }, A = never, F = never> impl
         takeUntil(this.destroy$)
       ).subscribe();
   }
+
 
 }

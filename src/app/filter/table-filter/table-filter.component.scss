@@ -56,17 +56,17 @@
     background: no-repeat 50% 50%;
     margin: 0 auto 10px auto;
   }
-  .plus-rate::before{
+  .add::before{
     background-image:url(../../../assets/pic-btn-rate-plus.svg);
   }
-  button.plus-rate{
+  button.add{
     background-color: #DB563B;
     color: white;
   }
   .dub::before{
     background-image:url(../../../assets/pic-btn-double.svg);
   }
-  .torg::before{
+  .bid::before{
     background-image:url(../../../assets/pic-btn-trade-red.svg);
   }
   .del::before{

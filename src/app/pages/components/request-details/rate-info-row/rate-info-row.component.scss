@@ -24,11 +24,37 @@
       .cost_block{
         border-bottom: #E0E5EB 1px solid;
         padding: 40px;
+        color: #DB563B;
         .cost{
-          color: #DB563B;
           font-size: 48px;
           font-weight: 700;
           line-height: 48px;
+        }
+      }
+      .cost_block_black{
+        border-bottom: #E0E5EB 1px solid;
+        padding: 40px;
+        background-color: #83909E;
+        color: white;
+        .cost{
+          font-size: 32px;
+          font-weight: 400;
+          line-height: 32px;
+          text-align: left;
+          span{
+            font-weight: 700;
+            margin-left: 5px;
+          }
+        }
+        .percent{
+          margin-top: 15px;
+          font-size: 13px;
+          font-weight: 700;
+          line-height: 12px;
+          text-align: left;
+          span{
+            font-weight: 400;
+          }
         }
       }
       .contractor_block{

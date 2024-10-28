@@ -1,67 +1,98 @@
 <form class="edit-form" [formGroup]="rateForm">
   <div class="form-block">
     <div class="form-row">
-      <div class="form-item-layout">
 
-        <div class="form-item">
-          <div class="form-label">Оплачиваемый вес:</div>
+      <!-- <div class="form-item-layout" style="gap: 24px;">
+        <label class="radio">
+          <input type="radio" value="detail" formControlName="rate_type" (change)="onRateTypeChange()">
+          <i></i>
+          <span>With Details</span>
+        </label>
+
+        <label class="radio">
+          <input type="radio" value="nodetail" formControlName="rate_type" (change)="onRateTypeChange()">
+          <i></i>
+          <span>With single Amount</span>
+        </label>
+      </div> -->
+
+      <div class="form-item-layout" style="gap: 24px;">
+        <label class="radio" *ngFor="let option of rateTypeOptions">
+          <input type="radio" [value]="option.value" formControlName="rate_type" (change)="onRateTypeChange()">
+          <i></i>
+          <span>{{ option.label }}</span>
+        </label>
+      </div>
+
+      <div class="form-item-layout">
+        <div class="form-item i10">
+          <div class="form-label" >Оплачиваемый вес:</div>
           <div class="form-data">
             <input type="text" [value]="weight" readonly>
           </div>
         </div>
 
-        <!-- <div class="form-item">
-          <div class="form-label">Подрядчик:</div>
+        <div class="form-item">
+          <div class="form-label">Airline:</div>
           <div class="form-data">
-            <mat-form-field appearance="outline" class="ui-select">
-              <mat-select formControlName="contractor_id">
-               <mat-option
-                 *ngFor="let transportRoute of contractorList;"
-                 [value]="transportRoute.id"
-                 >
-                 {{ transportRoute.name }}
-               </mat-option>
-              </mat-select>
-            </mat-form-field>
+            <input type="text" readonly [value]="returnAirlineName(rateForm.value.carrier_id)">
           </div>
-        </div> -->
+        </div>
 
-        <!-- <div class="form-item">
-          <div class="form-label">Наименнование Аэропорта:</div>
+        <ng-container *ngTemplateOutlet="formItemSelector;
+          context: { label: 'Airline (iata):', control: 'carrier_id', data: transportCarrier, key:'iata', class:'w80px'}">
+        </ng-container>
+
+        <ng-container *ngTemplateOutlet="formItemSelector;
+          context: { label: 'Подрядчик:', control: 'contractor_id', data: contractorList, key:'name'}">
+        </ng-container>
+
+        <ng-container *ngTemplateOutlet="formItemSelector;
+          context: { label: 'Route:', control: 'route_id', data: transportRoute, key:'name'}">
+        </ng-container>
+
+        <div class="form-item w240px">
+          <div class="form-label">The nearest flight etd:</div>
           <div class="form-data">
-            <mat-form-field appearance="outline" class="ui-select">
-              <mat-select formControlName="point_id">
-               <mat-option
-                 *ngFor="let poinst of pointList;"
-                 [value]="poinst.id"
-                 >
-                 {{ poinst.name }}
-               </mat-option>
-              </mat-select>
-            </mat-form-field>
+            <button class="calendar" [matMenuTriggerFor]="menu">
+              <div class="calendar-value">{{returnSelectDateText()}}</div>
+              <div class="calendar-icon"></div>
+            </button>
+            <mat-menu #menu="matMenu">
+              <div (click)="$event.stopPropagation()">
+                <mat-calendar
+                  #calendar
+                  (selectedChange)="selectDate($event,calendar)"
+                  [dateClass]="isSelectedDate"
+                  >
+                </mat-calendar>
+              </div>
+            </mat-menu>
           </div>
-        </div> -->
+        </div>
 
-        <!-- <div class="form-item">
-          <div class="form-label">Вид прайса:</div>
+        <ng-container *ngTemplateOutlet="formItemSelector;
+          context: { label: 'The departure schedule:', control: 'departure_schedule', data: weekDayList , key:'day', multiple: true}">
+        </ng-container>
+
+
+
+      </div>
+
+      <div class="form-item-layout" formGroupName="transit_time">
+        <div class="form-item w110px" >
+          <div class="form-label">Transit time from:</div>
           <div class="form-data">
-            <mat-form-field appearance="outline" class="ui-select">
-              <mat-select formControlName="point_action_id">
-               <mat-option
-                 *ngFor="let poinst of pointActionList;"
-                 [value]="poinst.id"
-                 >
-                 {{ poinst.name }}
-               </mat-option>
-              </mat-select>
-            </mat-form-field>
+            <input type="number" formControlName="from" >
           </div>
-        </div> -->
+        </div>
 
-        <ng-container *ngTemplateOutlet="formItemSelector; context: { label: 'Подрядчик:', control: 'contractor_id', data: contractorList }"></ng-container>
-        <ng-container *ngTemplateOutlet="formItemSelector; context: { label: 'Наименнование Аэропорта:', control: 'point_id', data: pointList }"></ng-container>
-        <ng-container *ngTemplateOutlet="formItemSelector; context: { label: 'Вид прайса:', control: 'point_action_id', data: pointActionList }"></ng-container>
-
+        <div class="form-item w110px">
+          <div class="form-label">Transit time to:</div>
+          <div class="form-data">
+            <input type="number" formControlName="to" >
+          </div>
+        </div>
       </div>
 
     </div>
@@ -78,23 +109,46 @@
                 *ngFor="let chargeModel of chargesShema;
                 let i = index;"
               >
-                <label>
-                  <input  type="checkbox" formControlName="select" (change)="calckRateCost()">
-                  <i></i>
-                  {{chargeModel.title}}
-                </label>
-                <span class="unit l" *ngIf="!chargeModel.field_comment">
-                  <input type="number" formControlName="price" (ngModelChange)="calckChargeCost(chargeValue)" >$/{{chargeModel.unit}}
-                </span>
-                <div class="cross" *ngIf="!chargeModel.field_comment"></div>
-                <span class="unit m" *ngIf="!chargeModel.field_comment">
-                  <input type="number" formControlName="value" (ngModelChange)="calckChargeCost(chargeValue)" [readonly]="chargeModel.unit==='kg'">{{chargeModel.unit}}
-                </span>
-                <div class="equal" *ngIf="!chargeModel.field_comment">═</div>
-                <span class="comment" *ngIf="chargeModel.field_comment"><input type="text" formControlName="comment"></span>
-                <span class="unit s">
-                  <input type="number" formControlName="cost" [readonly]="!chargeModel.field_comment" (ngModelChange)="chargeModel.field_comment?calckCommentChargePrice(chargeValue):calckRateCost()">$
-                </span>
+                <ng-container *ngIf="rateForm.value.rate_type==='detail'">
+                  <label >
+                    <input *ngIf="chargeModel.checked"  type="checkbox" [checked]="true" [disabled]="true">
+                    <input *ngIf="!chargeModel.checked" type="checkbox" formControlName="select" (change)="calckRateCost()">
+                    <i></i>
+                    {{chargeModel.title}}
+                  </label>
+
+
+                  <span class="unit" [style]="!chargeModel.field_min? 'z-index: -1;':''">
+                    Min $: <input type="number" formControlName="min" (ngModelChange)="calckChargeCost(chargeValue)" [readonly]="!chargeModel.field_min">
+                  </span>
+
+                  <span class="unit l" *ngIf="!chargeModel.field_comment && chargeModel.unit">
+                    <input type="number" formControlName="price" (ngModelChange)="calckChargeCost(chargeValue)" >$/{{chargeModel.unit}}
+                  </span>
+
+                  <div class="cross" *ngIf="!chargeModel.field_comment && chargeModel.unit"></div>
+
+                  <span class="unit m" *ngIf="!chargeModel.field_comment && chargeModel.unit">
+                    <input type="number" formControlName="value" (ngModelChange)="calckChargeCost(chargeValue)" [readonly]="chargeModel.unit==='kg'">{{chargeModel.unit}}
+                  </span>
+
+                  <div class="equal" *ngIf="!chargeModel.field_comment && chargeModel.unit">═</div>
+
+                  <span class="comment" *ngIf="chargeModel.field_comment"><input type="text" formControlName="comment"></span>
+
+                  <span class="unit s">
+                    <input type="number" formControlName="cost" [readonly]="!chargeModel.field_comment && chargeModel.unit!==''" (ngModelChange)="chargeModel.field_comment?calckCommentChargePrice(chargeValue):calckRateCost()">$
+                  </span>
+                </ng-container>
+
+                <ng-container *ngIf="rateForm.value.rate_type==='nodetail'">
+                  <label style="height: 37px; align-content: center;">
+                    <input  type="checkbox" formControlName="select" (change)="calckRateCost()">
+                    <i></i>
+                    {{chargeModel.title}}
+                  </label>
+                </ng-container>
+
               </ng-template>
             </div>
           </div>
@@ -112,13 +166,10 @@
                 let i = index;"
               >
                 <label style="height: 37px; align-items: center; display: flex;">
-                  <!-- <input  type="checkbox" formControlName="select" (change)="calckRateCost()" (ngModelChange)="calckChargeCost(chargeValue)"> -->
                   <input  type="checkbox" formControlName="select" (change)="calckRateCost()">
                   <i></i>
                   {{chargeModel.title}}
                 </label>
-
-                <!-- <span class="unit s"><input type="number" readonly formControlName="cost" >$</span> -->
               </ng-template>
             </div>
           </div>
@@ -126,29 +177,68 @@
       </div>
     </div>
 
-    <!-- <div class="form-row" style="display: flex; flex-direction: column;">
-      Сумма
-      <input type="number" formControlName="cost" readonly style="margin-bottom: 20px; width: 100px;">
-      Примечание
-      <input type="text" formControlName="comment">
-    </div> -->
-
     <div class="form-row" >
-      <div class="form-item" style="margin-bottom: 20px; width: 100px;">
-        <div class="form-label">Сумма:</div>
-        <div class="form-data">
-          <input type="number" formControlName="cost" readonly>
+      <!-- <div class="form-item-layout">
+
+         <div class="form-item w110px">
+          <div class="form-label">Сумма:</div>
+          <div class="form-data">
+            <input type="number" formControlName="total_cost" [readonly]="rateForm.value.rate_type==='detail'">
+          </div>
+        </div>
+
+         <div class="form-item">
+          <div class="form-label">Сумма:</div>
+          <div class="form-data">
+            <label>
+              <input  type="checkbox" formControlName="profit_include" >
+              <i></i>
+              <span class="charges-title">Profit is included</span>
+            </label>
+          </div>
+        </div>
+
+
+         <label>
+          <input  type="checkbox" formControlName="profit_include" >
+          <i></i>
+          <span class="charges-title">Profit is included</span>
+        </label>
+      </div> -->
+
+      <div class="form-item-layout">
+        <div class="total">
+          <div class="total-detail" *ngIf="rateForm.value.rate_type==='detail'">
+            <div class="">Total:</div>
+            <div class="color-red">{{rateForm.value.total_cost}}</div>
+            <div class="color-red">$</div>
+          </div>
+
+          <div class="total-nodetail" *ngIf="rateForm.value.rate_type==='nodetail'">
+            <div>Total, USD:</div>
+            <input type="number" class="total-cost" formControlName="total_cost">
+          </div>
+
+          <label>
+            <input  type="checkbox" formControlName="profit_include" >
+            <i></i>
+            <span class="charges-title">Profit is included</span>
+          </label>
         </div>
       </div>
 
-      <div class="form-item">
-        <div class="form-label">Примечание:</div>
-        <div class="form-data">
-          <input type="text" formControlName="comment">
+
+
+      <div class="form-item-layout">
+        <div class="form-item">
+          <div class="form-label">Примечание:</div>
+          <div class="form-data">
+            <input type="text" formControlName="comment">
+          </div>
         </div>
       </div>
-
     </div>
+
   </div>
 
   <div style="display: flex;justify-content: end;">
@@ -160,18 +250,15 @@
 
 </form>
 
-<ng-template #formItemSelector let-label="label" let-control="control" let-data="data">
-  <div class="form-item" [formGroup]="rateForm">
+<ng-template #formItemSelector let-label="label" let-control="control" let-data="data" let-key="key" let-multiple="multiple" let-class="class">
+  <div class="form-item" [formGroup]="rateForm" [class]="class">
     <div class="form-label">{{label}}</div>
     <div class="form-data">
       <mat-form-field appearance="outline" class="ui-select">
-        <mat-select [formControlName]='control'>
-         <mat-option
-           *ngFor="let i of data;"
-           [value]="i.id"
-           >
-           {{ i.name }}
-         </mat-option>
+        <mat-select [formControlName]='control' [multiple]="multiple">
+          <mat-option *ngFor="let i of data;" [value]="i.id">
+            {{ i[key] }}
+          </mat-option>
         </mat-select>
       </mat-form-field>
     </div>

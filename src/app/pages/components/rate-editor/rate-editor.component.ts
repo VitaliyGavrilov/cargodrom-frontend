@@ -77,7 +77,7 @@ export class RateEditorComponent implements OnInit, OnDestroy, OnChanges, Contro
       comment: [,[]],
       departure_schedule: [,[]],
       id: [,[]],
-      nearest_flight: [,[]],
+      nearest_flight: [[],[]],
       num: [,[]],
       profit_include: [true,[]],
       rate_type: ['nodetail',[]],

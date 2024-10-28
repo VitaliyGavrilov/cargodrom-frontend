@@ -3,7 +3,14 @@
   <div class="first_row">
 
     <div class="first_col" [ngSwitch]="detailsMethod">
-      <ng-content select="[test1]"></ng-content>
+      <!-- <ng-content select="[test1]"></ng-content> -->
+      <div class="cost_block" *ngIf="!costClass">
+        <div class="cost">{{rate?.total_cost_text}}</div>
+      </div>
+      <div class="cost_block_black" *ngIf="costClass">
+        <div class="cost">До границы: <span> {{rate?.total_cost_text}}</span></div>
+        <div class='percent'>22% <span>от итоговой ставки</span></div>
+      </div>
       <ng-template [ngSwitchDefault]>
         <div class="contractor_block" >
           <div style="display: flex; justify-content: space-between;">
@@ -38,7 +45,7 @@
         </div>
       </ng-template>
 
-      <ng-template [ngSwitchCase]="'point'">
+      <ng-template [ngSwitchCase]="'point'|| 'storage'">
         <div class="airport_block">
           <div class="label">Аэропорт:</div>
           <div class="data">{{rate?.point?.name}}</div>
@@ -65,7 +72,7 @@
         </div>
       </ng-template>
 
-      <ng-template [ngSwitchCase]="'point'">
+      <ng-template [ngSwitchCase]="'point' || 'storage'">
         <div class="title">Данные по ставке</div>
         <div class="items">
           <ng-container *ngTemplateOutlet="rateDataItem; context: { label: 'Оплачиваемый вес (кг):', data: rate?.request?.cargo_places_paid_weight}"></ng-container>
@@ -77,7 +84,7 @@
         </div>
       </ng-template>
 
-      <ng-template [ngSwitchCase]="'transporter'">
+      <ng-template [ngSwitchCase]="'transporter'|| 'delivery'">
         <div class="title">Данные по ставке</div>
         <div class="items">
           <ng-container *ngTemplateOutlet="rateDataItem; context: { label: 'Фактический вес (кг):', data: rate?.request?.cargo_places_weight }"></ng-container>
@@ -96,14 +103,15 @@
       <ng-template [ngSwitchDefault]>
         <div class="title">В ставку включено <span>/ не включено</span></div>
         <div class="charges">
-          <div *ngFor="let item of sort(rate?.values)" class="charge" [ngClass]="item.select?'on':'off'">
+          <!-- <div *ngFor="let item of sort(rate?.values)" class="charge" [ngClass]="item.select?'on':'off'"> -->
+          <div *ngFor="let item of rate?.values" class="charge" [ngClass]="item.select?'on':'off'">
             <div class="name"><span class="pic"></span>{{item.name}}</div>
             <div class="label">{{item.select?'Включено:':'Не включено'}} <span *ngIf="item.select">{{item.cost_text}}</span></div>
           </div>
         </div>
       </ng-template>
 
-      <ng-template [ngSwitchCase]="'transporter'">
+      <ng-template [ngSwitchCase]="'transporter'|| 'delivery'">
         <div class="title">В ставку включено</div>
         <div class="paths head">
           <div>Тип ТС</div>
@@ -144,6 +152,7 @@
   </div> -->
 
 </div>
+
 
 <ng-template #rateDataItem let-label="label" let-data="data">
   <div class="item">
