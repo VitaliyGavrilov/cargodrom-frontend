@@ -135,7 +135,7 @@
           <div class="column w50">
             <span class="type" *ngFor="let spec of contractor.specialization" [ngClass]="getSpecializationClass(spec)"></span>
           </div>
-          <div class="column w50">{{ contractor.container.join(', ') }}</div>
+          <div class="column w50">{{ contractor?.container?.join(', ') }}</div>
         </div>
       </td>
     </ng-container>

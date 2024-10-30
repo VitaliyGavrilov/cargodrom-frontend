@@ -13178,6 +13178,145 @@ export class RequestService extends BaseService {
     );
   }
 
+  /** Path part for operation `requestRateFormParam()` */
+  static readonly RequestRateFormParamPath = '/request_rate_form_param';
+
+  /**
+   * Параметры для форм.
+   *
+   *
+   *
+   * This method provides access to the full `HttpResponse`, allowing access to response headers.
+   * To access only the response body, use `requestRateFormParam()` instead.
+   *
+   * This method doesn't expect any request body.
+   */
+  requestRateFormParam$Response(
+    params: {
+
+    /**
+     * ID Запроса
+     */
+      request_id: number;
+
+    /**
+     * Метод (final, customs, point, transporter)
+     */
+      method: string;
+    },
+    context?: HttpContext
+  ): Observable<StrictHttpResponse<{
+
+/**
+ * Услуги
+ */
+'charges'?: Array<{
+}>;
+
+/**
+ * Валюты
+ */
+'currency': Array<{
+}>;
+}>> {
+    const rb = new RequestBuilder(this.rootUrl, RequestService.RequestRateFormParamPath, 'get');
+    if (params) {
+      rb.query('request_id', params.request_id, {});
+      rb.query('method', params.method, {});
+    }
+
+    return this.http.request(
+      rb.build({ responseType: 'json', accept: 'application/json', context })
+    ).pipe(
+      filter((r: any): r is HttpResponse<any> => r instanceof HttpResponse),
+      map((r: HttpResponse<any>) => {
+        return r as StrictHttpResponse<{
+        
+        /**
+         * Услуги
+         */
+        'charges'?: Array<{
+        }>;
+        
+        /**
+         * Валюты
+         */
+        'currency': Array<{
+        }>;
+        }>;
+      })
+    );
+  }
+
+  /**
+   * Параметры для форм.
+   *
+   *
+   *
+   * This method provides access only to the response body.
+   * To access the full response (for headers, for example), `requestRateFormParam$Response()` instead.
+   *
+   * This method doesn't expect any request body.
+   */
+  requestRateFormParam(
+    params: {
+
+    /**
+     * ID Запроса
+     */
+      request_id: number;
+
+    /**
+     * Метод (final, customs, point, transporter)
+     */
+      method: string;
+    },
+    context?: HttpContext
+  ): Observable<{
+
+/**
+ * Услуги
+ */
+'charges'?: Array<{
+}>;
+
+/**
+ * Валюты
+ */
+'currency': Array<{
+}>;
+}> {
+    return this.requestRateFormParam$Response(params, context).pipe(
+      map((r: StrictHttpResponse<{
+
+/**
+ * Услуги
+ */
+'charges'?: Array<{
+}>;
+
+/**
+ * Валюты
+ */
+'currency': Array<{
+}>;
+}>): {
+
+/**
+ * Услуги
+ */
+'charges'?: Array<{
+}>;
+
+/**
+ * Валюты
+ */
+'currency': Array<{
+}>;
+} => r.body)
+    );
+  }
+
   /** Path part for operation `requestRateListParam()` */
   static readonly RequestRateListParamPath = '/request_rate_list_param';
 
@@ -14447,6 +14586,21 @@ export class RequestService extends BaseService {
 'time_add': string;
 
 /**
+ * Дата запроса
+ */
+'time_request': string;
+
+/**
+ * Дата ответа
+ */
+'time_answer': string;
+
+/**
+ * Ставка действует до
+ */
+'valid_time': string;
+
+/**
  * ID Запроса
  */
 'request_id': number;
@@ -14488,6 +14642,16 @@ export class RequestService extends BaseService {
 'contractor': {
 
 /**
+ * Агент транспортной компании
+ */
+'carrier_name'?: string;
+
+/**
+ * Агент транспортной компании (ID берем из запроса - transport_carrier)
+ */
+'carrier_id'?: number;
+
+/**
  * ID подрядчика (ID берем из запроса - contractor_list)
  */
 'id': number;
@@ -14518,14 +14682,34 @@ export class RequestService extends BaseService {
 'trade_success_count'?: number;
 
 /**
+ * % выигранных торгов
+ */
+'trade_success_percent'?: number;
+
+/**
  * Количество проигранных торгов
  */
 'trade_fail_count'?: number;
 
 /**
+ * % проигранных торгов
+ */
+'trade_fail_percent'?: number;
+
+/**
  * Участие в торгах (результаты)
  */
 'trade_count_text'?: number;
+
+/**
+ * Email
+ */
+'email'?: string;
+
+/**
+ * Телефон
+ */
+'phone'?: string;
 };
 
 /**
@@ -14607,6 +14791,11 @@ export class RequestService extends BaseService {
 };
 
 /**
+ * Время транзита
+ */
+'transit_time_text': string;
+
+/**
  * Тип ставки
  */
 'rate_type': 'detail' | 'single';
@@ -14620,6 +14809,16 @@ export class RequestService extends BaseService {
  * Ставка
  */
 'total_cost_text': string;
+
+/**
+ * Валюта
+ */
+'currecy_text': string;
+
+/**
+ * Валюта (ID берем из запроса - system_currency)
+ */
+'currecy': number;
 
 /**
  * Включение прибыли (Profit is included)
@@ -14744,6 +14943,21 @@ export class RequestService extends BaseService {
         'time_add': string;
         
         /**
+         * Дата запроса
+         */
+        'time_request': string;
+        
+        /**
+         * Дата ответа
+         */
+        'time_answer': string;
+        
+        /**
+         * Ставка действует до
+         */
+        'valid_time': string;
+        
+        /**
          * ID Запроса
          */
         'request_id': number;
@@ -14785,6 +14999,16 @@ export class RequestService extends BaseService {
         'contractor': {
         
         /**
+         * Агент транспортной компании
+         */
+        'carrier_name'?: string;
+        
+        /**
+         * Агент транспортной компании (ID берем из запроса - transport_carrier)
+         */
+        'carrier_id'?: number;
+        
+        /**
          * ID подрядчика (ID берем из запроса - contractor_list)
          */
         'id': number;
@@ -14815,14 +15039,34 @@ export class RequestService extends BaseService {
         'trade_success_count'?: number;
         
         /**
+         * % выигранных торгов
+         */
+        'trade_success_percent'?: number;
+        
+        /**
          * Количество проигранных торгов
          */
         'trade_fail_count'?: number;
         
         /**
+         * % проигранных торгов
+         */
+        'trade_fail_percent'?: number;
+        
+        /**
          * Участие в торгах (результаты)
          */
         'trade_count_text'?: number;
+        
+        /**
+         * Email
+         */
+        'email'?: string;
+        
+        /**
+         * Телефон
+         */
+        'phone'?: string;
         };
         
         /**
@@ -14904,6 +15148,11 @@ export class RequestService extends BaseService {
         };
         
         /**
+         * Время транзита
+         */
+        'transit_time_text': string;
+        
+        /**
          * Тип ставки
          */
         'rate_type': 'detail' | 'single';
@@ -14917,6 +15166,16 @@ export class RequestService extends BaseService {
          * Ставка
          */
         'total_cost_text': string;
+        
+        /**
+         * Валюта
+         */
+        'currecy_text': string;
+        
+        /**
+         * Валюта (ID берем из запроса - system_currency)
+         */
+        'currecy': number;
         
         /**
          * Включение прибыли (Profit is included)
@@ -15097,6 +15356,21 @@ export class RequestService extends BaseService {
 'time_add': string;
 
 /**
+ * Дата запроса
+ */
+'time_request': string;
+
+/**
+ * Дата ответа
+ */
+'time_answer': string;
+
+/**
+ * Ставка действует до
+ */
+'valid_time': string;
+
+/**
  * ID Запроса
  */
 'request_id': number;
@@ -15138,6 +15412,16 @@ export class RequestService extends BaseService {
 'contractor': {
 
 /**
+ * Агент транспортной компании
+ */
+'carrier_name'?: string;
+
+/**
+ * Агент транспортной компании (ID берем из запроса - transport_carrier)
+ */
+'carrier_id'?: number;
+
+/**
  * ID подрядчика (ID берем из запроса - contractor_list)
  */
 'id': number;
@@ -15168,14 +15452,34 @@ export class RequestService extends BaseService {
 'trade_success_count'?: number;
 
 /**
+ * % выигранных торгов
+ */
+'trade_success_percent'?: number;
+
+/**
  * Количество проигранных торгов
  */
 'trade_fail_count'?: number;
 
 /**
+ * % проигранных торгов
+ */
+'trade_fail_percent'?: number;
+
+/**
  * Участие в торгах (результаты)
  */
 'trade_count_text'?: number;
+
+/**
+ * Email
+ */
+'email'?: string;
+
+/**
+ * Телефон
+ */
+'phone'?: string;
 };
 
 /**
@@ -15257,6 +15561,11 @@ export class RequestService extends BaseService {
 };
 
 /**
+ * Время транзита
+ */
+'transit_time_text': string;
+
+/**
  * Тип ставки
  */
 'rate_type': 'detail' | 'single';
@@ -15270,6 +15579,16 @@ export class RequestService extends BaseService {
  * Ставка
  */
 'total_cost_text': string;
+
+/**
+ * Валюта
+ */
+'currecy_text': string;
+
+/**
+ * Валюта (ID берем из запроса - system_currency)
+ */
+'currecy': number;
 
 /**
  * Включение прибыли (Profit is included)
@@ -15377,6 +15696,21 @@ export class RequestService extends BaseService {
 'time_add': string;
 
 /**
+ * Дата запроса
+ */
+'time_request': string;
+
+/**
+ * Дата ответа
+ */
+'time_answer': string;
+
+/**
+ * Ставка действует до
+ */
+'valid_time': string;
+
+/**
  * ID Запроса
  */
 'request_id': number;
@@ -15418,6 +15752,16 @@ export class RequestService extends BaseService {
 'contractor': {
 
 /**
+ * Агент транспортной компании
+ */
+'carrier_name'?: string;
+
+/**
+ * Агент транспортной компании (ID берем из запроса - transport_carrier)
+ */
+'carrier_id'?: number;
+
+/**
  * ID подрядчика (ID берем из запроса - contractor_list)
  */
 'id': number;
@@ -15448,14 +15792,34 @@ export class RequestService extends BaseService {
 'trade_success_count'?: number;
 
 /**
+ * % выигранных торгов
+ */
+'trade_success_percent'?: number;
+
+/**
  * Количество проигранных торгов
  */
 'trade_fail_count'?: number;
 
 /**
+ * % проигранных торгов
+ */
+'trade_fail_percent'?: number;
+
+/**
  * Участие в торгах (результаты)
  */
 'trade_count_text'?: number;
+
+/**
+ * Email
+ */
+'email'?: string;
+
+/**
+ * Телефон
+ */
+'phone'?: string;
 };
 
 /**
@@ -15537,6 +15901,11 @@ export class RequestService extends BaseService {
 };
 
 /**
+ * Время транзита
+ */
+'transit_time_text': string;
+
+/**
  * Тип ставки
  */
 'rate_type': 'detail' | 'single';
@@ -15550,6 +15919,16 @@ export class RequestService extends BaseService {
  * Ставка
  */
 'total_cost_text': string;
+
+/**
+ * Валюта
+ */
+'currecy_text': string;
+
+/**
+ * Валюта (ID берем из запроса - system_currency)
+ */
+'currecy': number;
 
 /**
  * Включение прибыли (Profit is included)
@@ -15655,6 +16034,21 @@ export class RequestService extends BaseService {
 'time_add': string;
 
 /**
+ * Дата запроса
+ */
+'time_request': string;
+
+/**
+ * Дата ответа
+ */
+'time_answer': string;
+
+/**
+ * Ставка действует до
+ */
+'valid_time': string;
+
+/**
  * ID Запроса
  */
 'request_id': number;
@@ -15696,6 +16090,16 @@ export class RequestService extends BaseService {
 'contractor': {
 
 /**
+ * Агент транспортной компании
+ */
+'carrier_name'?: string;
+
+/**
+ * Агент транспортной компании (ID берем из запроса - transport_carrier)
+ */
+'carrier_id'?: number;
+
+/**
  * ID подрядчика (ID берем из запроса - contractor_list)
  */
 'id': number;
@@ -15726,14 +16130,34 @@ export class RequestService extends BaseService {
 'trade_success_count'?: number;
 
 /**
+ * % выигранных торгов
+ */
+'trade_success_percent'?: number;
+
+/**
  * Количество проигранных торгов
  */
 'trade_fail_count'?: number;
 
 /**
+ * % проигранных торгов
+ */
+'trade_fail_percent'?: number;
+
+/**
  * Участие в торгах (результаты)
  */
 'trade_count_text'?: number;
+
+/**
+ * Email
+ */
+'email'?: string;
+
+/**
+ * Телефон
+ */
+'phone'?: string;
 };
 
 /**
@@ -15815,6 +16239,11 @@ export class RequestService extends BaseService {
 };
 
 /**
+ * Время транзита
+ */
+'transit_time_text': string;
+
+/**
  * Тип ставки
  */
 'rate_type': 'detail' | 'single';
@@ -15828,6 +16257,16 @@ export class RequestService extends BaseService {
  * Ставка
  */
 'total_cost_text': string;
+
+/**
+ * Валюта
+ */
+'currecy_text': string;
+
+/**
+ * Валюта (ID берем из запроса - system_currency)
+ */
+'currecy': number;
 
 /**
  * Включение прибыли (Profit is included)
@@ -15910,1415 +16349,6 @@ export class RequestService extends BaseService {
  */
 'offer'?: boolean;
 }>;
-} => r.body)
-    );
-  }
-
-  /** Path part for operation `requestRateCustomsInfo()` */
-  static readonly RequestRateCustomsInfoPath = '/request_rate_customs_info';
-
-  /**
-   * Ставка запроса До границы.
-   *
-   *
-   *
-   * This method provides access to the full `HttpResponse`, allowing access to response headers.
-   * To access only the response body, use `requestRateCustomsInfo()` instead.
-   *
-   * This method doesn't expect any request body.
-   */
-  requestRateCustomsInfo$Response(
-    params: {
-
-    /**
-     * ID ставки
-     */
-      id: number;
-
-    /**
-     * ID Запроса
-     */
-      request_id: number;
-    },
-    context?: HttpContext
-  ): Observable<StrictHttpResponse<{
-
-/**
- * ID
- */
-'id': number;
-
-/**
- * Дата создания
- */
-'time_add': string;
-
-/**
- * ID Запроса
- */
-'request_id': number;
-
-/**
- * Запрос
- */
-'request': {
-
-/**
- * Кол-во мест
- */
-'cargo_places_count'?: number;
-
-/**
- * Вес, кг
- */
-'cargo_places_weight'?: number;
-
-/**
- * Плотность, кг/м3
- */
-'cargo_places_density'?: number;
-
-/**
- * Оплачиваемый вес, кг
- */
-'cargo_places_paid_weight'?: number;
-};
-
-/**
- * ID контрагента (ID берем из запроса - contractor_list)
- */
-'contractor_id': number;
-
-/**
- * Подрядчик
- */
-'contractor': {
-
-/**
- * ID подрядчика (ID берем из запроса - contractor_list)
- */
-'id': number;
-
-/**
- * Подрядчик
- */
-'name': string;
-
-/**
- * Рейтинг в системе (NPS)
- */
-'rating_nps_text'?: string;
-
-/**
- * Рейтинг в системе (NPS)
- */
-'rating_nps'?: number;
-
-/**
- * Участие в торгах (общее количество)
- */
-'trade_count'?: number;
-
-/**
- * Количество выигранных торгов
- */
-'trade_success_count'?: number;
-
-/**
- * Количество проигранных торгов
- */
-'trade_fail_count'?: number;
-
-/**
- * Участие в торгах (результаты)
- */
-'trade_count_text'?: number;
-};
-
-/**
- * ID транспортной компания (ID берем из запроса - transport_carrier)
- */
-'carrier_id': number;
-
-/**
- * Транспортная компания
- */
-'carrier': {
-
-/**
- * Наименование
- */
-'name': string;
-
-/**
- * IATA
- */
-'iata': number;
-};
-
-/**
- * ID маршрута (ID берем из запроса - transport_route)
- */
-'route_id': number;
-
-/**
- * Маршрут
- */
-'route': {
-
-/**
- * Наименование
- */
-'name': string;
-
-/**
- * Тип
- */
-'kind_key': string;
-};
-
-/**
- * Расписание
- */
-'departure_schedule': Array<string>;
-
-/**
- * Расписание дней вылета
- */
-'departure_schedule_text': Array<string>;
-
-/**
- * Свободные места
- */
-'nearest_flight': Array<string>;
-
-/**
- * Свободные места
- */
-'nearest_flight_text': string;
-
-/**
- * Время транзита
- */
-'transit_time': {
-
-/**
- * Время транзита От
- */
-'from': number;
-
-/**
- * Время транзита До
- */
-'to': number;
-};
-
-/**
- * Тип ставки
- */
-'rate_type': 'detail' | 'single';
-
-/**
- * Сумма
- */
-'total_cost': number;
-
-/**
- * Ставка
- */
-'total_cost_text': string;
-
-/**
- * Включение прибыли (Profit is included)
- */
-'profit_include': boolean;
-
-/**
- * Значения ставок
- */
-'values': Array<{
-
-/**
- * Наименование поля
- */
-'field': string;
-
-/**
- * Минимальная цена
- */
-'min'?: number;
-
-/**
- * Цена за единицу
- */
-'price': number;
-
-/**
- * Количество
- */
-'value': number;
-
-/**
- * Фиксированная надбавка
- */
-'fix'?: number;
-
-/**
- * Комментарий
- */
-'comment'?: string;
-
-/**
- * Признак выбора
- */
-'select'?: boolean;
-
-/**
- * Наименование
- */
-'name': string;
-
-/**
- * Стоимость
- */
-'cost': string;
-
-/**
- * Стоимость
- */
-'cost_text': string;
-}>;
-
-/**
- * Наименование статей затрат
- */
-'service_items': string;
-
-/**
- * Примечание
- */
-'comment'?: string;
-
-/**
- * В итоговом
- */
-'selected'?: boolean;
-
-/**
- * В коммерческом предложении
- */
-'offer'?: boolean;
-}>> {
-    const rb = new RequestBuilder(this.rootUrl, RequestService.RequestRateCustomsInfoPath, 'get');
-    if (params) {
-      rb.query('id', params.id, {});
-      rb.query('request_id', params.request_id, {});
-    }
-
-    return this.http.request(
-      rb.build({ responseType: 'json', accept: 'application/json', context })
-    ).pipe(
-      filter((r: any): r is HttpResponse<any> => r instanceof HttpResponse),
-      map((r: HttpResponse<any>) => {
-        return r as StrictHttpResponse<{
-        
-        /**
-         * ID
-         */
-        'id': number;
-        
-        /**
-         * Дата создания
-         */
-        'time_add': string;
-        
-        /**
-         * ID Запроса
-         */
-        'request_id': number;
-        
-        /**
-         * Запрос
-         */
-        'request': {
-        
-        /**
-         * Кол-во мест
-         */
-        'cargo_places_count'?: number;
-        
-        /**
-         * Вес, кг
-         */
-        'cargo_places_weight'?: number;
-        
-        /**
-         * Плотность, кг/м3
-         */
-        'cargo_places_density'?: number;
-        
-        /**
-         * Оплачиваемый вес, кг
-         */
-        'cargo_places_paid_weight'?: number;
-        };
-        
-        /**
-         * ID контрагента (ID берем из запроса - contractor_list)
-         */
-        'contractor_id': number;
-        
-        /**
-         * Подрядчик
-         */
-        'contractor': {
-        
-        /**
-         * ID подрядчика (ID берем из запроса - contractor_list)
-         */
-        'id': number;
-        
-        /**
-         * Подрядчик
-         */
-        'name': string;
-        
-        /**
-         * Рейтинг в системе (NPS)
-         */
-        'rating_nps_text'?: string;
-        
-        /**
-         * Рейтинг в системе (NPS)
-         */
-        'rating_nps'?: number;
-        
-        /**
-         * Участие в торгах (общее количество)
-         */
-        'trade_count'?: number;
-        
-        /**
-         * Количество выигранных торгов
-         */
-        'trade_success_count'?: number;
-        
-        /**
-         * Количество проигранных торгов
-         */
-        'trade_fail_count'?: number;
-        
-        /**
-         * Участие в торгах (результаты)
-         */
-        'trade_count_text'?: number;
-        };
-        
-        /**
-         * ID транспортной компания (ID берем из запроса - transport_carrier)
-         */
-        'carrier_id': number;
-        
-        /**
-         * Транспортная компания
-         */
-        'carrier': {
-        
-        /**
-         * Наименование
-         */
-        'name': string;
-        
-        /**
-         * IATA
-         */
-        'iata': number;
-        };
-        
-        /**
-         * ID маршрута (ID берем из запроса - transport_route)
-         */
-        'route_id': number;
-        
-        /**
-         * Маршрут
-         */
-        'route': {
-        
-        /**
-         * Наименование
-         */
-        'name': string;
-        
-        /**
-         * Тип
-         */
-        'kind_key': string;
-        };
-        
-        /**
-         * Расписание
-         */
-        'departure_schedule': Array<string>;
-        
-        /**
-         * Расписание дней вылета
-         */
-        'departure_schedule_text': Array<string>;
-        
-        /**
-         * Свободные места
-         */
-        'nearest_flight': Array<string>;
-        
-        /**
-         * Свободные места
-         */
-        'nearest_flight_text': string;
-        
-        /**
-         * Время транзита
-         */
-        'transit_time': {
-        
-        /**
-         * Время транзита От
-         */
-        'from': number;
-        
-        /**
-         * Время транзита До
-         */
-        'to': number;
-        };
-        
-        /**
-         * Тип ставки
-         */
-        'rate_type': 'detail' | 'single';
-        
-        /**
-         * Сумма
-         */
-        'total_cost': number;
-        
-        /**
-         * Ставка
-         */
-        'total_cost_text': string;
-        
-        /**
-         * Включение прибыли (Profit is included)
-         */
-        'profit_include': boolean;
-        
-        /**
-         * Значения ставок
-         */
-        'values': Array<{
-        
-        /**
-         * Наименование поля
-         */
-        'field': string;
-        
-        /**
-         * Минимальная цена
-         */
-        'min'?: number;
-        
-        /**
-         * Цена за единицу
-         */
-        'price': number;
-        
-        /**
-         * Количество
-         */
-        'value': number;
-        
-        /**
-         * Фиксированная надбавка
-         */
-        'fix'?: number;
-        
-        /**
-         * Комментарий
-         */
-        'comment'?: string;
-        
-        /**
-         * Признак выбора
-         */
-        'select'?: boolean;
-        
-        /**
-         * Наименование
-         */
-        'name': string;
-        
-        /**
-         * Стоимость
-         */
-        'cost': string;
-        
-        /**
-         * Стоимость
-         */
-        'cost_text': string;
-        }>;
-        
-        /**
-         * Наименование статей затрат
-         */
-        'service_items': string;
-        
-        /**
-         * Примечание
-         */
-        'comment'?: string;
-        
-        /**
-         * В итоговом
-         */
-        'selected'?: boolean;
-        
-        /**
-         * В коммерческом предложении
-         */
-        'offer'?: boolean;
-        }>;
-      })
-    );
-  }
-
-  /**
-   * Ставка запроса До границы.
-   *
-   *
-   *
-   * This method provides access only to the response body.
-   * To access the full response (for headers, for example), `requestRateCustomsInfo$Response()` instead.
-   *
-   * This method doesn't expect any request body.
-   */
-  requestRateCustomsInfo(
-    params: {
-
-    /**
-     * ID ставки
-     */
-      id: number;
-
-    /**
-     * ID Запроса
-     */
-      request_id: number;
-    },
-    context?: HttpContext
-  ): Observable<{
-
-/**
- * ID
- */
-'id': number;
-
-/**
- * Дата создания
- */
-'time_add': string;
-
-/**
- * ID Запроса
- */
-'request_id': number;
-
-/**
- * Запрос
- */
-'request': {
-
-/**
- * Кол-во мест
- */
-'cargo_places_count'?: number;
-
-/**
- * Вес, кг
- */
-'cargo_places_weight'?: number;
-
-/**
- * Плотность, кг/м3
- */
-'cargo_places_density'?: number;
-
-/**
- * Оплачиваемый вес, кг
- */
-'cargo_places_paid_weight'?: number;
-};
-
-/**
- * ID контрагента (ID берем из запроса - contractor_list)
- */
-'contractor_id': number;
-
-/**
- * Подрядчик
- */
-'contractor': {
-
-/**
- * ID подрядчика (ID берем из запроса - contractor_list)
- */
-'id': number;
-
-/**
- * Подрядчик
- */
-'name': string;
-
-/**
- * Рейтинг в системе (NPS)
- */
-'rating_nps_text'?: string;
-
-/**
- * Рейтинг в системе (NPS)
- */
-'rating_nps'?: number;
-
-/**
- * Участие в торгах (общее количество)
- */
-'trade_count'?: number;
-
-/**
- * Количество выигранных торгов
- */
-'trade_success_count'?: number;
-
-/**
- * Количество проигранных торгов
- */
-'trade_fail_count'?: number;
-
-/**
- * Участие в торгах (результаты)
- */
-'trade_count_text'?: number;
-};
-
-/**
- * ID транспортной компания (ID берем из запроса - transport_carrier)
- */
-'carrier_id': number;
-
-/**
- * Транспортная компания
- */
-'carrier': {
-
-/**
- * Наименование
- */
-'name': string;
-
-/**
- * IATA
- */
-'iata': number;
-};
-
-/**
- * ID маршрута (ID берем из запроса - transport_route)
- */
-'route_id': number;
-
-/**
- * Маршрут
- */
-'route': {
-
-/**
- * Наименование
- */
-'name': string;
-
-/**
- * Тип
- */
-'kind_key': string;
-};
-
-/**
- * Расписание
- */
-'departure_schedule': Array<string>;
-
-/**
- * Расписание дней вылета
- */
-'departure_schedule_text': Array<string>;
-
-/**
- * Свободные места
- */
-'nearest_flight': Array<string>;
-
-/**
- * Свободные места
- */
-'nearest_flight_text': string;
-
-/**
- * Время транзита
- */
-'transit_time': {
-
-/**
- * Время транзита От
- */
-'from': number;
-
-/**
- * Время транзита До
- */
-'to': number;
-};
-
-/**
- * Тип ставки
- */
-'rate_type': 'detail' | 'single';
-
-/**
- * Сумма
- */
-'total_cost': number;
-
-/**
- * Ставка
- */
-'total_cost_text': string;
-
-/**
- * Включение прибыли (Profit is included)
- */
-'profit_include': boolean;
-
-/**
- * Значения ставок
- */
-'values': Array<{
-
-/**
- * Наименование поля
- */
-'field': string;
-
-/**
- * Минимальная цена
- */
-'min'?: number;
-
-/**
- * Цена за единицу
- */
-'price': number;
-
-/**
- * Количество
- */
-'value': number;
-
-/**
- * Фиксированная надбавка
- */
-'fix'?: number;
-
-/**
- * Комментарий
- */
-'comment'?: string;
-
-/**
- * Признак выбора
- */
-'select'?: boolean;
-
-/**
- * Наименование
- */
-'name': string;
-
-/**
- * Стоимость
- */
-'cost': string;
-
-/**
- * Стоимость
- */
-'cost_text': string;
-}>;
-
-/**
- * Наименование статей затрат
- */
-'service_items': string;
-
-/**
- * Примечание
- */
-'comment'?: string;
-
-/**
- * В итоговом
- */
-'selected'?: boolean;
-
-/**
- * В коммерческом предложении
- */
-'offer'?: boolean;
-}> {
-    return this.requestRateCustomsInfo$Response(params, context).pipe(
-      map((r: StrictHttpResponse<{
-
-/**
- * ID
- */
-'id': number;
-
-/**
- * Дата создания
- */
-'time_add': string;
-
-/**
- * ID Запроса
- */
-'request_id': number;
-
-/**
- * Запрос
- */
-'request': {
-
-/**
- * Кол-во мест
- */
-'cargo_places_count'?: number;
-
-/**
- * Вес, кг
- */
-'cargo_places_weight'?: number;
-
-/**
- * Плотность, кг/м3
- */
-'cargo_places_density'?: number;
-
-/**
- * Оплачиваемый вес, кг
- */
-'cargo_places_paid_weight'?: number;
-};
-
-/**
- * ID контрагента (ID берем из запроса - contractor_list)
- */
-'contractor_id': number;
-
-/**
- * Подрядчик
- */
-'contractor': {
-
-/**
- * ID подрядчика (ID берем из запроса - contractor_list)
- */
-'id': number;
-
-/**
- * Подрядчик
- */
-'name': string;
-
-/**
- * Рейтинг в системе (NPS)
- */
-'rating_nps_text'?: string;
-
-/**
- * Рейтинг в системе (NPS)
- */
-'rating_nps'?: number;
-
-/**
- * Участие в торгах (общее количество)
- */
-'trade_count'?: number;
-
-/**
- * Количество выигранных торгов
- */
-'trade_success_count'?: number;
-
-/**
- * Количество проигранных торгов
- */
-'trade_fail_count'?: number;
-
-/**
- * Участие в торгах (результаты)
- */
-'trade_count_text'?: number;
-};
-
-/**
- * ID транспортной компания (ID берем из запроса - transport_carrier)
- */
-'carrier_id': number;
-
-/**
- * Транспортная компания
- */
-'carrier': {
-
-/**
- * Наименование
- */
-'name': string;
-
-/**
- * IATA
- */
-'iata': number;
-};
-
-/**
- * ID маршрута (ID берем из запроса - transport_route)
- */
-'route_id': number;
-
-/**
- * Маршрут
- */
-'route': {
-
-/**
- * Наименование
- */
-'name': string;
-
-/**
- * Тип
- */
-'kind_key': string;
-};
-
-/**
- * Расписание
- */
-'departure_schedule': Array<string>;
-
-/**
- * Расписание дней вылета
- */
-'departure_schedule_text': Array<string>;
-
-/**
- * Свободные места
- */
-'nearest_flight': Array<string>;
-
-/**
- * Свободные места
- */
-'nearest_flight_text': string;
-
-/**
- * Время транзита
- */
-'transit_time': {
-
-/**
- * Время транзита От
- */
-'from': number;
-
-/**
- * Время транзита До
- */
-'to': number;
-};
-
-/**
- * Тип ставки
- */
-'rate_type': 'detail' | 'single';
-
-/**
- * Сумма
- */
-'total_cost': number;
-
-/**
- * Ставка
- */
-'total_cost_text': string;
-
-/**
- * Включение прибыли (Profit is included)
- */
-'profit_include': boolean;
-
-/**
- * Значения ставок
- */
-'values': Array<{
-
-/**
- * Наименование поля
- */
-'field': string;
-
-/**
- * Минимальная цена
- */
-'min'?: number;
-
-/**
- * Цена за единицу
- */
-'price': number;
-
-/**
- * Количество
- */
-'value': number;
-
-/**
- * Фиксированная надбавка
- */
-'fix'?: number;
-
-/**
- * Комментарий
- */
-'comment'?: string;
-
-/**
- * Признак выбора
- */
-'select'?: boolean;
-
-/**
- * Наименование
- */
-'name': string;
-
-/**
- * Стоимость
- */
-'cost': string;
-
-/**
- * Стоимость
- */
-'cost_text': string;
-}>;
-
-/**
- * Наименование статей затрат
- */
-'service_items': string;
-
-/**
- * Примечание
- */
-'comment'?: string;
-
-/**
- * В итоговом
- */
-'selected'?: boolean;
-
-/**
- * В коммерческом предложении
- */
-'offer'?: boolean;
-}>): {
-
-/**
- * ID
- */
-'id': number;
-
-/**
- * Дата создания
- */
-'time_add': string;
-
-/**
- * ID Запроса
- */
-'request_id': number;
-
-/**
- * Запрос
- */
-'request': {
-
-/**
- * Кол-во мест
- */
-'cargo_places_count'?: number;
-
-/**
- * Вес, кг
- */
-'cargo_places_weight'?: number;
-
-/**
- * Плотность, кг/м3
- */
-'cargo_places_density'?: number;
-
-/**
- * Оплачиваемый вес, кг
- */
-'cargo_places_paid_weight'?: number;
-};
-
-/**
- * ID контрагента (ID берем из запроса - contractor_list)
- */
-'contractor_id': number;
-
-/**
- * Подрядчик
- */
-'contractor': {
-
-/**
- * ID подрядчика (ID берем из запроса - contractor_list)
- */
-'id': number;
-
-/**
- * Подрядчик
- */
-'name': string;
-
-/**
- * Рейтинг в системе (NPS)
- */
-'rating_nps_text'?: string;
-
-/**
- * Рейтинг в системе (NPS)
- */
-'rating_nps'?: number;
-
-/**
- * Участие в торгах (общее количество)
- */
-'trade_count'?: number;
-
-/**
- * Количество выигранных торгов
- */
-'trade_success_count'?: number;
-
-/**
- * Количество проигранных торгов
- */
-'trade_fail_count'?: number;
-
-/**
- * Участие в торгах (результаты)
- */
-'trade_count_text'?: number;
-};
-
-/**
- * ID транспортной компания (ID берем из запроса - transport_carrier)
- */
-'carrier_id': number;
-
-/**
- * Транспортная компания
- */
-'carrier': {
-
-/**
- * Наименование
- */
-'name': string;
-
-/**
- * IATA
- */
-'iata': number;
-};
-
-/**
- * ID маршрута (ID берем из запроса - transport_route)
- */
-'route_id': number;
-
-/**
- * Маршрут
- */
-'route': {
-
-/**
- * Наименование
- */
-'name': string;
-
-/**
- * Тип
- */
-'kind_key': string;
-};
-
-/**
- * Расписание
- */
-'departure_schedule': Array<string>;
-
-/**
- * Расписание дней вылета
- */
-'departure_schedule_text': Array<string>;
-
-/**
- * Свободные места
- */
-'nearest_flight': Array<string>;
-
-/**
- * Свободные места
- */
-'nearest_flight_text': string;
-
-/**
- * Время транзита
- */
-'transit_time': {
-
-/**
- * Время транзита От
- */
-'from': number;
-
-/**
- * Время транзита До
- */
-'to': number;
-};
-
-/**
- * Тип ставки
- */
-'rate_type': 'detail' | 'single';
-
-/**
- * Сумма
- */
-'total_cost': number;
-
-/**
- * Ставка
- */
-'total_cost_text': string;
-
-/**
- * Включение прибыли (Profit is included)
- */
-'profit_include': boolean;
-
-/**
- * Значения ставок
- */
-'values': Array<{
-
-/**
- * Наименование поля
- */
-'field': string;
-
-/**
- * Минимальная цена
- */
-'min'?: number;
-
-/**
- * Цена за единицу
- */
-'price': number;
-
-/**
- * Количество
- */
-'value': number;
-
-/**
- * Фиксированная надбавка
- */
-'fix'?: number;
-
-/**
- * Комментарий
- */
-'comment'?: string;
-
-/**
- * Признак выбора
- */
-'select'?: boolean;
-
-/**
- * Наименование
- */
-'name': string;
-
-/**
- * Стоимость
- */
-'cost': string;
-
-/**
- * Стоимость
- */
-'cost_text': string;
-}>;
-
-/**
- * Наименование статей затрат
- */
-'service_items': string;
-
-/**
- * Примечание
- */
-'comment'?: string;
-
-/**
- * В итоговом
- */
-'selected'?: boolean;
-
-/**
- * В коммерческом предложении
- */
-'offer'?: boolean;
 } => r.body)
     );
   }
@@ -17344,6 +16374,21 @@ export class RequestService extends BaseService {
  * ID
  */
 'id'?: number;
+
+/**
+ * Дата запроса
+ */
+'time_request': string;
+
+/**
+ * Дата ответа
+ */
+'time_answer': string;
+
+/**
+ * Ставка действует до
+ */
+'valid_time': string;
 
 /**
  * ID Запроса
@@ -17400,6 +16445,11 @@ export class RequestService extends BaseService {
  * Сумма
  */
 'total_cost'?: number;
+
+/**
+ * Валюта (ID берем из запроса - system_currency)
+ */
+'currecy': number;
 
 /**
  * Включение прибыли (Profit is included)
@@ -17512,6 +16562,21 @@ export class RequestService extends BaseService {
 'id'?: number;
 
 /**
+ * Дата запроса
+ */
+'time_request': string;
+
+/**
+ * Дата ответа
+ */
+'time_answer': string;
+
+/**
+ * Ставка действует до
+ */
+'valid_time': string;
+
+/**
  * ID Запроса
  */
 'request_id': number;
@@ -17566,6 +16631,11 @@ export class RequestService extends BaseService {
  * Сумма
  */
 'total_cost'?: number;
+
+/**
+ * Валюта (ID берем из запроса - system_currency)
+ */
+'currecy': number;
 
 /**
  * Включение прибыли (Profit is included)
@@ -17811,14 +16881,34 @@ export class RequestService extends BaseService {
 'trade_success_count'?: number;
 
 /**
+ * % выигранных торгов
+ */
+'trade_success_percent'?: number;
+
+/**
  * Количество проигранных торгов
  */
 'trade_fail_count'?: number;
 
 /**
+ * % проигранных торгов
+ */
+'trade_fail_percent'?: number;
+
+/**
  * Участие в торгах (результаты)
  */
 'trade_count_text'?: number;
+
+/**
+ * Email
+ */
+'email'?: string;
+
+/**
+ * Телефон
+ */
+'phone'?: string;
 };
 
 /**
@@ -17928,6 +17018,11 @@ export class RequestService extends BaseService {
  * Сумма
  */
 'total_cost_text': string;
+
+/**
+ * Валюта
+ */
+'currecy_text': string;
 
 /**
  * Комментарий (Your Comment)
@@ -18059,14 +17154,34 @@ export class RequestService extends BaseService {
         'trade_success_count'?: number;
         
         /**
+         * % выигранных торгов
+         */
+        'trade_success_percent'?: number;
+        
+        /**
          * Количество проигранных торгов
          */
         'trade_fail_count'?: number;
         
         /**
+         * % проигранных торгов
+         */
+        'trade_fail_percent'?: number;
+        
+        /**
          * Участие в торгах (результаты)
          */
         'trade_count_text'?: number;
+        
+        /**
+         * Email
+         */
+        'email'?: string;
+        
+        /**
+         * Телефон
+         */
+        'phone'?: string;
         };
         
         /**
@@ -18176,6 +17291,11 @@ export class RequestService extends BaseService {
          * Сумма
          */
         'total_cost_text': string;
+        
+        /**
+         * Валюта
+         */
+        'currecy_text': string;
         
         /**
          * Комментарий (Your Comment)
@@ -18351,14 +17471,34 @@ export class RequestService extends BaseService {
 'trade_success_count'?: number;
 
 /**
+ * % выигранных торгов
+ */
+'trade_success_percent'?: number;
+
+/**
  * Количество проигранных торгов
  */
 'trade_fail_count'?: number;
 
 /**
+ * % проигранных торгов
+ */
+'trade_fail_percent'?: number;
+
+/**
  * Участие в торгах (результаты)
  */
 'trade_count_text'?: number;
+
+/**
+ * Email
+ */
+'email'?: string;
+
+/**
+ * Телефон
+ */
+'phone'?: string;
 };
 
 /**
@@ -18468,6 +17608,11 @@ export class RequestService extends BaseService {
  * Сумма
  */
 'total_cost_text': string;
+
+/**
+ * Валюта
+ */
+'currecy_text': string;
 
 /**
  * Комментарий (Your Comment)
@@ -18585,14 +17730,34 @@ export class RequestService extends BaseService {
 'trade_success_count'?: number;
 
 /**
+ * % выигранных торгов
+ */
+'trade_success_percent'?: number;
+
+/**
  * Количество проигранных торгов
  */
 'trade_fail_count'?: number;
 
 /**
+ * % проигранных торгов
+ */
+'trade_fail_percent'?: number;
+
+/**
  * Участие в торгах (результаты)
  */
 'trade_count_text'?: number;
+
+/**
+ * Email
+ */
+'email'?: string;
+
+/**
+ * Телефон
+ */
+'phone'?: string;
 };
 
 /**
@@ -18702,6 +17867,11 @@ export class RequestService extends BaseService {
  * Сумма
  */
 'total_cost_text': string;
+
+/**
+ * Валюта
+ */
+'currecy_text': string;
 
 /**
  * Комментарий (Your Comment)
@@ -18817,14 +17987,34 @@ export class RequestService extends BaseService {
 'trade_success_count'?: number;
 
 /**
+ * % выигранных торгов
+ */
+'trade_success_percent'?: number;
+
+/**
  * Количество проигранных торгов
  */
 'trade_fail_count'?: number;
 
 /**
+ * % проигранных торгов
+ */
+'trade_fail_percent'?: number;
+
+/**
  * Участие в торгах (результаты)
  */
 'trade_count_text'?: number;
+
+/**
+ * Email
+ */
+'email'?: string;
+
+/**
+ * Телефон
+ */
+'phone'?: string;
 };
 
 /**
@@ -18936,257 +18126,9 @@ export class RequestService extends BaseService {
 'total_cost_text': string;
 
 /**
- * Комментарий (Your Comment)
+ * Валюта
  */
-'comment'?: string;
-
-/**
- * В итоговом
- */
-'selected'?: boolean;
-
-/**
- * В коммерческом предложении
- */
-'offer'?: boolean;
-}>;
-} => r.body)
-    );
-  }
-
-  /** Path part for operation `requestRatePointInfo()` */
-  static readonly RequestRatePointInfoPath = '/request_rate_point_info';
-
-  /**
-   * Ставка запроса Складские (СВХ).
-   *
-   *
-   *
-   * This method provides access to the full `HttpResponse`, allowing access to response headers.
-   * To access only the response body, use `requestRatePointInfo()` instead.
-   *
-   * This method doesn't expect any request body.
-   */
-  requestRatePointInfo$Response(
-    params: {
-
-    /**
-     * ID ставки
-     */
-      id: number;
-
-    /**
-     * ID Запроса
-     */
-      request_id: number;
-    },
-    context?: HttpContext
-  ): Observable<StrictHttpResponse<{
-
-/**
- * ID
- */
-'id': number;
-
-/**
- * Дата создания
- */
-'time_add': string;
-
-/**
- * ID Запроса
- */
-'request_id': number;
-
-/**
- * Запрос
- */
-'request': {
-
-/**
- * Кол-во мест
- */
-'cargo_places_count'?: number;
-
-/**
- * Вес, кг
- */
-'cargo_places_weight'?: number;
-
-/**
- * Плотность, кг/м3
- */
-'cargo_places_density'?: number;
-
-/**
- * Оплачиваемый вес, кг
- */
-'cargo_places_paid_weight'?: number;
-};
-
-/**
- * ID контрагента (ID берем из запроса - contractor_list)
- */
-'contractor_id': number;
-
-/**
- * Подрядчик
- */
-'contractor': {
-
-/**
- * Подрядчик
- */
-'name': string;
-
-/**
- * Агент транспортной компании
- */
-'carrier_name'?: string;
-
-/**
- * Агент транспортной компании (ID берем из запроса - transport_carrier)
- */
-'carrier_id'?: number;
-
-/**
- * Рейтинг в системе (NPS)
- */
-'rating_nps_text'?: string;
-
-/**
- * Рейтинг в системе (NPS)
- */
-'rating_nps'?: number;
-
-/**
- * Участие в торгах (общее количество)
- */
-'trade_count'?: number;
-
-/**
- * Количество выигранных торгов
- */
-'trade_success_count'?: number;
-
-/**
- * Количество проигранных торгов
- */
-'trade_fail_count'?: number;
-
-/**
- * Участие в торгах (результаты)
- */
-'trade_count_text'?: number;
-};
-
-/**
- * ID аэропорта
- */
-'point_id': number;
-
-/**
- * Аэропорт
- */
-'point': {
-
-/**
- * Наименование
- */
-'name': string;
-
-/**
- * Адрес
- */
-'address'?: string;
-};
-
-/**
- * Вид рейса
- */
-'point_action_id': number;
-
-/**
- * Вид рейса
- */
-'point_action': {
-
-/**
- * Наименование
- */
-'name': string;
-};
-
-/**
- * Значения ставок
- */
-'values': Array<{
-
-/**
- * Наименование поля
- */
-'field': string;
-
-/**
- * Минимальная цена
- */
-'min'?: number;
-
-/**
- * Цена за единицу
- */
-'price': number;
-
-/**
- * Количество
- */
-'value': number;
-
-/**
- * Фиксированная надбавка
- */
-'fix'?: number;
-
-/**
- * Комментарий
- */
-'comment'?: string;
-
-/**
- * Признак выбора
- */
-'select'?: boolean;
-
-/**
- * Наименование
- */
-'name': string;
-
-/**
- * Стоимость
- */
-'cost': string;
-
-/**
- * Стоимость
- */
-'cost_text': string;
-}>;
-
-/**
- * Наименование статей затрат
- */
-'service_items': string;
-
-/**
- * Сумма
- */
-'total_cost': number;
-
-/**
- * Сумма
- */
-'total_cost_text': string;
+'currecy_text': string;
 
 /**
  * Комментарий (Your Comment)
@@ -19202,933 +18144,7 @@ export class RequestService extends BaseService {
  * В коммерческом предложении
  */
 'offer'?: boolean;
-}>> {
-    const rb = new RequestBuilder(this.rootUrl, RequestService.RequestRatePointInfoPath, 'get');
-    if (params) {
-      rb.query('id', params.id, {});
-      rb.query('request_id', params.request_id, {});
-    }
-
-    return this.http.request(
-      rb.build({ responseType: 'json', accept: 'application/json', context })
-    ).pipe(
-      filter((r: any): r is HttpResponse<any> => r instanceof HttpResponse),
-      map((r: HttpResponse<any>) => {
-        return r as StrictHttpResponse<{
-        
-        /**
-         * ID
-         */
-        'id': number;
-        
-        /**
-         * Дата создания
-         */
-        'time_add': string;
-        
-        /**
-         * ID Запроса
-         */
-        'request_id': number;
-        
-        /**
-         * Запрос
-         */
-        'request': {
-        
-        /**
-         * Кол-во мест
-         */
-        'cargo_places_count'?: number;
-        
-        /**
-         * Вес, кг
-         */
-        'cargo_places_weight'?: number;
-        
-        /**
-         * Плотность, кг/м3
-         */
-        'cargo_places_density'?: number;
-        
-        /**
-         * Оплачиваемый вес, кг
-         */
-        'cargo_places_paid_weight'?: number;
-        };
-        
-        /**
-         * ID контрагента (ID берем из запроса - contractor_list)
-         */
-        'contractor_id': number;
-        
-        /**
-         * Подрядчик
-         */
-        'contractor': {
-        
-        /**
-         * Подрядчик
-         */
-        'name': string;
-        
-        /**
-         * Агент транспортной компании
-         */
-        'carrier_name'?: string;
-        
-        /**
-         * Агент транспортной компании (ID берем из запроса - transport_carrier)
-         */
-        'carrier_id'?: number;
-        
-        /**
-         * Рейтинг в системе (NPS)
-         */
-        'rating_nps_text'?: string;
-        
-        /**
-         * Рейтинг в системе (NPS)
-         */
-        'rating_nps'?: number;
-        
-        /**
-         * Участие в торгах (общее количество)
-         */
-        'trade_count'?: number;
-        
-        /**
-         * Количество выигранных торгов
-         */
-        'trade_success_count'?: number;
-        
-        /**
-         * Количество проигранных торгов
-         */
-        'trade_fail_count'?: number;
-        
-        /**
-         * Участие в торгах (результаты)
-         */
-        'trade_count_text'?: number;
-        };
-        
-        /**
-         * ID аэропорта
-         */
-        'point_id': number;
-        
-        /**
-         * Аэропорт
-         */
-        'point': {
-        
-        /**
-         * Наименование
-         */
-        'name': string;
-        
-        /**
-         * Адрес
-         */
-        'address'?: string;
-        };
-        
-        /**
-         * Вид рейса
-         */
-        'point_action_id': number;
-        
-        /**
-         * Вид рейса
-         */
-        'point_action': {
-        
-        /**
-         * Наименование
-         */
-        'name': string;
-        };
-        
-        /**
-         * Значения ставок
-         */
-        'values': Array<{
-        
-        /**
-         * Наименование поля
-         */
-        'field': string;
-        
-        /**
-         * Минимальная цена
-         */
-        'min'?: number;
-        
-        /**
-         * Цена за единицу
-         */
-        'price': number;
-        
-        /**
-         * Количество
-         */
-        'value': number;
-        
-        /**
-         * Фиксированная надбавка
-         */
-        'fix'?: number;
-        
-        /**
-         * Комментарий
-         */
-        'comment'?: string;
-        
-        /**
-         * Признак выбора
-         */
-        'select'?: boolean;
-        
-        /**
-         * Наименование
-         */
-        'name': string;
-        
-        /**
-         * Стоимость
-         */
-        'cost': string;
-        
-        /**
-         * Стоимость
-         */
-        'cost_text': string;
-        }>;
-        
-        /**
-         * Наименование статей затрат
-         */
-        'service_items': string;
-        
-        /**
-         * Сумма
-         */
-        'total_cost': number;
-        
-        /**
-         * Сумма
-         */
-        'total_cost_text': string;
-        
-        /**
-         * Комментарий (Your Comment)
-         */
-        'comment'?: string;
-        
-        /**
-         * В итоговом
-         */
-        'selected'?: boolean;
-        
-        /**
-         * В коммерческом предложении
-         */
-        'offer'?: boolean;
-        }>;
-      })
-    );
-  }
-
-  /**
-   * Ставка запроса Складские (СВХ).
-   *
-   *
-   *
-   * This method provides access only to the response body.
-   * To access the full response (for headers, for example), `requestRatePointInfo$Response()` instead.
-   *
-   * This method doesn't expect any request body.
-   */
-  requestRatePointInfo(
-    params: {
-
-    /**
-     * ID ставки
-     */
-      id: number;
-
-    /**
-     * ID Запроса
-     */
-      request_id: number;
-    },
-    context?: HttpContext
-  ): Observable<{
-
-/**
- * ID
- */
-'id': number;
-
-/**
- * Дата создания
- */
-'time_add': string;
-
-/**
- * ID Запроса
- */
-'request_id': number;
-
-/**
- * Запрос
- */
-'request': {
-
-/**
- * Кол-во мест
- */
-'cargo_places_count'?: number;
-
-/**
- * Вес, кг
- */
-'cargo_places_weight'?: number;
-
-/**
- * Плотность, кг/м3
- */
-'cargo_places_density'?: number;
-
-/**
- * Оплачиваемый вес, кг
- */
-'cargo_places_paid_weight'?: number;
-};
-
-/**
- * ID контрагента (ID берем из запроса - contractor_list)
- */
-'contractor_id': number;
-
-/**
- * Подрядчик
- */
-'contractor': {
-
-/**
- * Подрядчик
- */
-'name': string;
-
-/**
- * Агент транспортной компании
- */
-'carrier_name'?: string;
-
-/**
- * Агент транспортной компании (ID берем из запроса - transport_carrier)
- */
-'carrier_id'?: number;
-
-/**
- * Рейтинг в системе (NPS)
- */
-'rating_nps_text'?: string;
-
-/**
- * Рейтинг в системе (NPS)
- */
-'rating_nps'?: number;
-
-/**
- * Участие в торгах (общее количество)
- */
-'trade_count'?: number;
-
-/**
- * Количество выигранных торгов
- */
-'trade_success_count'?: number;
-
-/**
- * Количество проигранных торгов
- */
-'trade_fail_count'?: number;
-
-/**
- * Участие в торгах (результаты)
- */
-'trade_count_text'?: number;
-};
-
-/**
- * ID аэропорта
- */
-'point_id': number;
-
-/**
- * Аэропорт
- */
-'point': {
-
-/**
- * Наименование
- */
-'name': string;
-
-/**
- * Адрес
- */
-'address'?: string;
-};
-
-/**
- * Вид рейса
- */
-'point_action_id': number;
-
-/**
- * Вид рейса
- */
-'point_action': {
-
-/**
- * Наименование
- */
-'name': string;
-};
-
-/**
- * Значения ставок
- */
-'values': Array<{
-
-/**
- * Наименование поля
- */
-'field': string;
-
-/**
- * Минимальная цена
- */
-'min'?: number;
-
-/**
- * Цена за единицу
- */
-'price': number;
-
-/**
- * Количество
- */
-'value': number;
-
-/**
- * Фиксированная надбавка
- */
-'fix'?: number;
-
-/**
- * Комментарий
- */
-'comment'?: string;
-
-/**
- * Признак выбора
- */
-'select'?: boolean;
-
-/**
- * Наименование
- */
-'name': string;
-
-/**
- * Стоимость
- */
-'cost': string;
-
-/**
- * Стоимость
- */
-'cost_text': string;
 }>;
-
-/**
- * Наименование статей затрат
- */
-'service_items': string;
-
-/**
- * Сумма
- */
-'total_cost': number;
-
-/**
- * Сумма
- */
-'total_cost_text': string;
-
-/**
- * Комментарий (Your Comment)
- */
-'comment'?: string;
-
-/**
- * В итоговом
- */
-'selected'?: boolean;
-
-/**
- * В коммерческом предложении
- */
-'offer'?: boolean;
-}> {
-    return this.requestRatePointInfo$Response(params, context).pipe(
-      map((r: StrictHttpResponse<{
-
-/**
- * ID
- */
-'id': number;
-
-/**
- * Дата создания
- */
-'time_add': string;
-
-/**
- * ID Запроса
- */
-'request_id': number;
-
-/**
- * Запрос
- */
-'request': {
-
-/**
- * Кол-во мест
- */
-'cargo_places_count'?: number;
-
-/**
- * Вес, кг
- */
-'cargo_places_weight'?: number;
-
-/**
- * Плотность, кг/м3
- */
-'cargo_places_density'?: number;
-
-/**
- * Оплачиваемый вес, кг
- */
-'cargo_places_paid_weight'?: number;
-};
-
-/**
- * ID контрагента (ID берем из запроса - contractor_list)
- */
-'contractor_id': number;
-
-/**
- * Подрядчик
- */
-'contractor': {
-
-/**
- * Подрядчик
- */
-'name': string;
-
-/**
- * Агент транспортной компании
- */
-'carrier_name'?: string;
-
-/**
- * Агент транспортной компании (ID берем из запроса - transport_carrier)
- */
-'carrier_id'?: number;
-
-/**
- * Рейтинг в системе (NPS)
- */
-'rating_nps_text'?: string;
-
-/**
- * Рейтинг в системе (NPS)
- */
-'rating_nps'?: number;
-
-/**
- * Участие в торгах (общее количество)
- */
-'trade_count'?: number;
-
-/**
- * Количество выигранных торгов
- */
-'trade_success_count'?: number;
-
-/**
- * Количество проигранных торгов
- */
-'trade_fail_count'?: number;
-
-/**
- * Участие в торгах (результаты)
- */
-'trade_count_text'?: number;
-};
-
-/**
- * ID аэропорта
- */
-'point_id': number;
-
-/**
- * Аэропорт
- */
-'point': {
-
-/**
- * Наименование
- */
-'name': string;
-
-/**
- * Адрес
- */
-'address'?: string;
-};
-
-/**
- * Вид рейса
- */
-'point_action_id': number;
-
-/**
- * Вид рейса
- */
-'point_action': {
-
-/**
- * Наименование
- */
-'name': string;
-};
-
-/**
- * Значения ставок
- */
-'values': Array<{
-
-/**
- * Наименование поля
- */
-'field': string;
-
-/**
- * Минимальная цена
- */
-'min'?: number;
-
-/**
- * Цена за единицу
- */
-'price': number;
-
-/**
- * Количество
- */
-'value': number;
-
-/**
- * Фиксированная надбавка
- */
-'fix'?: number;
-
-/**
- * Комментарий
- */
-'comment'?: string;
-
-/**
- * Признак выбора
- */
-'select'?: boolean;
-
-/**
- * Наименование
- */
-'name': string;
-
-/**
- * Стоимость
- */
-'cost': string;
-
-/**
- * Стоимость
- */
-'cost_text': string;
-}>;
-
-/**
- * Наименование статей затрат
- */
-'service_items': string;
-
-/**
- * Сумма
- */
-'total_cost': number;
-
-/**
- * Сумма
- */
-'total_cost_text': string;
-
-/**
- * Комментарий (Your Comment)
- */
-'comment'?: string;
-
-/**
- * В итоговом
- */
-'selected'?: boolean;
-
-/**
- * В коммерческом предложении
- */
-'offer'?: boolean;
-}>): {
-
-/**
- * ID
- */
-'id': number;
-
-/**
- * Дата создания
- */
-'time_add': string;
-
-/**
- * ID Запроса
- */
-'request_id': number;
-
-/**
- * Запрос
- */
-'request': {
-
-/**
- * Кол-во мест
- */
-'cargo_places_count'?: number;
-
-/**
- * Вес, кг
- */
-'cargo_places_weight'?: number;
-
-/**
- * Плотность, кг/м3
- */
-'cargo_places_density'?: number;
-
-/**
- * Оплачиваемый вес, кг
- */
-'cargo_places_paid_weight'?: number;
-};
-
-/**
- * ID контрагента (ID берем из запроса - contractor_list)
- */
-'contractor_id': number;
-
-/**
- * Подрядчик
- */
-'contractor': {
-
-/**
- * Подрядчик
- */
-'name': string;
-
-/**
- * Агент транспортной компании
- */
-'carrier_name'?: string;
-
-/**
- * Агент транспортной компании (ID берем из запроса - transport_carrier)
- */
-'carrier_id'?: number;
-
-/**
- * Рейтинг в системе (NPS)
- */
-'rating_nps_text'?: string;
-
-/**
- * Рейтинг в системе (NPS)
- */
-'rating_nps'?: number;
-
-/**
- * Участие в торгах (общее количество)
- */
-'trade_count'?: number;
-
-/**
- * Количество выигранных торгов
- */
-'trade_success_count'?: number;
-
-/**
- * Количество проигранных торгов
- */
-'trade_fail_count'?: number;
-
-/**
- * Участие в торгах (результаты)
- */
-'trade_count_text'?: number;
-};
-
-/**
- * ID аэропорта
- */
-'point_id': number;
-
-/**
- * Аэропорт
- */
-'point': {
-
-/**
- * Наименование
- */
-'name': string;
-
-/**
- * Адрес
- */
-'address'?: string;
-};
-
-/**
- * Вид рейса
- */
-'point_action_id': number;
-
-/**
- * Вид рейса
- */
-'point_action': {
-
-/**
- * Наименование
- */
-'name': string;
-};
-
-/**
- * Значения ставок
- */
-'values': Array<{
-
-/**
- * Наименование поля
- */
-'field': string;
-
-/**
- * Минимальная цена
- */
-'min'?: number;
-
-/**
- * Цена за единицу
- */
-'price': number;
-
-/**
- * Количество
- */
-'value': number;
-
-/**
- * Фиксированная надбавка
- */
-'fix'?: number;
-
-/**
- * Комментарий
- */
-'comment'?: string;
-
-/**
- * Признак выбора
- */
-'select'?: boolean;
-
-/**
- * Наименование
- */
-'name': string;
-
-/**
- * Стоимость
- */
-'cost': string;
-
-/**
- * Стоимость
- */
-'cost_text': string;
-}>;
-
-/**
- * Наименование статей затрат
- */
-'service_items': string;
-
-/**
- * Сумма
- */
-'total_cost': number;
-
-/**
- * Сумма
- */
-'total_cost_text': string;
-
-/**
- * Комментарий (Your Comment)
- */
-'comment'?: string;
-
-/**
- * В итоговом
- */
-'selected'?: boolean;
-
-/**
- * В коммерческом предложении
- */
-'offer'?: boolean;
 } => r.body)
     );
   }
@@ -20215,6 +18231,11 @@ export class RequestService extends BaseService {
  */
 'select'?: boolean;
 }>;
+
+/**
+ * Валюта (ID берем из запроса - system_currency)
+ */
+'currecy': number;
 
 /**
  * Комментарий (Your Comment)
@@ -20340,6 +18361,11 @@ export class RequestService extends BaseService {
  */
 'select'?: boolean;
 }>;
+
+/**
+ * Валюта (ID берем из запроса - system_currency)
+ */
+'currecy': number;
 
 /**
  * Комментарий (Your Comment)
@@ -20544,14 +18570,34 @@ export class RequestService extends BaseService {
 'trade_success_count'?: number;
 
 /**
+ * % выигранных торгов
+ */
+'trade_success_percent'?: number;
+
+/**
  * Количество проигранных торгов
  */
 'trade_fail_count'?: number;
 
 /**
+ * % проигранных торгов
+ */
+'trade_fail_percent'?: number;
+
+/**
  * Участие в торгах (результаты)
  */
 'trade_count_text'?: number;
+
+/**
+ * Email
+ */
+'email'?: string;
+
+/**
+ * Телефон
+ */
+'phone'?: string;
 };
 
 /**
@@ -20696,6 +18742,11 @@ export class RequestService extends BaseService {
 'total_cost_text': string;
 
 /**
+ * Валюта
+ */
+'currecy_text': string;
+
+/**
  * В итоговом
  */
 'selected'?: boolean;
@@ -20821,14 +18872,34 @@ export class RequestService extends BaseService {
         'trade_success_count'?: number;
         
         /**
+         * % выигранных торгов
+         */
+        'trade_success_percent'?: number;
+        
+        /**
          * Количество проигранных торгов
          */
         'trade_fail_count'?: number;
         
         /**
+         * % проигранных торгов
+         */
+        'trade_fail_percent'?: number;
+        
+        /**
          * Участие в торгах (результаты)
          */
         'trade_count_text'?: number;
+        
+        /**
+         * Email
+         */
+        'email'?: string;
+        
+        /**
+         * Телефон
+         */
+        'phone'?: string;
         };
         
         /**
@@ -20971,6 +19042,11 @@ export class RequestService extends BaseService {
          * Сумма
          */
         'total_cost_text': string;
+        
+        /**
+         * Валюта
+         */
+        'currecy_text': string;
         
         /**
          * В итоговом
@@ -21146,14 +19222,34 @@ export class RequestService extends BaseService {
 'trade_success_count'?: number;
 
 /**
+ * % выигранных торгов
+ */
+'trade_success_percent'?: number;
+
+/**
  * Количество проигранных торгов
  */
 'trade_fail_count'?: number;
 
 /**
+ * % проигранных торгов
+ */
+'trade_fail_percent'?: number;
+
+/**
  * Участие в торгах (результаты)
  */
 'trade_count_text'?: number;
+
+/**
+ * Email
+ */
+'email'?: string;
+
+/**
+ * Телефон
+ */
+'phone'?: string;
 };
 
 /**
@@ -21296,6 +19392,11 @@ export class RequestService extends BaseService {
  * Сумма
  */
 'total_cost_text': string;
+
+/**
+ * Валюта
+ */
+'currecy_text': string;
 
 /**
  * В итоговом
@@ -21408,14 +19509,34 @@ export class RequestService extends BaseService {
 'trade_success_count'?: number;
 
 /**
+ * % выигранных торгов
+ */
+'trade_success_percent'?: number;
+
+/**
  * Количество проигранных торгов
  */
 'trade_fail_count'?: number;
 
 /**
+ * % проигранных торгов
+ */
+'trade_fail_percent'?: number;
+
+/**
  * Участие в торгах (результаты)
  */
 'trade_count_text'?: number;
+
+/**
+ * Email
+ */
+'email'?: string;
+
+/**
+ * Телефон
+ */
+'phone'?: string;
 };
 
 /**
@@ -21558,6 +19679,11 @@ export class RequestService extends BaseService {
  * Сумма
  */
 'total_cost_text': string;
+
+/**
+ * Валюта
+ */
+'currecy_text': string;
 
 /**
  * В итоговом
@@ -21668,14 +19794,34 @@ export class RequestService extends BaseService {
 'trade_success_count'?: number;
 
 /**
+ * % выигранных торгов
+ */
+'trade_success_percent'?: number;
+
+/**
  * Количество проигранных торгов
  */
 'trade_fail_count'?: number;
 
 /**
+ * % проигранных торгов
+ */
+'trade_fail_percent'?: number;
+
+/**
  * Участие в торгах (результаты)
  */
 'trade_count_text'?: number;
+
+/**
+ * Email
+ */
+'email'?: string;
+
+/**
+ * Телефон
+ */
+'phone'?: string;
 };
 
 /**
@@ -21820,285 +19966,9 @@ export class RequestService extends BaseService {
 'total_cost_text': string;
 
 /**
- * В итоговом
+ * Валюта
  */
-'selected'?: boolean;
-
-/**
- * В коммерческом предложении
- */
-'offer'?: boolean;
-}>;
-} => r.body)
-    );
-  }
-
-  /** Path part for operation `requestRateTransporterInfo()` */
-  static readonly RequestRateTransporterInfoPath = '/request_rate_transporter_info';
-
-  /**
-   * Ставка запроса Вывоз.
-   *
-   *
-   *
-   * This method provides access to the full `HttpResponse`, allowing access to response headers.
-   * To access only the response body, use `requestRateTransporterInfo()` instead.
-   *
-   * This method doesn't expect any request body.
-   */
-  requestRateTransporterInfo$Response(
-    params: {
-
-    /**
-     * ID ставки
-     */
-      id: number;
-
-    /**
-     * ID Запроса
-     */
-      request_id: number;
-    },
-    context?: HttpContext
-  ): Observable<StrictHttpResponse<{
-
-/**
- * ID
- */
-'id': number;
-
-/**
- * Дата создания
- */
-'time_add': string;
-
-/**
- * ID Запроса
- */
-'request_id': number;
-
-/**
- * Запрос
- */
-'request': {
-
-/**
- * Кол-во мест
- */
-'cargo_places_count'?: number;
-
-/**
- * Вес, кг
- */
-'cargo_places_weight'?: number;
-
-/**
- * Плотность, кг/м3
- */
-'cargo_places_density'?: number;
-
-/**
- * Оплачиваемый вес, кг
- */
-'cargo_places_paid_weight'?: number;
-};
-
-/**
- * ID контрагента (ID берем из запроса - contractor_list)
- */
-'contractor_id': number;
-
-/**
- * Подрядчик
- */
-'contractor': {
-
-/**
- * Подрядчик
- */
-'name': string;
-
-/**
- * Агент транспортной компании
- */
-'carrier_name'?: string;
-
-/**
- * Агент транспортной компании (ID берем из запроса - transport_carrier)
- */
-'carrier_id'?: number;
-
-/**
- * Рейтинг в системе (NPS)
- */
-'rating_nps_text'?: string;
-
-/**
- * Рейтинг в системе (NPS)
- */
-'rating_nps'?: number;
-
-/**
- * Участие в торгах (общее количество)
- */
-'trade_count'?: number;
-
-/**
- * Количество выигранных торгов
- */
-'trade_success_count'?: number;
-
-/**
- * Количество проигранных торгов
- */
-'trade_fail_count'?: number;
-
-/**
- * Участие в торгах (результаты)
- */
-'trade_count_text'?: number;
-};
-
-/**
- * ID аэропорта
- */
-'point_id': number;
-
-/**
- * Аэропорт
- */
-'point': {
-
-/**
- * Наименование
- */
-'name': string;
-
-/**
- * Адрес
- */
-'address'?: string;
-};
-
-/**
- * Вид рейса
- */
-'point_action_id': number;
-
-/**
- * Вид рейса
- */
-'point_action': {
-
-/**
- * Наименование
- */
-'name': string;
-};
-
-/**
- * Срок (дней), от
- */
-'days_min'?: string;
-
-/**
- * Срок (дней), до
- */
-'days_max'?: string;
-
-/**
- * Срок, дн.
- */
-'period'?: string;
-
-/**
- * Комментарий
- */
-'comment'?: string;
-
-/**
- * Доставки
- */
-'values': Array<{
-
-/**
- * Тип транспорта
- */
-'kind_id': number;
-
-/**
- * Город убытия
- */
-'departure_city_id': number;
-
-/**
- * Город прибытия
- */
-'arrival_city_id': number;
-
-/**
- * Время транзита мин., дней
- */
-'days_min': number;
-
-/**
- * Время транзита макс., дней
- */
-'days_max': number;
-
-/**
- * Сумма за перевозку
- */
-'amount': number;
-
-/**
- * Комментарий
- */
-'comment'?: string;
-
-/**
- * Тип транспорта
- */
-'kind': {
-};
-
-/**
- * Город убытия
- */
-'departure_city': {
-};
-
-/**
- * Город прибытия
- */
-'arrival_city': {
-};
-
-/**
- * Стоимость
- */
-'cost': string;
-
-/**
- * Стоимость
- */
-'cost_text': string;
-}>;
-
-/**
- * Наименование этапов доставки
- */
-'service_items': string;
-
-/**
- * Сумма
- */
-'total_cost': number;
-
-/**
- * Сумма
- */
-'total_cost_text': string;
+'currecy_text': string;
 
 /**
  * В итоговом
@@ -22109,1045 +19979,7 @@ export class RequestService extends BaseService {
  * В коммерческом предложении
  */
 'offer'?: boolean;
-}>> {
-    const rb = new RequestBuilder(this.rootUrl, RequestService.RequestRateTransporterInfoPath, 'get');
-    if (params) {
-      rb.query('id', params.id, {});
-      rb.query('request_id', params.request_id, {});
-    }
-
-    return this.http.request(
-      rb.build({ responseType: 'json', accept: 'application/json', context })
-    ).pipe(
-      filter((r: any): r is HttpResponse<any> => r instanceof HttpResponse),
-      map((r: HttpResponse<any>) => {
-        return r as StrictHttpResponse<{
-        
-        /**
-         * ID
-         */
-        'id': number;
-        
-        /**
-         * Дата создания
-         */
-        'time_add': string;
-        
-        /**
-         * ID Запроса
-         */
-        'request_id': number;
-        
-        /**
-         * Запрос
-         */
-        'request': {
-        
-        /**
-         * Кол-во мест
-         */
-        'cargo_places_count'?: number;
-        
-        /**
-         * Вес, кг
-         */
-        'cargo_places_weight'?: number;
-        
-        /**
-         * Плотность, кг/м3
-         */
-        'cargo_places_density'?: number;
-        
-        /**
-         * Оплачиваемый вес, кг
-         */
-        'cargo_places_paid_weight'?: number;
-        };
-        
-        /**
-         * ID контрагента (ID берем из запроса - contractor_list)
-         */
-        'contractor_id': number;
-        
-        /**
-         * Подрядчик
-         */
-        'contractor': {
-        
-        /**
-         * Подрядчик
-         */
-        'name': string;
-        
-        /**
-         * Агент транспортной компании
-         */
-        'carrier_name'?: string;
-        
-        /**
-         * Агент транспортной компании (ID берем из запроса - transport_carrier)
-         */
-        'carrier_id'?: number;
-        
-        /**
-         * Рейтинг в системе (NPS)
-         */
-        'rating_nps_text'?: string;
-        
-        /**
-         * Рейтинг в системе (NPS)
-         */
-        'rating_nps'?: number;
-        
-        /**
-         * Участие в торгах (общее количество)
-         */
-        'trade_count'?: number;
-        
-        /**
-         * Количество выигранных торгов
-         */
-        'trade_success_count'?: number;
-        
-        /**
-         * Количество проигранных торгов
-         */
-        'trade_fail_count'?: number;
-        
-        /**
-         * Участие в торгах (результаты)
-         */
-        'trade_count_text'?: number;
-        };
-        
-        /**
-         * ID аэропорта
-         */
-        'point_id': number;
-        
-        /**
-         * Аэропорт
-         */
-        'point': {
-        
-        /**
-         * Наименование
-         */
-        'name': string;
-        
-        /**
-         * Адрес
-         */
-        'address'?: string;
-        };
-        
-        /**
-         * Вид рейса
-         */
-        'point_action_id': number;
-        
-        /**
-         * Вид рейса
-         */
-        'point_action': {
-        
-        /**
-         * Наименование
-         */
-        'name': string;
-        };
-        
-        /**
-         * Срок (дней), от
-         */
-        'days_min'?: string;
-        
-        /**
-         * Срок (дней), до
-         */
-        'days_max'?: string;
-        
-        /**
-         * Срок, дн.
-         */
-        'period'?: string;
-        
-        /**
-         * Комментарий
-         */
-        'comment'?: string;
-        
-        /**
-         * Доставки
-         */
-        'values': Array<{
-        
-        /**
-         * Тип транспорта
-         */
-        'kind_id': number;
-        
-        /**
-         * Город убытия
-         */
-        'departure_city_id': number;
-        
-        /**
-         * Город прибытия
-         */
-        'arrival_city_id': number;
-        
-        /**
-         * Время транзита мин., дней
-         */
-        'days_min': number;
-        
-        /**
-         * Время транзита макс., дней
-         */
-        'days_max': number;
-        
-        /**
-         * Сумма за перевозку
-         */
-        'amount': number;
-        
-        /**
-         * Комментарий
-         */
-        'comment'?: string;
-        
-        /**
-         * Тип транспорта
-         */
-        'kind': {
-        };
-        
-        /**
-         * Город убытия
-         */
-        'departure_city': {
-        };
-        
-        /**
-         * Город прибытия
-         */
-        'arrival_city': {
-        };
-        
-        /**
-         * Стоимость
-         */
-        'cost': string;
-        
-        /**
-         * Стоимость
-         */
-        'cost_text': string;
-        }>;
-        
-        /**
-         * Наименование этапов доставки
-         */
-        'service_items': string;
-        
-        /**
-         * Сумма
-         */
-        'total_cost': number;
-        
-        /**
-         * Сумма
-         */
-        'total_cost_text': string;
-        
-        /**
-         * В итоговом
-         */
-        'selected'?: boolean;
-        
-        /**
-         * В коммерческом предложении
-         */
-        'offer'?: boolean;
-        }>;
-      })
-    );
-  }
-
-  /**
-   * Ставка запроса Вывоз.
-   *
-   *
-   *
-   * This method provides access only to the response body.
-   * To access the full response (for headers, for example), `requestRateTransporterInfo$Response()` instead.
-   *
-   * This method doesn't expect any request body.
-   */
-  requestRateTransporterInfo(
-    params: {
-
-    /**
-     * ID ставки
-     */
-      id: number;
-
-    /**
-     * ID Запроса
-     */
-      request_id: number;
-    },
-    context?: HttpContext
-  ): Observable<{
-
-/**
- * ID
- */
-'id': number;
-
-/**
- * Дата создания
- */
-'time_add': string;
-
-/**
- * ID Запроса
- */
-'request_id': number;
-
-/**
- * Запрос
- */
-'request': {
-
-/**
- * Кол-во мест
- */
-'cargo_places_count'?: number;
-
-/**
- * Вес, кг
- */
-'cargo_places_weight'?: number;
-
-/**
- * Плотность, кг/м3
- */
-'cargo_places_density'?: number;
-
-/**
- * Оплачиваемый вес, кг
- */
-'cargo_places_paid_weight'?: number;
-};
-
-/**
- * ID контрагента (ID берем из запроса - contractor_list)
- */
-'contractor_id': number;
-
-/**
- * Подрядчик
- */
-'contractor': {
-
-/**
- * Подрядчик
- */
-'name': string;
-
-/**
- * Агент транспортной компании
- */
-'carrier_name'?: string;
-
-/**
- * Агент транспортной компании (ID берем из запроса - transport_carrier)
- */
-'carrier_id'?: number;
-
-/**
- * Рейтинг в системе (NPS)
- */
-'rating_nps_text'?: string;
-
-/**
- * Рейтинг в системе (NPS)
- */
-'rating_nps'?: number;
-
-/**
- * Участие в торгах (общее количество)
- */
-'trade_count'?: number;
-
-/**
- * Количество выигранных торгов
- */
-'trade_success_count'?: number;
-
-/**
- * Количество проигранных торгов
- */
-'trade_fail_count'?: number;
-
-/**
- * Участие в торгах (результаты)
- */
-'trade_count_text'?: number;
-};
-
-/**
- * ID аэропорта
- */
-'point_id': number;
-
-/**
- * Аэропорт
- */
-'point': {
-
-/**
- * Наименование
- */
-'name': string;
-
-/**
- * Адрес
- */
-'address'?: string;
-};
-
-/**
- * Вид рейса
- */
-'point_action_id': number;
-
-/**
- * Вид рейса
- */
-'point_action': {
-
-/**
- * Наименование
- */
-'name': string;
-};
-
-/**
- * Срок (дней), от
- */
-'days_min'?: string;
-
-/**
- * Срок (дней), до
- */
-'days_max'?: string;
-
-/**
- * Срок, дн.
- */
-'period'?: string;
-
-/**
- * Комментарий
- */
-'comment'?: string;
-
-/**
- * Доставки
- */
-'values': Array<{
-
-/**
- * Тип транспорта
- */
-'kind_id': number;
-
-/**
- * Город убытия
- */
-'departure_city_id': number;
-
-/**
- * Город прибытия
- */
-'arrival_city_id': number;
-
-/**
- * Время транзита мин., дней
- */
-'days_min': number;
-
-/**
- * Время транзита макс., дней
- */
-'days_max': number;
-
-/**
- * Сумма за перевозку
- */
-'amount': number;
-
-/**
- * Комментарий
- */
-'comment'?: string;
-
-/**
- * Тип транспорта
- */
-'kind': {
-};
-
-/**
- * Город убытия
- */
-'departure_city': {
-};
-
-/**
- * Город прибытия
- */
-'arrival_city': {
-};
-
-/**
- * Стоимость
- */
-'cost': string;
-
-/**
- * Стоимость
- */
-'cost_text': string;
 }>;
-
-/**
- * Наименование этапов доставки
- */
-'service_items': string;
-
-/**
- * Сумма
- */
-'total_cost': number;
-
-/**
- * Сумма
- */
-'total_cost_text': string;
-
-/**
- * В итоговом
- */
-'selected'?: boolean;
-
-/**
- * В коммерческом предложении
- */
-'offer'?: boolean;
-}> {
-    return this.requestRateTransporterInfo$Response(params, context).pipe(
-      map((r: StrictHttpResponse<{
-
-/**
- * ID
- */
-'id': number;
-
-/**
- * Дата создания
- */
-'time_add': string;
-
-/**
- * ID Запроса
- */
-'request_id': number;
-
-/**
- * Запрос
- */
-'request': {
-
-/**
- * Кол-во мест
- */
-'cargo_places_count'?: number;
-
-/**
- * Вес, кг
- */
-'cargo_places_weight'?: number;
-
-/**
- * Плотность, кг/м3
- */
-'cargo_places_density'?: number;
-
-/**
- * Оплачиваемый вес, кг
- */
-'cargo_places_paid_weight'?: number;
-};
-
-/**
- * ID контрагента (ID берем из запроса - contractor_list)
- */
-'contractor_id': number;
-
-/**
- * Подрядчик
- */
-'contractor': {
-
-/**
- * Подрядчик
- */
-'name': string;
-
-/**
- * Агент транспортной компании
- */
-'carrier_name'?: string;
-
-/**
- * Агент транспортной компании (ID берем из запроса - transport_carrier)
- */
-'carrier_id'?: number;
-
-/**
- * Рейтинг в системе (NPS)
- */
-'rating_nps_text'?: string;
-
-/**
- * Рейтинг в системе (NPS)
- */
-'rating_nps'?: number;
-
-/**
- * Участие в торгах (общее количество)
- */
-'trade_count'?: number;
-
-/**
- * Количество выигранных торгов
- */
-'trade_success_count'?: number;
-
-/**
- * Количество проигранных торгов
- */
-'trade_fail_count'?: number;
-
-/**
- * Участие в торгах (результаты)
- */
-'trade_count_text'?: number;
-};
-
-/**
- * ID аэропорта
- */
-'point_id': number;
-
-/**
- * Аэропорт
- */
-'point': {
-
-/**
- * Наименование
- */
-'name': string;
-
-/**
- * Адрес
- */
-'address'?: string;
-};
-
-/**
- * Вид рейса
- */
-'point_action_id': number;
-
-/**
- * Вид рейса
- */
-'point_action': {
-
-/**
- * Наименование
- */
-'name': string;
-};
-
-/**
- * Срок (дней), от
- */
-'days_min'?: string;
-
-/**
- * Срок (дней), до
- */
-'days_max'?: string;
-
-/**
- * Срок, дн.
- */
-'period'?: string;
-
-/**
- * Комментарий
- */
-'comment'?: string;
-
-/**
- * Доставки
- */
-'values': Array<{
-
-/**
- * Тип транспорта
- */
-'kind_id': number;
-
-/**
- * Город убытия
- */
-'departure_city_id': number;
-
-/**
- * Город прибытия
- */
-'arrival_city_id': number;
-
-/**
- * Время транзита мин., дней
- */
-'days_min': number;
-
-/**
- * Время транзита макс., дней
- */
-'days_max': number;
-
-/**
- * Сумма за перевозку
- */
-'amount': number;
-
-/**
- * Комментарий
- */
-'comment'?: string;
-
-/**
- * Тип транспорта
- */
-'kind': {
-};
-
-/**
- * Город убытия
- */
-'departure_city': {
-};
-
-/**
- * Город прибытия
- */
-'arrival_city': {
-};
-
-/**
- * Стоимость
- */
-'cost': string;
-
-/**
- * Стоимость
- */
-'cost_text': string;
-}>;
-
-/**
- * Наименование этапов доставки
- */
-'service_items': string;
-
-/**
- * Сумма
- */
-'total_cost': number;
-
-/**
- * Сумма
- */
-'total_cost_text': string;
-
-/**
- * В итоговом
- */
-'selected'?: boolean;
-
-/**
- * В коммерческом предложении
- */
-'offer'?: boolean;
-}>): {
-
-/**
- * ID
- */
-'id': number;
-
-/**
- * Дата создания
- */
-'time_add': string;
-
-/**
- * ID Запроса
- */
-'request_id': number;
-
-/**
- * Запрос
- */
-'request': {
-
-/**
- * Кол-во мест
- */
-'cargo_places_count'?: number;
-
-/**
- * Вес, кг
- */
-'cargo_places_weight'?: number;
-
-/**
- * Плотность, кг/м3
- */
-'cargo_places_density'?: number;
-
-/**
- * Оплачиваемый вес, кг
- */
-'cargo_places_paid_weight'?: number;
-};
-
-/**
- * ID контрагента (ID берем из запроса - contractor_list)
- */
-'contractor_id': number;
-
-/**
- * Подрядчик
- */
-'contractor': {
-
-/**
- * Подрядчик
- */
-'name': string;
-
-/**
- * Агент транспортной компании
- */
-'carrier_name'?: string;
-
-/**
- * Агент транспортной компании (ID берем из запроса - transport_carrier)
- */
-'carrier_id'?: number;
-
-/**
- * Рейтинг в системе (NPS)
- */
-'rating_nps_text'?: string;
-
-/**
- * Рейтинг в системе (NPS)
- */
-'rating_nps'?: number;
-
-/**
- * Участие в торгах (общее количество)
- */
-'trade_count'?: number;
-
-/**
- * Количество выигранных торгов
- */
-'trade_success_count'?: number;
-
-/**
- * Количество проигранных торгов
- */
-'trade_fail_count'?: number;
-
-/**
- * Участие в торгах (результаты)
- */
-'trade_count_text'?: number;
-};
-
-/**
- * ID аэропорта
- */
-'point_id': number;
-
-/**
- * Аэропорт
- */
-'point': {
-
-/**
- * Наименование
- */
-'name': string;
-
-/**
- * Адрес
- */
-'address'?: string;
-};
-
-/**
- * Вид рейса
- */
-'point_action_id': number;
-
-/**
- * Вид рейса
- */
-'point_action': {
-
-/**
- * Наименование
- */
-'name': string;
-};
-
-/**
- * Срок (дней), от
- */
-'days_min'?: string;
-
-/**
- * Срок (дней), до
- */
-'days_max'?: string;
-
-/**
- * Срок, дн.
- */
-'period'?: string;
-
-/**
- * Комментарий
- */
-'comment'?: string;
-
-/**
- * Доставки
- */
-'values': Array<{
-
-/**
- * Тип транспорта
- */
-'kind_id': number;
-
-/**
- * Город убытия
- */
-'departure_city_id': number;
-
-/**
- * Город прибытия
- */
-'arrival_city_id': number;
-
-/**
- * Время транзита мин., дней
- */
-'days_min': number;
-
-/**
- * Время транзита макс., дней
- */
-'days_max': number;
-
-/**
- * Сумма за перевозку
- */
-'amount': number;
-
-/**
- * Комментарий
- */
-'comment'?: string;
-
-/**
- * Тип транспорта
- */
-'kind': {
-};
-
-/**
- * Город убытия
- */
-'departure_city': {
-};
-
-/**
- * Город прибытия
- */
-'arrival_city': {
-};
-
-/**
- * Стоимость
- */
-'cost': string;
-
-/**
- * Стоимость
- */
-'cost_text': string;
-}>;
-
-/**
- * Наименование этапов доставки
- */
-'service_items': string;
-
-/**
- * Сумма
- */
-'total_cost': number;
-
-/**
- * Сумма
- */
-'total_cost_text': string;
-
-/**
- * В итоговом
- */
-'selected'?: boolean;
-
-/**
- * В коммерческом предложении
- */
-'offer'?: boolean;
 } => r.body)
     );
   }
@@ -23239,6 +20071,11 @@ export class RequestService extends BaseService {
  */
 'comment'?: string;
 }>;
+
+/**
+ * Валюта (ID берем из запроса - system_currency)
+ */
+'currecy': number;
 
 /**
  * В итоговом
@@ -23364,6 +20201,11 @@ export class RequestService extends BaseService {
  */
 'comment'?: string;
 }>;
+
+/**
+ * Валюта (ID берем из запроса - system_currency)
+ */
+'currecy': number;
 
 /**
  * В итоговом
@@ -23530,6 +20372,16 @@ export class RequestService extends BaseService {
 };
 
 /**
+ * Итого: До границы
+ */
+'customs_rate': string;
+
+/**
+ * Итого: Локальные
+ */
+'local_rate': string;
+
+/**
  * Сумма
  */
 'total_cost': number;
@@ -23642,6 +20494,16 @@ export class RequestService extends BaseService {
          */
         'delivery': {
         };
+        
+        /**
+         * Итого: До границы
+         */
+        'customs_rate': string;
+        
+        /**
+         * Итого: Локальные
+         */
+        'local_rate': string;
         
         /**
          * Сумма
@@ -23814,6 +20676,16 @@ export class RequestService extends BaseService {
 };
 
 /**
+ * Итого: До границы
+ */
+'customs_rate': string;
+
+/**
+ * Итого: Локальные
+ */
+'local_rate': string;
+
+/**
  * Сумма
  */
 'total_cost': number;
@@ -23911,6 +20783,16 @@ export class RequestService extends BaseService {
 };
 
 /**
+ * Итого: До границы
+ */
+'customs_rate': string;
+
+/**
+ * Итого: Локальные
+ */
+'local_rate': string;
+
+/**
  * Сумма
  */
 'total_cost': number;
@@ -24004,6 +20886,16 @@ export class RequestService extends BaseService {
  */
 'delivery': {
 };
+
+/**
+ * Итого: До границы
+ */
+'customs_rate': string;
+
+/**
+ * Итого: Локальные
+ */
+'local_rate': string;
 
 /**
  * Сумма
@@ -24150,40 +21042,143 @@ export class RequestService extends BaseService {
   static readonly RequestOfferListPath = '/request_offer_list';
 
   /**
+   * Коммерческие предложения.
+   *
+   *
+   *
    * This method provides access to the full `HttpResponse`, allowing access to response headers.
    * To access only the response body, use `requestOfferList()` instead.
    *
    * This method doesn't expect any request body.
    */
   requestOfferList$Response(
-    params?: {
+    params: {
+
+    /**
+     * ID Запроса
+     */
+      request_id: number;
+
+    /**
+     * Начальная позиция
+     */
+      start?: number;
+
+    /**
+     * Лимит позиций на страницу
+     */
+      count?: number;
     },
     context?: HttpContext
   ): Observable<StrictHttpResponse<{
 
 /**
- * Код ошибки
+ * Всего позиций
  */
-'error_code'?: number;
+'total'?: number;
 
 /**
- * Тект ошибки
+ * Позиции
  */
-'error_message'?: string;
+'items'?: Array<{
 
 /**
- * Подробное описание ошибки
+ * ID
  */
-'error_message_description'?: string;
+'id': number;
 
 /**
- * Подробное описание ошибки по полям
+ * UID
  */
-'error_fields_description'?: {
+'uid': string;
+
+/**
+ * Дата создания
+ */
+'time_add': string;
+
+/**
+ * ID Запроса
+ */
+'request_id': number;
+
+/**
+ * Запрос
+ */
+'request': {
+
+/**
+ * Кол-во мест
+ */
+'cargo_places_count'?: number;
+
+/**
+ * Вес, кг
+ */
+'cargo_places_weight'?: number;
+
+/**
+ * Плотность, кг/м3
+ */
+'cargo_places_density'?: number;
+
+/**
+ * Оплачиваемый вес, кг
+ */
+'cargo_places_paid_weight'?: number;
 };
+
+/**
+ * Вх. ставка
+ */
+'income_rate'?: string;
+
+/**
+ * Профит
+ */
+'profit'?: string;
+
+/**
+ * %
+ */
+'percent'?: string;
+
+/**
+ * Ставка итого
+ */
+'total_rate'?: string;
+
+/**
+ * Валидность
+ */
+'valid'?: string;
+
+/**
+ * Статус
+ */
+'status'?: string;
+
+/**
+ * Статус
+ */
+'status_text'?: string;
+
+/**
+ * Примечание
+ */
+'comment'?: string;
+}>;
+
+/**
+ * Колонки
+ */
+'columns'?: Array<string>;
 }>> {
     const rb = new RequestBuilder(this.rootUrl, RequestService.RequestOfferListPath, 'get');
     if (params) {
+      rb.query('request_id', params.request_id, {});
+      rb.query('start', params.start, {});
+      rb.query('count', params.count, {});
     }
 
     return this.http.request(
@@ -24194,108 +21189,451 @@ export class RequestService extends BaseService {
         return r as StrictHttpResponse<{
         
         /**
-         * Код ошибки
+         * Всего позиций
          */
-        'error_code'?: number;
+        'total'?: number;
         
         /**
-         * Тект ошибки
+         * Позиции
          */
-        'error_message'?: string;
+        'items'?: Array<{
         
         /**
-         * Подробное описание ошибки
+         * ID
          */
-        'error_message_description'?: string;
+        'id': number;
         
         /**
-         * Подробное описание ошибки по полям
+         * UID
          */
-        'error_fields_description'?: {
+        'uid': string;
+        
+        /**
+         * Дата создания
+         */
+        'time_add': string;
+        
+        /**
+         * ID Запроса
+         */
+        'request_id': number;
+        
+        /**
+         * Запрос
+         */
+        'request': {
+        
+        /**
+         * Кол-во мест
+         */
+        'cargo_places_count'?: number;
+        
+        /**
+         * Вес, кг
+         */
+        'cargo_places_weight'?: number;
+        
+        /**
+         * Плотность, кг/м3
+         */
+        'cargo_places_density'?: number;
+        
+        /**
+         * Оплачиваемый вес, кг
+         */
+        'cargo_places_paid_weight'?: number;
         };
+        
+        /**
+         * Вх. ставка
+         */
+        'income_rate'?: string;
+        
+        /**
+         * Профит
+         */
+        'profit'?: string;
+        
+        /**
+         * %
+         */
+        'percent'?: string;
+        
+        /**
+         * Ставка итого
+         */
+        'total_rate'?: string;
+        
+        /**
+         * Валидность
+         */
+        'valid'?: string;
+        
+        /**
+         * Статус
+         */
+        'status'?: string;
+        
+        /**
+         * Статус
+         */
+        'status_text'?: string;
+        
+        /**
+         * Примечание
+         */
+        'comment'?: string;
+        }>;
+        
+        /**
+         * Колонки
+         */
+        'columns'?: Array<string>;
         }>;
       })
     );
   }
 
   /**
+   * Коммерческие предложения.
+   *
+   *
+   *
    * This method provides access only to the response body.
    * To access the full response (for headers, for example), `requestOfferList$Response()` instead.
    *
    * This method doesn't expect any request body.
    */
   requestOfferList(
-    params?: {
+    params: {
+
+    /**
+     * ID Запроса
+     */
+      request_id: number;
+
+    /**
+     * Начальная позиция
+     */
+      start?: number;
+
+    /**
+     * Лимит позиций на страницу
+     */
+      count?: number;
     },
     context?: HttpContext
   ): Observable<{
 
 /**
- * Код ошибки
+ * Всего позиций
  */
-'error_code'?: number;
+'total'?: number;
 
 /**
- * Тект ошибки
+ * Позиции
  */
-'error_message'?: string;
+'items'?: Array<{
 
 /**
- * Подробное описание ошибки
+ * ID
  */
-'error_message_description'?: string;
+'id': number;
 
 /**
- * Подробное описание ошибки по полям
+ * UID
  */
-'error_fields_description'?: {
+'uid': string;
+
+/**
+ * Дата создания
+ */
+'time_add': string;
+
+/**
+ * ID Запроса
+ */
+'request_id': number;
+
+/**
+ * Запрос
+ */
+'request': {
+
+/**
+ * Кол-во мест
+ */
+'cargo_places_count'?: number;
+
+/**
+ * Вес, кг
+ */
+'cargo_places_weight'?: number;
+
+/**
+ * Плотность, кг/м3
+ */
+'cargo_places_density'?: number;
+
+/**
+ * Оплачиваемый вес, кг
+ */
+'cargo_places_paid_weight'?: number;
 };
+
+/**
+ * Вх. ставка
+ */
+'income_rate'?: string;
+
+/**
+ * Профит
+ */
+'profit'?: string;
+
+/**
+ * %
+ */
+'percent'?: string;
+
+/**
+ * Ставка итого
+ */
+'total_rate'?: string;
+
+/**
+ * Валидность
+ */
+'valid'?: string;
+
+/**
+ * Статус
+ */
+'status'?: string;
+
+/**
+ * Статус
+ */
+'status_text'?: string;
+
+/**
+ * Примечание
+ */
+'comment'?: string;
+}>;
+
+/**
+ * Колонки
+ */
+'columns'?: Array<string>;
 }> {
     return this.requestOfferList$Response(params, context).pipe(
       map((r: StrictHttpResponse<{
 
 /**
- * Код ошибки
+ * Всего позиций
  */
-'error_code'?: number;
+'total'?: number;
 
 /**
- * Тект ошибки
+ * Позиции
  */
-'error_message'?: string;
+'items'?: Array<{
 
 /**
- * Подробное описание ошибки
+ * ID
  */
-'error_message_description'?: string;
+'id': number;
 
 /**
- * Подробное описание ошибки по полям
+ * UID
  */
-'error_fields_description'?: {
+'uid': string;
+
+/**
+ * Дата создания
+ */
+'time_add': string;
+
+/**
+ * ID Запроса
+ */
+'request_id': number;
+
+/**
+ * Запрос
+ */
+'request': {
+
+/**
+ * Кол-во мест
+ */
+'cargo_places_count'?: number;
+
+/**
+ * Вес, кг
+ */
+'cargo_places_weight'?: number;
+
+/**
+ * Плотность, кг/м3
+ */
+'cargo_places_density'?: number;
+
+/**
+ * Оплачиваемый вес, кг
+ */
+'cargo_places_paid_weight'?: number;
 };
+
+/**
+ * Вх. ставка
+ */
+'income_rate'?: string;
+
+/**
+ * Профит
+ */
+'profit'?: string;
+
+/**
+ * %
+ */
+'percent'?: string;
+
+/**
+ * Ставка итого
+ */
+'total_rate'?: string;
+
+/**
+ * Валидность
+ */
+'valid'?: string;
+
+/**
+ * Статус
+ */
+'status'?: string;
+
+/**
+ * Статус
+ */
+'status_text'?: string;
+
+/**
+ * Примечание
+ */
+'comment'?: string;
+}>;
+
+/**
+ * Колонки
+ */
+'columns'?: Array<string>;
 }>): {
 
 /**
- * Код ошибки
+ * Всего позиций
  */
-'error_code'?: number;
+'total'?: number;
 
 /**
- * Тект ошибки
+ * Позиции
  */
-'error_message'?: string;
+'items'?: Array<{
 
 /**
- * Подробное описание ошибки
+ * ID
  */
-'error_message_description'?: string;
+'id': number;
 
 /**
- * Подробное описание ошибки по полям
+ * UID
  */
-'error_fields_description'?: {
+'uid': string;
+
+/**
+ * Дата создания
+ */
+'time_add': string;
+
+/**
+ * ID Запроса
+ */
+'request_id': number;
+
+/**
+ * Запрос
+ */
+'request': {
+
+/**
+ * Кол-во мест
+ */
+'cargo_places_count'?: number;
+
+/**
+ * Вес, кг
+ */
+'cargo_places_weight'?: number;
+
+/**
+ * Плотность, кг/м3
+ */
+'cargo_places_density'?: number;
+
+/**
+ * Оплачиваемый вес, кг
+ */
+'cargo_places_paid_weight'?: number;
 };
+
+/**
+ * Вх. ставка
+ */
+'income_rate'?: string;
+
+/**
+ * Профит
+ */
+'profit'?: string;
+
+/**
+ * %
+ */
+'percent'?: string;
+
+/**
+ * Ставка итого
+ */
+'total_rate'?: string;
+
+/**
+ * Валидность
+ */
+'valid'?: string;
+
+/**
+ * Статус
+ */
+'status'?: string;
+
+/**
+ * Статус
+ */
+'status_text'?: string;
+
+/**
+ * Примечание
+ */
+'comment'?: string;
+}>;
+
+/**
+ * Колонки
+ */
+'columns'?: Array<string>;
 } => r.body)
     );
   }
@@ -24320,7 +21658,7 @@ export class RequestService extends BaseService {
 /**
  * ID сводных запросов
  */
-'id': Array<string>;
+'id': Array<number>;
 }
     },
     context?: HttpContext
@@ -24369,7 +21707,7 @@ export class RequestService extends BaseService {
 /**
  * ID сводных запросов
  */
-'id': Array<string>;
+'id': Array<number>;
 }
     },
     context?: HttpContext
@@ -24397,137 +21735,55 @@ export class RequestService extends BaseService {
     );
   }
 
-  /** Path part for operation `requestOfferEdit()` */
-  static readonly RequestOfferEditPath = '/request_offer_edit';
-
-  /**
-   * Редактирование КП.
-   *
-   *
-   *
-   * This method provides access to the full `HttpResponse`, allowing access to response headers.
-   * To access only the response body, use `requestOfferEdit()` instead.
-   *
-   * This method doesn't expect any request body.
-   */
-  requestOfferEdit$Response(
-    params: {
-
-    /**
-     * ID Запроса
-     */
-      request_id: number;
-    },
-    context?: HttpContext
-  ): Observable<StrictHttpResponse<{
-
-/**
- * ID Запроса
- */
-'request_id': number;
-}>> {
-    const rb = new RequestBuilder(this.rootUrl, RequestService.RequestOfferEditPath, 'get');
-    if (params) {
-      rb.query('request_id', params.request_id, {});
-    }
-
-    return this.http.request(
-      rb.build({ responseType: 'json', accept: 'application/json', context })
-    ).pipe(
-      filter((r: any): r is HttpResponse<any> => r instanceof HttpResponse),
-      map((r: HttpResponse<any>) => {
-        return r as StrictHttpResponse<{
-        
-        /**
-         * ID Запроса
-         */
-        'request_id': number;
-        }>;
-      })
-    );
-  }
-
-  /**
-   * Редактирование КП.
-   *
-   *
-   *
-   * This method provides access only to the response body.
-   * To access the full response (for headers, for example), `requestOfferEdit$Response()` instead.
-   *
-   * This method doesn't expect any request body.
-   */
-  requestOfferEdit(
-    params: {
-
-    /**
-     * ID Запроса
-     */
-      request_id: number;
-    },
-    context?: HttpContext
-  ): Observable<{
-
-/**
- * ID Запроса
- */
-'request_id': number;
-}> {
-    return this.requestOfferEdit$Response(params, context).pipe(
-      map((r: StrictHttpResponse<{
-
-/**
- * ID Запроса
- */
-'request_id': number;
-}>): {
-
-/**
- * ID Запроса
- */
-'request_id': number;
-} => r.body)
-    );
-  }
-
   /** Path part for operation `requestOfferSave()` */
   static readonly RequestOfferSavePath = '/request_offer_save';
 
   /**
+   * Редактирование КП.
+   *
+   *
+   *
    * This method provides access to the full `HttpResponse`, allowing access to response headers.
    * To access only the response body, use `requestOfferSave()` instead.
    *
-   * This method doesn't expect any request body.
+   * This method sends `application/json` and handles request body of type `application/json`.
    */
   requestOfferSave$Response(
     params?: {
+      body?: {
+
+/**
+ * UID
+ */
+'uid': string;
+
+/**
+ * Валидность
+ */
+'valid'?: string;
+
+/**
+ * Статус
+ */
+'status'?: string;
+
+/**
+ * Примечание
+ */
+'comment'?: string;
+}
     },
     context?: HttpContext
   ): Observable<StrictHttpResponse<{
 
 /**
- * Код ошибки
+ * Статус выполнения
  */
-'error_code'?: number;
-
-/**
- * Тект ошибки
- */
-'error_message'?: string;
-
-/**
- * Подробное описание ошибки
- */
-'error_message_description'?: string;
-
-/**
- * Подробное описание ошибки по полям
- */
-'error_fields_description'?: {
-};
+'result': 'OK';
 }>> {
-    const rb = new RequestBuilder(this.rootUrl, RequestService.RequestOfferSavePath, 'get');
+    const rb = new RequestBuilder(this.rootUrl, RequestService.RequestOfferSavePath, 'post');
     if (params) {
+      rb.body(params.body, 'application/json');
     }
 
     return this.http.request(
@@ -24538,108 +21794,167 @@ export class RequestService extends BaseService {
         return r as StrictHttpResponse<{
         
         /**
-         * Код ошибки
+         * Статус выполнения
          */
-        'error_code'?: number;
-        
-        /**
-         * Тект ошибки
-         */
-        'error_message'?: string;
-        
-        /**
-         * Подробное описание ошибки
-         */
-        'error_message_description'?: string;
-        
-        /**
-         * Подробное описание ошибки по полям
-         */
-        'error_fields_description'?: {
-        };
+        'result': 'OK';
         }>;
       })
     );
   }
 
   /**
+   * Редактирование КП.
+   *
+   *
+   *
    * This method provides access only to the response body.
    * To access the full response (for headers, for example), `requestOfferSave$Response()` instead.
    *
-   * This method doesn't expect any request body.
+   * This method sends `application/json` and handles request body of type `application/json`.
    */
   requestOfferSave(
     params?: {
+      body?: {
+
+/**
+ * UID
+ */
+'uid': string;
+
+/**
+ * Валидность
+ */
+'valid'?: string;
+
+/**
+ * Статус
+ */
+'status'?: string;
+
+/**
+ * Примечание
+ */
+'comment'?: string;
+}
     },
     context?: HttpContext
   ): Observable<{
 
 /**
- * Код ошибки
+ * Статус выполнения
  */
-'error_code'?: number;
-
-/**
- * Тект ошибки
- */
-'error_message'?: string;
-
-/**
- * Подробное описание ошибки
- */
-'error_message_description'?: string;
-
-/**
- * Подробное описание ошибки по полям
- */
-'error_fields_description'?: {
-};
+'result': 'OK';
 }> {
     return this.requestOfferSave$Response(params, context).pipe(
       map((r: StrictHttpResponse<{
 
 /**
- * Код ошибки
+ * Статус выполнения
  */
-'error_code'?: number;
-
-/**
- * Тект ошибки
- */
-'error_message'?: string;
-
-/**
- * Подробное описание ошибки
- */
-'error_message_description'?: string;
-
-/**
- * Подробное описание ошибки по полям
- */
-'error_fields_description'?: {
-};
+'result': 'OK';
 }>): {
 
 /**
- * Код ошибки
+ * Статус выполнения
  */
-'error_code'?: number;
+'result': 'OK';
+} => r.body)
+    );
+  }
+
+  /** Path part for operation `requestOfferDelete()` */
+  static readonly RequestOfferDeletePath = '/request_offer_delete';
+
+  /**
+   * Удаление КП.
+   *
+   *
+   *
+   * This method provides access to the full `HttpResponse`, allowing access to response headers.
+   * To access only the response body, use `requestOfferDelete()` instead.
+   *
+   * This method sends `application/json` and handles request body of type `application/json`.
+   */
+  requestOfferDelete$Response(
+    params?: {
+      body?: {
 
 /**
- * Тект ошибки
+ * ID
  */
-'error_message'?: string;
+'id': Array<number>;
+}
+    },
+    context?: HttpContext
+  ): Observable<StrictHttpResponse<{
 
 /**
- * Подробное описание ошибки
+ * Статус выполнения
  */
-'error_message_description'?: string;
+'result': 'OK';
+}>> {
+    const rb = new RequestBuilder(this.rootUrl, RequestService.RequestOfferDeletePath, 'post');
+    if (params) {
+      rb.body(params.body, 'application/json');
+    }
+
+    return this.http.request(
+      rb.build({ responseType: 'json', accept: 'application/json', context })
+    ).pipe(
+      filter((r: any): r is HttpResponse<any> => r instanceof HttpResponse),
+      map((r: HttpResponse<any>) => {
+        return r as StrictHttpResponse<{
+        
+        /**
+         * Статус выполнения
+         */
+        'result': 'OK';
+        }>;
+      })
+    );
+  }
+
+  /**
+   * Удаление КП.
+   *
+   *
+   *
+   * This method provides access only to the response body.
+   * To access the full response (for headers, for example), `requestOfferDelete$Response()` instead.
+   *
+   * This method sends `application/json` and handles request body of type `application/json`.
+   */
+  requestOfferDelete(
+    params?: {
+      body?: {
 
 /**
- * Подробное описание ошибки по полям
+ * ID
  */
-'error_fields_description'?: {
-};
+'id': Array<number>;
+}
+    },
+    context?: HttpContext
+  ): Observable<{
+
+/**
+ * Статус выполнения
+ */
+'result': 'OK';
+}> {
+    return this.requestOfferDelete$Response(params, context).pipe(
+      map((r: StrictHttpResponse<{
+
+/**
+ * Статус выполнения
+ */
+'result': 'OK';
+}>): {
+
+/**
+ * Статус выполнения
+ */
+'result': 'OK';
 } => r.body)
     );
   }

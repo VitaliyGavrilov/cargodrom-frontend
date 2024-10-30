@@ -14,12 +14,15 @@ import { ContractorService, DirectionService, RequestService, TransportService }
   // encapsulation: ViewEncapsulation.None,
 })
 export class RateAddTransporter implements OnInit, OnDestroy {
-  @Input() chargesShema?:any;
   @Input() weight?:number;
-  @Input() requestId?:number;
+  @Input() requestId!:number;
   @Input() transportKindId?:number;
   @Input() cityId?:number;
   @Input() rate?:any;
+  @Output() closeDialog = new EventEmitter<void>();
+
+  chargesShema:any;
+  currencyShema:any;
 
 
   rateForm: FormGroup;
@@ -55,9 +58,16 @@ export class RateAddTransporter implements OnInit, OnDestroy {
       values: fb.array([], []),
     });
   }
+  onCancelBtnClick(){
+    this.closeForm()
+  }
+  closeForm(){
+    this.closeDialog.emit();
+  }
 
   // Методы ЖЦ
   ngOnInit(): void {
+    this.getChargesShema();
     this.getTransportKind();
     this.getContractor();
     this.getArrivalPoinst();
@@ -66,24 +76,12 @@ export class RateAddTransporter implements OnInit, OnDestroy {
     if(this.rate){
       console.log('this edit mode', this.rate);
       this.rate.values.forEach((i:any)=>{
-        // this.charges.push(this.fb.group({
-        //   kind_id: [i.kind_id,[]],
-        //   departure_city_id: [i.departure_city_id,[]],
-        //   arrival_city_id: [i.arrival_city_id,[]],
-        //   days_min: [i.days_min,[]],
-        //   days_max: [i.days_max,[]],
-        //   amount: [i.amount,[]],
-        //   comment: [i.comment,[]],
-        // }));
         this.addCharge()
       });
       this.rateForm.patchValue(this.rate);
-      // this.calckRateCost();
-      // this.table?.renderRows();
     } else{
       this.addCharge();
     }
-    // this.rateForm.patchValue({request_id: this.requestId});
   }
 
   ngOnDestroy(): void {
@@ -260,10 +258,29 @@ export class RateAddTransporter implements OnInit, OnDestroy {
       )
       .subscribe({
         next: (contractor) => {
-
+          this.closeForm();
+          this.snackBar.open(!this.rate?'Ставка успешно создана':'Ставка успешно изменена', undefined, this.snackBarWithShortDuration);
         },
         error: (err) => {
-          this.snackBar.open(`Ошибка запроса маршрутов: ` + err.error.error_message, undefined, this.snackBarWithShortDuration);
+          this.snackBar.open(!this.rate?'Ошибка создания ставки:':'Ошибка изменения ставки:' + err.error.error_message, undefined, this.snackBarWithShortDuration);
+        }
+      });
+  }
+  //
+  getChargesShema():void{
+    this.requestService.requestRateFormParam({request_id:this.requestId, method:'transporter'})
+      .pipe(
+        tap(schema => {
+          console.log(schema);
+        }),
+        takeUntil(this._destroy$),
+      )
+      .subscribe({
+        next: (schema) => {
+          this.currencyShema=schema.currency;
+        },
+        error: (err) => {
+          this.snackBar.open('Ошибка получения схемы:' + err.error.error_message, undefined, this.snackBarWithShortDuration);
         }
       });
   }

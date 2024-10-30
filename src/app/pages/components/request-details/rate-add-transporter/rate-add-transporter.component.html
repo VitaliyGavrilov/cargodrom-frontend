@@ -2,14 +2,7 @@
   <div class="form-block">
     <div class="form-row">
       <div class="form-item-layout">
-
-        <!-- <div class="form-item i10">
-          <div class="form-label">Оплачиваемый вес:</div>
-          <div class="form-data">
-            <input type="number" [value]="weight" readonly >
-          </div>
-        </div> -->
-
+        
         <ng-container *ngTemplateOutlet="formItemSelector; context: { label: 'Подрядчик:', control: 'contractor_id', data: contractorList }"></ng-container>
         <ng-container *ngTemplateOutlet="formItemSelector; context: { label: 'Наименнование Аэропорта:', control: 'point_id', data: pointList }"></ng-container>
         <ng-container *ngTemplateOutlet="formItemSelector; context: { label: 'Вид прайса:', control: 'point_action_id', data: pointActionList }"></ng-container>
@@ -136,7 +129,11 @@
     </div>
   </div>
 
-  <div style="display: flex;justify-content: end;">
+  <div style="display: flex;justify-content: end; gap: 10px;">
+    <button class="btn-close-dialog" (click)="onCancelBtnClick()">
+      <span class="icon-btn-close-dialog"></span>
+      Отмена
+    </button>
     <button type="submit" class="btn-save-rates" (click)="rateSave()">
       <span class="icon-btn-save-rates"></span>
       Сохранить

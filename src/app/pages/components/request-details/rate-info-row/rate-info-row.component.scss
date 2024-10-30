@@ -89,15 +89,15 @@
               display: flex;
               background-image: url(../../../../../assets/pic-star-sel.svg);
               background-position: center;
-              width: 20px;
-              height: 20px;
+              width: 14px;
+              height: 14px;
             }
             .star_no-sel{
               display: flex;
               background-image: url(../../../../../assets/pic-star.svg);
               background-position: center;
-              width: 20px;
-              height: 20px;
+              width: 14px;
+              height: 14px;
             }
           }
         }
@@ -105,6 +105,12 @@
           .flags{
             display: flex;
             gap: 18px;
+            .red{
+              color: #FD7171;
+            }
+            .green{
+              color: #81DD7C;
+            }
             .red_flag{
               display: flex;
               background-image: url(../../../../../assets/pic-flag-minus.svg);
@@ -112,6 +118,7 @@
               width: 20px;
               height: 21px;
               margin-bottom: 10px;
+
             }
             .green_flag{
               display: block;
@@ -120,6 +127,8 @@
               width: 20px;
               height: 21px;
               margin-bottom: 10px;
+
+
             }
           }
         }

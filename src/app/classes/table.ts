@@ -543,8 +543,8 @@ export abstract class Table<T extends { id: number }, A = never, F = never> impl
 
         this.currentRequest=request;
         if(this.isBiddingMode){
-          this.filterService.value["country_departure"]=this.currentRequest.departure_country_id;
-          this.filterService.value["country_arrival"]=this.currentRequest.arrival_country_id;
+          this.filterService.value["country_departure_id"]=this.currentRequest.departure_country_id;
+          this.filterService.value["country_arrival_id"]=this.currentRequest.arrival_country_id;
           this.filterService.value["specialization"]=[this.currentRequest.transport_kind_id];
           // this.filterService.value["rating"]=this.currentRequest.request_type_id;
           this.filterService.apply();

@@ -227,8 +227,6 @@
         </div>
       </div>
 
-
-
       <div class="form-item-layout">
         <div class="form-item">
           <div class="form-label">Примечание:</div>
@@ -241,7 +239,11 @@
 
   </div>
 
-  <div style="display: flex;justify-content: end;">
+  <div style="display: flex;justify-content: end; gap: 10px;">
+    <button class="btn-close-dialog" (click)="onCancelBtnClick()">
+      <span class="icon-btn-close-dialog"></span>
+      Отмена
+    </button>
     <button type="submit" class="btn-save-rates" (click)="rateSave()">
       <span class="icon-btn-save-rates"></span>
       Сохранить

@@ -11,6 +11,7 @@ export class RateInfoRow {
   @Input() rate?: any;
   @Input() detailsMethod?: string;
   @Input() costClass?: string;
+  @Input() percent?:number
 
   constructor(
   ) {}

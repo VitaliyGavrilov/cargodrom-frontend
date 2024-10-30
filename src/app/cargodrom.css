@@ -928,6 +928,7 @@ app-settings { display: flex; flex-direction: column; flex: 1 1 auto; }
 .table-list .w70 { width: 70%; flex-grow: 0 !important; }
 .table-list .w80 { width: 80%; flex-grow: 0 !important; }
 .table-list .w90 { width: 90%; flex-grow: 0 !important; }
+.table-list .no-grow { flex-grow: 0 !important; }
 
 .table-list .center {  text-align: center; justify-content: center;  }
 .table-list .left {  text-align: left; justify-content: left;  }

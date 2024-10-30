@@ -129,11 +129,30 @@
   padding: 10px;
   color: white;
   display: flex;
-  width: 120px;
   cursor: pointer;
 }
 .icon-btn-save-rates{
   background-image: url(../../../../../assets/pic-btn-send-white.svg);
+  background-repeat: no-repeat;
+  width: 20px;
+  height: 15px;
+  display: block;
+  margin-right: 5px;
+}
+
+//  btn save rates
+.btn-close-dialog{
+  margin-top: 24px;
+  background-color: #606A74;
+  border: none;
+  border-radius: 6px;
+  padding: 10px;
+  color: white;
+  display: flex;
+  cursor: pointer;
+}
+.icon-btn-close-dialog{
+  background-image: url(../../../../../assets/pic-btn-cancel.svg);
   background-repeat: no-repeat;
   width: 20px;
   height: 15px;

@@ -13,12 +13,16 @@ import { ContractorService, DirectionService, RequestService, TransportService }
   // encapsulation: ViewEncapsulation.None,
 })
 export class RateAddPoint implements OnInit, OnDestroy {
-  @Input() chargesShema?:any;
+
   @Input() weight?:number;
-  @Input() requestId?:number;
+  @Input() requestId!:number;
   @Input() transportKindId?:number;
   @Input() cityId?:number;
   @Input() rate?:any;
+  @Output() closeDialog = new EventEmitter<void>();
+
+  chargesShema:any;
+  currencyShema:any;
 
   rateForm: FormGroup;
   private _destroy$ = new Subject();
@@ -52,31 +56,39 @@ export class RateAddPoint implements OnInit, OnDestroy {
 
   // Методы ЖЦ
   ngOnInit(): void {
+    this.getChargesShema();
     this.getContractor();
     this.getArrivalPoinst();
     this.getPointAction();
-    this.chargesShema.forEach((i:any)=>{
-      this.charges.push(this.fb.group({
-        comment: [,[]],
-        cost: [,[]],
-        field: [i.field_name,[]],
-        fix: [,[]],
-        min: [,[]],
-        price: [,[]],
-        select: [i.status,[]],
-        value: [i.unit==='kg'?Math.ceil(this.weight!):1,[]],
-      }));
-      this.rateForm.markAsTouched();
-    });
-    if(this.rate){
-      console.log('this edit mode', this.rate);
-      this.rateForm.patchValue(this.rate);
-    }
+    // this.chargesShema.forEach((i:any)=>{
+    //   this.charges.push(this.fb.group({
+    //     comment: [,[]],
+    //     cost: [,[]],
+    //     field: [i.field_name,[]],
+    //     fix: [,[]],
+    //     min: [,[]],
+    //     price: [,[]],
+    //     select: [i.status,[]],
+    //     value: [i.unit==='kg'?Math.ceil(this.weight!):1,[]],
+    //   }));
+    //   this.rateForm.markAsTouched();
+    // });
+    // if(this.rate){
+    //   console.log('this edit mode', this.rate);
+    //   this.rateForm.patchValue(this.rate);
+    // }
     this.rateForm.patchValue({request_id: this.requestId});
   }
   ngOnDestroy(): void {
     this._destroy$.next(null);
     this._destroy$.complete();
+  }
+
+  onCancelBtnClick(){
+    this.closeForm()
+  }
+  closeForm(){
+    this.closeDialog.emit();
   }
 
   // Charges
@@ -169,7 +181,6 @@ export class RateAddPoint implements OnInit, OnDestroy {
 
   rateSave():void{
     console.log(this.rateForm.value);
-
     this.requestService.requestRatePointSave({body:this.rateForm.value})
       .pipe(
         tap(contractor => {
@@ -179,10 +190,49 @@ export class RateAddPoint implements OnInit, OnDestroy {
       )
       .subscribe({
         next: (contractor) => {
+          this.closeForm();
+          this.snackBar.open(!this.rate?'Ставка успешно создана':'Ставка успешно изменена', undefined, this.snackBarWithShortDuration);
+        },
+        error: (err) => {
+          this.snackBar.open(!this.rate?'Ошибка создания ставки:':'Ошибка изменения ставки:' + err.error.error_message, undefined, this.snackBarWithShortDuration);
+        }
+      });
+  }
+  //
+  getChargesShema():void{
+    this.requestService.requestRateFormParam({request_id:this.requestId,method:'point'})
+      .pipe(
+        tap(schema => {
+          console.log(schema);
+        }),
+        takeUntil(this._destroy$),
+      )
+      .subscribe({
+        next: (schema) => {
+          this.chargesShema=schema.charges;
+          this.currencyShema=schema.currency;
+          this.chargesShema.forEach((i:any)=>{
+            this.charges.push(this.fb.group({
+              comment: [,[]],
+              cost: [,[]],
+              field: [i.field_name,[]],
+              fix: [,[]],
+              min: [,[]],
+              price: [,[]],
+              select: [i.checked,[]],
+              // select:[i.checked,{disabled: i.checked},[]],
+              value: [i.unit==='kg'?Math.ceil(this.weight!):1,[]],
+            }));
+            this.rateForm.markAsTouched();
+          });
+          if(this.rate){
+            console.log('this edit mode', this.rate);
+            this.rateForm.patchValue(this.rate);
+          }
 
         },
         error: (err) => {
-          this.snackBar.open(`Ошибка запроса маршрутов: ` + err.error.error_message, undefined, this.snackBarWithShortDuration);
+          this.snackBar.open('Ошибка получения схемы:' + err.error.error_message, undefined, this.snackBarWithShortDuration);
         }
       });
   }

@@ -15,11 +15,51 @@
   </div>
 </div>
 
-<div class="subtitle">Коммерческие предложения: 0</div>
-<div class="kp-none">Коммерческих предложений нет</div>
+<ng-container *ngIf="!offerList?.items">
+  <div class="subtitle">Коммерческие предложения: 0</div>
+  <div class="kp-none">Коммерческих предложений нет</div>
+</ng-container>
+
+<ng-container *ngIf="offerList?.items">
+  <div class="subtitle">Коммерческие предложения: {{offerList.total}}</div>
+  <div class="table-list">
+    <table mat-table [dataSource]="offerList?.items" multiTemplateDataRows>
+      <ng-container
+        *ngFor="let col of offerList.columns"
+        [matColumnDef]="col.column"
+      >
+        <th mat-header-cell *matHeaderCellDef >
+          <div class="td-block">
+            <div class="column"
+              *ngFor="let miniCol of col.items"
+            >
+              {{miniCol.title}}
+            </div>
+          </div>
+        </th>
+
+        <td mat-cell *matCellDef="let item">
+          <div class="td-block" >
+            <div class="column"
+              *ngFor="let miniCol of col.items"
+            >
+              <!-- {{item[miniCol.field]}} -->
+              {{ getVal(item,miniCol.field) }}
+            </div>
+          </div>
+        </td>
+      </ng-container>
+
+      <tr mat-header-row *matHeaderRowDef="offerList.colList"></tr>
+      <tr mat-row *matRowDef="let myRowData; columns: offerList.colList"></tr>
+    </table>
+  </div>
+
+</ng-container>
+
 
 <div style="display: flex; align-items: center;">
-  <div class="subtitle">Ставки: 5/8</div>
+  <div class="subtitle">Ставки: {{currentRequest.count_rate_send}}/{{currentRequest.count_rate_answer}}</div>
   <div class="rate-links">
     <div (click)="onTableMethodChange('final')" [ngClass]="detailsMethod==='final'? 'table-active':'' ">Итоговые</div>
     <div (click)="onTableMethodChange('customs')" [ngClass]="detailsMethod==='customs'? 'table-active':'' ">До границы</div>
@@ -36,10 +76,15 @@
   (saveBidding)="saveContractorSelectRequest()"
   >
     <div class="detail-btn" *ngIf="isRateDetailsMode">
-      <button class="add" (click)="onAddRateBtnClick()"><span style="text-wrap: nowrap" >+ СТАВКА</span></button>
-      <button class="dub" (click)="onDubSelectRateBtnClick()">ДУБЛЬ</button>
-      <button class="bid" (click)="onBidSelectRateBtnClick()">ТОРГИ</button>
-      <button class="del" (click)="onDelSelectRateBtnClick()">УДАЛИТЬ</button>
+      <button *ngIf="detailsMethod!=='final'" class="add rate" (click)="onAddRateBtnClick(detailsMethod)">
+        <span style="text-wrap: nowrap" >+ СТАВКА</span>
+      </button>
+      <button *ngIf="detailsMethod==='final'" class="add kp" (click)="onAddKpBtnClick()" [disabled]="arrDetailsCheckedCheck.length==0">
+        <span style="text-wrap: nowrap" >+ КП</span>
+      </button>
+      <button *ngIf="detailsMethod!=='final'" class="dub" (click)="onDubSelectRateBtnClick()" [disabled]="arrDetailsCheckedCheck.length==0">ДУБЛЬ</button>
+      <button *ngIf="detailsMethod !== 'final' && detailsMethod !== 'point'" class="bid" (click)="onBidSelectRateBtnClick()">ТОРГИ</button>
+      <button class="del" (click)="onDelSelectRateBtnClick()" [disabled]="arrDetailsCheckedCheck.length==0">УДАЛИТЬ</button>
     </div>
 </app-table-filter>
 
@@ -52,7 +97,7 @@
       <!-- обычные элементы табл -->
       <ng-template [ngSwitchDefault]>
         <th mat-header-cell *matHeaderCellDef [style.width]="col.width" [class]="col.class">
-          <div class="td-block">
+          <div class="td-block" *ngIf="!col.title">
             <div class="column"
               *ngFor="let miniCol of col.items"
               [style.width]="miniCol.width"
@@ -61,14 +106,30 @@
               {{miniCol.title}}
             </div>
           </div>
+
+          <div class="td-block-column" *ngIf="col.title">
+            <div class="td-block-title">{{col.title}}</div>
+            <div class="td-block-line">
+              <div class="column" *ngFor="let miniCol of col.items" [style.width]="miniCol.width" [class]="miniCol.class">
+                {{miniCol.title}}
+              </div>
+            </div>
+          </div>
         </th>
+
         <td mat-cell *matCellDef="let item" [style.width]="col.width" [class]="col.class">
-          <div class="td-block">
+          <div class="td-block" *ngIf="!col.title">
             <div class="column"
               *ngFor="let miniCol of col.items"
               [style.width]="miniCol.width"
               [class]="miniCol.class"
             >
+              {{ getVal(item,miniCol.field) }}
+            </div>
+          </div>
+
+          <div class="td-block-line" *ngIf="col.title">
+            <div class="column" *ngFor="let miniCol of col.items" [style.width]="miniCol.width" [class]="miniCol.class">
               {{ getVal(item,miniCol.field) }}
             </div>
           </div>
@@ -121,7 +182,9 @@
           <div class="setting-link"></div>
         </th>
         <td mat-cell *matCellDef="let item" [style.width]="col.width" [class]="col.class">
-          <div class="td-block" style="cursor: pointer;" (click)="onOpenDetailsRateBtnClick(item)">
+          <!-- <div class="td-block" style="cursor: pointer;" (click)="expandedElement = expandedElement === item ? null : item;" > -->
+          <div class="td-block" style="cursor: pointer;" (click)="onOpenDetailsRateBtnClick(item);" >
+            <!-- (click)="$event.stopPropagation()" -->
             <div class="column">
               <div [ngClass]="expandedElement===item?'arrow-close':'arrow-open'"></div>
             </div>
@@ -133,17 +196,22 @@
 
     <!-- РАСШИРЕННАЯ СТРОКА -->
     <ng-container matColumnDef="expandedDetail" >
-      <td mat-cell *matCellDef="let element" [attr.colspan]='column?.length' [ngSwitch]="detailsMethod">
+      <td mat-cell *matCellDef="let element" [attr.colspan]='column?.length'>
+        <div class="example-element-detail" *ngIf="element==expandedElement">
 
-        <div class="example-element-detail" *ngIf="element===expandedElement">
-          <ng-template [ngSwitchDefault]>
-            <app-rate-info-row [rate]="expandedElement" [detailsMethod]="detailsMethod">
-              <ng-container test2 *ngTemplateOutlet="rateActions"></ng-container>
+          <ng-container *ngIf="detailsMethod!=='final'">
+            <app-rate-info-row
+              [rate]="expandedElement"
+              [detailsMethod]="detailsMethod"
+            >
+              <ng-container test2 *ngTemplateOutlet="rateActions; context: { mode: detailsMethod, data: expandedElement }"></ng-container>
             </app-rate-info-row>
-          </ng-template>
-          <ng-template [ngSwitchCase]="'final'">
+          </ng-container>
+
+          <ng-container *ngIf="detailsMethod==='final'">
+
             <div class="costs">
-              <ng-container *ngTemplateOutlet="costRateBox; context: { label: 'Итоговая ставка:', sum:expandedElement.total_cost_text   }">
+              <ng-container *ngTemplateOutlet="costRateBox; context: { label: 'Итоговая ставка:', sum:expandedElement.total_cost_text }">
               </ng-container>
               ≈
               <ng-container *ngTemplateOutlet="costRateBox; context: { label: 'До границы:', sum: expandedElement.custom?.total_cost_text }">
@@ -156,16 +224,40 @@
               </ng-container>
             </div>
 
-            <app-rate-info-row [rate]="expandedElement.custom" [detailsMethod]="'customs'" [costClass]="'final'">
-              <ng-container test2 *ngTemplateOutlet="rateActions"></ng-container>
+            <app-rate-info-row
+              [rate]="expandedElement.custom"
+              [detailsMethod]="'customs'"
+              [costClass]="'final'"
+              [percent]="getRatesPercent(expandedElement.custom?.total_cost,expandedElement.total_cost)"
+            >
+              <ng-container test2
+                *ngTemplateOutlet="rateActions; context: { mode: 'customs', data: expandedElement.custom }">
+              </ng-container>
             </app-rate-info-row>
-            <app-rate-info-row [rate]="expandedElement.storage" [detailsMethod]="'point'" [costClass]="'final'">
-              <ng-container test2 *ngTemplateOutlet="rateActions"></ng-container>
+
+            <app-rate-info-row
+              [rate]="expandedElement.storage"
+              [detailsMethod]="'point'"
+              [costClass]="'final'"
+              [percent]="getRatesPercent(expandedElement.storage?.total_cost,expandedElement.total_cost)"
+            >
+              <ng-container test2
+                *ngTemplateOutlet="rateActions;context: { mode: 'point', data: expandedElement.storage }">
+              </ng-container>
             </app-rate-info-row>
-            <app-rate-info-row [rate]="expandedElement.delivery" [detailsMethod]="'transporter'" [costClass]="'final'">
-              <ng-container test2 *ngTemplateOutlet="rateActions"></ng-container>
+
+            <app-rate-info-row
+              [rate]="expandedElement.delivery"
+              [detailsMethod]="'transporter'"
+              [costClass]="'final'"
+              [percent]="getRatesPercent(expandedElement.delivery?.total_cost,expandedElement.total_cost)"
+            >
+              <ng-container test2
+                *ngTemplateOutlet="rateActions; context: { mode: 'transporter', data: expandedElement.delivery }">
+              </ng-container>
             </app-rate-info-row>
-          </ng-template>
+          <!-- </ng-template> -->
+          </ng-container>
         </div>
 
       </td>
@@ -190,33 +282,36 @@
 <ng-template #rateСustomsDialogRef let-data>
   <app-rate-add-customs
     [rate]="data"
-    [chargesShema]="schemaCharges"
+
     [weight]="currentRequest.cargo_places_paid_weight"
     [requestId]="currentRequest.id"
     [transportKindId]="currentRequest.transport_kind_id"
-    [cityId]="currentRequest.arrival_city_id">
+    [cityId]="currentRequest.arrival_city_id"
+    (closeDialog)="closeAllDialogs()">
   </app-rate-add-customs>
 </ng-template>
 
 <ng-template #ratePointDialogRef let-data>
   <app-rate-add-point
     [rate]="data"
-    [chargesShema]="schemaCharges"
+
     [weight]="currentRequest.cargo_places_paid_weight"
     [requestId]="currentRequest.id"
     [transportKindId]="currentRequest.transport_kind_id"
-    [cityId]="currentRequest.arrival_city_id">
+    [cityId]="currentRequest.arrival_city_id"
+    (closeDialog)="closeAllDialogs()">
   </app-rate-add-point>
 </ng-template>
 
 <ng-template #rateTransporterDialogRef let-data>
   <app-rate-add-transporter
     [rate]="data"
-    [chargesShema]="schemaCharges"
+
     [weight]="currentRequest.cargo_places_paid_weight"
     [requestId]="currentRequest.id"
     [transportKindId]="currentRequest.transport_kind_id"
-    [cityId]="currentRequest.arrival_city_id">
+    [cityId]="currentRequest.arrival_city_id"
+    (closeDialog)="closeAllDialogs()">
   </app-rate-add-transporter>
 </ng-template>
 
@@ -236,10 +331,10 @@
   </div>
 </ng-template>
 
-<ng-template #rateActions>
+<ng-template #rateActions let-mode="mode" let-data="data">
   <div class="action-bar" >
-    <button class="edit" (click)="onEditRateBtnClick()"></button>
-    <button class="dub" (click)="onDubSingleRateBtnClick()"></button>
+    <button class="edit" (click)="onEditRateBtnClick(mode,data)"></button>
+    <button class="dub" (click)="onDubSingleRateBtnClick(data)"></button>
     <button class="del" (click)="onDelSingleRateBtnClick()"></button>
   </div>
 </ng-template>

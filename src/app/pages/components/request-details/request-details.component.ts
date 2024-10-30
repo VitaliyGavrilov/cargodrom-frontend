@@ -48,6 +48,8 @@ export class RequestDetails extends Table<any, 'trade_rating', ContractorFilter>
   // params:any;
   // trackById = (_index: number, contractor: LoadRows) => contractor.id!;
 
+  offerList:any;
+
   isExpandedRequestInfo:boolean=false;
   expandedRequestInfoItems:any=[
     {
@@ -89,6 +91,11 @@ export class RequestDetails extends Table<any, 'trade_rating', ContractorFilter>
     private matDialog: MatDialog,
   ) { super(route, router, dialog, snackBar, filter) }
 
+  override loadRows(): void {
+    super.loadRows();
+    this.getOfferList();
+  }
+
   //методы для таблицы
   load<LoadRows>(params: LoadParams<any, any>): Observable<{ total: number; items: LoadRows[] }> {
     const methodMap: { [key: string]: Function } = {
@@ -105,6 +112,10 @@ export class RequestDetails extends Table<any, 'trade_rating', ContractorFilter>
   }
   protected override requestInfo(id: number) {
     return this.requestService.requestInfo({id:id});
+  }
+  //
+  getRatesPercent(rateCost:number,finalRateCost:number):number{
+    return (rateCost / finalRateCost) * 100;
   }
   //
   getVal(obj: any, path: string): any {
@@ -140,8 +151,11 @@ export class RequestDetails extends Table<any, 'trade_rating', ContractorFilter>
     this.router.navigate(['pages/request/details', method, this.requestId])
   }
   // HANDLING CHECKBOX ACTIONS
-  onAddRateBtnClick(){
-    this.openRateEditor();
+  onAddKpBtnClick(){
+    this.openAddKpDialog('Вы уверенны, что хотите создать коммерческое предложение из выбранных  '+ this.arrDetailsCheckedCheck.length + ' ставок', this.arrDetailsCheckedCheck, 'Создание коммерческого предложения');
+  }
+  onAddRateBtnClick(mode:string){
+    this.openRateEditor(mode);
   }
   onDubSelectRateBtnClick(){
     this.duplicateRate(this.arrDetailsCheckedCheck);
@@ -150,8 +164,9 @@ export class RequestDetails extends Table<any, 'trade_rating', ContractorFilter>
     // this.saveRate(body);
   }
   onBidSelectRateBtnClick(){
-    this.snackBar.open(`Торги в данный момент не доступны, количество выбранных элементов: `+this.arrDetailsCheckedCheck.length, undefined, this.snackBarWithShortDuration);
-    this.arrDetailsCheckedCheck=[];
+    this.navToBidTable();
+    // this.snackBar.open(`Торги в данный момент не доступны, количество выбранных элементов: `+this.arrDetailsCheckedCheck.length, undefined, this.snackBarWithShortDuration);
+    // this.arrDetailsCheckedCheck=[];
   }
   onDelSelectRateBtnClick(){
     this.openDeleteRateDialog('Вы уверенны, что хотите удалить '+ this.arrDetailsCheckedCheck.length + ' ставок', this.arrDetailsCheckedCheck, 'Удаление ставок');
@@ -196,14 +211,15 @@ export class RequestDetails extends Table<any, 'trade_rating', ContractorFilter>
   }
   // TOGGLE EXPANDED ROW
   onOpenDetailsRateBtnClick(item:any){
-    this.expandedElement = this.expandedElement === item ? null : item;
+    // this.expandedElement=item
+    this.expandedElement = this.expandedElement === item ? {} : item;
   }
-  // HANDLERS in EXPANDED ROW
-  onEditRateBtnClick(){
-    this.openRateEditor(this.expandedElement);
+  // EXPANDED ROW HANDLERS
+  onEditRateBtnClick(mode:string,data:any ){
+    this.openRateEditor(mode, data);
   }
-  onDubSingleRateBtnClick(){
-    this.duplicateRate([this.expandedElement.id]);
+  onDubSingleRateBtnClick(data:any){
+    this.duplicateRate([data.id]);
   }
   onDelSingleRateBtnClick(){
     this.openDeleteRateDialog('Вы уверенны, что хотите удалить ставку №'+ this.expandedElement.id, [this.expandedElement.id], 'Удаление ставки')
@@ -220,17 +236,26 @@ export class RequestDetails extends Table<any, 'trade_rating', ContractorFilter>
   navToRateTable(){
     this.router.navigate(['pages/request'])
   }
-  // OPEN DIALOG
-  openRateEditor(data?: any) {
+  navToBidTable(){
+    this.router.navigate(['pages/request/bidding', this.requestId])
+  }
+  // OPEN EDITOR
+  openRateEditor(mode:string, data?: any) {
     const rateEditors: { [key: string]: { ref: any; config?: any } } = {
       point:       { ref: this.ratePointDialogRef },
       transporter: { ref: this.rateTransporterDialogRef },
       customs:     { ref: this.rateСustomsDialogRef, config: { height: '85vh' } },
     };
-    const editor = rateEditors[this.detailsMethod];
+    // const editor = rateEditors[this.detailsMethod];
+    const editor = rateEditors[mode];
     if (editor) {
       this.matDialog.open(editor.ref, { data: data, ...editor.config });
     }
+  }
+  // OPEN DIALOG
+  closeAllDialogs(){
+    this.matDialog.closeAll();
+    this.loadRows();
   }
   openDeleteRateDialog(message:string, data:any, title:string){
     this.matDialog.open(this.dialogRef,{ data: {message:message, title:title}}).afterClosed().subscribe(res => {
@@ -244,7 +269,30 @@ export class RequestDetails extends Table<any, 'trade_rating', ContractorFilter>
       if (res) { this.deleteRequest(this.requestId)}
     });
   }
+  openAddKpDialog(message:string, data:any, title:string){
+    this.matDialog.open(this.dialogRef,{ data: {message:message, title:title}}).afterClosed().subscribe(res => {
+      if (res) { this.createOffer(data)}
+    });
+  }
   // REQUESTS TO BACKEND
+  createOffer(body:any){//create kp
+    this.requestService.requestOfferMake({body:{id:body}})
+      .pipe(
+        tap((e)=>{
+          console.log(e);
+        }),
+        takeUntil(this.destroy$)
+      ).subscribe({
+        next: (contractor) => {
+          this.loadRows();
+          this.snackBar.open(`кп успех`, undefined, this.snackBarWithShortDuration);
+          this.arrDetailsCheckedCheck=[];
+        },
+        error: (err) => {
+          this.snackBar.open(`Ошибка запроса маршрутов: ` + err.error.error_message, undefined, this.snackBarWithShortDuration);
+        }
+      });
+  }
   createRequest(body:any){//dub request
     this.requestService.requestCreate({body:body})
       .pipe(
@@ -252,7 +300,16 @@ export class RequestDetails extends Table<any, 'trade_rating', ContractorFilter>
           console.log(e);
         }),
         takeUntil(this.destroy$)
-      ).subscribe();
+      ).subscribe({
+        next: (contractor) => {
+          this.loadRows();
+          this.snackBar.open(`кп успех`, undefined, this.snackBarWithShortDuration);
+          this.arrDetailsCheckedCheck=[];
+        },
+        error: (err) => {
+          this.snackBar.open(`Ошибка запроса маршрутов: ` + err.error.error_message, undefined, this.snackBarWithShortDuration);
+        }
+      });
   }
   saveRate(body: any) {
     const methodMap: { [key: string]: (body: any) => Observable<any> } = {
@@ -296,7 +353,7 @@ export class RequestDetails extends Table<any, 'trade_rating', ContractorFilter>
     });
   }
   deleteRate(body:any){
-    const deleteRate: Observable<any> = this.detailsMethod === 'finale'
+    const deleteRate: Observable<any> = this.detailsMethod === 'final'
     ? this.requestService.requestRateFinaleDelete({ body: { id: body } })
     : this.requestService.requestRateDelete({ body: { id: body } });
 
@@ -331,6 +388,27 @@ export class RequestDetails extends Table<any, 'trade_rating', ContractorFilter>
         },
         error: (err) => {
           this.snackBar.open(`Ошибка удаления запроса: ` + err.error.error_message, undefined, this.snackBarWithShortDuration);
+        }
+      });
+  }
+  getOfferList(){
+    this.requestService.requestOfferList({request_id:this.requestId})
+      .pipe(
+        tap(offers => {
+          console.log('OfferList',offers);
+        }),
+        takeUntil(this.destroy$),
+      )
+      .subscribe({
+        next: (offers) => {
+          this.offerList=offers;
+          this.offerList.colList=[];
+          this.offerList.columns.forEach((i:any) => {
+            this.offerList.colList.push(i.column);
+          })
+        },
+        error: (err) => {
+          this.snackBar.open(`Ошибка получения кп: ` + err.error.error_message, undefined, this.snackBarWithShortDuration);
         }
       });
   }
