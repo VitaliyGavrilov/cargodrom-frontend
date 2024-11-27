@@ -145,7 +145,28 @@ export class RequestDetails extends Table<any, 'trade_rating', ContractorFilter>
   onDeleteRequestBtnClick(){
     this.openDeleteRequestDialog('Вы уверенны, что хотите удалить запрос?', 'Удаление запроса')
   }
-  // KP HANDLERS
+  // KP TABLE HANDLERS
+  onSendKpBtnClick(){
+
+  }
+  onEditKpBtnClick(){
+
+  }
+  onDubKpBtnClick(){
+
+  }
+  onCopyKpBtnClick(){
+
+  }
+  onPdfKpBtnClick(){
+
+  }
+  onTxtKpBtnClick(){
+
+  }
+  onDelKpBtnClick(id:number){
+    this.deleteKp([id]);
+  }
   // RATE METODS CHANGE
   onTableMethodChange(method:any){
     this.router.navigate(['pages/request/details', method, this.requestId])
@@ -388,6 +409,24 @@ export class RequestDetails extends Table<any, 'trade_rating', ContractorFilter>
         },
         error: (err) => {
           this.snackBar.open(`Ошибка удаления запроса: ` + err.error.error_message, undefined, this.snackBarWithShortDuration);
+        }
+      });
+  }
+  deleteKp(body:number[]){
+    this.requestService.requestOfferDelete({ body: { id: body } })
+      .pipe(
+        tap(contractor => {
+          console.log(contractor);
+        }),
+        takeUntil(this.destroy$),
+      )
+      .subscribe({
+        next: (contractor) => {
+          this.snackBar.open(`Кп удален`, undefined, this.snackBarWithShortDuration);
+          this.loadRows();
+        },
+        error: (err) => {
+          this.snackBar.open(`Ошибка удаления кп: ` + err.error.error_message, undefined, this.snackBarWithShortDuration);
         }
       });
   }

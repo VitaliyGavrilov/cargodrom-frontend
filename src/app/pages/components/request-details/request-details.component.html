@@ -9,9 +9,60 @@
 </div>
 
 <div class="expanded-request-info" *ngIf="isExpandedRequestInfo">
-  <div class="block" *ngFor="let item of expandedRequestInfoItems">
-    <div class="field">{{item.field}}</div>
-    <div class="data">{{currentRequest[item.data]}}</div>
+  <div class="columns">
+    <div class="col">
+      <div class="title">Route of Transportation</div>
+      <div class="item w1">
+        <div class="field">Dispatch</div>
+        <div class="info">Japan, Tokyo, 123<span class="comm">Tokyo - Narita (NRT)</span></div>
+      </div>
+      <div class="item w1">
+        <div class="field">Dispatch</div>
+        <div class="info">Japan, Tokyo, 123<span class="comm">Tokyo - Narita (NRT)</span></div>
+      </div>
+    </div>
+    <div class="col">
+      <div class="title w1">Cargo Details</div>
+      <div class="item w4">
+        <div class="field">Dispatch</div>
+        <div class="info">Japan, Tokyo, 123</div>
+      </div>
+      <div class="item w4">
+        <div class="field">Dispatch</div>
+        <div class="info">Japan, Tokyo, 123</div>
+      </div>
+      <div class="item w2">
+        <div class="field">Dispatch</div>
+        <div class="info">Japan, Tokyo, 123 Tokyo - Narita (NRT)</div>
+      </div>
+      <div class="item w4">
+        <div class="field">Dispatch</div>
+        <div class="info">Japan, Tokyo, 123</div>
+      </div>
+      <div class="item w4">
+        <div class="field">Dispatch</div>
+        <div class="info">Japan, Tokyo, 123</div>
+      </div>
+      <div class="item w2">
+        <div class="field">Dispatch</div>
+        <div class="info">Japan, Tokyo, 123 Tokyo - Narita (NRT)</div>
+      </div>
+    </div>
+    <div class="col">
+      <div class="w1 title">Dimensions</div>
+      <div class="w1 dime">(1200 x 20 x 20, 110 kg) x 11 Wooden pallets - Stackable</div>
+      <div class="w1 dime">(1200 x 20 x 20, 110 kg) x 11 Wooden pallets - Stackable</div>
+      <div class="w1 dime">(1200 x 20 x 20, 110 kg) x 11 Wooden pallets - Stackable</div>
+    </div>
+  </div>
+  <div class="row">
+    <div class="title">Comment</div>
+    <div>{{currentRequest.comment}}</div>
+  </div>
+  <div class="row">
+    <div class="title">Attached Files</div>
+    <div *ngFor="let file of currentRequest.documents_file" class="file-box">{{file.file_name}}</div>
+    <div *ngFor="let file of currentRequest.cargo_file" class="file-box">{{file.file_name}}</div>
   </div>
 </div>
 
@@ -27,27 +78,63 @@
       <ng-container
         *ngFor="let col of offerList.columns"
         [matColumnDef]="col.column"
+        [ngSwitch]="col.column"
       >
-        <th mat-header-cell *matHeaderCellDef >
-          <div class="td-block">
-            <div class="column"
-              *ngFor="let miniCol of col.items"
-            >
-              {{miniCol.title}}
+        <ng-template [ngSwitchDefault]>
+          <th mat-header-cell *matHeaderCellDef >
+            <div class="td-block">
+              <div class="column"
+                *ngFor="let miniCol of col.items"
+              >
+                {{miniCol.title}}
+              </div>
             </div>
-          </div>
-        </th>
+          </th>
 
-        <td mat-cell *matCellDef="let item">
-          <div class="td-block" >
-            <div class="column"
-              *ngFor="let miniCol of col.items"
-            >
-              <!-- {{item[miniCol.field]}} -->
-              {{ getVal(item,miniCol.field) }}
+          <td mat-cell *matCellDef="let item">
+            <div class="td-block" >
+              <div class="column"
+                *ngFor="let miniCol of col.items"
+              >
+                <!-- {{item[miniCol.field]}} -->
+                {{ getVal(item,miniCol.field) }}
+              </div>
             </div>
-          </div>
-        </td>
+          </td>
+        </ng-template>
+
+        <ng-template [ngSwitchCase]="'checked'">
+          <th mat-header-cell *matHeaderCellDef [style.width]="col.width" [class]="col.class">
+            <label class="checkbox-label">
+              <mat-checkbox class="testclass"
+                [indeterminate]="isCheckboxHeaderTableIndeterminate()"
+                [checked]="isCheckboxHeaderTableChecked()"
+                (change)="onCheckboxHeaderTableChange($event)"
+              >
+              </mat-checkbox>
+            </label>
+            <button (click)="onSendKpBtnClick()">ОТПРАВИТЬ</button>
+          </th>
+          <td mat-cell *matCellDef="let item" [style.width]="col.width" [class]="col.class">
+            <div class="td-block">
+              <label class="checkbox-label">
+                <mat-checkbox class="testclass"
+                  [checked]="isCheckboxBodyTableChecked(item.id)"
+                  (change)="onCheckboxBodyTableChange(item.id,$event)"
+                >
+                </mat-checkbox>
+              </label>
+              <div class="kp-btns">
+                <button class="edi" (click)="onEditKpBtnClick()"></button>
+                <button class="dub" (click)="onDubKpBtnClick()"></button>
+                <button class="cop" (click)="onCopyKpBtnClick()"></button>
+                <button class="pdf" (click)="onPdfKpBtnClick()"></button>
+                <button class="txt" (click)="onTxtKpBtnClick()"></button>
+                <button class="del" (click)="onDelKpBtnClick(item.id)"></button>
+              </div>
+            </div>
+          </td>
+        </ng-template>
       </ng-container>
 
       <tr mat-header-row *matHeaderRowDef="offerList.colList"></tr>

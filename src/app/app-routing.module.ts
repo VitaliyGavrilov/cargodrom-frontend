@@ -9,7 +9,7 @@ import {ConfirmComponent} from "./auth/components/confirm/confirm.component";
 import { RequestRateComponent } from './pages/components/request-rate/request-rate.component';
 
 const config: ExtraOptions = {
-  useHash: true,
+  useHash: false,
 };
 
 const routes: Routes = [

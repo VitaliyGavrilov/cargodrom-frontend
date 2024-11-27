@@ -113,7 +113,7 @@
                   <label >
                     <input *ngIf="chargeModel.checked"  type="checkbox" [checked]="true" [disabled]="true">
                     <input *ngIf="!chargeModel.checked" type="checkbox" formControlName="select" (change)="calckRateCost()">
-                    <i></i>
+
                     {{chargeModel.title}}
                   </label>
 

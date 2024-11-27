@@ -1,0 +1,65 @@
+.block{
+  background-color: white;
+  padding: 40px;
+}
+
+
+.rate_table{
+  display: flex;
+  flex-direction: column;
+  .row{
+    display: flex;
+    flex-direction: column;
+    color: #2C3640;
+    font-size: 13px;
+    font-weight: 400;
+    line-height: 12px;
+    text-align: left;
+    .row_main{
+      display: flex;
+      height: 64px;
+      align-items: center;
+      div{
+        display: flex;
+        flex-grow: 1;
+      }
+
+
+    }
+    .row_expansion{
+      border: 1px solid #E0E5EB;
+    }
+
+  }
+  .row:first-child{
+    flex-direction: row;
+    align-items: center;
+    height: 48px;
+    background: #83909E;
+    color: white;
+    font-size: 13px;
+    font-weight: 400;
+    line-height: 12px;
+    text-align: left;
+    div{
+      display: flex;
+      flex-grow: 1;
+    }
+  }
+
+  input{
+    height: 40px;
+
+  }
+}
+
+input[type="number"] {
+	-moz-appearance: textfield;
+	-webkit-appearance: textfield;
+	appearance: textfield;
+}
+
+input[type="number"]::-webkit-outer-spin-button,
+input[type="number"]::-webkit-inner-spin-button {
+	display: none;
+}

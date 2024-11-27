@@ -61,46 +61,25 @@ div.mat-calendar-body-selected,.mat-calendar-body-cell.selected .mat-calendar-bo
 }
 
 //стили для кнопки шаблон для импорта
-.hoverr{
+.hoverr {
   display: flex;
 }
-// .placer .template {
-//   display: none;
-//   transition-duration: 0.5s;
-//   transition-behavior: allow-discrete;
-//   opacity: 0;
-//   max-width: 0px;
-//   text-wrap: nowrap;
-//   margin-left: 0px;
-// }
-// .hoverr:hover .template{
-//   display: flex;
-//   opacity: 1;
-//   @starting-style{
-//     opacity: -1;
-//     max-width: 0px;
-//     margin-left: 0px;
-//   }
-//   margin-left: 24px;
-//   max-width: 200px;
-// }
 
 .placer .template {
-  display: none;
-
-  max-width: 0px;
-  text-wrap: nowrap;
-  margin-left: 0px;
-  opacity: 0;
-  transition: 2s;
+  visibility: hidden;   /* Скрывает элемент изначально */
+  opacity: 0;           /* Элемент скрыт */
+  max-width: 0;         /* Начальная ширина 0 */
+  margin-left: 0;       /* Начальный отступ */
+  overflow: hidden;     /* Обрезает все, что выходит за пределы */
+  transition: opacity 2s ease, max-width 1s ease, margin-left 1s ease, visibility 0s 1s;
 }
-.hoverr:hover .template{
 
-  display: flex;
-  opacity: 1;
-  margin-left: 24px;
-  max-width: 200px;
-  transition: 1s;
+.hoverr:hover .template {
+  visibility: visible;  /* Элемент становится видимым */
+  opacity: 1;           /* Элемент становится прозрачным */
+  max-width: 200px;     /* Ширина становится 200px */
+  margin-left: 24px;    /* Отступ слева */
+  transition: opacity 2s ease, max-width 1s ease, margin-left 1s ease, visibility 0s 0s;
 }
 
 //стили для фильтров селекторов(в зависимости от места разный дизайн)

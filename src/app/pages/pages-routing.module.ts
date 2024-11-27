@@ -17,6 +17,7 @@ import { AuthGuard } from '../auth/auth.guard';
 import { RequestEditorTranslateComponent } from './components/request-editor-translate/request-editor-translate.component';
 import { RequestRateComponent } from './components/request-rate/request-rate.component';
 import { RequestDetails } from './components/request-details/request-details.component';
+import { OfferEditorComponent } from './components/offer-editor/offer-editor.component';
 
 
 
@@ -37,6 +38,13 @@ const routes: Routes = [
         component: DashboardComponent,
         pathMatch: 'full',
         title: 'Дашбоард',
+        canActivate: [AuthGuard],
+      },
+      {
+        path: 'offer/:id',
+        component: OfferEditorComponent,
+        pathMatch: 'full',
+        title: 'Добавление кп',
         canActivate: [AuthGuard],
       },
       {
