@@ -50,7 +50,7 @@ export class RateAddTransporter implements OnInit, OnDestroy {
     this.rateForm = this.fb.group({
       id:[,[]],
       cost:[,[]],
-      request_id: [,[]],
+      request_id: [this.requestId,[]],
       contractor_id: [,[]],
       point_id: [,[]],
       point_action_id: [,[]],
@@ -73,14 +73,17 @@ export class RateAddTransporter implements OnInit, OnDestroy {
     this.getArrivalPoinst();
     this.getPointAction();
     this.getDirectionCity();
+    console.log('this.requestId',this.requestId);
     if(this.rate){
       console.log('this edit mode', this.rate);
       this.rate.values.forEach((i:any)=>{
         this.addCharge()
       });
       this.rateForm.patchValue(this.rate);
+
     } else{
       this.addCharge();
+      this.rateForm.patchValue({request_id: this.requestId});
     }
   }
 

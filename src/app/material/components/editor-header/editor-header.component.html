@@ -1,12 +1,28 @@
 <div class="subheader">
   <div class="placer">
-    <a (click)="goBack()" class="title">
+    <a (click)="goBack()" class="title" *ngIf="!content">
       {{ title }}
       <div class="req-fields" *ngIf="!isEditMode">Обязательные поля: <span class="req">•</span> </div>
       <div class="req-fields" *ngIf="isEditMode">{{ name }}</div>
     </a>
+
+    <a (click)="goBack()" class="title" *ngIf="content" style="color:#DB563B">
+      {{ title }}
+      <div class="req-fields" *ngIf="!isEditMode">Обязательные поля: <span class="req">•</span> </div>
+    </a>
+
+    <div class="title" *ngIf="content" style="border-left: 1px solid #C3CCD6; padding-left: 24px;">
+      Запрос №{{request?.id}}
+      <div class="req-fields">{{request?.rate_contractor_name}} </div>
+    </div>
+
     <div class="div"></div>
-    <div class="fn">
+
+
+
+    <ng-content select="[btns]"></ng-content>
+
+    <div class="fn" *ngIf="!content">
       <span class="btn v save" (click)="onSave()"><span>сохранить</span></span>
       <span class="btn v calc" *ngIf="isEditMode" (click)="goCalc()"><span>расчитать</span></span>
       <span class="btn v del" *ngIf="isEditMode" (click)="onRemove()"><span>Удалить</span></span>

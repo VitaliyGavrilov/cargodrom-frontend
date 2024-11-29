@@ -7,6 +7,7 @@ import { Component, EventEmitter, Input, Output } from '@angular/core';
 export class EditorHeaderMockup {
 
   @Input() title: string = '';
+  
   @Input() isEditMode = false;
   @Input() name?: string;
   @Output() save = new EventEmitter<void>();

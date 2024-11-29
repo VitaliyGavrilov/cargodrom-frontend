@@ -578,6 +578,12 @@ export class RequestService extends BaseService {
  * Кол-во отвеченных заявок на запрос
  */
 'count_rate_answer'?: number;
+
+/**
+ * Флаги
+ */
+'kso': {
+};
 }>;
 }>> {
     const rb = new RequestBuilder(this.rootUrl, RequestService.RequestListPath, 'get');
@@ -1054,6 +1060,12 @@ export class RequestService extends BaseService {
          * Кол-во отвеченных заявок на запрос
          */
         'count_rate_answer'?: number;
+        
+        /**
+         * Флаги
+         */
+        'kso': {
+        };
         }>;
         }>;
       })
@@ -1614,6 +1626,12 @@ export class RequestService extends BaseService {
  * Кол-во отвеченных заявок на запрос
  */
 'count_rate_answer'?: number;
+
+/**
+ * Флаги
+ */
+'kso': {
+};
 }>;
 }> {
     return this.requestList$Response(params, context).pipe(
@@ -2066,6 +2084,12 @@ export class RequestService extends BaseService {
  * Кол-во отвеченных заявок на запрос
  */
 'count_rate_answer'?: number;
+
+/**
+ * Флаги
+ */
+'kso': {
+};
 }>;
 }>): {
 
@@ -2516,6 +2540,12 @@ export class RequestService extends BaseService {
  * Кол-во отвеченных заявок на запрос
  */
 'count_rate_answer'?: number;
+
+/**
+ * Флаги
+ */
+'kso': {
+};
 }>;
 } => r.body)
     );
@@ -3941,6 +3971,12 @@ export class RequestService extends BaseService {
 'count_rate_answer'?: number;
 
 /**
+ * Флаги
+ */
+'kso': {
+};
+
+/**
  * Документы (файлы)
  */
 'documents_file'?: {
@@ -4395,6 +4431,12 @@ export class RequestService extends BaseService {
          * Кол-во отвеченных заявок на запрос
          */
         'count_rate_answer'?: number;
+        
+        /**
+         * Флаги
+         */
+        'kso': {
+        };
         
         /**
          * Документы (файлы)
@@ -4866,6 +4908,12 @@ export class RequestService extends BaseService {
 'count_rate_answer'?: number;
 
 /**
+ * Флаги
+ */
+'kso': {
+};
+
+/**
  * Документы (файлы)
  */
 'documents_file'?: {
@@ -5313,6 +5361,12 @@ export class RequestService extends BaseService {
 'count_rate_answer'?: number;
 
 /**
+ * Флаги
+ */
+'kso': {
+};
+
+/**
  * Документы (файлы)
  */
 'documents_file'?: {
@@ -5756,6 +5810,12 @@ export class RequestService extends BaseService {
  * Кол-во отвеченных заявок на запрос
  */
 'count_rate_answer'?: number;
+
+/**
+ * Флаги
+ */
+'kso': {
+};
 
 /**
  * Документы (файлы)
@@ -14865,6 +14925,11 @@ export class RequestService extends BaseService {
 'departure_schedule_text': Array<string>;
 
 /**
+ * Расписание дней вылета
+ */
+'departure_schedule_text2': string;
+
+/**
  * Свободные места
  */
 'nearest_flight': Array<string>;
@@ -15220,6 +15285,11 @@ export class RequestService extends BaseService {
          * Расписание дней вылета
          */
         'departure_schedule_text': Array<string>;
+        
+        /**
+         * Расписание дней вылета
+         */
+        'departure_schedule_text2': string;
         
         /**
          * Свободные места
@@ -15635,6 +15705,11 @@ export class RequestService extends BaseService {
 'departure_schedule_text': Array<string>;
 
 /**
+ * Расписание дней вылета
+ */
+'departure_schedule_text2': string;
+
+/**
  * Свободные места
  */
 'nearest_flight': Array<string>;
@@ -15975,6 +16050,11 @@ export class RequestService extends BaseService {
 'departure_schedule_text': Array<string>;
 
 /**
+ * Расписание дней вылета
+ */
+'departure_schedule_text2': string;
+
+/**
  * Свободные места
  */
 'nearest_flight': Array<string>;
@@ -16311,6 +16391,11 @@ export class RequestService extends BaseService {
  * Расписание дней вылета
  */
 'departure_schedule_text': Array<string>;
+
+/**
+ * Расписание дней вылета
+ */
+'departure_schedule_text2': string;
 
 /**
  * Свободные места
@@ -17122,7 +17207,7 @@ export class RequestService extends BaseService {
 /**
  * Валюта
  */
-'currecy_text': string;
+'currecy_text'?: string;
 
 /**
  * Комментарий (Your Comment)
@@ -17395,7 +17480,7 @@ export class RequestService extends BaseService {
         /**
          * Валюта
          */
-        'currecy_text': string;
+        'currecy_text'?: string;
         
         /**
          * Комментарий (Your Comment)
@@ -17712,7 +17797,7 @@ export class RequestService extends BaseService {
 /**
  * Валюта
  */
-'currecy_text': string;
+'currecy_text'?: string;
 
 /**
  * Комментарий (Your Comment)
@@ -17971,7 +18056,7 @@ export class RequestService extends BaseService {
 /**
  * Валюта
  */
-'currecy_text': string;
+'currecy_text'?: string;
 
 /**
  * Комментарий (Your Comment)
@@ -18228,7 +18313,7 @@ export class RequestService extends BaseService {
 /**
  * Валюта
  */
-'currecy_text': string;
+'currecy_text'?: string;
 
 /**
  * Комментарий (Your Comment)
@@ -18335,7 +18420,7 @@ export class RequestService extends BaseService {
 /**
  * Валюта (ID берем из запроса - system_currency)
  */
-'currecy': number;
+'currecy'?: number;
 
 /**
  * Комментарий (Your Comment)
@@ -18465,7 +18550,7 @@ export class RequestService extends BaseService {
 /**
  * Валюта (ID берем из запроса - system_currency)
  */
-'currecy': number;
+'currecy'?: number;
 
 /**
  * Комментарий (Your Comment)
@@ -26168,20 +26253,20 @@ export class RequestService extends BaseService {
  * ID
  */
 'id': number;
-
-/**
- * Скачать как файл
- */
-'download'?: boolean;
 }
     },
     context?: HttpContext
   ): Observable<StrictHttpResponse<{
 
 /**
- * Текст
+ * Наименование
  */
-'text': any;
+'name'?: string;
+
+/**
+ * Base64 строка файла
+ */
+'data'?: string;
 }>> {
     const rb = new RequestBuilder(this.rootUrl, RequestService.RequestOfferTxtPath, 'post');
     if (params) {
@@ -26196,9 +26281,14 @@ export class RequestService extends BaseService {
         return r as StrictHttpResponse<{
         
         /**
-         * Текст
+         * Наименование
          */
-        'text': any;
+        'name'?: string;
+        
+        /**
+         * Base64 строка файла
+         */
+        'data'?: string;
         }>;
       })
     );
@@ -26222,34 +26312,44 @@ export class RequestService extends BaseService {
  * ID
  */
 'id': number;
-
-/**
- * Скачать как файл
- */
-'download'?: boolean;
 }
     },
     context?: HttpContext
   ): Observable<{
 
 /**
- * Текст
+ * Наименование
  */
-'text': any;
+'name'?: string;
+
+/**
+ * Base64 строка файла
+ */
+'data'?: string;
 }> {
     return this.requestOfferTxt$Response(params, context).pipe(
       map((r: StrictHttpResponse<{
 
 /**
- * Текст
+ * Наименование
  */
-'text': any;
+'name'?: string;
+
+/**
+ * Base64 строка файла
+ */
+'data'?: string;
 }>): {
 
 /**
- * Текст
+ * Наименование
  */
-'text': any;
+'name'?: string;
+
+/**
+ * Base64 строка файла
+ */
+'data'?: string;
 } => r.body)
     );
   }
@@ -26278,18 +26378,40 @@ export class RequestService extends BaseService {
 }
     },
     context?: HttpContext
-  ): Observable<StrictHttpResponse<void>> {
+  ): Observable<StrictHttpResponse<{
+
+/**
+ * Наименование
+ */
+'name'?: string;
+
+/**
+ * Base64 строка файла
+ */
+'data'?: string;
+}>> {
     const rb = new RequestBuilder(this.rootUrl, RequestService.RequestOfferPdfPath, 'post');
     if (params) {
       rb.body(params.body, 'application/json');
     }
 
     return this.http.request(
-      rb.build({ responseType: 'text', accept: '*/*', context })
+      rb.build({ responseType: 'json', accept: 'application/json', context })
     ).pipe(
       filter((r: any): r is HttpResponse<any> => r instanceof HttpResponse),
       map((r: HttpResponse<any>) => {
-        return (r as HttpResponse<any>).clone({ body: undefined }) as StrictHttpResponse<void>;
+        return r as StrictHttpResponse<{
+        
+        /**
+         * Наименование
+         */
+        'name'?: string;
+        
+        /**
+         * Base64 строка файла
+         */
+        'data'?: string;
+        }>;
       })
     );
   }
@@ -26315,9 +26437,42 @@ export class RequestService extends BaseService {
 }
     },
     context?: HttpContext
-  ): Observable<void> {
+  ): Observable<{
+
+/**
+ * Наименование
+ */
+'name'?: string;
+
+/**
+ * Base64 строка файла
+ */
+'data'?: string;
+}> {
     return this.requestOfferPdf$Response(params, context).pipe(
-      map((r: StrictHttpResponse<void>): void => r.body)
+      map((r: StrictHttpResponse<{
+
+/**
+ * Наименование
+ */
+'name'?: string;
+
+/**
+ * Base64 строка файла
+ */
+'data'?: string;
+}>): {
+
+/**
+ * Наименование
+ */
+'name'?: string;
+
+/**
+ * Base64 строка файла
+ */
+'data'?: string;
+} => r.body)
     );
   }
 
@@ -28989,6 +29144,110 @@ export class RequestService extends BaseService {
  */
 'statuses': Array<string>;
 };
+} => r.body)
+    );
+  }
+
+  /** Path part for operation `requestOfferDelRate()` */
+  static readonly RequestOfferDelRatePath = '/request_offer_del_rate';
+
+  /**
+   * Удаление ставки из КП.
+   *
+   *
+   *
+   * This method provides access to the full `HttpResponse`, allowing access to response headers.
+   * To access only the response body, use `requestOfferDelRate()` instead.
+   *
+   * This method doesn't expect any request body.
+   */
+  requestOfferDelRate$Response(
+    params: {
+
+    /**
+     * ID
+     */
+      id: number;
+
+    /**
+     * ID ставки для удаления
+     */
+      rate_id: number;
+    },
+    context?: HttpContext
+  ): Observable<StrictHttpResponse<{
+
+/**
+ * Статус выполнения
+ */
+'result': 'OK';
+}>> {
+    const rb = new RequestBuilder(this.rootUrl, RequestService.RequestOfferDelRatePath, 'get');
+    if (params) {
+      rb.query('id', params.id, {});
+      rb.query('rate_id', params.rate_id, {});
+    }
+
+    return this.http.request(
+      rb.build({ responseType: 'json', accept: 'application/json', context })
+    ).pipe(
+      filter((r: any): r is HttpResponse<any> => r instanceof HttpResponse),
+      map((r: HttpResponse<any>) => {
+        return r as StrictHttpResponse<{
+        
+        /**
+         * Статус выполнения
+         */
+        'result': 'OK';
+        }>;
+      })
+    );
+  }
+
+  /**
+   * Удаление ставки из КП.
+   *
+   *
+   *
+   * This method provides access only to the response body.
+   * To access the full response (for headers, for example), `requestOfferDelRate$Response()` instead.
+   *
+   * This method doesn't expect any request body.
+   */
+  requestOfferDelRate(
+    params: {
+
+    /**
+     * ID
+     */
+      id: number;
+
+    /**
+     * ID ставки для удаления
+     */
+      rate_id: number;
+    },
+    context?: HttpContext
+  ): Observable<{
+
+/**
+ * Статус выполнения
+ */
+'result': 'OK';
+}> {
+    return this.requestOfferDelRate$Response(params, context).pipe(
+      map((r: StrictHttpResponse<{
+
+/**
+ * Статус выполнения
+ */
+'result': 'OK';
+}>): {
+
+/**
+ * Статус выполнения
+ */
+'result': 'OK';
 } => r.body)
     );
   }

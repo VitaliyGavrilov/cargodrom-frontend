@@ -49,6 +49,7 @@ export class RequestDetails extends Table<any, 'trade_rating', ContractorFilter>
   // trackById = (_index: number, contractor: LoadRows) => contractor.id!;
 
   offerList:any;
+  isOfferListShow:boolean=false;
 
   isExpandedRequestInfo:boolean=false;
   expandedRequestInfoItems:any=[
@@ -440,6 +441,7 @@ export class RequestDetails extends Table<any, 'trade_rating', ContractorFilter>
       )
       .subscribe({
         next: (offers) => {
+          this.isOfferListShow=offers.total==0?false:true;
           this.offerList=offers;
           this.offerList.colList=[];
           this.offerList.columns.forEach((i:any) => {

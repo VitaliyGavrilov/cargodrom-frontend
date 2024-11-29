@@ -1,6 +1,6 @@
 import { emailValidator, innValidator } from './../../../validators/pattern-validator';
-import { ChangeDetectorRef, Component, OnDestroy, OnInit, ViewChild, ViewEncapsulation } from '@angular/core';
-import { FormArray, FormBuilder, FormGroup, MinLengthValidator, Validators } from '@angular/forms';
+import { ChangeDetectorRef, Component, OnDestroy, OnInit, TemplateRef, ViewChild, ViewEncapsulation } from '@angular/core';
+import { FormArray, FormBuilder, FormControl, FormGroup, MinLengthValidator, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Observable, Subject, find, map, pipe, takeUntil, tap, retry, debounce, debounceTime, distinctUntilChanged } from 'rxjs';
 import { ContractorService } from './../../../api/services/contractor.service';
@@ -19,6 +19,7 @@ import { DirectionFlight, DirectionPoint,  } from 'src/app/api/custom_models/dir
 import {MatButtonToggleModule} from '@angular/material/button-toggle';
 import { MatSnackBar, MatSnackBarConfig } from '@angular/material/snack-bar';
 import { environment } from './../../../../environments/environment';
+import { MatDialog } from '@angular/material/dialog';
 
 @Component({
   selector: 'app-offer-editor',
@@ -33,37 +34,41 @@ export class OfferEditorComponent implements OnInit, OnDestroy {
   offer!:any;
   offerId!: number;
 
-  customExpansionRow:any={};
-  deliveryExpansionRow:any={};
-  storageExpansionRow:any={};
+  request!:any;
+
+  readonly xlsxMimeType = 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet';
+
+  customExpansionRow:any=-1;
+  deliveryExpansionRow:any=-1;
+  storageExpansionRow:any=-1;
 
   currencyList:any=[];
 
   customTableRowConfig=[
     {
       title:'',
-      width:'100px',
+      width:'64px',
       index:'',
-      expansion: this.onExpansionRowClick,
+      expansion: this.onClickExpansionCustomRowChange,
     },
     {
       title:'Air',
-      width:'100px',
+      width:'64px',
       index:'carrier_iata',
     },
     {
       title:'Авиалиния',
-      width:'100px',
+      width:'130px',
       index:'carrier_name',
     },
     {
       title:'Маршрут',
-      width:'100px',
+      width:'250px',
       index:'route_name',
     },
     {
       title:'Расписание',
-      width:'100px',
+      width:'140px',
       index:'schedule',
     },
     {
@@ -73,113 +78,69 @@ export class OfferEditorComponent implements OnInit, OnDestroy {
     },
     {
       title:'Срок, дн.',
-      width:'100px',
+      width:'65px',
       index:'transit_time',
     },
     {
+      title:'',
+      width:'0px',
+      height: '100%',
+
+    },
+    {
       title:'Вход',
       width:'100px',
       control:'income_total_cost',
     },
     {
       title:'Профит',
-      width:'150px',
+      width:'100px',
       control:'profit_amount',
     },
     {
       title:'%',
-      width:'150px',
+      width:'100px',
       control:'profit_percent',
     },
     {
       title:'Ставка',
-      width:'150px',
+      width:'100px',
       control:'total_cost',
     },
     {
       title:'',
-      width:'100px',
+      width:'64px',
       index:'',
       del: this.onDelRowChange,
     },
   ];
-
   deliveryTableRowConfig=[
     {
       title:'',
-      width:'100px',
+      width:'64px',
       index:'',
-      expansion: this.onExpansionRowClick,
-    },
-    {
-      title:'Air',
-      width:'100px',
-      index:'period',
-    },
-    {
-      title:'Наименование Аэропорта',
-      width:'100px',
-      index:'point',
-    },
-    {
-      title:'Вид прайса',
-      width:'100px',
-      index:'point_action',
-    },
-    {
-      title:'Наименование статей затрат',
-      width:'100px',
-      index:'service_items',
-    },
-    {
-      title:'Вход',
-      width:'100px',
-      control:'income_total_cost',
-    },
-    {
-      title:'Профит',
-      width:'150px',
-      control:'profit_amount',
-    },
-    {
-      title:'%',
-      width:'150px',
-      control:'profit_percent',
-    },
-    {
-      title:'Ставка',
-      width:'150px',
-      control:'total_cost',
-    },
-    {
-      title:'',
-      width:'100px',
-      index:'',
-      del: this.onDelRowChange,
-    },
-  ];
-
-  storageTableRowConfig=[
-    {
-      title:'',
-      width:'100px',
-      index:'',
-      expansion: this.onExpansionRowClick,
+      expansion: this.onClickExpansionCustomRowChange,
     },
     {
       title:'Тип ТС',
-      width:'100px',
+      width:'64px',
       index:'carrier_iata',
     },
     {
       title:'Маршрут',
-      width:'100px',
-      index:'point',
+      width:'130px',
+      index:'carrier_name',
     },
     {
       title:'Срок, дн.',
-      width:'100px',
-      index:'point_action',
+      width:'250px',
+      index:'route_name',
+    },
+    {
+      title:'',
+      width:'0px',
+      height: '100%',
+
     },
     {
       title:'Вход',
@@ -188,26 +149,112 @@ export class OfferEditorComponent implements OnInit, OnDestroy {
     },
     {
       title:'Профит',
-      width:'150px',
+      width:'100px',
       control:'profit_amount',
     },
     {
       title:'%',
-      width:'150px',
+      width:'100px',
       control:'profit_percent',
     },
     {
       title:'Ставка',
-      width:'150px',
+      width:'100px',
       control:'total_cost',
     },
     {
       title:'',
-      width:'100px',
+      width:'64px',
       index:'',
       del: this.onDelRowChange,
     },
   ];
+  storageTableRowConfig=[
+    {
+      title:'',
+      width:'64px',
+      index:'',
+      expansion: this.onClickExpansionCustomRowChange,
+    },
+    {
+      title:'Air',
+      width:'64px',
+      index:'carrier_iata',
+    },
+    {
+      title:'Наименование Аэропорта',
+      width:'226px',
+      index:'carrier_name',
+    },
+    {
+      title:'Вид прайса',
+      width:'250px',
+      index:'point',
+    },
+    {
+      title:'Наименование статей затрат',
+      width:'230px',
+      index:'schedule',
+    },
+
+    {
+      title:'',
+      width:'0px',
+      height: '100%',
+
+    },
+    {
+      title:'Вход',
+      width:'100px',
+      control:'income_total_cost',
+    },
+    {
+      title:'Профит',
+      width:'100px',
+      control:'profit_amount',
+    },
+    {
+      title:'%',
+      width:'100px',
+      control:'profit_percent',
+    },
+    {
+      title:'Ставка',
+      width:'100px',
+      control:'total_cost',
+    },
+    {
+      title:'',
+      width:'64px',
+      index:'',
+      del: this.onDelRowChange,
+    },
+  ];
+
+  // tableConfig:any=[
+  //   {
+  //     title:'До границы',
+  //     col_config: this.customTableRowConfig,
+  //     form_name: 'custom',
+  //     expansion_row: this.customExpansionRow,
+  //     // rows: this.returnCustomRows,
+  //     // form_table: this.customTable,
+  //   },
+  //   {
+  //     title:'Склад (СВХ)',
+  //     col_config: this.storageTableRowConfig,
+  //     form_name: 'storage',
+  //     expansion_row: this.storageExpansionRow,
+  //     // form_table: this.storageTable,
+  //   },
+  //   {
+  //     title:'Вывоз',
+  //     col_config: this.deliveryTableRowConfig,
+  //     form_name: 'delivery',
+  //     expansion_row: this.deliveryExpansionRow,
+  //     // form_table: this.deliveryTable,
+  //   },
+  // ];
 
   snackBarWithShortDuration: MatSnackBarConfig = { duration: 1000 };
   snackBarWithLongDuration: MatSnackBarConfig = { duration: 3000 };
@@ -215,6 +262,8 @@ export class OfferEditorComponent implements OnInit, OnDestroy {
   private _destroy$ = new Subject();
 
   calckStatus:boolean=false;
+
+  @ViewChild('delRateDialogRef') delRateDialogRef!: TemplateRef<void>;
 
   //КОНСТРУКТОР
   constructor(
@@ -231,7 +280,8 @@ export class OfferEditorComponent implements OnInit, OnDestroy {
     private snackBar: MatSnackBar,
     private location: Location,
     private router: Router,
-    private cdr: ChangeDetectorRef
+    private cdr: ChangeDetectorRef,
+    private matDialog: MatDialog,
   ) {
 
   }
@@ -251,7 +301,7 @@ export class OfferEditorComponent implements OnInit, OnDestroy {
       }),
       valid: ['', Validators.required],
       status: [0, Validators.required],
-      comment: ['']
+      comment: ['аыаыва']
     });
     this.getOffer();
     this.getCurrency();
@@ -273,10 +323,40 @@ export class OfferEditorComponent implements OnInit, OnDestroy {
 
       })
     ;
+
   }
   ngOnDestroy(): void {
     this._destroy$.next(null);
     this._destroy$.complete();
+  }
+
+  getVal(obj: any, path: string ): any {
+    if (!path.includes('/')) {
+        return obj[path] !== undefined ? obj[path] : null;
+    }
+    const keys = path.split('/');
+    for (const key of keys) {
+      if (obj && obj.hasOwnProperty(key)) {
+          obj = obj[key];
+      } else {
+          return null; // Если ключ не найден, возвращаем null
+      }
+    }
+    return obj !== undefined ? obj : null; // Проверка на undefined
+  }
+
+  onClickExpansionCustomRowChange(i:any){
+    console.log(i,this.customExpansionRow);
+
+    // this.customExpansionRow=this.customExpansionRow==i?null:i;
+    // console.log(this.tableConfig);
+
+  }
+  onClickExpansionStorageRowChange(i:any){
+    this.storageExpansionRow=this.storageExpansionRow===i?null:i;
+  }
+  onClickExpansionDeliveryRowChange(i:any){
+    this.deliveryExpansionRow=this.deliveryExpansionRow===i?null:i;
   }
 
   setChange(row?:any, bol?: boolean){
@@ -312,8 +392,13 @@ export class OfferEditorComponent implements OnInit, OnDestroy {
   onExpansionRowClick(){
 
   }
-  onDelRowChange(){
-
+  onDelRowChange(rows: any, i:number){
+    this.matDialog.open(this.delRateDialogRef).afterClosed().subscribe(res => {
+      if (res) {
+        this.delRate(rows.value[i].id);
+        rows.removeAt(i);
+      }
+    });
   }
 
 
@@ -350,6 +435,24 @@ export class OfferEditorComponent implements OnInit, OnDestroy {
     });
   }
 
+  resetPage(){
+    // this.router.navigate([]);
+    location.reload()
+  }
+
+  //Table
+  // get customTable(): FormArray {
+  //   return (this.kpForm.get('param.custom') as FormArray);
+  // }
+  // get storageTable(): FormArray {
+  //   return (this.kpForm.get('param.storage') as FormArray);
+  // }
+  // get deliveryTable(): FormArray {
+  //   return (this.kpForm.get('param.delivery') as FormArray);
+  // }
+  test():any{
+    return this.kpForm.get('param.custom.rows')
+  }
   //Rows
   get customRows(): FormArray {
     return (this.kpForm.get('param.custom.rows') as FormArray);
@@ -360,6 +463,16 @@ export class OfferEditorComponent implements OnInit, OnDestroy {
   get deliveryRows(): FormArray {
     return (this.kpForm.get('param.delivery.rows') as FormArray);
   }
+
+  returnRows(table_name:string): any {
+    return this.kpForm.get(`param.${table_name}.rows`);
+  }
+  // returnStorageRows(): any {
+  //   return this.kpForm.get('param.storage.rows');
+  // }
+  // returnDeliveryRows(): any {
+  //   return this.kpForm.get('param.delivery.rows');
+  // }
   //Serv
   returnServiceControls(row:any): any {
     return (row.get('services').controls as FormArray);
@@ -415,6 +528,22 @@ export class OfferEditorComponent implements OnInit, OnDestroy {
     }
   }
 
+  delRate(rate_id:number){
+    this.requestService.requestOfferDelRate({id: this.offer.id, rate_id:rate_id}).pipe(
+      tap((offer) => {
+        console.log(offer);
+      }),
+      takeUntil(this._destroy$)
+    ).subscribe({
+      next: (offer) => {
+        this.snackBar.open(`Кп уцспешно отредактированно`, undefined, this.snackBarWithShortDuration);
+      },
+      error: (err) => {
+        this.snackBar.open(`Ошибка редактирования кп: ` + err.error.error_message, undefined, this.snackBarWithShortDuration);
+      }
+    });
+  }
+
   saveOffer(){
     this.requestService.requestOfferSave({body:this.kpForm.value}).pipe(
       tap((offer) => {
@@ -443,6 +572,7 @@ export class OfferEditorComponent implements OnInit, OnDestroy {
       next: (offer) => {
         console.log('Data loaded successfully');
         this.offer=offer;
+        this.getRequest();
       },
       error: (err) => {
         this.snackBar.open(`Ошибка редактирования запроса: ` + err.error.error_message, undefined, this.snackBarWithShortDuration);
@@ -469,6 +599,21 @@ export class OfferEditorComponent implements OnInit, OnDestroy {
     });
   }
 
+  getRequest(){
+    this.requestService.requestInfo({id:this.offer.request_id}).pipe(
+      tap((currencyList) => {
+      }),
+      takeUntil(this._destroy$)
+    ).subscribe({
+      next: (req) => {
+        this.request=req;
+      },
+      error: (err) => {
+        this.snackBar.open(`Ошибка получения запроса: ` + err.error.error_message, undefined, this.snackBarWithShortDuration);
+      }
+    });
+  }
+
   getCurrency(){
     this.systemService.systemCurrency().pipe(
       tap((currencyList) => {
@@ -477,6 +622,44 @@ export class OfferEditorComponent implements OnInit, OnDestroy {
     ).subscribe({
       next: (currencyList) => {
         this.currencyList=currencyList;
+      },
+      error: (err) => {
+        this.snackBar.open(`Ошибка получения валют: ` + err.error.error_message, undefined, this.snackBarWithShortDuration);
+      }
+    });
+  }
+
+  getOfferTxt(){
+    this.requestService.requestOfferTxt({body:{id:this.offer.id}}).pipe(
+      tap((currencyList) => {
+      }),
+      takeUntil(this._destroy$)
+    ).subscribe({
+      next: ({name, data}) => {
+        const dataUri = `data:${this.xlsxMimeType};base64,${data}`;
+        const a = document.createElement('a');
+        a.href = dataUri;
+        a.download = name!;
+        a.click();
+      },
+      error: (err) => {
+        this.snackBar.open(`Ошибка получения валют: ` + err.error.error_message, undefined, this.snackBarWithShortDuration);
+      }
+    });
+  }
+
+  getOfferPdf(){
+    this.requestService.requestOfferPdf({body:{id:this.offer.id}}).pipe(
+      tap((currencyList) => {
+      }),
+      takeUntil(this._destroy$)
+    ).subscribe({
+      next: ({name, data}) => {
+        const dataUri = `data:${this.xlsxMimeType};base64,${data}`;
+        const a = document.createElement('a');
+        a.href = dataUri;
+        a.download = name!;
+        a.click();
       },
       error: (err) => {
         this.snackBar.open(`Ошибка получения валют: ` + err.error.error_message, undefined, this.snackBarWithShortDuration);

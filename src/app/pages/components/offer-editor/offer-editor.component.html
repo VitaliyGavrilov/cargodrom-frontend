@@ -1,155 +1,466 @@
+<app-editor-header
+  [title]="'Новое коммерческое предложение'"
+  [content]="true"
+  [request]="request"
+>
+  <div btns class="btns" style="margin-top: 0;">
+    <button class="sav" type="submit">сохранить</button>
+    <button class="pdf" type="button" (click)="getOfferPdf()">просмотр</button>
+    <button class="txt" type="button" (click)="getOfferTxt()">просмотр</button>
+    <button class="can" type="button" (click)="resetPage()">отмена</button>
+  </div>
+
+  <div request>123</div>
+</app-editor-header>
+
+
 <form [formGroup]="kpForm" class="edit-form" (ngSubmit)="onSubmit()" style="width: 1488px;" >
+  <div class="table-list" formGroupName="param">
 
-  <div formGroupName="param">
-    <!-- Секция Custom -->
+    <div class="table_title">
+      <div>Предыдущие котировки: 6</div>
+    </div>
+
+    <div class="block">
+    </div>
+
+    <div class="table_title">
+      <span>Ставки:</span>
+      <div>До границы</div>
+    </div>
+
     <div formGroupName="custom" class="block">
-
-      <div style="display: flex;">
+      <div class="one_profit">
         <mat-checkbox class="testclass" formControlName="one_profit" (change)="setChange()"></mat-checkbox>
-        <div>Единый профит на все ставки</div>
+        <p>Единый профит на все ставки</p>
         <input type="number" formControlName="one_profit_amount" (keyup)="setChange();resetPercent(kpForm.get('param.custom'))">
         <mat-form-field appearance="outline" class="ui-select">
           <mat-select formControlName="one_profit_amount_currency" (valueChange)="setChange()">
-            <mat-option *ngFor="let currency of currencyList;" [value]="currency.id" >{{ currency.name }}</mat-option>
+            <mat-option *ngFor="let currency of currencyList;" [value]="currency.id" >{{ currency.code }}</mat-option>
           </mat-select>
         </mat-form-field>
+        или
         <input type="number" formControlName="one_profit_percent" (keyup)="setChange();resetAmount(kpForm.get('param.custom'))">
+        <p>%</p>
+        <mat-checkbox style="margin-left: auto;" class="testclass" formControlName="detail_items" (change)="setChange()"></mat-checkbox>
+        Детализировать ставку в КП
       </div>
 
-      <div formArrayName="rows" class="rate_table">
-        <div class="row">
-          <div *ngFor="let col of customTableRowConfig" [style.width]="col.width">{{col.title}}</div>
-        </div>
-        <div *ngFor="let row of customRows.controls; let i = index" [formGroupName]="i" class="row">
+      <table>
+        <thead>
+          <tr>
+            <th>
+              <div class="td-block" >
+                <div class="column"></div>
+              </div>
+            </th>
 
-          <div class="row_main">
-            <div *ngFor="let col of customTableRowConfig" [style.width]="col.width">
-              <ng-container *ngIf="col.index">{{offer?.param.custom.rows[i][col.index]}}</ng-container>
-              <div *ngIf="col.expansion" (click)="col.expansion(); customExpansionRow = customExpansionRow === i ? null : i;">expan</div>
-              <div *ngIf="col.del" (click)="col.del();">del</div>
-              <input type="number" *ngIf="col.control" (keyup)="setChange(row,true)" [formControlName]="col.control" [readonly]="kpForm.value.param.custom.one_profit||customExpansionRow === row||col.control!=='profit_amount'">
-            </div>
-          </div>
+            <th class="border-n">
+              <div class="td-block" >
+                <div class="column" style="width: 5%;">Air</div>
+                <div class="column" style="width: 15%;">Авиалиния</div>
+                <div class="column" style="width: 35%;">Маршрут</div>
+                <div class="column" style="width: 15%;">Расписание</div>
+                <div class="column" style="width: 15%;">Есть место</div>
+                <div class="column" style="width: 10%;">Срок, дн.</div>
+              </div>
+            </th>
 
-          <div class="row_expansion" formArrayName="services" *ngIf="customExpansionRow==i">
-            <div *ngFor="let service of returnServiceControls(row); let j = index" [formGroupName]="j" style="display: flex;">
-              <div>{{offer?.param.custom.rows[i].services[j].name}}</div>
-              <input type="number" formControlName="cost" readonly>
-              <input type="number" formControlName="profit_amount" (keyup)="setChange(row,false)"  [readonly]="kpForm.value.param.custom.one_profit">
-              <input type="number"  formControlName="profit_percent"  readonly>
-              <input type="number" formControlName="total_cost"  readonly>
-              <mat-checkbox class="testclass"  formControlName="select" (change)="setChange(row,false)"></mat-checkbox>
-            </div>
-          </div>
-        </div>
-      </div>
-      <button type="button" (click)="addCustomRow()">Add Row</button>
+            <th>
+              <div class="td-block" >
+                <div class="column">Вход</div>
+                <div class="column">Профит</div>
+                <div class="column">%</div>
+                <div class="column">Ставка</div>
+              </div>
+            </th>
+
+            <th class="border-n">
+              <div class="td-block" >
+                <div class="column"></div>
+              </div>
+            </th>
+          </tr>
+        </thead>
+        <tbody formArrayName="rows">
+          <ng-container *ngFor="let row of customRows.controls; let i = index" [formGroupName]="i">
+            <tr>
+
+              <td  [ngStyle]="customExpansionRow==i ? {'border': 'none', 'background':'inherit'} : {}">
+                <div class="td-block" >
+                  <button [ngClass]="customExpansionRow===i?'arrow-close':'arrow-open'" type="button" (click)="customExpansionRow = customExpansionRow === i ? null : i;"></button>
+                </div>
+              </td>
+
+              <td>
+                <div class="td-block" >
+                  <!-- <div class="column " style="width: 100px;" *ngFor="let index of ['carrier_iata','carrier_name','route_name','schedule','nearest_flight','transit_time']">
+                    {{offer?.param.custom.rows[i][index]}}
+                  </div> -->
+                  <div class="column" style="width: 5%;">{{offer?.param.custom.rows[i]['carrier_iata']}}</div>
+                  <div class="column" style="width: 15%;">{{offer?.param.custom.rows[i]['carrier_name']}}</div>
+                  <div class="column" style="width: 35%;">{{offer?.param.custom.rows[i]['route_name']}}</div>
+                  <div class="column" style="width: 15%;">{{offer?.param.custom.rows[i]['schedule']}}</div>
+                  <div class="column" style="width: 15%;">{{offer?.param.custom.rows[i]['nearest_flight']}}</div>
+                  <div class="column" style="width: 10%;">{{offer?.param.custom.rows[i]['transit_time']}}</div>
+                </div>
+              </td>
+
+              <td>
+                <div class="td-block" >
+                  <div class="column"><input type="number"  formControlName="income_total_cost" readonly></div>
+                  <div class="column"><input type="number"  formControlName="profit_amount" (keyup)="setChange(row,true)" [readonly]="kpForm.value.param.custom.one_profit"></div>
+                  <div class="column"><input type="number"  formControlName="profit_percent" (keyup)="setChange(row,true)" readonly></div>
+                  <div class="column"><input type="number"  formControlName="total_cost" readonly></div>
+                </div>
+              </td>
+
+              <td>
+                <div class="td-block" >
+                  <button type="button" class="btn-del"></button>
+                </div>
+              </td>
+            </tr>
+            <!-- EXPAN ROW -->
+            <tr *ngIf="customExpansionRow==i" formArrayName="services" class="expan-row">
+
+              <td style="background: inherit;">
+                <div class="td-block"></div>
+              </td>
+
+              <td style="background: inherit;">
+                <div *ngFor="let service of returnServiceControls(row); let j = index" [formGroupName]="j" class="service titles" >
+                  <div class="title">{{offer?.param.custom.rows[i].services[j].name}}</div>
+                </div>
+              </td>
+
+              <td>
+                <div *ngFor="let service of returnServiceControls(row); let j = index" [formGroupName]="j" class="service inputs">
+                  <input type="number" formControlName="cost" readonly style="border: none;">
+                  <input type="number" formControlName="profit_amount" (keyup)="setChange(row,false)"  [readonly]="kpForm.value.param.custom.one_profit">
+                  <input type="number"  formControlName="profit_percent"  readonly>
+                  <input type="number" formControlName="total_cost"  readonly>
+                </div>
+              </td>
+
+              <td>
+                <div *ngFor="let service of returnServiceControls(row); let j = index" [formGroupName]="j" class="service checkboxs" >
+                  <mat-checkbox class="testclass"  formControlName="select" (change)="setChange(row,false)"></mat-checkbox>
+                </div>
+              </td>
+
+            </tr>
+          </ng-container>
+        </tbody>
+      </table>
+
     </div>
 
-    <!-- Секция Storage -->
+    <div class="table_title">
+      <span>Ставки:</span>
+      <div>Склад (СВХ)</div>
+    </div>
+
     <div formGroupName="storage" class="block">
-      <div style="display: flex;">
+      <div class="one_profit">
         <mat-checkbox class="testclass" formControlName="one_profit" (change)="setChange()"></mat-checkbox>
-        <div>Единый профит на все ставки</div>
+        <p>Единый профит на все ставки</p>
         <input type="number" formControlName="one_profit_amount" (keyup)="setChange();resetPercent(kpForm.get('param.storage'))">
         <mat-form-field appearance="outline" class="ui-select">
           <mat-select formControlName="one_profit_amount_currency" (valueChange)="setChange()">
-            <mat-option *ngFor="let currency of currencyList;" [value]="currency.id" >{{ currency.name }}</mat-option>
+            <mat-option *ngFor="let currency of currencyList;" [value]="currency.id" >{{ currency.code }}</mat-option>
           </mat-select>
         </mat-form-field>
+        или
         <input type="number" formControlName="one_profit_percent" (keyup)="setChange();resetAmount(kpForm.get('param.storage'))">
+        <p>%</p>
+        <mat-checkbox style="margin-left: auto;" class="testclass" formControlName="detail_items" (change)="setChange()"></mat-checkbox>
+        Детализировать ставку в КП
       </div>
 
-      <div formArrayName="rows" class="rate_table">
-        <div class="row">
-          <div *ngFor="let col of storageTableRowConfig" [style.width]="col.width">{{col.title}}</div>
-        </div>
-        <div *ngFor="let row of storageRows.controls; let i = index" [formGroupName]="i" class="row">
+      <table>
+        <thead>
+          <tr>
+            <th>
+              <div class="td-block" >
+                <div class="column"></div>
+              </div>
+            </th>
 
-          <div class="row_main">
-            <div *ngFor="let col of storageTableRowConfig" [style.width]="col.width">
-              <ng-container *ngIf="col.index">
-                {{
-                offer?.param.storage.rows[i][col.index]
-                
-                }}
-              </ng-container>
-              <div *ngIf="col.expansion" (click)="col.expansion(); storageExpansionRow = storageExpansionRow === i ? null : i;">expan</div>
-              <div *ngIf="col.del" (click)="col.del();">del</div>
-              <input type="number" *ngIf="col.control" (keyup)="setChange(row,true)" [formControlName]="col.control" [readonly]="kpForm.value.param.storage.one_profit||storageExpansionRow === i||col.control!=='profit_amount'">
-            </div>
-          </div>
+            <th class="border-n">
+              <div class="td-block" >
+                <!-- <div class="column"
+                  style="width: 100px;"
+                  *ngFor="let title of ['Air','Наименование Аэропорта','Вид прайса','Наименование статей затрат'];
+                  let i=index"
+                >
+                  {{title}}
+                </div> -->
+                <div class="column" style="width: 5%;">Air</div>
+                <div class="column" style="width: 25%;">Наименование Аэропорта</div>
+                <div class="column" style="width: 15%;">Вид прайса</div>
+                <div class="column" style="width: 55%;">Наименование статей затрат</div>
+              </div>
+            </th>
 
-          <div class="row_expansion" formArrayName="services" *ngIf="storageExpansionRow==i">
-            <div *ngFor="let service of returnServiceControls(row); let j = index" [formGroupName]="j" style="display: flex;">
-              <div>{{offer?.param.storage.rows[i].services[j].name}}</div>
-              <input type="number" formControlName="cost" readonly>
-              <input type="number" formControlName="profit_amount" (keyup)="setChange(row,false)"  [readonly]="kpForm.value.param.storage.one_profit">
-              <input type="number"  formControlName="profit_percent"  readonly>
-              <input type="number" formControlName="total_cost"  readonly>
-              <mat-checkbox class="testclass"  formControlName="select" (change)="setChange(row,false)"></mat-checkbox>
-            </div>
-          </div>
-        </div>
-      </div>
+            <th>
+              <div class="td-block" >
+                <div class="column">Вход</div>
+                <div class="column">Профит</div>
+                <div class="column">%</div>
+                <div class="column">Ставка</div>
+              </div>
+            </th>
+
+            <th class="border-n">
+              <div class="td-block" >
+                <div class="column"></div>
+              </div>
+            </th>
+          </tr>
+        </thead>
+        <tbody formArrayName="rows">
+          <ng-container *ngFor="let row of storageRows.controls; let i = index" [formGroupName]="i">
+            <tr>
+
+              <td  [ngStyle]="storageExpansionRow==i ? {'border': 'none', 'background':'inherit'} : {}">
+                <div class="td-block" >
+                  <button [ngClass]="storageExpansionRow===i?'arrow-close':'arrow-open'" type="button" (click)="storageExpansionRow = storageExpansionRow === i ? null : i;"></button>
+                </div>
+              </td>
+
+              <td>
+                <div class="td-block" >
+                  <div class="column" style="width: 5%;">{{offer?.param.storage.rows[i]['carrier_iata']}}</div>
+                  <div class="column" style="width: 25%;">{{offer?.param.storage.rows[i]['point'].name}}</div>
+                  <div class="column" style="width: 15%;">{{offer?.param.storage.rows[i]['point_action'].name}}</div>
+                  <div class="column" style="width: 55%;">{{offer?.param.storage.rows[i]['service_items']}}</div>
+                </div>
+              </td>
+
+              <td>
+                <div class="td-block" >
+                  <div class="column"><input type="number"  formControlName="income_total_cost" readonly></div>
+                  <div class="column"><input type="number"  formControlName="profit_amount" (keyup)="setChange(row,true)"  [readonly]="kpForm.value.param.storage.one_profit"></div>
+                  <div class="column"><input type="number"  formControlName="profit_percent" (keyup)="setChange(row,true)" readonly></div>
+                  <div class="column"><input type="number"  formControlName="total_cost" readonly></div>
+                </div>
+              </td>
+
+              <td>
+                <div class="td-block" >
+                  <button type="button" class="btn-del"></button>
+                </div>
+              </td>
+            </tr>
+            <!-- EXPAN ROW -->
+            <tr *ngIf="storageExpansionRow==i" formArrayName="services" class="expan-row">
+
+              <td style="background: inherit;">
+                <div class="td-block"></div>
+              </td>
+
+              <td style="background: inherit;">
+                <div *ngFor="let service of returnServiceControls(row); let j = index" [formGroupName]="j" class="service titles" >
+                  <div class="title">{{offer?.param.storage.rows[i].services[j].name}}</div>
+                </div>
+              </td>
+
+              <td>
+                <div *ngFor="let service of returnServiceControls(row); let j = index" [formGroupName]="j" class="service inputs">
+                  <input type="number" formControlName="cost" readonly style="border: none;">
+                  <input type="number" formControlName="profit_amount" (keyup)="setChange(row,false)"  [readonly]="kpForm.value.param.storage.one_profit">
+                  <input type="number"  formControlName="profit_percent"  readonly>
+                  <input type="number" formControlName="total_cost"  readonly>
+                </div>
+              </td>
+
+              <td>
+                <div *ngFor="let service of returnServiceControls(row); let j = index" [formGroupName]="j" class="service checkboxs" >
+                  <mat-checkbox class="testclass"  formControlName="select" (change)="setChange(row,false)"></mat-checkbox>
+                </div>
+              </td>
+
+            </tr>
+          </ng-container>
+        </tbody>
+      </table>
 
     </div>
 
-    <!-- Секция Delivery -->
+    <div class="table_title">
+      <span>Ставки:</span>
+      <div>Вывоз</div>
+    </div>
+
     <div formGroupName="delivery" class="block">
-      <div style="display: flex;">
+      <div class="one_profit">
         <mat-checkbox class="testclass" formControlName="one_profit" (change)="setChange()"></mat-checkbox>
-        <div>Единый профит на все ставки</div>
+        <p>Единый профит на все ставки</p>
         <input type="number" formControlName="one_profit_amount" (keyup)="setChange();resetPercent(kpForm.get('param.delivery'))">
         <mat-form-field appearance="outline" class="ui-select">
           <mat-select formControlName="one_profit_amount_currency" (valueChange)="setChange()">
-            <mat-option *ngFor="let currency of currencyList;" [value]="currency.id" >{{ currency.name }}</mat-option>
+            <mat-option *ngFor="let currency of currencyList;" [value]="currency.id" >{{ currency.code }}</mat-option>
           </mat-select>
         </mat-form-field>
+        или
         <input type="number" formControlName="one_profit_percent" (keyup)="setChange();resetAmount(kpForm.get('param.delivery'))">
+        <p>%</p>
+        <mat-checkbox style="margin-left: auto;" class="testclass" formControlName="detail_items" (change)="setChange()"></mat-checkbox>
+        Детализировать ставку в КП
       </div>
 
-      <div formArrayName="rows" class="rate_table">
-        <div class="row">
-          <div *ngFor="let col of deliveryTableRowConfig" [style.width]="col.width">{{col.title}}</div>
-        </div>
-        <div *ngFor="let row of deliveryRows.controls; let i = index" [formGroupName]="i" class="row">
-
-          <div class="row_main">
-            <div *ngFor="let col of deliveryTableRowConfig" [style.width]="col.width">
-              <ng-container *ngIf="col.index">
-                {{
-                offer?.param.delivery.rows[i][col.index]
-                ? offer?.param.delivery.rows[i][col.index]
-                : offer?.param.delivery.rows[i][col.index].name
-                }}
-              </ng-container>
-              <div *ngIf="col.expansion" (click)="col.expansion(); deliveryExpansionRow = deliveryExpansionRow === i ? null : i;">expan</div>
-              <div *ngIf="col.del" (click)="col.del();">del</div>
-              <input type="number" *ngIf="col.control" (keyup)="setChange(row,true)" [formControlName]="col.control" [readonly]="kpForm.value.param.delivery.one_profit||deliveryExpansionRow === i||col.control!=='profit_amount'">
-            </div>
-          </div>
-
-          <div class="row_expansion" formArrayName="services" *ngIf="deliveryExpansionRow==i">
-            <div *ngFor="let service of returnServiceControls(row); let j = index" [formGroupName]="j" style="display: flex;">
-              <div>
-                {{offer?.param.delivery.rows[i].services[j].name}}
+      <table>
+        <thead>
+          <tr>
+            <th>
+              <div class="td-block" >
+                <div class="column"></div>
               </div>
-              <input type="number" formControlName="cost" readonly>
-              <input type="number" formControlName="profit_amount" (keyup)="setChange(row,false)"  [readonly]="kpForm.value.param.delivery.one_profit">
-              <input type="number"  formControlName="profit_percent"  readonly>
-              <input type="number" formControlName="total_cost"  readonly>
-              <mat-checkbox class="testclass"  formControlName="select" (change)="setChange(row,false)"></mat-checkbox>
-            </div>
-          </div>
-        </div>
-      </div>
-      <button type="button" (click)="addCustomRow()">Add Row</button>
+            </th>
+
+            <th class="border-n">
+              <div class="td-block" >
+                <div class="column"
+                  style="width: 100px;"
+                  *ngFor="let title of ['Тип ТС','Маршрут','Срок, дн.'];
+                  let i=index"
+                >
+                  {{title}}
+                </div>
+              </div>
+            </th>
+
+            <th>
+              <div class="td-block" >
+                <div class="column">Вход</div>
+                <div class="column">Профит</div>
+                <div class="column">%</div>
+                <div class="column">Ставка</div>
+              </div>
+            </th>
+
+            <th class="border-n">
+              <div class="td-block" >
+                <div class="column"></div>
+              </div>
+            </th>
+          </tr>
+        </thead>
+        <tbody formArrayName="rows">
+          <ng-container *ngFor="let row of deliveryRows.controls; let i = index" [formGroupName]="i">
+            <tr>
+
+              <td  [ngStyle]="deliveryExpansionRow==i ? {'border': 'none', 'background':'inherit'} : {}">
+                <div class="td-block" >
+                  <button [ngClass]="deliveryExpansionRow===i?'arrow-close':'arrow-open'" type="button" (click)="deliveryExpansionRow = deliveryExpansionRow === i ? null : i;"></button>
+                </div>
+              </td>
+
+              <td>
+                <div class="td-block" >
+                  <div class="column " style="width: 100px;">{{offer?.param.delivery.rows[i]['service_items']}}</div>
+                  <div class="column " style="width: 100px;">{{offer?.param.delivery.rows[i]['route_name']}}</div>
+                  <div class="column " style="width: 100px;">{{offer?.param.delivery.rows[i]['period']}}</div>
+                </div>
+              </td>
+
+              <td>
+                <div class="td-block" >
+                  <div class="column"><input type="number"  formControlName="income_total_cost" readonly></div>
+                  <div class="column"><input type="number"  formControlName="profit_amount" (keyup)="setChange(row,true)" [readonly]="kpForm.value.param.delivery.one_profit"></div>
+                  <div class="column"><input type="number"  formControlName="profit_percent" (keyup)="setChange(row,true)" readonly></div>
+                  <div class="column"><input type="number"  formControlName="total_cost" readonly></div>
+                </div>
+              </td>
+
+              <td>
+                <div class="td-block" >
+                  <button type="button" class="btn-del" (click)="onDelRowChange(deliveryRows,i)"></button>
+                </div>
+              </td>
+            </tr>
+            <!-- EXPAN ROW -->
+            <tr *ngIf="deliveryExpansionRow==i" formArrayName="services" class="expan-row">
+
+              <td style="background: inherit;">
+                <div class="td-block"></div>
+              </td>
+
+              <td style="background: inherit;">
+                <div *ngFor="let service of returnServiceControls(row); let j = index" [formGroupName]="j" class="service titles" >
+                  <div class="title">{{offer?.param.delivery.rows[i].services[j].name}}</div>
+                </div>
+              </td>
+
+              <td>
+                <div *ngFor="let service of returnServiceControls(row); let j = index" [formGroupName]="j" class="service inputs">
+                  <input type="number" formControlName="cost" readonly style="border: none;">
+                  <input type="number" formControlName="profit_amount" (keyup)="setChange(row,false)"  [readonly]="kpForm.value.param.delivery.one_profit">
+                  <input type="number"  formControlName="profit_percent"  readonly>
+                  <input type="number" formControlName="total_cost"  readonly>
+                </div>
+              </td>
+
+              <td>
+                <div *ngFor="let service of returnServiceControls(row); let j = index" [formGroupName]="j" class="service checkboxs" >
+                  <mat-checkbox class="testclass"  formControlName="select" (change)="setChange(row,false)"></mat-checkbox>
+                </div>
+              </td>
+
+            </tr>
+          </ng-container>
+        </tbody>
+      </table>
+
     </div>
+
+
   </div>
 
-  <button type="submit">Submit</button>
+  <div class="table_title">
+    <div>Дополнительно</div>
+  </div>
+
+  <div class="block" style="display: flex; align-items: flex-start; ">
+    <div class="dop" style="display: flex;flex-direction: column; margin-right: 20px; width: 180px;">
+      ставки действительны до:
+      <input type="date" formControlName="valid">
+    </div>
+
+    <div class="dop" style="display: flex;flex-direction: column; width: 100%;">
+      комментарий к коммерческому предложению:
+      <textarea formControlName="comment"></textarea>
+    </div>
+
+
+  </div>
+
+  <div class="btns">
+    <button class="sav" type="submit">сохранить</button>
+    <button class="pdf" type="button" (click)="getOfferPdf()">просмотр</button>
+    <button class="txt" type="button" (click)="getOfferTxt()">просмотр</button>
+    <button class="can" type="button" (click)="resetPage()">отмена</button>
+  </div>
+
+
+
+
 </form>
+
+<ng-template #delRateDialogRef let-data>
+  <h1 mat-dialog-title>Удаление ставки</h1>
+  <div mat-dialog-content>
+    Вы уверенны, что хотите удалить ставку ?
+  </div>
+  <div mat-dialog-actions align="end">
+    <button mat-button [mat-dialog-close]="true" cdkFocusInitial>Да</button>
+    <button mat-button mat-dialog-close>Нет</button>
+  </div>
+</ng-template>
+
+
+
 
 
 

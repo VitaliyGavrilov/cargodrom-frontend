@@ -66,12 +66,12 @@
   </div>
 </div>
 
-<ng-container *ngIf="!offerList?.items">
+<ng-container *ngIf="!isOfferListShow">
   <div class="subtitle">Коммерческие предложения: 0</div>
   <div class="kp-none">Коммерческих предложений нет</div>
 </ng-container>
 
-<ng-container *ngIf="offerList?.items">
+<ng-container *ngIf="isOfferListShow">
   <div class="subtitle">Коммерческие предложения: {{offerList.total}}</div>
   <div class="table-list">
     <table mat-table [dataSource]="offerList?.items" multiTemplateDataRows>
@@ -392,10 +392,11 @@
 
 <ng-template #rateTransporterDialogRef let-data>
   <app-rate-add-transporter
+  [requestId]="currentRequest.id"
     [rate]="data"
 
     [weight]="currentRequest.cargo_places_paid_weight"
-    [requestId]="currentRequest.id"
+
     [transportKindId]="currentRequest.transport_kind_id"
     [cityId]="currentRequest.arrival_city_id"
     (closeDialog)="closeAllDialogs()">
