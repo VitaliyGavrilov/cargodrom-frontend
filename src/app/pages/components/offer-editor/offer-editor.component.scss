@@ -5,35 +5,58 @@
   box-shadow: 0px 2px 8px 0px #242D4314;
 
   .dop{
-
+    display: flex;
+    flex-direction: column;
+    margin-right: 20px;
     font-size: 10px;
     font-weight: 400;
     line-height: 10px;
     text-align: left;
-    text-transform:uppercase;
-
-
-
+    min-width: 155px;
+    span{
+      margin-bottom: 11px;
+      text-transform:uppercase;
+    }
+  }
+  .dop:last-child{
+    width: 100%;
+    margin-right: 0;
   }
 }
+
+// .datepiker{
+//   display: flex;
+//   justify-content: space-between;
+//   background: inherit;
+//   border: none;
+//   color: #DB563B;
+//   font-size: 15px;
+//   font-weight: 400;
+//   line-height: 15px;
+//   width: 100%;
+//   .btn-date{
+//     margin-left: 5px;
+//     display: block;
+//     cursor: pointer;
+//     background-image: url(../../../../assets/pic-btn-calendar.svg);
+//     background-repeat: no-repeat;
+//     width: 14px;
+//     height: 14px;
+//   }
+// }
+
+
 
 input[type="date"]{
   background: inherit;
   border: none;
   color: #DB563B;
-
-
   width: 115px;
-
   padding: 11px 0 9px;
-
-
   font-size: 15px;
   font-weight: 400;
   line-height: 14px;
   text-align: left;
-
-
 }
 input[type="date"]::-webkit-calendar-picker-indicator {
   cursor: pointer;
@@ -54,7 +77,6 @@ textarea{
   box-sizing: border-box;
   padding: 11px 13px 9px;
   height: 105px;
-  margin-top: 11px;
 }
 
 
@@ -93,145 +115,6 @@ textarea{
 }
 
 
-// .rate_table{
-//   display: flex;
-//   flex-direction: column;
-//   .row{
-//     display: flex;
-
-
-//     flex-direction: column;
-//     color: #2C3640;
-//     font-size: 13px;
-//     font-weight: 400;
-//     line-height: 12px;
-//     text-align: left;
-//     border-left: 1px solid #E0E5EB;
-//     border-right: 1px solid #E0E5EB;
-//     border-bottom: 1px solid #E0E5EB;
-//     .row_main{
-//       display: flex;
-//       height: 64px;
-//       align-items: center;
-//       gap:10px;
-//       div{
-//         display: flex;
-//         flex-grow: 1;
-//         justify-content: center;
-//         align-items: center;
-
-//       }
-
-
-//     }
-//     .row_expansion{
-//       border-top: 1px solid #E0E5EB;
-//       display: flex;
-//       flex-direction: column;
-
-
-//       .service{
-//         gap: 10px;
-//         // display: flex;
-//         align-items: center;
-//         justify-content: end;
-//         .col{
-//           width: 1px;
-//           background-color: rgb(224, 229, 235);
-//           height: 56px;
-//         }
-//         .mat-checkbox {
-//           display: flex;
-//           align-items: center;
-//           width: 64px;
-//           height: 56px;
-//           border-left: 1px solid rgb(224, 229, 235);
-//           label{
-//             margin: 0 auto;
-//           }
-//         }
-
-//         .title{
-
-//         }
-//       }
-//       .service:first-child{
-//         margin-top: 10px;
-//       }
-//       .service:last-child{
-//         margin-bottom: 10px;
-//       }
-//       input{
-//         max-width: 100.47px;
-//       }
-//     }
-//     button{
-//       cursor: pointer;
-//     }
-//     .arrow-open {
-//       width: 20px;
-//       height: 20px;
-//       background-image: url(../../../../assets/pic-select-arrow.svg);
-//       background-repeat: no-repeat;
-//       background-position: center;
-//       margin: 0 auto;
-//       border: none;
-//       background-color: inherit;
-//     }
-//     .arrow-close {
-//       width: 20px;
-//       height: 20px;
-//       background-image: url(../../../../assets/pic-filter-arrow.svg);
-//       background-repeat: no-repeat;
-//       background-position: center;
-//       margin: 0 auto;
-//       border: none;
-//       background-color: inherit;
-//     }
-//     .btn-del {
-//       width: 20px;
-//       height: 20px;
-//       background-image: url(../../../../assets/pic-btn-del-gray.svg);
-//       background-repeat: no-repeat;
-//       background-position: center;
-//       margin: 0 auto;
-//       border: none;
-//       background-color: inherit;
-
-//     }
-
-//   }
-
-
-//   .row:first-child{
-//     gap:10px;
-
-//     flex-direction: row;
-//     align-items: center;
-//     height: 48px;
-//     background: #83909E;
-//     color: white;
-//     font-size: 13px;
-//     font-weight: 400;
-//     line-height: 12px;
-//     text-align: left;
-//     border-top: 1px solid #83909E;
-//     border-left: 1px solid #83909E;
-//     border-right: 1px solid #83909E;
-//     div{
-//       display: flex;
-//       flex-grow: 1;
-//       justify-content: center;
-
-//     }
-//   }
-
-//   input{
-//     height: 40px;
-
-//   }
-// }
-
 input[type="number"] {
 	-moz-appearance: textfield;
 	-webkit-appearance: textfield;
@@ -243,7 +126,7 @@ input[type="number"]::-webkit-inner-spin-button {
 	display: none;
 }
 
-tr{
+table.kp tr{
   th:last-child, th:nth-child(2){
     border: none;
   }
@@ -271,13 +154,7 @@ tr{
 
 
 
-table{
-
-
-
-
-
-
+table.kp{
   thead{
     border: 1px solid #83909E;
     border-bottom: none;

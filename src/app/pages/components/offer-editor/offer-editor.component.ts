@@ -1,25 +1,11 @@
-import { emailValidator, innValidator } from './../../../validators/pattern-validator';
-import { ChangeDetectorRef, Component, OnDestroy, OnInit, TemplateRef, ViewChild, ViewEncapsulation } from '@angular/core';
-import { FormArray, FormBuilder, FormControl, FormGroup, MinLengthValidator, Validators } from '@angular/forms';
-import { ActivatedRoute, Router } from '@angular/router';
-import { Observable, Subject, find, map, pipe, takeUntil, tap, retry, debounce, debounceTime, distinctUntilChanged } from 'rxjs';
-import { ContractorService } from './../../../api/services/contractor.service';
-import { City, Client, ClientGroup, Contractor, ContractorRequestFormat, Country, Currency, Customer, DirectionCity, Employee, FileDocument, TaxSystem, RequestFile } from 'src/app/api/custom_models';
-import { CargoService, CompanyService, CustomerService, DirectionService, RequestService, SystemService, TransportService } from 'src/app/api/services';
-import { Editor } from 'src/app/classes/editor';
-import { Location, getLocaleMonthNames } from '@angular/common';
-import { CityService } from '../../services/city.service';
-import { CountryService } from '../../services/country.service';
-import { byField } from 'src/app/constants';
-import { FileListComponent } from '../file-list/file-list.component';
-import { TransportKind, TransportSubKind, TransportType } from 'src/app/api/custom_models/transport';
-import { Incoterms, Request, RequestFormat, RequestServices } from 'src/app/api/custom_models/request';
-import { CargoPackage, CargoType } from 'src/app/api/custom_models/cargo';
-import { DirectionFlight, DirectionPoint,  } from 'src/app/api/custom_models/direction';
-import {MatButtonToggleModule} from '@angular/material/button-toggle';
+import { Component, OnDestroy, OnInit, TemplateRef, ViewChild, ViewEncapsulation } from '@angular/core';
+import { FormArray, FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { ActivatedRoute } from '@angular/router';
+import { Subject, takeUntil, tap, debounceTime, distinctUntilChanged } from 'rxjs';
+import { RequestService, SystemService } from 'src/app/api/services';
 import { MatSnackBar, MatSnackBarConfig } from '@angular/material/snack-bar';
-import { environment } from './../../../../environments/environment';
 import { MatDialog } from '@angular/material/dialog';
+import { formatDate } from '@angular/common';
 
 @Component({
   selector: 'app-offer-editor',
@@ -44,218 +30,6 @@ export class OfferEditorComponent implements OnInit, OnDestroy {
 
   currencyList:any=[];
 
-  customTableRowConfig=[
-    {
-      title:'',
-      width:'64px',
-      index:'',
-      expansion: this.onClickExpansionCustomRowChange,
-    },
-    {
-      title:'Air',
-      width:'64px',
-      index:'carrier_iata',
-    },
-    {
-      title:'Авиалиния',
-      width:'130px',
-      index:'carrier_name',
-    },
-    {
-      title:'Маршрут',
-      width:'250px',
-      index:'route_name',
-    },
-    {
-      title:'Расписание',
-      width:'140px',
-      index:'schedule',
-    },
-    {
-      title:'Есть место',
-      width:'100px',
-      index:'nearest_flight',
-    },
-    {
-      title:'Срок, дн.',
-      width:'65px',
-      index:'transit_time',
-    },
-    {
-      title:'',
-      width:'0px',
-      height: '100%',
-
-    },
-    {
-      title:'Вход',
-      width:'100px',
-      control:'income_total_cost',
-    },
-    {
-      title:'Профит',
-      width:'100px',
-      control:'profit_amount',
-    },
-    {
-      title:'%',
-      width:'100px',
-      control:'profit_percent',
-    },
-    {
-      title:'Ставка',
-      width:'100px',
-      control:'total_cost',
-    },
-    {
-      title:'',
-      width:'64px',
-      index:'',
-      del: this.onDelRowChange,
-    },
-  ];
-  deliveryTableRowConfig=[
-    {
-      title:'',
-      width:'64px',
-      index:'',
-      expansion: this.onClickExpansionCustomRowChange,
-    },
-    {
-      title:'Тип ТС',
-      width:'64px',
-      index:'carrier_iata',
-    },
-    {
-      title:'Маршрут',
-      width:'130px',
-      index:'carrier_name',
-    },
-    {
-      title:'Срок, дн.',
-      width:'250px',
-      index:'route_name',
-    },
-    {
-      title:'',
-      width:'0px',
-      height: '100%',
-
-    },
-    {
-      title:'Вход',
-      width:'100px',
-      control:'income_total_cost',
-    },
-    {
-      title:'Профит',
-      width:'100px',
-      control:'profit_amount',
-    },
-    {
-      title:'%',
-      width:'100px',
-      control:'profit_percent',
-    },
-    {
-      title:'Ставка',
-      width:'100px',
-      control:'total_cost',
-    },
-    {
-      title:'',
-      width:'64px',
-      index:'',
-      del: this.onDelRowChange,
-    },
-  ];
-  storageTableRowConfig=[
-    {
-      title:'',
-      width:'64px',
-      index:'',
-      expansion: this.onClickExpansionCustomRowChange,
-    },
-    {
-      title:'Air',
-      width:'64px',
-      index:'carrier_iata',
-    },
-    {
-      title:'Наименование Аэропорта',
-      width:'226px',
-      index:'carrier_name',
-    },
-    {
-      title:'Вид прайса',
-      width:'250px',
-      index:'point',
-    },
-    {
-      title:'Наименование статей затрат',
-      width:'230px',
-      index:'schedule',
-    },
-
-    {
-      title:'',
-      width:'0px',
-      height: '100%',
-
-    },
-    {
-      title:'Вход',
-      width:'100px',
-      control:'income_total_cost',
-    },
-    {
-      title:'Профит',
-      width:'100px',
-      control:'profit_amount',
-    },
-    {
-      title:'%',
-      width:'100px',
-      control:'profit_percent',
-    },
-    {
-      title:'Ставка',
-      width:'100px',
-      control:'total_cost',
-    },
-    {
-      title:'',
-      width:'64px',
-      index:'',
-      del: this.onDelRowChange,
-    },
-  ];
-
-  // tableConfig:any=[
-  //   {
-  //     title:'До границы',
-  //     col_config: this.customTableRowConfig,
-  //     form_name: 'custom',
-  //     expansion_row: this.customExpansionRow,
-  //     // rows: this.returnCustomRows,
-  //     // form_table: this.customTable,
-  //   },
-  //   {
-  //     title:'Склад (СВХ)',
-  //     col_config: this.storageTableRowConfig,
-  //     form_name: 'storage',
-  //     expansion_row: this.storageExpansionRow,
-  //     // form_table: this.storageTable,
-  //   },
-  //   {
-  //     title:'Вывоз',
-  //     col_config: this.deliveryTableRowConfig,
-  //     form_name: 'delivery',
-  //     expansion_row: this.deliveryExpansionRow,
-  //     // form_table: this.deliveryTable,
-  //   },
-  // ];
-
   snackBarWithShortDuration: MatSnackBarConfig = { duration: 1000 };
   snackBarWithLongDuration: MatSnackBarConfig = { duration: 3000 };
 
@@ -269,24 +43,11 @@ export class OfferEditorComponent implements OnInit, OnDestroy {
   constructor(
     private route: ActivatedRoute,
     private fb: FormBuilder,
-    private customerService: CustomerService,
-    private transportService: TransportService,
     private requestService: RequestService,
-    private cargoService: CargoService,
-    private directionService: DirectionService,
-    private countryService: CountryService,
-    private cityService: CityService,
     private systemService: SystemService,
     private snackBar: MatSnackBar,
-    private location: Location,
-    private router: Router,
-    private cdr: ChangeDetectorRef,
     private matDialog: MatDialog,
-  ) {
-
-  }
-  // проблема в рассчетах
-  // удаление строк
+  ) { }
 
   ngOnInit(): void {
     const segments = this.route.snapshot.url.map(s => s.path);
@@ -318,9 +79,7 @@ export class OfferEditorComponent implements OnInit, OnDestroy {
           this.getCalckOffer(e)
         } else {
           console.log('no lalala');
-
         }
-
       })
     ;
 
@@ -328,6 +87,24 @@ export class OfferEditorComponent implements OnInit, OnDestroy {
   ngOnDestroy(): void {
     this._destroy$.next(null);
     this._destroy$.complete();
+  }
+
+  log(any:any){
+    console.log('log',any)
+  }
+
+  onValidChange(event:any){
+    this.kpForm.patchValue({
+      valid: formatDate(this.kpForm.value.valid,'yyyy-MM-dd','en-US')
+    })
+  }
+
+  validReset(){
+    this.kpForm.controls['valid'].reset();
+  }
+
+  returnValid():string{
+    return this.kpForm.value.valid? formatDate(this.kpForm.value.valid,'dd MMMM yyyy','ru-US'): '';
   }
 
   getVal(obj: any, path: string ): any {
@@ -343,20 +120,6 @@ export class OfferEditorComponent implements OnInit, OnDestroy {
       }
     }
     return obj !== undefined ? obj : null; // Проверка на undefined
-  }
-
-  onClickExpansionCustomRowChange(i:any){
-    console.log(i,this.customExpansionRow);
-
-    // this.customExpansionRow=this.customExpansionRow==i?null:i;
-    // console.log(this.tableConfig);
-
-  }
-  onClickExpansionStorageRowChange(i:any){
-    this.storageExpansionRow=this.storageExpansionRow===i?null:i;
-  }
-  onClickExpansionDeliveryRowChange(i:any){
-    this.deliveryExpansionRow=this.deliveryExpansionRow===i?null:i;
   }
 
   setChange(row?:any, bol?: boolean){
@@ -440,19 +203,6 @@ export class OfferEditorComponent implements OnInit, OnDestroy {
     location.reload()
   }
 
-  //Table
-  // get customTable(): FormArray {
-  //   return (this.kpForm.get('param.custom') as FormArray);
-  // }
-  // get storageTable(): FormArray {
-  //   return (this.kpForm.get('param.storage') as FormArray);
-  // }
-  // get deliveryTable(): FormArray {
-  //   return (this.kpForm.get('param.delivery') as FormArray);
-  // }
-  test():any{
-    return this.kpForm.get('param.custom.rows')
-  }
   //Rows
   get customRows(): FormArray {
     return (this.kpForm.get('param.custom.rows') as FormArray);
@@ -467,12 +217,7 @@ export class OfferEditorComponent implements OnInit, OnDestroy {
   returnRows(table_name:string): any {
     return this.kpForm.get(`param.${table_name}.rows`);
   }
-  // returnStorageRows(): any {
-  //   return this.kpForm.get('param.storage.rows');
-  // }
-  // returnDeliveryRows(): any {
-  //   return this.kpForm.get('param.delivery.rows');
-  // }
+
   //Serv
   returnServiceControls(row:any): any {
     return (row.get('services').controls as FormArray);
@@ -714,403 +459,3 @@ export class OfferEditorComponent implements OnInit, OnDestroy {
     });
   }
 }
-//АКТУАЛЬНОЕ
-  // CHANGERS
-  //table
-  // onOneProfitCheckboxChecked(table:any){
-  //   if(table.value.one_profit){
-  //     if(table.value.one_profit_amount){
-  //       this.onOneProfitAmountInputChange(table);
-  //     } else {
-  //       this.onOneProfitPercentInputChange(table);
-  //     }
-  //   }
-  // }
-  // onOneProfitAmountInputChange(table:any){
-  //   table.controls['one_profit_percent'].reset();
-  //   let onePAmount=table.value.one_profit_amount;
-  //   console.log(onePAmount);
-
-  //   if(table.value.one_profit){
-  //     table.get('rows').controls.forEach((row:any, index:any, array:any) => {
-  //       let perc=(onePAmount/row.value.income_total_cost ) * 100;
-  //       console.log(perc);
-  //       row.patchValue({
-  //         profit_percent: perc,
-  //         profit_amount: onePAmount,
-  //       })
-  //       console.log(onePAmount);
-  //       row.get('services').controls.forEach((value:any, index:any, array:any) => {
-  //         let amount=(value.value.cost/ 100) * perc;
-  //         value.patchValue({
-  //           profit_percent: perc,
-  //           profit_amount: amount,
-  //         })
-  //       })
-  //     })
-  //   }
-  // }
-  // onOneProfitCurrencySelectChange(){
-
-  // }
-  // onOneProfitPercentInputChange(table:any){
-  //   table.controls['one_profit_amount'].reset();
-  //   let onePerc=table.value.one_profit_percent;
-  //   if(table.value.one_profit){
-  //     table.get('rows').controls.forEach((row:any, index:any, array:any) => {
-  //       let onePAmount=(row.value.income_total_cost/ 100) * onePerc;
-  //       row.patchValue({
-  //         profit_percent: onePerc,
-  //         profit_amount: onePAmount,
-  //       })
-  //       row.get('services').controls.forEach((value:any, index:any, array:any) => {
-  //         let amount=(value.value.cost/ 100) * onePerc;
-  //         value.patchValue({
-  //           profit_percent: onePerc,
-  //           profit_amount: amount,
-  //         })
-  //       })
-  //     })
-  //   }
-  // }
-  // //row
-  // onExpansionRowClick(i:any){
-  //   console.log(i);
-  // }
-  // onDelRowChange(i:any){
-  //   console.log(i);
-  // }
-
-  // onProfitRowInputChange(row:any,e?:any){
-  //   let perc=(row.value.profit_amount / row.value.income_total_cost) * 100;
-  //   row.patchValue({
-  //     profit_percent: perc,
-  //   })
-  //   row.get('services').controls.forEach((value:any, index:any, array:any) => {
-  //     let amount=(value.value.cost/ 100) * perc;
-  //     value.patchValue({
-  //       profit_percent: perc,
-  //       profit_amount: amount,
-  //     })
-  //   })
-
-  // }
-  // onPercentRowInputChange(row:any,e?:any){
-  //   let perc=row.value.profit_percent;
-  //   let amount=(row.value.income_total_cost/ 100) * perc;
-  //   row.patchValue({
-  //     profit_amount: amount,
-  //   })
-  //   row.get('services').controls.forEach((value:any, index:any, array:any) => {
-  //     let amount=(value.value.cost/ 100) * perc;
-  //     value.patchValue({
-  //       profit_percent: perc,
-  //       profit_amount: amount,
-  //     })
-  //   })
-  // }
-  // //services(изменение сервиса должно пересчитать строку)
-  // onProfitServicesInputChange(row:any, service:any){
-  //   this.calculateServiceUsingProfit(service);
-  //   this.updateRow(row);
-  // }
-  // onPercentServicesInputChange(row:any, service:any){
-  //   this.calculateServiceUsingProcent(service);
-  //   this.updateRow(row);
-  // }
-  // onSelectServicesCheckboxChecked(row:any,table:any){
-  //   this.updateRow(row);
-  // }
-  // // CALCULATIOS
-  // //calck services
-  // calculateServiceUsingProfit(service:any){
-  //   let perc:number=this.returnPercent(service.value.profit_amount, service.value.cost);
-  //   service.patchValue({
-  //     profit_percent: perc,
-  //   })
-  // }
-  // calculateServiceUsingProcent(service:any,rowProcent?:number){
-  //   //надо добавить возможность передовать процент строки, что ыб потом весь массив сервисов расчитывать при изменении амоунт или процента в строке
-  //   let amount:number=this.returnAmount(service.value.cost, service.value.profit_percent);
-  //   service.patchValue({
-  //     profit_amount: amount,
-  //   })
-  // }
-  // //update
-  // updateRow(row:any){
-
-  // }
-
-  // //calck row
-  // calculateRowUsingProfit(){
-
-  // }
-  // calculateRowUsingProcent(){
-
-  // }
-
-  // //calck sum, amount and procent
-  // returnSum(a:number,b:number):number {
-  //   return (Math.round(a*10) + Math.round(b*10)) / 10;
-  // }
-  // returnPercent(a:number,b:number):number {
-  //   return  Number((( a / b) * 100).toFixed(3));
-  // }
-  // returnAmount(enter:number,procent:number):number {
-  //   return  Number((( enter / 100) * procent).toFixed(3));
-  // }
-
-//СТАРОЕ
-  //return row calck
-  // returnEnterRow(row:any){
-  //   let enter=0;
-  //   row.value.services.forEach((value:any, index:any, array:any) => {
-  //     if(value.select){
-  //       enter=enter+value.cost;
-  //       row.patchValue({
-  //         income_total_cost: enter,
-  //       })
-  //     }
-  //   })
-  //   // return Math.round(enter);
-  //   // return enter.toFixed(2);
-  //   return enter;
-  // }
-  // returnProfitRow(row:any){
-  //   let profit=0;
-  //   row.value.services.forEach((value:any, index:any, array:any) => {
-  //     if(value.select){
-  //       profit=profit+value.profit_amount;
-  //       row.patchValue({
-  //         profit_amount: profit,
-  //       })
-  //     }
-  //   })
-  //   // return profit.toFixed(2);
-  //   // console.log(1);
-
-  //   // return Math.round(profit);
-  //   return profit
-  // }
-  // returnPercentRow(row:any){
-  //   let perc=0;
-  //   let enter=0;
-  //   let profit=0;
-  //   row.value.services.forEach((value:any, index:any, array:any) => {
-  //     if(value.select){
-  //       profit=profit+value.profit_amount;
-  //       enter=enter+value.cost;
-  //       perc=(profit / enter) * 100;
-  //       // row.patchValue({
-  //       //   profit_percent: perc,
-  //       // })
-  //     }
-  //   })
-  //   // return perc.toFixed(2);
-  //   return perc;
-  // }
-  // returnRateRow(row:any){
-  //   let rate=0;
-  //   row.value.services.forEach((value:any, index:any, array:any) => {
-  //     if(value.select){
-  //       rate=rate+value.profit_amount+value.cost;
-  //     }
-  //   })
-  //   // return rate.toFixed(2);
-  //   return rate;
-  // }
-
-  //calck
-  // calcRowFieldsNotOneProfit(row:any){
-  //   let incomeTotalCost=0;
-  //   let profitAmount=0;
-  //   let profitPercent=0;
-  //   row.value.services.forEach((value:any, index:any, array:any) => {
-  //     if(value.select){
-  //       incomeTotalCost=incomeTotalCost + value.cost;
-  //       profitAmount=profitAmount + value.profit_amount;
-  //       profitPercent=this.returnPercent(incomeTotalCost,profitAmount);
-  //       row.patchValue({
-  //         income_total_cost: incomeTotalCost,
-  //         profit_amount: profitAmount,
-  //         profit_percent: profitPercent,
-  //       })
-  //     }
-  //   })
-  // }
-  // calcRowFieldsYesOneProfit(row:any,table:any){
-  //   let incomeTotalCost=0;
-  //   let profitAmount=table.value.one_profit_amount;
-  //   let profitPercent=0;
-  //   row.value.services.forEach((value:any, index:any, array:any) => {
-  //     if(value.select){
-  //       incomeTotalCost=incomeTotalCost + value.cost;
-  //       profitPercent=this.returnPercent(incomeTotalCost,profitAmount);
-  //       row.patchValue({
-  //         income_total_cost: incomeTotalCost,
-  //         profit_amount: profitAmount,
-  //         profit_percent: profitPercent,
-  //       })
-  //     }
-  //   })
-  // }
-
-  //return calck
-
-
-  // returnRowTotalCost(a:any,b:any){
-  //   return a+b
-  // }
-  // returnRowProfitPercent(a:any,b:any){
-  //   let cost=a+b
-  //   return (b / cost) * 100;
-  // }
-
-
-  // TABLE form fields
-  // onOneProfitChange(i:any){
-  //   console.log(i.value);
-  //   if(i.value.one_profit){
-  //     if(i.value.one_profit_amount){
-  //       this.onOneProfitAmountTableChange(i);
-  //     } else {
-  //       this.onOneProfitPercentTableChange(i);
-  //     }
-  //   }
-  // }
-
-  // onOneProfitAmountTableChange(table:any){
-  //   console.log(table);
-
-  //   table.controls['one_profit_percent'].reset();
-  //   if(table.value.one_profit){
-  //     table.get('rows').controls.forEach((value:any, index:any) => {
-  //       value.patchValue({
-  //         profit_amount: table.value.one_profit_amount,
-  //       })
-  //       this.onProfitAmountRowChange(value,this.offer?.param.custom.rows[index].income_total_cost)
-  //     })
-  //   }
-  // }
-
-  // onOneProfitAmountCurrencyChange(){
-  //   console.log('onOneProfitAmountCurrencyChange');
-  // }
-
-  // onOneProfitPercentTableChange(table:any){
-  //   console.log(table);
-  //   table.controls['one_profit_amount'].reset();
-  //   if(table.value.one_profit){
-  //     table.get('rows').controls.forEach((value:any, index:any) => {
-  //       value.patchValue({
-  //         profit_percent: table.value.one_profit_percent,
-  //       })
-  //       this.onProfitPercentRowChange(value,this.offer?.param.custom.rows[index].income_total_cost)
-  //     })
-  //   }
-  // }
-  // ROW form fields
-  // onProfitAmountRowChange(control:any, count:number){
-  //   let per = (control.value.profit_amount / count) * 100;
-  //   control.patchValue({
-  //     profit_percent: per,
-
-  //   })
-
-  //   control.get('services').controls.forEach((serv:any) => {
-  //     if(serv.value.select){
-  //       let serAmo = (serv.value.cost/100) * per
-  //       serv.patchValue({
-  //         profit_percent: per,
-  //         profit_amount: serAmo,
-  //       })
-  //     }
-  //   })
-
-  // }
-  // onProfitPercentRowChange(control:any, count:number){
-  //   let amount= (count/100) * control.value.profit_percent;
-  //   control.patchValue({
-  //     profit_amount: amount,
-
-  //   })
-  //   let per=control.value.profit_percent
-
-  //   control.get('services').controls.forEach((serv:any) => {
-  //     if(serv.value.select){
-  //       let serAmo = (serv.value.cost/100) * per
-  //       serv.patchValue({
-  //         profit_percent: per,
-  //         profit_amount: serAmo,
-  //       })
-  //     }
-  //   })
-
-  // }
-  // SERVICE form fields
-  // onProfitAmountServicesChange(control:any, row:any,count:number){
-  //   let per = (control.value.profit_amount / control.value.cost) * 100;
-  //   control.patchValue({
-  //     profit_percent: per,
-  //   })
-  //   let sum=0;
-  //   row.get('services').controls.forEach((serv:any) => {
-  //     if(serv.value.select){
-  //       sum=sum+serv.value.profit_amount;
-  //       let perRow = (sum / count) * 100;
-  //       row.patchValue({
-  //         profit_percent: perRow,
-  //         profit_amount: sum,
-  //       })
-  //     }
-  //   })
-  // }
-
-  // onProfitPercentServicesChange(control:any, row:any, count:number){
-  //   let amount= (control.value.cost/100) * control.value.profit_percent;
-  //   control.patchValue({
-  //     profit_amount: amount,
-  //   })
-  //   let sum=0;
-  //   row.get('services').controls.forEach((serv:any) => {
-  //     if(serv.value.select){
-  //       sum=sum+serv.value.profit_amount;
-  //       let perRow = (sum/ count) * 100;
-  //       row.patchValue({
-  //         profit_percent: perRow,
-  //         profit_amount: sum,
-  //       })
-  //     }
-  //   })
-  // }
-
-
-// customTableConfig:any={
-  //   colList:['det','data','form'],
-  //   columns:[{
-  //     colName: 'det',
-  //     data:[
-  //       {field: 'carrier_iata', title: '№', width: 20}
-  //     ]
-  //   },
-  //   {
-  //     colName: 'data',
-  //     data:[
-  //       {field: 'carrier_iata', title: 'Air', width: 20},
-  //       {field: 'carrier_name', title: 'Авиалиния', width: 20},
-  //       {field: 'route_name', title: 'Маршрут', width: 20},
-  //       {field: 'schedule', title: 'Расписание', width: 20},
-  //       {field: 'nearest_flight', title: 'Есть место', width: 20},
-  //       {field: 'transit_time', title: 'Срок, дн.', width: 20},
-  //     ]
-  //   },
-  //   {
-  //     colName: 'form',
-  //     data:[
-  //       {field: 'total_cost', title: 'Вход', width: 20},
-  //       {field: 'id', title: 'Профит', width: 20},
-  //       {field: 'id', title: '%', width: 20},
-  //       {field: 'income_total_cost', title: 'Ставка', width: 20},
-  //     ]
-  //   },]
-  // }

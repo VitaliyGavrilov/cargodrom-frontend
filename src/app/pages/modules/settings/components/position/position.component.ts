@@ -19,7 +19,7 @@ import { FilterService } from 'src/app/filter/services/filter.service';
   providers: [FilterService]
 })
 export class PositionComponent extends Table<Position> {
-  
+
   override removedMessage = `Должность удалена`;
   sortField = 'name' as keyof Position;
 
@@ -36,11 +36,19 @@ export class PositionComponent extends Table<Position> {
   }
 
   load<Position>(params: { start?: number; count?: number; sort?: SortColumn<Position>[]; }): Observable<{ total: number; items: Position[]; }> {
+    console.log(123);
+
+
     return this.companyService.companyPositionList(params as any) as unknown as Observable<{ total: number; items: Position[]; }>;
   }
 
   override delete(params: { body: { id: number; } }): Observable<void> {
     return this.companyService.companyPositionDelete(params) as unknown as Observable<void>;
+  }
+
+  override ngOnInit(): void {
+    super.ngOnInit();
+    this.loadRows()
   }
 
 }

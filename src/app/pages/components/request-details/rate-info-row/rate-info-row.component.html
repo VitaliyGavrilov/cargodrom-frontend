@@ -30,11 +30,14 @@
           <div style="display: flex; justify-content: space-between; margin-top: 40px;">
             <div class="rating_block">
               <div class="label">Рейтинг в системе:</div>
-              <div class="stars">
+              <div class="stars" *ngIf="rate.contractor.rating_nps">
                 <div class="star_sel" *ngFor="let i of [].constructor(rate?.contractor?.rating_nps)"></div>
-                <div class="star_no-sel"*ngFor="let i of [].constructor(10-rate?.contractor?.rating_nps)"></div>
+                <div class="star_no-sel"*ngFor="let i of [].constructor(10 - rate.contractor.rating_nps)"></div>
               </div>
-              <div>{{rate?.contractor?.rating_nps}}/10 NPS</div>
+              <div class="stars" *ngIf="!rate.contractor.rating_nps">
+                <div class="star_no-sel"*ngFor="let i of [].constructor(10)"></div>
+              </div>
+              <div>{{rate.contractor.rating_nps ? rate.contractor.rating_nps : 0}}/10 NPS</div>
             </div>
             <div class="pct_block">
               <div class="label">% выигранных торгов:</div>

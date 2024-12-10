@@ -5,7 +5,7 @@ import { MatSnackBar, MatSnackBarConfig } from '@angular/material/snack-bar';
 import { MatTable } from '@angular/material/table';
 import { from, Subject, takeUntil, tap } from 'rxjs';
 import { Contractor } from 'src/app/api/custom_models';
-import { ContractorService, DirectionService, RequestService, TransportService } from 'src/app/api/services';
+import { ContractorService, DirectionService, RequestService, SystemService, TransportService } from 'src/app/api/services';
 
 @Component({
   selector: 'app-rate-add-transporter',
@@ -20,6 +20,8 @@ export class RateAddTransporter implements OnInit, OnDestroy {
   @Input() cityId?:number;
   @Input() rate?:any;
   @Output() closeDialog = new EventEmitter<void>();
+
+  currencyList:any=[];
 
   chargesShema:any;
   currencyShema:any;
@@ -46,15 +48,18 @@ export class RateAddTransporter implements OnInit, OnDestroy {
     private contractorService: ContractorService,
     private requestService: RequestService,
     private directionService: DirectionService,
+    private systemService: SystemService,
   ) {
     this.rateForm = this.fb.group({
       id:[,[]],
       cost:[,[]],
       request_id: [this.requestId,[]],
       contractor_id: [,[]],
+      contractor_name: ['',[]],
       point_id: [,[]],
       point_action_id: [,[]],
       comment: [,[]],
+      currency: [0,[]],
       values: fb.array([], []),
     });
   }
@@ -73,6 +78,7 @@ export class RateAddTransporter implements OnInit, OnDestroy {
     this.getArrivalPoinst();
     this.getPointAction();
     this.getDirectionCity();
+    this.getCurrency();
     console.log('this.requestId',this.requestId);
     if(this.rate){
       console.log('this edit mode', this.rate);
@@ -90,6 +96,25 @@ export class RateAddTransporter implements OnInit, OnDestroy {
   ngOnDestroy(): void {
     this._destroy$.next(null);
     this._destroy$.complete();
+  }
+
+  setContractorName(contractor_id:number) {
+    const contractor = this.contractorList.find((r:any) => r.id === contractor_id);
+    this.rateForm.patchValue({
+      contractor_name: contractor ? contractor.name : '',
+    });
+  }
+
+  onContratorChange(contractor:any){
+    this.rateForm.patchValue({
+      contractor_id: contractor.id,
+      // contractor_name: contractor.name,
+    });
+  }
+
+  filterContractor(){
+    const filterContractor=this.contractorList.filter((option:any) => option.name.toLowerCase().replaceAll(' ', '').includes(this.rateForm.value.contractor_name.toLowerCase().replaceAll(' ', '')));
+    return filterContractor;
   }
 
   // Charges
@@ -154,6 +179,9 @@ export class RateAddTransporter implements OnInit, OnDestroy {
       .subscribe({
         next: (contractor) => {
           this.contractorList=contractor.items;
+          if(this.rate){
+            this.setContractorName(this.rate.contractor_id);
+          }
         },
         error: (err) => {
           this.snackBar.open(`Ошибка запроса маршрутов: ` + err.error.error_message, undefined, this.snackBarWithShortDuration);
@@ -286,5 +314,19 @@ export class RateAddTransporter implements OnInit, OnDestroy {
           this.snackBar.open('Ошибка получения схемы:' + err.error.error_message, undefined, this.snackBarWithShortDuration);
         }
       });
+  }
+  getCurrency(){
+    this.systemService.systemCurrency().pipe(
+      tap((currencyList) => {
+      }),
+      takeUntil(this._destroy$)
+    ).subscribe({
+      next: (currencyList) => {
+        this.currencyList=currencyList;
+      },
+      error: (err) => {
+        this.snackBar.open(`Ошибка получения валют: ` + err.error.error_message, undefined, this.snackBarWithShortDuration);
+      }
+    });
   }
 }

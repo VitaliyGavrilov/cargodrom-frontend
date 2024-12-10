@@ -85,4 +85,9 @@ export class PeriodFilterComponent implements OnInit, OnDestroy {
       this.filter.value[this.filterControl.field]="";
     }
   }
+  datapikerCancel(){
+    this.range.reset();
+    this.dataBorder=false;
+    this.filter.value[this.filterControl.field]="";
+  }
 }

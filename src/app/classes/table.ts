@@ -86,6 +86,8 @@ export abstract class Table<T extends { id: number }, A = never, F = never> impl
       this.onFilterChange(filter as F);
     });
     this.getListParam();
+    
+
     // this.subscribeRouteQueryParamMap();
   }
 

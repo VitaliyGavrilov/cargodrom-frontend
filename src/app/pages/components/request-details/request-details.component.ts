@@ -7,7 +7,7 @@ import { MatSnackBar } from '@angular/material/snack-bar';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Observable, map, of, takeUntil, tap } from 'rxjs';
 import { FilterService } from 'src/app/filter/services/filter.service';
-import { RequestService } from 'src/app/api/services';
+import { FileService, RequestService } from 'src/app/api/services';
 import { MatCheckboxChange } from '@angular/material/checkbox';
 import { RateAddCustoms } from './rate-add-customs/rate-add-customs.component';
 import { LogoutComponent } from 'src/app/auth/components/logout/logout.component';
@@ -42,38 +42,17 @@ interface LoadRows{
 export class RequestDetails extends Table<any, 'trade_rating', ContractorFilter> {
   sortField = 'contractor_id' as const;
   expandedElement: any | null;
-  // expandedElementInfo: any | null;
+
   arrDetailsCheckedCheck:number[]=[];
-  // testswi=true
-  // params:any;
-  // trackById = (_index: number, contractor: LoadRows) => contractor.id!;
+
+  arrCheckedKp:number[]=[];
+
 
   offerList:any;
   isOfferListShow:boolean=false;
 
   isExpandedRequestInfo:boolean=false;
-  expandedRequestInfoItems:any=[
-    {
-      field: 'Дата',
-      data: 'arrival_city_name'
-    },
-    {
-      field: 'Дата',
-      data: 'arrival_city_name'
-    },
-    {
-      field: 'Дата',
-      data: 'arrival_city_name'
-    },
-    {
-      field: 'Дата',
-      data: 'arrival_city_name'
-    },
-    {
-      field: 'Дата',
-      data: 'arrival_city_name'
-    },
-  ]
+
 
   @ViewChild('ratePointDialogRef') ratePointDialogRef?: TemplateRef<void>;
   @ViewChild('rateTransporterDialogRef') rateTransporterDialogRef?: TemplateRef<void>;
@@ -90,6 +69,7 @@ export class RequestDetails extends Table<any, 'trade_rating', ContractorFilter>
     router: Router,
     filter: FilterService,
     private matDialog: MatDialog,
+    private fileSrvice: FileService,
   ) { super(route, router, dialog, snackBar, filter) }
 
   override loadRows(): void {
@@ -147,26 +127,61 @@ export class RequestDetails extends Table<any, 'trade_rating', ContractorFilter>
     this.openDeleteRequestDialog('Вы уверенны, что хотите удалить запрос?', 'Удаление запроса')
   }
   // KP TABLE HANDLERS
+  //-btns
   onSendKpBtnClick(){
 
   }
-  onEditKpBtnClick(){
-
+  onEditKpBtnClick(offer_id:number){
+    this.navToOfferEditor(offer_id);
   }
-  onDubKpBtnClick(){
-
+  onDubKpBtnClick(offer_id:number){
+    this.dubOffer(offer_id);
+    this.loadRows();
   }
-  onCopyKpBtnClick(){
-
+  onCopyKpBtnClick(offer_id:number){
+    this.getOfferTxtCopy(offer_id);
   }
-  onPdfKpBtnClick(){
-
+  onPdfKpBtnClick(offer_id:number){
+    this.getOfferPdf(offer_id);
   }
-  onTxtKpBtnClick(){
-
+  onTxtKpBtnClick(offer_id:number){
+    this.getOfferTxt(offer_id);
   }
-  onDelKpBtnClick(id:number){
-    this.deleteKp([id]);
+  onDelKpBtnClick(offer_id:number){
+    this.openDeleteKpDialog('Вы уверенны, что хотите удалить кп №'+ offer_id, [offer_id], 'Удаление кп')
+    // this.deleteKp([id]);
+  }
+  //-checkboxs
+  isKpCheckboxHeaderTableChecked(): boolean {
+    const arrIdRows = new Set(this.offerList.items.map((i: any) => i.id));
+    const arrIdRowsCheck = new Set(this.arrCheckedKp.filter(id => arrIdRows.has(id)));
+    return arrIdRows.size > 0 && arrIdRows.size === arrIdRowsCheck.size;
+  }
+  onKpCheckboxHeaderTableChange({ checked }: MatCheckboxChange) {
+    if (checked) {
+      this.arrCheckedKp = [...new Set([...this.arrCheckedKp, ...this.offerList.items.map((i:any) => i.id)])];
+    } else {
+      const rowIds = new Set(this.offerList.items.map((i:any)  => i.id));
+      this.arrCheckedKp = this.arrCheckedKp.filter(id => !rowIds.has(id));
+    }
+  }
+  isKpCheckboxHeaderTableIndeterminate(): boolean {
+    const arrIdRows = new Set(this.offerList.items.map((i: any) => i.id));
+    const arrIdRowsCheck = this.arrCheckedKp.filter(id => arrIdRows.has(id));
+    return arrIdRows.size > arrIdRowsCheck.length && arrIdRowsCheck.length > 0;
+  }
+  isKpCheckboxBodyTableChecked(kp_id: number): boolean {
+    return this.arrCheckedKp.includes(kp_id);
+  }
+  onKpCheckboxBodyTableChange(kp_id: number, { checked }: MatCheckboxChange) {
+    if (checked) {
+      if (!this.arrCheckedKp.includes(kp_id)) {
+        this.arrCheckedKp.push(kp_id);
+      }
+    } else {
+      this.arrCheckedKp = this.arrCheckedKp.filter(id => id !== kp_id);
+    }
+    console.log(this.arrCheckedKp );
   }
   // RATE METODS CHANGE
   onTableMethodChange(method:any){
@@ -246,6 +261,10 @@ export class RequestDetails extends Table<any, 'trade_rating', ContractorFilter>
   onDelSingleRateBtnClick(){
     this.openDeleteRateDialog('Вы уверенны, что хотите удалить ставку №'+ this.expandedElement.id, [this.expandedElement.id], 'Удаление ставки')
   }
+  // Link to offer editor page
+  navToOfferEditor(offer_id:number){
+    this.router.navigate(['pages/offer', offer_id])
+  }
   // Link to request editor page
   navToRequestEditor(){
     this.router.navigate(['pages/request/edit', this.requestId])
@@ -278,6 +297,13 @@ export class RequestDetails extends Table<any, 'trade_rating', ContractorFilter>
   closeAllDialogs(){
     this.matDialog.closeAll();
     this.loadRows();
+  }
+  openDeleteKpDialog(message:string, data:any, title:string){
+    this.matDialog.open(this.dialogRef,{ data: {message:message, title:title}}).afterClosed().subscribe(res => {
+      if (res) {
+        this.deleteKp(data);
+      }
+    });
   }
   openDeleteRateDialog(message:string, data:any, title:string){
     this.matDialog.open(this.dialogRef,{ data: {message:message, title:title}}).afterClosed().subscribe(res => {
@@ -452,6 +478,100 @@ export class RequestDetails extends Table<any, 'trade_rating', ContractorFilter>
           this.snackBar.open(`Ошибка получения кп: ` + err.error.error_message, undefined, this.snackBarWithShortDuration);
         }
       });
+  }
+  getOfferTxt(offer_id: number){
+    this.requestService.requestOfferTxt({body:{id: offer_id}}).pipe(
+      tap((currencyList) => {
+      }),
+      takeUntil(this.destroy$)
+    ).subscribe({
+      next: ({name, data}) => {
+        const dataUri = `data:${this.xlsxMimeType};base64,${data}`;
+        const a = document.createElement('a');
+        console.log(dataUri);
+        a.href = dataUri;
+        a.download = name!;
+        a.click();
+      },
+      error: (err) => {
+        this.snackBar.open(`Ошибка получения txt файла: ` + err.error.error_message, undefined, this.snackBarWithShortDuration);
+      }
+    });
+  }
+  getOfferTxtCopy(offer_id: number){
+    this.requestService.requestOfferTxt({body:{id: offer_id}}).pipe(
+      tap((currencyList) => {
+      }),
+      takeUntil(this.destroy$)
+    ).subscribe({
+      next: ({text}) => {
+        if (text) {
+          navigator.clipboard.writeText(text).then(() => {
+          // Уведомление или действие после успешного копирования
+          this.snackBar.open('Текст успешно скопирован в буфер обмена!', undefined, this.snackBarWithShortDuration);
+        }).catch(err => {
+          // Обработка ошибки, если что-то пошло не так
+          this.snackBar.open(`Ошибка копирования в буфер обмена: ${err}`, undefined, this.snackBarWithShortDuration);
+        });
+        }
+      },
+      error: (err) => {
+        this.snackBar.open(`Ошибка получения txt файла: ` + err.error.error_message, undefined, this.snackBarWithShortDuration);
+      }
+    });
+  }
+
+  getOfferPdf(offer_id: number){
+    this.requestService.requestOfferPdf({body:{id: offer_id}}).pipe(
+      tap((currencyList) => {
+      }),
+      takeUntil(this.destroy$)
+    ).subscribe({
+      next: ({name, data}) => {
+        const dataUri = `data:${this.xlsxMimeType};base64,${data}`;
+        const a = document.createElement('a');
+        a.href = dataUri;
+        a.download = name!;
+        a.click();
+      },
+      error: (err) => {
+        this.snackBar.open(`Ошибка получения pdf файла: ` + err.error.error_message, undefined, this.snackBarWithShortDuration);
+      }
+    });
+  }
+
+  getRequestFile(file_id: number){
+    this.fileSrvice.fileDownload({id: file_id}).pipe(
+      tap((file) => {
+      }),
+      takeUntil(this.destroy$)
+    ).subscribe({
+      next: ({name, data}) => {
+        const dataUri = `data:${this.xlsxMimeType};base64,${data}`;
+        const a = document.createElement('a');
+        a.href = dataUri;
+        a.download = name!;
+        a.click();
+      },
+      error: (err) => {
+        this.snackBar.open(`Ошибка получения файла запроса: ` + err.error.error_message, undefined, this.snackBarWithShortDuration);
+      }
+    });
+  }
+
+  dubOffer(offer_id: number){
+    this.requestService.requestOfferCopy({id: offer_id}).pipe(
+      tap((currencyList) => {
+      }),
+      takeUntil(this.destroy$)
+    ).subscribe({
+      next: ({}) => {
+        this.snackBar.open(`Кп успешно дублирован`, undefined, this.snackBarWithShortDuration);
+      },
+      error: (err) => {
+        this.snackBar.open(`Ошибка дублирования кп: ` + err.error.error_message, undefined, this.snackBarWithShortDuration);
+      }
+    });
   }
 
 }

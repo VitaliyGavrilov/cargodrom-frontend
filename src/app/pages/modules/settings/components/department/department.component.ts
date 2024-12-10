@@ -54,4 +54,9 @@ export class DepartmentComponent extends Table<Department> {
     return this.companyService.companyDepartmentDelete(params) as unknown as Observable<void>;
   }
 
+  override ngOnInit(): void {
+    super.ngOnInit();
+    this.loadRows()
+  }
+
 }

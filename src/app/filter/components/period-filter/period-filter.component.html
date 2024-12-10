@@ -42,7 +42,12 @@
         </svg>
       </span>
 
-      <mat-date-range-picker #picker></mat-date-range-picker>
+      <mat-date-range-picker #picker>
+        <mat-date-range-picker-actions>
+          <button mat-button (click)="datapikerCancel();picker.close()">Очистить</button>
+          <button mat-raised-button matDateRangePickerApply>Применить</button>
+        </mat-date-range-picker-actions>
+      </mat-date-range-picker>
     </label>
 
   </div>

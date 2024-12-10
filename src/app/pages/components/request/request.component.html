@@ -61,7 +61,7 @@
     <ng-container matColumnDef="common">
       <th mat-header-cell *matHeaderCellDef class="w10">
         <div class="td-block">
-          <div class="column w20" [attr.title]="getColTitle('id')" (click)="sort('id')" [ngClass]="getSortClass('id')">№</div>
+          <div class="column w20"  [attr.title]="getColTitle('id')" (click)="sort('id')" [ngClass]="getSortClass('id')" >№</div>
           <div class="column w50" [attr.title]="getColTitle('time_add')" (click)="sort('time_add')" [ngClass]="getSortClass('time_add')">Дата</div>
           <div class="column nowrap">К/С/О</div>
         </div>
@@ -69,7 +69,7 @@
 
       <td mat-cell *matCellDef="let request" class="w10">
         <div class="td-block">
-          <div class="column w20" (click)="navigateOnDetails(request.id)">{{request.id}}</div>
+          <div class="column w20" (click)="navigateOnDetails(request.id)" style="cursor: pointer;">{{request.id}}</div>
           <div class="column w50">{{request.time_add}}</div>
           <div class="column kso-block">
             <div class="kso-item"></div>

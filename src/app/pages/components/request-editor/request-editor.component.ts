@@ -7,7 +7,7 @@ import { ContractorService } from './../../../api/services/contractor.service';
 import { City, Client, ClientGroup, Contractor, ContractorRequestFormat, Country, Currency, Customer, DirectionCity, Employee, FileDocument, TaxSystem, RequestFile } from 'src/app/api/custom_models';
 import { CargoService, CompanyService, CustomerService, DirectionService, RequestService, SystemService, TransportService } from 'src/app/api/services';
 import { Editor } from 'src/app/classes/editor';
-import { Location, getLocaleMonthNames } from '@angular/common';
+import { Location, formatDate, getLocaleMonthNames } from '@angular/common';
 import { CityService } from '../../services/city.service';
 import { CountryService } from '../../services/country.service';
 import { byField } from 'src/app/constants';
@@ -203,6 +203,21 @@ export class RequestEditorComponent implements OnInit, OnDestroy {
     // this.subForm();
     // this.requestForm.get('cargo_readiness')?.clearValidators();
   }
+
+  onValidChange(event:any){
+    this.requestForm.patchValue({
+      cargo_readiness: formatDate(this.requestForm.value.cargo_readiness,'yyyy-MM-dd','en-US')
+    })
+  }
+
+  validReset(){
+    this.requestForm.controls['cargo_readiness'].reset();
+  }
+
+  returnValid():string{
+    return this.requestForm.value.cargo_readiness? formatDate(this.requestForm.value.cargo_readiness,'dd.MM.yyyy','ru-US'): '';
+  }
+
   // Публичные методы:
   //СОХРАНЕНИЕ,УДАЛЕНИЕ,ОТМЕНА,НАЗАД
   save(): void {

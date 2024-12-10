@@ -2,10 +2,11 @@ import { Component, EventEmitter, Input, OnChanges, OnDestroy, OnInit, Output, S
 import { FormArray, FormBuilder, FormGroup } from '@angular/forms';
 import { MatDialog } from '@angular/material/dialog';
 import { MatSnackBar, MatSnackBarConfig } from '@angular/material/snack-bar';
-import { Subject, takeUntil, tap } from 'rxjs';
+
+import { Subject, takeUntil, tap, debounceTime, distinctUntilChanged } from 'rxjs';
 import { Contractor } from 'src/app/api/custom_models';
 import { formatDate } from '@angular/common';
-import { ContractorService, DirectionService, RequestService, TransportService } from 'src/app/api/services';
+import { ContractorService, DirectionService, RequestService, SystemService, TransportService } from 'src/app/api/services';
 import { TransportCarrier, TransportRoute } from 'src/app/api/custom_models/transport';
 
 @Component({
@@ -18,10 +19,13 @@ export class RateAddCustoms implements OnInit, OnDestroy {
   // @Input() chargesShema?:any;
   @Input() weight?:number;
   @Input() requestId!:number;
-  @Input() transportKindId?:number;
+  @Input() transportKindId:number=0;
   @Input() cityId?:number;
+  @Input() cityIdDep?:number;
   @Input() rate?:any;
   @Output() closeDialog = new EventEmitter<void>();
+
+  currencyList:any=[];
 
 
   chargesShema:any;
@@ -63,10 +67,12 @@ export class RateAddCustoms implements OnInit, OnDestroy {
     private contractorService: ContractorService,
     private requestService: RequestService,
     private directionService: DirectionService,
+    private systemService: SystemService,
   ) {
     this.rateForm = this.fb.group({
       request_id:[this.requestId,[]],
       contractor_id: [,[]],
+      contractor_name: ['',[]],
       carrier_id: [,[]],
       comment: [,[]],
       departure_schedule: [,[]],
@@ -74,13 +80,40 @@ export class RateAddCustoms implements OnInit, OnDestroy {
       nearest_flight: [[],[]],
       profit_include: [false,[]],
       rate_type: ['detail',[]],
-      route_id: [,[]],
+      // route_id: [,[]],
+      route_name:['',[]],
       total_cost: [0,[]],
       transit_time: this.fb.group({
         from: [, []],
         to: [, []],
       }),
+      currency: [0,[]],
       values: fb.array([], []),
+    });
+  }
+
+  setContractorName(contractor_id:number) {
+    const contractor = this.contractorList.find((r:any) => r.id === contractor_id);
+    this.rateForm.patchValue({
+      contractor_name: contractor ? contractor.name : '',
+    });
+  }
+
+  onContratorChange(contractor:any){
+    this.rateForm.patchValue({
+      contractor_id: contractor.id,
+      // contractor_name: contractor.name,
+    });
+  }
+
+  onRouteChange(route:any){
+    this.rateForm.patchValue({
+      // route_id: route.id,
+      // route_name: route.name,
+      transit_time: {
+        from: route.days_min,
+        to: route.days_max,
+      },
     });
   }
 
@@ -97,6 +130,7 @@ export class RateAddCustoms implements OnInit, OnDestroy {
     this.getTransportCarrier();
     this.getTransportRoute();
     this.getContractor();
+    this.getCurrency();
     // this.chargesShema.forEach((i:any)=>{
     //   this.charges.push(this.fb.group({
     //     comment: [,[]],
@@ -116,11 +150,36 @@ export class RateAddCustoms implements OnInit, OnDestroy {
     //   this.rateForm.patchValue(this.rate);
     // }
     this.rateForm.patchValue({request_id: this.requestId});
+
+    // this.rateForm.controls['route_name'].valueChanges
+    //   .pipe(
+    //     debounceTime(1500),
+    //     distinctUntilChanged(),
+    //     takeUntil(this._destroy$),
+    //   )
+    //   .subscribe((e:any) => {
+    //     console.log('sub route name');
+
+    //   })
+    // ;
   }
   ngOnDestroy(): void {
     this._destroy$.next(null);
     this._destroy$.complete();
   }
+
+  filterRote(){
+    const filterRoute=this.transportRoute.filter((option:any) => option.name.toLowerCase().replaceAll(' ', '').includes(this.rateForm.value.route_name.toLowerCase().replaceAll(' ', '')));
+    return filterRoute.length==0
+    ? []
+    : filterRoute
+  }
+
+  filterContractor(){
+    const filterContractor=this.contractorList.filter((option:any) => option.name.toLowerCase().replaceAll(' ', '').includes(this.rateForm.value.contractor_name.toLowerCase().replaceAll(' ', '')));
+    return filterContractor;
+  }
+
   // Charges
   get charges() {
     return <FormArray>this.rateForm.get('values');
@@ -234,7 +293,7 @@ export class RateAddCustoms implements OnInit, OnDestroy {
   }
   // получаем маршруты(route)
   private getTransportRoute():void{
-    this.transportService.transportRoute({kind_id:this.transportKindId})
+    this.directionService.directionRoute({kind_id:this.transportKindId, arrival_city_id:this.cityId, departure_city_id:this.cityIdDep})
       .pipe(
         tap(transportRoute => {
           if (!transportRoute) {
@@ -268,6 +327,10 @@ export class RateAddCustoms implements OnInit, OnDestroy {
       .subscribe({
         next: (contractor) => {
           this.contractorList=contractor.items;
+          if(this.rate){
+            this.setContractorName(this.rate.contractor_id);
+          }
+
         },
         error: (err) => {
           this.snackBar.open(`Ошибка запроса маршрутов: ` + err.error.error_message, undefined, this.snackBarWithShortDuration);
@@ -324,12 +387,29 @@ export class RateAddCustoms implements OnInit, OnDestroy {
           if(this.rate){
             console.log('this edit mode', this.rate);
             this.rateForm.patchValue(this.rate);
-          }
 
+          }
         },
         error: (err) => {
           this.snackBar.open('Ошибка получения схемы:' + err.error.error_message, undefined, this.snackBarWithShortDuration);
         }
       });
   }
+
+  getCurrency(){
+    this.systemService.systemCurrency().pipe(
+      tap((currencyList) => {
+      }),
+      takeUntil(this._destroy$)
+    ).subscribe({
+      next: (currencyList) => {
+        this.currencyList=currencyList;
+      },
+      error: (err) => {
+        this.snackBar.open(`Ошибка получения валют: ` + err.error.error_message, undefined, this.snackBarWithShortDuration);
+      }
+    });
+  }
 }
+
+

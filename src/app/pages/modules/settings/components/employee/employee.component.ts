@@ -38,10 +38,10 @@ export class EmployeeComponent extends Table<Employee, 'fio'> {
     this.registerAlias('fio', ['name_f', 'name_i', 'name_o']);
   }
 
-  // override ngOnInit(): void {
-  //   this.loadRows()
-
-  // }
+  override ngOnInit(): void {
+    super.ngOnInit();
+    this.loadRows()
+  }
 
   load<Employee>(params: { start?: number; count?: number; sort?: SortColumn<Employee>[]; }): Observable<{ total: number; items: Employee[]; }> {
     console.log(1234);

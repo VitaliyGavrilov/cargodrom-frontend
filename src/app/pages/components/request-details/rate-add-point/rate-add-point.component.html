@@ -58,9 +58,36 @@
           </div>
         </div> -->
 
-        <ng-container *ngTemplateOutlet="formItemSelector; context: { label: 'Подрядчик:', control: 'contractor_id', data: contractorList }"></ng-container>
+        <!-- <ng-container *ngTemplateOutlet="formItemSelector; context: { label: 'Подрядчик:', control: 'contractor_id', data: contractorList }"></ng-container> -->
+
+        <div class="form-item">
+          <div class="form-label">Подрядчик:</div>
+          <div class="form-data">
+            <input
+              type="text"
+              formControlName="contractor_name"
+              [matAutocomplete]="contractor"
+            >
+            <mat-autocomplete autoActiveFirstOption #contractor="matAutocomplete" >
+              <!-- <mat-option *ngIf="filterRote().length==0" style="text-transform: uppercase" [value]="rateForm.value.route_id">{{rateForm.value?.route_id}}</mat-option> -->
+              <mat-option (onSelectionChange)="onContratorChange(contractor)" *ngFor="let contractor of filterContractor()" [value]="contractor.name">{{contractor.name}}</mat-option>
+            </mat-autocomplete>
+          </div>
+        </div>
+        
         <ng-container *ngTemplateOutlet="formItemSelector; context: { label: 'Наименнование Аэропорта:', control: 'point_id', data: pointList }"></ng-container>
         <ng-container *ngTemplateOutlet="formItemSelector; context: { label: 'Вид прайса:', control: 'point_action_id', data: pointActionList }"></ng-container>
+
+        <div class="form-item" style="width: 100px;">
+          <div class="form-label">Currecy:</div>
+          <div class="form-data">
+            <mat-form-field appearance="outline" class="ui-select">
+              <mat-select formControlName="currency">
+                <mat-option *ngFor="let currency of currencyList;" [value]="currency.id" >{{ currency.code }}</mat-option>
+              </mat-select>
+            </mat-form-field>
+          </div>
+        </div>
 
       </div>
 

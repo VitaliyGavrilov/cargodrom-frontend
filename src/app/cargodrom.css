@@ -1016,3 +1016,24 @@ th.mat-header-cell:first-of-type, td.mat-cell:first-of-type, td.mat-footer-cell:
 .column-sortable {
   cursor: pointer;
 }
+
+.datepiker{
+  display: flex;
+  justify-content: space-between;
+  background: inherit;
+  border: none;
+  color: #DB563B;
+  font-size: 15px;
+  font-weight: 400;
+  line-height: 15px;
+  width: 100%;
+  .btn-date{
+    margin-left: 5px;
+    display: block;
+    cursor: pointer;
+    background-image: url('../assets/pic-btn-calendar.svg');
+    background-repeat: no-repeat;
+    width: 14px;
+    height: 14px;
+  }
+}

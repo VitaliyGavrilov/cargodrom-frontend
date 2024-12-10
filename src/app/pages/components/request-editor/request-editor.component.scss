@@ -250,3 +250,23 @@ input[type="date"] {
   margin-left: 5px;
 }
 
+.datepiker{
+  height: 40px;
+  background-color: white;
+  padding: 11px 2px 13px 9px;
+  box-sizing: border-box;
+
+  border: 1px solid #E0E5EB;
+  color: #2C3640;
+  font-size: 15px;
+  line-height: 15px;
+  border-radius: 6px;
+  div{
+    width: 76px;
+  }
+}
+
+// kind_id: 1
+// city_id_departure: 1345
+// city_id_arrival: 1
+

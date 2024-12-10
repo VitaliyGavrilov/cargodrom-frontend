@@ -72,6 +72,7 @@ div.mat-calendar-body-selected,.mat-calendar-body-cell.selected .mat-calendar-bo
   margin-left: 0;       /* Начальный отступ */
   overflow: hidden;     /* Обрезает все, что выходит за пределы */
   transition: opacity 2s ease, max-width 1s ease, margin-left 1s ease, visibility 0s 1s;
+  text-wrap: nowrap;
 }
 
 .hoverr:hover .template {

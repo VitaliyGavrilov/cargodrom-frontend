@@ -7,8 +7,6 @@
   [isEditMode]="isEditMode">
 </app-editor-header>
 
-<button (click)="linkRate()">Rate</button>
-
 <!-- <div class="edit-form"> -->
   <form class="edit-form request" [formGroup]="requestForm">
 
@@ -354,7 +352,13 @@
         <div class="form-item w124" *ngIf="requestForm.value.request_type_id===2">
           <div class="form-label">готовность</div>
           <div class="form-data">
-            <input type="date"formControlName="cargo_readiness">
+            <!-- <input type="date" formControlName="cargo_readiness"> -->
+            <div class="datepiker">
+              <div (click)="validReset()">{{returnValid()}}</div>
+              <input class="test" style="z-index: -1; width: 1px;" formControlName="cargo_readiness" (dateChange)="onValidChange($event)" [matDatepicker]="picker" readonly>
+              <button class="btn-date" (click)="picker.open()"></button>
+              <mat-datepicker #picker></mat-datepicker>
+            </div>
           </div>
         </div>
 

@@ -207,6 +207,11 @@ export class RequestService extends BaseService {
 'cargo_type_id'?: number;
 
 /**
+ * Тип груза
+ */
+'cargo_type_text': string;
+
+/**
  * Вид упаковки (ID берем из запроса - cargo_package)
  */
 'cargo_package_id'?: number;
@@ -687,6 +692,11 @@ export class RequestService extends BaseService {
          * Тип груза (ID берем из запроса - cargo_type)
          */
         'cargo_type_id'?: number;
+        
+        /**
+         * Тип груза
+         */
+        'cargo_type_text': string;
         
         /**
          * Вид упаковки (ID берем из запроса - cargo_package)
@@ -1255,6 +1265,11 @@ export class RequestService extends BaseService {
 'cargo_type_id'?: number;
 
 /**
+ * Тип груза
+ */
+'cargo_type_text': string;
+
+/**
  * Вид упаковки (ID берем из запроса - cargo_package)
  */
 'cargo_package_id'?: number;
@@ -1713,6 +1728,11 @@ export class RequestService extends BaseService {
 'cargo_type_id'?: number;
 
 /**
+ * Тип груза
+ */
+'cargo_type_text': string;
+
+/**
  * Вид упаковки (ID берем из запроса - cargo_package)
  */
 'cargo_package_id'?: number;
@@ -2167,6 +2187,11 @@ export class RequestService extends BaseService {
  * Тип груза (ID берем из запроса - cargo_type)
  */
 'cargo_type_id'?: number;
+
+/**
+ * Тип груза
+ */
+'cargo_type_text': string;
 
 /**
  * Вид упаковки (ID берем из запроса - cargo_package)
@@ -3598,6 +3623,11 @@ export class RequestService extends BaseService {
 'cargo_type_id'?: number;
 
 /**
+ * Тип груза
+ */
+'cargo_type_text': string;
+
+/**
  * Вид упаковки (ID берем из запроса - cargo_package)
  */
 'cargo_package_id'?: number;
@@ -4058,6 +4088,11 @@ export class RequestService extends BaseService {
          * Тип груза (ID берем из запроса - cargo_type)
          */
         'cargo_type_id'?: number;
+        
+        /**
+         * Тип груза
+         */
+        'cargo_type_text': string;
         
         /**
          * Вид упаковки (ID берем из запроса - cargo_package)
@@ -4535,6 +4570,11 @@ export class RequestService extends BaseService {
 'cargo_type_id'?: number;
 
 /**
+ * Тип груза
+ */
+'cargo_type_text': string;
+
+/**
  * Вид упаковки (ID берем из запроса - cargo_package)
  */
 'cargo_package_id'?: number;
@@ -4988,6 +5028,11 @@ export class RequestService extends BaseService {
 'cargo_type_id'?: number;
 
 /**
+ * Тип груза
+ */
+'cargo_type_text': string;
+
+/**
  * Вид упаковки (ID берем из запроса - cargo_package)
  */
 'cargo_package_id'?: number;
@@ -5437,6 +5482,11 @@ export class RequestService extends BaseService {
  * Тип груза (ID берем из запроса - cargo_type)
  */
 'cargo_type_id'?: number;
+
+/**
+ * Тип груза
+ */
+'cargo_type_text': string;
 
 /**
  * Вид упаковки (ID берем из запроса - cargo_package)
@@ -11514,9 +11564,14 @@ export class RequestService extends BaseService {
 'carrier_id': number;
 
 /**
- * Маршрут (Route) (ID берем из запроса - transport_route)
+ * Маршрут (Route) (ID берем из запроса - direction_route)
  */
-'route_id': number;
+'route_id'?: number;
+
+/**
+ * Наименование нового маршрута
+ */
+'route_name': string;
 
 /**
  * Расписание отправления (Departure schedule)
@@ -11842,9 +11897,14 @@ export class RequestService extends BaseService {
         'carrier_id': number;
         
         /**
-         * Маршрут (Route) (ID берем из запроса - transport_route)
+         * Маршрут (Route) (ID берем из запроса - direction_route)
          */
-        'route_id': number;
+        'route_id'?: number;
+        
+        /**
+         * Наименование нового маршрута
+         */
+        'route_name': string;
         
         /**
          * Расписание отправления (Departure schedule)
@@ -12183,9 +12243,14 @@ export class RequestService extends BaseService {
 'carrier_id': number;
 
 /**
- * Маршрут (Route) (ID берем из запроса - transport_route)
+ * Маршрут (Route) (ID берем из запроса - direction_route)
  */
-'route_id': number;
+'route_id'?: number;
+
+/**
+ * Наименование нового маршрута
+ */
+'route_name': string;
 
 /**
  * Расписание отправления (Departure schedule)
@@ -12502,9 +12567,14 @@ export class RequestService extends BaseService {
 'carrier_id': number;
 
 /**
- * Маршрут (Route) (ID берем из запроса - transport_route)
+ * Маршрут (Route) (ID берем из запроса - direction_route)
  */
-'route_id': number;
+'route_id'?: number;
+
+/**
+ * Наименование нового маршрута
+ */
+'route_name': string;
 
 /**
  * Расписание отправления (Departure schedule)
@@ -12819,9 +12889,14 @@ export class RequestService extends BaseService {
 'carrier_id': number;
 
 /**
- * Маршрут (Route) (ID берем из запроса - transport_route)
+ * Маршрут (Route) (ID берем из запроса - direction_route)
  */
-'route_id': number;
+'route_id'?: number;
+
+/**
+ * Наименование нового маршрута
+ */
+'route_name': string;
 
 /**
  * Расписание отправления (Departure schedule)
@@ -13033,9 +13108,14 @@ export class RequestService extends BaseService {
 'carrier_id': number;
 
 /**
- * Маршрут (Route) (ID берем из запроса - transport_route)
+ * Маршрут (Route) (ID берем из запроса - direction_route)
  */
-'route_id': number;
+'route_id'?: number;
+
+/**
+ * Наименование нового маршрута
+ */
+'route_name': string;
 
 /**
  * Расписание отправления (Departure schedule)
@@ -13215,9 +13295,14 @@ export class RequestService extends BaseService {
 'carrier_id': number;
 
 /**
- * Маршрут (Route) (ID берем из запроса - transport_route)
+ * Маршрут (Route) (ID берем из запроса - direction_route)
  */
-'route_id': number;
+'route_id'?: number;
+
+/**
+ * Наименование нового маршрута
+ */
+'route_name': string;
 
 /**
  * Расписание отправления (Departure schedule)
@@ -14748,17 +14833,17 @@ export class RequestService extends BaseService {
 /**
  * Дата запроса
  */
-'time_request': string;
+'time_request'?: string;
 
 /**
  * Дата ответа
  */
-'time_answer': string;
+'time_answer'?: string;
 
 /**
  * Ставка действует до
  */
-'valid_time': string;
+'valid_time'?: string;
 
 /**
  * ID Запроса
@@ -14896,7 +14981,12 @@ export class RequestService extends BaseService {
 /**
  * ID маршрута (ID берем из запроса - transport_route)
  */
-'route_id': number;
+'route_id'?: number;
+
+/**
+ * Наименование маршрута
+ */
+'route_name': string;
 
 /**
  * Маршрут
@@ -14983,12 +15073,12 @@ export class RequestService extends BaseService {
 /**
  * Валюта (ID берем из запроса - system_currency)
  */
-'currecy': number;
+'currency'?: number;
 
 /**
  * Включение прибыли (Profit is included)
  */
-'profit_include': boolean;
+'profit_include'?: boolean;
 
 /**
  * Значения ставок
@@ -15110,17 +15200,17 @@ export class RequestService extends BaseService {
         /**
          * Дата запроса
          */
-        'time_request': string;
+        'time_request'?: string;
         
         /**
          * Дата ответа
          */
-        'time_answer': string;
+        'time_answer'?: string;
         
         /**
          * Ставка действует до
          */
-        'valid_time': string;
+        'valid_time'?: string;
         
         /**
          * ID Запроса
@@ -15258,7 +15348,12 @@ export class RequestService extends BaseService {
         /**
          * ID маршрута (ID берем из запроса - transport_route)
          */
-        'route_id': number;
+        'route_id'?: number;
+        
+        /**
+         * Наименование маршрута
+         */
+        'route_name': string;
         
         /**
          * Маршрут
@@ -15345,12 +15440,12 @@ export class RequestService extends BaseService {
         /**
          * Валюта (ID берем из запроса - system_currency)
          */
-        'currecy': number;
+        'currency'?: number;
         
         /**
          * Включение прибыли (Profit is included)
          */
-        'profit_include': boolean;
+        'profit_include'?: boolean;
         
         /**
          * Значения ставок
@@ -15528,17 +15623,17 @@ export class RequestService extends BaseService {
 /**
  * Дата запроса
  */
-'time_request': string;
+'time_request'?: string;
 
 /**
  * Дата ответа
  */
-'time_answer': string;
+'time_answer'?: string;
 
 /**
  * Ставка действует до
  */
-'valid_time': string;
+'valid_time'?: string;
 
 /**
  * ID Запроса
@@ -15676,7 +15771,12 @@ export class RequestService extends BaseService {
 /**
  * ID маршрута (ID берем из запроса - transport_route)
  */
-'route_id': number;
+'route_id'?: number;
+
+/**
+ * Наименование маршрута
+ */
+'route_name': string;
 
 /**
  * Маршрут
@@ -15763,12 +15863,12 @@ export class RequestService extends BaseService {
 /**
  * Валюта (ID берем из запроса - system_currency)
  */
-'currecy': number;
+'currency'?: number;
 
 /**
  * Включение прибыли (Profit is included)
  */
-'profit_include': boolean;
+'profit_include'?: boolean;
 
 /**
  * Значения ставок
@@ -15873,17 +15973,17 @@ export class RequestService extends BaseService {
 /**
  * Дата запроса
  */
-'time_request': string;
+'time_request'?: string;
 
 /**
  * Дата ответа
  */
-'time_answer': string;
+'time_answer'?: string;
 
 /**
  * Ставка действует до
  */
-'valid_time': string;
+'valid_time'?: string;
 
 /**
  * ID Запроса
@@ -16021,7 +16121,12 @@ export class RequestService extends BaseService {
 /**
  * ID маршрута (ID берем из запроса - transport_route)
  */
-'route_id': number;
+'route_id'?: number;
+
+/**
+ * Наименование маршрута
+ */
+'route_name': string;
 
 /**
  * Маршрут
@@ -16108,12 +16213,12 @@ export class RequestService extends BaseService {
 /**
  * Валюта (ID берем из запроса - system_currency)
  */
-'currecy': number;
+'currency'?: number;
 
 /**
  * Включение прибыли (Profit is included)
  */
-'profit_include': boolean;
+'profit_include'?: boolean;
 
 /**
  * Значения ставок
@@ -16216,17 +16321,17 @@ export class RequestService extends BaseService {
 /**
  * Дата запроса
  */
-'time_request': string;
+'time_request'?: string;
 
 /**
  * Дата ответа
  */
-'time_answer': string;
+'time_answer'?: string;
 
 /**
  * Ставка действует до
  */
-'valid_time': string;
+'valid_time'?: string;
 
 /**
  * ID Запроса
@@ -16364,7 +16469,12 @@ export class RequestService extends BaseService {
 /**
  * ID маршрута (ID берем из запроса - transport_route)
  */
-'route_id': number;
+'route_id'?: number;
+
+/**
+ * Наименование маршрута
+ */
+'route_name': string;
 
 /**
  * Маршрут
@@ -16451,12 +16561,12 @@ export class RequestService extends BaseService {
 /**
  * Валюта (ID берем из запроса - system_currency)
  */
-'currecy': number;
+'currency'?: number;
 
 /**
  * Включение прибыли (Profit is included)
  */
-'profit_include': boolean;
+'profit_include'?: boolean;
 
 /**
  * Значения ставок
@@ -16563,17 +16673,17 @@ export class RequestService extends BaseService {
 /**
  * Дата запроса
  */
-'time_request': string;
+'time_request'?: string;
 
 /**
  * Дата ответа
  */
-'time_answer': string;
+'time_answer'?: string;
 
 /**
  * Ставка действует до
  */
-'valid_time': string;
+'valid_time'?: string;
 
 /**
  * ID Запроса
@@ -16593,7 +16703,12 @@ export class RequestService extends BaseService {
 /**
  * ID маршрута (ID берем из запроса - transport_route)
  */
-'route_id': number;
+'route_id'?: number;
+
+/**
+ * Наименование маршрута
+ */
+'route_name': string;
 
 /**
  * Расписание
@@ -16634,12 +16749,12 @@ export class RequestService extends BaseService {
 /**
  * Валюта (ID берем из запроса - system_currency)
  */
-'currecy': number;
+'currency'?: number;
 
 /**
  * Включение прибыли (Profit is included)
  */
-'profit_include': boolean;
+'profit_include'?: boolean;
 
 /**
  * Значения ставок
@@ -16749,17 +16864,17 @@ export class RequestService extends BaseService {
 /**
  * Дата запроса
  */
-'time_request': string;
+'time_request'?: string;
 
 /**
  * Дата ответа
  */
-'time_answer': string;
+'time_answer'?: string;
 
 /**
  * Ставка действует до
  */
-'valid_time': string;
+'valid_time'?: string;
 
 /**
  * ID Запроса
@@ -16779,7 +16894,12 @@ export class RequestService extends BaseService {
 /**
  * ID маршрута (ID берем из запроса - transport_route)
  */
-'route_id': number;
+'route_id'?: number;
+
+/**
+ * Наименование маршрута
+ */
+'route_name': string;
 
 /**
  * Расписание
@@ -16820,12 +16940,12 @@ export class RequestService extends BaseService {
 /**
  * Валюта (ID берем из запроса - system_currency)
  */
-'currecy': number;
+'currency'?: number;
 
 /**
  * Включение прибыли (Profit is included)
  */
-'profit_include': boolean;
+'profit_include'?: boolean;
 
 /**
  * Значения ставок
@@ -17210,6 +17330,11 @@ export class RequestService extends BaseService {
 'currecy_text'?: string;
 
 /**
+ * Валюта (ID берем из запроса - system_currency)
+ */
+'currency'?: number;
+
+/**
  * Комментарий (Your Comment)
  */
 'comment'?: string;
@@ -17481,6 +17606,11 @@ export class RequestService extends BaseService {
          * Валюта
          */
         'currecy_text'?: string;
+        
+        /**
+         * Валюта (ID берем из запроса - system_currency)
+         */
+        'currency'?: number;
         
         /**
          * Комментарий (Your Comment)
@@ -17800,6 +17930,11 @@ export class RequestService extends BaseService {
 'currecy_text'?: string;
 
 /**
+ * Валюта (ID берем из запроса - system_currency)
+ */
+'currency'?: number;
+
+/**
  * Комментарий (Your Comment)
  */
 'comment'?: string;
@@ -18059,6 +18194,11 @@ export class RequestService extends BaseService {
 'currecy_text'?: string;
 
 /**
+ * Валюта (ID берем из запроса - system_currency)
+ */
+'currency'?: number;
+
+/**
  * Комментарий (Your Comment)
  */
 'comment'?: string;
@@ -18316,6 +18456,11 @@ export class RequestService extends BaseService {
 'currecy_text'?: string;
 
 /**
+ * Валюта (ID берем из запроса - system_currency)
+ */
+'currency'?: number;
+
+/**
  * Комментарий (Your Comment)
  */
 'comment'?: string;
@@ -18420,7 +18565,7 @@ export class RequestService extends BaseService {
 /**
  * Валюта (ID берем из запроса - system_currency)
  */
-'currecy'?: number;
+'currency'?: number;
 
 /**
  * Комментарий (Your Comment)
@@ -18550,7 +18695,7 @@ export class RequestService extends BaseService {
 /**
  * Валюта (ID берем из запроса - system_currency)
  */
-'currecy'?: number;
+'currency'?: number;
 
 /**
  * Комментарий (Your Comment)
@@ -18932,6 +19077,11 @@ export class RequestService extends BaseService {
 'currecy_text': string;
 
 /**
+ * Валюта (ID берем из запроса - system_currency)
+ */
+'currency'?: number;
+
+/**
  * В итоговом
  */
 'selected'?: boolean;
@@ -19232,6 +19382,11 @@ export class RequestService extends BaseService {
          * Валюта
          */
         'currecy_text': string;
+        
+        /**
+         * Валюта (ID берем из запроса - system_currency)
+         */
+        'currency'?: number;
         
         /**
          * В итоговом
@@ -19584,6 +19739,11 @@ export class RequestService extends BaseService {
 'currecy_text': string;
 
 /**
+ * Валюта (ID берем из запроса - system_currency)
+ */
+'currency'?: number;
+
+/**
  * В итоговом
  */
 'selected'?: boolean;
@@ -19871,6 +20031,11 @@ export class RequestService extends BaseService {
 'currecy_text': string;
 
 /**
+ * Валюта (ID берем из запроса - system_currency)
+ */
+'currency'?: number;
+
+/**
  * В итоговом
  */
 'selected'?: boolean;
@@ -20156,6 +20321,11 @@ export class RequestService extends BaseService {
 'currecy_text': string;
 
 /**
+ * Валюта (ID берем из запроса - system_currency)
+ */
+'currency'?: number;
+
+/**
  * В итоговом
  */
 'selected'?: boolean;
@@ -20260,7 +20430,7 @@ export class RequestService extends BaseService {
 /**
  * Валюта (ID берем из запроса - system_currency)
  */
-'currecy': number;
+'currency'?: number;
 
 /**
  * В итоговом
@@ -20390,7 +20560,7 @@ export class RequestService extends BaseService {
 /**
  * Валюта (ID берем из запроса - system_currency)
  */
-'currecy': number;
+'currency'?: number;
 
 /**
  * В итоговом
@@ -26267,6 +26437,11 @@ export class RequestService extends BaseService {
  * Base64 строка файла
  */
 'data'?: string;
+
+/**
+ * Текст
+ */
+'text'?: string;
 }>> {
     const rb = new RequestBuilder(this.rootUrl, RequestService.RequestOfferTxtPath, 'post');
     if (params) {
@@ -26289,6 +26464,11 @@ export class RequestService extends BaseService {
          * Base64 строка файла
          */
         'data'?: string;
+        
+        /**
+         * Текст
+         */
+        'text'?: string;
         }>;
       })
     );
@@ -26326,6 +26506,11 @@ export class RequestService extends BaseService {
  * Base64 строка файла
  */
 'data'?: string;
+
+/**
+ * Текст
+ */
+'text'?: string;
 }> {
     return this.requestOfferTxt$Response(params, context).pipe(
       map((r: StrictHttpResponse<{
@@ -26339,6 +26524,11 @@ export class RequestService extends BaseService {
  * Base64 строка файла
  */
 'data'?: string;
+
+/**
+ * Текст
+ */
+'text'?: string;
 }>): {
 
 /**
@@ -26350,6 +26540,11 @@ export class RequestService extends BaseService {
  * Base64 строка файла
  */
 'data'?: string;
+
+/**
+ * Текст
+ */
+'text'?: string;
 } => r.body)
     );
   }
@@ -29236,6 +29431,99 @@ export class RequestService extends BaseService {
 'result': 'OK';
 }> {
     return this.requestOfferDelRate$Response(params, context).pipe(
+      map((r: StrictHttpResponse<{
+
+/**
+ * Статус выполнения
+ */
+'result': 'OK';
+}>): {
+
+/**
+ * Статус выполнения
+ */
+'result': 'OK';
+} => r.body)
+    );
+  }
+
+  /** Path part for operation `requestOfferCopy()` */
+  static readonly RequestOfferCopyPath = '/request_offer_copy';
+
+  /**
+   * Копирование КП.
+   *
+   *
+   *
+   * This method provides access to the full `HttpResponse`, allowing access to response headers.
+   * To access only the response body, use `requestOfferCopy()` instead.
+   *
+   * This method doesn't expect any request body.
+   */
+  requestOfferCopy$Response(
+    params: {
+
+    /**
+     * ID
+     */
+      id: number;
+    },
+    context?: HttpContext
+  ): Observable<StrictHttpResponse<{
+
+/**
+ * Статус выполнения
+ */
+'result': 'OK';
+}>> {
+    const rb = new RequestBuilder(this.rootUrl, RequestService.RequestOfferCopyPath, 'get');
+    if (params) {
+      rb.query('id', params.id, {});
+    }
+
+    return this.http.request(
+      rb.build({ responseType: 'json', accept: 'application/json', context })
+    ).pipe(
+      filter((r: any): r is HttpResponse<any> => r instanceof HttpResponse),
+      map((r: HttpResponse<any>) => {
+        return r as StrictHttpResponse<{
+        
+        /**
+         * Статус выполнения
+         */
+        'result': 'OK';
+        }>;
+      })
+    );
+  }
+
+  /**
+   * Копирование КП.
+   *
+   *
+   *
+   * This method provides access only to the response body.
+   * To access the full response (for headers, for example), `requestOfferCopy$Response()` instead.
+   *
+   * This method doesn't expect any request body.
+   */
+  requestOfferCopy(
+    params: {
+
+    /**
+     * ID
+     */
+      id: number;
+    },
+    context?: HttpContext
+  ): Observable<{
+
+/**
+ * Статус выполнения
+ */
+'result': 'OK';
+}> {
+    return this.requestOfferCopy$Response(params, context).pipe(
       map((r: StrictHttpResponse<{
 
 /**
