@@ -1,0 +1,84 @@
+<app-table-sunheader-file
+  [importMetods]="importMetods"
+  (export)="getExportFile()"
+  (exportTemplate)="getTempalteFile()"
+>
+</app-table-sunheader-file>
+
+<!-- <app-table-sunheader-file
+  (import)="doImport($event)"
+  (export)="confirmExport()"
+  (exportTemplate)="exportFileTemplate()"
+>
+</app-table-sunheader-file> -->
+
+<app-table-filter></app-table-filter>
+
+<!-- <app-table
+  [column]="column"
+  [rows]="rows"
+  [columnsData]="columnsData"
+
+>
+</app-table> -->
+
+<!-- <app-paginator
+  [total]="total"
+  [count]="count"
+  [start]="start"
+  [limits]="limits"
+  (startChange)="onStartChange($event)"
+  (countChange)="onCountChange($event)"
+>
+</app-paginator> -->
+
+<app-dynamic-table *ngIf="requestListParam"
+  [rows]="requestList"
+  (getRows)="getRows($event)"
+  [tableConfig]="requestListParam"
+>
+</app-dynamic-table>
+
+<!-- <ng-template #exportDialogRef let-data>
+  <h1 mat-dialog-title>Экспорт</h1>
+  <div mat-dialog-content>
+    Экспортировать данные о запросах в Excel файл ?
+  </div>
+  <div mat-dialog-actions align="end">
+    <button mat-button [mat-dialog-close]="true" cdkFocusInitial>Да</button>
+    <button mat-button mat-dialog-close>Нет</button>
+  </div>
+</ng-template> -->
+
+<ng-template #importDialogRef let-data>
+  <h1 mat-dialog-title>Импорт</h1>
+  <div mat-dialog-content>
+    Импортировать данные о запросах из файла {{data.name}} ?
+  </div>
+  <div mat-dialog-content>
+    <p *ngIf="data.res.error">{{ data.res.error.text }}</p>
+    <p *ngIf="data.res.insert">{{ data.res.insert.text }}</p>
+    <p *ngIf="data.res.update">{{ data.res.update.text }}</p>
+  </div>
+  <div mat-dialog-actions align="end">
+    <button style="background: #DB563B; color: #fff;"
+      mat-button
+      [mat-dialog-close]="1"
+      *ngIf="data.res.insert || data.res.update"
+      >
+      Сохранить данные
+    </button>
+    <button style="background: #4b66ad; color: #fff;"
+      mat-button
+      [mat-dialog-close]="2"
+      >
+      Скачать файл с результатами обработки
+    </button>
+    <button style="background: #606A74; color: #fff;"
+      mat-button
+      mat-dialog-close
+      >
+      ОТМЕНА
+    </button>
+  </div>
+</ng-template>

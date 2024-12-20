@@ -71,6 +71,22 @@
       <div class="form-item">
         <div class="form-label">Route:</div>
         <div class="form-data">
+          <input
+            type="text"
+            style="text-transform: uppercase"
+            formControlName="route_name"
+            [matAutocomplete]="route"
+          >
+          <mat-autocomplete autoActiveFirstOption #route="matAutocomplete">
+            <!-- <mat-option *ngIf="filterRote().length==0" style="text-transform: uppercase" [value]="rateForm.value.route_id">{{rateForm.value?.route_id}}</mat-option> -->
+            <mat-option (onSelectionChange)="onRouteChange(route)" *ngFor="let route of filterRote()" [value]="route.name">{{route.name}}</mat-option>
+          </mat-autocomplete>
+        </div>
+      </div>
+
+      <!-- <div class="form-item">
+        <div class="form-label">Route:</div>
+        <div class="form-data">
           <mat-form-field appearance="outline" class="ui-select">
             <mat-select formControlName="route_id">
              <mat-option
@@ -82,7 +98,7 @@
             </mat-select>
           </mat-form-field>
         </div>
-      </div>
+      </div> -->
 
       <div class="form-item">
         <div class="form-label">The departure schedule:</div>

@@ -1,0 +1,66 @@
+<div class="table-list">
+  <table mat-table [dataSource]="rows" multiTemplateDataRows>
+    <ng-container *ngFor="let col of columnsData"
+      [matColumnDef]="col.column"
+      [ngSwitch]="col.column"
+    >
+      <!-- обычные элементы табл -->
+      <ng-template [ngSwitchDefault]>
+        <th mat-header-cell *matHeaderCellDef [style.width]="col.width" [class]="col.class">
+          <div class="td-block" *ngIf="!col.title">
+            <div class="column"
+              *ngFor="let miniCol of col.items"
+              [style.width]="miniCol.width"
+              [class]="miniCol.class"
+            >
+              {{miniCol.title}}
+            </div>
+          </div>
+
+          <div class="td-block-column" *ngIf="col.title">
+            <div class="td-block-title">{{col.title}}</div>
+            <div class="td-block-line">
+              <div class="column" *ngFor="let miniCol of col.items" [style.width]="miniCol.width" [class]="miniCol.class">
+                {{miniCol.title}}
+              </div>
+            </div>
+          </div>
+        </th>
+
+        <td mat-cell *matCellDef="let item" [style.width]="col.width" [class]="col.class">
+          <div class="td-block" *ngIf="!col.title">
+            <div class="column"
+              *ngFor="let miniCol of col.items"
+              [style.width]="miniCol.width"
+              [class]="miniCol.class"
+            >
+              {{ getVal(item,miniCol.field) }}
+            </div>
+          </div>
+
+          <div class="td-block-line" *ngIf="col.title">
+            <div class="column" *ngFor="let miniCol of col.items" [style.width]="miniCol.width" [class]="miniCol.class">
+              {{ getVal(item,miniCol.field) }}
+            </div>
+          </div>
+        </td>
+      </ng-template>
+
+
+    </ng-container>
+
+
+    <tr mat-header-row *matHeaderRowDef="column"></tr>
+    <tr mat-row *matRowDef="let row; columns: column;"></tr>
+
+  </table>
+</div>
+
+<!-- <app-paginator
+  [total]="total"
+  [count]="count"
+  [start]="start"
+  [limits]="limits"
+  (startChange)="onStartChange($event)"
+  (countChange)="onCountChange($event)">
+</app-paginator> -->

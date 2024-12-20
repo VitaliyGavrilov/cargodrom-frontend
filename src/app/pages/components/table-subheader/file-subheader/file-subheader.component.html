@@ -1,0 +1,83 @@
+<div class="subheader">
+  <div class="title">Запросы</div>
+
+  <div class="btns-file">
+
+    <button [routerLink]="['add']" class=" file-btn add-link">
+      <div></div>
+      <span>Новый запрос</span>
+    </button>
+
+    <button (click)="selectFileToImport()" type="button" class="file-btn import">
+      <div></div>
+      <span>Импорт данных</span>
+    </button>
+
+    <button (click)="confirmTemplateFileDownload()" type="button" class="file-btn export hover">
+      <div></div>
+      <span>Шаблон для импорта</span>
+    </button>
+
+    <button (click)="confirmTableFileDownload()" type="button" class="file-btn export">
+      <div></div>
+      <span>Экспорт данных</span>
+    </button>
+
+    <input class="ui-file-input"
+      type="file"
+      [accept]="xlsxMimeType"
+      #file
+      (change)="selectFileToImportChange()"
+    />
+  </div>
+
+  <app-universal-filter style="margin-left: auto;"
+    *ngFor="let control of filterService.searchFilterSchema?.header"
+    [filterControl]="control"
+  >
+  </app-universal-filter>
+</div>
+
+<ng-template #exportDialogRef let-data>
+  <h1 mat-dialog-title>Экспорт</h1>
+  <div mat-dialog-content>
+    {{data}}
+  </div>
+  <div mat-dialog-actions align="end">
+    <button mat-button [mat-dialog-close]="true" cdkFocusInitial>Да</button>
+    <button mat-button mat-dialog-close>Нет</button>
+  </div>
+</ng-template>
+
+<ng-template #importDialogRef let-data>
+  <h1 mat-dialog-title>Импорт</h1>
+  <div mat-dialog-content>
+    Импортировать данные о запросах из файла {{data.name}} ?
+  </div>
+  <div mat-dialog-content>
+    <p *ngIf="data.res.error">{{ data.res.error.text }}</p>
+    <p *ngIf="data.res.insert">{{ data.res.insert.text }}</p>
+    <p *ngIf="data.res.update">{{ data.res.update.text }}</p>
+  </div>
+  <div mat-dialog-actions align="end">
+    <button style="background: #DB563B; color: #fff;"
+      mat-button
+      [mat-dialog-close]="1"
+      *ngIf="data.res.insert || data.res.update"
+      >
+      Сохранить данные
+    </button>
+    <button style="background: #4b66ad; color: #fff;"
+      mat-button
+      [mat-dialog-close]="2"
+      >
+      Скачать файл с результатами обработки
+    </button>
+    <button style="background: #606A74; color: #fff;"
+      mat-button
+      mat-dialog-close
+      >
+      ОТМЕНА
+    </button>
+  </div>
+</ng-template>

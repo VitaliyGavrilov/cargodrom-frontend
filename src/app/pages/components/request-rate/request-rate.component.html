@@ -135,7 +135,7 @@
 
       <div class="form-col">
         <div class="form-col-title">Dimensions</div>
-        <textarea readonly>{{request?.cargo_dimensions}}</textarea>
+        <textarea readonly style="border: none;">{{request?.cargo_dimensions}}</textarea>
       </div>
 
     </div>
@@ -165,7 +165,7 @@
     </div>
 
     <div class="form-row rate" formArrayName="rates">
-      <div *ngFor="let rate of rates.controls; let i=index">
+      <div *ngFor="let rate of rates.controls; let i=index" >
         <app-rate-editor
           (removeRate)="removeRate(i)"
           (addRate)="addRate()"
@@ -178,6 +178,7 @@
           [currentRateNumber]="currentRateNumber"
           [chargeModel]="chargeModel"
           [weight]="request.cargo_places_weight"
+          [request]="request"
         >
         </app-rate-editor>
       </div>

@@ -52,16 +52,19 @@ export class RegisterComponent implements OnInit {
   }
 
   doRegister() {
+    console.log(this.registerForm);
+    console.log(this.registerForm.valid);
 
-    if ( !this.registerForm.valid ) {
-      let err = {
-        'error': {
-          'error_message': 'Все поля обязательны к заполнению'
-        }
-      }
-      this.popup.error(err);
-      return;
-    }
+
+    // if ( !this.registerForm.valid ) {
+    //   let err = {
+    //     'error': {
+    //       'error_message': 'Все поля обязательны к заполнению'
+    //     }
+    //   }
+    //   this.popup.error(err);
+    //   return;
+    // }
 
     let error_message: string[] = [];
 

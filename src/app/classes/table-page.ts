@@ -18,7 +18,7 @@ export interface LoadParams<T, F> {
 }
 
 @Directive()
-export abstract class Table<T extends { id: number }, A = never, F = never> implements OnInit, OnDestroy {
+export abstract class TablePage<T extends { id: number }, A = never, F = never> implements OnInit, OnDestroy {
   snackBarWithShortDuration: MatSnackBarConfig = { duration: 1000 };
   snackBarWithLongDuration: MatSnackBarConfig = { duration: 5000 };
   filter?: F;
@@ -39,6 +39,8 @@ export abstract class Table<T extends { id: number }, A = never, F = never> impl
   // schemaTest:any
   schemaCharges:any
   columnsData:any=[];
+
+
 
   readonly xlsxMimeType = 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet';
 
@@ -61,7 +63,7 @@ export abstract class Table<T extends { id: number }, A = never, F = never> impl
   @ViewChild('saveBiddingRef') saveBiddingRef?: TemplateRef<void>;
   private aliases = new Map<A, (keyof T)[]>();
 
-  @ViewChild('file', { static: true }) file?: ElementRef;
+  // @ViewChild('file', { static: true }) file?: ElementRef;
 
   constructor(
     private route: ActivatedRoute,
@@ -123,9 +125,9 @@ export abstract class Table<T extends { id: number }, A = never, F = never> impl
   }
 
 
-  protected loadFilterSchema(): Observable<SearchFilterSchema> {
-    return of({ header: [], main: [], additional: [] });
-  }
+  // protected loadFilterSchema(): Observable<SearchFilterSchema> {
+  //   return of({ header: [], main: [], additional: [] });
+  // }
 
   getIntParamSafely(queryParamMap: ParamMap, name: string, fallback: number): number {
     const value = queryParamMap.get(name);
@@ -344,7 +346,9 @@ export abstract class Table<T extends { id: number }, A = never, F = never> impl
     });
   }
 
-  private doImport(file: any): void {
+  doImport(file: File): void {
+    console.log('doImport', file);
+
     if (!this.importDialogRef) {
       return;
     }
@@ -357,6 +361,8 @@ export abstract class Table<T extends { id: number }, A = never, F = never> impl
         const index = base64URL.indexOf(suffix);
         const data = base64URL.substring(index + suffix.length);
         const payload = { data, name: fileName };
+        console.log('payload',payload);
+
         this.importData(payload).subscribe({
           // next: ({ import_key, text }) => {
           next: (e) => {
@@ -386,12 +392,12 @@ export abstract class Table<T extends { id: number }, A = never, F = never> impl
                     // this.onStartChange(0);
                     this.resetPage();
                   },
-                  error: (err) => this.snackBar.open(`Не удалось импортировать данные: ` + err.error.error_message, undefined, this.snackBarWithShortDuration)
+                  error: (err) => this.snackBar.open(`Не удалось импортировать данные2: ` + err.error.error_message, undefined, this.snackBarWithShortDuration)
                 });
               }
             });
           },
-          error: (err) => this.snackBar.open(`Не удалось импортировать данные: ` + err.error.error_message, undefined, this.snackBarWithShortDuration)
+          error: (err) => this.snackBar.open(`Не удалось импортировать данные1: ` + err.error.error_message, undefined, this.snackBarWithShortDuration)
         });
       }
     }, false);
@@ -425,27 +431,27 @@ export abstract class Table<T extends { id: number }, A = never, F = never> impl
     })
   }
 
-  importFile(): void {
-    const input = this.file?.nativeElement as HTMLInputElement | undefined;
-    if (input) {
-      input.value = '';
-      input.click();
-    }
-  }
+  // importFile(): void {
+  //   const input = this.file?.nativeElement as HTMLInputElement | undefined;
+  //   if (input) {
+  //     input.value = '';
+  //     input.click();
+  //   }
+  // }
 
-  selectFileForImport(): void {
-    const files = this.file?.nativeElement.files as File[] | undefined;
-    const file = files?.[0];
-    if (file?.name.endsWith('.xlsx')) {
-      this.snackBar.open('Требуется Excel file', undefined, this.snackBarWithShortDuration);
-      return;
-    }
-    if (file?.size && file.size > 2 * 1024 * 1024) {
-      this.snackBar.open('Слишком большой файл', undefined, this.snackBarWithShortDuration);
-      return;
-    }
-    this.doImport(file);
-  }
+  // selectFileForImport(): void {
+  //   const files = this.file?.nativeElement.files as File[] | undefined;
+  //   const file = files?.[0];
+  //   if (!file?.name.endsWith('.xlsx')) {
+  //     this.snackBar.open('Требуется Excel file', undefined, this.snackBarWithShortDuration);
+  //     return;
+  //   }
+  //   if (file.size > 2 * 1024 * 1024) {
+  //     this.snackBar.open('Слишком большой файл', undefined, this.snackBarWithShortDuration);
+  //     return;
+  //   }
+  //   this.doImport(file);
+  // }
 
   resetPage(){
     this.router.navigate([])
@@ -561,6 +567,7 @@ export abstract class Table<T extends { id: number }, A = never, F = never> impl
     this.loadFilterSchemaTest(param)
       .pipe(
         tap((schema)=>{
+          
           this.sortField = schema.sort[0].field;
           this.sortDir = schema.sort[0].dir;
         }),
@@ -590,6 +597,7 @@ export abstract class Table<T extends { id: number }, A = never, F = never> impl
             this.columnsData=schema.table;
             this.schemaCharges=schema.forms.charges;
           }
+          this.columnsData=schema.table;
           // this.router.navigate(['.'], {
           //   queryParams: { sortCol: schema.sort[0].field, sortDir: schema.sort[0].dir },
           //   queryParamsHandling: 'merge',

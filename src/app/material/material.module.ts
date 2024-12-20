@@ -21,6 +21,8 @@ import { PhoneMaskDirective } from './directives/phone-mask.directive';
 import {MatButtonToggleModule} from '@angular/material/button-toggle';
 import {MatTabsModule} from '@angular/material/tabs';
 import {MatMenuModule} from '@angular/material/menu';
+import {MatProgressSpinnerModule} from '@angular/material/progress-spinner';
+
 
 
 
@@ -51,6 +53,7 @@ import {MatMenuModule} from '@angular/material/menu';
     MatButtonToggleModule,
     MatTabsModule,
     MatMenuModule,
+    MatProgressSpinnerModule,
   ],
   exports: [
     MatDialogModule,
@@ -73,6 +76,7 @@ import {MatMenuModule} from '@angular/material/menu';
     MatButtonToggleModule,
     MatTabsModule,
     MatMenuModule,
+    MatProgressSpinnerModule,
 
   ]
 })

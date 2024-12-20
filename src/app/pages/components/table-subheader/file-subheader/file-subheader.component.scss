@@ -1,0 +1,64 @@
+.subheader{
+  display: flex;
+  align-items: center;
+}
+
+.btns-file{
+  // width: 550px;
+  display: flex;
+  button {
+    display: flex;
+    text-decoration: none;
+    border: none;
+    background-color: inherit;
+    padding: 0;
+    margin-left: 12px;
+
+    font-size: 13px;
+    line-height: 13px;
+    letter-spacing: normal;
+    color: #606A74;
+    cursor: pointer;
+    padding: 6px;
+    div{
+      width: 14px;
+      height: 14px;
+      margin-right: 9px;
+    }
+  }
+  button:hover{
+    opacity: 0.8;
+  }
+
+  .add-link div {
+    background-image: url(../../../../../assets/pic-btn-addLink.svg);
+  }
+  .import div{
+    background-image: url(../../../../../assets/pic-btn-import.svg);
+  }
+  .export div{
+    background-image: url(../../../../../assets/pic-btn-export.svg);
+  }
+
+
+  .file-btn.hover {
+    // display: none;
+    visibility: hidden;   /* Скрывает элемент изначально */
+    opacity: 0;           /* Элемент скрыт */
+    max-width: 0;         /* Начальная ширина 0 */
+    margin-left: 0;       /* Начальный отступ */
+    overflow: hidden;     /* Обрезает все, что выходит за пределы */
+    transition: opacity 3s ease, max-width 3s ease, margin-left 3s ease, visibility 3s ease;
+    text-wrap: nowrap;
+    padding: 6px 0;
+  }
+  .file-btn.import:hover + .file-btn.hover , .file-btn.hover:hover{
+    // display: flex;
+    visibility: visible;  /* Элемент становится видимым */
+    opacity: 0.8;           /* Элемент становится прозрачным */
+    max-width: 200px;     /* Ширина становится 200px */
+    margin-left: 12px;    /* Отступ слева */
+
+    transition: opacity 2s ease, max-width 1s ease, margin-left 1s ease, visibility 0s 0s;
+  }
+}

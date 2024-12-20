@@ -6,7 +6,7 @@ import { Subject } from 'rxjs';
 import { takeUntil, tap } from 'rxjs/operators';
 import { unknownCountry } from 'src/app/constants';
 import { CargoPackage } from 'src/app/api/custom_models/cargo';
-import { CargoService, TransportService } from 'src/app/api/services';
+import { CargoService, ContractorService, DirectionService, TransportService } from 'src/app/api/services';
 import { MatSnackBar, MatSnackBarConfig } from '@angular/material/snack-bar';
 import { TransportCarrier, TransportRoute } from 'src/app/api/custom_models/transport';
 import { formatDate } from '@angular/common';
@@ -31,11 +31,12 @@ import { MatDialog } from '@angular/material/dialog';
   ]
 })
 export class RateEditorComponent implements OnInit, OnDestroy, OnChanges, ControlValueAccessor, Validator {
-  @Input() requestKindId?:number;
+  @Input() requestKindId!:number;
   @Input() rates?:any;
   @Input() currentRateNumber?:number;
   @Input() chargeModel?:any;
   @Input() weight?:number;
+  @Input() request?:any;
 
   @Output() removeRate = new EventEmitter<void>();
   @Output() addRate = new EventEmitter<void>();
@@ -52,7 +53,8 @@ export class RateEditorComponent implements OnInit, OnDestroy, OnChanges, Contro
   private _destroy$ = new Subject();
   rateForm: FormGroup;
   transportCarrier: TransportCarrier[]=[];
-  transportRoute: TransportRoute[]=[];
+  transportRoute: any[]=[];
+  contractorList:any[]=[];
 
   daysOfTheWeek=[
     { day:'Monday', id:1 },
@@ -71,6 +73,8 @@ export class RateEditorComponent implements OnInit, OnDestroy, OnChanges, Contro
     private transportService: TransportService,
     private snackBar: MatSnackBar,
     private dialog: MatDialog,
+    private contractorService: ContractorService,
+    private directionService: DirectionService,
   ) {
     this.rateForm = this.fb.group({
       carrier_id: [,[]],
@@ -81,7 +85,8 @@ export class RateEditorComponent implements OnInit, OnDestroy, OnChanges, Contro
       num: [,[]],
       profit_include: [true,[]],
       rate_type: ['nodetail',[]],
-      route_id: [,[]],
+      // route_id: [,[]],
+      route_name: ['',[]],
       total_cost: [,[]],
       transit_time: this.fb.group({
         transit_time_from: [, []],
@@ -192,6 +197,26 @@ export class RateEditorComponent implements OnInit, OnDestroy, OnChanges, Contro
   }
 
   // Публичные методы
+
+
+  onRouteChange(route:any){
+    this.rateForm.patchValue({
+      // route_id: route.id,
+      // route_name: route.name,
+      transit_time: {
+        transit_time_from: route.days_min,
+        transit_time_to: route.days_max,
+      },
+    });
+  }
+  filterRote(){
+    const filterRoute=this.transportRoute?.filter((option:any) => option.name.toLowerCase().replaceAll(' ', '').includes(this.rateForm.value.route_name.toLowerCase().replaceAll(' ', '')));
+    return filterRoute.length==0
+    ? []
+    : filterRoute
+  }
+
+
   returnAirlineName(id:number):string{
     let name:any='';
     this.transportCarrier.forEach((i:TransportCarrier)=>{
@@ -287,6 +312,8 @@ export class RateEditorComponent implements OnInit, OnDestroy, OnChanges, Contro
     this.transportService.transportCarrier({kind_id:this.requestKindId})
       .pipe(
         tap(transportCarrier => {
+
+
           if (!transportCarrier) {
             throw ({ error: { error_message: `Перевозчиков не существует`} });
           }
@@ -304,22 +331,68 @@ export class RateEditorComponent implements OnInit, OnDestroy, OnChanges, Contro
   }
   // получаем маршруты(route)
   private getTransportRoute():void{
-    this.transportService.transportRoute({kind_id:this.requestKindId})
-      .pipe(
-        tap(transportRoute => {
-          if (!transportRoute) {
-            throw ({ error: { error_message: `Маршрутов не существует`} });
+      this.directionService.directionRoute({kind_id: this.requestKindId, arrival_city_id:this.request.arrival_city_id, departure_city_id:this.request.departure_city_id})
+        .pipe(
+          tap(transportRoute => {
+            if (!transportRoute) {
+              throw ({ error: { error_message: `Маршрутов не существует`} });
+            }
+          }),
+          takeUntil(this._destroy$),
+        )
+        .subscribe({
+          next: (transportRoute) => {
+            this.transportRoute=transportRoute;
+          },
+          error: (err) => {
+            this.snackBar.open(`Ошибка запроса маршрутов: ` + err.error.error_message, undefined, this.snackBarWithShortDuration);
           }
-        }),
-        takeUntil(this._destroy$),
-      )
-      .subscribe({
-        next: (transportRoute) => {
-          this.transportRoute=transportRoute;
-        },
-        error: (err) => {
-          this.snackBar.open(`Ошибка запроса маршрутов: ` + err.error.error_message, undefined, this.snackBarWithShortDuration);
-        }
-      });
-  }
+        });
+    }
+  // private getTransportRoute():void{
+  //   this.transportService.transportRoute({kind_id:this.requestKindId})
+  //     .pipe(
+  //       tap(transportRoute => {
+  //         if (!transportRoute) {
+  //           throw ({ error: { error_message: `Маршрутов не существует`} });
+  //         }
+  //       }),
+  //       takeUntil(this._destroy$),
+  //     )
+  //     .subscribe({
+  //       next: (transportRoute) => {
+  //         this.transportRoute=transportRoute;
+  //       },
+  //       error: (err) => {
+  //         this.snackBar.open(`Ошибка запроса маршрутов: ` + err.error.error_message, undefined, this.snackBarWithShortDuration);
+  //       }
+  //     });
+  // }
+
+  //получаем контракторов
+    // private getContractor():void{
+    //   this.contractorService.contractorList()
+    //     .pipe(
+    //       tap(contractor => {
+    //         console.log(contractor);
+
+    //         if (!contractor) {
+    //           throw ({ error: { error_message: `Маршрутов не существует`} });
+    //         }
+    //       }),
+    //       takeUntil(this._destroy$),
+    //     )
+    //     .subscribe({
+    //       next: (contractor) => {
+    //         this.contractorList=contractor.items;
+    //         if(this.rate){
+    //           this.setContractorName(this.rate.contractor_id);
+    //         }
+
+    //       },
+    //       error: (err) => {
+    //         this.snackBar.open(`Ошибка запроса маршрутов: ` + err.error.error_message, undefined, this.snackBarWithShortDuration);
+    //       }
+    //     });
+    // }
 }
