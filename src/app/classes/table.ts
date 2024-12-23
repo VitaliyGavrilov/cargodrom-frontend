@@ -372,7 +372,7 @@ export abstract class Table<T extends { id: number }, A = never, F = never> impl
                     a.href = dataUri;
                     a.download = name;
                     a.click();
-                    this.snackBar.open('Данные импортированы успешно', undefined, this.snackBarWithShortDuration);
+                    this.snackBar.open('Файл с результатами обработки успешно скачен', undefined, this.snackBarWithShortDuration);
                     // this.onStartChange(0);
                     // this.resetPage();
                   },

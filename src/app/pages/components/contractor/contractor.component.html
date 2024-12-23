@@ -166,8 +166,9 @@
           </div>
 
           <div class="column w10">
-            <span *ngIf="!contractor.exclude_from_trade" class="success b">Есть</span>
-            <span *ngIf="contractor.exclude_from_trade" class="fail b">Нет</span>
+            <span class="b" [ngClass]="contractor.allow_trade_text=='Нет'?'fail':'success'">
+              {{contractor.allow_trade_text}}
+            </span>
           </div>
 
           <div class="column w40">{{ contractor.avg_answer_time }}</div>

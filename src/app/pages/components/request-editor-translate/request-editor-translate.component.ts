@@ -115,7 +115,7 @@ export class RequestEditorTranslateComponent implements OnInit, OnDestroy {
     this.requestService.requestTranslateSave({body:body}).pipe().subscribe({
       next: () => {
         this.snackBar.open(`Перевод изменен`, undefined, this.snackBarWithShortDuration);
-        // window.location.reload();
+        window.location.reload();
       },
       error: (err) => this.snackBar.open(`Ошибка изменения перевода запроса: ` + err.error.error_message, undefined, this.snackBarWithShortDuration)
     });
