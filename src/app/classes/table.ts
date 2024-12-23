@@ -436,8 +436,8 @@ export abstract class Table<T extends { id: number }, A = never, F = never> impl
   selectFileForImport(): void {
     const files = this.file?.nativeElement.files as File[] | undefined;
     const file = files?.[0];
-    if (file?.name.endsWith('.xlsx')) {
-      this.snackBar.open('Требуется Excel file', undefined, this.snackBarWithShortDuration);
+    if (file?.name.endsWith('.xls')) {
+      this.snackBar.open('Требуется Excel файл в формате .xlsx', undefined, this.snackBarWithShortDuration);
       return;
     }
     if (file?.size && file.size > 2 * 1024 * 1024) {

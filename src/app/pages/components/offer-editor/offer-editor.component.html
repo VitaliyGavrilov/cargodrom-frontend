@@ -75,7 +75,15 @@
               </div>
             </th>
 
-            <th class="border-n">
+            <th>
+              <div class="td-block" >
+                <!-- <div class="column">Вход</div> -->
+
+              </div>
+            </th>
+
+            <!-- <th class="border-n"> -->
+            <th>
               <div class="td-block" >
                 <div class="column"></div>
               </div>
@@ -117,7 +125,13 @@
 
               <td>
                 <div class="td-block" >
-                  <button type="button" class="btn-del"></button>
+                  <mat-checkbox class="testclass" style="margin: 0 auto;" formControlName="main" (change)="onMainFieldChange(customRows,i,$event)"></mat-checkbox>
+                </div>
+              </td>
+
+              <td>
+                <div class="td-block" >
+                  <button type="button" class="btn-del" (click)="onDelRowChange(customRows,i)"></button>
                 </div>
               </td>
             </tr>
@@ -212,7 +226,13 @@
               </div>
             </th>
 
-            <th class="border-n">
+            <th>
+              <div class="td-block" >
+                <div class="column"></div>
+              </div>
+            </th>
+
+            <th>
               <div class="td-block" >
                 <div class="column"></div>
               </div>
@@ -249,7 +269,13 @@
 
               <td>
                 <div class="td-block" >
-                  <button type="button" class="btn-del"></button>
+                  <mat-checkbox (change)="onMainFieldChange(storageRows,i,$event)" class="testclass" style="margin: 0 auto;" formControlName="main"></mat-checkbox>
+                </div>
+              </td>
+
+              <td>
+                <div class="td-block" >
+                  <button type="button" class="btn-del" (click)="onDelRowChange(storageRows,i)"></button>
                 </div>
               </td>
             </tr>
@@ -340,7 +366,13 @@
               </div>
             </th>
 
-            <th class="border-n">
+            <th>
+              <div class="td-block" >
+                <div class="column"></div>
+              </div>
+            </th>
+
+            <th>
               <div class="td-block" >
                 <div class="column"></div>
               </div>
@@ -371,6 +403,12 @@
                   <div class="column"><input type="number"  formControlName="profit_amount" (keyup)="setChange(row,true)" [readonly]="kpForm.value.param.delivery.one_profit"></div>
                   <div class="column"><input type="number"  formControlName="profit_percent" (keyup)="setChange(row,true)" readonly></div>
                   <div class="column"><input type="number"  formControlName="total_cost" readonly></div>
+                </div>
+              </td>
+
+              <td>
+                <div class="td-block" >
+                  <mat-checkbox (change)="onMainFieldChange(deliveryRows,i,$event)" class="testclass" style="margin: 0 auto;" formControlName="main"></mat-checkbox>
                 </div>
               </td>
 

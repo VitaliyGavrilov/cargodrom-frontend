@@ -44,6 +44,14 @@ export class RegisterComponent implements OnInit {
   ngOnInit(): void {
   }
 
+  checkAllFieldsFilled(): boolean {
+    // Проверяем, что все поля формы заполнены
+    return Object.keys(this.registerForm.controls).every(field => {
+      const control = this.registerForm.get(field);
+      return control?.value !== '';
+    });
+  }
+
   get _email() {
     return this.registerForm.get('email')
   }
@@ -54,6 +62,16 @@ export class RegisterComponent implements OnInit {
   doRegister() {
     console.log(this.registerForm);
     console.log(this.registerForm.valid);
+
+    if ( !this.checkAllFieldsFilled() ) {
+      let err = {
+        'error': {
+          'error_message': 'Все поля обязательны к заполнению'
+        }
+      }
+      this.popup.error(err);
+      return;
+    }
 
 
     // if ( !this.registerForm.valid ) {

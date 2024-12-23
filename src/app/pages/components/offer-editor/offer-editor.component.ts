@@ -6,6 +6,7 @@ import { RequestService, SystemService } from 'src/app/api/services';
 import { MatSnackBar, MatSnackBarConfig } from '@angular/material/snack-bar';
 import { MatDialog } from '@angular/material/dialog';
 import { formatDate } from '@angular/common';
+import { MatCheckboxChange } from '@angular/material/checkbox';
 
 @Component({
   selector: 'app-offer-editor',
@@ -87,6 +88,15 @@ export class OfferEditorComponent implements OnInit, OnDestroy {
   ngOnDestroy(): void {
     this._destroy$.next(null);
     this._destroy$.complete();
+  }
+
+  onMainFieldChange(rows:any, i:number, { checked }: MatCheckboxChange){
+    if(checked){
+      rows.controls.forEach((value:any, index:any) => {
+        this.log(value)
+        if(index!==i) value.patchValue({main: false})
+      })
+    }
   }
 
   log(any:any){
@@ -179,6 +189,7 @@ export class OfferEditorComponent implements OnInit, OnDestroy {
   createRow(): FormGroup {
     return this.fb.group({
       id: [0],
+      main: [false],
       income_total_cost: [0],
       profit_amount: [0],
       profit_percent: [0],
@@ -446,6 +457,7 @@ export class OfferEditorComponent implements OnInit, OnDestroy {
         profit_amount: [row.profit_amount],
         total_cost: [row.total_cost],
         profit_changed: [false],
+        main: [row.main],
         services: this.fb.array(row.services.map((service:any) => this.fb.group({
           field: [service.field],
           profit_amount: [service.profit_amount],

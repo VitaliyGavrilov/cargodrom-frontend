@@ -127,17 +127,18 @@ input[type="number"]::-webkit-inner-spin-button {
 }
 
 table.kp tr{
-  th:last-child, th:nth-child(2){
-    border: none;
-  }
-  th:last-child, th:first-child{
-    width: 64px;
-  }
+  // th:last-child, th:nth-child(2){
+  //   border: none;
+  // }
+
+  // th:last-child, th:first-child{
+  //   width: 64px;
+  // }
 
   .td:nth-child(3), th:nth-child(3){
     width: 30%;
   }
-  .td:last-child, th:first-child{
+  td:last-child, td:first-child,  th:first-child, th:last-child, td:nth-last-child(2) ,th:nth-last-child(2){
     width: 64px;
   }
 
