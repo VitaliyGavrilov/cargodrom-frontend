@@ -9,11 +9,21 @@
       [filterControl]="control">
     </app-universal-filter>
 
-    <app-universal-filter [ngClass]="isBiddingMode ? '' : 'dn' "
+    <!-- <app-universal-filter [ngClass]="isBiddingMode ? '' : 'dn' "
       class="item"
       *ngFor="let control of filterService.searchFilterSchema?.header"
       [filterControl]="control">
-    </app-universal-filter>
+    </app-universal-filter> -->
+
+    <ng-container *ngIf="isBiddingMode">
+      <app-universal-filter
+        class="item input"
+        *ngFor="let control of filterService.searchFilterSchema?.header"
+        [filterControl]="control">
+      </app-universal-filter>
+    </ng-container>
+
+
 
     <div class="item" [ngClass]="{'open': showMore}" *ngIf="filterService.hasAdditional">
       <div>
@@ -50,7 +60,7 @@
 
   </div>
 
-  <div class="add show additional" [ngClass]="{'hidden': !showMore}">
+  <div class="add show additional" [ngClass]="{'hidden-filter': !showMore}">
     <div class="row">
       <app-universal-filter
         class="item w1"

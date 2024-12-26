@@ -4,13 +4,14 @@
   [request]="request"
 >
   <div btns class="btns" style="margin-top: 0;">
-    <button class="sav" type="submit">сохранить</button>
+    <button class="ord" type="button" (click)="onSubmit()" [style.visibility]="returnVisibilityOrdBtn()?'visible':'hidden'">создать заказ</button>
+    <button class="sav" type="submit" (click)="onSubmit()">сохранить</button>
     <button class="pdf" type="button" (click)="getOfferPdf()">просмотр</button>
     <button class="txt" type="button" (click)="getOfferTxt()">просмотр</button>
     <button class="can" type="button" (click)="resetPage()">отмена</button>
   </div>
 
-  <div request>123</div>
+  <!-- <div request>123</div> -->
 </app-editor-header>
 
 
@@ -77,8 +78,7 @@
 
             <th>
               <div class="td-block" >
-                <!-- <div class="column">Вход</div> -->
-
+                <div class="column">Заказ</div>
               </div>
             </th>
 
@@ -228,7 +228,7 @@
 
             <th>
               <div class="td-block" >
-                <div class="column"></div>
+                <div class="column">Заказ</div>
               </div>
             </th>
 
@@ -368,7 +368,7 @@
 
             <th>
               <div class="td-block" >
-                <div class="column"></div>
+                <div class="column">Заказ</div>
               </div>
             </th>
 
@@ -490,6 +490,7 @@
   </div>
 
   <div class="btns">
+    <button class="ord" type="button" (click)="onSubmit()" [style.visibility]="returnVisibilityOrdBtn()?'visible':'hidden'">создать заказ</button>
     <button class="sav" type="submit">сохранить</button>
     <button class="pdf" type="button" (click)="getOfferPdf()">просмотр</button>
     <button class="txt" type="button" (click)="getOfferTxt()">просмотр</button>

@@ -90,6 +90,15 @@ export class OfferEditorComponent implements OnInit, OnDestroy {
     this._destroy$.complete();
   }
 
+  returnVisibilityOrdBtn():boolean{
+    // Функция для проверки, есть ли элемент с полем main, равным true
+    function hasMain(arr:any) {
+      return arr.some((item:any) => item.main === true);
+    }
+    // Проверяем каждый массив
+    return hasMain(this.customRows.value) && hasMain(this.storageRows.value) && hasMain(this.deliveryRows.value);
+  }
+
   onMainFieldChange(rows:any, i:number, { checked }: MatCheckboxChange){
     if(checked){
       rows.controls.forEach((value:any, index:any) => {

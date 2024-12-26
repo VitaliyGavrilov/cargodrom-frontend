@@ -152,6 +152,9 @@ table.kp tr{
 .table-list table tr td:nth-child(1), .table-list table tr td:nth-child(2) {
   background: #F7F9FC;
 }
+.table-list table tr th:nth-child(3) .column{
+  text-align: center;
+}
 
 
 
@@ -259,10 +262,27 @@ table.kp{
     text-align: center;
     text-transform: uppercase;
   }
+  .ord{
+    background-color: #4B66AD;
+    color: white;
+    margin-left: auto;
+    width: 90px;
+
+  }
+  .ord::before {
+    display: block;
+    content: '';
+    width: 16px;
+    height: 16px;
+    background-image: url(../../../../assets/pic-btn-save.svg);
+    background-repeat: no-repeat;
+    margin: 0 auto 8px ;
+  }
   .sav{
     background-color: #DB563B;
     color: white;
-    margin-left: auto;
+
+
   }
   .sav::before {
     display: block;

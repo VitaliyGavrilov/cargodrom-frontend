@@ -72,9 +72,12 @@
           <div class="column w20" (click)="navigateOnDetails(request.id)" style="cursor: pointer;">{{request.id}}</div>
           <div class="column w50">{{request.time_add}}</div>
           <div class="column kso-block">
-            <div class="kso-item"></div>
-            <div class="kso-item"></div>
-            <div class="kso-item"></div>
+            <div class="kso-item" [ngClass]="request.kso.k.active?'':'red'"></div>
+            <div class="kso-item" [ngClass]="request.kso.k.active?'':'red'"></div>
+            <div class="kso-item" [ngClass]="request.kso.k.active?'':'red'"></div>
+            <!-- <div class="kso-item">{{request.kso.s.active}}</div>
+            <div class="kso-item">{{request.kso.o.active}}</div> -->
+
           </div>
         </div>
       </td>
@@ -192,7 +195,7 @@
       <td mat-cell *matCellDef="let client">
         <div class="td-block">
           <div class="column w50">{{ client.incoterms_name }}</div>
-          <div class="column w50">{{ client.rates }}</div>
+          <div class="column w50">{{ client.count_rate_answer }}</div>
         </div>
       </td>
     </ng-container>

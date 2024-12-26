@@ -2,6 +2,36 @@
   background: white;
 }
 
+
+
+.expanded-request-info, .example-element-detail{
+
+  min-height: 0;
+  margin: 0;
+  padding: 0 20px;
+  border: none;
+
+
+  visibility: hidden;   /* Скрывает элемент изначально */
+  opacity: 0;           /* Элемент скрыт */
+  max-height: 0;         /* Начальная ширина 0 */
+  overflow: hidden;     /* Обрезает все, что выходит за пределы */
+  transition: opacity 2s ease, max-height 1s ease, visibility 0s 1s, padding 1s ease;
+
+}
+
+.expanded-request-info.visible, .example-element-detail.visible {
+  min-height: 100px;
+  margin: 0;
+  padding: 20px;
+  border-top: 1px solid rgba(0, 0, 0, 0.12);
+
+  visibility: visible;  /* Элемент становится видимым */
+  opacity: 1;           /* Элемент становится прозрачным */
+  max-height: 2000px;     /* Ширина становится 200px */
+  transition: opacity 2s ease, max-height 1s ease, visibility 0s 0s;
+}
+
 .expanded-request-info{
   padding: 0px 12px 0px 24px;
   background: #fff;
@@ -153,8 +183,8 @@ tr.example-detail-row {
   flex-direction: column;
   position: relative;
   overflow: hidden;
-  padding: 0 20px;
-  padding-bottom: 20px;
+  // padding: 0 20px;
+  // padding-bottom: 20px;
   gap: 20px;
   .costs{
     width: 100%;
@@ -195,8 +225,8 @@ tr.example-detail-row {
   }
 }
 .example-element-detail:first-child{
-  border-top: 1px solid rgba(0, 0, 0, 0.12);
-  padding: 20px;
+  // border-top: 1px solid rgba(0, 0, 0, 0.12);
+  // padding: 20px;
 }
 .example-element-row td {
   border-bottom-width: 0;

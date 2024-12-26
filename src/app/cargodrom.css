@@ -1037,3 +1037,35 @@ th.mat-header-cell:first-of-type, td.mat-cell:first-of-type, td.mat-footer-cell:
     height: 14px;
   }
 }
+
+.filter .input input{
+  background: #F7F9FC;
+  border: 1px solid #E0E5EB;
+  color: #2C3640;
+  font-size: 15px;
+  line-height: 15px;
+  border-radius: 6px;
+  width: 100%;
+  box-sizing: border-box;
+  padding: 11px 6px 9px;
+}
+
+
+
+.add.show.additional {
+  /* min-height: 100px; */
+  visibility: visible;  /* Элемент становится видимым */
+  opacity: 1;           /* Элемент становится прозрачным */
+  max-height: 200px;     /* Ширина становится 200px */
+  transform: translateY(0);
+  transition: opacity 1s ease, max-height 1s ease, visibility 1s ease, transform 1s ease;
+}
+
+.add.show.additional.hidden-filter {
+  /* min-height: 0; */
+  visibility: hidden;   /* Скрывает элемент изначально */
+  opacity: 0;           /* Элемент скрыт */
+  max-height: 0;         /* Начальная ширина 0 */
+  transform: translateY(-200px); /* Сдвиг влево на 20px */
+  transition: opacity 1s ease, max-height 1s ease, visibility 1s ease, transform 1s ease;
+}
