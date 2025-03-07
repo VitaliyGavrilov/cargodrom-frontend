@@ -1,8 +1,8 @@
 import { emailValidator, innValidator } from './../../../validators/pattern-validator';
-import { Component, OnDestroy, OnInit, ViewChild, ViewEncapsulation } from '@angular/core';
+import { Component, ElementRef, OnDestroy, OnInit, ViewChild, ViewEncapsulation } from '@angular/core';
 import { FormArray, FormBuilder, FormGroup, MinLengthValidator, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
-import { Observable, Subject, find, map, pipe, takeUntil, tap, retry, debounce, debounceTime, distinctUntilChanged } from 'rxjs';
+import { Observable, Subject, find, map, pipe, takeUntil, tap, retry, debounce, debounceTime, distinctUntilChanged, startWith, fromEvent, merge, forkJoin, lastValueFrom, catchError, throwError } from 'rxjs';
 import { ContractorService } from './../../../api/services/contractor.service';
 import { City, Client, ClientGroup, Contractor, ContractorRequestFormat, Country, Currency, Customer, DirectionCity, Employee, FileDocument, TaxSystem, RequestFile } from 'src/app/api/custom_models';
 import { CargoService, CompanyService, CustomerService, DirectionService, RequestService, SystemService, TransportService } from 'src/app/api/services';
@@ -19,6 +19,8 @@ import { DirectionFlight, DirectionPoint,  } from 'src/app/api/custom_models/dir
 import {MatButtonToggleModule} from '@angular/material/button-toggle';
 import { MatSnackBar, MatSnackBarConfig } from '@angular/material/snack-bar';
 import { environment } from './../../../../environments/environment';
+import { LoginComponent } from 'src/app/auth/components/login/login.component';
+
 
 @Component({
   selector: 'app-request-editor',
@@ -34,63 +36,57 @@ export class RequestEditorComponent implements OnInit, OnDestroy {
   title = '';
   nameForHeader?: string;
   request: Partial<Request> = {};
+  snackBarWithShortDuration: MatSnackBarConfig = { duration: 1000 };
+  snackBarWithLongDuration: MatSnackBarConfig = { duration: 3000 };
   //состояния
   isEditMode: boolean = false;
+  isNavigateAfterSave: boolean = true;
 
   //форма
   requestForm: FormGroup;
-  //массивы для приходящих данных полей формы
-  customers: Customer[] = [];
+  //даннеы для формы
   requestFormats: RequestFormat[] = [];
   transportationFormats: TransportKind[] = [];
-  transportFormats: TransportType[] = [];
-  cargoPackages: CargoPackage[]=[];
-  cargoTypes: CargoType[]=[];
+
+  customers: Customer[] = []; filteredCustomers: Customer[] = [];
+  transportFormats: TransportType[] = []; filteredTransportFormats: TransportType[] = []
+  cargoPackages: CargoPackage[]=[]; filteredCargoPackage: CargoPackage[]=[];
+  cargoTypes: CargoType[]=[]; filteredCargoType: CargoType[]=[];
+  countrys: Country[]=[]; filteredDepartureCountrys: Country[]=[]; filteredArrivalCountrys: Country[]=[];
+  filteredArrivalCitys:DirectionCity[]=[]; filteredDepartureCitys:DirectionCity[]=[]; citys:DirectionCity[]=[];
+
   currencys: Currency[]=[];
-  countrys: Country[]=[];
   departureCitys: DirectionCity[]=[];
-  // departureCountrys: Country[]=[];
-  departurePoint: DirectionPoint[] = [];
-  arrivalCitys: DirectionCity[]=[];
-  arrivalPoint:DirectionPoint[] = [];
+  filteredDeparturePoint: DirectionPoint[] = []; departurePoint: DirectionPoint[] = [];
+  arrivalPoint: DirectionPoint[] = []; filteredArrivalPoint:DirectionPoint[] = [];
   directionFlights: DirectionFlight[]=[];
   incoterms: Incoterms[]=[];
   ports: DirectionCity[]=[];
   services: RequestServices[]=[];
   servicesAdditionals: RequestServices[]=[];
+
   documentsDanger: FileDocument[] = [];
   documents: FileDocument[] = [];
-  //текущие данные
-  // currentRequestFormat:number=1; //переменная для зранения текущего типа запроса
-  // currentTransportationFormat:string=''; //переменная для хранения текущего вида перевозки
+
   currentPlacesDensity: number = 0 ;
   currentDepartureCountryName:string='';
   currentArrivalCountryName:string='';
   transport_kind_id?:number;
   //снек бар
-  snackBarWithShortDuration: MatSnackBarConfig = { duration: 1000 };
-  snackBarWithLongDuration: MatSnackBarConfig = { duration: 3000 };
+
   //отписки
   private _destroy$ = new Subject();
   //переменные окружения
   production = environment.production;
-  //статичные данные
-  // selectedStacking="staking__true"
-  // selected = "option2";
 
-  // stakingArr =[
-  //   {
-  //     value: true,
-  //     text: 'стакинг'
-  //     // url: типо путь до картинки будет тут, для селектора, должно сработать
-  //   },
-  //   {
-  //     value: false,
-  //     text: ' не стакинг'
-  //   }
-  // ];
   @ViewChild('fileList', { static: false }) fileList!: FileListComponent;
   @ViewChild('fileListDanger', { static: false }) fileListDanger!: FileListComponent;
+
+  // @ViewChild('inputElementCustomerName', { static: true }) inputElementCustomerName!: ElementRef;
+  // @ViewChild('inputElementTransportTypeName', { static: true }) inputElementTransportTypeName!: ElementRef;
+  // @ViewChild('inputElementCargoPackageName', { static: true }) inputElementCargoPackageName!: ElementRef;
+  // @ViewChild('inputElementCargoTypeName', { static: true }) inputElementCargoTypeName!: ElementRef;
+
   //КОНСТРУКТОР
   constructor(
     private route: ActivatedRoute,
@@ -112,13 +108,17 @@ export class RequestEditorComponent implements OnInit, OnDestroy {
       //ОСНОВА
       customer_id: [ , [Validators.required]],// + (customer это клиент,должен быть контрактор)
       customer_name: ['',[Validators.required]],
+      request_type_name: ['',[]],
       request_type_id: [1, [Validators.required]],// +
+      transport_type_name: ['',[]],
       transport_kind_id: [, [Validators.required]],// +
       transport_type_id: ['', [Validators.required]],// +
       //ОПИСАНИЕ ГРУЗА
       cargo_description: ['', [Validators.required,Validators.minLength(2)]],// +
       cargo_package_id: [, []],// +
+      cargo_package_name:['',[]],
       cargo_type_id: [, []],// +
+      cargo_type_name: ['',[]],
       //наличе файла безопасности
       cargo_danger: [false,[]],// +
       //температура
@@ -167,55 +167,436 @@ export class RequestEditorComponent implements OnInit, OnDestroy {
       services: [[], []],//+
       services_optional: [[], []],//+
       comment: ['', []],//+
+      send_to: ['contractor',[]]
       //РАССЫЛКИ
       //эти данные не нужны для создания и редактирования, но понадобятся потом
     });
+
   }
 
-   linkRate(){
+  linkRate(){
     this.router.navigate(['rate_request', '638d85d28962c195e5ff113ad5e01e43']);
   }
+
   //МЕТОДЫ ЖЦ
   ngOnDestroy(): void {
     this._destroy$.next(null);
     this._destroy$.complete();
   }
   ngOnInit(): void {
-    const segments = this.route.snapshot.url.map(s => s.path);
-    this.isEditMode = segments[1] !== 'add';
-    this.title = this.isEditMode ? 'Информация о запросе' : 'Добавление запроса';
-    if (this.isEditMode) {
-      this.getRequest();
-    };
-    // this.getCustomers();
-    this.getRequestFormats();
-    this.getTransportationFormats();
-    this.getСargoPackages();
-    this.getDirectionFlight();
-    this.getCountries();
-    this.getCurrencys();
-    this.getСargoTypes();
-    //что бы сразу два экзамляра формы было, как в макете =)
-    // if(this.places.length === 0 && !this.isEditMode){
-    //   this.addPlace();
-    //   this.addPlace();
-    // };
-    // this.subForm();
-    // this.requestForm.get('cargo_readiness')?.clearValidators();
+    this.initialization_isFormMode();
+    this.initialization_getDatas();
+    this.initialization_subscribeForm();
   }
 
+  initialization_isFormMode(){
+    const segments = this.route.snapshot.url.map(s => s.path);
+    this.isEditMode = segments[1] !== 'add';
+
+
+  }
+  async initialization_getDatas() {
+    try {
+      // Используем forkJoin для запуска всех Observable одновременно
+      await lastValueFrom(forkJoin([
+        this.getCustomers(),
+        this.getСargoTypes(),
+        this.getCities(),
+        this.getTransportFormats(),
+        this.getCountries(),
+        this.getСargoPackages(),
+        this.getRequestFormats(),
+        this.getTransportationFormats(),
+        this.getDirectionFlight(),
+        this.getCurrencys(),
+      ]));
+
+      // После завершения всех запросов проверяем режим редактирования
+      if (this.isEditMode) {
+        this.id = Number(this.route.snapshot.paramMap.get('id'));
+        await lastValueFrom(this.getRequest()); // Преобразуем Observable в Promise
+      }
+    } catch (error) {
+      console.error('Ошибка при загрузке данных:', error);
+    }
+  }
+  // initialization_getDatas(){
+  //   this.getCustomers();
+  //   this.getСargoTypes();
+  //   this.getCities();
+  //   this.getTransportFormats();
+  //   this.getCountries();
+  //   this.getСargoPackages();
+  //   this.getRequestFormats();
+  //   this.getTransportationFormats();
+  //   this.getDirectionFlight();
+  //   this.getCurrencys();
+
+  //   if(this.isEditMode){
+  //     this.id = Number(this.route.snapshot.paramMap.get('id'));
+  //     this.getRequest();
+  //   }
+  // }
+  initialization_subscribeForm(){
+    // this.subscribeControl_СargoСost();
+
+    // this.subscribeInput_CustomerName();
+    // this.subscribeInput_TransportTypeName();
+    // this.subscribeInput_CargoPackageName();
+    // this.subscribeInput_CargoTypeName();
+    // this.subscribeInput_DepartureCountryName();
+    // this.subscribeInput_ArrivalCountryName();
+    this.subscribeControl_CustomerId();
+    this.subscribeControl_TransportTypeId();
+    this.subscribeControl_CargoPackageId();
+    this.subscribeControl_CargoTypeId();
+    this.subscribeControl_DepartureCityId();
+    this.subscribeControl_DepartureCountryId();
+    this.subscribeControl_ArrivalCityId();
+    this.subscribeControl_ArrivalCountryId();
+    this.subscribeControl_ArrivalPointId();
+    this.subscribeControl_DeparturePointId();
+
+  }
+
+
+  subscribeControl_CustomerId(){
+    this.requestForm.get('customer_id')?.valueChanges
+    .pipe(
+      debounceTime(1000),
+      distinctUntilChanged(),
+      takeUntil(this._destroy$),
+    )
+    .subscribe((value: any) => {
+      if(typeof value==='string'){
+        this.filteredCustomers = this.customers.filter((item: any) => {
+          return item.name && item.name.toLowerCase().includes(value.toLowerCase());
+        });
+        if(this.filteredCustomers.length==1){
+          if(this.filteredCustomers[0].name?.toLowerCase()===value.toLowerCase()){
+            this.requestForm.patchValue({
+              customer_id: this.filteredCustomers[0].id,
+            });
+          };
+        };
+      }
+    });
+  }
+  subscribeControl_TransportTypeId(){
+    this.requestForm.get('transport_type_id')?.valueChanges
+    .pipe(
+      debounceTime(1000),
+      distinctUntilChanged(),
+      takeUntil(this._destroy$),
+    )
+    .subscribe((value: any) => {
+      if(typeof value==='string'){
+        this.filteredTransportFormats = this.transportFormats.filter((item: any) => {
+          return item.name && item.name.toLowerCase().includes(value.toLowerCase());
+        });
+        if(this.filteredTransportFormats.length==1){
+          if(this.filteredTransportFormats[0].name?.toLowerCase()===value.toLowerCase()){
+            this.requestForm.patchValue({
+              transport_type_id: this.filteredTransportFormats[0].id,
+            });
+          };
+        };
+      }
+    });
+  }
+  subscribeControl_CargoPackageId(){
+    this.requestForm.get('cargo_package_id')?.valueChanges
+    .pipe(
+      debounceTime(1000),
+      distinctUntilChanged(),
+      takeUntil(this._destroy$),
+    )
+    .subscribe((value: any) => {
+      if(typeof value==='string'){
+        this.filteredCargoPackage = this.cargoPackages.filter((item: any) => {
+          return item.name && item.name.toLowerCase().includes(value.toLowerCase());
+        });
+        if(this.filteredCargoPackage.length==1){
+          if(this.filteredCargoPackage[0].name?.toLowerCase()===value.toLowerCase()){
+            this.requestForm.patchValue({
+              cargo_package_id: this.filteredCargoPackage[0].id,
+            });
+          };
+        };
+      }
+    });
+  }
+  subscribeControl_CargoTypeId(){
+    this.requestForm.get('cargo_type_id')?.valueChanges
+    .pipe(
+      debounceTime(1000),
+      distinctUntilChanged(),
+      takeUntil(this._destroy$),
+    )
+    .subscribe((value: any) => {
+      if(typeof value==='string'){
+        this.filteredCargoType = this.cargoTypes.filter((item: any) => {
+          return item.name && item.name.toLowerCase().includes(value.toLowerCase());
+        });
+        if(this.filteredCargoType.length==1){
+          if(this.filteredCargoType[0].name?.toLowerCase()===value.toLowerCase()){
+            this.requestForm.patchValue({
+              cargo_type_id: this.filteredCargoType[0].id,
+            });
+          };
+        };
+      }
+    });
+  }
+  subscribeControl_DepartureCityId(){
+    this.requestForm.get('departure_city_id')?.valueChanges
+    .pipe(
+      debounceTime(1000),
+      distinctUntilChanged(),
+      takeUntil(this._destroy$),
+    )
+    .subscribe((value: any) => {
+      if(typeof value==='string'){
+        this.filteredDepartureCitys = this.citys.filter((item: any) => {
+          return item.name && item.name.toLowerCase().includes(value.toLowerCase());
+          // return item.name && item.name.toLowerCase().includes(value.toLowerCase())
+          // && this.requestForm.value.departure_country_id==item.country_id;
+        });
+        if(this.filteredDepartureCitys.length==1){
+          if(this.filteredDepartureCitys[0].name?.toLowerCase()===value.toLowerCase()){
+            this.changeForm_DepartureCity(this.filteredDepartureCitys[0]);
+            this.requestForm.patchValue({
+              departure_city_id: this.filteredDepartureCitys[0].id,
+            });
+          };
+        };
+      };
+    });
+  }
+  subscribeControl_DepartureCountryId(){
+    this.requestForm.get('departure_country_id')?.valueChanges
+    .pipe(
+      debounceTime(1000),
+      distinctUntilChanged(),
+      takeUntil(this._destroy$),
+    )
+    .subscribe((value: any) => {
+      if(typeof value==='string'){
+        this.filteredDepartureCountrys = this.countrys.filter((item: any) => {
+          return item.name && item.name.toLowerCase().includes(value.toLowerCase());
+          // return item.name && item.name.toLowerCase().includes(value.toLowerCase())
+          // && this.requestForm.value.departure_country_id==item.country_id;
+        });
+        if(this.filteredDepartureCountrys.length==1){
+          if(this.filteredDepartureCountrys[0].name?.toLowerCase()===value.toLowerCase()){
+            this.changeForm_DepartureCountry(this.filteredDepartureCountrys[0]);
+            this.requestForm.patchValue({
+              departure_country_id: this.filteredDepartureCountrys[0].id,
+            });
+          };
+        };
+      };
+    });
+  }
+  subscribeControl_ArrivalCityId(){
+    this.requestForm.get('arrival_city_id')?.valueChanges
+    .pipe(
+      debounceTime(1000),
+      distinctUntilChanged(),
+      takeUntil(this._destroy$),
+    )
+    .subscribe((value: any) => {
+      if(typeof value==='string'){
+        this.filteredArrivalCitys = this.citys.filter((item: any) => {
+          return item.name && item.name.toLowerCase().includes(value.toLowerCase());
+          // return item.name && item.name.toLowerCase().includes(value.toLowerCase())
+          // && this.requestForm.value.departure_country_id==item.country_id;
+        });
+        if(this.filteredArrivalCitys.length==1){
+          if(this.filteredArrivalCitys[0].name?.toLowerCase()===value.toLowerCase()){
+            this.changeForm_ArrivalCity(this.filteredArrivalCitys[0]);
+            this.requestForm.patchValue({
+              arrival_city_id: this.filteredArrivalCitys[0].id,
+            })
+          };
+        };
+      };
+    });
+  }
+  subscribeControl_ArrivalCountryId(){
+    this.requestForm.get('arrival_country_id')?.valueChanges
+    .pipe(
+      debounceTime(1000),
+      distinctUntilChanged(),
+      takeUntil(this._destroy$),
+    )
+    .subscribe((value: any) => {
+      if(typeof value==='string'){
+        this.filteredArrivalCountrys = this.citys.filter((item: any) => {
+          return item.name && item.name.toLowerCase().includes(value.toLowerCase());
+          // return item.name && item.name.toLowerCase().includes(value.toLowerCase())
+          // && this.requestForm.value.departure_country_id==item.country_id;
+        });
+        if(this.filteredArrivalCountrys.length==1){
+          if(this.filteredArrivalCountrys[0].name?.toLowerCase()===value.toLowerCase()){
+            this.changeForm_ArrivalCity(this.filteredArrivalCountrys[0]);
+            this.requestForm.patchValue({
+              arrival_country_id: this.filteredArrivalCountrys[0].id,
+            })
+          };
+        };
+      };
+    });
+  }
+  subscribeControl_ArrivalPointId(){
+    this.requestForm.get('arrival_point_id')?.valueChanges
+    .pipe(
+      debounceTime(1000),
+      distinctUntilChanged(),
+      takeUntil(this._destroy$),
+    )
+    .subscribe((value: any) => {
+      if(typeof value==='string'){
+        this.filteredArrivalPoint = this.arrivalPoint.filter((item: any) => {
+          return item.name && item.name.toLowerCase().includes(value.toLowerCase());
+          // return item.name && item.name.toLowerCase().includes(value.toLowerCase())
+          // && this.requestForm.value.departure_country_id==item.country_id;
+        });
+        if(this.filteredArrivalPoint.length==1){
+          if(this.filteredArrivalPoint[0].name?.toLowerCase()===value.toLowerCase()){
+
+          };
+        };
+      };
+    });
+  }
+  subscribeControl_DeparturePointId(){
+    this.requestForm.get('departure_point_id')?.valueChanges
+    .pipe(
+      debounceTime(1000),
+      distinctUntilChanged(),
+      takeUntil(this._destroy$),
+    )
+    .subscribe((value: any) => {
+      if(typeof value==='string'){
+        this.filteredDeparturePoint = this.departurePoint.filter((item: any) => {
+          return item.name && item.name.toLowerCase().includes(value.toLowerCase());
+        });
+        if(this.filteredDeparturePoint.length==1){
+          if(this.filteredDeparturePoint[0].name?.toLowerCase()===value.toLowerCase()){
+
+          };
+        };
+      };
+    });
+  }
+
+  changeForm_ArrivalCity(option:any){
+    this.requestForm.patchValue({
+      arrival_country_id: option.country_id,
+    });
+    if(this.requestForm.value.transport_kind_id==1){
+      this.getArrivalPoint(option.country_id,this.requestForm.value.transport_kind_id);
+    };
+    this.requestForm.controls['arrival_point_id'].reset();
+  }
+  changeForm_ArrivalCountry(option:any){
+    this.requestForm.controls['arrival_city_id'].reset();
+    this.requestForm.controls['arrival_point_id'].reset();
+    if(this.requestForm.value.transport_kind_id==1){
+      this.getArrivalPoint(option.id,this.requestForm.value.transport_kind_id);
+    };
+    this.filteredArrivalCitys = this.citys.filter((item: any) => {
+      return option.id==item.country_id;
+    });
+  }
+
+  changeForm_DepartureCity(option:any){
+    this.requestForm.patchValue({
+      departure_country_id: option.country_id,
+    });
+    if(this.requestForm.value.transport_kind_id==1){
+      this.getDeparturePoint(option.country_id,this.requestForm.value.transport_kind_id);
+    };
+    this.requestForm.controls['departure_point_id'].reset();
+  }
+  changeForm_DepartureCountry(option:any){
+    this.requestForm.controls['departure_city_id'].reset();
+    this.requestForm.controls['departure_point_id'].reset();
+    if(this.requestForm.value.transport_kind_id==1){
+      this.getDeparturePoint(option.id,this.requestForm.value.transport_kind_id);
+    };
+    this.filteredDepartureCitys = this.citys.filter((item: any) => {
+      return option.id==item.country_id;
+    });
+  }
+
+  displayFn_DeparturePointId(id: any): string {
+    if (!this.departurePoint) return '';
+    const obj = this.departurePoint.find(obj => obj.id === id);
+    return obj?.name || '';
+  }
+  displayFn_ArrivalPointId(id: any): string {
+    if (!this.arrivalPoint) return '';
+    const obj = this.arrivalPoint.find(obj => obj.id === id);
+    return obj?.name || '';
+  }
+  displayFn_ArrivalCountryId(id: any): string {
+    if (!this.countrys) return '';
+    const obj = this.countrys.find(obj => obj.id === id);
+    return obj?.name || '';
+  }
+  displayFn_ArrivalCityId(id: any): string {
+    if (!this.citys) return '';
+    const obj = this.citys.find(obj => obj.id === id);
+    return obj?.name || '';
+  }
+  displayFn_DepartureCountryId(id: any): string {
+    if (!this.countrys) return '';
+    const obj = this.countrys.find(obj => obj.id === id);
+    return obj?.name || '';
+  }
+  displayFn_DepartureCityId(id: any): string {
+    if (!this.citys) return '';
+    const obj = this.citys.find(obj => obj.id === id);
+    return obj?.name || '';
+  }
+  displayFn_CargoTypeId(id: any): string {
+    if (!this.cargoTypes) return '';
+    const obj = this.cargoTypes.find(obj => obj.id === id);
+    return obj?.name || '';
+  }
+  displayFn_CargoPackageId(id: any): string {
+    if (!this.cargoPackages) return '';
+    const obj = this.cargoPackages.find(obj => obj.id === id);
+    return obj?.name || '';
+  }
+  displayFn_TransportTypeId(id: any): string {
+    if (!this.transportFormats) return '';
+    const obj = this.transportFormats.find(obj => obj.id === id);
+    return obj?.name || '';
+  }
+  displayFn_CustomerId(id: any): string {
+    if (!this.customers) return '';
+    const obj = this.customers.find(obj => obj.id === id);
+    return obj?.name || '';
+  }
+
+
+
+  //датапикер
   onValidChange(event:any){
     this.requestForm.patchValue({
       cargo_readiness: formatDate(this.requestForm.value.cargo_readiness,'yyyy-MM-dd','en-US')
     })
   }
-
   validReset(){
     this.requestForm.controls['cargo_readiness'].reset();
   }
-
   returnValid():string{
-    return this.requestForm.value.cargo_readiness? formatDate(this.requestForm.value.cargo_readiness,'dd.MM.yyyy','ru-US'): '';
+    return this.requestForm.value.cargo_readiness
+    ? formatDate(this.requestForm.value.cargo_readiness,'dd.MM.yyyy','ru-US')
+    : '';
   }
 
   // Публичные методы:
@@ -288,6 +669,9 @@ export class RequestEditorComponent implements OnInit, OnDestroy {
       arrival_country_id: body.arrival_country_id,
       arrival_address: body.arrival_address,
       departure_flight: body.departure_flight,
+
+      send_to: body.send_to,
+
       //дополнительные поля:
       cargo_places_paid_weight: body.cargo_places_paid_weight,
 
@@ -358,6 +742,8 @@ export class RequestEditorComponent implements OnInit, OnDestroy {
       incoterms_city_id: body.incoterms_city_id,
       services: body.services,
       services_optional: body.services_optional,
+
+      send_to: body.send_to,
     }
     //удаляем доп поля
     if(body.transport_kind_id !== 1) {
@@ -430,6 +816,8 @@ export class RequestEditorComponent implements OnInit, OnDestroy {
       services: body.services,
       services_optional: body.services_optional,
       comment: body.comment,
+
+      send_to: body.send_to,
     }
     //удаляем доп поля
     if(!body.cargo_temperature.cargo_temperature_control) {
@@ -499,6 +887,8 @@ export class RequestEditorComponent implements OnInit, OnDestroy {
       services: body.services,
       services_optional: body.services_optional,
       comment: body.comment,
+
+      send_to: body.send_to,
     }
     //удаляем доп поля
     if(!body.cargo_temperature.cargo_temperature_control) {
@@ -596,14 +986,75 @@ export class RequestEditorComponent implements OnInit, OnDestroy {
     });
   }
   //ИЗМЕНЕНИЯ ПОЛЕЙ
-  //
-  onCustomerChange(contractor:any){
+  changeForm_Customer(contractor:any){
     this.requestForm.patchValue({
       customer_id: contractor.id,
+      customer_name: contractor.name,
     });
-
-
   }
+  changeForm_TransportType(option:any){
+    this.requestForm.patchValue({
+      transport_type_id: option.id,
+      transport_type_name: option.name,
+    });
+  }
+  changeForm_CargoPackage(option:any){
+    this.requestForm.patchValue({
+      cargo_package_id: option.id,
+      cargo_package_name: option.name,
+    });
+  }
+  changeForm_CargoType(option:any) {
+    this.requestForm.patchValue({
+      cargo_type_id: option.id,
+      cargo_type_name: option.name,
+    });
+    if(option.param !=='temperature'){
+      this.requestForm.controls['cargo_temperature'].reset();
+    }
+  }
+
+  // changeForm_ArrivalCountry(option:any){
+  //   console.log(option)
+  //   if(option.id!==this.requestForm.value.arrival_country_id){
+  //     this.requestForm.controls['arrival_city_id'].reset();
+  //     this.requestForm.controls['arrival_city_name'].reset();
+  //     this.requestForm.controls['arrival_point_id'].reset();
+  //   }
+  //   this.requestForm.patchValue({
+  //     arrival_country_id: option.id,
+  //     arrival_country_name: option.name
+  //   });
+  //   // this.getArrivalCitiesByCountryId(option.id);
+  //   if(this.requestForm.value.transport_kind_id==1){
+  //     this.getArrivalPoint(option.id,this.requestForm.value.transport_kind_id);
+  //   };
+
+  // }
+  changeForm_DepartureSity(option:any){
+    // if(this.requestForm.value.departure_country_id!==option.country_id){
+    //   this.requestForm.controls['departure_country_id'].reset();
+    //   this.requestForm.controls['departure_country_name'].reset();
+    // };
+    this.getCountries();
+    this.requestForm.patchValue({
+      departure_city_id: option.id,
+      departure_country_id: option.country_id,
+      departure_country_name: option.country_name,
+    });
+    if(this.requestForm.value.transport_kind_id==1){
+      this.getDeparturePoint(option.country_id,this.requestForm.value.transport_kind_id);
+    };
+  }
+
+  // displayFn(id: any): string {
+  //   if (!this.countrys) {
+  //     return ''; // или верни какое-то значение по умолчанию
+  //   }
+  //   const obj = this.countrys.find(obj => obj.id === id);
+  //   return obj?.name || ''; // Используем optional chaining для безопасного доступа к свойству
+  // }
+
   //изменение инкотермс
   onIncotermsChange(incotem:any){
     this.requestForm.patchValue({
@@ -612,14 +1063,6 @@ export class RequestEditorComponent implements OnInit, OnDestroy {
   }
   //изменение поля режима отдельных мест
   onPlaceModeChange(){
-    // this.requestForm.value.cargo_places.length=2
-    // this.requestForm.value.cargo_places=[{},{}]
-
-
-    // this.requestForm.patchValue({
-    //   cargo_places: [{},{}],
-    // });
-
     while (this.requestForm.value.cargo_places.length>2) {
       this.removePlace(0);
     }
@@ -627,7 +1070,6 @@ export class RequestEditorComponent implements OnInit, OnDestroy {
       this.addPlace();
     }
     this.requestForm.controls['cargo_places'].reset([{},{}]);
-
 
     this.requestForm.controls['cargo_places_count'].reset();
     this.requestForm.controls['cargo_places_weight'].reset();
@@ -654,14 +1096,14 @@ export class RequestEditorComponent implements OnInit, OnDestroy {
     this.requestForm.controls['cargo_places_density'].reset();
     this.requestForm.controls['cargo_cost'].reset();
     this.requestForm.controls['cargo_currency_id'].reset();
-    this.requestForm.controls['request_one'].reset();
-    this.requestForm.controls['request_two'].reset();
+    // this.requestForm.controls['request_one'].reset();
+    // this.requestForm.controls['request_two'].reset();
     this.requestForm.controls['comment'].reset();
-
   }
   //изменение поля вида перевозки
   onTransportationFormatsChange(e:any) {
     this.requestForm.controls['transport_type_id'].reset();
+    this.requestForm.controls['transport_type_name'].reset();
     this.requestForm.controls['incoterms_id'].reset();
     this.requestForm.controls['departure_point_id'].reset();
     this.requestForm.controls['services'].reset();
@@ -671,32 +1113,13 @@ export class RequestEditorComponent implements OnInit, OnDestroy {
     this.getIncoterms(this.requestForm.value.transport_kind_id);
     this.getRequestServices(this.requestForm.value.transport_kind_id);
     this.getRequestServicesAdditional(this.requestForm.value.transport_kind_id);
+    this.filteredTransportFormats=[];
   }
   //изменение поля тип груза
-  onCargoTypeChange(e:any) {
-    if(e.param !=='temperature'){
-      this.requestForm.controls['cargo_temperature'].reset();
-    }
-  }
+
   //изменение поля города отправления
-  onDepartureCityChange(city: DirectionCity): void {
-    this.requestForm.controls['departure_country_id'].reset();
-    this.requestForm.patchValue({
-      departure_city_id: city.id,
-      departure_country_id: city.country_id,
-      // departure_country_name: city.country_name,
-    });
-    this.getDeparturePoint(city.id,this.requestForm.value.transport_kind_id);
-  }
-  //изменение поля страны отправления
-  onDepartureCountryChange(e:any):void{
-    console.log(e)
-    if(e!==this.requestForm.value.departure_country_id){
-      this.requestForm.controls['departure_city_id'].reset();
-      this.requestForm.controls['departure_city_name'].reset();
-    }
-    this.getDepartureCitiesByCountryId(e)
-  }
+
+
   //изменение поля города прибытия
   onArrivalCityChange(city: DirectionCity): void {
     this.requestForm.controls['arrival_country_id'].reset();
@@ -705,17 +1128,17 @@ export class RequestEditorComponent implements OnInit, OnDestroy {
       arrival_country_id: city.country_id,
       arrival_country_name: city.country_name
     });
-    this.getArrivalPoint(city.id,this.requestForm.value.transport_kind_id);
+    this.getArrivalPoint(city.country_id,this.requestForm.value.transport_kind_id);
   }
   //изменение поля страны прибытия
-  onArrivalCountryChange(e:any):void{
-    console.log(e)
-    if(e!==this.requestForm.value.arrival_country_id){
-      this.requestForm.controls['arrival_city_id'].reset();
-      this.requestForm.controls['arrival_city_name'].reset();
-    }
-    this.getArrivalCitiesByCountryId(e);
-  }
+  // onArrivalCountryChange(e:any):void{
+  //   console.log(e)
+  //   if(e!==this.requestForm.value.arrival_country_id){
+  //     this.requestForm.controls['arrival_city_id'].reset();
+  //     this.requestForm.controls['arrival_city_name'].reset();
+  //   }
+  //   this.getArrivalCitiesByCountryId(e);
+  // }
   //
   onPortChange(port:any){
     this.requestForm.patchValue({
@@ -723,23 +1146,31 @@ export class RequestEditorComponent implements OnInit, OnDestroy {
     })
   }
   //ПОИСК
-  //так то можно напрямую evt передавать в методы запросы
   //поиск котнтрактора
-  searchCustomer(e:any){
-    this.getCustomersByName(e.target.value);
-    this.requestForm.controls['customer_id'].reset();
 
+  //
+  onRequestTypeChange(request_type:any){
+    this.requestForm.patchValue({
+      request_type_id: request_type.id,
+    });
   }
+  // searchRequestType(e:any){
+  //   // this.getCustomersByName(e.target.value);
+  //   this.requestForm.controls['customer_id'].reset();
+  // }
+  // returnFilteredRequestType(e:any):any{
+  //   this.requestFormats.filter(option => option.name.toLowerCase().includes( e.target.value.toLowerCase()));
+  // }
   //поиск города оиправления
-  searchDepartureCity(e:any){
-    this.getDepartureCities(e.target.value);
-    this.requestForm.controls['departure_city_id'].reset();
-  }
+  // searchDepartureCity(e:any){
+  //   this.getDepartureCities(e.target.value);
+  //   this.requestForm.controls['departure_city_id'].reset();
+  // }
   //поиск города прибытия
-  searchArrivalCity(e:any){
-    this.getArrivalCities(e.target.value);
-    this.requestForm.controls['arrival_city_id'].reset();
-  }
+  // searchArrivalCity(e:any){
+  //   this.getArrivalCities(e.target.value);
+  //   this.requestForm.controls['arrival_city_id'].reset();
+  // }
   //поиск город/порт для инкотермс
   searchPort(e:any){
     this.getPorts(e.target.value)
@@ -747,11 +1178,14 @@ export class RequestEditorComponent implements OnInit, OnDestroy {
   // Приватные методы для полученния данных полей формы:
   //НАЧАЛО ФОРМЫ
   private getCustomers() {
-    this.customerService.customerList()
+    return this.customerService.customerList()
       .pipe(
-        tap((customer) => this.customers = customer.items as unknown as Customer[]),
+        tap((customer) =>{
+          this.customers = customer.items as unknown as Customer[];
+          this.filteredCustomers = customer.items as unknown as Customer[]
+        } ),
         takeUntil(this._destroy$)
-      ).subscribe();
+      );
   }
   private getCustomersByName(string: string) {
     this.customerService.customerList({name:string})
@@ -761,104 +1195,145 @@ export class RequestEditorComponent implements OnInit, OnDestroy {
       ).subscribe();
   }
   private getRequestFormats() {
-    this.requestService.requestType()
+    return this.requestService.requestType()
       .pipe(
         tap((requestFormats) => this.requestFormats = requestFormats as RequestFormat[]),
         takeUntil(this._destroy$)
-      ).subscribe();
+      );
   }
   private getTransportationFormats() {
-    this.transportService.transportKind()
+    return this.transportService.transportKind()
       .pipe(
         tap((transportationFormats) => this.transportationFormats = transportationFormats as TransportKind[]),
         takeUntil(this._destroy$)
-      ).subscribe();
+      );
   }
   private getTransportFormatsById(id:number) {
     this.transportService.transportType({kind_id:id})
       .pipe(
-        tap((transportFormats) => this.transportFormats = transportFormats as TransportType[]),
+        tap((transportFormats) => {
+          this.transportFormats = transportFormats as TransportType[];
+          this.filteredTransportFormats = transportFormats as TransportType[];
+        }),
         takeUntil(this._destroy$)
-      ).subscribe();
+      );
+  }
+  private getTransportFormats() {
+    return this.transportService.transportType()
+      .pipe(
+        tap((transportFormats) => {
+          this.transportFormats = transportFormats as TransportType[];
+          this.filteredTransportFormats = transportFormats as TransportType[];
+        }),
+        takeUntil(this._destroy$)
+      );
   }
   //ОПИСАНИЕ ГРУЗА
   private getСargoPackages() {
-    this.cargoService.cargoPackage()
+    return this.cargoService.cargoPackage()
       .pipe(
-        tap((cargoPackages)=> this.cargoPackages = cargoPackages as CargoPackage[]),
+        tap((cargoPackages)=> {
+          this.cargoPackages = cargoPackages as CargoPackage[];
+          this.filteredCargoPackage = cargoPackages as CargoPackage[];
+        }),
         takeUntil(this._destroy$)
-      ).subscribe();
+      );
   }
   private getСargoTypes() {
-    this.cargoService.cargoType()
+    return this.cargoService.cargoType()
       .pipe(
-        tap((cargoType)=> this.cargoTypes = cargoType as CargoType[]),
+        tap((cargoType)=>{
+          this.filteredCargoType = cargoType as CargoType[];
+          this.cargoTypes = cargoType as CargoType[];
+        } ),
         takeUntil(this._destroy$)
-      ).subscribe();
+      );
   }
   private getCurrencys() {
-    this.systemService.systemCurrency()
+    return this.systemService.systemCurrency()
       .pipe(
         tap((currencys)=> this.currencys = currencys as Currency[]),
         takeUntil(this._destroy$)
-      ).subscribe();
+      );
   }
   //НАПРАВЛЕНИЯ
   private getCountries() {
-    this.countryService.getCountries()
+    return this.countryService.getCountries()
       .pipe(
-        tap((countrys) => this.countrys = countrys),
+        tap((countrys) => {
+          this.filteredDepartureCountrys = countrys;
+          this.filteredArrivalCountrys = countrys;
+          this.countrys = countrys;
+        }),
+        takeUntil(this._destroy$)
+      );
+  }
+  private getCities() {
+    return this.directionService.directionCity()
+      .pipe(
+        tap((citys) => {
+          this.filteredArrivalCitys = citys as DirectionCity[];
+          this.filteredDepartureCitys = citys as DirectionCity[];
+          this.citys = citys as DirectionCity[];
+
+        } ),
+        takeUntil(this._destroy$)
+      );
+  }
+  // private getArrivalCitiesByCountryId(country_id: number) {
+  //   this.directionService.directionCity({country_id})
+  //     .pipe(
+  //       tap((arrivalCitys) => this.arrivalCitys = arrivalCitys as DirectionCity[]),
+  //       takeUntil(this._destroy$)
+  //     ).subscribe();
+  // }
+  // private getDepartureCities(search: string) {
+  //   this.directionService.directionCity({search})
+  //     .pipe(
+  //       tap((departureCitys) => this.departureCitys = departureCitys as DirectionCity[]),
+  //       takeUntil(this._destroy$)
+  //     ).subscribe();
+  // }
+  // private getDepartureCitiesByCountryId(country_id: number) {
+  //   this.directionService.directionCity({country_id})
+  //     .pipe(
+  //       tap((departureCitys) => this.departureCitys = departureCitys as DirectionCity[]),
+  //       takeUntil(this._destroy$)
+  //     ).subscribe();
+  // }
+
+  private getDeparturePoint(country_id: number, transport_kind_id: number) {
+    this.directionService.directionPoint({country_id:country_id, transport_kind_id:transport_kind_id})
+      .pipe(
+        tap((departurePoint) =>{
+          this.departurePoint=departurePoint?departurePoint as DirectionPoint[]:[];
+          this.filteredDeparturePoint=departurePoint?departurePoint as DirectionPoint[]:[];
+          this.requestForm.patchValue({
+            departure_point_id:this.requestForm.value.departure_point_id
+          });
+        } ),
         takeUntil(this._destroy$)
       ).subscribe();
   }
-  private getArrivalCities(search: string) {
-    this.directionService.directionCity({search})
+  private getArrivalPoint(country_id: number, transport_kind_id: number) {
+    this.directionService.directionPoint({country_id:country_id, transport_kind_id:transport_kind_id})
       .pipe(
-        tap((arrivalCitys) => this.arrivalCitys = arrivalCitys as DirectionCity[]),
-        takeUntil(this._destroy$)
-      ).subscribe();
-  }
-  private getArrivalCitiesByCountryId(country_id: number) {
-    this.directionService.directionCity({country_id})
-      .pipe(
-        tap((arrivalCitys) => this.arrivalCitys = arrivalCitys as DirectionCity[]),
-        takeUntil(this._destroy$)
-      ).subscribe();
-  }
-  private getDepartureCities(search: string) {
-    this.directionService.directionCity({search})
-      .pipe(
-        tap((departureCitys) => this.departureCitys = departureCitys as DirectionCity[]),
-        takeUntil(this._destroy$)
-      ).subscribe();
-  }
-  private getDepartureCitiesByCountryId(country_id: number) {
-    this.directionService.directionCity({country_id})
-      .pipe(
-        tap((departureCitys) => this.departureCitys = departureCitys as DirectionCity[]),
-        takeUntil(this._destroy$)
-      ).subscribe();
-  }
-  private getDeparturePoint(city_id: number, transport_kind_id: number) {
-    this.directionService.directionPoint({city_id, transport_kind_id})
-      .pipe(
-        tap((departurePoint) => this.departurePoint=departurePoint as DirectionPoint[]),
-        takeUntil(this._destroy$)
-      ).subscribe();
-  }
-  private getArrivalPoint(city_id: number, transport_kind_id: number) {
-    this.directionService.directionPoint({city_id, transport_kind_id})
-      .pipe(
-        tap(arrivalPoint => this.arrivalPoint=arrivalPoint as DirectionPoint[]),
+        tap(arrivalPoint => {
+          this.arrivalPoint=arrivalPoint?arrivalPoint as DirectionPoint[]:[];
+          this.filteredArrivalPoint=arrivalPoint?arrivalPoint as DirectionPoint[]:[];
+          this.requestForm.patchValue({
+            arrival_point_id:this.requestForm.value.arrival_point_id
+          });
+        } ),
         takeUntil(this._destroy$)
       ).subscribe();
   }
   private getDirectionFlight() {
-    this.directionService.directionFlight()
+    return this.directionService.directionFlight()
       .pipe(
         tap((directionFlights)=>this.directionFlights=directionFlights as DirectionFlight[]),
         takeUntil(this._destroy$)
-      ).subscribe();
+      );
   }
   //ТРЕБУЕМЫЕ УСЛИГИ
   private getPorts(search:string){
@@ -904,6 +1379,7 @@ export class RequestEditorComponent implements OnInit, OnDestroy {
         takeUntil(this._destroy$)
       ).subscribe();
   }
+
   // Приватные методы для создания или редактирования запроса
   //Редактирование запроса
   private updateRequest(body:any){
@@ -911,56 +1387,90 @@ export class RequestEditorComponent implements OnInit, OnDestroy {
       next: () => {
         this.fileListDanger?.update().subscribe();
         this.fileList?.update().subscribe();
+        if(this.isNavigateAfterSave){
+          this.goBack();
+        }
         this.snackBar.open(`Запрос изменён`, undefined, this.snackBarWithShortDuration)
       },
       error: (err) => this.snackBar.open(`Ошибка редактирования запроса: ` + err.error.error_message, undefined, this.snackBarWithShortDuration)
     });
   }
   //Получаем данные запроса для редактирования
-  private getRequest():void{
-    const id = Number(this.route.snapshot.paramMap.get('id'));
-    this.id = id;
-    this.requestService.requestInfo({id})
-      .pipe(
-        tap(request => {
-          console.log('получили данные запроса',request);
-          if (!request) {
-            throw ({ error: { error_message: `Запрос не существует` } });
-          } else {
-            request.cargo_places?.forEach(element => {
-              this.addPlace();
-            });
-            this.requestForm.patchValue(request);
-          }
-          this.transport_kind_id=request.transport_kind_id;
-        }),
-        takeUntil(this._destroy$),
-      )
-      .subscribe({
-        next: request => {
-          // this.requestForm.patchValue(request);
-          // this.getFile(id);
-          // this.getDangerFile(id);
-          // this.getTransportFormatsById(this.requestForm.value.transport_kind_id);
-          // this.getIncoterms(this.requestForm.value.transport_kind_id);
-          // this.getRequestServices(this.requestForm.value.transport_kind_id);
-          // this.getRequestServicesAdditional(this.requestForm.value.transport_kind_id);
-          // this.getArrivalPoint(this.requestForm.value.arrival_city_id, this.requestForm.value.transport_kind_id);
-          // this.getDeparturePoint(this.requestForm.value.departure_city_id, this.requestForm.value.transport_kind_id);
-          this.getFile(id);
-          this.getDangerFile(id);
-          this.getTransportFormatsById(request.transport_kind_id!);
-          this.getIncoterms(this.requestForm.value.transport_kind_id);
-          this.getRequestServices(this.requestForm.value.transport_kind_id);
-          this.getRequestServicesAdditional(this.requestForm.value.transport_kind_id);
-          this.getArrivalPoint(this.requestForm.value.arrival_city_id, this.requestForm.value.transport_kind_id);
-          this.getDeparturePoint(this.requestForm.value.departure_city_id, this.requestForm.value.transport_kind_id);
-        },
-        error: (err: any) => {
-          this.snackBar.open(`Запрос не найден: ` + err.error.error_message, undefined, this.snackBarWithShortDuration);
-          this.goBack();
+  // private getRequest(){
+  //   return this.requestService.requestInfo({id:this.id})
+  //     .pipe(
+  //       tap(request => {
+  //         console.log('получили данные запроса',request);
+  //         if (!request) {
+  //           throw ({ error: { error_message: `Запрос не существует` } });
+  //         } else {
+  //           request.cargo_places?.forEach(element => {
+  //             this.addPlace();
+  //           });
+  //           this.requestForm.patchValue(request);
+  //         }
+  //         this.transport_kind_id=request.transport_kind_id;
+  //       }),
+  //       takeUntil(this._destroy$),
+  //     )
+  //     .subscribe({
+  //       next: request => {
+  //         this.title = this.isEditMode ? `Редактирование запроса № ${this.id}` : 'Добавление запроса';
+  //         this.getArrivalPoint(this.requestForm.value.arrival_country_id, this.requestForm.value.transport_kind_id);
+  //         this.getDeparturePoint(this.requestForm.value.departure_country_id, this.requestForm.value.transport_kind_id);
+
+  //         this.getFile(request.id);
+  //         this.getDangerFile(request.id);
+  //         this.getTransportFormatsById(request.transport_kind_id!);
+  //         this.getIncoterms(this.requestForm.value.transport_kind_id);
+  //         this.getRequestServices(this.requestForm.value.transport_kind_id);
+  //         this.getRequestServicesAdditional(this.requestForm.value.transport_kind_id);
+  //       },
+  //       error: (err: any) => {
+  //         this.snackBar.open(`Запрос не найден: ` + err.error.error_message, undefined, this.snackBarWithShortDuration);
+  //         this.goBack();
+  //       },
+  //     });
+  // }
+  private getRequest() {
+    return this.requestService.requestInfo({ id: this.id }).pipe(
+      tap((request) => {
+        if(request.arrival_country_id && request.transport_kind_id){
+          this.getArrivalPoint(request.arrival_country_id, request.transport_kind_id);
         }
-      });
+        if(request.departure_country_id && request.transport_kind_id){
+          this.getDeparturePoint(request.departure_country_id, request.transport_kind_id);
+        }
+        console.log('получили данные запроса', request);
+      }),
+      tap((request) => {
+        if (!request) {
+          throw { error: { error_message: `Запрос не существует` } };
+        } else {
+          request.cargo_places?.forEach(() => {
+            this.addPlace();
+          });
+          this.requestForm.patchValue(request);
+        }
+        this.transport_kind_id = request.transport_kind_id;
+        this.title = this.isEditMode ? `Редактирование запроса № ${this.id}` : 'Добавление запроса';
+        // this.getArrivalPoint(this.requestForm.value.arrival_country_id, this.requestForm.value.transport_kind_id);
+        // this.getDeparturePoint(this.requestForm.value.departure_country_id, this.requestForm.value.transport_kind_id);
+
+        this.getFile(request.id);
+        this.getDangerFile(request.id);
+        this.getTransportFormatsById(request.transport_kind_id!);
+        this.getIncoterms(this.requestForm.value.transport_kind_id);
+        this.getRequestServices(this.requestForm.value.transport_kind_id);
+        this.getRequestServicesAdditional(this.requestForm.value.transport_kind_id);
+      }),
+      catchError((err) => {
+        this.snackBar.open(`Запрос не найден: ` + err.error.error_message, undefined, this.snackBarWithShortDuration);
+        this.goBack();
+        return throwError(() => err); // Пробрасываем ошибку дальше
+      }),
+      takeUntil(this._destroy$)
+    );
   }
   //Создание запроса
   private createRequest(body:any){
@@ -970,70 +1480,205 @@ export class RequestEditorComponent implements OnInit, OnDestroy {
         console.log(test);
         this.fileListDanger?.create(test.id).subscribe();
         this.fileList?.create(test.id).subscribe();
-        this.router.navigate(['pages/request/edit', test.id]);
+        if(this.isNavigateAfterSave){
+          this.goBack();
+        } else {
+          this.router.navigate(['pages/request/edit', test.id]);
+        }
         this.snackBar.open(`Запрос создан`, undefined, this.snackBarWithShortDuration);
       },
       error: (err) => this.snackBar.open(`Ошибка создания запроса: ` + err.error.error_message, undefined, this.snackBarWithShortDuration)
     });
   }
-  //ВАЛИДАЦИЯ
-  // setValid(){
-  //   if(this.requestForm.value.request_type_id===1){
-  //     this.validateA();
-  //     return;
-  //   }
-  //   if(this.requestForm.value.request_type_id===2 && !this.requestForm.value.cargo_separately){
-  //     this.validateB();
-  //     return;
-  //   }
-  //   if(this.requestForm.value.request_type_id===2 && this.requestForm.value.cargo_separately){
-  //     this.validateC();
-  //     return;
-  //   }
-  // }
-  // //при индиактиве
-  // validateA(){
-  //   //обяз
-  //   this.requestForm.get('cargo_package_id')?.setValidators([Validators.required]);
-  //   //не обяз
-  //   this.requestForm.get('cargo_type_id')?.clearValidators();
+}
 
-  //   if(this.requestForm.value.transport_kind_id==='road'){
-  //     this.requestForm.get('incoterms_id')?.clearValidators();
-  //   } else {
-  //     this.requestForm.get('incoterms_id')?.setValidators([Validators.required]);
-  //   }
-  // }
-  // //при индиактиве, не раздельно
-  // validateB(){
-  //   //обяз
-  //   this.requestForm.get('cargo_package_id')?.setValidators([Validators.required]);
-  //   //не обяз
-  //   this.requestForm.get('cargo_type_id')?.setValidators([Validators.required]);
-
-  //   if(this.requestForm.value.transport_kind_id==='road'){
-  //     this.requestForm.get('incoterms_id')?.clearValidators();
-  //   } else {
-  //     this.requestForm.get('incoterms_id')?.setValidators([Validators.required]);
-  //   }
-  // }
-  // //при индиактиве, не раздельно
-  // validateC(){
-  //   //обяз
-  //   this.requestForm.get('cargo_package_id')?.clearValidators();
-  //   //не обяз
-  //   this.requestForm.get('cargo_type_id')?.setValidators([Validators.required]);
-
-  //   if(this.requestForm.value.transport_kind_id==='road'){
-  //     this.requestForm.get('incoterms_id')?.clearValidators();
-  //   } else {
-  //     this.requestForm.get('incoterms_id')?.setValidators([Validators.required]);
-  //   }
-  // }
-  // subForm(){
-  //   this.requestForm.valueChanges.subscribe((v) => {
-  //    this.setValid();
+// subscribeInput_DepartureCountryName(){
+//   const keyup$ = fromEvent(this.inputElementDepartureCountryName.nativeElement, 'keyup');
+//   const paste$ = fromEvent(this.inputElementDepartureCountryName.nativeElement, 'paste');
+//   merge(keyup$, paste$)
+//   .pipe(
+//     debounceTime(1000),
+//     distinctUntilChanged(),
+//     takeUntil(this._destroy$),
+//   )
+//   .subscribe((event: any) => {
+//     this.requestForm.controls['departure_country_id'].reset();
+//     const value = event.target.value;
+//     this.filteredDepartureCountrys=this.countrys.filter((item:Country) =>{
+//       return item.name && item.name.toLowerCase().includes(value.toLowerCase());
+//     })
+//     if(this.filteredDepartureCountrys.length==1){
+//       if(this.filteredDepartureCountrys[0].name?.toLowerCase()===value.toLowerCase()){
+//         this.changeForm_DepartureCountry(this.filteredDepartureCountrys[0])
+//       }
+//     }
+//   });
+// }
+// subscribeInput_ArrivalCountryName(){
+//   const keyup$ = fromEvent(this.inputElementArrivalCountryName.nativeElement, 'keyup');
+//   const paste$ = fromEvent(this.inputElementArrivalCountryName.nativeElement, 'paste');
+//   merge(keyup$, paste$)
+//   .pipe(
+//     debounceTime(1000),
+//     distinctUntilChanged(),
+//     takeUntil(this._destroy$),
+//   )
+//   .subscribe((event: any) => {
+//     this.requestForm.controls['arrival_country_id'].reset();
+//     const value = event.target.value;
+//     this.filteredArrivalCountrys=this.countrys.filter((item:Country) =>{
+//       return item.name && item.name.toLowerCase().includes(value.toLowerCase());
+//     })
+//     if(this.filteredArrivalCountrys.length==1){
+//       if(this.filteredArrivalCountrys[0].name?.toLowerCase()===value.toLowerCase()){
+//         this.changeForm_ArrivalCountry(this.filteredArrivalCountrys[0])
+//       }
+//     }
+//   });
+// }
+  //подписки на форму
+  // subscribeControl_СargoСost(){
+  //   this.requestForm.get('cargo_cost')?.valueChanges
+  //   .pipe(
+  //     debounceTime(1500),
+  //     distinctUntilChanged(),
+  //     takeUntil(this._destroy$),
+  //   )
+  //   .subscribe((value:any) => {
+  //     const formattedValue = value?.toFixed(2); // Округляем до двух знаков
+  //     this.requestForm.get('cargo_cost')?.setValue(formattedValue, { emitEvent: false });
   //   });
   // }
-
-}
+  // //подписки на инпуты
+  // subscribeInput_CustomerName(){
+  //   const keyup$ = fromEvent(this.inputElementCustomerName.nativeElement, 'keyup');
+  //   const paste$ = fromEvent(this.inputElementCustomerName.nativeElement, 'paste');
+  //   merge(keyup$, paste$)
+  //   .pipe(
+  //     debounceTime(1000),
+  //     distinctUntilChanged(),
+  //     takeUntil(this._destroy$),
+  //   )
+  //   .subscribe((event: any) => {
+  //     this.requestForm.controls['customer_id'].reset();
+  //     const value = event.target.value;
+  //     this.filteredCustomers = this.customers.filter((item: Customer) => {
+  //       return item.name && item.name.toLowerCase().includes(value.toLowerCase());
+  //     });
+  //     if(this.filteredCustomers.length==1){
+  //       if(this.filteredCustomers[0].name?.toLowerCase()===value.toLowerCase()){
+  //         this.changeForm_Customer(this.filteredCustomers[0]);
+  //       };
+  //     };
+  //   });
+  // }
+  // subscribeInput_TransportTypeName(){
+  //   const keyup$ = fromEvent(this.inputElementTransportTypeName.nativeElement, 'keyup');
+  //   const paste$ = fromEvent(this.inputElementTransportTypeName.nativeElement, 'paste');
+  //   merge(keyup$, paste$)
+  //   .pipe(
+  //     debounceTime(1000),
+  //     distinctUntilChanged(),
+  //     takeUntil(this._destroy$),
+  //   )
+  //   .subscribe((event: any) => {
+  //     this.requestForm.controls['transport_type_id'].reset();
+  //     const value = event.target.value;
+  //     this.filteredTransportFormats=this.transportFormats.filter((item:TransportType) =>{
+  //       return item.name && item.name.toLowerCase().includes(value.toLowerCase());
+  //     });
+  //     if(this.filteredTransportFormats.length==1){
+  //       if(this.filteredTransportFormats[0].name?.toLowerCase()===value.toLowerCase()){
+  //         this.changeForm_TransportType(this.filteredTransportFormats[0]);
+  //       };
+  //     };
+  //   });
+  // }
+  // subscribeInput_CargoPackageName(){
+  //   const keyup$ = fromEvent(this.inputElementCargoPackageName.nativeElement, 'keyup');
+  //   const paste$ = fromEvent(this.inputElementCargoPackageName.nativeElement, 'paste');
+  //   merge(keyup$, paste$)
+  //   .pipe(
+  //     debounceTime(1000),
+  //     distinctUntilChanged(),
+  //     takeUntil(this._destroy$),
+  //   )
+  //   .subscribe((event: any) => {
+  //     this.requestForm.controls['cargo_package_id'].reset();
+  //     const value = event.target.value;
+  //     this.filteredCargoPackage=this.cargoPackages.filter((item:CargoPackage) =>{
+  //       return item.name && item.name.toLowerCase().includes(value.toLowerCase());
+  //     })
+  //     if(this.filteredCargoPackage.length==1){
+  //       if(this.filteredCargoPackage[0].name?.toLowerCase()===value.toLowerCase()){
+  //         this.changeForm_CargoPackage(this.filteredCargoPackage[0])
+  //       };
+  //     };
+  //   });
+  // }
+  // subscribeInput_CargoTypeName(){
+  //   const keyup$ = fromEvent(this.inputElementCargoTypeName.nativeElement, 'keyup');
+  //   const paste$ = fromEvent(this.inputElementCargoTypeName.nativeElement, 'paste');
+  //   merge(keyup$, paste$)
+  //   .pipe(
+  //     debounceTime(1000),
+  //     distinctUntilChanged(),
+  //     takeUntil(this._destroy$),
+  //   )
+  //   .subscribe((event: any) => {
+  //     this.requestForm.controls['cargo_type_id'].reset();
+  //     const value = event.target.value;
+  //     this.filteredCargoType=this.cargoTypes.filter((item:CargoType) =>{
+  //       return item.name && item.name.toLowerCase().includes(value.toLowerCase());
+  //     })
+  //     if(this.filteredCargoType.length==1){
+  //       if(this.filteredCargoType[0].name?.toLowerCase()===value.toLowerCase()){
+  //         this.changeForm_CargoType(this.filteredCargoType[0])
+  //       }
+  //     }
+  //   });
+  // }
+  // subscribeInput_DepartureCountryName(){
+  //   const keyup$ = fromEvent(this.inputElementDepartureCountryName.nativeElement, 'keyup');
+  //   const paste$ = fromEvent(this.inputElementDepartureCountryName.nativeElement, 'paste');
+  //   merge(keyup$, paste$)
+  //   .pipe(
+  //     debounceTime(1000),
+  //     distinctUntilChanged(),
+  //     takeUntil(this._destroy$),
+  //   )
+  //   .subscribe((event: any) => {
+  //     this.requestForm.controls['departure_country_id'].reset();
+  //     const value = event.target.value;
+  //     this.filteredDepartureCountrys=this.countrys.filter((item:Country) =>{
+  //       return item.name && item.name.toLowerCase().includes(value.toLowerCase());
+  //     })
+  //     if(this.filteredDepartureCountrys.length==1){
+  //       if(this.filteredDepartureCountrys[0].name?.toLowerCase()===value.toLowerCase()){
+  //         this.changeForm_DepartureCountry(this.filteredDepartureCountrys[0])
+  //       }
+  //     }
+  //   });
+  // }
+  // subscribeInput_ArrivalCountryName(){
+  //   const keyup$ = fromEvent(this.inputElementArrivalCountryName.nativeElement, 'keyup');
+  //   const paste$ = fromEvent(this.inputElementArrivalCountryName.nativeElement, 'paste');
+  //   merge(keyup$, paste$)
+  //   .pipe(
+  //     debounceTime(1000),
+  //     distinctUntilChanged(),
+  //     takeUntil(this._destroy$),
+  //   )
+  //   .subscribe((event: any) => {
+  //     this.requestForm.controls['arrival_country_id'].reset();
+  //     const value = event.target.value;
+  //     this.filteredArrivalCountrys=this.countrys.filter((item:Country) =>{
+  //       return item.name && item.name.toLowerCase().includes(value.toLowerCase());
+  //     })
+  //     if(this.filteredArrivalCountrys.length==1){
+  //       if(this.filteredArrivalCountrys[0].name?.toLowerCase()===value.toLowerCase()){
+  //         this.changeForm_ArrivalCountry(this.filteredArrivalCountrys[0])
+  //       }
+  //     }
+  //   });
+  // }

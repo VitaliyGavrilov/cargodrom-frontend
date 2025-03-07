@@ -18,6 +18,8 @@ import { FilterService } from 'src/app/filter/services/filter.service';
 export class ClientComponent extends Table<Client, 'name', ClientFilter> {
   sortField = 'name' as const;
 
+  importMetods:any;
+
   params:any;
 
   trackById = (_index: number, client: Client) => client.id!;
@@ -31,6 +33,11 @@ export class ClientComponent extends Table<Client, 'name', ClientFilter> {
     router: Router,
   ) {
     super(route, router, dialog, snackBar, filterService);
+    this.importMetods = {
+      import: this.customerService.customerImport.bind(this.customerService),
+      import_res: this.customerService.customerImportResult.bind(this.customerService),
+      import_con: this.customerService.customerImportConfirm.bind(this.customerService),
+    }
   }
 
   load<Client>(params: LoadParams<Client, ClientFilter>): Observable<{ total: number; items: Client[]; }> {
@@ -66,6 +73,18 @@ export class ClientComponent extends Table<Client, 'name', ClientFilter> {
     return this.customerService.customerImportTemplate(this.filter as any) as Observable<{data: string; name: string}>;
   }
 
-
-
+  getVal(obj: any, path: string): any {
+    if (!path?.includes('/')) {
+        return obj[path] !== undefined ? obj[path] : null;
+    }
+    const keys = path?.split('/');
+    for (const key of keys) {
+      if (obj && obj.hasOwnProperty(key)) {
+          obj = obj[key];
+      } else {
+          return null; // Если ключ не найден, возвращаем null
+      }
+    }
+    return obj !== undefined ? obj : null; // Проверка на undefined
+  }
 }

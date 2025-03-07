@@ -269,7 +269,7 @@
               <div class="form-data">
                 <input formControlName="departure_country_name"
                   type="text"
-                  readonly
+
                 >
               </div>
             </div>
@@ -279,7 +279,7 @@
               <div class="form-data">
                 <input formControlName="departure_city_name"
                   type="text"
-                  readonly
+
                 >
               </div>
             </div>
@@ -308,7 +308,7 @@
               <div class="form-data">
                 <input formControlName="departure_point_name"
                   type="text"
-                  readonly
+
                 >
               </div>
             </div>
@@ -321,7 +321,7 @@
               <div class="form-data">
                 <input formControlName="arrival_country_name"
                   type="text"
-                  readonly
+
                 >
               </div>
             </div>
@@ -330,7 +330,7 @@
               <div class="form-data">
                 <input formControlName="arrival_city_name"
                   type="text"
-                  readonly
+
                 >
               </div>
             </div>
@@ -353,7 +353,7 @@
               <div class="form-data">
                 <input formControlName="arrival_point_name"
                   type="text"
-                  readonly
+
                 >
               </div>
             </div>
@@ -362,7 +362,7 @@
               <div class="form-data">
                 <input formControlName="departure_flight_name"
                   type="text"
-                  readonly
+
                 >
               </div>
             </div>
@@ -375,7 +375,7 @@
               <div class="form-data">
                 <input formControlName="incoterms_name"
                   type="text"
-                  readonly
+
                 >
               </div>
             </div>
@@ -386,7 +386,7 @@
               <div class="form-data">
                 <input formControlName="incoterms_city_name"
                   type="text"
-                  readonly
+
                 >
               </div>
             </div>
@@ -414,7 +414,7 @@
               <div class="form-data">
                 <input formControlName="cargo_type_name"
                   type="text"
-                  readonly
+
                 >
               </div>
             </div>
@@ -426,7 +426,7 @@
               <div class="form-data">
                 <textarea style="resize: none;" formControlName="cargo_condition_carriage"
                   type="text"
-                  readonly
+
                 ></textarea>
               </div>
             </div>
@@ -490,7 +490,7 @@
               <div class="form-label">Dimensions: </div>
               <div class="form-data">
                 <textarea formControlName="cargo_dimensions"
-                  readonly style="resize: none;"
+                   style="resize: none;"
                 ></textarea>
               </div>
             </div>
@@ -521,8 +521,9 @@
     </div>
     <div class="fn">
       <button class="btn v save" (click)="save()"><span>Сохранить</span></button>
-      <button class="btn v go" (click)="send()" *ngIf="translateAuto == undefined"><span>Отправить</span></button>
+      <!-- <button class="btn v go" (click)="send()" *ngIf="translateAuto == undefined"><span>Отправить</span></button> -->
       <button class="btn v cancel" (click)="remove()"><span>Отмена</span></button>
+      <div (click)="send()">send</div>
     </div>
   </div>
 

@@ -21,23 +21,23 @@ button{
   max-width: fit-content;
 }
 
-input[type="number"] {
-  font-family: 'regular', 'arial', 'sans-serif';
-  background: #F7F9FC;
-  border: 1px solid #E0E5EB;
-  color: #2C3640;
-  font-size: 15px;
-  line-height: 15px;
-  border-radius: 6px;
-  width: 100%;
-  box-sizing: border-box;
-  padding: 11px 13px 9px;
-
-  height: 39.88px;
+.place input[type="number"] {
+//   font-family: 'regular', 'arial', 'sans-serif';
+//   background: #F7F9FC;
+//   border: 1px solid #E0E5EB;
+//   color: #2C3640;
+//   font-size: 15px;
+//   line-height: 15px;
+//   border-radius: 6px;
+//   width: 100%;
+//   box-sizing: border-box;
+//   height: 39.88px;
+  text-align: right;
+  padding: 11px 5px 9px;
 }
-.edit-form.request input[type="text"] {
-  height: 39.88px;
-}
+// .edit-form.request input[type="text"] {
+//   height: 39.88px;
+// }
 input[type="date"] {
   font-family: 'regular', 'arial', 'sans-serif';
   background: #F7F9FC;
@@ -207,16 +207,19 @@ input[type="date"] {
 }
 
 
-.staking-true{
+.form-item .staking-true .mat-mdc-select-value{
+
   background:  url("../../../../assets/pic-btn-stacking-true.svg")  left / contain no-repeat;
   white-space: nowrap;
 }
-.staking-false{
+.form-item  .staking-false .mat-mdc-select-value{
   background:  url("../../../../assets/pic-btn-stacking-false.svg")  left / contain no-repeat;
   white-space: nowrap;
   display:inline
 }
-.stacking-div{
+.form-item  .stacking-div{
+  width: 16px;
+  height: 16px;
   width: 20px;
   margin: 10px auto 0;
 }

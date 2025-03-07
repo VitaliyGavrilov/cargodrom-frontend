@@ -1042,6 +1042,11 @@ export class DirectionService extends BaseService {
     params: {
 
     /**
+     * ID страны (ID берем из запроса - direction_country)
+     */
+      country_id?: number;
+
+    /**
      * ID города (ID берем из запроса - direction_city)
      */
       city_id?: number;
@@ -1096,6 +1101,7 @@ export class DirectionService extends BaseService {
 }>>> {
     const rb = new RequestBuilder(this.rootUrl, DirectionService.DirectionPointPath, 'get');
     if (params) {
+      rb.query('country_id', params.country_id, {});
       rb.query('city_id', params.city_id, {});
       rb.query('transport_kind_id', params.transport_kind_id, {});
       rb.query('search', params.search, {});
@@ -1159,6 +1165,11 @@ export class DirectionService extends BaseService {
    */
   directionPoint(
     params: {
+
+    /**
+     * ID страны (ID берем из запроса - direction_country)
+     */
+      country_id?: number;
 
     /**
      * ID города (ID берем из запроса - direction_city)

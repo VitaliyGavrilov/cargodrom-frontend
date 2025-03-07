@@ -98,16 +98,19 @@ div.mat-calendar-body-selected,.mat-calendar-body-cell.selected .mat-calendar-bo
 .main .select-filter-additional {
   display: none;
 }
-.main .mat-select-value-text{
+.main .mat-mdc-select-value-text{
   font-size: 13px;
   line-height: 13px;
+
 }
-.main .value-selected .mat-select-value-text{
+.main .value-selected .mat-mdc-select-value-text{
   color: #DB563B;
+
 }
-.main .mat-select-arrow{
-  color: #DB563B;
-}
+// .main .mat-select-arrow{
+//   color: #DB563B;
+
+// }
 .main .mat-select {
   font-family: 'regular', 'arial', 'sans-serif';
 }
@@ -119,54 +122,56 @@ div.mat-calendar-body-selected,.mat-calendar-body-cell.selected .mat-calendar-bo
 
 
 
-.mat-checkbox.testclass label span{
-  display: none !important;
-}
 
-.mat-checkbox.testclass label {
-  cursor: pointer;
-  display: inline-block;
-  vertical-align: top;
-  position: relative;
-  border: 1px solid #E0E5EB;
-  background: #F7F9FC;
-  width: 18px;
-  height: 18px;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-}
 
-.mat-checkbox.testclass label::after {
-  content: "";
-  display: block;
-  background: #F7F9FC;
-  width: 8px;
-  height: 8px;
-  margin: 0 ;
-  padding: 0;
-}
+// .mat-checkbox.testclass label span{
+//   display: none !important;
+// }
 
-.mat-checkbox.testclass.mat-checkbox-checked label::after{
-  content: "";
-  display: block;
-  background: #DB563B;
-  width: 8px;
-  height: 8px;
-  margin: 0 ;
-  padding: 0;
+// .mat-checkbox.testclass label {
+//   cursor: pointer;
+//   display: inline-block;
+//   vertical-align: top;
+//   position: relative;
+//   border: 1px solid #E0E5EB;
+//   background: #F7F9FC;
+//   width: 18px;
+//   height: 18px;
+//   display: flex;
+//   justify-content: center;
+//   align-items: center;
+// }
 
-}
+// .mat-checkbox.testclass label::after {
+//   content: "";
+//   display: block;
+//   background: #F7F9FC;
+//   width: 8px;
+//   height: 8px;
+//   margin: 0 ;
+//   padding: 0;
+// }
 
-.mat-checkbox.testclass.mat-checkbox-indeterminate label::after{
-  content: "";
-  display: block;
-  background: #DB563B;
-  width: 10px;
-  height: 3px;
-  margin: 0 ;
-  padding: 0;
-}
+// .mat-checkbox.testclass.mat-checkbox-checked label::after{
+//   content: "";
+//   display: block;
+//   background: #DB563B;
+//   width: 8px;
+//   height: 8px;
+//   margin: 0 ;
+//   padding: 0;
+
+// }
+
+// .mat-checkbox.testclass.mat-checkbox-indeterminate label::after{
+//   content: "";
+//   display: block;
+//   background: #DB563B;
+//   width: 10px;
+//   height: 3px;
+//   margin: 0 ;
+//   padding: 0;
+// }
 
 //перевод запросов
 .edit-form .ru .form-block .form-row .form-item input{
@@ -251,4 +256,8 @@ h1.mat-dialog-title{
 
 .radio-btn :checked + span {
   border-color: #DB563B;
+}
+
+.table-list .mat-mdc-table{
+  background-color: #83909E;
 }

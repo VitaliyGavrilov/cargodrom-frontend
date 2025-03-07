@@ -14,8 +14,11 @@ export class EditorHeaderComponent implements OnInit {
   @Output() save = new EventEmitter<void>();
   @Output() remove = new EventEmitter<void>();
   @Output() calc = new EventEmitter<void>();
+  @Input() isCalck = false;
   @Input() content: boolean = false;
   @Input() request: any={};
+  @Output() send = new EventEmitter<void>();
+  @Input() isSend = false;
 
   constructor(
     private location: Location,
@@ -38,6 +41,10 @@ export class EditorHeaderComponent implements OnInit {
 
   goCalc():void{
     this.calc.emit();
+  }
+
+  onSend():void{
+    this.send.emit();
   }
 
 }

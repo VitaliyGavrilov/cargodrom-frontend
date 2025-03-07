@@ -9,6 +9,7 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { LogoutComponent } from './components/logout/logout.component';
 import { ConfirmComponent } from './components/confirm/confirm.component';
 
+
 @NgModule({
   declarations: [
     LoginComponent,
@@ -23,6 +24,7 @@ import { ConfirmComponent } from './components/confirm/confirm.component';
     HttpClientModule,
     RouterModule,
     MaterialModule
-  ]
+  ],
+
 })
 export class AuthModule { }

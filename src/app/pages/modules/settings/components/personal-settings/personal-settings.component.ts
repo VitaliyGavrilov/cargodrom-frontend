@@ -24,11 +24,11 @@ export class PersonalSettingsComponent implements OnInit {
   ngOnInit(): void {
     this.loadPersonalSettings();
   }
-  
+
   loadPersonalSettings() {
     this.sorry();
   }
-  
+
   save(): void {
     this.sorry();
   }

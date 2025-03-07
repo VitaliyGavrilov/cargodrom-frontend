@@ -43,6 +43,8 @@ export class RequestDetails extends Table<any, 'trade_rating', ContractorFilter>
   sortField = 'contractor_id' as const;
   expandedElement: any | null;
 
+  kpStatusArr:any;
+
   arrDetailsCheckedCheck:number[]=[];
 
   arrCheckedKp:number[]=[];
@@ -74,7 +76,13 @@ export class RequestDetails extends Table<any, 'trade_rating', ContractorFilter>
 
   override loadRows(): void {
     super.loadRows();
+    // this.getOfferList();
+  }
+
+  override ngOnInit(): void {
+    super.ngOnInit();
     this.getOfferList();
+    this.getKpStatus();
   }
 
   //методы для таблицы
@@ -129,14 +137,26 @@ export class RequestDetails extends Table<any, 'trade_rating', ContractorFilter>
   // KP TABLE HANDLERS
   //-btns
   onSendKpBtnClick(){
-
+    this.sendOffers(this.arrCheckedKp)
   }
-  onEditKpBtnClick(offer_id:number){
-    this.navToOfferEditor(offer_id);
+  returnVisibilitySendKpBtn():boolean{
+    if(this.arrCheckedKp.length>0){
+      return true;
+    } else {
+      return false;
+    }
+  }
+  onEditKpBtnClick(offer_id:number, offer_status:any){
+    if(offer_status==0){
+      this.navToOfferEditor(offer_id);
+    } else {
+      this.snackBar.open(`Редактирвоание кп недоступно`, undefined, this.snackBarWithShortDuration);
+    }
+
   }
   onDubKpBtnClick(offer_id:number){
     this.dubOffer(offer_id);
-    this.loadRows();
+    this.getOfferList();
   }
   onCopyKpBtnClick(offer_id:number){
     this.getOfferTxtCopy(offer_id);
@@ -149,40 +169,76 @@ export class RequestDetails extends Table<any, 'trade_rating', ContractorFilter>
   }
   onDelKpBtnClick(offer_id:number){
     this.openDeleteKpDialog('Вы уверенны, что хотите удалить кп №'+ offer_id, [offer_id], 'Удаление кп')
+
     // this.deleteKp([id]);
   }
   //-checkboxs
   isKpCheckboxHeaderTableChecked(): boolean {
-    const arrIdRows = new Set(this.offerList.items.map((i: any) => i.id));
+    const arrIdRows = new Set(this.offerList.items.filter((i: any) => i.status == 0).map((i: any) => i.id));
     const arrIdRowsCheck = new Set(this.arrCheckedKp.filter(id => arrIdRows.has(id)));
     return arrIdRows.size > 0 && arrIdRows.size === arrIdRowsCheck.size;
   }
   onKpCheckboxHeaderTableChange({ checked }: MatCheckboxChange) {
+    const validItems = this.offerList.items.filter((i: any) => i.status == 0);
     if (checked) {
-      this.arrCheckedKp = [...new Set([...this.arrCheckedKp, ...this.offerList.items.map((i:any) => i.id)])];
+      this.arrCheckedKp = [...new Set([...this.arrCheckedKp, ...validItems.map((i: any) => i.id)])];
     } else {
-      const rowIds = new Set(this.offerList.items.map((i:any)  => i.id));
+      const rowIds = new Set(validItems.map((i: any) => i.id));
       this.arrCheckedKp = this.arrCheckedKp.filter(id => !rowIds.has(id));
     }
   }
   isKpCheckboxHeaderTableIndeterminate(): boolean {
-    const arrIdRows = new Set(this.offerList.items.map((i: any) => i.id));
+    const arrIdRows = new Set(this.offerList.items.filter((i: any) => i.status == 0).map((i: any) => i.id));
     const arrIdRowsCheck = this.arrCheckedKp.filter(id => arrIdRows.has(id));
     return arrIdRows.size > arrIdRowsCheck.length && arrIdRowsCheck.length > 0;
   }
   isKpCheckboxBodyTableChecked(kp_id: number): boolean {
-    return this.arrCheckedKp.includes(kp_id);
+    return this.arrCheckedKp.includes(kp_id) && this.offerList.items.some((item:any) => item.id === kp_id && item.status == 0);
   }
   onKpCheckboxBodyTableChange(kp_id: number, { checked }: MatCheckboxChange) {
-    if (checked) {
-      if (!this.arrCheckedKp.includes(kp_id)) {
-        this.arrCheckedKp.push(kp_id);
+    const validItem = this.offerList.items.find((item:any) => item.id === kp_id && item.status == 0);
+    if (validItem) {
+      if (checked) {
+        if (!this.arrCheckedKp.includes(kp_id)) {
+          this.arrCheckedKp.push(kp_id);
+        }
+      } else {
+        this.arrCheckedKp = this.arrCheckedKp.filter(id => id !== kp_id);
       }
-    } else {
-      this.arrCheckedKp = this.arrCheckedKp.filter(id => id !== kp_id);
+      console.log(this.arrCheckedKp);
     }
-    console.log(this.arrCheckedKp );
   }
+  // isKpCheckboxHeaderTableChecked(): boolean {
+  //   const arrIdRows = new Set(this.offerList.items.map((i: any) => i.id));
+  //   const arrIdRowsCheck = new Set(this.arrCheckedKp.filter(id => arrIdRows.has(id)));
+  //   return arrIdRows.size > 0 && arrIdRows.size === arrIdRowsCheck.size;
+  // }
+  // onKpCheckboxHeaderTableChange({ checked }: MatCheckboxChange) {
+  //   if (checked) {
+  //     this.arrCheckedKp = [...new Set([...this.arrCheckedKp, ...this.offerList.items.map((i:any) => i.id)])];
+  //   } else {
+  //     const rowIds = new Set(this.offerList.items.map((i:any)  => i.id));
+  //     this.arrCheckedKp = this.arrCheckedKp.filter(id => !rowIds.has(id));
+  //   }
+  // }
+  // isKpCheckboxHeaderTableIndeterminate(): boolean {
+  //   const arrIdRows = new Set(this.offerList.items.map((i: any) => i.id));
+  //   const arrIdRowsCheck = this.arrCheckedKp.filter(id => arrIdRows.has(id));
+  //   return arrIdRows.size > arrIdRowsCheck.length && arrIdRowsCheck.length > 0;
+  // }
+  // isKpCheckboxBodyTableChecked(kp_id: number): boolean {
+  //   return this.arrCheckedKp.includes(kp_id);
+  // }
+  // onKpCheckboxBodyTableChange(kp_id: number, { checked }: MatCheckboxChange) {
+  //   if (checked) {
+  //     if (!this.arrCheckedKp.includes(kp_id)) {
+  //       this.arrCheckedKp.push(kp_id);
+  //     }
+  //   } else {
+  //     this.arrCheckedKp = this.arrCheckedKp.filter(id => id !== kp_id);
+  //   }
+  //   console.log(this.arrCheckedKp );
+  // }
   // RATE METODS CHANGE
   onTableMethodChange(method:any){
     this.router.navigate(['pages/request/details', method, this.requestId])
@@ -260,6 +316,10 @@ export class RequestDetails extends Table<any, 'trade_rating', ContractorFilter>
   }
   onDelSingleRateBtnClick(){
     this.openDeleteRateDialog('Вы уверенны, что хотите удалить ставку №'+ this.expandedElement.id, [this.expandedElement.id], 'Удаление ставки')
+  }
+  // Link to contractor editor page
+  navToContractorEditor(contractor_id:number){
+    this.router.navigate(['pages/contractor/edit', contractor_id])
   }
   // Link to offer editor page
   navToOfferEditor(offer_id:number){
@@ -450,7 +510,7 @@ export class RequestDetails extends Table<any, 'trade_rating', ContractorFilter>
       .subscribe({
         next: (contractor) => {
           this.snackBar.open(`Кп удален`, undefined, this.snackBarWithShortDuration);
-          this.loadRows();
+          this.getOfferList();
         },
         error: (err) => {
           this.snackBar.open(`Ошибка удаления кп: ` + err.error.error_message, undefined, this.snackBarWithShortDuration);
@@ -485,13 +545,24 @@ export class RequestDetails extends Table<any, 'trade_rating', ContractorFilter>
       }),
       takeUntil(this.destroy$)
     ).subscribe({
-      next: ({name, data}) => {
-        const dataUri = `data:${this.xlsxMimeType};base64,${data}`;
-        const a = document.createElement('a');
-        console.log(dataUri);
-        a.href = dataUri;
-        a.download = name!;
-        a.click();
+      next: ({name, data, text}) => {
+        if (text) {
+          // Открываем новую вкладку
+          const newWindow = window.open();
+          if (newWindow) {
+            // Записываем текст в новый документ
+            newWindow.document.open();
+            newWindow.document.write(`<pre>${text}</pre>`);  // Добавляем текст с тегом <pre> для сохранения форматирования
+            newWindow.document.close();  // Закрываем документ для рендеринга
+          }
+        }
+
+        // const dataUri = `data:${this.xlsxMimeType};base64,${data}`;
+        // const a = document.createElement('a');
+        // console.log(dataUri);
+        // a.href = dataUri;
+        // a.download = name!;
+        // a.click();
       },
       error: (err) => {
         this.snackBar.open(`Ошибка получения txt файла: ` + err.error.error_message, undefined, this.snackBarWithShortDuration);
@@ -566,10 +637,59 @@ export class RequestDetails extends Table<any, 'trade_rating', ContractorFilter>
       takeUntil(this.destroy$)
     ).subscribe({
       next: ({}) => {
+        this.getOfferList();
         this.snackBar.open(`Кп успешно дублирован`, undefined, this.snackBarWithShortDuration);
       },
       error: (err) => {
         this.snackBar.open(`Ошибка дублирования кп: ` + err.error.error_message, undefined, this.snackBarWithShortDuration);
+      }
+    });
+  }
+
+  sendOffers(offer_ids: any){
+    this.requestService.requestOfferSend({body:{ids:offer_ids}}).pipe(
+      tap((currencyList) => {
+      }),
+      takeUntil(this.destroy$)
+    ).subscribe({
+      next: ({}) => {
+        this.snackBar.open(`Кп успешно отправленны`, undefined, this.snackBarWithShortDuration);
+      },
+      error: (err) => {
+        this.snackBar.open(`Ошибка отправки кп: ` + err.error.error_message, undefined, this.snackBarWithShortDuration);
+      }
+    });
+  }
+
+  getKpStatus(){
+    this.requestService.requestOfferStatuses().pipe(
+      tap((kpStatusArr) => {
+        // this.kpStatusArr = kpStatusArr.filter(status => status.id !== 0);
+      }),
+      takeUntil(this.destroy$)
+    ).subscribe({
+      next: (kpStatusArr) => {
+        this.kpStatusArr=kpStatusArr;
+        // this.kpStatusArr = this.kpStatusArr.filter((status:any) => status.id !== 0);
+        console.log('kpStatusArr',this.kpStatusArr);
+      },
+      error: (err) => {
+        this.snackBar.open(`Ошибка получения статусов кп: ` + err.error.error_message, undefined, this.snackBarWithShortDuration);
+      }
+    });
+  }
+
+  patchKpStatus(kp_id:number, status_id:number){
+    this.requestService.requestOfferSetStatus({id:kp_id, status_id:status_id}).pipe(
+      tap((currencyList) => {
+      }),
+      takeUntil(this.destroy$)
+    ).subscribe({
+      next: ({}) => {
+        this.snackBar.open(`Статус кп успешно изменен`, undefined, this.snackBarWithShortDuration);
+      },
+      error: (err) => {
+        this.snackBar.open(`Ошибка изменения статуса кп: ` + err.error.error_message, undefined, this.snackBarWithShortDuration);
       }
     });
   }

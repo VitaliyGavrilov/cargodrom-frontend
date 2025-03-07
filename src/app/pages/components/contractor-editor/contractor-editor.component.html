@@ -27,9 +27,38 @@
           </div>
         </div>
 
+        <!-- <div class="form-item">
+          <div class="form-label">Вид подрядчика: <span class="req">•</span></div>
+          <div class="form-data">
+            <input matInput type="text" formControlName="type_id" [matAutocomplete]="type_id">
+            <mat-autocomplete #type_id="matAutocomplete" [displayWith]="displayFn_TypeId.bind(this)">
+              <mat-option *ngFor="let option of filteredContractorTypes" [value]="option.id">
+                {{option.name}}
+              </mat-option>
+            </mat-autocomplete>
+            <mat-error *ngIf="contractorForm.controls['type_id'].hasError('required')">
+              Это поле обязательно
+            </mat-error>
+          </div>
+        </div> -->
 
         <div class="form-item">
           <div class="form-label">агент: <span class="req">•</span></div>
+          <div class="form-data">
+            <input matInput type="text" formControlName="carrier_id" [matAutocomplete]="carrier_id">
+            <mat-autocomplete #carrier_id="matAutocomplete" [displayWith]="displayFn_CarrierId.bind(this)">
+              <mat-option *ngFor="let option of filteredTransportCarrier" [value]="option.id">
+                {{option.name}}
+              </mat-option>
+            </mat-autocomplete>
+            <mat-error *ngIf="contractorForm.controls['carrier_id'].hasError('required')">
+              Это поле обязательно
+            </mat-error>
+          </div>
+        </div>
+
+        <!-- <div class="form-item">
+          <div class="form-label">агент: </div>
           <div class="form-data">
             <input appearance="outline" class="ui-select"
               type="text"
@@ -41,7 +70,7 @@
               <mat-option class="" *ngFor="let customer of transportCarrier;" [value]="customer.name" (click)="onTransportCarrierChange(customer)">{{ customer.name }}</mat-option>
             </mat-autocomplete>
           </div>
-        </div>
+        </div> -->
 
       </div>
 
@@ -61,11 +90,26 @@
             <div class="form-data"><input type="text" name="ind" formControlName="ind" placeholder="—"></div>
           </div>
 
-         <div class="form-item">
+          <div class="form-item">
+            <div class="form-label">Страна нахождения: <span class="req">•</span></div>
+            <div class="form-data">
+              <input matInput type="text" formControlName="country_id" [matAutocomplete]="country_id" >
+              <mat-autocomplete #country_id="matAutocomplete" [displayWith]="displayFn_CountryId.bind(this)">
+                <mat-option *ngFor="let option of filteredCountries" [value]="option.id" (click)="onCountryChange(option.id)">
+                  {{option.name}}
+                </mat-option>
+                <mat-option *ngIf="filteredCountries.length==0" disabled >Стран нет</mat-option>
+              </mat-autocomplete>
+              <mat-error *ngIf="contractorForm.controls['country_id'].hasError('required')">
+                Это поле обязательно
+              </mat-error>
+            </div>
+          </div>
+
+         <!-- <div class="form-item">
            <div class="form-label">Страна нахождения: <span class="req">•</span></div>
            <div class="form-data">
              <mat-form-field appearance="outline" class="ui-select">
-              <!--<mat-label class="form-label">страна нахождения</mat-label>-->
               <mat-select formControlName="country_id" (valueChange)="onCountryChange($event)">
                 <mat-option *ngFor="let country of countries;" [value]="country.id">{{ country.name }}</mat-option>
               </mat-select>
@@ -74,9 +118,25 @@
               </mat-error>
             </mat-form-field>
            </div>
-         </div>
+         </div> -->
 
-         <div class="form-item">
+        <div class="form-item">
+        <div class="form-label">город: <span class="req">•</span></div>
+          <div class="form-data">
+            <input matInput type="text" formControlName="city_id" [matAutocomplete]="city_id" >
+            <mat-autocomplete #city_id="matAutocomplete" [displayWith]="displayFn_CityId.bind(this)">
+              <mat-option *ngFor="let option of filteredCitys" [value]="option.id">
+                {{option.name}}
+              </mat-option>
+              <mat-option *ngIf="filteredCitys.length==0" disabled >Городов нет</mat-option>
+            </mat-autocomplete>
+            <mat-error *ngIf="contractorForm.controls['city_id'].hasError('required')">
+              Это поле обязательно
+            </mat-error>
+          </div>
+        </div>
+
+         <!-- <div class="form-item">
           <div class="form-label">город: <span class="req">•</span></div>
            <mat-form-field appearance="outline" class="ui-select">
              <mat-select formControlName="city_id">
@@ -86,7 +146,7 @@
                Это поле обязательно
              </mat-error>
            </mat-form-field>
-         </div>
+         </div> -->
 
       </div>
 
@@ -137,8 +197,25 @@
             </mat-form-field>
            </div>
          </div> -->
-         <div class="form-item">
 
+
+        <div class="form-item">
+          <div class="form-label">Тип контрагента: <span class="req">•</span></div>
+          <div class="form-data">
+            <input matInput type="text" formControlName="counterparty_id" [matAutocomplete]="counterparty_id" >
+            <mat-autocomplete #counterparty_id="matAutocomplete" [displayWith]="displayFn_CounterpartyId.bind(this)">
+              <mat-option *ngFor="let option of filteredCounterpartys" [value]="option.id">
+                {{option.name}}
+              </mat-option>
+              <mat-option *ngIf="filteredCounterpartys.length==0" disabled >Типов нет</mat-option>
+            </mat-autocomplete>
+            <mat-error *ngIf="contractorForm.controls['counterparty_id'].hasError('required')">
+              Это поле обязательно
+            </mat-error>
+          </div>
+        </div>
+
+        <!-- <div class="form-item">
           <div class="form-label">Тип контрагента: <span class="req">•</span></div>
           <div class="form-data">
            <mat-form-field appearance="outline" class="ui-select">
@@ -151,7 +228,8 @@
              </mat-error>
            </mat-form-field>
           </div>
-        </div>
+        </div> -->
+
          <div class="form-item">
            <div class="form-label">членство в ассоциациях:</div>
            <div class="form-data">
@@ -166,7 +244,25 @@
             </mat-form-field>
            </div>
          </div>
-         <div class="form-item">
+
+        <div class="form-item">
+          <div class="form-label">система налогообложения: <span class="req">•</span></div>
+          <div class="form-data">
+            <input matInput type="text" formControlName="tax_id" [matAutocomplete]="tax_id" >
+            <mat-autocomplete #tax_id="matAutocomplete" [displayWith]="displayFn_TaxId.bind(this)">
+              <mat-option *ngFor="let option of filteredTaxs" [value]="option.id">
+                {{option.name}}
+              </mat-option>
+              <mat-option *ngIf="filteredTaxs.length==0" disabled >Типов нет</mat-option>
+            </mat-autocomplete>
+            <mat-error *ngIf="contractorForm.controls['tax_id'].hasError('required')">
+              Это поле обязательно
+            </mat-error>
+          </div>
+        </div>
+      </div>
+
+         <!-- <div class="form-item">
            <div class="form-label">система налогообложения: <span class="req">•</span></div>
            <div class="form-data">
             <mat-form-field appearance="outline" class="ui-select">
@@ -179,7 +275,7 @@
             </mat-form-field>
            </div>
         </div>
-       </div>
+       </div> -->
 
     </div>
     <div class="form-row sep">

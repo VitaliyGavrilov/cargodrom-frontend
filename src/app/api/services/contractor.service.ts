@@ -68,6 +68,11 @@ export class ContractorService extends BaseService {
       country_arrival_id?: number;
 
     /**
+     * ID запроса для торгов
+     */
+      bidding_request_id?: number;
+
+    /**
      * Начальная позиция
      */
       start?: number;
@@ -184,7 +189,7 @@ export class ContractorService extends BaseService {
 /**
  * Вид подрядчика (ID берем из запроса - contractor_type)
  */
-'type_id'?: string;
+'type_id'?: number;
 
 /**
  * Тип контрагента
@@ -404,17 +409,17 @@ export class ContractorService extends BaseService {
 /**
  * Страна отправления
  */
-'direction_departure'?: number;
+'direction_departure': number;
 
 /**
  * Страна прибытия
  */
-'direction_arrival'?: number;
+'direction_arrival': number;
 
 /**
  * Транспорт
  */
-'direction_items'?: Array<string>;
+'direction_items': Array<string>;
 }>;
 
 /**
@@ -467,6 +472,11 @@ export class ContractorService extends BaseService {
  * Время изменения
  */
 'time_edit'?: string;
+
+/**
+ * Запрос на торги отправлен
+ */
+'bidding_send'?: boolean;
 }>;
 }>> {
     const rb = new RequestBuilder(this.rootUrl, ContractorService.ContractorListPath, 'get');
@@ -477,6 +487,7 @@ export class ContractorService extends BaseService {
       rb.query('allow_trade', params.allow_trade, {});
       rb.query('country_departure_id', params.country_departure_id, {});
       rb.query('country_arrival_id', params.country_arrival_id, {});
+      rb.query('bidding_request_id', params.bidding_request_id, {});
       rb.query('start', params.start, {});
       rb.query('count', params.count, {});
       rb.query('sort', params.sort, {"style":"form","explode":false});
@@ -577,7 +588,7 @@ export class ContractorService extends BaseService {
         /**
          * Вид подрядчика (ID берем из запроса - contractor_type)
          */
-        'type_id'?: string;
+        'type_id'?: number;
         
         /**
          * Тип контрагента
@@ -797,17 +808,17 @@ export class ContractorService extends BaseService {
         /**
          * Страна отправления
          */
-        'direction_departure'?: number;
+        'direction_departure': number;
         
         /**
          * Страна прибытия
          */
-        'direction_arrival'?: number;
+        'direction_arrival': number;
         
         /**
          * Транспорт
          */
-        'direction_items'?: Array<string>;
+        'direction_items': Array<string>;
         }>;
         
         /**
@@ -860,6 +871,11 @@ export class ContractorService extends BaseService {
          * Время изменения
          */
         'time_edit'?: string;
+        
+        /**
+         * Запрос на торги отправлен
+         */
+        'bidding_send'?: boolean;
         }>;
         }>;
       })
@@ -908,6 +924,11 @@ export class ContractorService extends BaseService {
      * Направление куда (ID берем из запроса - direction_country)
      */
       country_arrival_id?: number;
+
+    /**
+     * ID запроса для торгов
+     */
+      bidding_request_id?: number;
 
     /**
      * Начальная позиция
@@ -1026,7 +1047,7 @@ export class ContractorService extends BaseService {
 /**
  * Вид подрядчика (ID берем из запроса - contractor_type)
  */
-'type_id'?: string;
+'type_id'?: number;
 
 /**
  * Тип контрагента
@@ -1246,17 +1267,17 @@ export class ContractorService extends BaseService {
 /**
  * Страна отправления
  */
-'direction_departure'?: number;
+'direction_departure': number;
 
 /**
  * Страна прибытия
  */
-'direction_arrival'?: number;
+'direction_arrival': number;
 
 /**
  * Транспорт
  */
-'direction_items'?: Array<string>;
+'direction_items': Array<string>;
 }>;
 
 /**
@@ -1309,6 +1330,11 @@ export class ContractorService extends BaseService {
  * Время изменения
  */
 'time_edit'?: string;
+
+/**
+ * Запрос на торги отправлен
+ */
+'bidding_send'?: boolean;
 }>;
 }> {
     return this.contractorList$Response(params, context).pipe(
@@ -1402,7 +1428,7 @@ export class ContractorService extends BaseService {
 /**
  * Вид подрядчика (ID берем из запроса - contractor_type)
  */
-'type_id'?: string;
+'type_id'?: number;
 
 /**
  * Тип контрагента
@@ -1622,17 +1648,17 @@ export class ContractorService extends BaseService {
 /**
  * Страна отправления
  */
-'direction_departure'?: number;
+'direction_departure': number;
 
 /**
  * Страна прибытия
  */
-'direction_arrival'?: number;
+'direction_arrival': number;
 
 /**
  * Транспорт
  */
-'direction_items'?: Array<string>;
+'direction_items': Array<string>;
 }>;
 
 /**
@@ -1685,6 +1711,11 @@ export class ContractorService extends BaseService {
  * Время изменения
  */
 'time_edit'?: string;
+
+/**
+ * Запрос на торги отправлен
+ */
+'bidding_send'?: boolean;
 }>;
 }>): {
 
@@ -1776,7 +1807,7 @@ export class ContractorService extends BaseService {
 /**
  * Вид подрядчика (ID берем из запроса - contractor_type)
  */
-'type_id'?: string;
+'type_id'?: number;
 
 /**
  * Тип контрагента
@@ -1996,17 +2027,17 @@ export class ContractorService extends BaseService {
 /**
  * Страна отправления
  */
-'direction_departure'?: number;
+'direction_departure': number;
 
 /**
  * Страна прибытия
  */
-'direction_arrival'?: number;
+'direction_arrival': number;
 
 /**
  * Транспорт
  */
-'direction_items'?: Array<string>;
+'direction_items': Array<string>;
 }>;
 
 /**
@@ -2059,6 +2090,11 @@ export class ContractorService extends BaseService {
  * Время изменения
  */
 'time_edit'?: string;
+
+/**
+ * Запрос на торги отправлен
+ */
+'bidding_send'?: boolean;
 }>;
 } => r.body)
     );
@@ -3123,7 +3159,7 @@ export class ContractorService extends BaseService {
 /**
  * Вид подрядчика (ID берем из запроса - contractor_type)
  */
-'type_id'?: string;
+'type_id'?: number;
 
 /**
  * Тип контрагента
@@ -3343,17 +3379,17 @@ export class ContractorService extends BaseService {
 /**
  * Страна отправления
  */
-'direction_departure'?: number;
+'direction_departure': number;
 
 /**
  * Страна прибытия
  */
-'direction_arrival'?: number;
+'direction_arrival': number;
 
 /**
  * Транспорт
  */
-'direction_items'?: Array<string>;
+'direction_items': Array<string>;
 }>;
 
 /**
@@ -3406,6 +3442,11 @@ export class ContractorService extends BaseService {
  * Время изменения
  */
 'time_edit'?: string;
+
+/**
+ * Запрос на торги отправлен
+ */
+'bidding_send'?: boolean;
 }>> {
     const rb = new RequestBuilder(this.rootUrl, ContractorService.ContractorInfoPath, 'get');
     if (params) {
@@ -3497,7 +3538,7 @@ export class ContractorService extends BaseService {
         /**
          * Вид подрядчика (ID берем из запроса - contractor_type)
          */
-        'type_id'?: string;
+        'type_id'?: number;
         
         /**
          * Тип контрагента
@@ -3717,17 +3758,17 @@ export class ContractorService extends BaseService {
         /**
          * Страна отправления
          */
-        'direction_departure'?: number;
+        'direction_departure': number;
         
         /**
          * Страна прибытия
          */
-        'direction_arrival'?: number;
+        'direction_arrival': number;
         
         /**
          * Транспорт
          */
-        'direction_items'?: Array<string>;
+        'direction_items': Array<string>;
         }>;
         
         /**
@@ -3780,6 +3821,11 @@ export class ContractorService extends BaseService {
          * Время изменения
          */
         'time_edit'?: string;
+        
+        /**
+         * Запрос на торги отправлен
+         */
+        'bidding_send'?: boolean;
         }>;
       })
     );
@@ -3884,7 +3930,7 @@ export class ContractorService extends BaseService {
 /**
  * Вид подрядчика (ID берем из запроса - contractor_type)
  */
-'type_id'?: string;
+'type_id'?: number;
 
 /**
  * Тип контрагента
@@ -4104,17 +4150,17 @@ export class ContractorService extends BaseService {
 /**
  * Страна отправления
  */
-'direction_departure'?: number;
+'direction_departure': number;
 
 /**
  * Страна прибытия
  */
-'direction_arrival'?: number;
+'direction_arrival': number;
 
 /**
  * Транспорт
  */
-'direction_items'?: Array<string>;
+'direction_items': Array<string>;
 }>;
 
 /**
@@ -4167,6 +4213,11 @@ export class ContractorService extends BaseService {
  * Время изменения
  */
 'time_edit'?: string;
+
+/**
+ * Запрос на торги отправлен
+ */
+'bidding_send'?: boolean;
 }> {
     return this.contractorInfo$Response(params, context).pipe(
       map((r: StrictHttpResponse<{
@@ -4249,7 +4300,7 @@ export class ContractorService extends BaseService {
 /**
  * Вид подрядчика (ID берем из запроса - contractor_type)
  */
-'type_id'?: string;
+'type_id'?: number;
 
 /**
  * Тип контрагента
@@ -4469,17 +4520,17 @@ export class ContractorService extends BaseService {
 /**
  * Страна отправления
  */
-'direction_departure'?: number;
+'direction_departure': number;
 
 /**
  * Страна прибытия
  */
-'direction_arrival'?: number;
+'direction_arrival': number;
 
 /**
  * Транспорт
  */
-'direction_items'?: Array<string>;
+'direction_items': Array<string>;
 }>;
 
 /**
@@ -4532,6 +4583,11 @@ export class ContractorService extends BaseService {
  * Время изменения
  */
 'time_edit'?: string;
+
+/**
+ * Запрос на торги отправлен
+ */
+'bidding_send'?: boolean;
 }>): {
 
 /**
@@ -4612,7 +4668,7 @@ export class ContractorService extends BaseService {
 /**
  * Вид подрядчика (ID берем из запроса - contractor_type)
  */
-'type_id'?: string;
+'type_id'?: number;
 
 /**
  * Тип контрагента
@@ -4832,17 +4888,17 @@ export class ContractorService extends BaseService {
 /**
  * Страна отправления
  */
-'direction_departure'?: number;
+'direction_departure': number;
 
 /**
  * Страна прибытия
  */
-'direction_arrival'?: number;
+'direction_arrival': number;
 
 /**
  * Транспорт
  */
-'direction_items'?: Array<string>;
+'direction_items': Array<string>;
 }>;
 
 /**
@@ -4895,6 +4951,11 @@ export class ContractorService extends BaseService {
  * Время изменения
  */
 'time_edit'?: string;
+
+/**
+ * Запрос на торги отправлен
+ */
+'bidding_send'?: boolean;
 } => r.body)
     );
   }
@@ -4964,12 +5025,12 @@ export class ContractorService extends BaseService {
 /**
  * Вид подрядчика (ID берем из запроса - contractor_type)
  */
-'type_id': string;
+'type_id': number;
 
 /**
  * Тип контрагента (ID берем из запроса - system_counterparty)
  */
-'counterparty_id'?: number;
+'counterparty_id': number;
 
 /**
  * Членство в ассоциациях (ID берем из запроса - system_association)
@@ -4979,7 +5040,7 @@ export class ContractorService extends BaseService {
 /**
  * Система налогообложения (ID берем из запроса - system_tax_system)
  */
-'tax_id': number;
+'tax_id'?: number;
 
 /**
  * Формат отправки запроса (ID берем из запроса - contractor_request_format)
@@ -5064,17 +5125,17 @@ export class ContractorService extends BaseService {
 /**
  * Страна отправления
  */
-'direction_departure'?: number;
+'direction_departure': number;
 
 /**
  * Страна прибытия
  */
-'direction_arrival'?: number;
+'direction_arrival': number;
 
 /**
  * Транспорт
  */
-'direction_items'?: Array<string>;
+'direction_items': Array<string>;
 }>;
 }>;
 }
@@ -5180,12 +5241,12 @@ export class ContractorService extends BaseService {
 /**
  * Вид подрядчика (ID берем из запроса - contractor_type)
  */
-'type_id': string;
+'type_id': number;
 
 /**
  * Тип контрагента (ID берем из запроса - system_counterparty)
  */
-'counterparty_id'?: number;
+'counterparty_id': number;
 
 /**
  * Членство в ассоциациях (ID берем из запроса - system_association)
@@ -5195,7 +5256,7 @@ export class ContractorService extends BaseService {
 /**
  * Система налогообложения (ID берем из запроса - system_tax_system)
  */
-'tax_id': number;
+'tax_id'?: number;
 
 /**
  * Формат отправки запроса (ID берем из запроса - contractor_request_format)
@@ -5280,17 +5341,17 @@ export class ContractorService extends BaseService {
 /**
  * Страна отправления
  */
-'direction_departure'?: number;
+'direction_departure': number;
 
 /**
  * Страна прибытия
  */
-'direction_arrival'?: number;
+'direction_arrival': number;
 
 /**
  * Транспорт
  */
-'direction_items'?: Array<string>;
+'direction_items': Array<string>;
 }>;
 }>;
 }
@@ -5405,7 +5466,7 @@ export class ContractorService extends BaseService {
 /**
  * Вид подрядчика (ID берем из запроса - contractor_type)
  */
-'type_id'?: string;
+'type_id'?: number;
 
 /**
  * Тип контрагента (ID берем из запроса - system_counterparty)
@@ -5510,17 +5571,17 @@ export class ContractorService extends BaseService {
 /**
  * Страна отправления
  */
-'direction_departure'?: number;
+'direction_departure': number;
 
 /**
  * Страна прибытия
  */
-'direction_arrival'?: number;
+'direction_arrival': number;
 
 /**
  * Транспорт
  */
-'direction_items'?: Array<string>;
+'direction_items': Array<string>;
 }>;
 }>;
 }
@@ -5621,7 +5682,7 @@ export class ContractorService extends BaseService {
 /**
  * Вид подрядчика (ID берем из запроса - contractor_type)
  */
-'type_id'?: string;
+'type_id'?: number;
 
 /**
  * Тип контрагента (ID берем из запроса - system_counterparty)
@@ -5726,17 +5787,17 @@ export class ContractorService extends BaseService {
 /**
  * Страна отправления
  */
-'direction_departure'?: number;
+'direction_departure': number;
 
 /**
  * Страна прибытия
  */
-'direction_arrival'?: number;
+'direction_arrival': number;
 
 /**
  * Транспорт
  */
-'direction_items'?: Array<string>;
+'direction_items': Array<string>;
 }>;
 }>;
 }
@@ -5996,17 +6057,17 @@ export class ContractorService extends BaseService {
 /**
  * Страна отправления
  */
-'direction_departure'?: number;
+'direction_departure': number;
 
 /**
  * Страна прибытия
  */
-'direction_arrival'?: number;
+'direction_arrival': number;
 
 /**
  * Транспорт
  */
-'direction_items'?: Array<string>;
+'direction_items': Array<string>;
 }>;
 
 /**
@@ -6117,17 +6178,17 @@ export class ContractorService extends BaseService {
         /**
          * Страна отправления
          */
-        'direction_departure'?: number;
+        'direction_departure': number;
         
         /**
          * Страна прибытия
          */
-        'direction_arrival'?: number;
+        'direction_arrival': number;
         
         /**
          * Транспорт
          */
-        'direction_items'?: Array<string>;
+        'direction_items': Array<string>;
         }>;
         
         /**
@@ -6274,17 +6335,17 @@ export class ContractorService extends BaseService {
 /**
  * Страна отправления
  */
-'direction_departure'?: number;
+'direction_departure': number;
 
 /**
  * Страна прибытия
  */
-'direction_arrival'?: number;
+'direction_arrival': number;
 
 /**
  * Транспорт
  */
-'direction_items'?: Array<string>;
+'direction_items': Array<string>;
 }>;
 
 /**
@@ -6383,17 +6444,17 @@ export class ContractorService extends BaseService {
 /**
  * Страна отправления
  */
-'direction_departure'?: number;
+'direction_departure': number;
 
 /**
  * Страна прибытия
  */
-'direction_arrival'?: number;
+'direction_arrival': number;
 
 /**
  * Транспорт
  */
-'direction_items'?: Array<string>;
+'direction_items': Array<string>;
 }>;
 
 /**
@@ -6490,17 +6551,17 @@ export class ContractorService extends BaseService {
 /**
  * Страна отправления
  */
-'direction_departure'?: number;
+'direction_departure': number;
 
 /**
  * Страна прибытия
  */
-'direction_arrival'?: number;
+'direction_arrival': number;
 
 /**
  * Транспорт
  */
-'direction_items'?: Array<string>;
+'direction_items': Array<string>;
 }>;
 
 /**
@@ -6623,17 +6684,17 @@ export class ContractorService extends BaseService {
 /**
  * Страна отправления
  */
-'direction_departure'?: number;
+'direction_departure': number;
 
 /**
  * Страна прибытия
  */
-'direction_arrival'?: number;
+'direction_arrival': number;
 
 /**
  * Транспорт
  */
-'direction_items'?: Array<string>;
+'direction_items': Array<string>;
 }>;
 
 /**
@@ -6741,17 +6802,17 @@ export class ContractorService extends BaseService {
         /**
          * Страна отправления
          */
-        'direction_departure'?: number;
+        'direction_departure': number;
         
         /**
          * Страна прибытия
          */
-        'direction_arrival'?: number;
+        'direction_arrival': number;
         
         /**
          * Транспорт
          */
-        'direction_items'?: Array<string>;
+        'direction_items': Array<string>;
         }>;
         
         /**
@@ -6872,17 +6933,17 @@ export class ContractorService extends BaseService {
 /**
  * Страна отправления
  */
-'direction_departure'?: number;
+'direction_departure': number;
 
 /**
  * Страна прибытия
  */
-'direction_arrival'?: number;
+'direction_arrival': number;
 
 /**
  * Транспорт
  */
-'direction_items'?: Array<string>;
+'direction_items': Array<string>;
 }>;
 
 /**
@@ -6981,17 +7042,17 @@ export class ContractorService extends BaseService {
 /**
  * Страна отправления
  */
-'direction_departure'?: number;
+'direction_departure': number;
 
 /**
  * Страна прибытия
  */
-'direction_arrival'?: number;
+'direction_arrival': number;
 
 /**
  * Транспорт
  */
-'direction_items'?: Array<string>;
+'direction_items': Array<string>;
 }>;
 
 /**
@@ -7088,17 +7149,17 @@ export class ContractorService extends BaseService {
 /**
  * Страна отправления
  */
-'direction_departure'?: number;
+'direction_departure': number;
 
 /**
  * Страна прибытия
  */
-'direction_arrival'?: number;
+'direction_arrival': number;
 
 /**
  * Транспорт
  */
-'direction_items'?: Array<string>;
+'direction_items': Array<string>;
 }>;
 
 /**
@@ -7204,17 +7265,17 @@ export class ContractorService extends BaseService {
 /**
  * Страна отправления
  */
-'direction_departure'?: number;
+'direction_departure': number;
 
 /**
  * Страна прибытия
  */
-'direction_arrival'?: number;
+'direction_arrival': number;
 
 /**
  * Транспорт
  */
-'direction_items'?: Array<string>;
+'direction_items': Array<string>;
 }>;
 }
     },
@@ -7344,17 +7405,17 @@ export class ContractorService extends BaseService {
 /**
  * Страна отправления
  */
-'direction_departure'?: number;
+'direction_departure': number;
 
 /**
  * Страна прибытия
  */
-'direction_arrival'?: number;
+'direction_arrival': number;
 
 /**
  * Транспорт
  */
-'direction_items'?: Array<string>;
+'direction_items': Array<string>;
 }>;
 }
     },
@@ -7493,17 +7554,17 @@ export class ContractorService extends BaseService {
 /**
  * Страна отправления
  */
-'direction_departure'?: number;
+'direction_departure': number;
 
 /**
  * Страна прибытия
  */
-'direction_arrival'?: number;
+'direction_arrival': number;
 
 /**
  * Транспорт
  */
-'direction_items'?: Array<string>;
+'direction_items': Array<string>;
 }>;
 }
     },
@@ -7628,17 +7689,17 @@ export class ContractorService extends BaseService {
 /**
  * Страна отправления
  */
-'direction_departure'?: number;
+'direction_departure': number;
 
 /**
  * Страна прибытия
  */
-'direction_arrival'?: number;
+'direction_arrival': number;
 
 /**
  * Транспорт
  */
-'direction_items'?: Array<string>;
+'direction_items': Array<string>;
 }>;
 }
     },
@@ -8050,6 +8111,11 @@ export class ContractorService extends BaseService {
       country_arrival_id?: number;
 
     /**
+     * ID запроса для торгов
+     */
+      bidding_request_id?: number;
+
+    /**
      * Сортировка
      */
       sort?: Array<{
@@ -8086,6 +8152,7 @@ export class ContractorService extends BaseService {
       rb.query('allow_trade', params.allow_trade, {});
       rb.query('country_departure_id', params.country_departure_id, {});
       rb.query('country_arrival_id', params.country_arrival_id, {});
+      rb.query('bidding_request_id', params.bidding_request_id, {});
       rb.query('sort', params.sort, {"style":"form","explode":false});
     }
 
@@ -8152,6 +8219,11 @@ export class ContractorService extends BaseService {
      * Направление куда (ID берем из запроса - direction_country)
      */
       country_arrival_id?: number;
+
+    /**
+     * ID запроса для торгов
+     */
+      bidding_request_id?: number;
 
     /**
      * Сортировка

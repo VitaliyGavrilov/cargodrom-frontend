@@ -21,5 +21,6 @@ export interface Employee {
   num: number;
   time_add: string;
   time_edit: string;
-  
+  has_password:boolean;
+
 }

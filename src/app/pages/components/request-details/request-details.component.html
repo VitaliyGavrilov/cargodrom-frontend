@@ -1,3 +1,4 @@
+
 <div class="subheader">
   <app-request-info-block [request]="currentRequest"></app-request-info-block>
   <div class="request-actions">
@@ -130,8 +131,25 @@
                 [style.width]="miniCol.width"
                 [class]="miniCol.class"
                 *ngFor="let miniCol of col.items"
+                [ngSwitch]="miniCol.field"
               >
-                {{ getVal(item,miniCol.field) }}
+                <ng-template [ngSwitchDefault]>
+                  {{ getVal(item,miniCol.field) }}
+                </ng-template>
+
+                <ng-template [ngSwitchCase]="'status_text'">
+                  <mat-select [value]="item.status_text" >
+                    <mat-option
+                      *ngFor="let status of kpStatusArr;"
+                      [value]="status.name"
+                      [disabled]="status.name === 'Новое'"
+                      (click)="patchKpStatus(item.id,status.id)"
+                    >
+                      {{ status.name }}
+                    </mat-option>
+                  </mat-select>
+                </ng-template>
+
               </div>
             </div>
           </td>
@@ -140,22 +158,31 @@
         <ng-template [ngSwitchCase]="'checked'">
           <th mat-header-cell *matHeaderCellDef [style.width]="'64px'">
             <div class="td-block">
-              <mat-checkbox class="testclass"
-                [checked]="isKpCheckboxHeaderTableChecked()"
-                (change)="onKpCheckboxHeaderTableChange($event)"
-                [indeterminate]="isKpCheckboxHeaderTableIndeterminate()"
+              <label class="checkbox-label">
+                <mat-checkbox class="testclass"
+                  [checked]="isKpCheckboxHeaderTableChecked()"
+                  (change)="onKpCheckboxHeaderTableChange($event)"
+                  [indeterminate]="isKpCheckboxHeaderTableIndeterminate()"
+                  [ngClass]="isKpCheckboxHeaderTableIndeterminate()?'mat-mdc-checkbox-indeterminate':''"
                 >
                 </mat-checkbox>
+              </label>
+
             </div>
           </th>
 
           <td mat-cell *matCellDef="let item" [style.width]="'64px'">
             <div class="td-block">
-              <mat-checkbox class="testclass"
-                [checked]="isKpCheckboxBodyTableChecked(item.id)"
-                (change)="onKpCheckboxBodyTableChange(item.id,$event)"
-              >
-              </mat-checkbox>
+              <label class="checkbox-label">
+                <mat-checkbox class="testclass"
+                  [checked]="isKpCheckboxBodyTableChecked(item.id)"
+                  (change)="onKpCheckboxBodyTableChange(item.id,$event)"
+                  [disabled]="item.status!==0"
+
+                >
+                </mat-checkbox>
+              </label>
+
             </div>
           </td>
         </ng-template>
@@ -164,7 +191,7 @@
 
           <th mat-header-cell *matHeaderCellDef [style.width]="'240px'">
             <div class="td-block">
-              <button (click)="onSendKpBtnClick()" class="btn-send">ОТПРАВИТЬ</button>
+              <button (click)="onSendKpBtnClick()" class="btn-send" [style.visibility]="returnVisibilitySendKpBtn()?'visible':'hidden'">ОТПРАВИТЬ</button>
             </div>
           </th>
 
@@ -172,7 +199,7 @@
             <div class="td-block">
               <div class="column">
                 <div class="kp-btns">
-                  <button class="edi" (click)="onEditKpBtnClick(item.id)"></button>
+                  <button class="edi" (click)="onEditKpBtnClick(item.id, item.status)" [style.opacity]="item.status==0?'1':'0.2'"></button>
                   <button class="dub" (click)="onDubKpBtnClick(item.id)"></button>
                   <button class="cop" (click)="onCopyKpBtnClick(item.id)"></button>
                   <button class="pdf" (click)="onPdfKpBtnClick(item.id)"></button>
@@ -187,7 +214,7 @@
 
       </ng-container>
 
-      <tr mat-header-row *matHeaderRowDef="offerList.colList"></tr>
+      <tr mat-header-row *matHeaderRowDef="offerList.colList;sticky: true"></tr>
       <tr mat-row *matRowDef="let myRowData; columns: offerList.colList"></tr>
     </table>
   </div>
@@ -255,7 +282,8 @@
         </th>
 
         <td mat-cell *matCellDef="let item" [style.width]="col.width" [class]="col.class">
-          <div class="td-block" *ngIf="!col.title">
+          <!-- *ngIf="!col.title" -->
+          <div class="td-block" >
             <div class="column"
               *ngFor="let miniCol of col.items"
               [style.width]="miniCol.width"
@@ -265,11 +293,11 @@
             </div>
           </div>
 
-          <div class="td-block-line" *ngIf="col.title">
+          <!-- <div class="td-block-line" *ngIf="col.title">
             <div class="column" *ngFor="let miniCol of col.items" [style.width]="miniCol.width" [class]="miniCol.class">
               {{ getVal(item,miniCol.field) }}
             </div>
-          </div>
+          </div> -->
         </td>
       </ng-template>
       <!-- select столбец -->
@@ -280,6 +308,7 @@
               [indeterminate]="isCheckboxHeaderTableIndeterminate()"
               [checked]="isCheckboxHeaderTableChecked()"
               (change)="onCheckboxHeaderTableChange($event)"
+              [ngClass]="isCheckboxHeaderTableIndeterminate()?'mat-mdc-checkbox-indeterminate':''"
             >
             </mat-checkbox>
           </label>

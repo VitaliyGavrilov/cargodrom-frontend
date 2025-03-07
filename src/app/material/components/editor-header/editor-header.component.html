@@ -23,8 +23,9 @@
     <ng-content select="[btns]"></ng-content>
 
     <div class="fn" *ngIf="!content">
+      <span *ngIf="isSend" class="btn v send" (click)="onSave()"><span>отправить</span></span>
       <span class="btn v save" (click)="onSave()"><span>сохранить</span></span>
-      <span class="btn v calc" *ngIf="isEditMode" (click)="goCalc()"><span>расчитать</span></span>
+      <span class="btn v calc" *ngIf="isEditMode && isCalck" (click)="goCalc()"><span>расчитать</span></span>
       <span class="btn v del" *ngIf="isEditMode" (click)="onRemove()"><span>Удалить</span></span>
       <span class="btn v cancel" (click)="goBack()"><span>отмена</span></span>
     </div>

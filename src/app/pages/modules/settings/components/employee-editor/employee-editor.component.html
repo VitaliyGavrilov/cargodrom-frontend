@@ -1,4 +1,4 @@
-<app-editor-header [title]="title" (save)="save()" (remove)="remove()" [isEditMode]="isEditMode" [name]="nameForHeader"></app-editor-header>
+<app-editor-header [title]="title" (save)="save()" (remove)="remove()" [isEditMode]="isEditMode" [name]="nameForHeader" [isSend]="true" (send)="registerUser()"></app-editor-header>
 
 <div class="edit-form">
   <form class="form" [formGroup]="form" (ngSubmit)="save()">
@@ -41,12 +41,12 @@
                   </div>
                   <div class="form-item" data-id="var_name_o" style="width: 25%">
                     <div class="form-title">
-                      <div>Отчество:<span class="req">*</span></div>
+                      <div>Отчество:</div>
                     </div>
                     <div class="form-data">
                       <div>
                         <div class="form-input">
-                          <input class="text-control" type="text" formControlName="name_o" required>
+                          <input class="text-control" type="text" formControlName="name_o" >
                           <ng-container *ngTemplateOutlet="error; context: {name: 'name_o'}"></ng-container>
                         </div>
                       </div>
@@ -163,12 +163,12 @@
                 <div class="form-group-row">
                   <div class="form-item" style="width: 25%">
                     <div class="form-title">
-                      <div>E-mail:<span class="req">*</span></div>
+                      <div>E-mail:</div>
                     </div>
                     <div class="form-data">
                       <div>
                         <div class="form-input">
-                          <input class="text-control" type="text" formControlName="email" required>
+                          <input class="text-control" type="text" formControlName="email" >
                           <ng-container *ngTemplateOutlet="error; context: {name: 'email'}"></ng-container>
                         </div>
                       </div>
@@ -207,6 +207,7 @@
       </div>
       <div class="form-button-placer">
         <input type="submit" class="hidden">
+        <span *ngIf="!data.has_password && isEditMode" class="btn v send  button" (click)="registerUser()"><span>Пригласить</span></span>
         <span class="btn v save button ico ico-floppy-disk2" (click)="save()"><span>Сохранить</span></span>
         <span class="btn v del button" *ngIf="isEditMode" (click)="remove()"><span>Удалить</span></span>
         <span class="btn v cancel button gray" (click)="goBack()"><span>Отмена</span></span>

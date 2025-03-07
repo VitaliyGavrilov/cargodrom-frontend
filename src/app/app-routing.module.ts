@@ -7,6 +7,7 @@ import { LoginComponent } from './auth/components/login/login.component';
 import { RegisterComponent } from './auth/components/register/register.component';
 import {ConfirmComponent} from "./auth/components/confirm/confirm.component";
 import { RequestRateComponent } from './pages/components/request-rate/request-rate.component';
+import { EmployeeRegisterComponent } from './pages/components/employee-register/employee-register.component';
 
 const config: ExtraOptions = {
   useHash: true,
@@ -16,9 +17,10 @@ const routes: Routes = [
   {
     path: 'pages',
     loadChildren: () => import('./pages/pages.module').then(m => m.PagesModule),
-    canActivate: [AuthGuard]
+    // canActivate: [AuthGuard]
   },
   { path: 'rate_request/:uid', component: RequestRateComponent, title: 'Rates' },
+  { path: 'employee_register/:uid', component: EmployeeRegisterComponent, title: 'Employee Register' },
   { path: 'login', component: LoginComponent, canActivate: [UserGuard], title: 'Вход в систему' },
   { path: 'logout', component: LogoutComponent, title: 'Выход из системы'},
   { path: 'register', component: RegisterComponent, canActivate: [UserGuard], title: 'Регистрация в системе'},

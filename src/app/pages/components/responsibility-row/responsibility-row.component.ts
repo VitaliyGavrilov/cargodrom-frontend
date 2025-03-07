@@ -81,7 +81,7 @@ export class ResponsibilityRowComponent implements ControlValueAccessor {
     this.onChange(this.local);
     this.onTouched();
   }
-  
+
   setDisabledState(isDisabled: boolean): void {
     this.disabled = isDisabled;
   }

@@ -1,227 +1,226 @@
-<div class="subheader">
+<app-table-sunheader-file *ngIf="!isBiddingMode"
+  [importMetods]="importMetods"
+  (export)="exportFile()"
+  (exportTemplate)="exportFileTemplate()"
+>
+</app-table-sunheader-file>
 
-  <div class="placer" *ngIf="!isBiddingMode">
-
-    <div class="title">Подрядчики</div>
-
-    <div class="links">
-      <a class="link add" [routerLink]="['add']">
-        <svg width="14" height="14" viewBox="0 0 14 14" fill="none" xmlns="http://www.w3.org/2000/svg">
-          <path d="M5 9H3V8H5V6H6V8H8V9H6V11H5V9ZM14 0V14H0V0H14ZM13 1H1V13H13V1Z" fill="#DB563B"></path>
-        </svg>
-        <span>Новый подрядчик</span>
-      </a>
-
-      <span class="hoverr">
-        <a class="link import" (click)="importFile()">
-          <svg width="14" height="14" viewBox="0 0 14 14" fill="none" xmlns="http://www.w3.org/2000/svg">
-            <path d="M13 8H14V14H0V0H6V1H1V13H13V8ZM13.2929 0L6 7.29291V4H5V8V9H6H10V8H6.70709L14 0.707092V0H13.2929Z" fill="#DB563B"></path>
-          </svg>
-          <span>Импорт данных</span>
-        </a>
-
-        <a class="link export template"  (click)="exportFileTemplate()">
-          <svg width="14" height="14" viewBox="0 0 14 14" fill="none" xmlns="http://www.w3.org/2000/svg">
-            <path d="M13 10H14V14H0V0H4V1H1V13H13V10ZM13 0H9V1H12.2929L5 8.29291V9H5.70709L13 1.70709V5H14V1V0H13Z" fill="#DB563B"></path>
-          </svg>
-          <span>Шаблон для импорта</span>
-        </a>
-      </span>
-
-      <a class="link export" (click)="confirmExport()">
-        <svg width="14" height="14" viewBox="0 0 14 14" fill="none" xmlns="http://www.w3.org/2000/svg">
-          <path d="M13 10H14V14H0V0H4V1H1V13H13V10ZM13 0H9V1H12.2929L5 8.29291V9H5.70709L13 1.70709V5H14V1V0H13Z" fill="#DB563B"></path>
-        </svg>
-        <span>Экспорт данных</span>
-      </a>
+<div class="subheader" *ngIf="isBiddingMode">
+  <div class="main_page_info">
+    <div class="back" [routerLink]="['../../../request']"></div>
+    <div class=" rate_info">
+      <div class="title"> Торги запроса</div>
+      <div class="subtitle">Всего подрядчиков: ??</div>
     </div>
-
-    <div class="div"></div>
-
-    <app-universal-filter
-      *ngFor="let control of filterService.searchFilterSchema?.header"
-      [filterControl]="control">
-    </app-universal-filter>
-
+    <app-request-info-block  [request]="currentRequest"></app-request-info-block>
   </div>
-
-  <input class="ui-file-input"
-    type="file"
-    [accept]="xlsxMimeType"
-    #file
-    (change)="selectFileForImport()"
-  />
-
-  <div class="main_page_info" *ngIf="isBiddingMode">
-    <div></div>
-    <div class="rate_info">
-      <div class="title">Торги запроса</div>
-      <div class="subtitle">Всего подрядчиков: {{total}}</div>
-    </div>
-    <app-request-info-block
-      [request]="currentRequest">
-    </app-request-info-block>
-  </div>
-
 </div>
 
 <app-table-filter
+  (saveBidding)="saveContractorSelectRequest()"
   [isBiddingMode]="isBiddingMode"
   [quantityContractors]="quantityContractors"
-  (saveBidding)="saveContractorSelectRequest()">
+>
 </app-table-filter>
 
-<div class="table-list">
-  <table mat-table [dataSource]="rows">
+<div class="table-list" >
+  <table mat-table [dataSource]="rows" multiTemplateDataRows>
 
-    <ng-container matColumnDef="checkbox" *ngIf="isBiddingMode">
-      <th mat-header-cell *matHeaderCellDef>
-        <div class="td-block">
-          <div class="column w10">
-            <label>
-              <mat-checkbox class="testclass"
-                [checked]="isAllCheck()"
-                [indeterminate]="isIndeterminate()"
-                (change)="updateAllContractorSelectRequest($event)"
-              ></mat-checkbox>
-            </label>
+    <ng-container *ngFor="let col of columnsData"
+      [matColumnDef]="col.column"
+      [ngSwitch]="col.column"
+    >
+
+    <!-- стандартный шаблон -->
+      <ng-template [ngSwitchDefault]>
+        <th mat-header-cell *matHeaderCellDef [style.width]="col.width" [class]="col.class">
+          <div class="td-block" *ngIf="!col.title">
+            <div class="column"
+              [attr.title]="getColTitle(miniCol.field)"
+              (click)="sort(miniCol.field)"
+              [ngClass]="getSortClass(miniCol.field)"
+              *ngFor="let miniCol of col.items"
+              [style.width]="miniCol.width"
+              [class]="miniCol.class"
+            >
+              {{miniCol.title}}
+            </div>
           </div>
-        </div>
-      </th>
 
-      <td mat-cell *matCellDef="let contractor">
-        <div class="td-block">
-          <div class="column w10">
-            <label>
-              <mat-checkbox class="testclass"
-                [checked]="isCheck(contractor.id)"
-                (change)="updateContractorSelectRequest(contractor.id, $event)"
-              ></mat-checkbox>
-            </label>
+          <div class="td-block-column" *ngIf="col.title">
+            <div class="td-block-title">{{col.title}}</div>
+            <div class="td-block-line">
+              <div class="column"
+                [attr.title]="getColTitle(miniCol.field)"
+                (click)="sort(miniCol.field)"
+                [ngClass]="getSortClass(miniCol.field)"
+                *ngFor="let miniCol of col.items"
+                [style.width]="miniCol.width"
+                [class]="miniCol.class"
+              >
+                {{miniCol.title}}
+              </div>
+            </div>
           </div>
-        </div>
-      </td>
+        </th>
 
-
-    </ng-container>
-
-    <ng-container matColumnDef="contractor">
-      <th mat-header-cell *matHeaderCellDef class="w20">
-        <div class="td-block">
-          <div class="column w10" [attr.title]="getColTitle('id')" (click)="sort('id')" [ngClass]="getSortClass('id')">№</div>
-          <div class="column" [attr.title]="getColTitle('name')" (click)="sort('name')" [ngClass]="getSortClass('name')">Подрядчик</div>
-          <div class="column w40" [attr.title]="getColTitle('country_name')" (click)="sort('country_name')" [ngClass]="getSortClass('country_name')">Страна</div>
-        </div>
-      </th>
-
-      <td mat-cell *matCellDef="let contractor">
-        <div class="td-block">
-          <div class="column w10">{{ contractor.id }}</div>
-          <div class="column">{{ contractor.name }}</div>
-          <div class="column w40">{{ contractor.country_name }}</div>
-        </div>
-      </td>
-    </ng-container>
-
-    <ng-container matColumnDef="specialization">
-      <th mat-header-cell *matHeaderCellDef class="w25">
-        <div class="td-block">
-          <div class="column w50" [attr.title]="getColTitle('country_name')" (click)="sort('country_name')" [ngClass]="getSortClass('country_name')">Специализация</div>
-          <div class="column w50" [attr.title]="getColTitle('city_name')" (click)="sort('city_name')" [ngClass]="getSortClass('city_name')">Грузы</div>
-        </div>
-      </th>
-      <td mat-cell *matCellDef="let contractor">
-        <div class="td-block">
-          <div class="column w50">
-            <span class="type" *ngFor="let spec of contractor.specialization" [ngClass]="getSpecializationClass(spec)"></span>
+        <td mat-cell *matCellDef="let item" [style.width]="col.width" [class]="col.class">
+          <div class="td-block" *ngIf="!col.title">
+            <div class="column"
+              *ngFor="let miniCol of col.items"
+              [style.width]="miniCol.width"
+              [class]="miniCol.class"
+            >
+              {{ getVal(item,miniCol.field) }}
+            </div>
           </div>
-          <div class="column w50">{{ contractor?.container?.join(', ') }}</div>
-        </div>
-      </td>
-    </ng-container>
 
-    <ng-container matColumnDef="rating">
+          <div class="td-block-line" *ngIf="col.title">
+            <div class="column"
+              *ngFor="let miniCol of col.items"
+              [style.width]="miniCol.width"
+              [class]="miniCol.class"
+              >
+              {{ getVal(item,miniCol.field) }}
+            </div>
+          </div>
+        </td>
+      </ng-template>
 
-      <th mat-header-cell *matHeaderCellDef class="w30">
-        <div class="td-block">
-          <div class="column w20" [attr.title]="getColTitle('rating_nps_text')" (click)="sort('rating_nps_text')" [ngClass]="getSortClass('rating_nps_text')">Рейтинг</div>
-          <div class="column w30" [attr.title]="getColTitle('trade_rating')" (click)="sort('trade_rating')" [ngClass]="getSortClass('trade_rating')">Результаты торгов</div>
-          <div class="column w10" [attr.title]="getColTitle('exclude_from_trade')" (click)="sort('exclude_from_trade')" [ngClass]="getSortClass('exclude_from_trade')">Допуск</div>
-          <div class="column w40" [attr.title]="getColTitle('avg_answer_time')" (click)="sort('avg_answer_time')" [ngClass]="getSortClass('avg_answer_time')">Средняя скорость ответа</div>
-          <div class="column w10" [attr.title]="getColTitle('trade_rating')" (click)="sort('trade_rating')" [ngClass]="getSortClass('trade_rating')">ФОЗ</div>
-        </div>
-      </th>
+      <!-- настройки(сылка на редактирование) -->
+      <ng-template [ngSwitchCase]="'settings'">
+        <th mat-header-cell *matHeaderCellDef class="setting" [style.width]="col.width" [class]="col.class">
+          <div class="setting-link"></div>
+        </th>
+        <td mat-cell *matCellDef="let client" class="setting" [style.width]="col.width" [class]="col.class">
+          <a class="link-pic link-edit ico ico-pencil fn-link" [routerLink]="['edit', client.id]" title="Редактировать"></a>
+        </td>
+      </ng-template>
 
-      <td mat-cell *matCellDef="let contractor">
-        <div class="td-block">
-          <div class="column w20">{{ contractor.rating_nps_text }}</div>
-          <div class="column w30">{{contractor.trade_count }}
-            <span class="gray">
-              (
-                <span class="success">{{contractor.trade_success_count}}</span>
-                /
-                <span class="fail">{{contractor.trade_fail_count}}</span>
-                )
+      <ng-template [ngSwitchCase]="'contact'" >
+        <th mat-header-cell *matHeaderCellDef [style.width]="col.width" [class]="col.class">
+          <div class="td-block">
+            <div class="column w50" [attr.title]="getColTitle('contact_name')" (click)="sort('contact_name')" [ngClass]="getSortClass('contact_name')">Контактные лица</div>
+            <div class="column w50" [attr.title]="getColTitle('contact_info')" (click)="sort('contact_info')" [ngClass]="getSortClass('contact_info')">Связь</div>
+          </div>
+        </th>
+        <td mat-cell *matCellDef="let contractor" [style.width]="col.width" [class]="col.class">
+          <div class="td-block">
+            <div class="column w25">
+              <ng-container *ngFor="let contact of contractor.contacts">
+                {{ contact.name_f }} <span class="gray" *ngIf="contact.city_name">({{contact.city_name}})</span>
+              </ng-container>
+            </div>
+            <div class="column w75 gray">
+              <ng-container *ngFor="let contact of contractor.contacts">
+                Тел.: <span class="bk">{{contact.phone}}</span>, E-mail.: <span class="bk">{{contact.email}}</span>
+              </ng-container>
+            </div>
+          </div>
+        </td>
+      </ng-template>
+
+      <ng-template [ngSwitchCase]="'checkbox'">
+        <th mat-header-cell *matHeaderCellDef>
+          <div class="td-block">
+            <div class="column w10">
+              <label>
+                <mat-checkbox
+                  [checked]="isAllCheck()"
+                  [indeterminate]="isIndeterminate()"
+                  (change)="updateAllContractorSelectRequest($event)"
+                  [ngClass]="isIndeterminate()?'mat-mdc-checkbox-indeterminate':''"
+                ></mat-checkbox>
+              </label>
+            </div>
+          </div>
+        </th>
+
+        <td mat-cell *matCellDef="let contractor">
+          <div class="td-block">
+            <div class="column w10">
+              <label>
+                <mat-checkbox
+                  [checked]="isCheck(contractor.id)||contractor.bidding_send?true:false"
+                  (change)="updateContractorSelectRequest(contractor.id, $event)"
+                  [disabled]="contractor.bidding_send"
+
+
+                ></mat-checkbox>
+              </label>
+            </div>
+          </div>
+        </td>
+      </ng-template>
+
+      <ng-template [ngSwitchCase]="'rating'">
+        <th mat-header-cell *matHeaderCellDef [style.width]="col.width" [class]="col.class">
+          <div class="td-block">
+            <div class="column w20" [attr.title]="getColTitle('rating_nps_text')" (click)="sort('rating_nps_text')" [ngClass]="getSortClass('rating_nps_text')">Рейтинг</div>
+            <div class="column w30" [attr.title]="getColTitle('trade_rating')" (click)="sort('trade_rating')" [ngClass]="getSortClass('trade_rating')">Результаты торгов</div>
+            <div class="column w10" [attr.title]="getColTitle('exclude_from_trade')" (click)="sort('exclude_from_trade')" [ngClass]="getSortClass('exclude_from_trade')">Допуск</div>
+            <div class="column w40" [attr.title]="getColTitle('avg_answer_time')" (click)="sort('avg_answer_time')" [ngClass]="getSortClass('avg_answer_time')">Средняя скорость ответа</div>
+            <div class="column w10" [attr.title]="getColTitle('trade_rating')" (click)="sort('trade_rating')" [ngClass]="getSortClass('trade_rating')">ФОЗ</div>
+          </div>
+        </th>
+
+        <td mat-cell *matCellDef="let contractor" [style.width]="col.width" [class]="col.class">
+          <div class="td-block">
+            <div class="column w20">{{ contractor.rating_nps_text }}</div>
+            <div class="column w30">{{contractor.trade_count }}
+              <span class="gray">
+                (
+                  <span class="success">{{contractor.trade_success_count}}</span>
+                  /
+                  <span class="fail">{{contractor.trade_fail_count}}</span>
+                  )
+                </span>
+            </div>
+
+            <div class="column w10">
+              <span class="b" [ngClass]="contractor.allow_trade_text=='Нет'?'fail':'success'">
+                {{contractor.allow_trade_text}}
               </span>
-          </div>
-
-          <div class="column w10">
-            <span class="b" [ngClass]="contractor.allow_trade_text=='Нет'?'fail':'success'">
-              {{contractor.allow_trade_text}}
-            </span>
-          </div>
-
-          <div class="column w40">{{ contractor.avg_answer_time }}</div>
-
-          <div class="column w10">
-            <div *ngIf="contractor.request_format_id==='text'">
-              <svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
-                <path d="M0 12H16V13H0V12ZM0 16H11V15H0V16ZM10.7365 6.00769L11.3035 7H16V6H10.7321L10.7365 6.00769ZM9.58923 4H16V3H9.01782L9.58923 4ZM8 9H0V10H16V9H11.4464H8ZM1.15173 7H0L4 0L8 7H6.84827L6.27679 6H1.72314L1.15173 7ZM3.99994 2.01556L2.29456 5H5.70538L3.99994 2.01556Z" fill="#DB563B"/>
-              </svg>
             </div>
-            <div *ngIf="contractor.request_format_id==='invite'">
-              <svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
-                <path d="M6.91052 9.6228L9.55597 9.1297L16 2.18451L13.6219 0L7.17786 6.94513L6.91052 9.6228ZM8.13953 7.37891L13.6782 1.40955L14.5834 2.24109L9.04773 8.20721L8.03802 8.39545L8.13953 7.37891ZM3 15H13V16H3V15ZM15 6.20276L16 5.125V13H0V3H8.10999L7.18219 4H1V12H15V6.20276Z" fill="#DB563B"/>
-              </svg>
+
+            <div class="column w40">{{ contractor.avg_answer_time }}</div>
+
+            <div class="column w10">
+              <div *ngIf="contractor.request_format_id==='text'">
+                <svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
+                  <path d="M0 12H16V13H0V12ZM0 16H11V15H0V16ZM10.7365 6.00769L11.3035 7H16V6H10.7321L10.7365 6.00769ZM9.58923 4H16V3H9.01782L9.58923 4ZM8 9H0V10H16V9H11.4464H8ZM1.15173 7H0L4 0L8 7H6.84827L6.27679 6H1.72314L1.15173 7ZM3.99994 2.01556L2.29456 5H5.70538L3.99994 2.01556Z" fill="#DB563B"/>
+                </svg>
+              </div>
+              <div *ngIf="contractor.request_format_id==='invite'">
+                <svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
+                  <path d="M6.91052 9.6228L9.55597 9.1297L16 2.18451L13.6219 0L7.17786 6.94513L6.91052 9.6228ZM8.13953 7.37891L13.6782 1.40955L14.5834 2.24109L9.04773 8.20721L8.03802 8.39545L8.13953 7.37891ZM3 15H13V16H3V15ZM15 6.20276L16 5.125V13H0V3H8.10999L7.18219 4H1V12H15V6.20276Z" fill="#DB563B"/>
+                </svg>
+              </div>
             </div>
-          </div>
 
-        </div>
-      </td>
+          </div>
+        </td>
+      </ng-template>
+
+      <ng-template [ngSwitchCase]="'specialization'">
+        <th mat-header-cell *matHeaderCellDef [style.width]="col.width" [class]="col.class">
+          <div class="td-block">
+            <div class="column w50" [attr.title]="getColTitle('country_name')" (click)="sort('country_name')" [ngClass]="getSortClass('country_name')">Специализация</div>
+            <div class="column w50" [attr.title]="getColTitle('city_name')" (click)="sort('city_name')" [ngClass]="getSortClass('city_name')">Грузы</div>
+          </div>
+        </th>
+        <td mat-cell *matCellDef="let contractor" [style.width]="col.width" [class]="col.class">
+          <div class="td-block">
+            <div class="column w50">
+              <span class="type" *ngFor="let spec of contractor.specialization" [ngClass]="getSpecializationClass(spec)"></span>
+            </div>
+            <div class="column w50">{{ contractor?.container?.join(', ') }}</div>
+          </div>
+        </td>
+      </ng-template>
 
     </ng-container>
 
-    <ng-container matColumnDef="contact">
-      <th mat-header-cell *matHeaderCellDef class="w25">
-        <div class="td-block">
-          <div class="column w50" [attr.title]="getColTitle('contact_name')" (click)="sort('contact_name')" [ngClass]="getSortClass('contact_name')">Контактные лица</div>
-          <div class="column w50" [attr.title]="getColTitle('contact_info')" (click)="sort('contact_info')" [ngClass]="getSortClass('contact_info')">Связь</div>
-        </div>
-      </th>
-      <td mat-cell *matCellDef="let contractor">
-        <div class="td-block">
-          <div class="column w25">
-            <ng-container *ngFor="let contact of contractor.contacts">
-              {{ contact.name_f }} <span class="gray" *ngIf="contact.city_name">({{contact.city_name}})</span>
-            </ng-container>
-          </div>
-          <div class="column w75 gray">
-            <ng-container *ngFor="let contact of contractor.contacts">
-              Тел.: <span class="bk">{{contact.phone}}</span>, E-mail.: <span class="bk">{{contact.email}}</span>
-            </ng-container>
-          </div>
-        </div>
-      </td>
-    </ng-container>
-
-    <ng-container matColumnDef="settings" *ngIf="!isBiddingMode">
-      <th mat-header-cell *matHeaderCellDef class="setting">
-        <div class="setting-link"></div>
-      </th>
-      <td mat-cell *matCellDef="let contractor" class="setting">
-        <a class="link-pic link-edit ico ico-pencil fn-link" [routerLink]="['edit',contractor.id]" title="Редактировать"></a>
-      </td>
-    </ng-container>
 
     <tr mat-header-row *matHeaderRowDef="column"></tr>
     <tr mat-row *matRowDef="let row; columns: column;"></tr>
@@ -238,52 +237,9 @@
   (countChange)="onCountChange($event)">
 </app-paginator>
 
-<ng-template #exportDialogRef let-data>
-  <h1 mat-dialog-title>Экспорт</h1>
-  <div mat-dialog-content>
-    Экспортировать данные о подрядчиках в Excel файл ?
-  </div>
-  <div mat-dialog-actions align="end">
-    <button mat-button [mat-dialog-close]="true" cdkFocusInitial>Да</button>
-    <button mat-button mat-dialog-close>Нет</button>
-  </div>
-</ng-template>
 
-<ng-template #importDialogRef let-data>
-  <h1 mat-dialog-title>Импорт</h1>
-  <div mat-dialog-content>
-    Импортировать данные о подрядчиках из файла {{data.name}} ?
-  </div>
-  <div mat-dialog-content>
-    <p *ngIf="data.res.error">{{ data.res.error.text }}</p>
-    <p *ngIf="data.res.insert">{{ data.res.insert.text }}</p>
-    <p *ngIf="data.res.update">{{ data.res.update.text }}</p>
-  </div>
-  <div mat-dialog-actions align="end">
-    <button
-      mat-button
-      [mat-dialog-close]="1"
-      *ngIf="data.res.insert || data.res.update"
-      class="save"
-      >
-      Сохранить данные
-    </button>
-    <button
-      mat-button
-      [mat-dialog-close]="2"
-      class="download"
-      >
-      Скачать файл с результатами обработки
-    </button>
-    <button
-      mat-button
-      mat-dialog-close
-      class="cancel"
-      >
-      ОТМЕНА
-    </button>
-  </div>
-</ng-template>
+
+
 
 <ng-template #saveBiddingRef let-data>
   <h1 mat-dialog-title>Проигнорировать ошибки и начать торги?</h1>
@@ -297,6 +253,29 @@
       class="save"
       >
       Начать торги
+    </button>
+    <button
+      mat-button
+      mat-dialog-close
+      class="cancel"
+      >
+      ОТМЕНА
+    </button>
+  </div>
+</ng-template>
+
+<ng-template #translateRef let-data>
+  <h1 mat-dialog-title>Проверьте перевод на английский</h1>
+  <div mat-dialog-content>
+    <p>Для одного или более подрядчика необходим перевод запроса на английский, измените выбранных подрядчиков или подтвердите перевод запроса.</p>
+  </div>
+  <div mat-dialog-actions align="end">
+    <button
+      mat-button
+      [mat-dialog-close]="1"
+      class="save"
+      >
+      Подтведить перевод
     </button>
     <button
       mat-button

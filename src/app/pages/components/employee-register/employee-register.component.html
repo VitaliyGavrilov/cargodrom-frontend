@@ -6,17 +6,17 @@
         <div class="hdr">
           <span class="logo"></span>
           <span class="sep"></span>
-          <span class="back" [routerLink]="['/auth']">Регистрация</span>
+          <span>Регистрация сотрудника</span>
         </div>
         <div class="fm-body">
           <form [formGroup]="registerForm" (ngSubmit)="doRegister()">
-            <div class="form-row sp">
+            <!-- <div class="form-row sp">
               <div class="form-item">
                 <div class="form-label">Название компании::</div>
                 <div class="form-input"><input type="text" formControlName="company" value="" placeholder="—"></div>
               </div>
-            </div>
-            <div class="form-row inline sp">
+            </div> -->
+            <!-- <div class="form-row inline sp">
               <div class="form-item">
                 <div class="form-label">Ответственное лицо:</div>
                 <div class="form-input"><input type="text" formControlName="fio" value="" placeholder="—"></div>
@@ -25,33 +25,38 @@
                 <div class="form-label">Номер телефона:</div>
                 <div class="form-input"><input type="text" (input)="formatPhone($event)" formControlName="phone" value="" placeholder="—" ></div>
               </div>
+            </div> -->
+
+            <div class="form-row inline sp" *ngIf="hasOldPassword">
+              <div class="form-item">
+                <div class="form-label">Старый пароль:</div>
+                <div class="form-input"><input type="password" formControlName="old_password" value="" placeholder="—"></div>
+              </div>
             </div>
 
             <div class="form-row inline sp">
               <div class="form-item">
-                <div class="form-label">ИНН:</div>
-                <div class="form-input"><input type="text" formControlName="inn" value="" placeholder="—"></div>
-              </div>
-              <div class="form-item">
-                <div class="form-label">E-mail:</div>
-                <div class="form-input"><input type="text" formControlName="email" value="" placeholder="—"></div>
+                <div class="form-label">Пароль: <span class="req">*</span></div>
+                <div class="form-input"><input type="password" formControlName="password" value="" placeholder="—"></div>
               </div>
             </div>
 
             <div class="form-row inline sp">
               <div class="form-item">
-                <div class="form-label">Введите пароль:</div>
-                <div class="form-input"><input type="password" formControlName="password" value="" placeholder=""></div>
-              </div>
-              <div class="form-item">
-                <div class="form-label">Подтвердите пароль:</div>
+                <div class="form-label">Подтвердите пароль: <span class="req">*</span></div>
                 <div class="form-input"><input type="password" formControlName="password_confirm" value="" placeholder=""></div>
+              </div>
+            </div>
+
+            <div class="form-row inline sp">
+              <div class="form-item">
+                <div class="form-label">Логин: </div>
+                <div class="form-input"><input type="text" formControlName="login" value="" placeholder=""></div>
               </div>
             </div>
 
             <div class="form-row inline">
               <div class="form-item">
-
               </div>
               <div class="form-item">
                 <input type="submit" style="display: none">

@@ -4,7 +4,9 @@
   (save)="save()"
   (remove)="remove()"
   (calc)="calc()"
-  [isEditMode]="isEditMode">
+  [isCalck]="false"
+  [isEditMode]="isEditMode"
+>
 </app-editor-header>
 
 <!-- <div class="edit-form"> -->
@@ -18,29 +20,28 @@
           <div class="form-item">
             <div class="form-label">КЛИЕНТ: <span class="req">•</span></div>
             <div class="form-data">
-              <input appearance="outline" class="ui-select"
-                type="text"
-                name="customer_name"
-                formControlName="customer_name"
-                [matAutocomplete]="auto"
-                (keyup)="searchCustomer($event)"
-                placeholder="—" >
-              <mat-autocomplete  #auto="matAutocomplete">
-                <mat-option class="" *ngFor="let customer of customers;" [value]="customer.name" (click)="onCustomerChange(customer)">{{ customer.name }}</mat-option>
+              <input matInput type="text" formControlName="customer_id" [matAutocomplete]="customer_id" >
+              <mat-autocomplete #customer_id="matAutocomplete" [displayWith]="displayFn_CustomerId.bind(this)">
+                <mat-option *ngFor="let option of filteredCustomers" [value]="option.id">
+                  {{option.name}}
+                </mat-option>
+                <mat-option *ngIf="filteredCustomers.length==0" disabled >Городов нет</mat-option>
               </mat-autocomplete>
+              <mat-error *ngIf="requestForm.controls['customer_id'].hasError('required')">
+                Это поле обязательно
+              </mat-error>
             </div>
           </div>
 
           <div class="form-item">
             <div class="form-label">Вид запроса: <span class="req">•</span></div>
             <div class="form-data">
-              <mat-form-field appearance="outline" class="ui-select">
-                <mat-select panelClass="f" textClass="ff" formControlName="request_type_id" (valueChange)="onRequestFormatsChange($event)">
-                  <mat-option class="edit-form__mat-option" *ngFor="let requestFormat of requestFormats;" [value]="requestFormat.id">{{ requestFormat.name }}</mat-option>
-                </mat-select>
-              </mat-form-field>
+              <mat-select formControlName="request_type_id" (valueChange)="onRequestFormatsChange($event)">
+                <mat-option class="edit-form__mat-option" *ngFor="let requestFormat of requestFormats;" [value]="requestFormat.id">{{ requestFormat.name }}</mat-option>
+              </mat-select>
             </div>
           </div>
+
 
           <div class="form-item">
             <div class="form-label">Вид перевозки <span class="req">•</span></div>
@@ -112,13 +113,50 @@
           <div class="form-item">
             <div class="form-label">Вид транспорта: <span class="req">•</span></div>
             <div class="form-data">
-              <mat-form-field appearance="outline" class="ui-select">
+              <input matInput type="text" formControlName="transport_type_id" [matAutocomplete]="transport_type_id" >
+              <mat-autocomplete #transport_type_id="matAutocomplete" [displayWith]="displayFn_TransportTypeId.bind(this)">
+                <mat-option *ngFor="let option of filteredTransportFormats" [value]="option.id">
+                  {{option.name}}
+                </mat-option>
+                <mat-option *ngIf="filteredTransportFormats.length==0" disabled >Транспорта нет</mat-option>
+              </mat-autocomplete>
+              <mat-error *ngIf="requestForm.controls['transport_type_id'].hasError('required')">
+                Это поле обязательно
+              </mat-error>
+            </div>
+          </div>
+
+          <!-- <div class="form-item">
+            <div class="form-label">Вид транспорта: <span class="req">•</span></div>
+            <div class="form-data">
+              <input appearance="outline" class="ui-select"  #inputElementTransportTypeName
+                type="text"
+                name="transport_type_name"
+                formControlName="transport_type_name"
+                [matAutocomplete]="transport_type_name"
+                placeholder="—" >
+              <mat-autocomplete  #transport_type_name="matAutocomplete">
+                <mat-option
+                  *ngFor="let customer of filteredTransportFormats;"
+                  [value]="customer.name"
+                  (click)="changeForm_TransportType(customer)"
+                >
+                  {{ customer.name }}
+                </mat-option>
+              </mat-autocomplete>
+            </div>
+          </div> -->
+
+          <!-- <div class="form-item">
+            <div class="form-label">Вид транспорта: <span class="req">•</span></div>
+            <div class="form-data">
+              <mat-form-field appearance="outline">
                 <mat-select formControlName="transport_type_id">
                   <mat-option class="edit-form__mat-option" *ngFor="let transportFormat of transportFormats;" [value]="transportFormat.id">{{ transportFormat.name }}</mat-option>
                 </mat-select>
               </mat-form-field>
             </div>
-          </div>
+          </div> -->
 
         </div>
       </div>
@@ -142,7 +180,7 @@
           </div>
         </div>
 
-        <div class="form-item i4" *ngIf="requestForm.value.request_type_id===1">
+        <!-- <div class="form-item i4" *ngIf="requestForm.value.request_type_id===1">
           <div class="form-label">Вид упаковки: <span class="req">•</span></div>
           <div class="form-data">
             <mat-form-field appearance="outline" class="ui-select">
@@ -156,9 +194,83 @@
               </mat-select>
             </mat-form-field>
           </div>
+        </div> -->
+
+        <div class="form-item" class="form-item i4" [style.display]="requestForm.value.request_type_id===1?'block':'none'">
+          <div class="form-label">Вид упаковки: <span class="req">•</span></div>
+          <div class="form-data">
+            <input matInput type="text" formControlName="cargo_package_id" [matAutocomplete]="cargo_package_id" >
+            <mat-autocomplete #cargo_package_id="matAutocomplete" [displayWith]="displayFn_CargoPackageId.bind(this)">
+              <mat-option *ngFor="let option of filteredCargoPackage" [value]="option.id">
+                {{option.name}}
+              </mat-option>
+              <mat-option *ngIf="filteredCargoPackage.length==0" disabled >Транспорта нет</mat-option>
+            </mat-autocomplete>
+            <mat-error *ngIf="requestForm.controls['cargo_package_id'].hasError('required')">
+              Это поле обязательно
+            </mat-error>
+          </div>
         </div>
 
-        <div class="form-item i4" *ngIf="requestForm.value.request_type_id===2">
+        <!-- <div class="form-item" class="form-item i4" [style.display]="requestForm.value.request_type_id===1?'block':'none'" >
+          <div class="form-label">Вид упаковки: <span class="req">•</span></div>
+          <div class="form-data">
+            <input appearance="outline" class="ui-select" #inputElementCargoPackageName
+              type="text"
+              name="cargo_package_name"
+              formControlName="cargo_package_name"
+              [matAutocomplete]="cargo_package_name"
+              placeholder="—" >
+            <mat-autocomplete  #cargo_package_name="matAutocomplete">
+              <mat-option
+                *ngFor="let customer of filteredCargoPackage"
+                [value]="customer.name"
+                (click)="changeForm_CargoPackage(customer)"
+              >
+                {{ customer.name }}
+              </mat-option>
+            </mat-autocomplete>
+          </div>
+        </div> -->
+
+        <div class="form-item" class="form-item i4" [style.display]="requestForm.value.request_type_id===2?'block':'none'">
+          <div class="form-label">Тип груза: <span class="req">•</span></div>
+          <div class="form-data">
+            <input matInput type="text" formControlName="cargo_type_id" [matAutocomplete]="cargo_type_id" >
+            <mat-autocomplete #cargo_type_id="matAutocomplete" [displayWith]="displayFn_CargoTypeId.bind(this)">
+              <mat-option *ngFor="let option of filteredCargoType" [value]="option.id">
+                {{option.name}}
+              </mat-option>
+              <mat-option *ngIf="filteredCargoType.length==0" disabled >Транспорта нет</mat-option>
+            </mat-autocomplete>
+            <mat-error *ngIf="requestForm.controls['cargo_type_id'].hasError('required')">
+              Это поле обязательно
+            </mat-error>
+          </div>
+        </div>
+
+        <!-- <div class="form-item" class="form-item i4" [style.display]="requestForm.value.request_type_id===2?'block':'none'" >
+          <div class="form-label">Тип груза: <span class="req">•</span></div>
+          <div class="form-data">
+            <input appearance="outline" class="ui-select" #inputElementCargoTypeName
+              type="text"
+              name="cargo_type_name"
+              formControlName="cargo_type_name"
+              [matAutocomplete]="cargo_type_name"
+              placeholder="—" >
+            <mat-autocomplete requireSelection   #cargo_type_name="matAutocomplete">
+              <mat-option
+                *ngFor="let customer of filteredCargoType"
+                [value]="customer.name"
+                (click)="changeForm_CargoType(customer)"
+              >
+                {{ customer.name }}
+              </mat-option>
+            </mat-autocomplete>
+          </div>
+        </div> -->
+
+        <!-- <div class="form-item i4"  *ngIf="requestForm.value.request_type_id===2">
           <div class="form-label">Тип груза: <span class="req">•</span></div>
           <div class="form-data">
             <mat-form-field appearance="outline" class="ui-select">
@@ -173,12 +285,12 @@
               </mat-select>
             </mat-form-field>
           </div>
-        </div>
+        </div> -->
 
       </div>
     </div>
 
-    <div class="form-row" *ngIf="requestForm.value.request_type_id===2 && requestForm.value.cargo_type_id===14" formGroupName="cargo_temperature">
+    <div class="form-row" formGroupName="cargo_temperature" *ngIf="requestForm.value.request_type_id===2 && requestForm.value.cargo_type_id===14" >
       <div class="form-item-layout ">
 
         <div class="form-item i2 max-w-fc">
@@ -238,6 +350,7 @@
           (click)="onPlaceEditorChange()"
           (paste)="onPlaceEditorChange()"
           [num]="i+1"
+          [data_CargoPackages]="cargoPackages"
           >
         </app-place-editor>
         <div class="form-item-table-row btn-del-place">
@@ -314,7 +427,7 @@
                     *ngFor="let currency of currencys;"
                     [value]="currency.id"
                     >
-                    {{ currency.name }}
+                    {{ currency.code }}
                   </mat-option>
                 </mat-select>
               </mat-form-field>
@@ -341,7 +454,7 @@
             <div class="form-data ">
               <mat-form-field appearance="outline" class="ui-select ">
                 <mat-select formControlName="cargo_currency_id">
-                  <mat-option *ngFor="let currency of currencys;" [value]="currency.id">{{ currency.name }}</mat-option>
+                  <mat-option *ngFor="let currency of currencys;" [value]="currency.id">{{ currency.code }}</mat-option>
                 </mat-select>
               </mat-form-field>
             </div>
@@ -353,18 +466,36 @@
           <div class="form-label">готовность</div>
           <div class="form-data">
             <!-- <input type="date" formControlName="cargo_readiness"> -->
-            <div class="datepiker">
-              <div (click)="validReset()">{{returnValid()}}</div>
-              <input class="test" style="z-index: -1; width: 1px;" formControlName="cargo_readiness" (dateChange)="onValidChange($event)" [matDatepicker]="picker" readonly>
-              <button class="btn-date" (click)="picker.open()"></button>
-              <mat-datepicker #picker></mat-datepicker>
+            <div class="datepiker" (click)="validReset(); picker.open()">
+              <div>{{returnValid()}}</div>
+              <input  class="test" style="z-index: -1; width: 1px;" formControlName="cargo_readiness" (dateChange)="onValidChange($event)" [matDatepicker]="picker" readonly>
+              <button class="btn-date" ></button>
+              <mat-datepicker #picker  ></mat-datepicker>
             </div>
           </div>
         </div>
 
         <div class="form-item-block" *ngIf="requestForm.value.request_type_id===2 && !requestForm.value.cargo_separately">
 
-          <div class="form-item w172" >
+          <div class="form-item" class="form-item w172">
+            <div class="form-label">Вид упаковки: <span class="req">•</span></div>
+            <div class="form-data">
+              <input matInput type="text" formControlName="cargo_package_id" [matAutocomplete]="cargo_package_id" >
+              <mat-autocomplete #cargo_package_id="matAutocomplete" [displayWith]="displayFn_CargoPackageId.bind(this)">
+                <mat-option *ngFor="let option of filteredCargoPackage" [value]="option.id">
+                  {{option.name}}
+                </mat-option>
+                <mat-option *ngIf="filteredCargoPackage.length==0" disabled >Транспорта нет</mat-option>
+              </mat-autocomplete>
+              <mat-error *ngIf="requestForm.controls['cargo_package_id'].hasError('required')">
+                Это поле обязательно
+              </mat-error>
+            </div>
+          </div>
+
+
+
+          <!-- <div class="form-item w172" >
             <div class="form-label">Вид упаковки: <span class="req">•</span></div>
             <div class="form-data">
               <mat-form-field appearance="outline" class="ui-select">
@@ -373,7 +504,7 @@
                 </mat-select>
               </mat-form-field>
             </div>
-          </div>
+          </div> -->
 
           <div class="form-item w70">
             <div class="form-label stacking-label">stacking</div>
@@ -436,26 +567,36 @@
           <div class="form-item i4">
             <div class="form-label">Город отправления: <span class="req">•</span></div>
             <div class="form-data">
-              <input appearance="outline" class="edit-form__input bg-color_grey1"
-                type="text"
-                name="departure_city_name"
-                formControlName="departure_city_name"
-                [matAutocomplete]="dSity"
-                (keyup)="searchDepartureCity($event)" placeholder="—"
-              >
-              <mat-autocomplete #dSity="matAutocomplete" >
-                <mat-option
-                  *ngFor="let departureCity of departureCitys;"
-                  [value]="departureCity.name"
-                  (click)="onDepartureCityChange(departureCity)"
-                  >
-                  {{ departureCity.name }}
+              <input matInput type="text" formControlName="departure_city_id" [matAutocomplete]="departure_city_id" >
+              <mat-autocomplete #departure_city_id="matAutocomplete" [displayWith]="displayFn_DepartureCityId.bind(this)">
+                <mat-option *ngFor="let option of filteredDepartureCitys" [value]="option.id" (click)="changeForm_DepartureCity(option)">
+                  {{option.name}}
                 </mat-option>
+                <mat-option *ngIf="filteredDepartureCitys.length==0" disabled >Городов нет</mat-option>
               </mat-autocomplete>
+              <mat-error *ngIf="requestForm.controls['departure_city_id'].hasError('required')">
+                Это поле обязательно
+              </mat-error>
             </div>
           </div>
 
           <div class="form-item i8">
+            <div class="form-label">Страна отправл.: <span class="req">•</span></div>
+            <div class="form-data">
+              <input matInput type="text" formControlName="departure_country_id" [matAutocomplete]="departure_country_id" >
+              <mat-autocomplete #departure_country_id="matAutocomplete" [displayWith]="displayFn_DepartureCountryId.bind(this)">
+                <mat-option *ngFor="let option of filteredDepartureCountrys" [value]="option.id" (click)="changeForm_DepartureCountry(option)">
+                  {{option.name}}
+                </mat-option>
+                <mat-option *ngIf="filteredDepartureCountrys.length<1" disabled >Стран нет</mat-option>
+              </mat-autocomplete>
+              <mat-error *ngIf="requestForm.controls['departure_country_id'].hasError('required')">
+                Это поле обязательно
+              </mat-error>
+            </div>
+          </div>
+
+          <!-- <div class="form-item i8">
             <div class="form-label">Страна отправл.:<span class="req">•</span></div>
             <div class="form-data">
               <mat-form-field appearance="outline" class="ui-select">
@@ -469,9 +610,56 @@
                </mat-select>
              </mat-form-field>
             </div>
-          </div>
+          </div> -->
+
+
+          <!-- <input type="text" formControlName="departure_country_id" [matAutocomplete]="auto">
+          <mat-autocomplete #auto="matAutocomplete" [displayWith]="displayFn.bind(this)">
+            <mat-option *ngFor="let option of filteredDepartureCountrys" [value]="option.id">
+              {{option.name}}
+            </mat-option>
+          </mat-autocomplete> -->
+
+
+          <!-- <div class="form-item" class="form-item i8">
+            <div class="form-label">Страна отправл.: <span class="req">•</span></div>
+            <div class="form-data">
+              <input appearance="outline" class="ui-select" #inputElementDepartureCountryName
+                type="text"
+                name="departure_country_name"
+                formControlName="departure_country_name"
+                [matAutocomplete]="departure_country_name"
+                placeholder="—" >
+              <mat-autocomplete #departure_country_name="matAutocomplete">
+                <mat-option
+                  *ngFor="let option of filteredDepartureCountrys"
+                  [value]="option.name"
+                  (click)="changeForm_DepartureCountry(option);"
+                >
+                  {{ option.name }}
+                </mat-option>
+                <mat-option *ngIf="filteredDepartureCountrys.length==0" disabled >Стран нет</mat-option>
+              </mat-autocomplete>
+            </div>
+          </div> -->
 
           <div class="form-item i4" *ngIf="transport_kind_id ===1">
+            <div class="form-label">Аэропорт вылета:</div>
+            <div class="form-data">
+              <input matInput type="text" formControlName="departure_point_id" [matAutocomplete]="departure_point_id" >
+              <mat-autocomplete #departure_point_id="matAutocomplete" [displayWith]="displayFn_DeparturePointId.bind(this)">
+                <mat-option *ngFor="let option of filteredDeparturePoint" [value]="option.id">
+                  {{option.name}}
+                </mat-option>
+                <mat-option *ngIf="filteredDeparturePoint.length==0" disabled >Стран нет</mat-option>
+              </mat-autocomplete>
+              <mat-error *ngIf="requestForm.controls['departure_point_id'].hasError('required')">
+                Это поле обязательно
+              </mat-error>
+            </div>
+          </div>
+
+          <!-- <div class="form-item i4" *ngIf="transport_kind_id ===1">
             <div class="form-label ">Аэропорт вылета:</div>
             <div class="form-data">
               <mat-form-field appearance="outline" class="ui-select">
@@ -482,10 +670,11 @@
                     >
                     {{ departurePoint.name }}
                   </mat-option>
+                  <mat-option *ngIf="!departurePoint" disabled >Аэропортов нет</mat-option>
                 </mat-select>
               </mat-form-field>
             </div>
-          </div>
+          </div> -->
 
           <div class="form-item stretch">
             <div class="form-label">Адрес забора груза:</div>
@@ -503,6 +692,38 @@
           <div class="form-item i4">
             <div class="form-label">Город назначения: <span class="req">•</span></div>
             <div class="form-data">
+              <input matInput type="text" formControlName="arrival_city_id" [matAutocomplete]="arrival_city_id" >
+              <mat-autocomplete #arrival_city_id="matAutocomplete" [displayWith]="displayFn_ArrivalCityId.bind(this)">
+                <mat-option *ngFor="let option of filteredArrivalCitys" [value]="option.id" (click)="changeForm_ArrivalCity(option)">
+                  {{option.name}}
+                </mat-option>
+                <mat-option *ngIf="filteredArrivalCitys.length==0" disabled >Городов нет</mat-option>
+              </mat-autocomplete>
+              <mat-error *ngIf="requestForm.controls['arrival_city_id'].hasError('required')">
+                Это поле обязательно
+              </mat-error>
+            </div>
+          </div>
+
+          <div class="form-item i8">
+            <div class="form-label">Страна прибытия: <span class="req">•</span></div>
+            <div class="form-data">
+              <input matInput type="text" formControlName="arrival_country_id" [matAutocomplete]="arrival_country_id" >
+              <mat-autocomplete #arrival_country_id="matAutocomplete" [displayWith]="displayFn_ArrivalCountryId.bind(this)">
+                <mat-option *ngFor="let option of filteredArrivalCountrys" [value]="option.id" (click)="changeForm_ArrivalCountry(option)">
+                  {{option.name}}
+                </mat-option>
+                <mat-option *ngIf="filteredArrivalCountrys.length==0" disabled >Стран нет</mat-option>
+              </mat-autocomplete>
+              <mat-error *ngIf="requestForm.controls['arrival_country_id'].hasError('required')">
+                Это поле обязательно
+              </mat-error>
+            </div>
+          </div>
+
+          <!-- <div class="form-item i4">
+            <div class="form-label">Город назначения: <span class="req">•</span></div>
+            <div class="form-data">
               <input appearance="outline" class="edit-form__input bg-color_grey1"
                 type="text"
                 name="arrival_city_name"
@@ -518,11 +739,34 @@
                   >
                   {{ arrivalCity.name }}
                 </mat-option>
+                <mat-option *ngIf="!arrivalCitys" disabled >Городов нет</mat-option>
               </mat-autocomplete>
             </div>
-          </div>
+          </div> -->
 
-          <div class="form-item i8">
+          <!-- <div class="form-item" class="form-item i8">
+            <div class="form-label">Страна прибытия: <span class="req">•</span></div>
+            <div class="form-data">
+              <input appearance="outline" class="ui-select" #inputElementArrivalCountryName
+                type="text"
+                name="arrival_country_name"
+                formControlName="arrival_country_name"
+                [matAutocomplete]="arrival_country_name"
+                placeholder="—" >
+              <mat-autocomplete #arrival_country_name="matAutocomplete">
+                <mat-option
+                  *ngFor="let option of filteredArrivalCountrys"
+                  [value]="option.name"
+                  (click)="changeForm_ArrivalCountry(option);"
+                >
+                  {{ option.name }}
+                </mat-option>
+                <mat-option *ngIf="filteredArrivalCountrys.length<0" disabled >Стран нет</mat-option>
+              </mat-autocomplete>
+            </div>
+          </div> -->
+
+          <!-- <div class="form-item i8">
             <div class="form-label">Страна прибытия:<span class="req">•</span></div>
             <div class="form-data">
               <mat-form-field appearance="outline" class="ui-select">
@@ -536,9 +780,25 @@
                </mat-select>
              </mat-form-field>
             </div>
-          </div>
+          </div> -->
 
           <div class="form-item i4" *ngIf="transport_kind_id ===1">
+            <div class="form-label">Аэропорт прибытия:</div>
+            <div class="form-data">
+              <input matInput type="text" formControlName="arrival_point_id" [matAutocomplete]="arrival_point_id" >
+              <mat-autocomplete #arrival_point_id="matAutocomplete" [displayWith]="displayFn_ArrivalPointId.bind(this)">
+                <mat-option *ngFor="let option of filteredArrivalPoint" [value]="option.id">
+                  {{option.name}}
+                </mat-option>
+                <mat-option *ngIf="filteredArrivalPoint.length==0" disabled >Стран нет</mat-option>
+              </mat-autocomplete>
+              <mat-error *ngIf="requestForm.controls['arrival_point_id'].hasError('required')">
+                Это поле обязательно
+              </mat-error>
+            </div>
+          </div>
+
+          <!-- <div class="form-item i4" *ngIf="transport_kind_id ===1">
             <div class="form-label">Аэропорт прибытия:</div>
               <div class="form-data">
                 <mat-form-field appearance="outline" class="ui-select">
@@ -552,7 +812,7 @@
                   </mat-select>
                 </mat-form-field>
               </div>
-          </div>
+          </div> -->
 
           <div class="form-item stretch">
             <div class="form-label">Адрес доставки груза:</div>
@@ -662,13 +922,13 @@
         <div class="form-item-layout sep2">
 
           <label>
-            <input type="checkbox">
+            <input type="radio" formControlName="send_to" value="contractor">
             <i></i>
             <span>Размещать запрос по базам Подрядчиков</span>
           </label>
 
           <label>
-            <input type="checkbox">
+            <input type="radio" formControlName="send_to" value="employee">
             <i></i>
             <span>Разместить запрос на котировку сотруднику компании</span>
           </label>
@@ -683,7 +943,7 @@
       </div>
       <div class="fn">
         <button class="btn v save" (click)="save()"><span>сохранить</span></button>
-        <button class="btn v calc" *ngIf="isEditMode" (click)="calc()"><span>Расчитать</span></button>
+        <!-- <button class="btn v calc" *ngIf="isEditMode && requestForm.value.request_type_id===1" (click)="calc()"><span>Расчитать</span></button> -->
         <button class="btn v del" *ngIf="isEditMode" (click)="remove()"><span>Удалить</span></button>
         <button class="btn v cancel" (click)="goBack()"><span>отмена</span></button>
       </div>

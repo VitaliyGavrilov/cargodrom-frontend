@@ -115,7 +115,8 @@ export class RequestEditorTranslateComponent implements OnInit, OnDestroy {
     this.requestService.requestTranslateSave({body:body}).pipe().subscribe({
       next: () => {
         this.snackBar.open(`Перевод изменен`, undefined, this.snackBarWithShortDuration);
-        window.location.reload();
+        // window.location.reload();
+        this.send();
       },
       error: (err) => this.snackBar.open(`Ошибка изменения перевода запроса: ` + err.error.error_message, undefined, this.snackBarWithShortDuration)
     });
@@ -125,7 +126,8 @@ export class RequestEditorTranslateComponent implements OnInit, OnDestroy {
     this.updateRequestTraqnslate();
   }
   send(){
-    this.router.navigate(['pages/request/bidding', this.requestId]);
+    // this.router.navigate(['pages/request/bidding', this.requestId, { state: { translate: 'true' } }]);
+    this.router.navigate(['/pages/request/bidding', this.requestId], { queryParams: { translate: true } });
   }
   remove():void {
     window.location.reload();

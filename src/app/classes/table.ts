@@ -40,6 +40,8 @@ export abstract class Table<T extends { id: number }, A = never, F = never> impl
   schemaCharges:any
   columnsData:any=[];
 
+  isRowsLoad=false;
+
   readonly xlsxMimeType = 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet';
 
   protected abstract load<T>(params?: LoadParams<T, F>): Observable<{ total: number, items: T[], column?: string[], sort?: string[],sort_new?:any }>;
@@ -59,6 +61,7 @@ export abstract class Table<T extends { id: number }, A = never, F = never> impl
   @ViewChild('exportDialogRef') exportDialogRef?: TemplateRef<void>;
   @ViewChild('importDialogRef') importDialogRef?: TemplateRef<{file: File, text: string}>;
   @ViewChild('saveBiddingRef') saveBiddingRef?: TemplateRef<void>;
+  @ViewChild('translateRef') translateRef?: TemplateRef<void>;
   private aliases = new Map<A, (keyof T)[]>();
 
   @ViewChild('file', { static: true }) file?: ElementRef;
@@ -87,6 +90,14 @@ export abstract class Table<T extends { id: number }, A = never, F = never> impl
     });
     this.getListParam();
 
+    // if(this.isBiddingMode){
+    //   this.route.queryParams.subscribe(params => {
+    //     console.log('Received queryParams:', params);
+    //   });
+    // }
+
+
+
 
     // this.subscribeRouteQueryParamMap();
   }
@@ -98,9 +109,29 @@ export abstract class Table<T extends { id: number }, A = never, F = never> impl
 
   protected loadRows(): void {
     const sortCol = this.getSort();
-    const params = this.isRateDetailsMode
-      ? { request_id:this.requestId, method: this.detailsMethod, start: this.start, count: this.count, ...this.filter }
-      : { start: this.start, count: this.count, sort: JSON.stringify(sortCol) as unknown as SortColumn<T>[], ...this.filter  };
+    let params: any = { start: this.start, count: this.count, ...this.filter };
+    if (this.isRateDetailsMode) {
+      params = { ...params, request_id: this.requestId, method: this.detailsMethod };
+    } else if (this.isBiddingMode) {
+      params = { ...params, bidding_request_id: this.requestId };
+    } else {
+      params = { ...params, sort: JSON.stringify(sortCol) };
+    }
+    console.log(params);
+
+    // let params:any;
+    // if(this.isRateDetailsMode){
+    //   params= { request_id:this.requestId, method: this.detailsMethod, start: this.start, count: this.count, ...this.filter };
+    // } else if(this.isBiddingMode)  {
+    //   params= { request_id:this.requestId, start: this.start, count: this.count, ...this.filter };
+    // } else {
+    //   params= { start: this.start, count: this.count, sort: JSON.stringify(sortCol) as unknown as SortColumn<T>[], ...this.filter  };
+    // }
+
+    // let params = this.isRateDetailsMode
+    //   ? { request_id:this.requestId, method: this.detailsMethod, start: this.start, count: this.count, ...this.filter }
+    //   : { start: this.start, count: this.count, sort: JSON.stringify(sortCol) as unknown as SortColumn<T>[], ...this.filter  };
+
     this.load(params)
       .subscribe(rows => {
         console.log('rows', rows);
@@ -114,7 +145,7 @@ export abstract class Table<T extends { id: number }, A = never, F = never> impl
           });
           this.getContractorsSelectRequest();
         }
-
+        this.isRowsLoad=true
       });
   }
 
@@ -296,7 +327,7 @@ export abstract class Table<T extends { id: number }, A = never, F = never> impl
     this.aliases.set(alias, fields);
   }
 
-  protected exportData(): Observable<{data: string; name: string}> {
+  protected exportData(param:any): Observable<{data: string; name: string}> {
     return NEVER;
   }
 
@@ -399,8 +430,8 @@ export abstract class Table<T extends { id: number }, A = never, F = never> impl
     reader.readAsDataURL(file);
   }
 
-  private exportFile(): void {
-    this.exportData().subscribe({
+  exportFile(): void {
+    this.exportData({ start: this.start, count: this.count, sort: JSON.stringify(this.getSort()) as unknown as SortColumn<T>[], ...this.filter  }).subscribe({
       next: ({name, data}) => {
         const dataUri = `data:${this.xlsxMimeType};base64,${data}`;
         const a = document.createElement('a');
@@ -499,6 +530,23 @@ export abstract class Table<T extends { id: number }, A = never, F = never> impl
     });
   }
 
+  saveTrueContractorSelectRequest(){
+    const requestId = Number(this.route.snapshot.paramMap.get('id'));
+    this.requestSaveBidding({id:requestId, confirm: true})
+      .pipe(
+        tap((res)=>{}),
+        takeUntil(this.destroy$))
+      .subscribe({
+        next:(answer)=>{
+          this.snackBar.open(`Торги для выбранных подрядчиков успешно начаты `, undefined, this.snackBarWithLongDuration)
+        },
+        error:(err)=>{
+          this.snackBar.open(`Ошибка добавления подрядчиков в торги ` + err.error.error_message, undefined, this.snackBarWithLongDuration)
+        }
+      })
+
+  }
+
   saveContractorSelectRequest() {
     const requestId = Number(this.route.snapshot.paramMap.get('id'));
     this.requestSaveBidding({id:requestId,confirm: false})
@@ -506,36 +554,42 @@ export abstract class Table<T extends { id: number }, A = never, F = never> impl
         tap(()=>{}),
         takeUntil(this.destroy$))
       .subscribe({
-        next:()=>{},
+        next:(answer)=>{
+          if(answer.need_translate){
+            this.dialog.open(this.translateRef!).afterClosed().subscribe(res => {
+              if(res) this.router.navigate(['/pages/request/edit/translate', this.requestId]);
+            })
+          } else {
+            this.saveTrueContractorSelectRequest();
+          }
+        },
         error:(err)=>{
           this.dialog.open(this.saveBiddingRef!, { data: {err} }).afterClosed()
             .subscribe(res => {
               if(res){
-                this.requestSaveBidding({id:requestId, confirm: true})
-                .pipe(tap((res)=>{}), takeUntil(this.destroy$))
-                .subscribe()
+                this.saveTrueContractorSelectRequest();
+              } else {
+                this.router.navigate([], {
+                  queryParams: {}, 
+                });
               }
             })
         }
       })
   }
 
-  isCheck(id:number){
-    let isCheck
-    this.contractorsSelectedForRequest.forEach((i:any)=>{
-      if(i===id){
-        isCheck=true;
-      }
-    })
-    return isCheck;
+  isCheck(id: number): boolean {
+    return this.contractorsSelectedForRequest.includes(id);
   }
-
   isAllCheck(){
-    return this.rows.length > 0 && this.currentQuantityContractors === this.rows.length;
+    const filteredArray = this.rows.filter((item:any) => item.bidding_send === false);
+    const count = filteredArray.length;
+    return this.rows.length > 0 && this.currentQuantityContractors === count;
   }
-
   isIndeterminate(){
-    return this.rows.length > 0 && this.currentQuantityContractors < this.rows.length && this.currentQuantityContractors > 0;
+    const filteredArray = this.rows.filter((item:any) => item.bidding_send === false);
+    const count = filteredArray.length;
+    return this.rows.length > 0 && this.currentQuantityContractors < count && this.currentQuantityContractors > 0;
   }
 
   getRequestInfo(id:number){
@@ -563,6 +617,12 @@ export abstract class Table<T extends { id: number }, A = never, F = never> impl
         tap((schema)=>{
           this.sortField = schema.sort[0].field;
           this.sortDir = schema.sort[0].dir;
+
+          if (this.isBiddingMode) {
+            schema.table.pop();
+            schema.table.unshift({column:'checkbox'});
+          }
+
         }),
         takeUntil(this.destroy$),
       )
@@ -571,25 +631,22 @@ export abstract class Table<T extends { id: number }, A = never, F = never> impl
           // if(this.isRateDetailsMode){
           //   this.schemaCharges=schema.forms.charges
           // }
+
           console.log('schema',schema);
-
           this.filterService.setSearchFilterSchema(schema.search);
-
           schema.table.forEach((col:any)=>{
             this.column?.push(col.column);
-          })
+          });
           schema.sort.forEach((sor:any)=>{
             this.sortableColumns?.push(sor.field);
-          })
+          });
+          this.columnsData=schema.table;
 
-          if(this.isBiddingMode){
-            this.column?.unshift('checkbox');
-            this.column?.pop();
-          }
-          if(this.isRateDetailsMode){
-            this.columnsData=schema.table;
-            this.schemaCharges=schema.forms.charges;
-          }
+          // if(this.isRateDetailsMode){
+          //   this.columnsData=schema.table;
+          //   this.schemaCharges=schema.forms.charges;
+          // }
+
           // this.router.navigate(['.'], {
           //   queryParams: { sortCol: schema.sort[0].field, sortDir: schema.sort[0].dir },
           //   queryParamsHandling: 'merge',
@@ -597,15 +654,24 @@ export abstract class Table<T extends { id: number }, A = never, F = never> impl
           // });
         },
         error: (err) => this.snackBar.open(`Ошибка получения параметров вывода таблицы ` + err.error.error_message, undefined, this.snackBarWithShortDuration),
-        complete:()=> {this.subscribeRouteQueryParamMap();}
+        complete:()=> {
+          this.subscribeRouteQueryParamMap();
+        }
       });
   }
 
   subscribeRouteQueryParamMap(){
     this.route.queryParamMap
       .pipe(
-        tap((queryParamMap)=>{
-          // console.log(queryParamMap);
+        tap((queryParamMap:any)=>{
+          // console.log(queryParamMap.params.translate);
+          if(queryParamMap.params.translate){
+            this.saveContractorSelectRequest();
+            console.log(112233);
+
+
+          }
+
           this.start = this.getIntParamSafely(queryParamMap, 'start', this.start);
           this.count = this.getIntEnumParamSafely(queryParamMap, 'count', this.limits, this.count);
           this.sortField = this.getStringParamSafely(queryParamMap, 'sortCol', this.sortField as string) as keyof T;

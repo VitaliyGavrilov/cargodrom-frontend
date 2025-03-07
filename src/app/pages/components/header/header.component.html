@@ -116,9 +116,14 @@
       <span>Справочник</span>
     </a>
     <span class="div"></span>
-    <app-currency name="USD" code="$" [rate]="69.3475"></app-currency>
+    <ng-container *ngFor="let cur of currencyList">
+      <app-currency *ngIf="cur.currency" [name]="cur.code" [code]="cur.char" [rate]="cur.currency"></app-currency>
+
+    </ng-container>
+
+    <!-- <app-currency name="USD" code="$" [rate]="69.3475"></app-currency>
     <app-currency name="EUR" code="€" [rate]="80.322"></app-currency>
-    <app-currency name="CNY" code="Ұ" [rate]="10.1193"></app-currency>
+    <app-currency name="CNY" code="Ұ" [rate]="10.1193"></app-currency> -->
     <span class="fn msg">
       <span><svg width="22" height="25" viewBox="0 0 22 25" fill="none" xmlns="http://www.w3.org/2000/svg">
           <path

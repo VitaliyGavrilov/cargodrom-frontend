@@ -7,7 +7,23 @@
 
   <div class="form-item-block w232">
 
-    <div class="form-item w156" *ngIf="currentRequestFormat===2">
+    <div class="form-item" class="form-item w156" *ngIf="currentRequestFormat===2">
+      <div class="form-label" *ngIf="num===1">Вид упаковки:</div>
+      <div class="form-data">
+        <input matInput type="text" formControlName="cargo_package_id" [matAutocomplete]="cargo_package_id" >
+        <mat-autocomplete #cargo_package_id="matAutocomplete" [displayWith]="displayFn_CargoPackageId.bind(this)">
+          <mat-option *ngFor="let option of filteredCargoPackage" [value]="option.id">
+            {{option.name}}
+          </mat-option>
+          <mat-option *ngIf="filteredCargoPackage.length==0" disabled >Транспорта нет</mat-option>
+        </mat-autocomplete>
+        <mat-error *ngIf="placeForm.controls['cargo_package_id'].hasError('required')">
+          Это поле обязательно
+        </mat-error>
+      </div>
+    </div>
+
+    <!-- <div class="form-item w156" *ngIf="currentRequestFormat===2">
       <div *ngIf="num===1" class="form-label">Вид упаковки</div>
       <div class="form-data">
         <mat-form-field appearance="outline" class="ui-select">
@@ -16,7 +32,7 @@
           </mat-select>
         </mat-form-field>
       </div>
-    </div>
+    </div> -->
 
     <div class="form-item w70" *ngIf="currentRequestFormat===2">
       <div *ngIf="num===1" class="form-label"></div>
@@ -70,7 +86,7 @@
     </div>
     <div class="form-item w72 r">
       <div *ngIf="num===1" class="form-label">КОЛ-ВО, ШТ</div>
-      <div class="form-data"><input type="number" name="count" formControlName="count" placeholder="—" required (ngModelChange)="onCalkTotalVolumeAndWeight()"></div>
+      <div class="form-data"><input type="number" step="1" oninput="this.value = ~~this.value;" name="count" formControlName="count" placeholder="—" required (ngModelChange)="onCalkTotalVolumeAndWeight()"></div>
     </div>
   </div>
 

@@ -44,9 +44,10 @@ export class ContactEditorComponent implements OnInit, OnDestroy, OnChanges, Con
     this.contactForm = this.fb.group({
       id: [],
       contractor_id: [],
-      name_f: ['', [Validators.required]],
-      name_i: ['', [Validators.required]],
-      name_o: ['', [Validators.required]],
+      name: ['', [Validators.required]],
+      // name_f: ['', [Validators.required]],
+      // name_i: ['', [Validators.required]],
+      // name_o: ['', [Validators.required]],
       position: ['', [Validators.required]],
       phone: ['', [Validators.required]],
       mobile_phone: ['', []],

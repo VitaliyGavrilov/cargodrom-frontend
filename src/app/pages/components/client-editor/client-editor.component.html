@@ -28,7 +28,24 @@
         </div>
 
         <div class="form-item-layout">
+
           <div class="form-item">
+            <div class="form-label">Страна нахождения: <span class="req">•</span></div>
+            <div class="form-data">
+              <input matInput type="text" formControlName="country_id" [matAutocomplete]="country_id" >
+              <mat-autocomplete #country_id="matAutocomplete" [displayWith]="displayFn_CountryId.bind(this)">
+                <mat-option *ngFor="let option of filteredCountries" [value]="option.id" (click)="onCountryChange(option.id)">
+                  {{option.name}}
+                </mat-option>
+                <mat-option *ngIf="filteredCountries.length==0" disabled >Стран нет</mat-option>
+              </mat-autocomplete>
+              <mat-error *ngIf="form.controls['country_id'].hasError('required')">
+                Это поле обязательно
+              </mat-error>
+            </div>
+          </div>
+
+          <!-- <div class="form-item">
             <div class="form-label">Страна нахождения: <span class="req">•</span></div>
             <div class="form-data">
               <mat-form-field appearance="outline" class="ui-select">
@@ -40,9 +57,25 @@
                 </mat-error>
               </mat-form-field>
             </div>
-          </div>
+          </div> -->
 
           <div class="form-item">
+            <div class="form-label">Город нахождения: <span class="req">•</span></div>
+            <div class="form-data">
+              <input matInput type="text" formControlName="city_id" [matAutocomplete]="city_id" >
+              <mat-autocomplete #city_id="matAutocomplete" [displayWith]="displayFn_CityId.bind(this)">
+                <mat-option *ngFor="let option of filteredCitys" [value]="option.id" (click)="onCountryChange(option.id)">
+                  {{option.name}}
+                </mat-option>
+                <mat-option *ngIf="filteredCitys.length==0" disabled >Городов нет</mat-option>
+              </mat-autocomplete>
+              <mat-error *ngIf="form.controls['city_id'].hasError('required')">
+                Это поле обязательно
+              </mat-error>
+            </div>
+          </div>
+
+          <!-- <div class="form-item">
             <div class="form-label">Город нахождения: <span class="req">•</span></div>
             <div class="form-data">
               <mat-form-field appearance="outline" class="ui-select">
@@ -54,7 +87,7 @@
                 </mat-error>
               </mat-form-field>
             </div>
-          </div>
+          </div> -->
 
         </div>
 
@@ -357,7 +390,24 @@
 
       <div class="form-row">
         <div class="form-item-layout">
+
           <div class="form-item w50">
+            <div class="form-label">Группа:</div>
+            <div class="form-data">
+              <input matInput type="text" formControlName="group_id" [matAutocomplete]="group_id" >
+              <mat-autocomplete #group_id="matAutocomplete" [displayWith]="displayFn_ClientGroupId.bind(this)">
+                <mat-option *ngFor="let option of filteredClientGroups" [value]="option.id">
+                  {{option.name}}
+                </mat-option>
+                <mat-option *ngIf="filteredClientGroups.length==0" disabled >Групп нет</mat-option>
+              </mat-autocomplete>
+              <mat-error *ngIf="form.controls['group_id'].hasError('required')">
+                Это поле обязательно
+              </mat-error>
+            </div>
+          </div>
+
+          <!-- <div class="form-item w50">
             <div class="form-label">Группа:</div>
             <mat-form-field appearance="outline" class="ui-select">
               <mat-select formControlName="group_id">
@@ -367,7 +417,23 @@
                 Это поле обязательно
               </mat-error>
             </mat-form-field>
-          </div>
+          </div> -->
+
+          <!-- <div class="form-item">
+            <div class="form-label">Статус:</div>
+            <div class="form-data">
+              <input matInput type="text" formControlName="status_id" [matAutocomplete]="status_id" >
+              <mat-autocomplete #status_id="matAutocomplete" [displayWith]="displayFn_ClientStatusesId.bind(this)">
+                <mat-option *ngFor="let option of filteredClientStatuses" [value]="option.id">
+                  {{option.name}}
+                </mat-option>
+                <mat-option *ngIf="filteredClientStatuses.length==0" disabled >Групп нет</mat-option>
+              </mat-autocomplete>
+              <mat-error *ngIf="form.controls['status_id'].hasError('required')">
+                Это поле обязательно
+              </mat-error>
+            </div>
+          </div> -->
 
           <div class="form-item">
             <div class="form-label">Статус:</div>
@@ -383,6 +449,22 @@
 
           <div class="form-item">
             <div class="form-label">Тип контрагента:</div>
+            <div class="form-data">
+              <input matInput type="text" formControlName="counterparty_id" [matAutocomplete]="counterparty_id" >
+              <mat-autocomplete #counterparty_id="matAutocomplete" [displayWith]="displayFn_ClientKindId.bind(this)">
+                <mat-option *ngFor="let option of filteredClientKinds" [value]="option.id">
+                  {{option.name}}
+                </mat-option>
+                <mat-option *ngIf="filteredClientKinds.length==0" disabled >Типов нет</mat-option>
+              </mat-autocomplete>
+              <mat-error *ngIf="form.controls['counterparty_id'].hasError('required')">
+                Это поле обязательно
+              </mat-error>
+            </div>
+          </div>
+
+          <!-- <div class="form-item">
+            <div class="form-label">Тип контрагента:</div>
             <mat-form-field appearance="outline" class="ui-select">
               <mat-select formControlName="counterparty_id">
                 <mat-option *ngFor="let kind of clientKinds;" [value]="kind.id">{{ kind.name }}</mat-option>
@@ -391,7 +473,7 @@
                 Это поле обязательно
               </mat-error>
             </mat-form-field>
-          </div>
+          </div> -->
 
 
         </div>
@@ -400,15 +482,31 @@
 
           <div class="form-item w50">
             <div class="form-label">Отрасль деятельности:</div>
-              <mat-form-field appearance="outline" class="ui-select">
-                <mat-select formControlName="business_id">
-                  <mat-option *ngFor="let kind of businessKinds;" [value]="kind.id">{{ kind.name }}</mat-option>
-                </mat-select>
-                <mat-error *ngIf="form.controls['business_id'].hasError('required')">
-                  Это поле обязательно
-                </mat-error>
-              </mat-form-field>
+            <div class="form-data">
+              <input matInput type="text" formControlName="business_id" [matAutocomplete]="business_id" >
+              <mat-autocomplete #business_id="matAutocomplete" [displayWith]="displayFn_BusinessKindId.bind(this)">
+                <mat-option *ngFor="let option of filteredBusinessKinds" [value]="option.id">
+                  {{option.name}}
+                </mat-option>
+                <mat-option *ngIf="filteredBusinessKinds.length==0" disabled >Типов нет</mat-option>
+              </mat-autocomplete>
+              <mat-error *ngIf="form.controls['business_id'].hasError('required')">
+                Это поле обязательно
+              </mat-error>
             </div>
+          </div>
+
+          <!-- <div class="form-item w50">
+            <div class="form-label">Отрасль деятельности:</div>
+            <mat-form-field appearance="outline" class="ui-select">
+              <mat-select formControlName="business_id">
+                <mat-option *ngFor="let kind of businessKinds;" [value]="kind.id">{{ kind.name }}</mat-option>
+              </mat-select>
+              <mat-error *ngIf="form.controls['business_id'].hasError('required')">
+                Это поле обязательно
+              </mat-error>
+            </mat-form-field>
+          </div> -->
 
           <div class="form-item">
             <div class="form-label">Взаимодействие:</div>
@@ -424,6 +522,22 @@
 
           <div class="form-item">
             <div class="form-label">Источник:</div>
+            <div class="form-data">
+              <input matInput type="text" formControlName="source_id" [matAutocomplete]="source_id" >
+              <mat-autocomplete #source_id="matAutocomplete" [displayWith]="displayFn_ContactSourceId.bind(this)">
+                <mat-option *ngFor="let option of filteredContactSources" [value]="option.id">
+                  {{option.name}}
+                </mat-option>
+                <mat-option *ngIf="filteredContactSources.length==0" disabled >Типов нет</mat-option>
+              </mat-autocomplete>
+              <mat-error *ngIf="form.controls['source_id'].hasError('required')">
+                Это поле обязательно
+              </mat-error>
+            </div>
+          </div>
+
+          <!-- <div class="form-item">
+            <div class="form-label">Источник:</div>
             <mat-form-field appearance="outline" class="ui-select">
               <mat-select formControlName="source_id">
                 <mat-option *ngFor="let source of contactSources;" [value]="source.id">{{ source.name }}</mat-option>
@@ -432,7 +546,7 @@
                 Это поле обязательно
               </mat-error>
             </mat-form-field>
-          </div>
+          </div> -->
 
         </div>
 
@@ -454,6 +568,22 @@
 
           <div class="form-item">
             <div class="form-label">Менеджер по работе с клиентом:</div>
+            <div class="form-data">
+              <input matInput type="text" formControlName="manager_id" [matAutocomplete]="manager_id" >
+              <mat-autocomplete #manager_id="matAutocomplete" [displayWith]="displayFn_EmployeeForClientId.bind(this)">
+                <mat-option *ngFor="let option of filteredEmployeesForClient" [value]="option.id">
+                  {{option.name_i}}
+                </mat-option>
+                <mat-option *ngIf="filteredEmployeesForClient.length==0" disabled >Менеджеров нет</mat-option>
+              </mat-autocomplete>
+              <mat-error *ngIf="form.controls['manager_id'].hasError('required')">
+                Это поле обязательно
+              </mat-error>
+            </div>
+          </div>
+
+          <!-- <div class="form-item">
+            <div class="form-label">Менеджер по работе с клиентом:</div>
             <mat-form-field appearance="outline" class="ui-select">
               <mat-select formControlName="manager_id">
                 <mat-option *ngFor="let employee of employees;" [value]="employee.id">{{ employee.name_i }}</mat-option>
@@ -462,10 +592,26 @@
                 Это поле обязательно
               </mat-error>
             </mat-form-field>
-          </div>
+          </div> -->
 
           <div class="form-item">
-            <div class="form-label">Менеджер приведший клиента:</div>
+            <div class="form-label">Менеджер по продажам:</div>
+            <div class="form-data">
+              <input matInput type="text" formControlName="manager_sale_id" [matAutocomplete]="manager_sale_id" >
+              <mat-autocomplete #manager_sale_id="matAutocomplete" [displayWith]="displayFn_EmployeeForSaleId.bind(this)">
+                <mat-option *ngFor="let option of filteredEmployeesForSale" [value]="option.id">
+                  {{option.name_i}}
+                </mat-option>
+                <mat-option *ngIf="filteredEmployeesForSale.length==0" disabled >Менеджеров нет</mat-option>
+              </mat-autocomplete>
+              <mat-error *ngIf="form.controls['manager_sale_id'].hasError('required')">
+                Это поле обязательно
+              </mat-error>
+            </div>
+          </div>
+
+          <!-- <div class="form-item">
+            <div class="form-label">Менеджер по продажам:</div>
             <mat-form-field appearance="outline" class="ui-select">
               <mat-select formControlName="manager_sale_id">
                 <mat-option *ngFor="let employee of employees;" [value]="employee.id">{{ employee.name_i }}</mat-option>
@@ -474,7 +620,7 @@
                 Это поле обязательно
               </mat-error>
             </mat-form-field>
-          </div>
+          </div> -->
 
         </div>
 

@@ -1,5 +1,5 @@
 import { Component, Inject, OnInit, ViewEncapsulation  } from '@angular/core';
-import { MAT_DIALOG_DATA } from '@angular/material/dialog';
+import {  MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { PopupDialogData } from './popup-dialog-data';
 import {DomSanitizer, SafeHtml} from "@angular/platform-browser";
 

@@ -41,21 +41,21 @@ export class ClientGroupEditorComponent extends SettingsEditor<ClientGroup> {
   }
 
   protected create(params: {body: Omit<ClientGroup, 'id'>}) {
-    return this.customerService.customerGroupCreate(params as any); 
+    return this.customerService.customerGroupCreate(params as any);
    }
-   
+
    protected read(params: { id: number; }): Observable<ClientGroup> {
      return this.customerService.customerGroupInfo(params) as Observable<ClientGroup>;
    }
-   
+
    protected update(params: { body: Partial<ClientGroup>; }): Observable<void> {
      return this.customerService.customerGroupUpdate(params as any) as unknown as Observable<void>;
    }
-   
+
    protected delete(params: {body: { id: number; }}): Observable<void> {
      return this.customerService.customerGroupDelete(params) as unknown as Observable<void>;
    }
-   
+
    protected getNameForHeader(body: ClientGroup): string {
     return body.name;
   }

@@ -10,6 +10,8 @@ import { SystemService } from 'src/app/api/services';
 
 @Directive()
 export abstract class Editor<T> implements OnInit {
+  isNavigateAfterSave:boolean=true;
+
   id?: number;
   form!: FormGroup;
   isEditMode = false;
@@ -18,11 +20,11 @@ export abstract class Editor<T> implements OnInit {
   taxSystems: TaxSystem[] = [];
   currencies: Currency[] = [];
   headPositions: HeadPosition[] = [];
-  businessKinds: BusinessKind[] = [];
+  businessKinds: BusinessKind[] = []; filteredBusinessKinds: BusinessKind[] = [];
   interactionKinds: InteractionKind[] = [];
-  contactSources: ContactSource[] = [];
-  clientStatuses: ClientStatus[] = [];
-  clientKinds: ClientKind[] = [];
+  contactSources: ContactSource[] = []; filteredContactSources: ContactSource[] = [];
+  clientStatuses: ClientStatus[] = []; filteredClientStatuses: ClientStatus[] = [];
+  clientKinds: ClientKind[] = []; filteredClientKinds: ClientKind[] = [];
   serviceKinds: ServiceKind[] = [];
   isFormSubmitted = false;
   data: Partial<T> = {};
@@ -90,7 +92,10 @@ export abstract class Editor<T> implements OnInit {
 
   loadBusinessKinds(): void {
     this.systemService.systemBusiness().subscribe(
-      kinds => this.businessKinds = kinds ? (kinds as BusinessKind[]).sort(byField('num', 'asc', 'numeric')) : []
+      kinds => {
+        this.filteredBusinessKinds = kinds ? (kinds as BusinessKind[]).sort(byField('num', 'asc', 'numeric')) : [];
+        this.businessKinds = kinds ? (kinds as BusinessKind[]).sort(byField('num', 'asc', 'numeric')) : [];
+      }
     );
   }
 
@@ -102,19 +107,28 @@ export abstract class Editor<T> implements OnInit {
 
   loadContactSources(): void {
     this.systemService.systemContactSource().subscribe(
-      kinds => this.contactSources = kinds ? (kinds as ContactSource[]).sort(byField('name', 'asc', 'case-insensitive')) : []
+      kinds => {
+        this.filteredContactSources = kinds ? (kinds as ContactSource[]).sort(byField('name', 'asc', 'case-insensitive')) : [];
+        this.contactSources = kinds ? (kinds as ContactSource[]).sort(byField('name', 'asc', 'case-insensitive')) : [];
+      }
     );
   }
 
   loadClientStatuses(): void {
     this.systemService.systemCustomerStatus().subscribe(
-      kinds => this.clientStatuses = kinds ? (kinds as ClientStatus[]).sort(byField('name', 'asc', 'case-insensitive')) : []
+      kinds => {
+        this.filteredClientStatuses = kinds ? (kinds as ClientStatus[]).sort(byField('name', 'asc', 'case-insensitive')) : [];
+        this.clientStatuses = kinds ? (kinds as ClientStatus[]).sort(byField('name', 'asc', 'case-insensitive')) : [];
+      }
     );
   }
 
   loadClientKinds(): void {
     this.systemService.systemCounterparty().subscribe(
-      kinds => this.clientKinds = kinds ? (kinds as ClientKind[]).sort(byField('num', 'asc', 'numeric')) : []
+      kinds => {
+        this.clientKinds = kinds ? (kinds as ClientKind[]).sort(byField('num', 'asc', 'numeric')) : [];
+        this.filteredClientKinds = kinds ? (kinds as ClientKind[]).sort(byField('num', 'asc', 'numeric')) : [];
+      }
     );
   }
 
@@ -196,12 +210,21 @@ export abstract class Editor<T> implements OnInit {
       }))
       .subscribe({
         next: data => {
+          console.log(data);
+
           this.data = data as T;
-          this.form.patchValue(this.data);
+          this.patchForm();
+
           this.nameForHeader = this.getNameForHeader(data as T);
         },
         error: (err: any) => this.showErrorAndGoBack(err, this.notFoundMessage)
       });
+  }
+
+  patchForm(){
+    console.log('patchForm');
+
+    this.form.patchValue(this.data);
   }
 
   save(): void {
@@ -244,7 +267,14 @@ export abstract class Editor<T> implements OnInit {
     this.create({ body })
       .pipe(switchMap(body => this.afterCreate(body)))
       .subscribe({
-        next: ({ id }) => this.showMessageAndSwitchToEditMode(this.createdMessage, id),
+        next: ({ id }) => {
+          // this.showMessageAndSwitchToEditMode(this.createdMessage, id)
+          if(this.isNavigateAfterSave){
+            this.showMessageAndGoBack(this.removedMessage)
+          } else {
+            this.showMessageAndSwitchToEditMode(this.createdMessage, id)
+          }
+        },
         error: (err) => this.showError(`Ошибка`, err)
       });
   }
@@ -253,7 +283,13 @@ export abstract class Editor<T> implements OnInit {
     this.update({ body })
     .pipe(switchMap(() => this.afterUpdate()))
     .subscribe({
-      next: () => this.showMessageAndReload(this.savedMessage),
+      next: () => {
+        if(this.isNavigateAfterSave){
+          this.showMessageAndGoBack(this.removedMessage)
+        } else {
+          this.showMessageAndReload(this.savedMessage)
+        }
+      },
       error: (err) => this.showError(`Ошибка`, err)
     });
   }

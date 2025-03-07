@@ -567,7 +567,7 @@ export abstract class TablePage<T extends { id: number }, A = never, F = never> 
     this.loadFilterSchemaTest(param)
       .pipe(
         tap((schema)=>{
-          
+
           this.sortField = schema.sort[0].field;
           this.sortDir = schema.sort[0].dir;
         }),

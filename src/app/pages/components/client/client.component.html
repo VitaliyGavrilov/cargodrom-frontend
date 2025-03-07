@@ -1,72 +1,105 @@
-<div class="subheader">
-  <div class="placer">
-
-    <div class="title">Клиенты</div>
-
-    <div class="links">
-      <a class="link add" [routerLink]="['add']">
-        <svg width="14" height="14" viewBox="0 0 14 14" fill="none" xmlns="http://www.w3.org/2000/svg">
-          <path d="M5 9H3V8H5V6H6V8H8V9H6V11H5V9ZM14 0V14H0V0H14ZM13 1H1V13H13V1Z" fill="#DB563B"></path>
-        </svg>
-        <span>Новый клиент</span>
-      </a>
-
-      <span class="hoverr">
-        <a class="link import" (click)="importFile()">
-          <svg width="14" height="14" viewBox="0 0 14 14" fill="none" xmlns="http://www.w3.org/2000/svg">
-            <path d="M13 8H14V14H0V0H6V1H1V13H13V8ZM13.2929 0L6 7.29291V4H5V8V9H6H10V8H6.70709L14 0.707092V0H13.2929Z" fill="#DB563B"></path>
-          </svg>
-          <span>Импорт даных</span>
-        </a>
-
-        <a class="link export template" (click)="exportFileTemplate()">
-          <svg width="14" height="14" viewBox="0 0 14 14" fill="none" xmlns="http://www.w3.org/2000/svg">
-            <path d="M13 10H14V14H0V0H4V1H1V13H13V10ZM13 0H9V1H12.2929L5 8.29291V9H5.70709L13 1.70709V5H14V1V0H13Z" fill="#DB563B"></path>
-          </svg>
-          <span>Шаблон для импорта</span>
-        </a>
-      </span>
-
-      <a class="link export" (click)="confirmExport()">
-        <svg width="14" height="14" viewBox="0 0 14 14" fill="none" xmlns="http://www.w3.org/2000/svg">
-          <path d="M13 10H14V14H0V0H4V1H1V13H13V10ZM13 0H9V1H12.2929L5 8.29291V9H5.70709L13 1.70709V5H14V1V0H13Z" fill="#DB563B"></path>
-        </svg>
-        <span>Экспорт данных</span>
-      </a>
-
-      <input class="ui-file-input" type="file" [accept]="xlsxMimeType" #file (change)="selectFileForImport()"/>
-
-      <!-- <a class="link statistic"><svg width="14" height="14" viewBox="0 0 14 14" fill="none" xmlns="http://www.w3.org/2000/svg">
-          <defs>
-            <style>
-              .cls-1 {
-                fill: #db563b;
-              }
-            </style>
-          </defs>
-          <title>statistic</title>
-          <rect class="cls-1" y="13" width="14" height="1"></rect>
-          <rect class="cls-1" x="2" y="5" width="1" height="6"></rect>
-          <rect class="cls-1" x="5" y="3" width="1" height="8"></rect>
-          <rect class="cls-1" x="10.97" width="1" height="11"></rect>
-          <rect class="cls-1" x="8" y="6" width="1" height="5"></rect>
-        </svg><span>Аналитика</span></a> -->
-
-    </div>
-
-    <div class="div"></div>
-
-    <app-universal-filter
-      *ngFor="let control of filterService.searchFilterSchema?.header"
-      [filterControl]="control">
-    </app-universal-filter>
-
-  </div>
-</div>
+<app-table-sunheader-file
+  [importMetods]="importMetods"
+  (export)="exportFile()"
+  (exportTemplate)="exportFileTemplate()"
+>
+</app-table-sunheader-file>
 
 <app-table-filter></app-table-filter>
 
-<div class="table-list">
+<div class="table-list" >
+  <table mat-table [dataSource]="rows" multiTemplateDataRows>
+
+    <ng-container *ngFor="let col of columnsData"
+      [matColumnDef]="col.column"
+      [ngSwitch]="col.column"
+    >
+
+    <!-- стандартный шаблон -->
+      <ng-template [ngSwitchDefault]>
+        <th mat-header-cell *matHeaderCellDef [style.width]="col.width" [class]="col.class">
+          <div class="td-block" *ngIf="!col.title">
+            <div class="column"
+              [attr.title]="getColTitle(miniCol.field)"
+              (click)="sort(miniCol.field)"
+              [ngClass]="getSortClass(miniCol.field)"
+              *ngFor="let miniCol of col.items"
+              [style.width]="miniCol.width"
+              [class]="miniCol.class"
+            >
+              {{miniCol.title}}
+            </div>
+          </div>
+
+          <div class="td-block-column" *ngIf="col.title">
+            <div class="td-block-title">{{col.title}}</div>
+            <div class="td-block-line">
+              <div class="column"
+                [attr.title]="getColTitle(miniCol.field)"
+                (click)="sort(miniCol.field)"
+                [ngClass]="getSortClass(miniCol.field)"
+                *ngFor="let miniCol of col.items"
+                [style.width]="miniCol.width"
+                [class]="miniCol.class"
+              >
+                {{miniCol.title}}
+              </div>
+            </div>
+          </div>
+        </th>
+
+        <td mat-cell *matCellDef="let item" [style.width]="col.width" [class]="col.class">
+          <div class="td-block" *ngIf="!col.title">
+            <div class="column"
+              *ngFor="let miniCol of col.items"
+              [style.width]="miniCol.width"
+              [class]="miniCol.class"
+            >
+              {{ getVal(item,miniCol.field) }}
+            </div>
+          </div>
+
+          <div class="td-block-line" *ngIf="col.title">
+            <div class="column"
+              *ngFor="let miniCol of col.items"
+              [style.width]="miniCol.width"
+              [class]="miniCol.class"
+              >
+              {{ getVal(item,miniCol.field) }}
+            </div>
+          </div>
+        </td>
+      </ng-template>
+
+      <!--настройки(сылка на редактирование) -->
+      <ng-template [ngSwitchCase]="'settings'">
+        <th mat-header-cell *matHeaderCellDef class="setting">
+          <div class="setting-link"></div>
+        </th>
+        <td mat-cell *matCellDef="let client" class="setting">
+          <a class="link-pic link-edit ico ico-pencil fn-link" [routerLink]="['edit', client.id]" title="Редактировать"></a>
+        </td>
+      </ng-template>
+
+    </ng-container>
+
+
+    <tr mat-header-row *matHeaderRowDef="column"></tr>
+    <tr mat-row *matRowDef="let row; columns: column;"></tr>
+
+  </table>
+</div>
+
+<app-paginator
+  [total]="total"
+  [count]="count"
+  [start]="start"
+  [limits]="limits"
+  (startChange)="onStartChange($event)"
+  (countChange)="onCountChange($event)">
+</app-paginator>
+
+<!-- <div class="table-list">
   <table mat-table [dataSource]="rows">
     <ng-container matColumnDef="customer">
       <th mat-header-cell *matHeaderCellDef>
@@ -184,18 +217,11 @@
     <tr mat-header-row *matHeaderRowDef="column"></tr>
     <tr mat-row *matRowDef="let row; columns: column;"></tr>
   </table>
-</div>
+</div>-->
 
-<app-paginator
-  [total]="total"
-  [count]="count"
-  [start]="start"
-  [limits]="limits"
-  (startChange)="onStartChange($event)"
-  (countChange)="onCountChange($event)">
-</app-paginator>
 
-<ng-template #exportDialogRef let-data>
+
+<!-- <ng-template #exportDialogRef let-data>
   <h1 mat-dialog-title>Экспорт</h1>
   <div mat-dialog-content>
     Экспортировать данные о клиентах в Excel файл ?
@@ -221,5 +247,5 @@
     <button mat-button [mat-dialog-close]="2">Скачать файл с результатами обработки</button>
     <button mat-button mat-dialog-close>ОТМЕНА</button>
   </div>
-</ng-template>
+</ng-template> -->
 

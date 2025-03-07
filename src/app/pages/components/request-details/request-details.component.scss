@@ -1,7 +1,9 @@
 .table-list.kp table td {
   background: white;
 }
-
+.mat-mdc-table thead, .mat-mdc-table tbody, .mat-mdc-table tfoot, mat-header-row, mat-row, mat-footer-row, [mat-header-row], [mat-row], [mat-footer-row], .mat-table-sticky {
+  max-height: 100px;
+}
 
 
 .expanded-request-info, .example-element-detail{

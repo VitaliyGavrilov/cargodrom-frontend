@@ -1,36 +1,15 @@
-<app-table-sunheader-file
+<!-- <app-table-sunheader-file
   [importMetods]="importMetods"
   (export)="getExportFile()"
   (exportTemplate)="getTempalteFile()"
 >
 </app-table-sunheader-file>
 
-<!-- <app-table-sunheader-file
-  (import)="doImport($event)"
-  (export)="confirmExport()"
-  (exportTemplate)="exportFileTemplate()"
->
-</app-table-sunheader-file> -->
+
 
 <app-table-filter></app-table-filter>
 
-<!-- <app-table
-  [column]="column"
-  [rows]="rows"
-  [columnsData]="columnsData"
 
->
-</app-table> -->
-
-<!-- <app-paginator
-  [total]="total"
-  [count]="count"
-  [start]="start"
-  [limits]="limits"
-  (startChange)="onStartChange($event)"
-  (countChange)="onCountChange($event)"
->
-</app-paginator> -->
 
 <app-dynamic-table *ngIf="requestListParam"
   [rows]="requestList"
@@ -39,16 +18,7 @@
 >
 </app-dynamic-table>
 
-<!-- <ng-template #exportDialogRef let-data>
-  <h1 mat-dialog-title>Экспорт</h1>
-  <div mat-dialog-content>
-    Экспортировать данные о запросах в Excel файл ?
-  </div>
-  <div mat-dialog-actions align="end">
-    <button mat-button [mat-dialog-close]="true" cdkFocusInitial>Да</button>
-    <button mat-button mat-dialog-close>Нет</button>
-  </div>
-</ng-template> -->
+
 
 <ng-template #importDialogRef let-data>
   <h1 mat-dialog-title>Импорт</h1>
@@ -81,4 +51,4 @@
       ОТМЕНА
     </button>
   </div>
-</ng-template>
+</ng-template> -->

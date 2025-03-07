@@ -86,23 +86,23 @@ export class CompanyEditorComponent extends SettingsEditor<Company> implements O
     this.loadCurrencies();
     this.loadEmployees();
   }
-  
+
   protected create(params: {body: Omit<Company, 'id'>}) {
-   return this.companyService.companyCreate(params as any); 
+   return this.companyService.companyCreate(params as any);
   }
-  
+
   protected read(params: { id: number; }): Observable<Company> {
     return this.companyService.companyInfo(params) as Observable<Company>;
   }
-  
+
   protected update(params: { body: Partial<Company>; }): Observable<void> {
     return this.companyService.companyUpdate(params as any) as unknown as Observable<void>;
   }
-  
+
   protected delete(params: {body: { id: number; }}): Observable<void> {
     return this.companyService.companyDelete(params) as unknown as Observable<void>;
   }
-  
+
   protected getNameForHeader(body: Company): string {
     return body.name;
   }

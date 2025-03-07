@@ -9,7 +9,7 @@ import { Injectable } from '@angular/core';
   providedIn: 'root',
 })
 export class ApiConfiguration {
-  rootUrl: string = 'https://cargodrom.com/api/1.0';
+  rootUrl: string = 'https://dev.cargodrom.com/api/1.0';
 }
 
 /**

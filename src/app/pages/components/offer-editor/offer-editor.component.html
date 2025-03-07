@@ -4,7 +4,7 @@
   [request]="request"
 >
   <div btns class="btns" style="margin-top: 0;">
-    <button class="ord" type="button" (click)="onSubmit()" [style.visibility]="returnVisibilityOrdBtn()?'visible':'hidden'">создать заказ</button>
+    <button class="ord" type="button" (click)="onCreateOrder()" [style.visibility]="returnVisibilityOrdBtn()?'visible':'hidden'">создать заказ</button>
     <button class="sav" type="submit" (click)="onSubmit()">сохранить</button>
     <button class="pdf" type="button" (click)="getOfferPdf()">просмотр</button>
     <button class="txt" type="button" (click)="getOfferTxt()">просмотр</button>
@@ -40,6 +40,11 @@
             <mat-option *ngFor="let currency of currencyList;" [value]="currency.id" >{{ currency.code }}</mat-option>
           </mat-select>
         </mat-form-field>
+
+          <!-- <mat-select formControlName="one_profit_amount_currency" (valueChange)="setChange()">
+            <mat-option *ngFor="let currency of currencyList;" [value]="currency.id" >{{ currency.code }}</mat-option>
+          </mat-select> -->
+
         или
         <input type="number" formControlName="one_profit_percent" (keyup)="setChange();resetAmount(kpForm.get('param.custom'))">
         <p>%</p>

@@ -38,7 +38,7 @@ export class DepartmentEmployeeComponent extends Table<Employee, 'fio'> {
 
   load<Employee>(params: { start?: number; count?: number; sort?: SortColumn<Employee>[]; }): Observable<{ total: number; items: Employee[]; }> {
     const queryParams = { ...params, department_id: this.departmentId }
-    
+
     return this.companyService.companyEmployeeList(queryParams as any) as unknown as Observable<{ total: number; items: Employee[]; }>;
   }
 

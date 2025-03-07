@@ -42,11 +42,12 @@ import { RateAddPoint } from './components/request-details/rate-add-point/rate-a
 import { RateAddTransporter } from './components/request-details/rate-add-transporter/rate-add-transporter.component';
 import { RateAddCustoms } from './components/request-details/rate-add-customs/rate-add-customs.component';
 import { OfferEditorComponent } from './components/offer-editor/offer-editor.component';
-import { RequestPage } from './places/request/request.component';
+// import { RequestPage } from './places/request/request.component';
 import { RequestTableComponent } from './components/request-table/request-table.component';
 import { TableSubheaderFileComponent } from './components/table-subheader/file-subheader/file-subheader.component';
-import { TableComponent } from './tables/table/table.component';
+// import { TableComponent } from './tables/table/table.component';
 import { DynamicTableComponent } from './tables/dynamic-table/dynamic-table.component';
+import { EmployeeRegisterComponent } from './components/employee-register/employee-register.component';
 
 
 
@@ -93,13 +94,14 @@ import { DynamicTableComponent } from './tables/dynamic-table/dynamic-table.comp
 
     OfferEditorComponent,
 
-    RequestPage,
-      RequestTableComponent,
+    // RequestPage,
+    //   RequestTableComponent,
 
     TableSubheaderFileComponent,
-    TableComponent,
+    // TableComponent,
 
     DynamicTableComponent,
+    EmployeeRegisterComponent,
 
   ],
   imports: [

@@ -161,6 +161,16 @@ export class SystemService extends BaseService {
  * Наименование
  */
 'name'?: string;
+
+/**
+ * Курс
+ */
+'currency'?: number;
+
+/**
+ * Символ
+ */
+'char'?: string;
 }>>> {
     const rb = new RequestBuilder(this.rootUrl, SystemService.SystemCurrencyPath, 'get');
     if (params) {
@@ -187,6 +197,16 @@ export class SystemService extends BaseService {
          * Наименование
          */
         'name'?: string;
+        
+        /**
+         * Курс
+         */
+        'currency'?: number;
+        
+        /**
+         * Символ
+         */
+        'char'?: string;
         }>>;
       })
     );
@@ -222,6 +242,16 @@ export class SystemService extends BaseService {
  * Наименование
  */
 'name'?: string;
+
+/**
+ * Курс
+ */
+'currency'?: number;
+
+/**
+ * Символ
+ */
+'char'?: string;
 }>> {
     return this.systemCurrency$Response(params, context).pipe(
       map((r: StrictHttpResponse<Array<{
@@ -240,6 +270,16 @@ export class SystemService extends BaseService {
  * Наименование
  */
 'name'?: string;
+
+/**
+ * Курс
+ */
+'currency'?: number;
+
+/**
+ * Символ
+ */
+'char'?: string;
 }>>): Array<{
 
 /**
@@ -256,6 +296,16 @@ export class SystemService extends BaseService {
  * Наименование
  */
 'name'?: string;
+
+/**
+ * Курс
+ */
+'currency'?: number;
+
+/**
+ * Символ
+ */
+'char'?: string;
 }> => r.body)
     );
   }

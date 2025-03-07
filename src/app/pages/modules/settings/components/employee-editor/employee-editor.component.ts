@@ -5,10 +5,11 @@ import { Component, OnInit, ViewEncapsulation } from '@angular/core';
 import { FormBuilder, Validators } from '@angular/forms';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { ActivatedRoute, Router } from '@angular/router';
-import { Observable } from 'rxjs';
+import { Observable, takeUntil, tap } from 'rxjs';
 import { Employee } from './../../../../../api/custom_models/employee';
 import { CompanyService } from './../../../../../api/services/company.service';
 import { SettingsEditor } from '../../classes/settings-editor';
+import { UserService } from 'src/app/api/services';
 
 @Component({
   selector: 'app-employee-editor',
@@ -24,7 +25,7 @@ export class EmployeeEditorComponent extends SettingsEditor<Employee> implements
   removedMessage = `${this.entity} удален`;
   createdMessage = `${this.entity} создан`;
   notFoundMessage = `${this.entity} не найден`;
-  
+
   constructor(
     private fb: FormBuilder,
     snackBar: MatSnackBar,
@@ -33,20 +34,21 @@ export class EmployeeEditorComponent extends SettingsEditor<Employee> implements
     systemService: SystemService,
     location: Location,
     router: Router,
+    private userSevrice: UserService,
   ) {
     super(location, companyService, systemService, route, snackBar, router);
     this.form = this.fb.group({
       id: [''],
       name_f: ['', [Validators.required]],
       name_i: ['', [Validators.required]],
-      name_o: ['', [Validators.required]],
+      name_o: [''],
       birth_date: [''],
       company_id: ['', [Validators.required]],
       department_id: ['', [Validators.required]],
       position_id: ['', [Validators.required]],
       employment_date: [''],
       dismissal_date: [''],
-      email: ['', [Validators.required, emailValidator]],
+      email: ['', [emailValidator]],
       phone: [''],
       skype: [''],
     });
@@ -80,8 +82,26 @@ export class EmployeeEditorComponent extends SettingsEditor<Employee> implements
   protected delete(params: { body: { id: number; } }): Observable<void> {
     return this.companyService.companyEmployeeDelete(params) as unknown as Observable<void>;
   }
-  
+
   protected getNameForHeader(body: Employee): string {
     return `${body.name_f} ${body.name_i} ${body.name_o}`;
+  }
+
+  registerUser(){
+    if(!this.data.id){
+      return
+    }
+    this.userSevrice.userCreateInvite({body:{id:this.data.id}})
+      .pipe(
+        tap((data) => {}),
+      )
+      .subscribe({
+        next: (data:any) => {
+          this.snackBar.open(`Приглашение отправленнно `, undefined, this.snackBarWithShortDuration);
+        },
+        error: (err) => {
+          this.snackBar.open(`Ошибка при отправке приглашения : ` + err.error.error_message, undefined, this.snackBarWithShortDuration);
+        }
+      });
   }
 }

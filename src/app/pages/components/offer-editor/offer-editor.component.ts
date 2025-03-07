@@ -2,7 +2,7 @@ import { Component, OnDestroy, OnInit, TemplateRef, ViewChild, ViewEncapsulation
 import { FormArray, FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute } from '@angular/router';
 import { Subject, takeUntil, tap, debounceTime, distinctUntilChanged } from 'rxjs';
-import { RequestService, SystemService } from 'src/app/api/services';
+import { OrderService, RequestService, SystemService } from 'src/app/api/services';
 import { MatSnackBar, MatSnackBarConfig } from '@angular/material/snack-bar';
 import { MatDialog } from '@angular/material/dialog';
 import { formatDate } from '@angular/common';
@@ -48,6 +48,7 @@ export class OfferEditorComponent implements OnInit, OnDestroy {
     private systemService: SystemService,
     private snackBar: MatSnackBar,
     private matDialog: MatDialog,
+    private orderService: OrderService,
   ) { }
 
   ngOnInit(): void {
@@ -63,7 +64,7 @@ export class OfferEditorComponent implements OnInit, OnDestroy {
       }),
       valid: ['', Validators.required],
       status: [0, Validators.required],
-      comment: ['аыаыва']
+      comment: ['']
     });
     this.getOffer();
     this.getCurrency();
@@ -283,7 +284,7 @@ export class OfferEditorComponent implements OnInit, OnDestroy {
     services.push(newService); // Добавляем новый элемент в 'services'
   }
 
-  //REQEUSTS
+
   onSubmit(): void {
     this.saveOffer();
     if (this.kpForm.valid) {
@@ -293,8 +294,40 @@ export class OfferEditorComponent implements OnInit, OnDestroy {
     }
   }
 
-  delRate(rate_id:number){
-    this.requestService.requestOfferDelRate({id: this.offer.id, rate_id:rate_id}).pipe(
+  onCreateOrder(){
+    this.requestService.requestOfferSave({body:this.kpForm.value}).pipe(
+      tap((offer) => {
+        console.log(offer);
+      }),
+      takeUntil(this._destroy$)
+    ).subscribe({
+      next: (offer) => {
+        this.createOrder();
+      },
+      error: (err) => {
+        this.snackBar.open(`Ошибка создания заказа: ` + err.error.error_message, undefined, this.snackBarWithShortDuration);
+      }
+    });
+  }
+
+  createOrder(){
+    this.orderService.orderMakeFromOffer({body:{id: this.offer.id}}).pipe(
+      tap((offer) => {
+        console.log(offer);
+      }),
+      takeUntil(this._destroy$)
+    ).subscribe({
+      next: (offer) => {
+        this.snackBar.open(`Заказ успешно создан`, undefined, this.snackBarWithShortDuration);
+      },
+      error: (err) => {
+        this.snackBar.open(`Ошибка создания заказа: ` + err.error.error_message, undefined, this.snackBarWithShortDuration);
+      }
+    });
+  }
+
+  saveOffer(){
+    this.requestService.requestOfferSave({body:this.kpForm.value}).pipe(
       tap((offer) => {
         console.log(offer);
       }),
@@ -309,8 +342,8 @@ export class OfferEditorComponent implements OnInit, OnDestroy {
     });
   }
 
-  saveOffer(){
-    this.requestService.requestOfferSave({body:this.kpForm.value}).pipe(
+  delRate(rate_id:number){
+    this.requestService.requestOfferDelRate({id: this.offer.id, rate_id:rate_id}).pipe(
       tap((offer) => {
         console.log(offer);
       }),

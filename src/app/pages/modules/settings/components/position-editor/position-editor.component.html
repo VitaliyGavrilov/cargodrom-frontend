@@ -41,7 +41,92 @@
       </div>
     </div>
   </form>
+
+  <form class="form" [formGroup]="form" *ngIf="data" >
+  <table class="table-list" formArrayName="permission">
+
+    <thead>
+      <tr>
+        <th>
+          <div class="td-block" >
+            <div class="column">
+              <label>
+                <mat-checkbox
+                  (change)="onChangeCheckboxFullPermission($event)"
+                  [indeterminate]="isIndeterminateFullPermission()"
+                  [ngClass]="isIndeterminateFullPermission()?'mat-mdc-checkbox-indeterminate':''"
+                  [checked]="isCheckedFullPermission()"
+                >
+                </mat-checkbox>
+                Полный доступ в систему
+              </label>
+            </div>
+          </div>
+        </th>
+
+        <th *ngFor="let col of data?.permission?.columns">
+          <div class="td-block">
+            <label>
+              <div class="column">{{col.name}}</div>
+              <mat-checkbox
+                (change)="onChangeCheckboxCol($event,col.field)"
+                [indeterminate]="isIndeterminateCol(col.field)"
+                [ngClass]="isIndeterminateCol(col.field)?'mat-mdc-checkbox-indeterminate':''"
+                [checked]="isCheckedCol(col.field)"
+              >
+              </mat-checkbox>
+            </label>
+          </div>
+        </th>
+      </tr>
+    </thead>
+
+    <tbody>
+      <ng-container *ngFor="let row of permission.controls; let i = index" [formGroupName]="i">
+        <tr formGroupName="values">
+
+          <td>
+            <div class="td-block" (click)="loge()">
+              <div class="column " >
+                {{row.value.name}}
+                <div *ngFor="let rule of row.value.rules">
+                  <label>
+                    {{data.permission.rule[rule]}}
+                    <mat-checkbox
+                      [checked]="isCheckedRow(row.value.values,rule)"
+                      (change)="onChangeCheckboxRow($event,rule,row)"
+                      [indeterminate]="isIndeterminateRow(row.value.values,rule)"
+                      [ngClass]="isIndeterminateRow(row.value.values,rule)?'mat-mdc-checkbox-indeterminate':''">
+                    </mat-checkbox>
+                  </label>
+                </div>
+              </div>
+            </div>
+          </td>
+
+          <td *ngFor="let col of data?.permission?.columns;let j= index" >
+            <div class="td-block" >
+              <div class="column">
+                <div *ngFor="let rule of row.value.rules">
+                  <label>
+                    <input type="radio" [formControlName]="col.field" [value]="rule" (click)="onChangeRadioBtnRow(row, col.field, rule)">
+                  </label>
+                </div>
+                <!-- <mat-radio-group [formControlName]="col.field">
+                  <mat-radio-button *ngFor="let rule of row.value.rules"  [value]="rule"></mat-radio-button>
+                </mat-radio-group> -->
+              </div>
+            </div>
+          </td>
+
+        </tr>
+      </ng-container>
+    </tbody>
+
+  </table>
+</form>
 </div>
+
 
 <ng-template #error let-name="name">
   <div class="error" *ngIf="isFormSubmitted && hasError(name)">{{ getError(name) }}</div>

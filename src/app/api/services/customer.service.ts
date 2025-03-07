@@ -142,7 +142,7 @@ export class CustomerService extends BaseService {
 'address_legal'?: string;
 
 /**
- * Юридический адрес
+ * Почтовый адрес
  */
 'address_post'?: string;
 
@@ -502,7 +502,7 @@ export class CustomerService extends BaseService {
         'address_legal'?: string;
         
         /**
-         * Юридический адрес
+         * Почтовый адрес
          */
         'address_post'?: string;
         
@@ -914,7 +914,7 @@ export class CustomerService extends BaseService {
 'address_legal'?: string;
 
 /**
- * Юридический адрес
+ * Почтовый адрес
  */
 'address_post'?: string;
 
@@ -1258,7 +1258,7 @@ export class CustomerService extends BaseService {
 'address_legal'?: string;
 
 /**
- * Юридический адрес
+ * Почтовый адрес
  */
 'address_post'?: string;
 
@@ -1600,7 +1600,7 @@ export class CustomerService extends BaseService {
 'address_legal'?: string;
 
 /**
- * Юридический адрес
+ * Почтовый адрес
  */
 'address_post'?: string;
 
@@ -2915,7 +2915,7 @@ export class CustomerService extends BaseService {
 'address_legal'?: string;
 
 /**
- * Юридический адрес
+ * Почтовый адрес
  */
 'address_post'?: string;
 
@@ -3263,7 +3263,7 @@ export class CustomerService extends BaseService {
         'address_legal'?: string;
         
         /**
-         * Юридический адрес
+         * Почтовый адрес
          */
         'address_post'?: string;
         
@@ -3624,7 +3624,7 @@ export class CustomerService extends BaseService {
 'address_legal'?: string;
 
 /**
- * Юридический адрес
+ * Почтовый адрес
  */
 'address_post'?: string;
 
@@ -3963,7 +3963,7 @@ export class CustomerService extends BaseService {
 'address_legal'?: string;
 
 /**
- * Юридический адрес
+ * Почтовый адрес
  */
 'address_post'?: string;
 
@@ -4300,7 +4300,7 @@ export class CustomerService extends BaseService {
 'address_legal'?: string;
 
 /**
- * Юридический адрес
+ * Почтовый адрес
  */
 'address_post'?: string;
 
@@ -4641,7 +4641,7 @@ export class CustomerService extends BaseService {
 'address_legal'?: string;
 
 /**
- * Юридический адрес
+ * Почтовый адрес
  */
 'address_post'?: string;
 
@@ -4925,7 +4925,7 @@ export class CustomerService extends BaseService {
 'address_legal'?: string;
 
 /**
- * Юридический адрес
+ * Почтовый адрес
  */
 'address_post'?: string;
 
@@ -5218,7 +5218,7 @@ export class CustomerService extends BaseService {
 'address_legal'?: string;
 
 /**
- * Юридический адрес
+ * Почтовый адрес
  */
 'address_post'?: string;
 
@@ -5497,7 +5497,7 @@ export class CustomerService extends BaseService {
 'address_legal'?: string;
 
 /**
- * Юридический адрес
+ * Почтовый адрес
  */
 'address_post'?: string;
 
