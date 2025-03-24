@@ -4,7 +4,7 @@ import { LoadParams, Table } from '../../../classes';
 import { MatDialog } from '@angular/material/dialog';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { ActivatedRoute, Router } from '@angular/router';
-import { Observable, map } from 'rxjs';
+import { Observable, map, takeUntil, tap } from 'rxjs';
 import { FilterService } from 'src/app/filter/services/filter.service';
 import { RequestService } from 'src/app/api/services';
 import { Request, RequestFilter } from 'src/app/api/custom_models/request';
@@ -19,6 +19,7 @@ import { Request, RequestFilter } from 'src/app/api/custom_models/request';
 
 export class RequestComponent extends Table<Request, 'id', RequestFilter> {
   sortField = 'id' as const;
+
 
   // params:any;
 
@@ -78,14 +79,14 @@ export class RequestComponent extends Table<Request, 'id', RequestFilter> {
 
   getVal(obj: any, path: string): any {
     if (!path?.includes('/')) {
-        return obj[path] !== undefined ? obj[path] : null;
+      return obj[path] !== undefined ? obj[path] : null;
     }
     const keys = path?.split('/');
     for (const key of keys) {
       if (obj && obj.hasOwnProperty(key)) {
           obj = obj[key];
       } else {
-          return null; // Если ключ не найден, возвращаем null
+        return null; // Если ключ не найден, возвращаем null
       }
     }
     return obj !== undefined ? obj : null; // Проверка на undefined
@@ -97,6 +98,45 @@ export class RequestComponent extends Table<Request, 'id', RequestFilter> {
   navigateOnClient(clientId:any){
     this.router.navigate(['pages/customer/edit', clientId])
   }
+
+  updateRequest(request:any){
+    const body ={
+      status_crm_id: request.status_crm_id,
+      id: request.id
+    };
+    this.requestService.requestUpdate({body}).pipe().subscribe({
+      next: () => {
+        this.snackBar.open(
+          `Статус CRM успешно изменён`,
+          undefined,
+          this.snackBarWithShortDuration
+        );
+      },
+      error: (err) => {
+        this.snackBar.open(
+          `Ошибка редактирования CRM статуса запроса: ` + err.error.error_message,
+          undefined,
+          this.snackBarWithShortDuration
+        );
+      }
+    });
+  }
+
+  tableRequest_returnColorCrmStatus(value:any){
+    if (!this.requestCrmStatuses) return '';
+    const obj = this.requestCrmStatuses.find(obj => obj.id === value);
+    return obj?.color || '';
+  }
+
+  getTypeClass(kind_id:number){
+    let classSpec='';
+    if(kind_id===1)classSpec='type avia';
+    if(kind_id===2)classSpec='type road';
+    if(kind_id===3)classSpec='type rw';
+    if(kind_id===4)classSpec='type sea';
+    return classSpec;
+  }
+
 }
 
 // constructor(

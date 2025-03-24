@@ -1,0 +1,22 @@
+
+.table-list .td-block .column {
+  position: relative;
+}
+.resize-handle_start{
+  width: 2px;
+  height: 100%;
+  background-color: #ccc;
+  cursor: col-resize;
+  position: absolute;
+  left: 5px;
+  top: 0;
+}
+.resize-handle_end{
+  width: 2px;
+  height: 100%;
+  background-color: #ccc;
+  cursor: col-resize;
+  position: absolute;
+  right: 5px;
+  top: 0;
+}

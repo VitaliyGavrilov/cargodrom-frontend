@@ -1,5 +1,6 @@
 import { UserService } from './api/services/user.service';
 import { Component, ViewEncapsulation } from '@angular/core';
+import { LoaderService } from '../app/pages/services/loader.service';
 
 @Component({
   selector: 'app-root',
@@ -9,12 +10,13 @@ import { Component, ViewEncapsulation } from '@angular/core';
 })
 export class AppComponent {
   title = 'cargodrom-frontend';
+  isLoading$ = this.loaderService.isLoading$;
 
-  constructor(private userService: UserService) {
-
+  constructor(
+    private userService: UserService,
+    private loaderService: LoaderService) {
   }
 
   ngOnInit(): void {
-
   }
 }

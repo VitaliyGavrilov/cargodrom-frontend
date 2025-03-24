@@ -43,7 +43,7 @@
           text-align: left;
           span{
             font-weight: 700;
-            margin-left: 5px;
+            // margin-left: 5px;
           }
         }
         .percent{
@@ -141,6 +141,7 @@
           line-height: 12px;
         }
         .data{
+          display: flex;
           font-size: 15px;
           font-weight: 700;
           line-height: 14px;

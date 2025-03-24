@@ -17,9 +17,12 @@
         <div class="contractor_block" >
           <div style="display: flex; justify-content: space-between;">
             <div class="agent_block">
-              <div class="label">{{detailsMethod==='transporter'?'Подрядчик:':'Агент авиалинии:'}}</div>
-              <div>{{detailsMethod==='transporter'?rate.contractor.name:rate?.carrier?.name}}</div>
-              <div class="detailed">Подробнее  ></div>
+              <!-- <div class="label">{{detailsMethod==='transporter'?'Подрядчик:':'Агент авиалинии:'}}</div> -->
+              <div class="label">Подрядчик:</div>
+              <!-- <div>{{detailsMethod==='transporter'?rate.contractor.name:rate?.carrier?.name}}</div> -->
+              <div>{{rate.contractor.name}}</div>
+              <!-- <div class="detailed">Подробнее  ></div> -->
+              <a [href]="'#/pages/contractor/edit/' + (rate.contractor.id?rate.contractor.id:rate.contractor_id)"  target="_blank" class="detailed">Подробнее  ></a>
             </div>
             <div class="link_block">
               <div class="pic msg"></div>
@@ -53,21 +56,54 @@
       <ng-template [ngSwitchCase]="'point'">
         <div class="airport_block">
           <div class="label">Аэропорт:</div>
-          <div class="data">{{rate?.point?.name}}</div>
-          <div class="details">?????? 142015, Московская область, г. Домодедово, территория "Аэропорт "Домодедово", строение 7/1</div>
+          <div class="data">
+            {{rate?.point?.name}}
+            <!-- <button class="btn-map-blue"></button> -->
+            <a class="btn-map-blue"
+              title="Open dispatch address in Google maps"
+              href="https://www.google.com/maps/search/?api=1&amp;query={{rate.point.name}},"
+              target="_blank">
+            </a>
+            <button class="btn-globe-blue"></button>
+          </div>
+          <div class="details" *ngIf="rate.point.svh_address">{{rate.point.svh_address}}</div>
+
+          <!-- <iframe
+            width="100%"
+            height="450"
+            frameborder="0"
+            style="border:0"
+            [src]="yandexMapUrl(rate?.point?.name)"
+            allowfullscreen>
+          </iframe> -->
         </div>
       </ng-template>
 
     </div>
 
-    <div class="second_col" [ngSwitch]="detailsMethod">
+    <div class="second_col">
+      <div class="title">Данные по ставке</div>
+      <div class="items">
+        <ng-container *ngFor="let i of rate.summary_data">
+          <ng-container *ngTemplateOutlet="rateDataItem; context: { label: i.name, data: i.value }"></ng-container>
+        </ng-container>
+      </div>
+    </div>
+
+    <!-- <div class="second_col" [ngSwitch]="detailsMethod">
       <ng-template [ngSwitchCase]="'customs'">
         <div class="title">Данные по ставке</div>
         <div class="items">
-          <ng-container *ngTemplateOutlet="rateDataItem; context: { label: 'Транзитный срок:', data: rate?.valid_time }"></ng-container>
-          <ng-container *ngTemplateOutlet="rateDataItem; context: { label: 'Ставка до:', data: rate?.contractor?.trade_success_count }"></ng-container>
-          <ng-container *ngTemplateOutlet="rateDataItem; context: { label: 'Линия:', data: rate?.carrier_text }"></ng-container>
-          <ng-container *ngTemplateOutlet="rateDataItem; context: { label: 'Маршрут:', data: rate?.route_text }"></ng-container>
+          <ng-container *ngFor="let i of rate.summary_data">
+            <ng-container *ngTemplateOutlet="rateDataItem; context: { label: i.name, data: i.value }"></ng-container>
+          </ng-container>
+        </div>
+
+        <div class="items">
+          <ng-container *ngTemplateOutlet="rateDataItem; context: { label: 'Транзитный срок:', data: rate?.transit_time_text +' дн.' }"></ng-container>
+          <ng-container *ngTemplateOutlet="rateDataItem; context: { label: 'Ставка до:', data: rate?.contractor.trade_success_count?rate?.contractor.trade_success_count:'Не предоставлена' }"></ng-container>
+          <ng-container *ngTemplateOutlet="rateDataItem; context: { label: 'Авиалиния:', data: rate?.carrier.name}"></ng-container>
+          <ng-container *ngTemplateOutlet="rateDataItem; context: { label: 'Маршрут:', data: rate?.route_name }"></ng-container>
           <ng-container *ngTemplateOutlet="rateDataItem; context: { label: 'Плотность груза (кг/м3):', data: rate?.request?.cargo_places_density }"></ng-container>
           <ng-container *ngTemplateOutlet="rateDataItem; context: { label: 'Оплачиваемый вес (кг):', data: rate?.request?.cargo_places_paid_weight }"></ng-container>
           <ng-container *ngTemplateOutlet="rateDataItem; context: { label: 'Кол-во мест:', data: rate?.request?.cargo_places_count }"></ng-container>
@@ -98,10 +134,10 @@
           <ng-container *ngTemplateOutlet="rateDataItem; context: { label: 'Срок:', data: '????' }"></ng-container>
           <ng-container *ngTemplateOutlet="rateDataItem; context: { label: 'Авиалиния:', data: rate?.departure_schedule_text?.join(', ').toUpperCase()}"></ng-container>
           <ng-container *ngTemplateOutlet="rateDataItem; context: { label: 'Объем (м3):', data: '????' }"></ng-container>
-          <ng-container *ngTemplateOutlet="rateDataItem; context: { label: 'Маршрут:', data: '????' }"></ng-container>
+          <ng-container *ngTemplateOutlet="rateDataItem; context: { label: 'Маршрут:', data: rate?.route_name }"></ng-container>
         </div>
       </ng-template>
-    </div>
+    </div> -->
 
     <div class="third_col"  [ngSwitch]="detailsMethod">
 
@@ -130,7 +166,7 @@
           <div>{{item.kind.name}}</div>
           <div style="flex-grow: 1;">{{item.arrival_city.name}}-{{item.departure_city.name}}</div>
           <div>{{item.days_min}}-{{item.days_max}}</div>
-          <div style="flex-grow: 2;">{{item.comment}}</div>
+          <div style="flex-grow: 2;">{{item?.comment}}</div>
           <div>{{item.amount}}</div>
         </div>
       </ng-template>
@@ -141,7 +177,7 @@
 
   </div>
 
-  <div class="second_row">
+  <div class="second_row" *ngIf="rate.comment">
     <div class="comment_block">
       <div class="label">
         <span class="pic-i-grey">i</span>Примечание:

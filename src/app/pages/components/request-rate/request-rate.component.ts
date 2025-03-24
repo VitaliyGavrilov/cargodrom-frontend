@@ -154,7 +154,19 @@ export class RequestRateComponent implements OnInit, OnDestroy {
         takeUntil(this._destroy$))
       .subscribe({
         next: (res:any) => {
-          this.snackBar.open(`Данные сохранены`, undefined, this.snackBarWithLongDuration);
+          this.snackBar.open(
+            this.requestForm.value.rates.length>1
+            ?`Ваши предложения в количестве ${this.requestForm.value.rates.length}-х ставок были отправлены`
+            :`Ставка была отправлена`,
+            undefined,
+            {
+              duration: 2000,
+              verticalPosition: 'top', // Позиционирование по вертикали
+              horizontalPosition: 'center', // Позиционирование по горизонтали
+              panelClass: ['centered-snackbar'] // Кастомный класс для стилизации
+            }
+          );
+          // this.snackBar.open(`Данные сохранены`, undefined, this.snackBarWithLongDuration);
         },
         error: (err) => {
           this.snackBar.open(`Ошибка получения перевода запроса: ` + err.error.error_message, undefined, this.snackBarWithShortDuration)

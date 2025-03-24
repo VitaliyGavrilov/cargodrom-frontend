@@ -9,7 +9,7 @@
 
 
 .logo-box{
-  width: 100%;
+  // width: 100%;
   height: 80px;
   background: #fff;
   border: 1px solid #c3ccd6;
@@ -130,6 +130,13 @@ div{
 div.mat-calendar-body-selected, .mat-calendar-body-cell.selected .mat-calendar-body-cell-content {
   background: #DB563B;
   border-radius: 6px;
+}
+.mat-calendar-body-cell.disabled-date{
+  pointer-events: none; /* Отключаем клики */
+}
+.disabled-date .mat-calendar-body-cell-content{
+  color: #ccc; /* Серый цвет текста */
+  text-decoration: line-through; /* Перечеркиваем текст */
 }
 
 .form-row .form-row-title{

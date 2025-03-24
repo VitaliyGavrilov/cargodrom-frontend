@@ -146,6 +146,18 @@
 
 .table-list{
   margin: 0 20px;
+  .transport-type{
+    width: 20px;
+    height: 20px;
+    background-position: center;
+    margin: 0 auto;
+  }
+  .avia_direct{
+    background-image: url(../../../../assets/pic-transport-type-air.svg);
+  }
+  .avia_transit{
+    background-image: url(../../../../assets/pic-transport-type-air2.svg);
+  }
   .w64px{
     width: 64px;
     max-width: 64px;
@@ -168,14 +180,14 @@ tr{
   border-right: 1px solid rgba(0, 0, 0, 0.12);
 }
 .table-list.rate table tr:nth-child(even) td {
-  background: #F7F9FC;
+  background: #EDF2F7;
 
 }
 .table-list table tr:nth-child(odd) td {
   background: white;
 }
 .table-list table tr.example-expanded-row td {
-  background: #F7F9FC;
+  background: #EDF2F7;
 }
 tr.example-detail-row {
   height: 0;
@@ -200,7 +212,7 @@ tr.example-detail-row {
     align-items: center;
     .cost{
       padding: 20px;
-      background-color: white;
+      background-color: #FFFFFF;
       border: 1px solid #E0E5EB;
       height: 100%;
       box-sizing: border-box;
@@ -274,6 +286,9 @@ tr.example-detail-row {
   color: white;
 }
 
+.request-actions button.tor:before{
+  background-image: url(../../../../assets/pic-btn-trade-red.svg);
+}
 .request-actions button.det:before{
   background-image: url(../../../../assets/pic-btn-detail.svg);
 }

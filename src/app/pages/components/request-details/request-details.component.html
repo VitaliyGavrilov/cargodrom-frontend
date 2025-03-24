@@ -1,20 +1,35 @@
-
-<div class="subheader">
-  <app-request-info-block [request]="currentRequest"></app-request-info-block>
+<div class="subheader" >
+  <div class="main_page_info">
+    <div class="back" [routerLink]="['../../../../request']"></div>
+    <app-request-info-block  [request]="currentRequest"></app-request-info-block>
+  </div>
   <div class="request-actions">
+    <button class="tor" (click)="navToBidTable()">Торги</button>
     <button class="det" (click)="onDetailsRequestBtnClick()" [style.border]="isExpandedRequestInfo?'1px solid #DB563B':'1px solid white'">Детали</button>
     <button class="edi" (click)="onEditRequestBtnClick()">Правка</button>
     <button class="dub" (click)="onDubRequestBtnClick()">Дубль</button>
     <button class="del" (click)="onDeleteRequestBtnClick()">Удалить</button>
   </div>
 </div>
+
+<!-- <div class="subheader">
+  <app-request-info-block [request]="currentRequest"></app-request-info-block>
+  <div class="request-actions">
+    <button class="tor" (click)="navToBidTable()">Торги</button>
+    <button class="det" (click)="onDetailsRequestBtnClick()" [style.border]="isExpandedRequestInfo?'1px solid #DB563B':'1px solid white'">Детали</button>
+    <button class="edi" (click)="onEditRequestBtnClick()">Правка</button>
+    <button class="dub" (click)="onDubRequestBtnClick()">Дубль</button>
+    <button class="del" (click)="onDeleteRequestBtnClick()">Удалить</button>
+  </div>
+</div> -->
+
 <!-- *ngIf="isExpandedRequestInfo" -->
 <div class="expanded-request-info test" [ngClass]="isExpandedRequestInfo?'visible':''">
   <div class="columns">
     <div class="col" style="width: 50%;">
-      <div class="title">Route of Transportation</div>
+      <div class="title">Направления</div>
       <div class="item w1">
-        <div class="field">Dispatch</div>
+        <div class="field">Отправление</div>
         <div class="info">
           {{currentRequest?.departure_text}}
           <!-- {{currentRequest?.departure_country_name}}, {{currentRequest?.departure_city_name}}, {{currentRequest?.departure_address}} -->
@@ -22,7 +37,7 @@
         </div>
       </div>
       <div class="item w1">
-        <div class="field">Destination</div>
+        <div class="field">Назначения</div>
         <div class="info">
           {{currentRequest?.arrival_text}}
           <!-- {{currentRequest?.arrival_country_name}}, {{currentRequest?.arrival_city_name}}, {{currentRequest?.arrival_address}}
@@ -31,20 +46,20 @@
       </div>
     </div>
     <div class="col">
-      <div class="title w1">Cargo Details</div>
+      <div class="title w1">Описание груза</div>
 
       <div class="item w4">
-        <div class="field">Type of cargo:</div>
+        <div class="field">Тип груза:</div>
         <div class="info">{{currentRequest?.cargo_type_text}}</div>
       </div>
 
       <div class="item w4">
-        <div class="field">Cargo name:</div>
+        <div class="field">Названия груза:</div>
         <div class="info">{{currentRequest?.cargo_description}}</div>
       </div>
 
       <div class="item w2">
-        <div class="field">Details total:</div>
+        <div class="field">Итого:</div>
         <div class="info">
           {{currentRequest?.cargo_places_count}}<span> pcs </span>
           <span class="space">/</span>
@@ -57,11 +72,11 @@
       </div>
 
       <div class="item w4">
-        <div class="field">Cargo readiness:</div>
+        <div class="field">Готовность груза:</div>
         <div class="info">{{currentRequest?.cargo_readiness}}</div>
       </div>
       <div class="item w4">
-        <div class="field">Incoterms</div>
+        <div class="field">Условия поставки</div>
         <div class="info">{{currentRequest?.incoterms_name}} {{currentRequest?.incoterms_city_name}}</div>
       </div>
       <!-- <div class="item w4">
@@ -77,24 +92,28 @@
         </div>
       </div> -->
       <div class="item w2">
-        <div class="field">Conditions of carriage:</div>
-        <div class="info">?????????????????</div>
+        <div class="field">Условия перевозки:</div>
+        <div class="info">{{currentRequest?.translate?.ru?.cargo_condition_carriage}}</div>
       </div>
     </div>
     <div class="col">
-      <div class="w1 title">Dimensions</div>
-      <div class="w1 dime">{{currentRequest?.cargo_dimensions}}</div>
+      <div class="w1 title">Размеры</div>
+      <textarea
+        class="info"
+        style="resize: none; border: none;font-weight: bold; color: #2C3640; font-size: 16px; width: 100%; min-height: 100px; text-indent: none;"
+        readonly
+      >{{currentRequest?.translate?.ru?.cargo_dimensions}}</textarea>
+      <!-- <div class="w1 dime">????????????????? (1200 x 20 x 20, 110 kg) x 11 Wooden pallets - Stackable</div>
       <div class="w1 dime">????????????????? (1200 x 20 x 20, 110 kg) x 11 Wooden pallets - Stackable</div>
-      <div class="w1 dime">????????????????? (1200 x 20 x 20, 110 kg) x 11 Wooden pallets - Stackable</div>
-      <div class="w1 dime">????????????????? (1200 x 20 x 20, 110 kg) x 11 Wooden pallets - Stackable</div>
+      <div class="w1 dime">????????????????? (1200 x 20 x 20, 110 kg) x 11 Wooden pallets - Stackable</div> -->
     </div>
   </div>
-  <div class="row">
-    <div class="title">Comment</div>
+  <div class="row" *ngIf="currentRequest.comment">
+    <div class="title">Коментарии</div>
     <div>{{currentRequest.comment}}</div>
   </div>
-  <div class="row">
-    <div class="title">Attached Files</div>
+  <div class="row" *ngIf="currentRequest.documents_file && currentRequest.cargo_file">
+    <div class="title">Файлы</div>
     <div *ngFor="let file of currentRequest.documents_file" class="file-box" (click)="getRequestFile(file.id)">{{file.file_name}}</div>
     <div *ngFor="let file of currentRequest.cargo_file" class="file-box" (click)="getRequestFile(file.id)">{{file.file_name}}</div>
   </div>
@@ -191,7 +210,13 @@
 
           <th mat-header-cell *matHeaderCellDef [style.width]="'240px'">
             <div class="td-block">
-              <button (click)="onSendKpBtnClick()" class="btn-send" [style.visibility]="returnVisibilitySendKpBtn()?'visible':'hidden'">ОТПРАВИТЬ</button>
+              <button
+                (click)="onSendKpBtnClick()"
+                class="btn-send"
+                [style.visibility]="returnVisibilitySendKpBtn()?'visible':'hidden'"
+              >
+                ОТПРАВИТЬ
+              </button>
             </div>
           </th>
 
@@ -214,7 +239,7 @@
 
       </ng-container>
 
-      <tr mat-header-row *matHeaderRowDef="offerList.colList;sticky: true"></tr>
+      <tr mat-header-row *matHeaderRowDef="offerList.colList; sticky: true"></tr>
       <tr mat-row *matRowDef="let myRowData; columns: offerList.colList"></tr>
     </table>
   </div>
@@ -260,46 +285,49 @@
     >
       <!-- обычные элементы табл -->
       <ng-template [ngSwitchDefault]>
-        <th mat-header-cell *matHeaderCellDef [style.width]="col.width" [class]="col.class">
-          <div class="td-block" *ngIf="!col.title">
-            <div class="column"
-              *ngFor="let miniCol of col.items"
-              [style.width]="miniCol.width"
-              [class]="miniCol.class"
-            >
-              {{miniCol.title}}
-            </div>
-          </div>
 
-          <div class="td-block-column" *ngIf="col.title">
-            <div class="td-block-title">{{col.title}}</div>
-            <div class="td-block-line">
-              <div class="column" *ngFor="let miniCol of col.items" [style.width]="miniCol.width" [class]="miniCol.class">
-                {{miniCol.title}}
-              </div>
+        <th mat-header-cell *matHeaderCellDef [style.width]="col.width" [class]="col.class">
+          <div [class]="!col.title?'td-block':'td-block-column'">
+            <div *ngIf="col.title" class="td-block-title">{{col.title}}</div>
+            <div [class]="!col.title?'no-layout':'td-block-line'">
+              <ng-container *ngFor="let miniCol of col.items">
+                <div class="column" *ngIf="miniCol.title"
+                  [attr.title]="getColTitle(miniCol.field)"
+                  (click)="sort(miniCol.field)"
+                  [ngClass]="getSortClass(miniCol.field)"
+                  [style.width]="miniCol.width"
+                  [class]="miniCol.class"
+                >
+                  {{miniCol.title}}
+                </div>
+              </ng-container>
             </div>
           </div>
         </th>
 
         <td mat-cell *matCellDef="let item" [style.width]="col.width" [class]="col.class">
-          <!-- *ngIf="!col.title" -->
           <div class="td-block" >
             <div class="column"
               *ngFor="let miniCol of col.items"
               [style.width]="miniCol.width"
               [class]="miniCol.class"
+              [ngSwitch]="miniCol.field"
             >
-              {{ getVal(item,miniCol.field) }}
+              <ng-template [ngSwitchDefault]>{{ getVal(item,miniCol.field) }}</ng-template>
+              <ng-template [ngSwitchCase]="'route_text'">
+                <button (click)="onOpenFullRouteDetailForm()" class="inverted_exclamation_mark"></button>{{ getVal(item,miniCol.field) }}
+              </ng-template>
+              <ng-template [ngSwitchCase]="'custom/route/route_type_key'">
+                <div class="transport-type" [class]="getVal(item,miniCol.field)"></div>
+              </ng-template>
+              <ng-template [ngSwitchCase]="'route/route_type_key'">
+                <div class="transport-type" [class]="getVal(item,miniCol.field)"></div>
+              </ng-template>
             </div>
           </div>
-
-          <!-- <div class="td-block-line" *ngIf="col.title">
-            <div class="column" *ngFor="let miniCol of col.items" [style.width]="miniCol.width" [class]="miniCol.class">
-              {{ getVal(item,miniCol.field) }}
-            </div>
-          </div> -->
         </td>
       </ng-template>
+
       <!-- select столбец -->
       <ng-template [ngSwitchCase]="'select'">
         <th mat-header-cell *matHeaderCellDef [style.width]="col.width" [class]="col.class">
@@ -377,21 +405,21 @@
           <!-- && element==expandedElement -->
           <ng-container *ngIf="detailsMethod==='final' " >
 
-            <div class="costs">
-              <ng-container *ngTemplateOutlet="costRateBox; context: { label: 'Итоговая ставка:', sum:element.total_cost_text }">
+            <div class="costs" *ngIf="element.custom && element.storage && element.delivery">
+              <ng-container *ngTemplateOutlet="costRateBox; context: { label: 'Итоговая ставка:', sum:element?.total_cost_text }">
               </ng-container>
               ≈
-              <ng-container *ngTemplateOutlet="costRateBox; context: { label: 'До границы:', sum: element.custom?.total_cost_text }">
+              <ng-container *ngTemplateOutlet="costRateBox; context: { label: 'До границы:', sum: element?.custom?.total_cost_text }">
               </ng-container>
               +
-              <ng-container *ngTemplateOutlet="costRateBox; context: { label: 'Склад (СВХ):', sum: element.storage.total_cost_text }">
+              <ng-container *ngTemplateOutlet="costRateBox; context: { label: 'Склад (СВХ):', sum: element?.storage?.total_cost_text }">
               </ng-container>
               +
-              <ng-container *ngTemplateOutlet="costRateBox; context: { label: 'Вывоз:', sum: element.delivery.total_cost_text }">
+              <ng-container *ngTemplateOutlet="costRateBox; context: { label: 'Вывоз:', sum: element?.delivery?.total_cost_text }">
               </ng-container>
             </div>
 
-            <app-rate-info-row
+            <app-rate-info-row *ngIf="element.custom"
               [rate]="element.custom"
               [detailsMethod]="'customs'"
               [costClass]="'final'"
@@ -402,7 +430,7 @@
               </ng-container>
             </app-rate-info-row>
 
-            <app-rate-info-row
+            <app-rate-info-row *ngIf="element.storage"
               [rate]="element.storage"
               [detailsMethod]="'point'"
               [costClass]="'final'"
@@ -413,7 +441,7 @@
               </ng-container>
             </app-rate-info-row>
 
-            <app-rate-info-row
+            <app-rate-info-row *ngIf="element.delivery"
               [rate]="element.delivery"
               [detailsMethod]="'transporter'"
               [costClass]="'final'"
@@ -430,7 +458,7 @@
       </td>
     </ng-container>
 
-    <tr mat-header-row *matHeaderRowDef="column"></tr>
+    <tr mat-header-row *matHeaderRowDef="column; sticky: true"></tr>
     <tr mat-row *matRowDef="let element; columns: column;" class="example-element-row" [class.example-expanded-row]="expandedElement === element"></tr>
     <tr mat-row *matRowDef="let row; columns: ['expandedDetail']" class="example-detail-row" ></tr>
 
@@ -490,6 +518,14 @@
   <div mat-dialog-actions align="end">
     <button mat-button [mat-dialog-close]="true" cdkFocusInitial>Да</button>
     <button mat-button mat-dialog-close>Нет</button>
+  </div>
+</ng-template>
+
+<ng-template #fullRouteDetailForm>
+  <h1 mat-dialog-title>Форма полной детализации маршрута</h1>
+  <div mat-dialog-content>детализация маршрута</div>
+  <div mat-dialog-actions align="end">
+    <button mat-button mat-dialog-close>Закрыть</button>
   </div>
 </ng-template>
 

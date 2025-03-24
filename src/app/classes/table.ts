@@ -42,6 +42,8 @@ export abstract class Table<T extends { id: number }, A = never, F = never> impl
 
   isRowsLoad=false;
 
+  requestCrmStatuses:any[]=[];
+
   readonly xlsxMimeType = 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet';
 
   protected abstract load<T>(params?: LoadParams<T, F>): Observable<{ total: number, items: T[], column?: string[], sort?: string[],sort_new?:any }>;
@@ -570,7 +572,7 @@ export abstract class Table<T extends { id: number }, A = never, F = never> impl
                 this.saveTrueContractorSelectRequest();
               } else {
                 this.router.navigate([], {
-                  queryParams: {}, 
+                  queryParams: {},
                 });
               }
             })
@@ -596,13 +598,12 @@ export abstract class Table<T extends { id: number }, A = never, F = never> impl
     this.requestInfo(id).subscribe({
       next: (request) => {
         console.log('request',request);
-
         this.currentRequest=request;
         if(this.isBiddingMode){
           this.filterService.value["country_departure_id"]=this.currentRequest.departure_country_id;
           this.filterService.value["country_arrival_id"]=this.currentRequest.arrival_country_id;
           this.filterService.value["specialization"]=[this.currentRequest.transport_kind_id];
-          // this.filterService.value["rating"]=this.currentRequest.request_type_id;
+          this.filterService.value["allow_trade"]=1;
           this.filterService.apply();
         }
       },
@@ -641,6 +642,10 @@ export abstract class Table<T extends { id: number }, A = never, F = never> impl
             this.sortableColumns?.push(sor.field);
           });
           this.columnsData=schema.table;
+          if(schema.status){
+            this.requestCrmStatuses=schema.status;
+          }
+
 
           // if(this.isRateDetailsMode){
           //   this.columnsData=schema.table;
@@ -667,11 +672,7 @@ export abstract class Table<T extends { id: number }, A = never, F = never> impl
           // console.log(queryParamMap.params.translate);
           if(queryParamMap.params.translate){
             this.saveContractorSelectRequest();
-            console.log(112233);
-
-
           }
-
           this.start = this.getIntParamSafely(queryParamMap, 'start', this.start);
           this.count = this.getIntEnumParamSafely(queryParamMap, 'count', this.limits, this.count);
           this.sortField = this.getStringParamSafely(queryParamMap, 'sortCol', this.sortField as string) as keyof T;

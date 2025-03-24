@@ -133,7 +133,6 @@
               </mat-calendar>
             </div>
           </mat-menu>
-
         </div>
       </div>
 
@@ -179,6 +178,7 @@
 
                 <!-- 1) standart inputs + min -->
                 <div *ngIf="chargeModel.field_min && !chargeModel.field_comment" class="input-box">
+
                   <div class="form-item charges-values br">
                     <div class="form-data">
                       <span class="unit">Min $:</span>
@@ -217,6 +217,16 @@
 
                 <!-- 2) standart inputs -->
                 <div *ngIf="!chargeModel.field_min && !chargeModel.field_comment && chargeModel.unit" class="input-box">
+
+                  <div class="form-item charges-values" *ngIf="chargeModel.field_fix">
+                    <div class="form-data">
+                      <span class="unit">Fix $:</span>
+                      <input type="number" class="values-input"  formControlName="fix" (ngModelChange)="calck(chargeValue)">
+                    </div>
+                  </div>
+
+                  <span *ngIf="chargeModel.field_fix" style="text-align: center; margin: 0 5px; width: 11px; box-sizing: border-box;">+</span>
+
                   <div class="form-item charges-values">
                     <div class="form-data">
                       <input type="number" class="values-input" (ngModelChange)="calck(chargeValue)" formControlName="price"><span class="unit">$/{{chargeModel.unit}}</span>

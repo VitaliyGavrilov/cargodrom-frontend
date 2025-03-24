@@ -1,3 +1,51 @@
+.no-layout {
+  display: contents;
+}
+td.vertically .td-block{
+  flex-direction: column;
+  align-items: flex-start;
+}
+
+
+.loader {
+  position: fixed; top: 0; left: 0;
+  width: 100%; height: 100%;
+  background-color: rgba(0, 0, 0, 0.5);
+  display: flex; justify-content: center; align-items: center;
+  z-index: 1000;
+}
+.cdk-overlay-container mat-snack-bar-container.mdc-snackbar.centered-snackbar {
+  margin-top: 50vh;
+}
+
+//TABLEs
+.table-list .td-block .column{
+  font-weight: 400;
+  font-size: 13px;
+  line-height: 16px;
+}
+// mat-selects and mat-options in table
+.table-list .td-block .column mat-select.mat-mdc-select {
+  background-color: inherit;
+  border: none;
+  font-weight: 400;
+  font-size: 13px;
+  line-height: 16px;
+
+  .mat-mdc-select-trigger { padding: 0; }
+  .mat-mdc-select-value-text { text-wrap: auto; }
+}
+mat-option.mat-mdc-option.table_options{
+  font-weight: 400;
+  font-size: 13px;
+  line-height: 16px;
+  padding: 0 5px;
+}
+
+
+
+
+
 //mat-form-field
 // mat-form-field.mat-mdc-form-field.mat-form-field-appearance-outline .mdc-text-field--outlined {
 //   background-color: #F7F9FC; /* фон */

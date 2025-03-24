@@ -27,9 +27,13 @@
               [style.width]="miniCol.width"
               [class]="miniCol.class"
             >
+              <div class="resize-handle_start" (mousedown)="startResize($event, miniCol)"></div>
               {{miniCol.title}}
+              <div class="resize-handle_end" (mousedown)="startResize($event, miniCol)"></div>
             </div>
+
           </div>
+
 
           <div class="td-block-column" *ngIf="col.title">
             <div class="td-block-title">{{col.title}}</div>
@@ -43,6 +47,7 @@
                 [class]="miniCol.class"
               >
                 {{miniCol.title}}
+                <div class="resize-handle" (mousedown)="startResize($event, miniCol)"></div>
               </div>
             </div>
           </div>
@@ -54,8 +59,10 @@
               *ngFor="let miniCol of col.items"
               [style.width]="miniCol.width"
               [class]="miniCol.class"
+
             >
               {{ getVal(item,miniCol.field) }}
+
             </div>
           </div>
 
@@ -66,6 +73,7 @@
               [class]="miniCol.class"
               >
               {{ getVal(item,miniCol.field) }}
+
             </div>
           </div>
         </td>
@@ -84,7 +92,7 @@
     </ng-container>
 
 
-    <tr mat-header-row *matHeaderRowDef="column"></tr>
+    <tr mat-header-row *matHeaderRowDef="column; sticky: true"></tr>
     <tr mat-row *matRowDef="let row; columns: column;"></tr>
 
   </table>

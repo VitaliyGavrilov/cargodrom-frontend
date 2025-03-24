@@ -11,6 +11,9 @@ import { EmployeeRegisterComponent } from './pages/components/employee-register/
 
 const config: ExtraOptions = {
   useHash: true,
+  scrollPositionRestoration: 'enabled', // Восстанавливает позицию прокрутки
+  anchorScrolling: 'enabled', // Позволяет прокрутку до якоря
+  onSameUrlNavigation: 'reload' // Позволяет перезагружать страницу при переходе на тот же URL
 };
 
 const routes: Routes = [

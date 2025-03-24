@@ -57,13 +57,13 @@ export class RateEditorComponent implements OnInit, OnDestroy, OnChanges, Contro
   contractorList:any[]=[];
 
   daysOfTheWeek=[
-    { day:'Monday', id:1 },
-    { day:'Tuesday', id:2 },
-    { day:'Wednesday', id:3 },
-    { day:'Thursday', id:4 },
-    { day:'Friday', id:5 },
-    { day:'Saturday', id:6 },
-    { day:'Sunday', id:7 },
+    { day:'Monday', id:1, date_id:1 },
+    { day:'Tuesday', id:2, date_id:2 },
+    { day:'Wednesday', id:3, date_id:3 },
+    { day:'Thursday', id:4, date_id:4 },
+    { day:'Friday', id:5, date_id:5 },
+    { day:'Saturday', id:6, date_id:6 },
+    { day:'Sunday', id:7, date_id:0 },
   ]
 
   @ViewChild('deleteRateDialogRef') deleteRateDialogRef?: TemplateRef<void>;
@@ -79,7 +79,7 @@ export class RateEditorComponent implements OnInit, OnDestroy, OnChanges, Contro
     this.rateForm = this.fb.group({
       carrier_id: [,[]],
       comment: [,[]],
-      departure_schedule: [,[]],
+      departure_schedule: [[],[]],
       id: [,[]],
       nearest_flight: [[],[]],
       num: [,[]],
@@ -247,6 +247,8 @@ export class RateEditorComponent implements OnInit, OnDestroy, OnChanges, Contro
       control.patchValue({
         cost: control.value.min<control.value.price * control.value.value?control.value.price * control.value.value:control.value.min
       });
+    } else if(control.value.fix) {
+      control.patchValue({cost: (control.value.price * control.value.value)+control.value.fix});
     } else {
       control.patchValue({cost: control.value.price * control.value.value});
     }
@@ -289,17 +291,46 @@ export class RateEditorComponent implements OnInit, OnDestroy, OnChanges, Contro
     return text;
   }
   isSelectedDate = (event: any) => {
+    // const dayOfWeek = new Date(event).getDay(); // 0 - воскресенье, 1 - понедельник, 2 - вторник, и т.д.
+    // if (dayOfWeek === 2) { // 2 - вторник
+    //   return "disabled-date"; // Класс для недоступных дат
+    // }
+
     const date=formatDate(event,'yyyy-MM-dd','en-US');
     return this.rateForm.value.nearest_flight?.find((x:any) => x == date) ? "selected" : '';
   }
   selectDate(event: any, calendar: any) {
     console.log(event,calendar);
-
     const date=formatDate(event,'yyyy-MM-dd','en-US');
     if(this.rateForm.value.nearest_flight===null) this.rateForm.value.nearest_flight=[];
     const index = this.rateForm.value.nearest_flight.findIndex((x:any) => x == date);
     if (index < 0) {
       this.rateForm.value.nearest_flight.push(date);
+      const dayOfWeek=new Date(event).getDay();
+      // const istestDate=!this.rateForm.value.departure_schedule?.find((x:any) => x == dayOfWeek)
+      const istestDate=this.rateForm.value.departure_schedule?.find((x:any) =>{
+        if(dayOfWeek==0&&x==7){
+          x=0;
+          return x == dayOfWeek;
+        } else {
+          return x == dayOfWeek;
+        }
+      })
+      // const istestDate=dayOfWeek!=0
+      //   ?this.rateForm.value.departure_schedule?.find((x:any) => x == dayOfWeek)
+      //   :this.rateForm.value.departure_schedule?.find((x:any) => 0 == dayOfWeek)
+      if(!istestDate){
+        this.snackBar.open(
+          `Выбранная дата не соответсвтвует дням недели`,
+          undefined,
+          {
+            duration: 2000,
+            verticalPosition: 'top', // Позиционирование по вертикали
+            horizontalPosition: 'center', // Позиционирование по горизонтали
+            panelClass: ['centered-snackbar'] // Кастомный класс для стилизации
+          }
+        );
+      }
     } else {
       this.rateForm.value.nearest_flight.splice(index, 1);
     }
@@ -331,7 +362,7 @@ export class RateEditorComponent implements OnInit, OnDestroy, OnChanges, Contro
   }
   // получаем маршруты(route)
   private getTransportRoute():void{
-      this.directionService.directionRoute({kind_id: this.requestKindId, arrival_city_id:this.request.arrival_city_id, departure_city_id:this.request.departure_city_id})
+      this.directionService.directionRoute({kind_id: this.requestKindId, arrival_city_id:this.request.arrival_city_id,departure_country_id:this.request.departure_country_id })
         .pipe(
           tap(transportRoute => {
             if (!transportRoute) {

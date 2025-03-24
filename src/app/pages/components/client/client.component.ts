@@ -1,6 +1,6 @@
 import { CustomerService } from './../../../api/services/customer.service';
 import { Client, ClientFilter, SearchFilterSchema } from './../../../api/custom_models';
-import { Component, ViewEncapsulation } from '@angular/core';
+import { Component, HostListener, ViewEncapsulation } from '@angular/core';
 import { LoadParams, Table } from '../../../classes';
 import { MatDialog } from '@angular/material/dialog';
 import { MatSnackBar } from '@angular/material/snack-bar';
@@ -23,6 +23,11 @@ export class ClientComponent extends Table<Client, 'name', ClientFilter> {
   params:any;
 
   trackById = (_index: number, client: Client) => client.id!;
+
+  isResizing = false;
+  resizingColumn: any = null;
+  startX: number = 0;
+  startWidth: number = 0;
 
   constructor(
     private customerService: CustomerService,
@@ -86,5 +91,84 @@ export class ClientComponent extends Table<Client, 'name', ClientFilter> {
       }
     }
     return obj !== undefined ? obj : null; // Проверка на undefined
+  }
+
+  override ngOnInit() {
+    super.ngOnInit();
+    this.loadColumnSizes();
+  }
+
+  startResize(event: MouseEvent, column: any) {
+    this.isResizing = true;
+    this.resizingColumn = column;
+    this.startX = event.pageX;
+    this.startWidth = column.width ? parseInt(column.width, 10) : 100; // Начальная ширина
+
+    event.preventDefault(); // Предотвращаем выделение текста
+  }
+
+  @HostListener('document:mousemove', ['$event'])
+  onMouseMove(event: MouseEvent) {
+    if (!this.isResizing || !this.resizingColumn) return;
+    const width = this.startWidth + (event.pageX - this.startX);
+    this.resizingColumn.width = `${width}px`;
+  }
+
+  @HostListener('document:mouseup')
+  onMouseUp() {
+    if (this.isResizing) {
+      this.isResizing = false;
+      this.saveColumnSizes(); // Сохраняем размеры после завершения изменения
+      this.sendColumnSizesToBackend(); // Отправляем размеры на бэкенд
+    }
+    this.resizingColumn = null;
+  }
+
+  // Загрузка сохраненных размеров колонок
+  loadColumnSizes() {
+    const savedSizes = localStorage.getItem('columnSizes');
+    if (savedSizes) {
+      const sizes = JSON.parse(savedSizes);
+      this.columnsData.forEach((col:any) => {
+        const savedCol = sizes.find((s: any) => s.column === col.column);
+        if (savedCol) {
+          col.width = savedCol.width;
+          col.items.forEach((item: any) => {
+            const savedItem = savedCol.items.find((i: any) => i.field === item.field);
+            if (savedItem) item.width = savedItem.width;
+          });
+        }
+      });
+    }
+  }
+
+  // Сохранение размеров колонок в localStorage
+  saveColumnSizes() {
+    const sizes = this.columnsData.map((col:any) => ({
+      column: col.column,
+      width: col.width,
+      items: col.items.map((item:any) => ({
+        field: item.field,
+        width: item.width
+      }))
+    }));
+    console.log('saveColumnSizes',sizes);
+
+    localStorage.setItem('columnSizes', JSON.stringify(sizes));
+  }
+
+  // Отправка размеров колонок на бэкенд
+  sendColumnSizesToBackend() {
+    const sizes = this.columnsData.map((col:any) => ({
+      column: col.column,
+      width: col.width,
+      items: col.items.map((item:any) => ({
+        field: item.field,
+        width: item.width
+      }))
+    }));
+
+    console.log(sizes);
+
   }
 }

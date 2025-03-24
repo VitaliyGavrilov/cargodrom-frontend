@@ -120,7 +120,7 @@ export class RequestService extends BaseService {
 /**
  * Поле сортировки
  */
-'field'?: 'id' | 'time_add';
+'field'?: 'id' | 'time_add' | 'customer_name' | 'departure_text' | 'arrival_text' | 'status_crm_name' | 'rate_contractor_name';
 
 /**
  * Направление сортировки
@@ -152,24 +152,29 @@ export class RequestService extends BaseService {
 'customer_id'?: number;
 
 /**
- * Контрагент
+ * Имя клиента
  */
 'customer_name'?: string;
 
 /**
- * Телефон контрагента
+ * Телефон клиента
  */
 'customer_phone'?: string;
 
 /**
- * Email контрагента
+ * Email клиента
  */
 'customer_email'?: string;
 
 /**
- * Email контрагента
+ * Наименование клиента
  */
 'customer_text'?: string;
+
+/**
+ * Доп. инфо клиента
+ */
+'customer_info'?: string;
 
 /**
  * Вид запроса (ID берем из запроса - request_type)
@@ -217,6 +222,11 @@ export class RequestService extends BaseService {
 'cargo_package_id'?: number;
 
 /**
+ * Вид упаковки (Наименование) (ID берем из запроса - cargo_package)
+ */
+'cargo_package_name'?: string;
+
+/**
  * Температурный режим
  */
 'cargo_temperature'?: {
@@ -256,6 +266,11 @@ export class RequestService extends BaseService {
  * Вид упаковки (ID берем из запроса - cargo_package)
  */
 'cargo_package_id'?: number;
+
+/**
+ * Вид упаковки (Наименование) (ID берем из запроса - cargo_package)
+ */
+'cargo_package_name'?: string;
 
 /**
  * Признак возможности штабелировать груз (ID берем из запроса - cargo_package)
@@ -599,6 +614,12 @@ export class RequestService extends BaseService {
  */
 'kso': {
 };
+
+/**
+ * Переводы
+ */
+'translate': {
+};
 }>;
 }>> {
     const rb = new RequestBuilder(this.rootUrl, RequestService.RequestListPath, 'get');
@@ -649,24 +670,29 @@ export class RequestService extends BaseService {
         'customer_id'?: number;
         
         /**
-         * Контрагент
+         * Имя клиента
          */
         'customer_name'?: string;
         
         /**
-         * Телефон контрагента
+         * Телефон клиента
          */
         'customer_phone'?: string;
         
         /**
-         * Email контрагента
+         * Email клиента
          */
         'customer_email'?: string;
         
         /**
-         * Email контрагента
+         * Наименование клиента
          */
         'customer_text'?: string;
+        
+        /**
+         * Доп. инфо клиента
+         */
+        'customer_info'?: string;
         
         /**
          * Вид запроса (ID берем из запроса - request_type)
@@ -714,6 +740,11 @@ export class RequestService extends BaseService {
         'cargo_package_id'?: number;
         
         /**
+         * Вид упаковки (Наименование) (ID берем из запроса - cargo_package)
+         */
+        'cargo_package_name'?: string;
+        
+        /**
          * Температурный режим
          */
         'cargo_temperature'?: {
@@ -753,6 +784,11 @@ export class RequestService extends BaseService {
          * Вид упаковки (ID берем из запроса - cargo_package)
          */
         'cargo_package_id'?: number;
+        
+        /**
+         * Вид упаковки (Наименование) (ID берем из запроса - cargo_package)
+         */
+        'cargo_package_name'?: string;
         
         /**
          * Признак возможности штабелировать груз (ID берем из запроса - cargo_package)
@@ -1096,6 +1132,12 @@ export class RequestService extends BaseService {
          */
         'kso': {
         };
+        
+        /**
+         * Переводы
+         */
+        'translate': {
+        };
         }>;
         }>;
       })
@@ -1198,7 +1240,7 @@ export class RequestService extends BaseService {
 /**
  * Поле сортировки
  */
-'field'?: 'id' | 'time_add';
+'field'?: 'id' | 'time_add' | 'customer_name' | 'departure_text' | 'arrival_text' | 'status_crm_name' | 'rate_contractor_name';
 
 /**
  * Направление сортировки
@@ -1230,24 +1272,29 @@ export class RequestService extends BaseService {
 'customer_id'?: number;
 
 /**
- * Контрагент
+ * Имя клиента
  */
 'customer_name'?: string;
 
 /**
- * Телефон контрагента
+ * Телефон клиента
  */
 'customer_phone'?: string;
 
 /**
- * Email контрагента
+ * Email клиента
  */
 'customer_email'?: string;
 
 /**
- * Email контрагента
+ * Наименование клиента
  */
 'customer_text'?: string;
+
+/**
+ * Доп. инфо клиента
+ */
+'customer_info'?: string;
 
 /**
  * Вид запроса (ID берем из запроса - request_type)
@@ -1295,6 +1342,11 @@ export class RequestService extends BaseService {
 'cargo_package_id'?: number;
 
 /**
+ * Вид упаковки (Наименование) (ID берем из запроса - cargo_package)
+ */
+'cargo_package_name'?: string;
+
+/**
  * Температурный режим
  */
 'cargo_temperature'?: {
@@ -1334,6 +1386,11 @@ export class RequestService extends BaseService {
  * Вид упаковки (ID берем из запроса - cargo_package)
  */
 'cargo_package_id'?: number;
+
+/**
+ * Вид упаковки (Наименование) (ID берем из запроса - cargo_package)
+ */
+'cargo_package_name'?: string;
 
 /**
  * Признак возможности штабелировать груз (ID берем из запроса - cargo_package)
@@ -1676,6 +1733,12 @@ export class RequestService extends BaseService {
  * Флаги
  */
 'kso': {
+};
+
+/**
+ * Переводы
+ */
+'translate': {
 };
 }>;
 }> {
@@ -1703,24 +1766,29 @@ export class RequestService extends BaseService {
 'customer_id'?: number;
 
 /**
- * Контрагент
+ * Имя клиента
  */
 'customer_name'?: string;
 
 /**
- * Телефон контрагента
+ * Телефон клиента
  */
 'customer_phone'?: string;
 
 /**
- * Email контрагента
+ * Email клиента
  */
 'customer_email'?: string;
 
 /**
- * Email контрагента
+ * Наименование клиента
  */
 'customer_text'?: string;
+
+/**
+ * Доп. инфо клиента
+ */
+'customer_info'?: string;
 
 /**
  * Вид запроса (ID берем из запроса - request_type)
@@ -1768,6 +1836,11 @@ export class RequestService extends BaseService {
 'cargo_package_id'?: number;
 
 /**
+ * Вид упаковки (Наименование) (ID берем из запроса - cargo_package)
+ */
+'cargo_package_name'?: string;
+
+/**
  * Температурный режим
  */
 'cargo_temperature'?: {
@@ -1807,6 +1880,11 @@ export class RequestService extends BaseService {
  * Вид упаковки (ID берем из запроса - cargo_package)
  */
 'cargo_package_id'?: number;
+
+/**
+ * Вид упаковки (Наименование) (ID берем из запроса - cargo_package)
+ */
+'cargo_package_name'?: string;
 
 /**
  * Признак возможности штабелировать груз (ID берем из запроса - cargo_package)
@@ -2149,6 +2227,12 @@ export class RequestService extends BaseService {
  * Флаги
  */
 'kso': {
+};
+
+/**
+ * Переводы
+ */
+'translate': {
 };
 }>;
 }>): {
@@ -2174,24 +2258,29 @@ export class RequestService extends BaseService {
 'customer_id'?: number;
 
 /**
- * Контрагент
+ * Имя клиента
  */
 'customer_name'?: string;
 
 /**
- * Телефон контрагента
+ * Телефон клиента
  */
 'customer_phone'?: string;
 
 /**
- * Email контрагента
+ * Email клиента
  */
 'customer_email'?: string;
 
 /**
- * Email контрагента
+ * Наименование клиента
  */
 'customer_text'?: string;
+
+/**
+ * Доп. инфо клиента
+ */
+'customer_info'?: string;
 
 /**
  * Вид запроса (ID берем из запроса - request_type)
@@ -2239,6 +2328,11 @@ export class RequestService extends BaseService {
 'cargo_package_id'?: number;
 
 /**
+ * Вид упаковки (Наименование) (ID берем из запроса - cargo_package)
+ */
+'cargo_package_name'?: string;
+
+/**
  * Температурный режим
  */
 'cargo_temperature'?: {
@@ -2278,6 +2372,11 @@ export class RequestService extends BaseService {
  * Вид упаковки (ID берем из запроса - cargo_package)
  */
 'cargo_package_id'?: number;
+
+/**
+ * Вид упаковки (Наименование) (ID берем из запроса - cargo_package)
+ */
+'cargo_package_name'?: string;
 
 /**
  * Признак возможности штабелировать груз (ID берем из запроса - cargo_package)
@@ -2620,6 +2719,12 @@ export class RequestService extends BaseService {
  * Флаги
  */
 'kso': {
+};
+
+/**
+ * Переводы
+ */
+'translate': {
 };
 }>;
 } => r.body)
@@ -3618,24 +3723,29 @@ export class RequestService extends BaseService {
 'customer_id'?: number;
 
 /**
- * Контрагент
+ * Имя клиента
  */
 'customer_name'?: string;
 
 /**
- * Телефон контрагента
+ * Телефон клиента
  */
 'customer_phone'?: string;
 
 /**
- * Email контрагента
+ * Email клиента
  */
 'customer_email'?: string;
 
 /**
- * Email контрагента
+ * Наименование клиента
  */
 'customer_text'?: string;
+
+/**
+ * Доп. инфо клиента
+ */
+'customer_info'?: string;
 
 /**
  * Вид запроса (ID берем из запроса - request_type)
@@ -3683,6 +3793,11 @@ export class RequestService extends BaseService {
 'cargo_package_id'?: number;
 
 /**
+ * Вид упаковки (Наименование) (ID берем из запроса - cargo_package)
+ */
+'cargo_package_name'?: string;
+
+/**
  * Температурный режим
  */
 'cargo_temperature'?: {
@@ -3722,6 +3837,11 @@ export class RequestService extends BaseService {
  * Вид упаковки (ID берем из запроса - cargo_package)
  */
 'cargo_package_id'?: number;
+
+/**
+ * Вид упаковки (Наименование) (ID берем из запроса - cargo_package)
+ */
+'cargo_package_name'?: string;
 
 /**
  * Признак возможности штабелировать груз (ID берем из запроса - cargo_package)
@@ -4067,6 +4187,12 @@ export class RequestService extends BaseService {
 };
 
 /**
+ * Переводы
+ */
+'translate': {
+};
+
+/**
  * Документы (файлы)
  */
 'documents_file'?: {
@@ -4095,24 +4221,29 @@ export class RequestService extends BaseService {
         'customer_id'?: number;
         
         /**
-         * Контрагент
+         * Имя клиента
          */
         'customer_name'?: string;
         
         /**
-         * Телефон контрагента
+         * Телефон клиента
          */
         'customer_phone'?: string;
         
         /**
-         * Email контрагента
+         * Email клиента
          */
         'customer_email'?: string;
         
         /**
-         * Email контрагента
+         * Наименование клиента
          */
         'customer_text'?: string;
+        
+        /**
+         * Доп. инфо клиента
+         */
+        'customer_info'?: string;
         
         /**
          * Вид запроса (ID берем из запроса - request_type)
@@ -4160,6 +4291,11 @@ export class RequestService extends BaseService {
         'cargo_package_id'?: number;
         
         /**
+         * Вид упаковки (Наименование) (ID берем из запроса - cargo_package)
+         */
+        'cargo_package_name'?: string;
+        
+        /**
          * Температурный режим
          */
         'cargo_temperature'?: {
@@ -4199,6 +4335,11 @@ export class RequestService extends BaseService {
          * Вид упаковки (ID берем из запроса - cargo_package)
          */
         'cargo_package_id'?: number;
+        
+        /**
+         * Вид упаковки (Наименование) (ID берем из запроса - cargo_package)
+         */
+        'cargo_package_name'?: string;
         
         /**
          * Признак возможности штабелировать груз (ID берем из запроса - cargo_package)
@@ -4544,6 +4685,12 @@ export class RequestService extends BaseService {
         };
         
         /**
+         * Переводы
+         */
+        'translate': {
+        };
+        
+        /**
          * Документы (файлы)
          */
         'documents_file'?: {
@@ -4585,24 +4732,29 @@ export class RequestService extends BaseService {
 'customer_id'?: number;
 
 /**
- * Контрагент
+ * Имя клиента
  */
 'customer_name'?: string;
 
 /**
- * Телефон контрагента
+ * Телефон клиента
  */
 'customer_phone'?: string;
 
 /**
- * Email контрагента
+ * Email клиента
  */
 'customer_email'?: string;
 
 /**
- * Email контрагента
+ * Наименование клиента
  */
 'customer_text'?: string;
+
+/**
+ * Доп. инфо клиента
+ */
+'customer_info'?: string;
 
 /**
  * Вид запроса (ID берем из запроса - request_type)
@@ -4650,6 +4802,11 @@ export class RequestService extends BaseService {
 'cargo_package_id'?: number;
 
 /**
+ * Вид упаковки (Наименование) (ID берем из запроса - cargo_package)
+ */
+'cargo_package_name'?: string;
+
+/**
  * Температурный режим
  */
 'cargo_temperature'?: {
@@ -4689,6 +4846,11 @@ export class RequestService extends BaseService {
  * Вид упаковки (ID берем из запроса - cargo_package)
  */
 'cargo_package_id'?: number;
+
+/**
+ * Вид упаковки (Наименование) (ID берем из запроса - cargo_package)
+ */
+'cargo_package_name'?: string;
 
 /**
  * Признак возможности штабелировать груз (ID берем из запроса - cargo_package)
@@ -5031,6 +5193,12 @@ export class RequestService extends BaseService {
  * Флаги
  */
 'kso': {
+};
+
+/**
+ * Переводы
+ */
+'translate': {
 };
 
 /**
@@ -5053,24 +5221,29 @@ export class RequestService extends BaseService {
 'customer_id'?: number;
 
 /**
- * Контрагент
+ * Имя клиента
  */
 'customer_name'?: string;
 
 /**
- * Телефон контрагента
+ * Телефон клиента
  */
 'customer_phone'?: string;
 
 /**
- * Email контрагента
+ * Email клиента
  */
 'customer_email'?: string;
 
 /**
- * Email контрагента
+ * Наименование клиента
  */
 'customer_text'?: string;
+
+/**
+ * Доп. инфо клиента
+ */
+'customer_info'?: string;
 
 /**
  * Вид запроса (ID берем из запроса - request_type)
@@ -5118,6 +5291,11 @@ export class RequestService extends BaseService {
 'cargo_package_id'?: number;
 
 /**
+ * Вид упаковки (Наименование) (ID берем из запроса - cargo_package)
+ */
+'cargo_package_name'?: string;
+
+/**
  * Температурный режим
  */
 'cargo_temperature'?: {
@@ -5157,6 +5335,11 @@ export class RequestService extends BaseService {
  * Вид упаковки (ID берем из запроса - cargo_package)
  */
 'cargo_package_id'?: number;
+
+/**
+ * Вид упаковки (Наименование) (ID берем из запроса - cargo_package)
+ */
+'cargo_package_name'?: string;
 
 /**
  * Признак возможности штабелировать груз (ID берем из запроса - cargo_package)
@@ -5499,6 +5682,12 @@ export class RequestService extends BaseService {
  * Флаги
  */
 'kso': {
+};
+
+/**
+ * Переводы
+ */
+'translate': {
 };
 
 /**
@@ -5519,24 +5708,29 @@ export class RequestService extends BaseService {
 'customer_id'?: number;
 
 /**
- * Контрагент
+ * Имя клиента
  */
 'customer_name'?: string;
 
 /**
- * Телефон контрагента
+ * Телефон клиента
  */
 'customer_phone'?: string;
 
 /**
- * Email контрагента
+ * Email клиента
  */
 'customer_email'?: string;
 
 /**
- * Email контрагента
+ * Наименование клиента
  */
 'customer_text'?: string;
+
+/**
+ * Доп. инфо клиента
+ */
+'customer_info'?: string;
 
 /**
  * Вид запроса (ID берем из запроса - request_type)
@@ -5584,6 +5778,11 @@ export class RequestService extends BaseService {
 'cargo_package_id'?: number;
 
 /**
+ * Вид упаковки (Наименование) (ID берем из запроса - cargo_package)
+ */
+'cargo_package_name'?: string;
+
+/**
  * Температурный режим
  */
 'cargo_temperature'?: {
@@ -5623,6 +5822,11 @@ export class RequestService extends BaseService {
  * Вид упаковки (ID берем из запроса - cargo_package)
  */
 'cargo_package_id'?: number;
+
+/**
+ * Вид упаковки (Наименование) (ID берем из запроса - cargo_package)
+ */
+'cargo_package_name'?: string;
 
 /**
  * Признак возможности штабелировать груз (ID берем из запроса - cargo_package)
@@ -5965,6 +6169,12 @@ export class RequestService extends BaseService {
  * Флаги
  */
 'kso': {
+};
+
+/**
+ * Переводы
+ */
+'translate': {
 };
 
 /**
@@ -9421,7 +9631,7 @@ export class RequestService extends BaseService {
 /**
  * Поле сортировки
  */
-'field'?: 'id' | 'time_add';
+'field'?: 'id' | 'time_add' | 'customer_name' | 'departure_text' | 'arrival_text' | 'status_crm_name' | 'rate_contractor_name';
 
 /**
  * Направление сортировки
@@ -9567,7 +9777,7 @@ export class RequestService extends BaseService {
 /**
  * Поле сортировки
  */
-'field'?: 'id' | 'time_add';
+'field'?: 'id' | 'time_add' | 'customer_name' | 'departure_text' | 'arrival_text' | 'status_crm_name' | 'rate_contractor_name';
 
 /**
  * Направление сортировки
@@ -15511,6 +15721,11 @@ export class RequestService extends BaseService {
  * Оплачиваемый вес, кг
  */
 'cargo_places_paid_weight'?: number;
+
+/**
+ * Дата запроса
+ */
+'time_request'?: string;
 };
 
 /**
@@ -15636,9 +15851,31 @@ export class RequestService extends BaseService {
 'name': string;
 
 /**
- * Тип
+ * Тип транспорта
  */
 'kind_key': string;
+
+/**
+ * Тип маршрута
+ */
+'route_type': string;
+
+/**
+ * Тип маршрута (иконка)
+ */
+'route_type_key': string;
+};
+
+/**
+ * Пункт назначения
+ */
+'point'?: {
+};
+
+/**
+ * Пункт отправки
+ */
+'departure_point'?: {
 };
 
 /**
@@ -15878,6 +16115,11 @@ export class RequestService extends BaseService {
          * Оплачиваемый вес, кг
          */
         'cargo_places_paid_weight'?: number;
+        
+        /**
+         * Дата запроса
+         */
+        'time_request'?: string;
         };
         
         /**
@@ -16003,9 +16245,31 @@ export class RequestService extends BaseService {
         'name': string;
         
         /**
-         * Тип
+         * Тип транспорта
          */
         'kind_key': string;
+        
+        /**
+         * Тип маршрута
+         */
+        'route_type': string;
+        
+        /**
+         * Тип маршрута (иконка)
+         */
+        'route_type_key': string;
+        };
+        
+        /**
+         * Пункт назначения
+         */
+        'point'?: {
+        };
+        
+        /**
+         * Пункт отправки
+         */
+        'departure_point'?: {
         };
         
         /**
@@ -16301,6 +16565,11 @@ export class RequestService extends BaseService {
  * Оплачиваемый вес, кг
  */
 'cargo_places_paid_weight'?: number;
+
+/**
+ * Дата запроса
+ */
+'time_request'?: string;
 };
 
 /**
@@ -16426,9 +16695,31 @@ export class RequestService extends BaseService {
 'name': string;
 
 /**
- * Тип
+ * Тип транспорта
  */
 'kind_key': string;
+
+/**
+ * Тип маршрута
+ */
+'route_type': string;
+
+/**
+ * Тип маршрута (иконка)
+ */
+'route_type_key': string;
+};
+
+/**
+ * Пункт назначения
+ */
+'point'?: {
+};
+
+/**
+ * Пункт отправки
+ */
+'departure_point'?: {
 };
 
 /**
@@ -16651,6 +16942,11 @@ export class RequestService extends BaseService {
  * Оплачиваемый вес, кг
  */
 'cargo_places_paid_weight'?: number;
+
+/**
+ * Дата запроса
+ */
+'time_request'?: string;
 };
 
 /**
@@ -16776,9 +17072,31 @@ export class RequestService extends BaseService {
 'name': string;
 
 /**
- * Тип
+ * Тип транспорта
  */
 'kind_key': string;
+
+/**
+ * Тип маршрута
+ */
+'route_type': string;
+
+/**
+ * Тип маршрута (иконка)
+ */
+'route_type_key': string;
+};
+
+/**
+ * Пункт назначения
+ */
+'point'?: {
+};
+
+/**
+ * Пункт отправки
+ */
+'departure_point'?: {
 };
 
 /**
@@ -16999,6 +17317,11 @@ export class RequestService extends BaseService {
  * Оплачиваемый вес, кг
  */
 'cargo_places_paid_weight'?: number;
+
+/**
+ * Дата запроса
+ */
+'time_request'?: string;
 };
 
 /**
@@ -17124,9 +17447,31 @@ export class RequestService extends BaseService {
 'name': string;
 
 /**
- * Тип
+ * Тип транспорта
  */
 'kind_key': string;
+
+/**
+ * Тип маршрута
+ */
+'route_type': string;
+
+/**
+ * Тип маршрута (иконка)
+ */
+'route_type_key': string;
+};
+
+/**
+ * Пункт назначения
+ */
+'point'?: {
+};
+
+/**
+ * Пункт отправки
+ */
+'departure_point'?: {
 };
 
 /**
@@ -17872,6 +18217,36 @@ export class RequestService extends BaseService {
  * Адрес
  */
 'address'?: string;
+
+/**
+ * Адрес СВХ
+ */
+'svh_address'?: string;
+
+/**
+ * Сайт
+ */
+'web'?: string;
+
+/**
+ * Широта
+ */
+'lat'?: string;
+
+/**
+ * Долгота
+ */
+'long'?: string;
+
+/**
+ * График работы (будни)
+ */
+'schedule_work'?: string;
+
+/**
+ * График работы (вых.)
+ */
+'schedule_not_work'?: string;
 };
 
 /**
@@ -18150,6 +18525,36 @@ export class RequestService extends BaseService {
          * Адрес
          */
         'address'?: string;
+        
+        /**
+         * Адрес СВХ
+         */
+        'svh_address'?: string;
+        
+        /**
+         * Сайт
+         */
+        'web'?: string;
+        
+        /**
+         * Широта
+         */
+        'lat'?: string;
+        
+        /**
+         * Долгота
+         */
+        'long'?: string;
+        
+        /**
+         * График работы (будни)
+         */
+        'schedule_work'?: string;
+        
+        /**
+         * График работы (вых.)
+         */
+        'schedule_not_work'?: string;
         };
         
         /**
@@ -18472,6 +18877,36 @@ export class RequestService extends BaseService {
  * Адрес
  */
 'address'?: string;
+
+/**
+ * Адрес СВХ
+ */
+'svh_address'?: string;
+
+/**
+ * Сайт
+ */
+'web'?: string;
+
+/**
+ * Широта
+ */
+'lat'?: string;
+
+/**
+ * Долгота
+ */
+'long'?: string;
+
+/**
+ * График работы (будни)
+ */
+'schedule_work'?: string;
+
+/**
+ * График работы (вых.)
+ */
+'schedule_not_work'?: string;
 };
 
 /**
@@ -18736,6 +19171,36 @@ export class RequestService extends BaseService {
  * Адрес
  */
 'address'?: string;
+
+/**
+ * Адрес СВХ
+ */
+'svh_address'?: string;
+
+/**
+ * Сайт
+ */
+'web'?: string;
+
+/**
+ * Широта
+ */
+'lat'?: string;
+
+/**
+ * Долгота
+ */
+'long'?: string;
+
+/**
+ * График работы (будни)
+ */
+'schedule_work'?: string;
+
+/**
+ * График работы (вых.)
+ */
+'schedule_not_work'?: string;
 };
 
 /**
@@ -18998,6 +19463,36 @@ export class RequestService extends BaseService {
  * Адрес
  */
 'address'?: string;
+
+/**
+ * Адрес СВХ
+ */
+'svh_address'?: string;
+
+/**
+ * Сайт
+ */
+'web'?: string;
+
+/**
+ * Широта
+ */
+'lat'?: string;
+
+/**
+ * Долгота
+ */
+'long'?: string;
+
+/**
+ * График работы (будни)
+ */
+'schedule_work'?: string;
+
+/**
+ * График работы (вых.)
+ */
+'schedule_not_work'?: string;
 };
 
 /**
