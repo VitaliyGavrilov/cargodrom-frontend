@@ -1,0 +1,49 @@
+tr td:first-child ,tr th:first-child {
+  width: 320px;
+  .column {
+    flex-direction: column; align-items: normal;
+    color: #2C3640;
+    font-weight: 700;
+    font-size: 15px;
+    line-height: 22px;
+    label{
+      font-weight: 400;
+      line-height: 14px;
+
+    }
+    mat-checkbox{
+      margin-right: 5px;
+    }
+  }
+}
+tr th:first-child{
+  background-color: white;
+  border-top: 1px solid #E0E5EB;
+  border-left: 1px solid #E0E5EB;
+  border-bottom: 1px solid #E0E5EB;
+}
+
+tr .column {
+  flex-direction: column;
+  align-items: center;
+  gap: 15px;
+}
+
+.form-placer  {
+  [type="radio"] + i{
+    margin: 0;
+  }
+  padding-bottom: 0;
+}
+
+table.table-list {
+  width: 100%;
+  border-spacing: inherit;
+  box-shadow: 0 2px 8px rgba(36, 45, 67, 0.08);
+
+  tbody td .td-block{
+    padding: 20px 8px;
+  }
+}
+
+

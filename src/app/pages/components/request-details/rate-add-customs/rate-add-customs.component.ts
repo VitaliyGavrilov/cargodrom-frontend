@@ -293,7 +293,7 @@ export class RateAddCustoms implements OnInit, OnDestroy {
   }
   // получаем маршруты(route)
   private getTransportRoute():void{
-    this.directionService.directionRoute({kind_id:this.transportKindId, arrival_city_id:this.cityId, departure_city_id:this.cityIdDep})
+    this.directionService.directionRoute({kind_id:this.transportKindId, arrival_city_id:this.cityId, departure_country_id:this.cityIdDep})
       .pipe(
         tap(transportRoute => {
           if (!transportRoute) {

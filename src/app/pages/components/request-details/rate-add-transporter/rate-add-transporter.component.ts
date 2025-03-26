@@ -33,7 +33,7 @@ export class RateAddTransporter implements OnInit, OnDestroy {
   pointList:any=[];
   pointActionList:any=[];
   transportKinds:any=[];
-  directionCitys:any=[];
+  directionCitys:any=[];filteredArrDirectionCitys:any=[];filteredDepDirectionCitys:any=[];
 
   snackBarWithShortDuration: MatSnackBarConfig = { duration: 1000 };
   snackBarWithLongDuration: MatSnackBarConfig = { duration: 3000 };
@@ -72,18 +72,23 @@ export class RateAddTransporter implements OnInit, OnDestroy {
 
   // Методы ЖЦ
   ngOnInit(): void {
+    this.getDirectionCity();
     this.getChargesShema();
     this.getTransportKind();
     this.getContractor();
     this.getArrivalPoinst();
     this.getPointAction();
-    this.getDirectionCity();
+
     this.getCurrency();
     console.log('this.requestId',this.requestId);
     if(this.rate){
       console.log('this edit mode', this.rate);
       this.rate.values.forEach((i:any)=>{
-        this.addCharge()
+        this.directionCitys.push({name: i.departure_city.name,id: i.departure_city_id});
+        this.directionCitys.push({name: i.arrival_city.name,id: i.arrival_city_id});
+        this.filteredDepDirectionCitys.push({name: i.departure_city.name,id: i.departure_city_id});
+        this.filteredArrDirectionCitys.push({name: i.arrival_city.name,id: i.arrival_city_id});
+        this.addCharge();
       });
       this.rateForm.patchValue(this.rate);
 
@@ -96,6 +101,15 @@ export class RateAddTransporter implements OnInit, OnDestroy {
   ngOnDestroy(): void {
     this._destroy$.next(null);
     this._destroy$.complete();
+  }
+
+  filteredDep(e:any){
+    console.log(e.target.value);
+    this.filteredDepDirectionCitys=this.directionCitys.filter((option:any) => option.name.toLowerCase().replaceAll(' ', '').includes(e.target.value.toLowerCase().replaceAll(' ', '')));
+  }
+  filteredArr(e:any){
+    console.log(e.target.value);
+    this.filteredArrDirectionCitys=this.directionCitys.filter((option:any) => option.name.toLowerCase().replaceAll(' ', '').includes(e.target.value.toLowerCase().replaceAll(' ', '')));
   }
 
   setContractorName(contractor_id:number) {
@@ -116,6 +130,12 @@ export class RateAddTransporter implements OnInit, OnDestroy {
     const filterContractor=this.contractorList.filter((option:any) => option.name.toLowerCase().replaceAll(' ', '').includes(this.rateForm.value.contractor_name.toLowerCase().replaceAll(' ', '')));
     return filterContractor;
   }
+  displayFn_TransportTypeId(id: any): string {
+    if (!this.directionCitys) return '';
+    const obj = this.directionCitys.find((obj:any) => obj.id === id);
+    return obj?.name || '';
+  }
+
 
   // Charges
   addCharge() {
@@ -256,6 +276,27 @@ export class RateAddTransporter implements OnInit, OnDestroy {
       });
   }
 
+  // private getDirectionCityByName(name:any):void{
+  //   this.directionService.directionCity({search:name})
+  //     .pipe(
+  //       tap(citys => {
+  //         if (!citys) {
+  //           throw ({ error: { error_message: `Маршрутов не существует`} });
+  //         }
+  //       }),
+  //       takeUntil(this._destroy$),
+  //     )
+  //     .subscribe({
+  //       next: (citys) => {
+  //         this.filteredDepDirectionCitys=citys;
+
+  //       },
+  //       error: (err) => {
+  //         this.snackBar.open(`Ошибка запроса маршрутов: ` + err.error.error_message, undefined, this.snackBarWithShortDuration);
+  //       }
+  //     });
+  // }
+
   private getDirectionCity():void{
     this.directionService.directionCity()
       .pipe(
@@ -268,7 +309,7 @@ export class RateAddTransporter implements OnInit, OnDestroy {
       )
       .subscribe({
         next: (citys) => {
-          this.directionCitys=citys
+          this.directionCitys=citys;
 
         },
         error: (err) => {

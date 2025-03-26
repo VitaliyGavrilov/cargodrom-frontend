@@ -477,12 +477,11 @@
 <ng-template #rateСustomsDialogRef let-data>
   <app-rate-add-customs
     [rate]="data"
-
     [weight]="currentRequest.cargo_places_paid_weight"
     [requestId]="currentRequest.id"
     [transportKindId]="currentRequest.transport_kind_id"
     [cityId]="currentRequest.arrival_city_id"
-    [cityIdDep]="currentRequest.departure_city_id"
+    [cityIdDep]="currentRequest.departure_country_id"
     (closeDialog)="closeAllDialogs()">
   </app-rate-add-customs>
 </ng-template>
@@ -490,7 +489,6 @@
 <ng-template #ratePointDialogRef let-data>
   <app-rate-add-point
     [rate]="data"
-
     [weight]="currentRequest.cargo_places_paid_weight"
     [requestId]="currentRequest.id"
     [transportKindId]="currentRequest.transport_kind_id"
@@ -501,11 +499,9 @@
 
 <ng-template #rateTransporterDialogRef let-data>
   <app-rate-add-transporter
-  [requestId]="currentRequest.id"
+    [requestId]="currentRequest.id"
     [rate]="data"
-
     [weight]="currentRequest.cargo_places_paid_weight"
-
     [transportKindId]="currentRequest.transport_kind_id"
     [cityId]="currentRequest.arrival_city_id"
     (closeDialog)="closeAllDialogs()">

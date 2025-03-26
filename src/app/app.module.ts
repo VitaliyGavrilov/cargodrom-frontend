@@ -1,6 +1,6 @@
 import { AuthModule } from './auth/auth.module';
 import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
-import { LOCALE_ID, NgModule } from '@angular/core';
+import { Injectable, LOCALE_ID, NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 
 import { AppRoutingModule } from './app-routing.module';
@@ -12,6 +12,10 @@ import { registerLocaleData } from '@angular/common';
 import localeRu from '@angular/common/locales/ru';
 import { PageTitleService } from './page-title.service';
 import { TitleStrategy } from '@angular/router';
+import { DateAdapter, MAT_DATE_LOCALE, NativeDateAdapter } from '@angular/material/core';
+import { MaterialModule } from './material/material.module';
+import { MatDatepickerModule } from '@angular/material/datepicker';
+
 
 @NgModule({
   declarations: [
@@ -23,6 +27,7 @@ import { TitleStrategy } from '@angular/router';
     AuthModule,
     HttpClientModule,
     BrowserAnimationsModule,
+    MatDatepickerModule,
   ],
   providers: [
     {
@@ -42,7 +47,7 @@ import { TitleStrategy } from '@angular/router';
     {
       provide: TitleStrategy,
       useClass: PageTitleService
-    }
+    },
   ],
   bootstrap: [AppComponent]
 })

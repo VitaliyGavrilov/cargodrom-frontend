@@ -1,3 +1,11 @@
+button{
+  cursor: pointer;
+}
+
+.mat-mdc-dialog-container form.edit-form{
+  margin: 20px 10px;
+
+}
 .no-layout {
   display: contents;
 }
@@ -25,16 +33,26 @@ td.vertically .td-block{
   line-height: 16px;
 }
 // mat-selects and mat-options in table
-.table-list .td-block .column mat-select.mat-mdc-select {
+.table-list .mat-mdc-select {
   background-color: inherit;
   border: none;
   font-weight: 400;
   font-size: 13px;
   line-height: 16px;
 
-  .mat-mdc-select-trigger { padding: 0; }
+  // .mat-mdc-select-trigger { padding: 0; }
   .mat-mdc-select-value-text { text-wrap: auto; }
 }
+// .table-list .td-block .column mat-select.mat-mdc-select {
+//   background-color: inherit;
+//   border: none;
+//   font-weight: 400;
+//   font-size: 13px;
+//   line-height: 16px;
+
+//   .mat-mdc-select-trigger { padding: 0; }
+//   .mat-mdc-select-value-text { text-wrap: auto; }
+// }
 mat-option.mat-mdc-option.table_options{
   font-weight: 400;
   font-size: 13px;

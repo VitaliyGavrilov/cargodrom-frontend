@@ -165,6 +165,9 @@
         display: flex;
         flex-wrap: wrap;
         row-gap: 20px;
+        .item.w100{
+          width: 100%;
+        }
         .item{
           width: 50%;
         }

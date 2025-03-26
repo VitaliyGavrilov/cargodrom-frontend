@@ -13,13 +13,13 @@
               formControlName="contractor_name"
               [matAutocomplete]="contractor"
             >
-            <mat-autocomplete autoActiveFirstOption #contractor="matAutocomplete" >
+            <mat-autocomplete #contractor="matAutocomplete" >
               <!-- <mat-option *ngIf="filterRote().length==0" style="text-transform: uppercase" [value]="rateForm.value.route_id">{{rateForm.value?.route_id}}</mat-option> -->
               <mat-option (onSelectionChange)="onContratorChange(contractor)" *ngFor="let contractor of filterContractor()" [value]="contractor.name">{{contractor.name}}</mat-option>
             </mat-autocomplete>
           </div>
         </div>
-        
+
         <ng-container *ngTemplateOutlet="formItemSelector; context: { label: 'Наименнование Аэропорта:', control: 'point_id', data: pointList }"></ng-container>
         <ng-container *ngTemplateOutlet="formItemSelector; context: { label: 'Вид прайса:', control: 'point_action_id', data: pointActionList }"></ng-container>
 
@@ -57,7 +57,7 @@
           </th>
 
           <td mat-cell *matCellDef="let element;let i = index;" [formGroupName]="i" style="background-color: #F7F9FC;">
-            <div class="td-block">
+            <div class="td-block border_select-on">
 
               <div class="column w20">
                 <mat-form-field appearance="outline" class="ui-select">
@@ -69,24 +69,61 @@
                 </mat-form-field>
               </div>
 
+              <!-- <div class="column w20">
+                <mat-select formControlName='kind_id'>
+                  <mat-option *ngFor="let i of transportKinds;" [value]="i.id">
+                    {{ i.name }}
+                  </mat-option>
+                </mat-select>
+              </div> -->
+
               <div class="column">
-                <mat-form-field appearance="outline" class="ui-select">
+                <input
+                  type="text"
+                  formControlName="departure_city_id"
+                  [matAutocomplete]="dep"
+                  (keyup)="filteredDep($event)"
+                >
+                <mat-autocomplete #dep="matAutocomplete" [displayWith]="displayFn_TransportTypeId.bind(this)">
+                  <mat-option
+                    *ngFor="let contractor of filteredDepDirectionCitys"
+                    [value]="contractor.id"
+                    (keyup)="filteredArr($event)"
+                  >
+                    {{contractor.name}}
+                  </mat-option>
+                </mat-autocomplete>
+
+                <!-- <mat-form-field appearance="outline" class="ui-select">
                   <mat-select formControlName='departure_city_id'>
                     <mat-option *ngFor="let i of directionCitys;" [value]="i.id">
                       {{ i.name }}
                     </mat-option>
                    </mat-select>
-                </mat-form-field>
+                </mat-form-field> -->
               </div>
 
               <div class="column">
-                <mat-form-field appearance="outline" class="ui-select">
+                <input
+                  type="text"
+                  formControlName="arrival_city_id"
+                  [matAutocomplete]="arr"
+                >
+                <mat-autocomplete #arr="matAutocomplete" [displayWith]="displayFn_TransportTypeId.bind(this)">
+                  <mat-option
+                    *ngFor="let contractor of filteredArrDirectionCitys"
+                    [value]="contractor.id"
+                  >
+                    {{contractor.name}}
+                  </mat-option>
+                </mat-autocomplete>
+                <!-- <mat-form-field appearance="outline" class="ui-select">
                   <mat-select formControlName='arrival_city_id'>
                     <mat-option *ngFor="let i of directionCitys;" [value]="i.id">
                       {{ i.name }}
                     </mat-option>
                    </mat-select>
-                </mat-form-field>
+                </mat-form-field> -->
               </div>
 
               <div class="column w10">

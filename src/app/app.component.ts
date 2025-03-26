@@ -2,6 +2,7 @@ import { UserService } from './api/services/user.service';
 import { Component, ViewEncapsulation } from '@angular/core';
 import { LoaderService } from '../app/pages/services/loader.service';
 
+
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',

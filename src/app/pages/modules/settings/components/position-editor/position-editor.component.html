@@ -32,6 +32,100 @@
           </div>
         </div>
       </div>
+
+      <div class="form-placer">
+        <div class="form-items">
+          <div class="form-group" data-id="group_1">
+            <div class="form-group-title" style="margin-top: 24px;">Правила доступа в систему</div>
+            <table class="table-list" formArrayName="permission">
+              <thead>
+                <tr>
+                  <th>
+                    <div class="td-block">
+                      <div class="column">
+                        <label style="display: flex; align-items: center;">
+                          <mat-checkbox
+                            (change)="onChangeCheckboxFullPermission($event)"
+                            [indeterminate]="isIndeterminateFullPermission()"
+                            [ngClass]="isIndeterminateFullPermission()?'mat-mdc-checkbox-indeterminate':''"
+                            [checked]="isCheckedFullPermission()"
+                          >
+                          </mat-checkbox>
+                          {{'Полный доступ в систему'}}
+                        </label>
+                      </div>
+                    </div>
+                  </th>
+
+                  <th *ngFor="let col of data?.permission?.columns">
+                    <div class="td-block">
+                      <div class="column">
+                        {{col.name}}
+                        <label>
+                          <mat-checkbox
+                            (change)="onChangeCheckboxCol($event,col.field)"
+                            [indeterminate]="isIndeterminateCol(col.field)"
+                            [ngClass]="isIndeterminateCol(col.field)?'mat-mdc-checkbox-indeterminate':''"
+                            [checked]="isCheckedCol(col.field)"
+                          >
+                          </mat-checkbox>
+                        </label>
+                      </div>
+                    </div>
+                  </th>
+                </tr>
+              </thead>
+
+              <tbody>
+                <ng-container *ngFor="let row of permission.controls; let i = index" [formGroupName]="i">
+                  <tr formGroupName="values">
+
+                    <td>
+                      <div class="td-block" (click)="loge()">
+                        <div class="column " >
+                          {{row.value.name}}
+                          <label *ngFor="let rule of row.value.rules">
+                            <mat-checkbox
+                              [checked]="isCheckedRow(row.value.values,rule)"
+                              (change)="onChangeCheckboxRow($event,rule,row)"
+                              [indeterminate]="isIndeterminateRow(row.value.values,rule)"
+                              [ngClass]="isIndeterminateRow(row.value.values,rule)?'mat-mdc-checkbox-indeterminate':''">
+                            </mat-checkbox>
+                            {{data.permission.rule[rule]}}
+                          </label>
+                        </div>
+                      </div>
+                    </td>
+
+                    <td *ngFor="let col of data?.permission?.columns;let j= index" >
+                      <div class="td-block" >
+                        <div class="column">
+                          <div style="color: white;"></div>
+                          <label *ngFor="let rule of row.value.rules">
+                            <input type="radio"
+                              [formControlName]="col.field"
+                              [value]="rule"
+                              (click)="onChangeRadioBtnRow(row, col.field, rule)"
+                            >
+                            <i></i>
+                          </label>
+                        </div>
+                      </div>
+                    </td>
+
+                  </tr>
+                </ng-container>
+              </tbody>
+
+            </table>
+          </div>
+        </div>
+      </div>
+
+
+
+
+
       <div class="form-button-placer">
         <input type="submit" class="hidden">
         <span class="btn v save button ico ico-floppy-disk2" (click)="save()"><span>Сохранить</span></span>
@@ -42,9 +136,8 @@
     </div>
   </form>
 
-  <form class="form" [formGroup]="form" *ngIf="data" >
-  <table class="table-list" formArrayName="permission">
-
+  <form class="form" [formGroup]="form"  >
+  <!-- <table class="table-list" formArrayName="permission">
     <thead>
       <tr>
         <th>
@@ -109,12 +202,13 @@
               <div class="column">
                 <div *ngFor="let rule of row.value.rules">
                   <label>
-                    <input type="radio" [formControlName]="col.field" [value]="rule" (click)="onChangeRadioBtnRow(row, col.field, rule)">
+                    <input type="radio"
+                      [formControlName]="col.field"
+                      [value]="rule"
+                      (click)="onChangeRadioBtnRow(row, col.field, rule)"
+                    >
                   </label>
                 </div>
-                <!-- <mat-radio-group [formControlName]="col.field">
-                  <mat-radio-button *ngFor="let rule of row.value.rules"  [value]="rule"></mat-radio-button>
-                </mat-radio-group> -->
               </div>
             </div>
           </td>
@@ -123,7 +217,7 @@
       </ng-container>
     </tbody>
 
-  </table>
+  </table> -->
 </form>
 </div>
 
