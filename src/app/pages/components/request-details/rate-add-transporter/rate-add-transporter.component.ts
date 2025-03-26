@@ -29,7 +29,7 @@ export class RateAddTransporter implements OnInit, OnDestroy {
 
   rateForm: FormGroup;
   private _destroy$ = new Subject();
-  contractorList:any=[];
+  contractorList:any=[];filteredContractorsArr:any=[];
   pointList:any=[];
   pointActionList:any=[];
   transportKinds:any=[];
@@ -73,21 +73,23 @@ export class RateAddTransporter implements OnInit, OnDestroy {
   // Методы ЖЦ
   ngOnInit(): void {
     this.getDirectionCity();
+    this.getContractor();
     this.getChargesShema();
     this.getTransportKind();
-    this.getContractor();
     this.getArrivalPoinst();
     this.getPointAction();
-
     this.getCurrency();
+
     console.log('this.requestId',this.requestId);
     if(this.rate){
       console.log('this edit mode', this.rate);
+      // this.filteredContractorsArr.push({name: this.rate.contractor.name ,id: this.rate.contractor_id});
+      this.contractorList.push({name: this.rate.contractor.name ,id: this.rate.contractor_id});
       this.rate.values.forEach((i:any)=>{
         this.directionCitys.push({name: i.departure_city.name,id: i.departure_city_id});
         this.directionCitys.push({name: i.arrival_city.name,id: i.arrival_city_id});
-        this.filteredDepDirectionCitys.push({name: i.departure_city.name,id: i.departure_city_id});
-        this.filteredArrDirectionCitys.push({name: i.arrival_city.name,id: i.arrival_city_id});
+        // this.filteredDepDirectionCitys.push({name: i.departure_city.name,id: i.departure_city_id});
+        // this.filteredArrDirectionCitys.push({name: i.arrival_city.name,id: i.arrival_city_id});
         this.addCharge();
       });
       this.rateForm.patchValue(this.rate);
@@ -111,6 +113,10 @@ export class RateAddTransporter implements OnInit, OnDestroy {
     console.log(e.target.value);
     this.filteredArrDirectionCitys=this.directionCitys.filter((option:any) => option.name.toLowerCase().replaceAll(' ', '').includes(e.target.value.toLowerCase().replaceAll(' ', '')));
   }
+  filteredContractors(e:any){
+    console.log(e.target.value);
+    this.filteredContractorsArr=this.contractorList.filter((option:any) => option.name.toLowerCase().replaceAll(' ', '').includes(e.target.value.toLowerCase().replaceAll(' ', '')));
+  }
 
   setContractorName(contractor_id:number) {
     const contractor = this.contractorList.find((r:any) => r.id === contractor_id);
@@ -130,9 +136,21 @@ export class RateAddTransporter implements OnInit, OnDestroy {
     const filterContractor=this.contractorList.filter((option:any) => option.name.toLowerCase().replaceAll(' ', '').includes(this.rateForm.value.contractor_name.toLowerCase().replaceAll(' ', '')));
     return filterContractor;
   }
+  // displayFn_TransportTypeId(id: any): string {
+  //   if (!this.directionCitys) return '';
+  //   const obj = this.directionCitys.find((obj:any) => obj.id === id);
+  //   return obj?.name || '';
+  // }
+
   displayFn_TransportTypeId(id: any): string {
     if (!this.directionCitys) return '';
     const obj = this.directionCitys.find((obj:any) => obj.id === id);
+    return obj?.name || '';
+  }
+
+  displayFn_Contractors(id: any): string {
+    if (!this.contractorList) return '';
+    const obj = this.contractorList.find((obj:any) => obj.id === id);
     return obj?.name || '';
   }
 
@@ -189,6 +207,7 @@ export class RateAddTransporter implements OnInit, OnDestroy {
       .pipe(
         tap(contractor => {
           console.log(contractor);
+          this.contractorList=contractor.items;
 
           if (!contractor) {
             throw ({ error: { error_message: `Маршрутов не существует`} });
@@ -198,9 +217,9 @@ export class RateAddTransporter implements OnInit, OnDestroy {
       )
       .subscribe({
         next: (contractor) => {
-          this.contractorList=contractor.items;
+          // this.contractorList=contractor.items;
           if(this.rate){
-            this.setContractorName(this.rate.contractor_id);
+            // this.setContractorName(this.rate.contractor_id);
           }
         },
         error: (err) => {
@@ -310,7 +329,6 @@ export class RateAddTransporter implements OnInit, OnDestroy {
       .subscribe({
         next: (citys) => {
           this.directionCitys=citys;
-
         },
         error: (err) => {
           this.snackBar.open(`Ошибка запроса маршрутов: ` + err.error.error_message, undefined, this.snackBarWithShortDuration);

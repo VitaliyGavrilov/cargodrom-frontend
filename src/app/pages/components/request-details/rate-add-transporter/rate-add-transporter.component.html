@@ -10,15 +10,29 @@
           <div class="form-data">
             <input
               type="text"
-              formControlName="contractor_name"
+              formControlName="contractor_id"
               [matAutocomplete]="contractor"
+              (keyup)="filteredContractors($event)"
             >
-            <mat-autocomplete #contractor="matAutocomplete" >
-              <!-- <mat-option *ngIf="filterRote().length==0" style="text-transform: uppercase" [value]="rateForm.value.route_id">{{rateForm.value?.route_id}}</mat-option> -->
-              <mat-option (onSelectionChange)="onContratorChange(contractor)" *ngFor="let contractor of filterContractor()" [value]="contractor.name">{{contractor.name}}</mat-option>
+            <mat-autocomplete autoActiveFirstOption="false" #contractor="matAutocomplete" [displayWith]="displayFn_Contractors.bind(this)">
+              <mat-option *ngFor="let contractor of filteredContractorsArr" [value]="contractor.id">{{contractor.name}}</mat-option>
             </mat-autocomplete>
           </div>
         </div>
+
+        <!-- <div class="form-item">
+          <div class="form-label">Подрядчик:</div>
+          <div class="form-data">
+            <input
+              type="text"
+              formControlName="contractor_name"
+              [matAutocomplete]="contractor"
+            >
+            <mat-autocomplete #contractor="matAutocomplete" autoActiveFirstOption="false">
+              <mat-option (onSelectionChange)="onContratorChange(contractor)" *ngFor="let contractor of filterContractor()" [value]="contractor.name">{{contractor.name}}</mat-option>
+            </mat-autocomplete>
+          </div>
+        </div> -->
 
         <ng-container *ngTemplateOutlet="formItemSelector; context: { label: 'Наименнование Аэропорта:', control: 'point_id', data: pointList }"></ng-container>
         <ng-container *ngTemplateOutlet="formItemSelector; context: { label: 'Вид прайса:', control: 'point_action_id', data: pointActionList }"></ng-container>
@@ -49,8 +63,8 @@
           <th mat-header-cell *matHeaderCellDef >
             <div class="td-block">
               <div class="column center w20">Тип ТС</div>
-              <div class="column center">Отправка</div>
-              <div class="column center">Получение</div>
+              <div class="column center w30">Отправка</div>
+              <div class="column center w30">Получение</div>
               <div class="column center w10">Срок от</div>
               <div class="column center w10">Срок до</div>
             </div>
@@ -77,7 +91,7 @@
                 </mat-select>
               </div> -->
 
-              <div class="column">
+              <div class="column w30">
                 <input
                   type="text"
                   formControlName="departure_city_id"
@@ -88,7 +102,7 @@
                   <mat-option
                     *ngFor="let contractor of filteredDepDirectionCitys"
                     [value]="contractor.id"
-                    (keyup)="filteredArr($event)"
+                    (keyup)="filteredDep($event)"
                   >
                     {{contractor.name}}
                   </mat-option>
@@ -103,11 +117,12 @@
                 </mat-form-field> -->
               </div>
 
-              <div class="column">
+              <div class="column w30" >
                 <input
                   type="text"
                   formControlName="arrival_city_id"
                   [matAutocomplete]="arr"
+                  (keyup)="filteredArr($event)"
                 >
                 <mat-autocomplete #arr="matAutocomplete" [displayWith]="displayFn_TransportTypeId.bind(this)">
                   <mat-option

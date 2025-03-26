@@ -346,12 +346,12 @@ export class RequestDetails extends Table<any, 'trade_rating', ContractorFilter>
   navToBidTable(){
     this.router.navigate(['pages/request/bidding', this.requestId])
   }
-  // OPEN EDITOR
+  // OPEN EDITOR popap
   openRateEditor(mode:string, data?: any) {
     const rateEditors: { [key: string]: { ref: any; config?: any } } = {
-      point:       { ref: this.ratePointDialogRef },
-      transporter: { ref: this.rateTransporterDialogRef },
-      customs:     { ref: this.rateСustomsDialogRef, config: { height: '85vh' } },
+      transporter: { ref: this.rateTransporterDialogRef, config: { height: '85vh', minWidth: '85vw',  maxWidth: '95vw' } },
+      customs:     { ref: this.rateСustomsDialogRef, config: { height: '85vh', minWidth: '85vw',  maxWidth: '95vw' } },
+      point:       { ref: this.ratePointDialogRef, config: { height: '85vh', minWidth: '85vw',  maxWidth: '95vw' } },
     };
     // const editor = rateEditors[this.detailsMethod];
     const editor = rateEditors[mode];

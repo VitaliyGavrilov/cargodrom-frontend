@@ -1103,7 +1103,7 @@ a{
 
 .main_page_info{
   display: flex;
-  .rate_info {
+  .rate_info{
     border-right: 1px solid #C3CCD6;
     margin-right: 24px;
     .title{
@@ -1126,7 +1126,7 @@ a{
 .subheader .back{
   margin-right: 15px;
   cursor: pointer;
-  background: url(/../assets/pic-backto.svg) no-repeat 50% 50%;
+  background: url(/../assets/pic-backto2.svg) no-repeat 50% 50%;
   width: 13px;
 }
 
