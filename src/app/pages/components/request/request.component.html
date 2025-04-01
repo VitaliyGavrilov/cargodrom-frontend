@@ -20,11 +20,12 @@
             <div [class]="!col.title?'no-layout':'td-block-line'">
               <ng-container *ngFor="let miniCol of col.items">
                 <div class="column" *ngIf="miniCol.title"
-                     [attr.title]="getColTitle(miniCol.field)"
-                     (click)="sort(miniCol.field)"
-                     [ngClass]="getSortClass(miniCol.field)"
-                     [style.width]="miniCol.width"
-                     [class]="miniCol.class">
+                  [attr.title]="getColTitle(miniCol.field)"
+                  (click)="sort(miniCol.field)"
+                  [ngClass]="getSortClass(miniCol.field)"
+                  [style.width]="miniCol.width"
+                  [class]="miniCol.class"
+                >
                   {{miniCol.title}}
                 </div>
               </ng-container>

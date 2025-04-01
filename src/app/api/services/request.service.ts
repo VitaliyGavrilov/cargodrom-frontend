@@ -15723,6 +15723,11 @@ export class RequestService extends BaseService {
 'cargo_places_paid_weight'?: number;
 
 /**
+ * Объем, м3
+ */
+'cargo_places_volume'?: number;
+
+/**
  * Дата запроса
  */
 'time_request'?: string;
@@ -16016,6 +16021,27 @@ export class RequestService extends BaseService {
 'service_items': string;
 
 /**
+ * Сводная информация
+ */
+'summary_data': Array<{
+
+/**
+ * Наименование
+ */
+'name': string;
+
+/**
+ * Значение
+ */
+'value': string;
+
+/**
+ * Широкая колонка
+ */
+'wide_row'?: boolean;
+}>;
+
+/**
  * Примечание
  */
 'comment'?: string;
@@ -16115,6 +16141,11 @@ export class RequestService extends BaseService {
          * Оплачиваемый вес, кг
          */
         'cargo_places_paid_weight'?: number;
+        
+        /**
+         * Объем, м3
+         */
+        'cargo_places_volume'?: number;
         
         /**
          * Дата запроса
@@ -16410,6 +16441,27 @@ export class RequestService extends BaseService {
         'service_items': string;
         
         /**
+         * Сводная информация
+         */
+        'summary_data': Array<{
+        
+        /**
+         * Наименование
+         */
+        'name': string;
+        
+        /**
+         * Значение
+         */
+        'value': string;
+        
+        /**
+         * Широкая колонка
+         */
+        'wide_row'?: boolean;
+        }>;
+        
+        /**
          * Примечание
          */
         'comment'?: string;
@@ -16567,6 +16619,11 @@ export class RequestService extends BaseService {
 'cargo_places_paid_weight'?: number;
 
 /**
+ * Объем, м3
+ */
+'cargo_places_volume'?: number;
+
+/**
  * Дата запроса
  */
 'time_request'?: string;
@@ -16858,6 +16915,27 @@ export class RequestService extends BaseService {
  * Наименование статей затрат
  */
 'service_items': string;
+
+/**
+ * Сводная информация
+ */
+'summary_data': Array<{
+
+/**
+ * Наименование
+ */
+'name': string;
+
+/**
+ * Значение
+ */
+'value': string;
+
+/**
+ * Широкая колонка
+ */
+'wide_row'?: boolean;
+}>;
 
 /**
  * Примечание
@@ -16944,6 +17022,11 @@ export class RequestService extends BaseService {
 'cargo_places_paid_weight'?: number;
 
 /**
+ * Объем, м3
+ */
+'cargo_places_volume'?: number;
+
+/**
  * Дата запроса
  */
 'time_request'?: string;
@@ -17235,6 +17318,27 @@ export class RequestService extends BaseService {
  * Наименование статей затрат
  */
 'service_items': string;
+
+/**
+ * Сводная информация
+ */
+'summary_data': Array<{
+
+/**
+ * Наименование
+ */
+'name': string;
+
+/**
+ * Значение
+ */
+'value': string;
+
+/**
+ * Широкая колонка
+ */
+'wide_row'?: boolean;
+}>;
 
 /**
  * Примечание
@@ -17319,6 +17423,11 @@ export class RequestService extends BaseService {
 'cargo_places_paid_weight'?: number;
 
 /**
+ * Объем, м3
+ */
+'cargo_places_volume'?: number;
+
+/**
  * Дата запроса
  */
 'time_request'?: string;
@@ -17610,6 +17719,27 @@ export class RequestService extends BaseService {
  * Наименование статей затрат
  */
 'service_items': string;
+
+/**
+ * Сводная информация
+ */
+'summary_data': Array<{
+
+/**
+ * Наименование
+ */
+'name': string;
+
+/**
+ * Значение
+ */
+'value': string;
+
+/**
+ * Широкая колонка
+ */
+'wide_row'?: boolean;
+}>;
 
 /**
  * Примечание
@@ -18117,6 +18247,11 @@ export class RequestService extends BaseService {
 'cargo_places_density'?: number;
 
 /**
+ * Объем, м3
+ */
+'cargo_places_volume'?: number;
+
+/**
  * Оплачиваемый вес, кг
  */
 'cargo_places_paid_weight'?: number;
@@ -18246,7 +18381,7 @@ export class RequestService extends BaseService {
 /**
  * График работы (вых.)
  */
-'schedule_not_work'?: string;
+'schedule_weekend_work'?: string;
 };
 
 /**
@@ -18347,6 +18482,27 @@ export class RequestService extends BaseService {
 'currency'?: number;
 
 /**
+ * Сводная информация
+ */
+'summary_data': Array<{
+
+/**
+ * Наименование
+ */
+'name': string;
+
+/**
+ * Значение
+ */
+'value': string;
+
+/**
+ * Широкая колонка
+ */
+'wide_row'?: boolean;
+}>;
+
+/**
  * Комментарий (Your Comment)
  */
 'comment'?: string;
@@ -18423,6 +18579,11 @@ export class RequestService extends BaseService {
          * Плотность, кг/м3
          */
         'cargo_places_density'?: number;
+        
+        /**
+         * Объем, м3
+         */
+        'cargo_places_volume'?: number;
         
         /**
          * Оплачиваемый вес, кг
@@ -18554,7 +18715,7 @@ export class RequestService extends BaseService {
         /**
          * График работы (вых.)
          */
-        'schedule_not_work'?: string;
+        'schedule_weekend_work'?: string;
         };
         
         /**
@@ -18653,6 +18814,27 @@ export class RequestService extends BaseService {
          * Валюта (ID берем из запроса - system_currency)
          */
         'currency'?: number;
+        
+        /**
+         * Сводная информация
+         */
+        'summary_data': Array<{
+        
+        /**
+         * Наименование
+         */
+        'name': string;
+        
+        /**
+         * Значение
+         */
+        'value': string;
+        
+        /**
+         * Широкая колонка
+         */
+        'wide_row'?: boolean;
+        }>;
         
         /**
          * Комментарий (Your Comment)
@@ -18777,6 +18959,11 @@ export class RequestService extends BaseService {
 'cargo_places_density'?: number;
 
 /**
+ * Объем, м3
+ */
+'cargo_places_volume'?: number;
+
+/**
  * Оплачиваемый вес, кг
  */
 'cargo_places_paid_weight'?: number;
@@ -18906,7 +19093,7 @@ export class RequestService extends BaseService {
 /**
  * График работы (вых.)
  */
-'schedule_not_work'?: string;
+'schedule_weekend_work'?: string;
 };
 
 /**
@@ -19005,6 +19192,27 @@ export class RequestService extends BaseService {
  * Валюта (ID берем из запроса - system_currency)
  */
 'currency'?: number;
+
+/**
+ * Сводная информация
+ */
+'summary_data': Array<{
+
+/**
+ * Наименование
+ */
+'name': string;
+
+/**
+ * Значение
+ */
+'value': string;
+
+/**
+ * Широкая колонка
+ */
+'wide_row'?: boolean;
+}>;
 
 /**
  * Комментарий (Your Comment)
@@ -19071,6 +19279,11 @@ export class RequestService extends BaseService {
 'cargo_places_density'?: number;
 
 /**
+ * Объем, м3
+ */
+'cargo_places_volume'?: number;
+
+/**
  * Оплачиваемый вес, кг
  */
 'cargo_places_paid_weight'?: number;
@@ -19200,7 +19413,7 @@ export class RequestService extends BaseService {
 /**
  * График работы (вых.)
  */
-'schedule_not_work'?: string;
+'schedule_weekend_work'?: string;
 };
 
 /**
@@ -19299,6 +19512,27 @@ export class RequestService extends BaseService {
  * Валюта (ID берем из запроса - system_currency)
  */
 'currency'?: number;
+
+/**
+ * Сводная информация
+ */
+'summary_data': Array<{
+
+/**
+ * Наименование
+ */
+'name': string;
+
+/**
+ * Значение
+ */
+'value': string;
+
+/**
+ * Широкая колонка
+ */
+'wide_row'?: boolean;
+}>;
 
 /**
  * Комментарий (Your Comment)
@@ -19363,6 +19597,11 @@ export class RequestService extends BaseService {
 'cargo_places_density'?: number;
 
 /**
+ * Объем, м3
+ */
+'cargo_places_volume'?: number;
+
+/**
  * Оплачиваемый вес, кг
  */
 'cargo_places_paid_weight'?: number;
@@ -19492,7 +19731,7 @@ export class RequestService extends BaseService {
 /**
  * График работы (вых.)
  */
-'schedule_not_work'?: string;
+'schedule_weekend_work'?: string;
 };
 
 /**
@@ -19591,6 +19830,27 @@ export class RequestService extends BaseService {
  * Валюта (ID берем из запроса - system_currency)
  */
 'currency'?: number;
+
+/**
+ * Сводная информация
+ */
+'summary_data': Array<{
+
+/**
+ * Наименование
+ */
+'name': string;
+
+/**
+ * Значение
+ */
+'value': string;
+
+/**
+ * Широкая колонка
+ */
+'wide_row'?: boolean;
+}>;
 
 /**
  * Комментарий (Your Comment)
@@ -19981,6 +20241,11 @@ export class RequestService extends BaseService {
 'cargo_places_density'?: number;
 
 /**
+ * Объем, м3
+ */
+'cargo_places_volume'?: number;
+
+/**
  * Оплачиваемый вес, кг
  */
 'cargo_places_paid_weight'?: number;
@@ -20214,6 +20479,27 @@ export class RequestService extends BaseService {
 'currency'?: number;
 
 /**
+ * Сводная информация
+ */
+'summary_data': Array<{
+
+/**
+ * Наименование
+ */
+'name': string;
+
+/**
+ * Значение
+ */
+'value': string;
+
+/**
+ * Широкая колонка
+ */
+'wide_row'?: boolean;
+}>;
+
+/**
  * В итоговом
  */
 'selected'?: boolean;
@@ -20286,6 +20572,11 @@ export class RequestService extends BaseService {
          * Плотность, кг/м3
          */
         'cargo_places_density'?: number;
+        
+        /**
+         * Объем, м3
+         */
+        'cargo_places_volume'?: number;
         
         /**
          * Оплачиваемый вес, кг
@@ -20521,6 +20812,27 @@ export class RequestService extends BaseService {
         'currency'?: number;
         
         /**
+         * Сводная информация
+         */
+        'summary_data': Array<{
+        
+        /**
+         * Наименование
+         */
+        'name': string;
+        
+        /**
+         * Значение
+         */
+        'value': string;
+        
+        /**
+         * Широкая колонка
+         */
+        'wide_row'?: boolean;
+        }>;
+        
+        /**
          * В итоговом
          */
         'selected'?: boolean;
@@ -20643,6 +20955,11 @@ export class RequestService extends BaseService {
 'cargo_places_density'?: number;
 
 /**
+ * Объем, м3
+ */
+'cargo_places_volume'?: number;
+
+/**
  * Оплачиваемый вес, кг
  */
 'cargo_places_paid_weight'?: number;
@@ -20874,6 +21191,27 @@ export class RequestService extends BaseService {
  * Валюта (ID берем из запроса - system_currency)
  */
 'currency'?: number;
+
+/**
+ * Сводная информация
+ */
+'summary_data': Array<{
+
+/**
+ * Наименование
+ */
+'name': string;
+
+/**
+ * Значение
+ */
+'value': string;
+
+/**
+ * Широкая колонка
+ */
+'wide_row'?: boolean;
+}>;
 
 /**
  * В итоговом
@@ -20935,6 +21273,11 @@ export class RequestService extends BaseService {
 'cargo_places_density'?: number;
 
 /**
+ * Объем, м3
+ */
+'cargo_places_volume'?: number;
+
+/**
  * Оплачиваемый вес, кг
  */
 'cargo_places_paid_weight'?: number;
@@ -21166,6 +21509,27 @@ export class RequestService extends BaseService {
  * Валюта (ID берем из запроса - system_currency)
  */
 'currency'?: number;
+
+/**
+ * Сводная информация
+ */
+'summary_data': Array<{
+
+/**
+ * Наименование
+ */
+'name': string;
+
+/**
+ * Значение
+ */
+'value': string;
+
+/**
+ * Широкая колонка
+ */
+'wide_row'?: boolean;
+}>;
 
 /**
  * В итоговом
@@ -21225,6 +21589,11 @@ export class RequestService extends BaseService {
 'cargo_places_density'?: number;
 
 /**
+ * Объем, м3
+ */
+'cargo_places_volume'?: number;
+
+/**
  * Оплачиваемый вес, кг
  */
 'cargo_places_paid_weight'?: number;
@@ -21456,6 +21825,27 @@ export class RequestService extends BaseService {
  * Валюта (ID берем из запроса - system_currency)
  */
 'currency'?: number;
+
+/**
+ * Сводная информация
+ */
+'summary_data': Array<{
+
+/**
+ * Наименование
+ */
+'name': string;
+
+/**
+ * Значение
+ */
+'value': string;
+
+/**
+ * Широкая колонка
+ */
+'wide_row'?: boolean;
+}>;
 
 /**
  * В итоговом

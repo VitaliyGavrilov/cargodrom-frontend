@@ -26,14 +26,19 @@ export abstract class Table<T extends { id: number }, A = never, F = never> impl
   sortableColumns?: string[]=[];
 
   isBiddingMode=false;
+  isRateDetailsMode=false;
+  isResizeColumnMode:boolean=false;
+
+  detailsMethod:string='';
+
   arrRowsId:number[]=[];
   quantityContractors:number=0;
   currentQuantityContractors:number=0
   currentRequest:any={};
   contractorsSelectedForRequest:any=[];
 
-  isRateDetailsMode=false;
-  detailsMethod:string='';
+
+
   requestId:number=0;
 
   // schemaTest:any
@@ -242,28 +247,33 @@ export abstract class Table<T extends { id: number }, A = never, F = never> impl
   }
 
   sort(field: keyof T | A): void {
-    if (Array.isArray(this.sortableColumns) && !this.sortableColumns.includes(field as string)) {
-      return;
+    if(!this.isResizeColumnMode){
+      if (Array.isArray(this.sortableColumns) && !this.sortableColumns.includes(field as string)) {
+        return;
+      }
+      this.start = 0;
+      if (this.sortField === field) {
+        this.sortDir = this.sortDir === 'asc' ? 'desc' : 'asc';
+      } else {
+        this.sortDir = 'asc';
+        this.sortField = field;
+      }
+      this.router.navigate(['.'], {
+        queryParams: { sortCol: this.sortField, sortDir: this.sortDir, start: this.start },
+        queryParamsHandling: 'merge',
+        relativeTo: this.route,
+      });
     }
-    this.start = 0;
-    if (this.sortField === field) {
-      this.sortDir = this.sortDir === 'asc' ? 'desc' : 'asc';
-    } else {
-      this.sortDir = 'asc';
-      this.sortField = field;
-    }
-    this.router.navigate(['.'], {
-      queryParams: { sortCol: this.sortField, sortDir: this.sortDir, start: this.start },
-      queryParamsHandling: 'merge',
-      relativeTo: this.route,
-    });
   }
 
   getSortClass(field: keyof T | A): string {
-    if (this.sortField === field) {
-      return this.sortDir === 'asc' ? 'column-sortable sort-dir-asc' : 'column-sortable sort-dir-desc';
-    } else if (this.isSortable(field)) {
-      return 'column-sortable';
+    if(!this.isResizeColumnMode){
+      if (this.sortField === field) {
+        return this.sortDir === 'asc' ? 'column-sortable sort-dir-asc' : 'column-sortable sort-dir-desc';
+      } else if (this.isSortable(field)) {
+        return 'column-sortable';
+      }
+
     }
     return '';
   }

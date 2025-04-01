@@ -17,9 +17,10 @@ import { MaterialModule } from './material/material.module';
 import { MatDatepickerModule } from '@angular/material/datepicker';
 
 
+
 @NgModule({
   declarations: [
-    AppComponent
+    AppComponent,
   ],
   imports: [
     BrowserModule,

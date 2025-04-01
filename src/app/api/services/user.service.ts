@@ -1326,4 +1326,113 @@ export class UserService extends BaseService {
     );
   }
 
+  /** Path part for operation `userSaveTableParam()` */
+  static readonly UserSaveTableParamPath = '/user_save_table_param';
+
+  /**
+   * Сохранение параметров вывода таблицы.
+   *
+   *
+   *
+   * This method provides access to the full `HttpResponse`, allowing access to response headers.
+   * To access only the response body, use `userSaveTableParam()` instead.
+   *
+   * This method sends `application/json` and handles request body of type `application/json`.
+   */
+  userSaveTableParam$Response(
+    params?: {
+      body?: {
+
+/**
+ * Метод таблицы
+ */
+'method': string;
+
+/**
+ * Параметры таблицы, в структуре ...list_param
+ */
+'param': {
+};
+}
+    },
+    context?: HttpContext
+  ): Observable<StrictHttpResponse<{
+
+/**
+ * Статус выполнения
+ */
+'result': 'OK';
+}>> {
+    const rb = new RequestBuilder(this.rootUrl, UserService.UserSaveTableParamPath, 'post');
+    if (params) {
+      rb.body(params.body, 'application/json');
+    }
+
+    return this.http.request(
+      rb.build({ responseType: 'json', accept: 'application/json', context })
+    ).pipe(
+      filter((r: any): r is HttpResponse<any> => r instanceof HttpResponse),
+      map((r: HttpResponse<any>) => {
+        return r as StrictHttpResponse<{
+        
+        /**
+         * Статус выполнения
+         */
+        'result': 'OK';
+        }>;
+      })
+    );
+  }
+
+  /**
+   * Сохранение параметров вывода таблицы.
+   *
+   *
+   *
+   * This method provides access only to the response body.
+   * To access the full response (for headers, for example), `userSaveTableParam$Response()` instead.
+   *
+   * This method sends `application/json` and handles request body of type `application/json`.
+   */
+  userSaveTableParam(
+    params?: {
+      body?: {
+
+/**
+ * Метод таблицы
+ */
+'method': string;
+
+/**
+ * Параметры таблицы, в структуре ...list_param
+ */
+'param': {
+};
+}
+    },
+    context?: HttpContext
+  ): Observable<{
+
+/**
+ * Статус выполнения
+ */
+'result': 'OK';
+}> {
+    return this.userSaveTableParam$Response(params, context).pipe(
+      map((r: StrictHttpResponse<{
+
+/**
+ * Статус выполнения
+ */
+'result': 'OK';
+}>): {
+
+/**
+ * Статус выполнения
+ */
+'result': 'OK';
+} => r.body)
+    );
+  }
+
 }

@@ -7,85 +7,87 @@
 
 <app-table-filter></app-table-filter>
 
-<div class="table-list" >
+<div class="table-list" [class]="isResizeColumnMode?'resize':''" >
   <table mat-table [dataSource]="rows" multiTemplateDataRows>
 
-    <ng-container *ngFor="let col of columnsData"
+    <ng-container *ngFor="let col of columnsData;let colIndex=index"
       [matColumnDef]="col.column"
       [ngSwitch]="col.column"
     >
-
-    <!-- стандартный шаблон -->
+      <!-- стандартный шаблон -->
       <ng-template [ngSwitchDefault]>
         <th mat-header-cell *matHeaderCellDef [style.width]="col.width" [class]="col.class">
-          <div class="td-block" *ngIf="!col.title">
-            <div class="column"
-              [attr.title]="getColTitle(miniCol.field)"
-              (click)="sort(miniCol.field)"
-              [ngClass]="getSortClass(miniCol.field)"
-              *ngFor="let miniCol of col.items"
-              [style.width]="miniCol.width"
-              [class]="miniCol.class"
-            >
-              <!-- <div class="resize-handle_start" (mousedown)="startResize($event, miniCol)"></div> -->
-              {{miniCol.title}}
-              <!-- <div class="resize-handle_end" (mousedown)="startResize($event, miniCol)"></div> -->
+          <div [class]="!col.title?'td-block':'td-block-column'">
+            <div *ngIf="col.title" class="td-block-title">
+              {{col.title}}
             </div>
-          </div>
+            <div [class]="!col.title?'no-layout':'td-block-line'">
+              <ng-container *ngFor="let miniCol of col.items;let miniColIndex=index">
+                <div class="column" *ngIf="miniCol.title"
+                  [style.width]="miniCol.width"
+                  [class]="miniCol.class"
+                >
+                  <div class="col-content"
+                    [ngClass]="getSortClass(miniCol.field)"
+                    [attr.title]="getColTitle(miniCol.field)"
+                    (click)="sort(miniCol.field)"
+                  >
+                    {{miniCol.title}}
+                  </div>
+                  <div class="resize-handle_end"
+                    *ngIf="isResizeColumnMode"
+                    (mousedown)="startResize($event, miniCol)"
+                  >
+                  </div>
+                  <!-- <div class="resize-handle_end"
+                    *ngIf="isResizeColumnMode"
+                    (mousedown)="startResize($event, miniCol)"
+                    (click)="handleResizeClick($event, miniCol)"
+                  >
+                  </div> -->
+                </div>
 
-          <div class="td-block-column" *ngIf="col.title">
-            <div class="td-block-title">{{col.title}}</div>
-            <div class="td-block-line">
-              <div class="column"
-                [attr.title]="getColTitle(miniCol.field)"
-                (click)="sort(miniCol.field)"
-                [ngClass]="getSortClass(miniCol.field)"
-                *ngFor="let miniCol of col.items"
-                [style.width]="miniCol.width"
-                [class]="miniCol.class"
-              >
-                {{miniCol.title}}
-                <!-- <div class="resize-handle" (mousedown)="startResize($event, miniCol)"></div> -->
-              </div>
+              </ng-container>
             </div>
           </div>
         </th>
 
         <td mat-cell *matCellDef="let item" [style.width]="col.width" [class]="col.class">
-          <div class="td-block" *ngIf="!col.title">
+          <div class="td-block" >
             <div class="column"
               *ngFor="let miniCol of col.items"
               [style.width]="miniCol.width"
               [class]="miniCol.class"
+              [ngSwitch]="miniCol.field"
             >
-              {{ getVal(item,miniCol.field) }}
-            </div>
-          </div>
-
-          <div class="td-block-line" *ngIf="col.title">
-            <div class="column"
-              *ngFor="let miniCol of col.items"
-              [style.width]="miniCol.width"
-              [class]="miniCol.class"
-              >
-              {{ getVal(item,miniCol.field) }}
+              <ng-template [ngSwitchDefault]>
+                <div class="col-content">{{ getVal(item,miniCol.field) }}</div>
+                <div class="resize-handle_end"
+                  *ngIf="isResizeColumnMode"
+                  (mousedown)="startResize($event, miniCol)"
+                >
+                </div>
+              </ng-template>
+              <ng-template [ngSwitchCase]="'test'">test</ng-template>
             </div>
           </div>
         </td>
       </ng-template>
-
       <!--настройки(сылка на редактирование) -->
       <ng-template [ngSwitchCase]="'settings'">
         <th mat-header-cell *matHeaderCellDef class="setting">
-          <div class="setting-link"></div>
+          <div class="setting-link" [matMenuTriggerFor]="menu"></div>
+          <mat-menu #menu="matMenu">
+            <button *ngIf="isResizeColumnMode" mat-menu-item (click)="onCancelColumnWidth()">Отменить изменения</button>
+            <button *ngIf="isResizeColumnMode" mat-menu-item (click)="onSaveColumnWidth()">Сохранить изменения</button>
+            <button *ngIf="!isResizeColumnMode" mat-menu-item (click)="isResizeColumnMode=!isResizeColumnMode">Редактирование размера колонок</button>
+          </mat-menu>
         </th>
         <td mat-cell *matCellDef="let client" class="setting">
           <a class="link-pic link-edit ico ico-pencil fn-link" [routerLink]="['edit', client.id]" title="Редактировать"></a>
         </td>
       </ng-template>
-
     </ng-container>
-
 
     <tr mat-header-row *matHeaderRowDef="column; sticky: true"></tr>
     <tr mat-row *matRowDef="let row; columns: column;"></tr>
@@ -101,154 +103,3 @@
   (startChange)="onStartChange($event)"
   (countChange)="onCountChange($event)">
 </app-paginator>
-
-<!-- <div class="table-list">
-  <table mat-table [dataSource]="rows">
-    <ng-container matColumnDef="customer">
-      <th mat-header-cell *matHeaderCellDef>
-        <div class="td-block">
-          <div class="column w10" [attr.title]="getColTitle('id')" (click)="sort('id')" [ngClass]="getSortClass('id')">№</div>
-          <div class="column" [attr.title]="getColTitle('name')" (click)="sort('name')" [ngClass]="getSortClass('name')">
-            Наименование клиента
-          </div>
-          <div class="column w40" [attr.title]="getColTitle('inn')" (click)="sort('inn')" [ngClass]="getSortClass('inn')">ИНН</div>
-        </div>
-      </th>
-      <td mat-cell *matCellDef="let client">
-        <div class="td-block">
-          <div class="column w10">{{ client.id }}</div>
-          <div class="column">{{ client.name }}</div>
-          <div class="column w40">{{ client.inn }}</div>
-        </div>
-      </td>
-    </ng-container>
-    <ng-container matColumnDef="direction">
-      <th mat-header-cell *matHeaderCellDef class="w15">
-        <div class="td-block">
-          <div class="column w50" [attr.title]="getColTitle('country_name')" (click)="sort('country_name')" [ngClass]="getSortClass('country_name')">
-            Страна</div>
-          <div class="column w50" [attr.title]="getColTitle('city_name')" (click)="sort('city_name')" [ngClass]="getSortClass('city_name')">Город
-          </div>
-        </div>
-      </th>
-      <td mat-cell *matCellDef="let client">
-        <div class="td-block">
-          <div class="column w50">{{ client.country_name }}</div>
-          <div class="column w50">{{ client.city_name }}</div>
-        </div>
-      </td>
-    </ng-container>
-    <ng-container matColumnDef="contact">
-      <th mat-header-cell *matHeaderCellDef>
-        <div class="td-block">
-          <div class="column w60" [attr.title]="getColTitle('document_contact_fio')" (click)="sort('document_contact_fio')"
-            [ngClass]="getSortClass('document_contact_fio')">Контактное лицо</div>
-          <div class="column w40" [attr.title]="getColTitle('document_contact_phone')" (click)="sort('document_contact_phone')"
-            [ngClass]="getSortClass('document_contact_phone')">Телефон</div>
-        </div>
-      </th>
-      <td mat-cell *matCellDef="let client">
-        <div class="td-block">
-          <div class="column w60">{{ client.document_contact_fio }}</div>
-          <div class="column w40">{{ client.document_contact_phone }}</div>
-        </div>
-      </td>
-    </ng-container>
-    <ng-container matColumnDef="orders">
-      <th mat-header-cell *matHeaderCellDef class="w15">
-        <div class="td-block-column">
-          <div class="td-block-title">Заказы</div>
-          <div class="td-block-line">
-            <div class="column center w30" [attr.title]="getColTitle('order_count')" (click)="sort('order_count')"
-              [ngClass]="getSortClass('order_count')">Кол-во</div>
-            <div class="column center" [attr.title]="getColTitle('order_day_last')" (click)="sort('order_day_last')"
-              [ngClass]="getSortClass('order_day_last')">С последнего</div>
-            <div class="column center w30" [attr.title]="getColTitle('order_delay_payment')" (click)="sort('order_delay_payment')"
-              [ngClass]="getSortClass('order_delay_payment')">Просрочка</div>
-          </div>
-        </div>
-      </th>
-      <td mat-cell *matCellDef="let client">
-        <div class="td-block-line">
-          <div class="column center w30 bold gray">{{ client.order_count }}</div>
-          <div class="column center bold gray">{{ client.order_day_last }}</div>
-          <div class="column center w30 bold gray">{{ client.order_delay_payment }}</div>
-        </div>
-      </td>
-    </ng-container>
-    <ng-container matColumnDef="status">
-      <th mat-header-cell *matHeaderCellDef class="w15">
-        <div class="td-block">
-          <div class="column w50" [attr.title]="getColTitle('interaction_name')" (click)="sort('interaction_name')"
-            [ngClass]="getSortClass('interaction_name')">Взаимодействие</div>
-          <div class="column w50" [attr.title]="getColTitle('status_name')" (click)="sort('status_name')" [ngClass]="getSortClass('status_name')">
-            Статус</div>
-        </div>
-      </th>
-      <td mat-cell *matCellDef="let client">
-        <div class="td-block">
-          <div class="column w50">{{ client.interaction_name }}</div>
-          <div class="column w50">{{ client.status_name }}</div>
-        </div>
-      </td>
-    </ng-container>
-    <ng-container matColumnDef="manager">
-      <th mat-header-cell *matHeaderCellDef class="w15">
-        <div class="td-block">
-          <div class="column w50" [attr.title]="getColTitle('manager_name')" (click)="sort('manager_name')" [ngClass]="getSortClass('manager_name')">
-            Менеджер</div>
-          <div class="column w50" [attr.title]="getColTitle('manager_sale_name')" (click)="sort('manager_sale_name')"
-            [ngClass]="getSortClass('manager_sale_name')">Менеджер продаж</div>
-        </div>
-      </th>
-      <td mat-cell *matCellDef="let client">
-        <div class="td-block">
-          <div class="column w50">{{ client.manager_name }}</div>
-          <div class="column w50">{{ client.manager_sale_name }}</div>
-        </div>
-      </td>
-    </ng-container>
-    <ng-container matColumnDef="settings">
-      <th mat-header-cell *matHeaderCellDef class="setting">
-        <div class="setting-link"></div>
-      </th>
-      <td mat-cell *matCellDef="let client" class="setting">
-        <a class="link-pic link-edit ico ico-pencil fn-link" [routerLink]="['edit',client.id]" title="Редактировать"></a>
-      </td>
-    </ng-container>
-
-    <tr mat-header-row *matHeaderRowDef="column"></tr>
-    <tr mat-row *matRowDef="let row; columns: column;"></tr>
-  </table>
-</div>-->
-
-
-
-<!-- <ng-template #exportDialogRef let-data>
-  <h1 mat-dialog-title>Экспорт</h1>
-  <div mat-dialog-content>
-    Экспортировать данные о клиентах в Excel файл ?
-  </div>
-  <div mat-dialog-actions align="end">
-    <button mat-button [mat-dialog-close]="true" cdkFocusInitial>Да</button>
-    <button mat-button mat-dialog-close>Нет</button>
-  </div>
-</ng-template>
-
-<ng-template #importDialogRef let-data>
-  <h1 mat-dialog-title>Импорт</h1>
-  <div mat-dialog-content>
-    Импортировать данные о клиентах из файла {{data.name}} ?
-  </div>
-  <div mat-dialog-content>
-    <p *ngIf="data.res.error">{{ data.res.error.text }}</p>
-    <p *ngIf="data.res.insert">{{ data.res.insert.text }}</p>
-    <p *ngIf="data.res.update">{{ data.res.update.text }}</p>
-  </div>
-  <div mat-dialog-actions align="end">
-    <button *ngIf="data.res.insert || data.res.update" mat-button [mat-dialog-close]="1">Сохранить данные</button>
-    <button mat-button [mat-dialog-close]="2">Скачать файл с результатами обработки</button>
-    <button mat-button mat-dialog-close>ОТМЕНА</button>
-  </div>
-</ng-template> -->
-

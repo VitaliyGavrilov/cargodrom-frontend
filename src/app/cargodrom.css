@@ -892,7 +892,8 @@ app-settings { display: flex; flex-direction: column; flex: 1 1 auto; }
 .nowrap { white-space: nowrap; }
 
 .table-list { max-height: 650px; overflow: auto; }
-.table-list table { width: 100%; font-size: 13px; line-height: 16px;}
+.table-list table {min-width: 100%;font-size: 13px; line-height: 16px;}
+/* .table-list table { width: 100%; font-size: 13px; line-height: 16px;} */
 /* .table-list table { width: 100%; font-size: 13px; border-collapse: collapse; line-height: 16px; } */
 /* .table-list table { width: 100%; font-size: 13px; border-collapse: collapse; line-height: 16px; height: 100%; } */
 
@@ -947,7 +948,7 @@ app-settings { display: flex; flex-direction: column; flex: 1 1 auto; }
 .table-list .bg_green { background-color: #81DD7C; color: #fff; }
 
 .table-list td.setting, .table-list th.setting { width: 32px; border-left: none; }
-.table-list .setting-link { width: 100%; height: 100%; background: #606A74 url("../assets/pic-dot-white-h.svg") center no-repeat; cursor: pointer; }
+.table-list .setting-link { width: 100%; height: 100%; background: #606A74 url("../assets/pic-dot-white-h.svg") center no-repeat; cursor: pointer; position: absolute;left: 0; top: 0; }
 
 .table-list .kso { white-space: nowrap; }
 .table-list .kso span { display: inline-block; background: #FD7171; width: 8px; height: 28px; margin: 0 1px 0 1px; }
