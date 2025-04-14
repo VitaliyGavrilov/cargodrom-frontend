@@ -9,7 +9,7 @@ import { MatSnackBar} from '@angular/material/snack-bar';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Observable, map } from 'rxjs';
 import { FilterService } from 'src/app/filter/services/filter.service';
-import { OrderService } from 'src/app/api/services';
+import { OrderService, UserService } from 'src/app/api/services';
 
 @Component({
   selector: 'app-order',
@@ -34,8 +34,9 @@ export class OrderComponent extends Table<Client, 'name', ClientFilter> {
     snackBar: MatSnackBar,
     route: ActivatedRoute,
     router: Router,
+    userService:UserService,
   ) {
-    super(route, router, dialog, snackBar, filterService);
+    super(route, router, dialog, snackBar, filterService,userService);
   }
 
   load<Client>(params: LoadParams<Client, ClientFilter>): Observable<{ total: number; items: Client[]; }> {

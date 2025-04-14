@@ -30,7 +30,7 @@
 
   visibility: visible;  /* Элемент становится видимым */
   opacity: 1;           /* Элемент становится прозрачным */
-  max-height: 2000px;     /* Ширина становится 200px */
+  max-height: 3000px;     /* Ширина становится 200px */
   transition: opacity 2s ease, max-height 1s ease, visibility 0s 0s;
 }
 

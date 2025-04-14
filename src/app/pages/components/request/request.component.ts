@@ -6,7 +6,7 @@ import { MatSnackBar } from '@angular/material/snack-bar';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Observable, map, takeUntil, tap } from 'rxjs';
 import { FilterService } from 'src/app/filter/services/filter.service';
-import { RequestService } from 'src/app/api/services';
+import { RequestService, UserService } from 'src/app/api/services';
 import { Request, RequestFilter } from 'src/app/api/custom_models/request';
 
 @Component({
@@ -35,13 +35,19 @@ export class RequestComponent extends Table<Request, 'id', RequestFilter> {
     snackBar: MatSnackBar,
     route: ActivatedRoute,
     router: Router,
+    userService:UserService,
   ) {
-    super(route, router, dialog, snackBar, filterService);
+    super(route, router, dialog, snackBar, filterService, userService);
     this.importMetods = {
       import: this.requestService.requestImport.bind(this.requestService),
       import_res: this.requestService.requestImportResult.bind(this.requestService),
       import_con: this.requestService.requestImportConfirm.bind(this.requestService),
     }
+  }
+
+  override ngOnInit() {
+    super.ngOnInit();
+    this.resizeMetod='request_list';
   }
 
   load<Request>(params?: LoadParams<Request, RequestFilter>): Observable<{ total: number; items: Request[];sort_new:any; }> {

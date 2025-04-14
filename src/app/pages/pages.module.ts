@@ -48,6 +48,7 @@ import { TableSubheaderFileComponent } from './components/table-subheader/file-s
 // import { TableComponent } from './tables/table/table.component';
 import { DynamicTableComponent } from './tables/dynamic-table/dynamic-table.component';
 import { EmployeeRegisterComponent } from './components/employee-register/employee-register.component';
+import { RateAddOther } from './components/request-details/rate-add-other/rate-add-other.component';
 
 
 
@@ -91,6 +92,7 @@ import { EmployeeRegisterComponent } from './components/employee-register/employ
     RateAddPoint,
     RateAddTransporter,
     RateAddCustoms,
+    RateAddOther,
 
     OfferEditorComponent,
 

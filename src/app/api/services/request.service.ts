@@ -620,6 +620,11 @@ export class RequestService extends BaseService {
  */
 'translate': {
 };
+
+/**
+ * Вкладки
+ */
+'tabs': Array<string>;
 }>;
 }>> {
     const rb = new RequestBuilder(this.rootUrl, RequestService.RequestListPath, 'get');
@@ -1138,6 +1143,11 @@ export class RequestService extends BaseService {
          */
         'translate': {
         };
+        
+        /**
+         * Вкладки
+         */
+        'tabs': Array<string>;
         }>;
         }>;
       })
@@ -1740,6 +1750,11 @@ export class RequestService extends BaseService {
  */
 'translate': {
 };
+
+/**
+ * Вкладки
+ */
+'tabs': Array<string>;
 }>;
 }> {
     return this.requestList$Response(params, context).pipe(
@@ -2234,6 +2249,11 @@ export class RequestService extends BaseService {
  */
 'translate': {
 };
+
+/**
+ * Вкладки
+ */
+'tabs': Array<string>;
 }>;
 }>): {
 
@@ -2726,6 +2746,11 @@ export class RequestService extends BaseService {
  */
 'translate': {
 };
+
+/**
+ * Вкладки
+ */
+'tabs': Array<string>;
 }>;
 } => r.body)
     );
@@ -4193,6 +4218,11 @@ export class RequestService extends BaseService {
 };
 
 /**
+ * Вкладки
+ */
+'tabs': Array<string>;
+
+/**
  * Документы (файлы)
  */
 'documents_file'?: {
@@ -4689,6 +4719,11 @@ export class RequestService extends BaseService {
          */
         'translate': {
         };
+        
+        /**
+         * Вкладки
+         */
+        'tabs': Array<string>;
         
         /**
          * Документы (файлы)
@@ -5202,6 +5237,11 @@ export class RequestService extends BaseService {
 };
 
 /**
+ * Вкладки
+ */
+'tabs': Array<string>;
+
+/**
  * Документы (файлы)
  */
 'documents_file'?: {
@@ -5691,6 +5731,11 @@ export class RequestService extends BaseService {
 };
 
 /**
+ * Вкладки
+ */
+'tabs': Array<string>;
+
+/**
  * Документы (файлы)
  */
 'documents_file'?: {
@@ -6176,6 +6221,11 @@ export class RequestService extends BaseService {
  */
 'translate': {
 };
+
+/**
+ * Вкладки
+ */
+'tabs': Array<string>;
 
 /**
  * Документы (файлы)
@@ -14292,7 +14342,7 @@ export class RequestService extends BaseService {
       request_id: number;
 
     /**
-     * Метод (final, customs, point, transporter)
+     * Метод (final, customs, point, transporter, other)
      */
       method: string;
     },
@@ -14359,7 +14409,7 @@ export class RequestService extends BaseService {
       request_id: number;
 
     /**
-     * Метод (final, customs, point, transporter)
+     * Метод (final, customs, point, transporter, other)
      */
       method: string;
     },
@@ -22899,6 +22949,1394 @@ export class RequestService extends BaseService {
 'result': 'OK';
 }> {
     return this.requestRateFinaleDelete$Response(params, context).pipe(
+      map((r: StrictHttpResponse<{
+
+/**
+ * Статус выполнения
+ */
+'result': 'OK';
+}>): {
+
+/**
+ * Статус выполнения
+ */
+'result': 'OK';
+} => r.body)
+    );
+  }
+
+  /** Path part for operation `requestRateOtherList()` */
+  static readonly RequestRateOtherListPath = '/request_rate_other_list';
+
+  /**
+   * Ставки запроса Другие.
+   *
+   *
+   *
+   * This method provides access to the full `HttpResponse`, allowing access to response headers.
+   * To access only the response body, use `requestRateOtherList()` instead.
+   *
+   * This method doesn't expect any request body.
+   */
+  requestRateOtherList$Response(
+    params: {
+
+    /**
+     * ID Запроса
+     */
+      request_id: number;
+
+    /**
+     * Подрядчики (ID берем из запроса - contractor_list)
+     */
+      contractor?: number;
+
+    /**
+     * Начальная позиция
+     */
+      start?: number;
+
+    /**
+     * Лимит позиций на страницу
+     */
+      count?: number;
+
+    /**
+     * Сортировка
+     */
+      sort?: Array<{
+
+/**
+ * Поле сортировки
+ */
+'field'?: 'cost';
+
+/**
+ * Направление сортировки
+ */
+'dir'?: 'asc' | 'desc';
+}>;
+    },
+    context?: HttpContext
+  ): Observable<StrictHttpResponse<{
+
+/**
+ * Всего позиций
+ */
+'total'?: number;
+
+/**
+ * Позиции
+ */
+'items'?: Array<{
+
+/**
+ * ID
+ */
+'id': number;
+
+/**
+ * ID Запроса
+ */
+'request_id': number;
+
+/**
+ * Подрядчик (ID берем из запроса - contractor_list)
+ */
+'contractor_id': number;
+
+/**
+ * Вид рейса
+ */
+'point_action': string;
+
+/**
+ * Город
+ */
+'city_id': string;
+
+/**
+ * Примечание
+ */
+'comment'?: string;
+
+/**
+ * Значения ставок
+ */
+'values': Array<{
+
+/**
+ * Наименование поля
+ */
+'field': string;
+
+/**
+ * Стоимость услуги
+ */
+'price': number;
+
+/**
+ * Количество
+ */
+'count'?: number;
+
+/**
+ * Комментарий
+ */
+'comment'?: string;
+
+/**
+ * Признак выбора
+ */
+'select'?: boolean;
+
+/**
+ * Наименование
+ */
+'name': string;
+
+/**
+ * Стоимость
+ */
+'cost': string;
+
+/**
+ * Стоимость
+ */
+'cost_text': string;
+}>;
+
+/**
+ * Наименование статей затрат
+ */
+'service_items'?: string;
+
+/**
+ * Запрос
+ */
+'request': {
+
+/**
+ * Кол-во мест
+ */
+'cargo_places_count'?: number;
+
+/**
+ * Вес, кг
+ */
+'cargo_places_weight'?: number;
+
+/**
+ * Плотность, кг/м3
+ */
+'cargo_places_density'?: number;
+
+/**
+ * Оплачиваемый вес, кг
+ */
+'cargo_places_paid_weight'?: number;
+
+/**
+ * Объем, м3
+ */
+'cargo_places_volume'?: number;
+
+/**
+ * Стоимость товаров
+ */
+'cargo_cost'?: number;
+
+/**
+ * Дата запроса
+ */
+'time_request'?: string;
+};
+
+/**
+ * Подрядчик
+ */
+'contractor': {
+
+/**
+ * Агент транспортной компании
+ */
+'carrier_name'?: string;
+
+/**
+ * Агент транспортной компании (ID берем из запроса - transport_carrier)
+ */
+'carrier_id'?: number;
+
+/**
+ * ID подрядчика (ID берем из запроса - contractor_list)
+ */
+'id': number;
+
+/**
+ * Подрядчик
+ */
+'name': string;
+
+/**
+ * Рейтинг в системе (NPS)
+ */
+'rating_nps_text'?: string;
+
+/**
+ * Рейтинг в системе (NPS)
+ */
+'rating_nps'?: number;
+
+/**
+ * Участие в торгах (общее количество)
+ */
+'trade_count'?: number;
+
+/**
+ * Количество выигранных торгов
+ */
+'trade_success_count'?: number;
+
+/**
+ * % выигранных торгов
+ */
+'trade_success_percent'?: number;
+
+/**
+ * Количество проигранных торгов
+ */
+'trade_fail_count'?: number;
+
+/**
+ * % проигранных торгов
+ */
+'trade_fail_percent'?: number;
+
+/**
+ * Участие в торгах (результаты)
+ */
+'trade_count_text'?: number;
+
+/**
+ * Email
+ */
+'email'?: string;
+
+/**
+ * Телефон
+ */
+'phone'?: string;
+};
+}>;
+}>> {
+    const rb = new RequestBuilder(this.rootUrl, RequestService.RequestRateOtherListPath, 'get');
+    if (params) {
+      rb.query('request_id', params.request_id, {});
+      rb.query('contractor', params.contractor, {});
+      rb.query('start', params.start, {});
+      rb.query('count', params.count, {});
+      rb.query('sort', params.sort, {"style":"form","explode":false});
+    }
+
+    return this.http.request(
+      rb.build({ responseType: 'json', accept: 'application/json', context })
+    ).pipe(
+      filter((r: any): r is HttpResponse<any> => r instanceof HttpResponse),
+      map((r: HttpResponse<any>) => {
+        return r as StrictHttpResponse<{
+        
+        /**
+         * Всего позиций
+         */
+        'total'?: number;
+        
+        /**
+         * Позиции
+         */
+        'items'?: Array<{
+        
+        /**
+         * ID
+         */
+        'id': number;
+        
+        /**
+         * ID Запроса
+         */
+        'request_id': number;
+        
+        /**
+         * Подрядчик (ID берем из запроса - contractor_list)
+         */
+        'contractor_id': number;
+        
+        /**
+         * Вид рейса
+         */
+        'point_action': string;
+        
+        /**
+         * Город
+         */
+        'city_id': string;
+        
+        /**
+         * Примечание
+         */
+        'comment'?: string;
+        
+        /**
+         * Значения ставок
+         */
+        'values': Array<{
+        
+        /**
+         * Наименование поля
+         */
+        'field': string;
+        
+        /**
+         * Стоимость услуги
+         */
+        'price': number;
+        
+        /**
+         * Количество
+         */
+        'count'?: number;
+        
+        /**
+         * Комментарий
+         */
+        'comment'?: string;
+        
+        /**
+         * Признак выбора
+         */
+        'select'?: boolean;
+        
+        /**
+         * Наименование
+         */
+        'name': string;
+        
+        /**
+         * Стоимость
+         */
+        'cost': string;
+        
+        /**
+         * Стоимость
+         */
+        'cost_text': string;
+        }>;
+        
+        /**
+         * Наименование статей затрат
+         */
+        'service_items'?: string;
+        
+        /**
+         * Запрос
+         */
+        'request': {
+        
+        /**
+         * Кол-во мест
+         */
+        'cargo_places_count'?: number;
+        
+        /**
+         * Вес, кг
+         */
+        'cargo_places_weight'?: number;
+        
+        /**
+         * Плотность, кг/м3
+         */
+        'cargo_places_density'?: number;
+        
+        /**
+         * Оплачиваемый вес, кг
+         */
+        'cargo_places_paid_weight'?: number;
+        
+        /**
+         * Объем, м3
+         */
+        'cargo_places_volume'?: number;
+        
+        /**
+         * Стоимость товаров
+         */
+        'cargo_cost'?: number;
+        
+        /**
+         * Дата запроса
+         */
+        'time_request'?: string;
+        };
+        
+        /**
+         * Подрядчик
+         */
+        'contractor': {
+        
+        /**
+         * Агент транспортной компании
+         */
+        'carrier_name'?: string;
+        
+        /**
+         * Агент транспортной компании (ID берем из запроса - transport_carrier)
+         */
+        'carrier_id'?: number;
+        
+        /**
+         * ID подрядчика (ID берем из запроса - contractor_list)
+         */
+        'id': number;
+        
+        /**
+         * Подрядчик
+         */
+        'name': string;
+        
+        /**
+         * Рейтинг в системе (NPS)
+         */
+        'rating_nps_text'?: string;
+        
+        /**
+         * Рейтинг в системе (NPS)
+         */
+        'rating_nps'?: number;
+        
+        /**
+         * Участие в торгах (общее количество)
+         */
+        'trade_count'?: number;
+        
+        /**
+         * Количество выигранных торгов
+         */
+        'trade_success_count'?: number;
+        
+        /**
+         * % выигранных торгов
+         */
+        'trade_success_percent'?: number;
+        
+        /**
+         * Количество проигранных торгов
+         */
+        'trade_fail_count'?: number;
+        
+        /**
+         * % проигранных торгов
+         */
+        'trade_fail_percent'?: number;
+        
+        /**
+         * Участие в торгах (результаты)
+         */
+        'trade_count_text'?: number;
+        
+        /**
+         * Email
+         */
+        'email'?: string;
+        
+        /**
+         * Телефон
+         */
+        'phone'?: string;
+        };
+        }>;
+        }>;
+      })
+    );
+  }
+
+  /**
+   * Ставки запроса Другие.
+   *
+   *
+   *
+   * This method provides access only to the response body.
+   * To access the full response (for headers, for example), `requestRateOtherList$Response()` instead.
+   *
+   * This method doesn't expect any request body.
+   */
+  requestRateOtherList(
+    params: {
+
+    /**
+     * ID Запроса
+     */
+      request_id: number;
+
+    /**
+     * Подрядчики (ID берем из запроса - contractor_list)
+     */
+      contractor?: number;
+
+    /**
+     * Начальная позиция
+     */
+      start?: number;
+
+    /**
+     * Лимит позиций на страницу
+     */
+      count?: number;
+
+    /**
+     * Сортировка
+     */
+      sort?: Array<{
+
+/**
+ * Поле сортировки
+ */
+'field'?: 'cost';
+
+/**
+ * Направление сортировки
+ */
+'dir'?: 'asc' | 'desc';
+}>;
+    },
+    context?: HttpContext
+  ): Observable<{
+
+/**
+ * Всего позиций
+ */
+'total'?: number;
+
+/**
+ * Позиции
+ */
+'items'?: Array<{
+
+/**
+ * ID
+ */
+'id': number;
+
+/**
+ * ID Запроса
+ */
+'request_id': number;
+
+/**
+ * Подрядчик (ID берем из запроса - contractor_list)
+ */
+'contractor_id': number;
+
+/**
+ * Вид рейса
+ */
+'point_action': string;
+
+/**
+ * Город
+ */
+'city_id': string;
+
+/**
+ * Примечание
+ */
+'comment'?: string;
+
+/**
+ * Значения ставок
+ */
+'values': Array<{
+
+/**
+ * Наименование поля
+ */
+'field': string;
+
+/**
+ * Стоимость услуги
+ */
+'price': number;
+
+/**
+ * Количество
+ */
+'count'?: number;
+
+/**
+ * Комментарий
+ */
+'comment'?: string;
+
+/**
+ * Признак выбора
+ */
+'select'?: boolean;
+
+/**
+ * Наименование
+ */
+'name': string;
+
+/**
+ * Стоимость
+ */
+'cost': string;
+
+/**
+ * Стоимость
+ */
+'cost_text': string;
+}>;
+
+/**
+ * Наименование статей затрат
+ */
+'service_items'?: string;
+
+/**
+ * Запрос
+ */
+'request': {
+
+/**
+ * Кол-во мест
+ */
+'cargo_places_count'?: number;
+
+/**
+ * Вес, кг
+ */
+'cargo_places_weight'?: number;
+
+/**
+ * Плотность, кг/м3
+ */
+'cargo_places_density'?: number;
+
+/**
+ * Оплачиваемый вес, кг
+ */
+'cargo_places_paid_weight'?: number;
+
+/**
+ * Объем, м3
+ */
+'cargo_places_volume'?: number;
+
+/**
+ * Стоимость товаров
+ */
+'cargo_cost'?: number;
+
+/**
+ * Дата запроса
+ */
+'time_request'?: string;
+};
+
+/**
+ * Подрядчик
+ */
+'contractor': {
+
+/**
+ * Агент транспортной компании
+ */
+'carrier_name'?: string;
+
+/**
+ * Агент транспортной компании (ID берем из запроса - transport_carrier)
+ */
+'carrier_id'?: number;
+
+/**
+ * ID подрядчика (ID берем из запроса - contractor_list)
+ */
+'id': number;
+
+/**
+ * Подрядчик
+ */
+'name': string;
+
+/**
+ * Рейтинг в системе (NPS)
+ */
+'rating_nps_text'?: string;
+
+/**
+ * Рейтинг в системе (NPS)
+ */
+'rating_nps'?: number;
+
+/**
+ * Участие в торгах (общее количество)
+ */
+'trade_count'?: number;
+
+/**
+ * Количество выигранных торгов
+ */
+'trade_success_count'?: number;
+
+/**
+ * % выигранных торгов
+ */
+'trade_success_percent'?: number;
+
+/**
+ * Количество проигранных торгов
+ */
+'trade_fail_count'?: number;
+
+/**
+ * % проигранных торгов
+ */
+'trade_fail_percent'?: number;
+
+/**
+ * Участие в торгах (результаты)
+ */
+'trade_count_text'?: number;
+
+/**
+ * Email
+ */
+'email'?: string;
+
+/**
+ * Телефон
+ */
+'phone'?: string;
+};
+}>;
+}> {
+    return this.requestRateOtherList$Response(params, context).pipe(
+      map((r: StrictHttpResponse<{
+
+/**
+ * Всего позиций
+ */
+'total'?: number;
+
+/**
+ * Позиции
+ */
+'items'?: Array<{
+
+/**
+ * ID
+ */
+'id': number;
+
+/**
+ * ID Запроса
+ */
+'request_id': number;
+
+/**
+ * Подрядчик (ID берем из запроса - contractor_list)
+ */
+'contractor_id': number;
+
+/**
+ * Вид рейса
+ */
+'point_action': string;
+
+/**
+ * Город
+ */
+'city_id': string;
+
+/**
+ * Примечание
+ */
+'comment'?: string;
+
+/**
+ * Значения ставок
+ */
+'values': Array<{
+
+/**
+ * Наименование поля
+ */
+'field': string;
+
+/**
+ * Стоимость услуги
+ */
+'price': number;
+
+/**
+ * Количество
+ */
+'count'?: number;
+
+/**
+ * Комментарий
+ */
+'comment'?: string;
+
+/**
+ * Признак выбора
+ */
+'select'?: boolean;
+
+/**
+ * Наименование
+ */
+'name': string;
+
+/**
+ * Стоимость
+ */
+'cost': string;
+
+/**
+ * Стоимость
+ */
+'cost_text': string;
+}>;
+
+/**
+ * Наименование статей затрат
+ */
+'service_items'?: string;
+
+/**
+ * Запрос
+ */
+'request': {
+
+/**
+ * Кол-во мест
+ */
+'cargo_places_count'?: number;
+
+/**
+ * Вес, кг
+ */
+'cargo_places_weight'?: number;
+
+/**
+ * Плотность, кг/м3
+ */
+'cargo_places_density'?: number;
+
+/**
+ * Оплачиваемый вес, кг
+ */
+'cargo_places_paid_weight'?: number;
+
+/**
+ * Объем, м3
+ */
+'cargo_places_volume'?: number;
+
+/**
+ * Стоимость товаров
+ */
+'cargo_cost'?: number;
+
+/**
+ * Дата запроса
+ */
+'time_request'?: string;
+};
+
+/**
+ * Подрядчик
+ */
+'contractor': {
+
+/**
+ * Агент транспортной компании
+ */
+'carrier_name'?: string;
+
+/**
+ * Агент транспортной компании (ID берем из запроса - transport_carrier)
+ */
+'carrier_id'?: number;
+
+/**
+ * ID подрядчика (ID берем из запроса - contractor_list)
+ */
+'id': number;
+
+/**
+ * Подрядчик
+ */
+'name': string;
+
+/**
+ * Рейтинг в системе (NPS)
+ */
+'rating_nps_text'?: string;
+
+/**
+ * Рейтинг в системе (NPS)
+ */
+'rating_nps'?: number;
+
+/**
+ * Участие в торгах (общее количество)
+ */
+'trade_count'?: number;
+
+/**
+ * Количество выигранных торгов
+ */
+'trade_success_count'?: number;
+
+/**
+ * % выигранных торгов
+ */
+'trade_success_percent'?: number;
+
+/**
+ * Количество проигранных торгов
+ */
+'trade_fail_count'?: number;
+
+/**
+ * % проигранных торгов
+ */
+'trade_fail_percent'?: number;
+
+/**
+ * Участие в торгах (результаты)
+ */
+'trade_count_text'?: number;
+
+/**
+ * Email
+ */
+'email'?: string;
+
+/**
+ * Телефон
+ */
+'phone'?: string;
+};
+}>;
+}>): {
+
+/**
+ * Всего позиций
+ */
+'total'?: number;
+
+/**
+ * Позиции
+ */
+'items'?: Array<{
+
+/**
+ * ID
+ */
+'id': number;
+
+/**
+ * ID Запроса
+ */
+'request_id': number;
+
+/**
+ * Подрядчик (ID берем из запроса - contractor_list)
+ */
+'contractor_id': number;
+
+/**
+ * Вид рейса
+ */
+'point_action': string;
+
+/**
+ * Город
+ */
+'city_id': string;
+
+/**
+ * Примечание
+ */
+'comment'?: string;
+
+/**
+ * Значения ставок
+ */
+'values': Array<{
+
+/**
+ * Наименование поля
+ */
+'field': string;
+
+/**
+ * Стоимость услуги
+ */
+'price': number;
+
+/**
+ * Количество
+ */
+'count'?: number;
+
+/**
+ * Комментарий
+ */
+'comment'?: string;
+
+/**
+ * Признак выбора
+ */
+'select'?: boolean;
+
+/**
+ * Наименование
+ */
+'name': string;
+
+/**
+ * Стоимость
+ */
+'cost': string;
+
+/**
+ * Стоимость
+ */
+'cost_text': string;
+}>;
+
+/**
+ * Наименование статей затрат
+ */
+'service_items'?: string;
+
+/**
+ * Запрос
+ */
+'request': {
+
+/**
+ * Кол-во мест
+ */
+'cargo_places_count'?: number;
+
+/**
+ * Вес, кг
+ */
+'cargo_places_weight'?: number;
+
+/**
+ * Плотность, кг/м3
+ */
+'cargo_places_density'?: number;
+
+/**
+ * Оплачиваемый вес, кг
+ */
+'cargo_places_paid_weight'?: number;
+
+/**
+ * Объем, м3
+ */
+'cargo_places_volume'?: number;
+
+/**
+ * Стоимость товаров
+ */
+'cargo_cost'?: number;
+
+/**
+ * Дата запроса
+ */
+'time_request'?: string;
+};
+
+/**
+ * Подрядчик
+ */
+'contractor': {
+
+/**
+ * Агент транспортной компании
+ */
+'carrier_name'?: string;
+
+/**
+ * Агент транспортной компании (ID берем из запроса - transport_carrier)
+ */
+'carrier_id'?: number;
+
+/**
+ * ID подрядчика (ID берем из запроса - contractor_list)
+ */
+'id': number;
+
+/**
+ * Подрядчик
+ */
+'name': string;
+
+/**
+ * Рейтинг в системе (NPS)
+ */
+'rating_nps_text'?: string;
+
+/**
+ * Рейтинг в системе (NPS)
+ */
+'rating_nps'?: number;
+
+/**
+ * Участие в торгах (общее количество)
+ */
+'trade_count'?: number;
+
+/**
+ * Количество выигранных торгов
+ */
+'trade_success_count'?: number;
+
+/**
+ * % выигранных торгов
+ */
+'trade_success_percent'?: number;
+
+/**
+ * Количество проигранных торгов
+ */
+'trade_fail_count'?: number;
+
+/**
+ * % проигранных торгов
+ */
+'trade_fail_percent'?: number;
+
+/**
+ * Участие в торгах (результаты)
+ */
+'trade_count_text'?: number;
+
+/**
+ * Email
+ */
+'email'?: string;
+
+/**
+ * Телефон
+ */
+'phone'?: string;
+};
+}>;
+} => r.body)
+    );
+  }
+
+  /** Path part for operation `requestRateOtherSave()` */
+  static readonly RequestRateOtherSavePath = '/request_rate_other_save';
+
+  /**
+   * Ставки запроса Другие.
+   *
+   *
+   *
+   * This method provides access to the full `HttpResponse`, allowing access to response headers.
+   * To access only the response body, use `requestRateOtherSave()` instead.
+   *
+   * This method sends `application/json` and handles request body of type `application/json`.
+   */
+  requestRateOtherSave$Response(
+    params?: {
+      body?: {
+
+/**
+ * ID
+ */
+'id'?: number;
+
+/**
+ * ID Запроса
+ */
+'request_id': number;
+
+/**
+ * Подрядчик (ID берем из запроса - contractor_list)
+ */
+'contractor_id': number;
+
+/**
+ * Вид рейса
+ */
+'point_action': string;
+
+/**
+ * Город
+ */
+'city_id': string;
+
+/**
+ * Примечание
+ */
+'comment'?: string;
+
+/**
+ * Значения ставок
+ */
+'values': Array<{
+
+/**
+ * Наименование поля
+ */
+'field': string;
+
+/**
+ * Стоимость услуги
+ */
+'price': number;
+
+/**
+ * Количество
+ */
+'count'?: number;
+
+/**
+ * Комментарий
+ */
+'comment'?: string;
+
+/**
+ * Признак выбора
+ */
+'select'?: boolean;
+}>;
+}
+    },
+    context?: HttpContext
+  ): Observable<StrictHttpResponse<{
+
+/**
+ * Статус выполнения
+ */
+'result': 'OK';
+}>> {
+    const rb = new RequestBuilder(this.rootUrl, RequestService.RequestRateOtherSavePath, 'post');
+    if (params) {
+      rb.body(params.body, 'application/json');
+    }
+
+    return this.http.request(
+      rb.build({ responseType: 'json', accept: 'application/json', context })
+    ).pipe(
+      filter((r: any): r is HttpResponse<any> => r instanceof HttpResponse),
+      map((r: HttpResponse<any>) => {
+        return r as StrictHttpResponse<{
+        
+        /**
+         * Статус выполнения
+         */
+        'result': 'OK';
+        }>;
+      })
+    );
+  }
+
+  /**
+   * Ставки запроса Другие.
+   *
+   *
+   *
+   * This method provides access only to the response body.
+   * To access the full response (for headers, for example), `requestRateOtherSave$Response()` instead.
+   *
+   * This method sends `application/json` and handles request body of type `application/json`.
+   */
+  requestRateOtherSave(
+    params?: {
+      body?: {
+
+/**
+ * ID
+ */
+'id'?: number;
+
+/**
+ * ID Запроса
+ */
+'request_id': number;
+
+/**
+ * Подрядчик (ID берем из запроса - contractor_list)
+ */
+'contractor_id': number;
+
+/**
+ * Вид рейса
+ */
+'point_action': string;
+
+/**
+ * Город
+ */
+'city_id': string;
+
+/**
+ * Примечание
+ */
+'comment'?: string;
+
+/**
+ * Значения ставок
+ */
+'values': Array<{
+
+/**
+ * Наименование поля
+ */
+'field': string;
+
+/**
+ * Стоимость услуги
+ */
+'price': number;
+
+/**
+ * Количество
+ */
+'count'?: number;
+
+/**
+ * Комментарий
+ */
+'comment'?: string;
+
+/**
+ * Признак выбора
+ */
+'select'?: boolean;
+}>;
+}
+    },
+    context?: HttpContext
+  ): Observable<{
+
+/**
+ * Статус выполнения
+ */
+'result': 'OK';
+}> {
+    return this.requestRateOtherSave$Response(params, context).pipe(
       map((r: StrictHttpResponse<{
 
 /**

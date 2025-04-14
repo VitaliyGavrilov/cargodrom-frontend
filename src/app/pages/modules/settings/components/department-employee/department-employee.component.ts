@@ -8,6 +8,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { Observable } from 'rxjs';
 import { SortColumn } from 'src/app/api/custom_models/sort-column';
 import { FilterService } from 'src/app/filter/services/filter.service';
+import { UserService } from 'src/app/api/services';
 
 @Component({
   selector: 'app-department-employee',
@@ -31,8 +32,9 @@ export class DepartmentEmployeeComponent extends Table<Employee, 'fio'> {
     route: ActivatedRoute,
     router: Router,
     filter: FilterService,
+    userService: UserService
   ) {
-    super(route, router, dialog, snackBar, filter);
+    super(route, router, dialog, snackBar, filter, userService);
     this.registerAlias('fio', ['name_f', 'name_i', 'name_o']);
   }
 

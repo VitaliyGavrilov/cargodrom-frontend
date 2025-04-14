@@ -912,12 +912,12 @@ app-settings { display: flex; flex-direction: column; flex: 1 1 auto; }
 .table-list .td-block .column { display: flex; flex-grow: 1; padding: 0 8px; }
 
 .table-list .td-block-column { display: flex; flex-direction: column; height: 100%;   }
-.table-list .td-block-title { padding: 5px 13px 3px; border-bottom: 1px solid #9ca6b1;  flex-grow: 1; display: flex; align-items: center; justify-content: center;  }
+.table-list .td-block-title { padding: 0 13px ; border-bottom: 1px solid #9ca6b1;  flex-grow: 1; display: flex; align-items: center; justify-content: center;  }
 .table-list .td-block-line {  display: flex; flex-direction: row; height: 100%; align-items: center;  flex-grow: 1; gap: 1px; width: 100%; }
-.table-list .td-block-line .column { padding: 5px 13px 3px; text-align: center; box-sizing: border-box; display: flex;  flex-grow: 1; align-items: center; }
+.table-list .td-block-line .column { padding: 0 13px; text-align: center; box-sizing: border-box; display: flex;  flex-grow: 1; align-items: center; }
 
-.table-list th .td-block-line { background: #9ca6b1;  }
-.table-list th .td-block-line .column { background: #83909E; height: 100%; }
+.table-list th .td-block-line { background: inherit;  }
+.table-list th .td-block-line .column { background: #83909E; height: 22px; }
 
 .table-list .w5 { width: 5%; flex-grow: 0 !important; }
 .table-list .w6 { width: 6%; flex-grow: 0 !important; }

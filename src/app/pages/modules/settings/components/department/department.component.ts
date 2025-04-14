@@ -8,6 +8,7 @@ import { MatDialog } from '@angular/material/dialog';
 import { Observable } from 'rxjs';
 import { Table } from '../../../../../classes';
 import { FilterService } from 'src/app/filter/services/filter.service';
+import { UserService } from 'src/app/api/services';
 
 interface Column<T> extends Omit<SortColumn<T>, 'dir'> {
   title: string;
@@ -42,8 +43,9 @@ export class DepartmentComponent extends Table<Department> {
     route: ActivatedRoute,
     router: Router,
     filter: FilterService,
+    userService:UserService
   ) {
-    super(route, router, dialog, snackBar, filter);
+    super(route, router, dialog, snackBar, filter, userService);
   }
 
   load<Department>(params: { start?: number; count?: number; sort?: SortColumn<Department>[]; }): Observable<{ total: number; items: Department[]; }> {

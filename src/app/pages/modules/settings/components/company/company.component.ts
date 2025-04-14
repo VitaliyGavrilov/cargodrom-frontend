@@ -8,6 +8,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { SortColumn } from 'src/app/api/custom_models/sort-column';
 import { Observable } from 'rxjs';
 import { FilterService } from 'src/app/filter/services/filter.service';
+import { UserService } from 'src/app/api/services';
 
 @Component({
   selector: 'app-company',
@@ -26,8 +27,9 @@ export class CompanyComponent extends Table<Company> {
     route: ActivatedRoute,
     router: Router,
     filter: FilterService,
+    userService:UserService
   ) {
-    super(route, router, dialog, snackBar, filter);
+    super(route, router, dialog, snackBar, filter, userService);
   }
 
   override ngOnInit(): void {

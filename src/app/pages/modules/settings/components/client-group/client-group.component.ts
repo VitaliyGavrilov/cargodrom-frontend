@@ -6,7 +6,7 @@ import { MatDialog } from '@angular/material/dialog';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { Observable } from 'rxjs';
 import { SortColumn } from 'src/app/api/custom_models/sort-column';
-import { CustomerService } from 'src/app/api/services';
+import { CustomerService, UserService } from 'src/app/api/services';
 import { FilterService } from 'src/app/filter/services/filter.service';
 
 @Component({
@@ -30,8 +30,9 @@ export class ClientGroupComponent extends Table<ClientGroup> {
     route: ActivatedRoute,
     router: Router,
     filter: FilterService,
+    userService: UserService
   ) {
-    super(route, router, dialog, snackBar, filter);
+    super(route, router, dialog, snackBar, filter, userService);
   }
 
   override ngOnInit(): void {

@@ -118,6 +118,13 @@ const routes: Routes = [
         canActivate: [AuthGuard],
       },
       {
+        path: 'request/details/other/:id',
+        component: RequestDetails,
+        pathMatch: 'full',
+        title: 'Request Details',
+        canActivate: [AuthGuard],
+      },
+      {
         path: 'request/bidding/:id',
         component: ContractorComponent,
         pathMatch: 'full',

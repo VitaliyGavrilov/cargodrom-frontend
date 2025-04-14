@@ -1,3 +1,66 @@
+.table-settings  {
+  --mat-menu-item-label-text-line-height:13px;
+  --mat-menu-item-label-text-size:13px;
+}
+table thead{
+  --mat-table-header-container-height:48px;
+}
+.mat-mdc-option {
+  --mat-option-label-text-line-height: 13px;
+  --mat-option-label-text-size: 13px;
+}
+
+table th .td-block-line{
+  background-color: #83909E;
+  .column{
+    position: relative;
+  }
+  .resize-handle{
+    top: 0;
+    bottom: -1px;
+  }
+}
+table .mdc-data-table__header-cell {
+  overflow: visible;
+}
+.table-list .td-block .column {
+  position: relative;
+}
+.table-list .resize-handle{
+  position: absolute;
+  right: -1.5px;
+  width: 3px;
+  top: -17px;
+  bottom: -8px;
+  background-color: inherit;
+  cursor: col-resize;
+  pointer-events: none;
+  z-index: 10;
+}
+.table-list.resize .resize-handle{
+  background-color: #DB563B;
+  pointer-events: all;
+}
+// .table-list{
+//   z-index: 1;
+// }
+.table-list .resize-handle_end {
+  cursor: col-resize;
+  position: absolute;
+  // right: 0;
+  left: -2px;
+  width: 3px;
+  top: 0;
+  bottom: 0;
+  // background-color: inherit;
+  pointer-events: none;
+  z-index: 10;
+}
+.table-list.resize .resize-handle_end {
+  background-color: #DB563B;
+  pointer-events: all;
+}
+
 button{
   cursor: pointer;
 }
@@ -28,7 +91,13 @@ td.vertically .td-block{
 }
 
 //TABLEs
+.table-list thead .column{
+  height: 32px;
+}
 .table-list .td-block .column{
+  align-items: center;
+
+
   font-weight: 400;
   font-size: 13px;
   line-height: 16px;
@@ -42,7 +111,7 @@ td.vertically .td-block{
   line-height: 16px;
 
   // .mat-mdc-select-trigger { padding: 0; }
-  .mat-mdc-select-value-text { text-wrap: auto; }
+  // .mat-mdc-select-value-text { text-wrap: auto; }
 }
 // .table-list .td-block .column mat-select.mat-mdc-select {
 //   background-color: inherit;

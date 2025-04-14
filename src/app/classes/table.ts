@@ -1,13 +1,14 @@
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { ActivatedRoute, ParamMap, Router } from '@angular/router';
 import { SortColumn } from '../api/custom_models/sort-column';
-import { Directive, OnInit, OnDestroy, ViewChild, TemplateRef, ElementRef } from '@angular/core';
+import { Directive, OnInit, OnDestroy, ViewChild, TemplateRef, ElementRef, HostListener } from '@angular/core';
 import { NEVER, Observable, of, Subject, takeUntil, tap } from 'rxjs';
 import { MatSnackBarConfig } from '@angular/material/snack-bar';
 import { MatDialog } from '@angular/material/dialog';
 import { FilterService } from '../filter/services/filter.service';
 import { SearchFilterSchema } from '../api/custom_models';
 import { MatCheckboxChange } from '@angular/material/checkbox';
+import { UserService } from '../api/services';
 
 export interface LoadParams<T, F> {
   id?:number;
@@ -27,7 +28,13 @@ export abstract class Table<T extends { id: number }, A = never, F = never> impl
 
   isBiddingMode=false;
   isRateDetailsMode=false;
+
   isResizeColumnMode:boolean=false;
+  resizeMetod:string='';
+  isResizing = false;
+  resizingColumn: any = null;
+  startX: number = 0;
+  startWidth: number = 0;
 
   detailsMethod:string='';
 
@@ -79,6 +86,7 @@ export abstract class Table<T extends { id: number }, A = never, F = never> impl
     private dialog: MatDialog,
     protected snackBar: MatSnackBar,
     protected filterService: FilterService,
+    protected userService: UserService,
   ) {}
 
   ngOnInit(): void {
@@ -695,5 +703,43 @@ export abstract class Table<T extends { id: number }, A = never, F = never> impl
       ).subscribe();
   }
 
+
+  startResize(event: MouseEvent, column: any) {
+    this.isResizing = true;
+    this.resizingColumn = column;
+    this.startX = event.pageX;
+    this.startWidth = column.width ? parseInt(column.width, 10) : 100; // Начальная ширина
+    event.preventDefault();
+  }
+
+  @HostListener('document:mousemove', ['$event'])
+  onMouseMove(event: MouseEvent) {
+    if (!this.isResizing || !this.resizingColumn) return;
+    const width = this.startWidth + (event.pageX - this.startX);
+    this.resizingColumn.width = `${width}px`;
+  }
+
+  @HostListener('document:mouseup')
+  onMouseUp() {
+    if (this.isResizing) {
+      this.isResizing = false;
+    }
+    this.resizingColumn = null;
+  }
+
+  onSaveColumnWidth(){
+    this.userService.userSaveTableParam({body: {method:this.resizeMetod,param:this.columnsData}})
+      .pipe(
+        tap(()=>{}),
+        takeUntil(this.destroy$),
+      )
+    .subscribe(()=>{
+      this.isResizeColumnMode=false;
+    });
+  }
+
+  onCancelColumnWidth(){
+    location.reload();
+  }
 
 }

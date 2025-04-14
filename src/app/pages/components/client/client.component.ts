@@ -25,10 +25,7 @@ export class ClientComponent extends Table<Client, 'name', ClientFilter> {
 
   trackById = (_index: number, client: Client) => client.id!;
 
-  isResizing = false;
-  resizingColumn: any = null;
-  startX: number = 0;
-  startWidth: number = 0;
+
 
   constructor(
     private customerService: CustomerService,
@@ -37,9 +34,9 @@ export class ClientComponent extends Table<Client, 'name', ClientFilter> {
     snackBar: MatSnackBar,
     route: ActivatedRoute,
     router: Router,
-    private userService: UserService,
+    userService:UserService,
   ) {
-    super(route, router, dialog, snackBar, filterService);
+    super(route, router, dialog, snackBar, filterService, userService);
     this.importMetods = {
       import: this.customerService.customerImport.bind(this.customerService),
       import_res: this.customerService.customerImportResult.bind(this.customerService),
@@ -97,138 +94,48 @@ export class ClientComponent extends Table<Client, 'name', ClientFilter> {
 
   override ngOnInit() {
     super.ngOnInit();
-    // this.loadColumnSizes();
+    this.resizeMetod='customer_list';
   }
 
-  startResize(event: MouseEvent, column: any) {
-    this.isResizing = true;
-    this.resizingColumn = column;
-    this.startX = event.pageX;
-    this.startWidth = column.width ? parseInt(column.width, 10) : 100; // Начальная ширина
-    // const clickedElement = event.target as HTMLElement;
-    // Явно указываем тип HTMLElement при поиске
-    // const columnElement = clickedElement.closest('.column') as HTMLElement | null;
-    // if (!columnElement) {
-    //   console.warn('Не найден элемент с классом .column');
-    //   return;
-    // }
-    // this.startWidth=columnElement.offsetWidth;
-    event.preventDefault(); // Предотвращаем выделение текста
-  }
+  // startResize(event: MouseEvent, column: any) {
+  //   this.isResizing = true;
+  //   this.resizingColumn = column;
+  //   this.startX = event.pageX;
+  //   this.startWidth = column.width ? parseInt(column.width, 10) : 100; // Начальная ширина
+  //   event.preventDefault();
+  // }
 
+  // @HostListener('document:mousemove', ['$event'])
+  // onMouseMove(event: MouseEvent) {
+  //   if (!this.isResizing || !this.resizingColumn) return;
+  //   const width = this.startWidth + (event.pageX - this.startX);
+  //   this.resizingColumn.width = `${width}px`;
+  // }
 
-  @HostListener('document:mousemove', ['$event'])
-  onMouseMove(event: MouseEvent) {
-    if (!this.isResizing || !this.resizingColumn) return;
-    const width = this.startWidth + (event.pageX - this.startX);
-    this.resizingColumn.width = `${width}px`;
-  }
-
-  @HostListener('document:mouseup')
-  onMouseUp() {
-    if (this.isResizing) {
-      this.isResizing = false;
-      // this.saveColumnSizes(); // Сохраняем размеры после завершения изменения
-      this.sendColumnSizesToBackend(); // Отправляем размеры на бэкенд
-    }
-    this.resizingColumn = null;
-  }
-
-  // Загрузка сохраненных размеров колонок
-  // loadColumnSizes() {
-  //   const savedSizes = localStorage.getItem('columnSizes');
-  //   if (savedSizes) {
-  //     const sizes = JSON.parse(savedSizes);
-  //     this.columnsData.forEach((col:any) => {
-  //       const savedCol = sizes.find((s: any) => s.column === col.column);
-  //       if (savedCol) {
-  //         col.width = savedCol.width;
-  //         col.items.forEach((item: any) => {
-  //           const savedItem = savedCol.items.find((i: any) => i.field === item.field);
-  //           if (savedItem) item.width = savedItem.width;
-  //         });
-  //       }
-  //     });
+  // @HostListener('document:mouseup')
+  // onMouseUp() {
+  //   if (this.isResizing) {
+  //     this.isResizing = false;
   //   }
+  //   this.resizingColumn = null;
   // }
 
-  // Сохранение размеров колонок в localStorage
-  // saveColumnSizes() {
-  //   const sizes = this.columnsData.map((col:any) => ({
-  //     column: col.column,
-  //     width: col.width,
-  //     items: col.items.map((item:any) => ({
-  //       field: item.field,
-  //       width: item.width
-  //     }))
-  //   }));
-  //   console.log('saveColumnSizes',sizes);
+  // onSaveColumnWidth(){
+  //   console.log(this.load);
 
-  //   localStorage.setItem('columnSizes', JSON.stringify(sizes));
+  //   this.userService.userSaveTableParam({body: {method:'customer_list',param:this.columnsData}})
+  //     .pipe(
+  //       tap(()=>{}),
+  //       takeUntil(this.destroy$),
+  //     )
+  //   .subscribe(()=>{
+  //     this.isResizeColumnMode=false;
+  //   });
   // }
 
-  // Отправка размеров колонок на бэкенд
-  sendColumnSizesToBackend() {
-    const sizes = this.columnsData.map((col:any) => ({
-      column: col.column,
-      width: col.width,
-      items: col.items.map((item:any) => ({
-        field: item.field,
-        width: item.width
-      }))
-    }));
-
-    console.log('columnsData',this.columnsData);
-    console.log('sizes',sizes);
-
-
-  }
-  onSaveColumnWidth(){
-    this.userService.userSaveTableParam({body: {method:'customer_list',param:this.columnsData}})
-      .pipe(
-        tap(()=>{}),
-        takeUntil(this.destroy$),
-      )
-    .subscribe(()=>{
-      this.isResizeColumnMode=false;
-    });
-  }
-  onCancelColumnWidth(){
-    location.reload();
-  }
-
+  // onCancelColumnWidth(){
+  //   location.reload();
+  // }
 
 }
 
-
-  // handleResizeClick(event: MouseEvent, colIndex: any, miniColIndex:any) {
-  //   console.log('handleResizeClick');
-
-  //   event.stopPropagation();
-  //   const clickedElement = event.target as HTMLElement;
-  //   // Явно указываем тип HTMLElement при поиске
-  //   const columnElement = clickedElement.closest('.column') as HTMLElement | null;
-  //   if (!columnElement) {
-  //     console.warn('Не найден элемент с классом .column');
-  //     return;
-  //   }
-  //   const thElement = columnElement.closest('th') as HTMLElement | null;
-  //   if (!thElement) {
-  //     console.warn('Не найден родительский <th>');
-  //     return;
-  //   }
-  //   // Теперь TypeScript знает, что это HTMLElement и offsetWidth доступен
-  //   const columnWidth = columnElement.offsetWidth+10;
-  //   const thWidth = thElement.offsetWidth;
-
-  //   this.columnsData[colIndex].items[miniColIndex].width=`${columnWidth}px`;
-  //   if(this.columnsData[colIndex].items[miniColIndex+1]) {
-  //     this.columnsData[colIndex].items[miniColIndex+1].width=this.columnsData[colIndex].items[miniColIndex+1].width-10
-  //   } else {
-
-  //   }
-
-
-  //   console.log('Ширина <th>:', thWidth, 'px');
-  //   console.log('Ширина .column:', columnWidth, 'px');
-  // }

@@ -8,6 +8,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { Observable } from 'rxjs';
 import { SortColumn } from 'src/app/api/custom_models/sort-column';
 import { FilterService } from 'src/app/filter/services/filter.service';
+import { UserService } from 'src/app/api/services';
 
 @Component({
   selector: 'app-position',
@@ -30,9 +31,10 @@ export class PositionComponent extends Table<Position> {
     route: ActivatedRoute,
     router: Router,
     filter: FilterService,
+    userService:UserService,
 
   ) {
-    super(route, router, dialog, snackBar, filter);
+    super(route, router, dialog, snackBar, filter, userService);
   }
 
   load<Position>(params: { start?: number; count?: number; sort?: SortColumn<Position>[]; }): Observable<{ total: number; items: Position[]; }> {

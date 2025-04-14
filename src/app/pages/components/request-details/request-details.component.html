@@ -102,7 +102,9 @@
         class="info"
         style="resize: none; border: none;font-weight: bold; color: #2C3640; font-size: 16px; width: 100%; min-height: 100px; text-indent: none;"
         readonly
-      >{{currentRequest?.translate?.ru?.cargo_dimensions}}</textarea>
+      >
+        {{currentRequest?.translate?.ru?.cargo_dimensions}}
+      </textarea>
       <!-- <div class="w1 dime">????????????????? (1200 x 20 x 20, 110 kg) x 11 Wooden pallets - Stackable</div>
       <div class="w1 dime">????????????????? (1200 x 20 x 20, 110 kg) x 11 Wooden pallets - Stackable</div>
       <div class="w1 dime">????????????????? (1200 x 20 x 20, 110 kg) x 11 Wooden pallets - Stackable</div> -->
@@ -250,10 +252,12 @@
 <div style="display: flex; align-items: center;">
   <div class="subtitle">Ставки: {{currentRequest.count_rate_send}}/{{currentRequest.count_rate_answer}}</div>
   <div class="rate-links">
-    <div (click)="onTableMethodChange('final')" [ngClass]="detailsMethod==='final'? 'table-active':'' ">Итоговые</div>
-    <div (click)="onTableMethodChange('customs')" [ngClass]="detailsMethod==='customs'? 'table-active':'' ">До границы</div>
-    <div (click)="onTableMethodChange('point')" [ngClass]="detailsMethod==='point'? 'table-active':'' ">Склад (СВХ)</div>
-    <div (click)="onTableMethodChange('transporter')" [ngClass]="detailsMethod==='transporter'? 'table-active':'' ">Вывоз</div>
+    <div *ngIf="currentRequest?.tabs?.includes('final')" (click)="onTableMethodChange('final')" [ngClass]="detailsMethod==='final'? 'table-active':'' ">Итоговые</div>
+    <div *ngIf="currentRequest?.tabs?.includes('custom')" (click)="onTableMethodChange('customs')" [ngClass]="detailsMethod==='customs'? 'table-active':'' ">До границы</div>
+    <div *ngIf="currentRequest?.tabs?.includes('svh')" (click)="onTableMethodChange('point')" [ngClass]="detailsMethod==='point'? 'table-active':'' ">Склад (СВХ)</div>
+    <div *ngIf="currentRequest?.tabs?.includes('delivery')" (click)="onTableMethodChange('transporter')" [ngClass]="detailsMethod==='transporter'? 'table-active':'' ">Вывоз</div>
+    <div *ngIf="currentRequest?.tabs?.includes('other')" (click)="onTableMethodChange('other')" [ngClass]="detailsMethod==='other'? 'table-active':'' ">Другие</div>
+    <!-- <div (click)="onTableMethodChange('other')" [ngClass]="detailsMethod==='other'? 'table-active':'' ">Другие</div> -->
   </div>
 </div>
 
@@ -265,21 +269,30 @@
   (saveBidding)="saveContractorSelectRequest()"
   >
     <div class="detail-btn" *ngIf="isRateDetailsMode">
+      <!-- <button (click)="openOtherForm(123)">open Other Form</button> -->
+
       <button *ngIf="detailsMethod!=='final'" class="add rate" (click)="onAddRateBtnClick(detailsMethod)">
         <span style="text-wrap: nowrap" >+ СТАВКА</span>
       </button>
-      <button *ngIf="detailsMethod==='final'" class="add kp" (click)="onAddKpBtnClick()" [disabled]="arrDetailsCheckedCheck.length==0">
+
+      <button *ngIf="(detailsMethod=='customs' || detailsMethod=='transporter') && currentRequest.tabs?.length==1 "
+        class="bid"
+        (click)="onBidSelectRateBtnClick()"
+      >
+        ТОРГИ
+      </button>
+      <button *ngIf="(detailsMethod!=='final' && currentRequest.tabs?.length==1) || (currentRequest.tabs?.length>1 && (detailsMethod=='customs'||detailsMethod=='final' ) ) " class="add kp" (click)="onAddKpBtnClick()">
         <span style="text-wrap: nowrap" >+ КП</span>
       </button>
-      <button *ngIf="detailsMethod!=='final'" class="dub" (click)="onDubSelectRateBtnClick()" [disabled]="arrDetailsCheckedCheck.length==0">ДУБЛЬ</button>
-      <button *ngIf="detailsMethod !== 'final' && detailsMethod !== 'point'" class="bid" (click)="onBidSelectRateBtnClick()">ТОРГИ</button>
-      <button class="del" (click)="onDelSelectRateBtnClick()" [disabled]="arrDetailsCheckedCheck.length==0">УДАЛИТЬ</button>
+
+      <button *ngIf="arrDetailsCheckedCheck.length!==0" class="dub" (click)="onDubSelectRateBtnClick()">ДУБЛЬ</button>
+      <button *ngIf="arrDetailsCheckedCheck.length!==0" class="del" (click)="onDelSelectRateBtnClick()">УДАЛИТЬ</button>
     </div>
 </app-table-filter>
 
-<div class="table-list rate">
+<div class="table-list rate" [class]="isResizeColumnMode?'resize':''">
   <table mat-table [dataSource]="rows" multiTemplateDataRows>
-    <ng-container *ngFor="let col of columnsData"
+    <ng-container *ngFor="let col of columnsData;let colIndex=index"
       [matColumnDef]="col.column"
       [ngSwitch]="col.column"
     >
@@ -290,15 +303,29 @@
           <div [class]="!col.title?'td-block':'td-block-column'">
             <div *ngIf="col.title" class="td-block-title">{{col.title}}</div>
             <div [class]="!col.title?'no-layout':'td-block-line'">
-              <ng-container *ngFor="let miniCol of col.items">
+              <ng-container *ngFor="let miniCol of col.items;let miniColIndex=index">
                 <div class="column" *ngIf="miniCol.title"
-                  [attr.title]="getColTitle(miniCol.field)"
-                  (click)="sort(miniCol.field)"
-                  [ngClass]="getSortClass(miniCol.field)"
                   [style.width]="miniCol.width"
                   [class]="miniCol.class"
                 >
-                  {{miniCol.title}}
+                  <div class="col-content"
+                    [ngClass]="getSortClass(miniCol.field)"
+                    [attr.title]="getColTitle(miniCol.field)"
+                    (click)="sort(miniCol.field)"
+                  >
+                    {{miniCol.title}}
+                  </div>
+                  <div class="resize-handle"
+                    *ngIf="miniColIndex !== col.items.length - 1"
+                    (mousedown)="startResize($event, miniCol)"
+                  >
+                  </div>
+                </div>
+
+                <div class="resize-handle_end"
+                  *ngIf="(miniColIndex == col.items.length - 1) && colIndex!==0"
+                  (mousedown)="startResize($event, columnsData[colIndex-1].items[columnsData[colIndex-1].items.length-1])"
+                >
                 </div>
               </ng-container>
             </div>
@@ -331,15 +358,26 @@
       <!-- select столбец -->
       <ng-template [ngSwitchCase]="'select'">
         <th mat-header-cell *matHeaderCellDef [style.width]="col.width" [class]="col.class">
-          <label class="checkbox-label">
-            <mat-checkbox class="testclass"
-              [indeterminate]="isCheckboxHeaderTableIndeterminate()"
-              [checked]="isCheckboxHeaderTableChecked()"
-              (change)="onCheckboxHeaderTableChange($event)"
-              [ngClass]="isCheckboxHeaderTableIndeterminate()?'mat-mdc-checkbox-indeterminate':''"
-            >
-            </mat-checkbox>
-          </label>
+          <div class="td-block" >
+            <div class="column">
+              <label class="checkbox-label">
+                <mat-checkbox class="testclass"
+                  [indeterminate]="isCheckboxHeaderTableIndeterminate()"
+                  [checked]="isCheckboxHeaderTableChecked()"
+                  (change)="onCheckboxHeaderTableChange($event)"
+                  [ngClass]="isCheckboxHeaderTableIndeterminate()?'mat-mdc-checkbox-indeterminate':''"
+                >
+                </mat-checkbox>
+              </label>
+
+            </div>
+          </div>
+
+
+          <div class="resize-handle_end"
+            (mousedown)="startResize($event, columnsData[colIndex-1].items[columnsData[colIndex-1].items.length-1])"
+          >
+          </div>
         </th>
         <td mat-cell *matCellDef="let item" [style.width]="col.width" [class]="col.class">
           <div class="td-block">
@@ -372,8 +410,17 @@
       </ng-template>
       <!-- details столбец -->
       <ng-template [ngSwitchCase]="'details'">
-        <th mat-header-cell *matHeaderCellDef [style.width]="col.width" [class]="col.class">
-          <div class="setting-link"></div>
+        <th mat-header-cell *matHeaderCellDef class="setting">
+          <div class="setting-link" [matMenuTriggerFor]="menu"></div>
+          <mat-menu #menu="matMenu">
+            <button class="table-settings" *ngIf="isResizeColumnMode" mat-menu-item (click)="onCancelColumnWidth()">Отменить изменения</button>
+            <button class="table-settings" *ngIf="isResizeColumnMode" mat-menu-item (click)="onSaveColumnWidth()">Сохранить изменения</button>
+            <button class="table-settings" *ngIf="!isResizeColumnMode" mat-menu-item (click)="isResizeColumnMode=!isResizeColumnMode">Редактирование размера колонок</button>
+          </mat-menu>
+          <!-- <div class="resize-handle_end"
+            (mousedown)="startResize($event, columnsData[colIndex-1].items[columnsData[colIndex-1].items.length-1])"
+          >
+          </div> -->
         </th>
         <td mat-cell *matCellDef="let item" [style.width]="col.width" [class]="col.class">
           <!-- <div class="td-block" style="cursor: pointer;" (click)="expandedElement = expandedElement === item ? null : item;" > -->
@@ -405,7 +452,7 @@
           <!-- && element==expandedElement -->
           <ng-container *ngIf="detailsMethod==='final' " >
 
-            <div class="costs" *ngIf="element.custom && element.storage && element.delivery">
+            <div class="costs" *ngIf="element.custom && element.storage && element.delivery && element.other">
               <ng-container *ngTemplateOutlet="costRateBox; context: { label: 'Итоговая ставка:', sum:element?.total_cost_text }">
               </ng-container>
               ≈
@@ -416,6 +463,9 @@
               </ng-container>
               +
               <ng-container *ngTemplateOutlet="costRateBox; context: { label: 'Вывоз:', sum: element?.delivery?.total_cost_text }">
+              </ng-container>
+              +
+              <ng-container *ngTemplateOutlet="costRateBox; context: { label: 'Другие:', sum: element?.other?.total_cost_text }">
               </ng-container>
             </div>
 
@@ -451,6 +501,17 @@
                 *ngTemplateOutlet="rateActions; context: { mode: 'transporter', data: element.delivery }">
               </ng-container>
             </app-rate-info-row>
+
+            <app-rate-info-row *ngIf="element.other"
+              [rate]="element.other"
+              [detailsMethod]="'other'"
+              [costClass]="'final'"
+              [percent]="getRatesPercent(element.other?.total_cost,element.total_cost)"
+            >
+              <ng-container test2
+                *ngTemplateOutlet="rateActions; context: { mode: 'other', data: element.other }">
+              </ng-container>
+            </app-rate-info-row>
           <!-- </ng-template> -->
           </ng-container>
         </div>
@@ -473,6 +534,14 @@
   (startChange)="onStartChange($event)"
   (countChange)="onCountChange($event)">
 </app-paginator>
+
+<ng-template #rateOtherDialogRef let-data>
+  <app-rate-add-other
+    [rate]="data"
+    [currentRequest]="currentRequest"
+    (closeDialog)="closeAllDialogs()">
+  </app-rate-add-other>
+</ng-template>
 
 <ng-template #rateСustomsDialogRef let-data>
   <app-rate-add-customs

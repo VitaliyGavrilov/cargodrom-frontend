@@ -338,6 +338,20 @@
   }
 }
 
+table.other_charges {
+  .column {
+    width: 10%;
+  }
+  // .column:nth-child(1){width: 15%;}
+  // .column:nth-child(2){width: 10%;}
+  // .column:nth-child(3){width: 10%;}
+  // .column:nth-child(4){width: 10%;}
+  // .column:nth-child(5){width: 6%;}
+  // .column:nth-child(6){width: 5%;}
+  // .column:nth-child(7){width: 15%;}
+  // .column:nth-child(8){width: 6%;}
+}
+
 // .action-bar{
 //   position: absolute;
 //   top: 30px;

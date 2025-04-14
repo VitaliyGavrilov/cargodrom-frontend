@@ -7,7 +7,7 @@ import { MatSnackBar } from '@angular/material/snack-bar';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Observable, map, of, takeUntil, tap } from 'rxjs';
 import { FilterService } from 'src/app/filter/services/filter.service';
-import { FileService, RequestService } from 'src/app/api/services';
+import { FileService, RequestService, UserService } from 'src/app/api/services';
 import { MatCheckboxChange } from '@angular/material/checkbox';
 import { RateAddCustoms } from './rate-add-customs/rate-add-customs.component';
 import { LogoutComponent } from 'src/app/auth/components/logout/logout.component';
@@ -56,6 +56,7 @@ export class RequestDetails extends Table<any, 'trade_rating', ContractorFilter>
   isExpandedRequestInfo:boolean=false;
 
 
+  @ViewChild('rateOtherDialogRef') rateOtherDialogRef!: TemplateRef<void>;
   @ViewChild('ratePointDialogRef') ratePointDialogRef?: TemplateRef<void>;
   @ViewChild('rateTransporterDialogRef') rateTransporterDialogRef?: TemplateRef<void>;
   @ViewChild('rateСustomsDialogRef') rateСustomsDialogRef?: TemplateRef<void>;
@@ -73,17 +74,43 @@ export class RequestDetails extends Table<any, 'trade_rating', ContractorFilter>
     filter: FilterService,
     private matDialog: MatDialog,
     private fileSrvice: FileService,
-  ) { super(route, router, dialog, snackBar, filter) }
-
-  override loadRows(): void {
-    super.loadRows();
-    // this.getOfferList();
+    userService: UserService,
+  ) {
+    super(route, router, dialog, snackBar, filter,userService)
   }
+
+  // override loadRows(): void {
+  //   super.loadRows();
+  //   // this.getOfferList();
+  // }
 
   override ngOnInit(): void {
     super.ngOnInit();
     this.getOfferList();
     this.getKpStatus();
+    // this.resizeMetod='_list'
+    this.definitionResizeMethodInDetailPage();
+  }
+
+  openOtherForm(data:any){
+    const ref = this.rateOtherDialogRef;
+    const config = {
+      height: '85vh',
+      minWidth: '85vw',
+      maxWidth: '95vw'
+    };
+    this.matDialog.open(ref,{data:data, ...config});
+  }
+
+  definitionResizeMethodInDetailPage(){
+    const methodMap: { [key: string]: string } = {
+      final: 'request_rate_final_list',
+      customs: 'request_rate_customs_list',
+      point: 'request_rate_point_list',
+      transporter: 'request_rate_transporter_list',
+      other: 'request_rate_other_list',
+    };
+    this.resizeMetod=methodMap[this.detailsMethod];
   }
 
   //методы для таблицы
@@ -93,6 +120,7 @@ export class RequestDetails extends Table<any, 'trade_rating', ContractorFilter>
       customs: this.requestService.requestRateCustomsList.bind(this.requestService),
       point: this.requestService.requestRatePointList.bind(this.requestService),
       transporter: this.requestService.requestRateTransporterList.bind(this.requestService),
+      other: this.requestService.requestRateOtherList.bind(this.requestService),
     };
     const loadMethod = methodMap[this.detailsMethod];
     return loadMethod(params) as Observable<{ total: number; items: LoadRows[] }>;
@@ -247,7 +275,11 @@ export class RequestDetails extends Table<any, 'trade_rating', ContractorFilter>
   }
   // HANDLING CHECKBOX ACTIONS
   onAddKpBtnClick(){
-    this.openAddKpDialog('Вы уверенны, что хотите создать коммерческое предложение из выбранных  '+ this.arrDetailsCheckedCheck.length + ' ставок', this.arrDetailsCheckedCheck, 'Создание коммерческого предложения');
+    if(this.arrDetailsCheckedCheck.length==0){
+      this.snackBar.open(`Выбранные ставки отсутствуют `, undefined, this.snackBarWithShortDuration);
+    } else {
+      this.openAddKpDialog('Вы уверенны, что хотите создать коммерческое предложение из выбранных '+ this.arrDetailsCheckedCheck.length + ' ставок', this.arrDetailsCheckedCheck, 'Создание коммерческого предложения');
+    }
   }
   onAddRateBtnClick(mode:string){
     this.openRateEditor(mode);
@@ -352,6 +384,7 @@ export class RequestDetails extends Table<any, 'trade_rating', ContractorFilter>
       transporter: { ref: this.rateTransporterDialogRef, config: { height: '85vh', minWidth: '85vw',  maxWidth: '95vw' } },
       customs:     { ref: this.rateСustomsDialogRef, config: { height: '85vh', minWidth: '85vw',  maxWidth: '95vw' } },
       point:       { ref: this.ratePointDialogRef, config: { height: '85vh', minWidth: '85vw',  maxWidth: '95vw' } },
+      other:       { ref: this.rateOtherDialogRef, config: { height: '85vh', minWidth: '85vw',  maxWidth: '95vw' } },
     };
     // const editor = rateEditors[this.detailsMethod];
     const editor = rateEditors[mode];

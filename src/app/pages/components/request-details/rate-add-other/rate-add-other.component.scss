@@ -1,0 +1,132 @@
+
+.charges-block{
+  display: flex;
+  justify-content: space-between;
+  // min-height: 300px;
+  // border-top: 1px solid #E0E5EB;
+  border-bottom: 1px solid #E0E5EB;
+  padding-bottom: 40px;
+  // padding: 40px 0;
+  // .charge_on{
+  //    width: 62%;
+  //   label{
+  //      width: 400px;
+  //   }
+  // }
+  // .charge_off{
+  //   width: 30%;
+  // }
+  table {
+    mat-select.mat-mdc-select {border: 1px solid #E0E5EB;}
+    i{margin: 0;}
+    th:nth-child(1),td:nth-child(1){
+      width: 30px;
+    }
+    th:nth-child(2),td:nth-child(2){
+      .column:nth-child(1){width: 15%;}
+      .column:nth-child(2){width: 10%;}
+      .column:nth-child(3){width: 10%;}
+      .column:nth-child(4){width: 10%;}
+      .column:nth-child(5){width: 6%;}
+      .column:nth-child(6){width: 5%;}
+      .column:nth-child(7){width: 15%;}
+      .column:nth-child(8){width: 6%;}
+    }
+    th:nth-child(3),td:nth-child(3){
+      width: 20%;
+    }
+    div.char{
+      margin-left: 4px;
+      min-width: 80px;
+    }
+    div.char-mini{
+      margin-left: 4px;
+      width: 10px;
+    }
+  }
+}
+
+.w100{
+  width: 100%;
+}
+.charge{
+  display: flex;
+  justify-content: space-between;
+  margin-top: 20px;
+  align-items: baseline;
+  .unit.l{
+    width: 135px;
+  }
+  .unit.m{
+    width: 120px;
+  }
+  .unit.s{
+    width: 95px;
+  }
+  .unit input{
+    width: 75px;
+    margin-right: 5px;
+    padding-left: 6px;
+    padding-right: 6px;
+    text-align: right;
+  }
+  .comment input{
+    width: 340px;
+  }
+  .cross{
+    background-image: url(../../../../../assets/pic-btn-cancel-black.svg);
+    background-size: contain;
+    width: 10px;
+    height: 10px;
+  }
+  .equal{
+    color: black;
+  }
+}
+
+//  btn save rates
+.btn-save-rates{
+  margin-top: 24px;
+  background-color: #DB563B;
+  border: none;
+  border-radius: 6px;
+  padding: 10px;
+  color: white;
+  display: flex;
+  width: 120px;
+  cursor: pointer;
+}
+.icon-btn-save-rates{
+  background-image: url(../../../../../assets/pic-btn-send-white.svg);
+  background-repeat: no-repeat;
+  width: 20px;
+  height: 15px;
+  display: block;
+  margin-right: 5px;
+}
+
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+}
+
+.btn-close-dialog{
+  margin-top: 24px;
+  background-color: #606A74;
+  border: none;
+  border-radius: 6px;
+  padding: 10px;
+  color: white;
+  display: flex;
+  cursor: pointer;
+}
+.icon-btn-close-dialog{
+  background-image: url(../../../../../assets/pic-btn-cancel.svg);
+  background-repeat: no-repeat;
+  width: 20px;
+  height: 15px;
+  display: block;
+  margin-right: 5px;
+}
+
+

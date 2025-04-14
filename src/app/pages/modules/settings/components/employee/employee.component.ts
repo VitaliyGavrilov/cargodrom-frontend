@@ -8,6 +8,7 @@ import { Table } from '../../../../../classes';
 import { Employee } from './../../../../../api/custom_models';
 import { CompanyService } from './../../../../../api/services/company.service';
 import { FilterService } from 'src/app/filter/services/filter.service';
+import { UserService } from 'src/app/api/services';
 
 @Component({
   selector: 'app-employee',
@@ -33,8 +34,9 @@ export class EmployeeComponent extends Table<Employee, 'fio'> {
     route: ActivatedRoute,
     router: Router,
     filter: FilterService,
+    userService:UserService,
   ) {
-    super(route, router, dialog, snackBar, filter);
+    super(route, router, dialog, snackBar, filter, userService);
     this.registerAlias('fio', ['name_f', 'name_i', 'name_o']);
   }
 

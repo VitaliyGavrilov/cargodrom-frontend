@@ -8,7 +8,7 @@ import { MatSnackBar } from '@angular/material/snack-bar';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Observable, map, of } from 'rxjs';
 import { FilterService } from 'src/app/filter/services/filter.service';
-import { RequestService } from 'src/app/api/services';
+import { RequestService, UserService } from 'src/app/api/services';
 @Component({
   selector: 'app-contractor',
   templateUrl: './contractor.component.html',
@@ -32,8 +32,9 @@ export class ContractorComponent extends Table<Contractor, 'trade_rating', Contr
     route: ActivatedRoute,
     router: Router,
     filter: FilterService,
+    userService: UserService,
   ) {
-    super(route, router, dialog, snackBar, filter);
+    super(route, router, dialog, snackBar, filter,userService);
     this.importMetods = {
       import: this.contractorService.contractorImport.bind(this.contractorService),
       import_res: this.contractorService.contractorImportResult.bind(this.contractorService),
@@ -42,6 +43,12 @@ export class ContractorComponent extends Table<Contractor, 'trade_rating', Contr
     }
     this.registerAlias('trade_rating', ['trade_count', 'trade_success_count', 'trade_fail_count']);
   }
+
+  override ngOnInit() {
+    super.ngOnInit();
+    this.resizeMetod='contractor_list';
+  }
+
   //методы для таблицы
   load<Contractor>(params: LoadParams<Contractor, ContractorFilter>): Observable<{ total: number; items: Contractor[]; }> {
     this.params=params;
