@@ -128,7 +128,7 @@
 
 <ng-container *ngIf="isOfferListShow">
   <div class="subtitle">Коммерческие предложения: {{offerList.total}}</div>
-  <div class="table-list kp">
+  <div class="table-list no-resize kp">
     <table mat-table [dataSource]="offerList?.items" multiTemplateDataRows>
       <ng-container
         *ngFor="let col of offerList.columns"
@@ -290,6 +290,8 @@
     </div>
 </app-table-filter>
 
+<div class="border-block" style="margin: 0 20px; border: 1px solid #E0E5EB; border-left: none;">
+
 <div class="table-list rate" [class]="isResizeColumnMode?'resize':''">
   <table mat-table [dataSource]="rows" multiTemplateDataRows>
     <ng-container *ngFor="let col of columnsData;let colIndex=index"
@@ -299,7 +301,8 @@
       <!-- обычные элементы табл -->
       <ng-template [ngSwitchDefault]>
 
-        <th mat-header-cell *matHeaderCellDef [style.width]="col.width" [class]="col.class">
+        <!-- <th mat-header-cell *matHeaderCellDef [style.width]="col.width" [class]="col.class"> -->
+        <th mat-header-cell *matHeaderCellDef [class]="col.class">
           <div [class]="!col.title?'td-block':'td-block-column'">
             <div *ngIf="col.title" class="td-block-title">{{col.title}}</div>
             <div [class]="!col.title?'no-layout':'td-block-line'">
@@ -332,23 +335,34 @@
           </div>
         </th>
 
-        <td mat-cell *matCellDef="let item" [style.width]="col.width" [class]="col.class">
+        <!-- <td mat-cell *matCellDef="let item" [style.width]="col.width" [class]="col.class"> -->
+        <td mat-cell *matCellDef="let item;let i=index" [class]="col.class">
           <div class="td-block" >
             <div class="column"
-              *ngFor="let miniCol of col.items"
+              *ngFor="let miniCol of col.items;let miniColIndex=index"
               [style.width]="miniCol.width"
               [class]="miniCol.class"
               [ngSwitch]="miniCol.field"
+              [ngStyle]="{ 'z-index': colIndex+miniColIndex+(10*colIndex) }"
             >
-              <ng-template [ngSwitchDefault]>{{ getVal(item,miniCol.field) }}</ng-template>
+              <ng-template [ngSwitchDefault]>
+                <div class="col-content" (click)="toConsole([colIndex,miniColIndex,10])">{{ getVal(item,miniCol.field) }}</div>
+              </ng-template>
               <ng-template [ngSwitchCase]="'route_text'">
-                <button (click)="onOpenFullRouteDetailForm()" class="inverted_exclamation_mark"></button>{{ getVal(item,miniCol.field) }}
+                <div class="col-content">
+                  <button (click)="onOpenFullRouteDetailForm()" class="inverted_exclamation_mark"></button>
+                  {{ getVal(col,miniCol.field) }}
+                </div>
               </ng-template>
               <ng-template [ngSwitchCase]="'custom/route/route_type_key'">
-                <div class="transport-type" [class]="getVal(item,miniCol.field)"></div>
+                <div class="col-content">
+                  <div class="transport-type" [class]="getVal(item,miniCol.field)"></div>
+                </div>
               </ng-template>
               <ng-template [ngSwitchCase]="'route/route_type_key'">
-                <div class="transport-type" [class]="getVal(item,miniCol.field)"></div>
+                <div class="col-content">
+                  <div class="transport-type" [class]="getVal(item,miniCol.field)"></div>
+                </div>
               </ng-template>
             </div>
           </div>
@@ -369,11 +383,8 @@
                 >
                 </mat-checkbox>
               </label>
-
             </div>
           </div>
-
-
           <div class="resize-handle_end"
             (mousedown)="startResize($event, columnsData[colIndex-1].items[columnsData[colIndex-1].items.length-1])"
           >
@@ -524,6 +535,7 @@
     <tr mat-row *matRowDef="let row; columns: ['expandedDetail']" class="example-detail-row" ></tr>
 
   </table>
+</div>
 </div>
 
 <app-paginator

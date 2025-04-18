@@ -382,6 +382,230 @@ export class UserService extends BaseService {
     );
   }
 
+  /** Path part for operation `userSendResetCode()` */
+  static readonly UserSendResetCodePath = '/user_send_reset_code';
+
+  /**
+   * Отправка кода для сброса пароля пользователя.
+   *
+   *
+   *
+   * This method provides access to the full `HttpResponse`, allowing access to response headers.
+   * To access only the response body, use `userSendResetCode()` instead.
+   *
+   * This method sends `application/json` and handles request body of type `application/json`.
+   */
+  userSendResetCode$Response(
+    params?: {
+      body?: {
+
+/**
+ * Логин
+ */
+'login': string;
+}
+    },
+    context?: HttpContext
+  ): Observable<StrictHttpResponse<{
+
+/**
+ * Идентификатор регистрации
+ */
+'uid': string;
+}>> {
+    const rb = new RequestBuilder(this.rootUrl, UserService.UserSendResetCodePath, 'post');
+    if (params) {
+      rb.body(params.body, 'application/json');
+    }
+
+    return this.http.request(
+      rb.build({ responseType: 'json', accept: 'application/json', context })
+    ).pipe(
+      filter((r: any): r is HttpResponse<any> => r instanceof HttpResponse),
+      map((r: HttpResponse<any>) => {
+        return r as StrictHttpResponse<{
+        
+        /**
+         * Идентификатор регистрации
+         */
+        'uid': string;
+        }>;
+      })
+    );
+  }
+
+  /**
+   * Отправка кода для сброса пароля пользователя.
+   *
+   *
+   *
+   * This method provides access only to the response body.
+   * To access the full response (for headers, for example), `userSendResetCode$Response()` instead.
+   *
+   * This method sends `application/json` and handles request body of type `application/json`.
+   */
+  userSendResetCode(
+    params?: {
+      body?: {
+
+/**
+ * Логин
+ */
+'login': string;
+}
+    },
+    context?: HttpContext
+  ): Observable<{
+
+/**
+ * Идентификатор регистрации
+ */
+'uid': string;
+}> {
+    return this.userSendResetCode$Response(params, context).pipe(
+      map((r: StrictHttpResponse<{
+
+/**
+ * Идентификатор регистрации
+ */
+'uid': string;
+}>): {
+
+/**
+ * Идентификатор регистрации
+ */
+'uid': string;
+} => r.body)
+    );
+  }
+
+  /** Path part for operation `userResetPassword()` */
+  static readonly UserResetPasswordPath = '/user_reset_password';
+
+  /**
+   * Сброс пароля.
+   *
+   *
+   *
+   * This method provides access to the full `HttpResponse`, allowing access to response headers.
+   * To access only the response body, use `userResetPassword()` instead.
+   *
+   * This method sends `application/json` and handles request body of type `application/json`.
+   */
+  userResetPassword$Response(
+    params?: {
+      body?: {
+
+/**
+ * Идентификатор запроса
+ */
+'uid': string;
+
+/**
+ * Код из письма
+ */
+'code'?: string;
+
+/**
+ * Новый пароль
+ */
+'password': string;
+
+/**
+ * Подтверждение нового пароля
+ */
+'confirm_password': string;
+}
+    },
+    context?: HttpContext
+  ): Observable<StrictHttpResponse<{
+
+/**
+ * Статус выполнения
+ */
+'result': 'OK';
+}>> {
+    const rb = new RequestBuilder(this.rootUrl, UserService.UserResetPasswordPath, 'post');
+    if (params) {
+      rb.body(params.body, 'application/json');
+    }
+
+    return this.http.request(
+      rb.build({ responseType: 'json', accept: 'application/json', context })
+    ).pipe(
+      filter((r: any): r is HttpResponse<any> => r instanceof HttpResponse),
+      map((r: HttpResponse<any>) => {
+        return r as StrictHttpResponse<{
+        
+        /**
+         * Статус выполнения
+         */
+        'result': 'OK';
+        }>;
+      })
+    );
+  }
+
+  /**
+   * Сброс пароля.
+   *
+   *
+   *
+   * This method provides access only to the response body.
+   * To access the full response (for headers, for example), `userResetPassword$Response()` instead.
+   *
+   * This method sends `application/json` and handles request body of type `application/json`.
+   */
+  userResetPassword(
+    params?: {
+      body?: {
+
+/**
+ * Идентификатор запроса
+ */
+'uid': string;
+
+/**
+ * Код из письма
+ */
+'code'?: string;
+
+/**
+ * Новый пароль
+ */
+'password': string;
+
+/**
+ * Подтверждение нового пароля
+ */
+'confirm_password': string;
+}
+    },
+    context?: HttpContext
+  ): Observable<{
+
+/**
+ * Статус выполнения
+ */
+'result': 'OK';
+}> {
+    return this.userResetPassword$Response(params, context).pipe(
+      map((r: StrictHttpResponse<{
+
+/**
+ * Статус выполнения
+ */
+'result': 'OK';
+}>): {
+
+/**
+ * Статус выполнения
+ */
+'result': 'OK';
+} => r.body)
+    );
+  }
+
   /** Path part for operation `userCreateInvite()` */
   static readonly UserCreateInvitePath = '/user_create_invite';
 
@@ -1419,6 +1643,103 @@ export class UserService extends BaseService {
 'result': 'OK';
 }> {
     return this.userSaveTableParam$Response(params, context).pipe(
+      map((r: StrictHttpResponse<{
+
+/**
+ * Статус выполнения
+ */
+'result': 'OK';
+}>): {
+
+/**
+ * Статус выполнения
+ */
+'result': 'OK';
+} => r.body)
+    );
+  }
+
+  /** Path part for operation `userResetTableParam()` */
+  static readonly UserResetTableParamPath = '/user_reset_table_param';
+
+  /**
+   * Сброс параметров вывода таблицы.
+   *
+   *
+   *
+   * This method provides access to the full `HttpResponse`, allowing access to response headers.
+   * To access only the response body, use `userResetTableParam()` instead.
+   *
+   * This method sends `application/json` and handles request body of type `application/json`.
+   */
+  userResetTableParam$Response(
+    params?: {
+      body?: {
+
+/**
+ * Метод таблицы
+ */
+'method': string;
+}
+    },
+    context?: HttpContext
+  ): Observable<StrictHttpResponse<{
+
+/**
+ * Статус выполнения
+ */
+'result': 'OK';
+}>> {
+    const rb = new RequestBuilder(this.rootUrl, UserService.UserResetTableParamPath, 'post');
+    if (params) {
+      rb.body(params.body, 'application/json');
+    }
+
+    return this.http.request(
+      rb.build({ responseType: 'json', accept: 'application/json', context })
+    ).pipe(
+      filter((r: any): r is HttpResponse<any> => r instanceof HttpResponse),
+      map((r: HttpResponse<any>) => {
+        return r as StrictHttpResponse<{
+        
+        /**
+         * Статус выполнения
+         */
+        'result': 'OK';
+        }>;
+      })
+    );
+  }
+
+  /**
+   * Сброс параметров вывода таблицы.
+   *
+   *
+   *
+   * This method provides access only to the response body.
+   * To access the full response (for headers, for example), `userResetTableParam$Response()` instead.
+   *
+   * This method sends `application/json` and handles request body of type `application/json`.
+   */
+  userResetTableParam(
+    params?: {
+      body?: {
+
+/**
+ * Метод таблицы
+ */
+'method': string;
+}
+    },
+    context?: HttpContext
+  ): Observable<{
+
+/**
+ * Статус выполнения
+ */
+'result': 'OK';
+}> {
+    return this.userResetTableParam$Response(params, context).pipe(
       map((r: StrictHttpResponse<{
 
 /**

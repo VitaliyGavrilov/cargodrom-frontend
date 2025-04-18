@@ -22299,6 +22299,17 @@ export class RequestService extends BaseService {
 };
 
 /**
+ * ID других услуг
+ */
+'other_id': number;
+
+/**
+ * Другие услуги
+ */
+'other': {
+};
+
+/**
  * Итого: До границы
  */
 'customs_rate': string;
@@ -22420,6 +22431,17 @@ export class RequestService extends BaseService {
          * Ставка доставки
          */
         'delivery': {
+        };
+        
+        /**
+         * ID других услуг
+         */
+        'other_id': number;
+        
+        /**
+         * Другие услуги
+         */
+        'other': {
         };
         
         /**
@@ -22603,6 +22625,17 @@ export class RequestService extends BaseService {
 };
 
 /**
+ * ID других услуг
+ */
+'other_id': number;
+
+/**
+ * Другие услуги
+ */
+'other': {
+};
+
+/**
  * Итого: До границы
  */
 'customs_rate': string;
@@ -22710,6 +22743,17 @@ export class RequestService extends BaseService {
 };
 
 /**
+ * ID других услуг
+ */
+'other_id': number;
+
+/**
+ * Другие услуги
+ */
+'other': {
+};
+
+/**
  * Итого: До границы
  */
 'customs_rate': string;
@@ -22812,6 +22856,17 @@ export class RequestService extends BaseService {
  * Ставка доставки
  */
 'delivery': {
+};
+
+/**
+ * ID других услуг
+ */
+'other_id': number;
+
+/**
+ * Другие услуги
+ */
+'other': {
 };
 
 /**
@@ -23041,24 +23096,29 @@ export class RequestService extends BaseService {
 'request_id': number;
 
 /**
- * Подрядчик (ID берем из запроса - contractor_list)
- */
-'contractor_id': number;
-
-/**
- * Вид рейса
- */
-'point_action': string;
-
-/**
- * Город
- */
-'city_id': string;
-
-/**
  * Примечание
  */
 'comment'?: string;
+
+/**
+ * Сумма
+ */
+'total_cost': number;
+
+/**
+ * Сумма
+ */
+'total_cost_text': string;
+
+/**
+ * Валюта приведенная
+ */
+'currency'?: number;
+
+/**
+ * Валюта приведенная
+ */
+'currency_text'?: string;
 
 /**
  * Значения ставок
@@ -23076,9 +23136,19 @@ export class RequestService extends BaseService {
 'price': number;
 
 /**
+ * Стоимость услуги
+ */
+'price_text': string;
+
+/**
  * Количество
  */
 'count'?: number;
+
+/**
+ * Количество
+ */
+'count_text'?: string;
 
 /**
  * Комментарий
@@ -23091,7 +23161,27 @@ export class RequestService extends BaseService {
 'select'?: boolean;
 
 /**
- * Наименование
+ * Подрядчик (ID берем из запроса - contractor_list)
+ */
+'contractor_id': number;
+
+/**
+ * Вид рейса
+ */
+'point_action_id'?: number;
+
+/**
+ * Город
+ */
+'city_id': number;
+
+/**
+ * Валюта
+ */
+'currency': number;
+
+/**
+ * Наименование услуги
  */
 'name': string;
 
@@ -23104,53 +23194,16 @@ export class RequestService extends BaseService {
  * Стоимость
  */
 'cost_text': string;
-}>;
 
 /**
- * Наименование статей затрат
+ * Город
  */
-'service_items'?: string;
+'city_name': string;
 
 /**
- * Запрос
+ * Вид рейса
  */
-'request': {
-
-/**
- * Кол-во мест
- */
-'cargo_places_count'?: number;
-
-/**
- * Вес, кг
- */
-'cargo_places_weight'?: number;
-
-/**
- * Плотность, кг/м3
- */
-'cargo_places_density'?: number;
-
-/**
- * Оплачиваемый вес, кг
- */
-'cargo_places_paid_weight'?: number;
-
-/**
- * Объем, м3
- */
-'cargo_places_volume'?: number;
-
-/**
- * Стоимость товаров
- */
-'cargo_cost'?: number;
-
-/**
- * Дата запроса
- */
-'time_request'?: string;
-};
+'point_action'?: string;
 
 /**
  * Подрядчик
@@ -23228,6 +23281,53 @@ export class RequestService extends BaseService {
 'phone'?: string;
 };
 }>;
+
+/**
+ * Наименование статей затрат
+ */
+'service_items'?: string;
+
+/**
+ * Запрос
+ */
+'request': {
+
+/**
+ * Кол-во мест
+ */
+'cargo_places_count'?: number;
+
+/**
+ * Вес, кг
+ */
+'cargo_places_weight'?: number;
+
+/**
+ * Плотность, кг/м3
+ */
+'cargo_places_density'?: number;
+
+/**
+ * Оплачиваемый вес, кг
+ */
+'cargo_places_paid_weight'?: number;
+
+/**
+ * Объем, м3
+ */
+'cargo_places_volume'?: number;
+
+/**
+ * Стоимость товаров
+ */
+'cargo_cost'?: number;
+
+/**
+ * Дата запроса
+ */
+'time_request'?: string;
+};
+}>;
 }>> {
     const rb = new RequestBuilder(this.rootUrl, RequestService.RequestRateOtherListPath, 'get');
     if (params) {
@@ -23266,24 +23366,29 @@ export class RequestService extends BaseService {
         'request_id': number;
         
         /**
-         * Подрядчик (ID берем из запроса - contractor_list)
-         */
-        'contractor_id': number;
-        
-        /**
-         * Вид рейса
-         */
-        'point_action': string;
-        
-        /**
-         * Город
-         */
-        'city_id': string;
-        
-        /**
          * Примечание
          */
         'comment'?: string;
+        
+        /**
+         * Сумма
+         */
+        'total_cost': number;
+        
+        /**
+         * Сумма
+         */
+        'total_cost_text': string;
+        
+        /**
+         * Валюта приведенная
+         */
+        'currency'?: number;
+        
+        /**
+         * Валюта приведенная
+         */
+        'currency_text'?: string;
         
         /**
          * Значения ставок
@@ -23301,9 +23406,19 @@ export class RequestService extends BaseService {
         'price': number;
         
         /**
+         * Стоимость услуги
+         */
+        'price_text': string;
+        
+        /**
          * Количество
          */
         'count'?: number;
+        
+        /**
+         * Количество
+         */
+        'count_text'?: string;
         
         /**
          * Комментарий
@@ -23316,7 +23431,27 @@ export class RequestService extends BaseService {
         'select'?: boolean;
         
         /**
-         * Наименование
+         * Подрядчик (ID берем из запроса - contractor_list)
+         */
+        'contractor_id': number;
+        
+        /**
+         * Вид рейса
+         */
+        'point_action_id'?: number;
+        
+        /**
+         * Город
+         */
+        'city_id': number;
+        
+        /**
+         * Валюта
+         */
+        'currency': number;
+        
+        /**
+         * Наименование услуги
          */
         'name': string;
         
@@ -23329,53 +23464,16 @@ export class RequestService extends BaseService {
          * Стоимость
          */
         'cost_text': string;
-        }>;
         
         /**
-         * Наименование статей затрат
+         * Город
          */
-        'service_items'?: string;
+        'city_name': string;
         
         /**
-         * Запрос
+         * Вид рейса
          */
-        'request': {
-        
-        /**
-         * Кол-во мест
-         */
-        'cargo_places_count'?: number;
-        
-        /**
-         * Вес, кг
-         */
-        'cargo_places_weight'?: number;
-        
-        /**
-         * Плотность, кг/м3
-         */
-        'cargo_places_density'?: number;
-        
-        /**
-         * Оплачиваемый вес, кг
-         */
-        'cargo_places_paid_weight'?: number;
-        
-        /**
-         * Объем, м3
-         */
-        'cargo_places_volume'?: number;
-        
-        /**
-         * Стоимость товаров
-         */
-        'cargo_cost'?: number;
-        
-        /**
-         * Дата запроса
-         */
-        'time_request'?: string;
-        };
+        'point_action'?: string;
         
         /**
          * Подрядчик
@@ -23451,6 +23549,53 @@ export class RequestService extends BaseService {
          * Телефон
          */
         'phone'?: string;
+        };
+        }>;
+        
+        /**
+         * Наименование статей затрат
+         */
+        'service_items'?: string;
+        
+        /**
+         * Запрос
+         */
+        'request': {
+        
+        /**
+         * Кол-во мест
+         */
+        'cargo_places_count'?: number;
+        
+        /**
+         * Вес, кг
+         */
+        'cargo_places_weight'?: number;
+        
+        /**
+         * Плотность, кг/м3
+         */
+        'cargo_places_density'?: number;
+        
+        /**
+         * Оплачиваемый вес, кг
+         */
+        'cargo_places_paid_weight'?: number;
+        
+        /**
+         * Объем, м3
+         */
+        'cargo_places_volume'?: number;
+        
+        /**
+         * Стоимость товаров
+         */
+        'cargo_cost'?: number;
+        
+        /**
+         * Дата запроса
+         */
+        'time_request'?: string;
         };
         }>;
         }>;
@@ -23531,24 +23676,29 @@ export class RequestService extends BaseService {
 'request_id': number;
 
 /**
- * Подрядчик (ID берем из запроса - contractor_list)
- */
-'contractor_id': number;
-
-/**
- * Вид рейса
- */
-'point_action': string;
-
-/**
- * Город
- */
-'city_id': string;
-
-/**
  * Примечание
  */
 'comment'?: string;
+
+/**
+ * Сумма
+ */
+'total_cost': number;
+
+/**
+ * Сумма
+ */
+'total_cost_text': string;
+
+/**
+ * Валюта приведенная
+ */
+'currency'?: number;
+
+/**
+ * Валюта приведенная
+ */
+'currency_text'?: string;
 
 /**
  * Значения ставок
@@ -23566,9 +23716,19 @@ export class RequestService extends BaseService {
 'price': number;
 
 /**
+ * Стоимость услуги
+ */
+'price_text': string;
+
+/**
  * Количество
  */
 'count'?: number;
+
+/**
+ * Количество
+ */
+'count_text'?: string;
 
 /**
  * Комментарий
@@ -23581,7 +23741,27 @@ export class RequestService extends BaseService {
 'select'?: boolean;
 
 /**
- * Наименование
+ * Подрядчик (ID берем из запроса - contractor_list)
+ */
+'contractor_id': number;
+
+/**
+ * Вид рейса
+ */
+'point_action_id'?: number;
+
+/**
+ * Город
+ */
+'city_id': number;
+
+/**
+ * Валюта
+ */
+'currency': number;
+
+/**
+ * Наименование услуги
  */
 'name': string;
 
@@ -23594,53 +23774,16 @@ export class RequestService extends BaseService {
  * Стоимость
  */
 'cost_text': string;
-}>;
 
 /**
- * Наименование статей затрат
+ * Город
  */
-'service_items'?: string;
+'city_name': string;
 
 /**
- * Запрос
+ * Вид рейса
  */
-'request': {
-
-/**
- * Кол-во мест
- */
-'cargo_places_count'?: number;
-
-/**
- * Вес, кг
- */
-'cargo_places_weight'?: number;
-
-/**
- * Плотность, кг/м3
- */
-'cargo_places_density'?: number;
-
-/**
- * Оплачиваемый вес, кг
- */
-'cargo_places_paid_weight'?: number;
-
-/**
- * Объем, м3
- */
-'cargo_places_volume'?: number;
-
-/**
- * Стоимость товаров
- */
-'cargo_cost'?: number;
-
-/**
- * Дата запроса
- */
-'time_request'?: string;
-};
+'point_action'?: string;
 
 /**
  * Подрядчик
@@ -23716,6 +23859,53 @@ export class RequestService extends BaseService {
  * Телефон
  */
 'phone'?: string;
+};
+}>;
+
+/**
+ * Наименование статей затрат
+ */
+'service_items'?: string;
+
+/**
+ * Запрос
+ */
+'request': {
+
+/**
+ * Кол-во мест
+ */
+'cargo_places_count'?: number;
+
+/**
+ * Вес, кг
+ */
+'cargo_places_weight'?: number;
+
+/**
+ * Плотность, кг/м3
+ */
+'cargo_places_density'?: number;
+
+/**
+ * Оплачиваемый вес, кг
+ */
+'cargo_places_paid_weight'?: number;
+
+/**
+ * Объем, м3
+ */
+'cargo_places_volume'?: number;
+
+/**
+ * Стоимость товаров
+ */
+'cargo_cost'?: number;
+
+/**
+ * Дата запроса
+ */
+'time_request'?: string;
 };
 }>;
 }> {
@@ -23743,24 +23933,29 @@ export class RequestService extends BaseService {
 'request_id': number;
 
 /**
- * Подрядчик (ID берем из запроса - contractor_list)
- */
-'contractor_id': number;
-
-/**
- * Вид рейса
- */
-'point_action': string;
-
-/**
- * Город
- */
-'city_id': string;
-
-/**
  * Примечание
  */
 'comment'?: string;
+
+/**
+ * Сумма
+ */
+'total_cost': number;
+
+/**
+ * Сумма
+ */
+'total_cost_text': string;
+
+/**
+ * Валюта приведенная
+ */
+'currency'?: number;
+
+/**
+ * Валюта приведенная
+ */
+'currency_text'?: string;
 
 /**
  * Значения ставок
@@ -23778,9 +23973,19 @@ export class RequestService extends BaseService {
 'price': number;
 
 /**
+ * Стоимость услуги
+ */
+'price_text': string;
+
+/**
  * Количество
  */
 'count'?: number;
+
+/**
+ * Количество
+ */
+'count_text'?: string;
 
 /**
  * Комментарий
@@ -23793,7 +23998,27 @@ export class RequestService extends BaseService {
 'select'?: boolean;
 
 /**
- * Наименование
+ * Подрядчик (ID берем из запроса - contractor_list)
+ */
+'contractor_id': number;
+
+/**
+ * Вид рейса
+ */
+'point_action_id'?: number;
+
+/**
+ * Город
+ */
+'city_id': number;
+
+/**
+ * Валюта
+ */
+'currency': number;
+
+/**
+ * Наименование услуги
  */
 'name': string;
 
@@ -23806,53 +24031,16 @@ export class RequestService extends BaseService {
  * Стоимость
  */
 'cost_text': string;
-}>;
 
 /**
- * Наименование статей затрат
+ * Город
  */
-'service_items'?: string;
+'city_name': string;
 
 /**
- * Запрос
+ * Вид рейса
  */
-'request': {
-
-/**
- * Кол-во мест
- */
-'cargo_places_count'?: number;
-
-/**
- * Вес, кг
- */
-'cargo_places_weight'?: number;
-
-/**
- * Плотность, кг/м3
- */
-'cargo_places_density'?: number;
-
-/**
- * Оплачиваемый вес, кг
- */
-'cargo_places_paid_weight'?: number;
-
-/**
- * Объем, м3
- */
-'cargo_places_volume'?: number;
-
-/**
- * Стоимость товаров
- */
-'cargo_cost'?: number;
-
-/**
- * Дата запроса
- */
-'time_request'?: string;
-};
+'point_action'?: string;
 
 /**
  * Подрядчик
@@ -23928,6 +24116,53 @@ export class RequestService extends BaseService {
  * Телефон
  */
 'phone'?: string;
+};
+}>;
+
+/**
+ * Наименование статей затрат
+ */
+'service_items'?: string;
+
+/**
+ * Запрос
+ */
+'request': {
+
+/**
+ * Кол-во мест
+ */
+'cargo_places_count'?: number;
+
+/**
+ * Вес, кг
+ */
+'cargo_places_weight'?: number;
+
+/**
+ * Плотность, кг/м3
+ */
+'cargo_places_density'?: number;
+
+/**
+ * Оплачиваемый вес, кг
+ */
+'cargo_places_paid_weight'?: number;
+
+/**
+ * Объем, м3
+ */
+'cargo_places_volume'?: number;
+
+/**
+ * Стоимость товаров
+ */
+'cargo_cost'?: number;
+
+/**
+ * Дата запроса
+ */
+'time_request'?: string;
 };
 }>;
 }>): {
@@ -23953,24 +24188,29 @@ export class RequestService extends BaseService {
 'request_id': number;
 
 /**
- * Подрядчик (ID берем из запроса - contractor_list)
- */
-'contractor_id': number;
-
-/**
- * Вид рейса
- */
-'point_action': string;
-
-/**
- * Город
- */
-'city_id': string;
-
-/**
  * Примечание
  */
 'comment'?: string;
+
+/**
+ * Сумма
+ */
+'total_cost': number;
+
+/**
+ * Сумма
+ */
+'total_cost_text': string;
+
+/**
+ * Валюта приведенная
+ */
+'currency'?: number;
+
+/**
+ * Валюта приведенная
+ */
+'currency_text'?: string;
 
 /**
  * Значения ставок
@@ -23988,9 +24228,19 @@ export class RequestService extends BaseService {
 'price': number;
 
 /**
+ * Стоимость услуги
+ */
+'price_text': string;
+
+/**
  * Количество
  */
 'count'?: number;
+
+/**
+ * Количество
+ */
+'count_text'?: string;
 
 /**
  * Комментарий
@@ -24003,7 +24253,27 @@ export class RequestService extends BaseService {
 'select'?: boolean;
 
 /**
- * Наименование
+ * Подрядчик (ID берем из запроса - contractor_list)
+ */
+'contractor_id': number;
+
+/**
+ * Вид рейса
+ */
+'point_action_id'?: number;
+
+/**
+ * Город
+ */
+'city_id': number;
+
+/**
+ * Валюта
+ */
+'currency': number;
+
+/**
+ * Наименование услуги
  */
 'name': string;
 
@@ -24016,53 +24286,16 @@ export class RequestService extends BaseService {
  * Стоимость
  */
 'cost_text': string;
-}>;
 
 /**
- * Наименование статей затрат
+ * Город
  */
-'service_items'?: string;
+'city_name': string;
 
 /**
- * Запрос
+ * Вид рейса
  */
-'request': {
-
-/**
- * Кол-во мест
- */
-'cargo_places_count'?: number;
-
-/**
- * Вес, кг
- */
-'cargo_places_weight'?: number;
-
-/**
- * Плотность, кг/м3
- */
-'cargo_places_density'?: number;
-
-/**
- * Оплачиваемый вес, кг
- */
-'cargo_places_paid_weight'?: number;
-
-/**
- * Объем, м3
- */
-'cargo_places_volume'?: number;
-
-/**
- * Стоимость товаров
- */
-'cargo_cost'?: number;
-
-/**
- * Дата запроса
- */
-'time_request'?: string;
-};
+'point_action'?: string;
 
 /**
  * Подрядчик
@@ -24138,6 +24371,53 @@ export class RequestService extends BaseService {
  * Телефон
  */
 'phone'?: string;
+};
+}>;
+
+/**
+ * Наименование статей затрат
+ */
+'service_items'?: string;
+
+/**
+ * Запрос
+ */
+'request': {
+
+/**
+ * Кол-во мест
+ */
+'cargo_places_count'?: number;
+
+/**
+ * Вес, кг
+ */
+'cargo_places_weight'?: number;
+
+/**
+ * Плотность, кг/м3
+ */
+'cargo_places_density'?: number;
+
+/**
+ * Оплачиваемый вес, кг
+ */
+'cargo_places_paid_weight'?: number;
+
+/**
+ * Объем, м3
+ */
+'cargo_places_volume'?: number;
+
+/**
+ * Стоимость товаров
+ */
+'cargo_cost'?: number;
+
+/**
+ * Дата запроса
+ */
+'time_request'?: string;
 };
 }>;
 } => r.body)
@@ -24172,21 +24452,6 @@ export class RequestService extends BaseService {
 'request_id': number;
 
 /**
- * Подрядчик (ID берем из запроса - contractor_list)
- */
-'contractor_id': number;
-
-/**
- * Вид рейса
- */
-'point_action': string;
-
-/**
- * Город
- */
-'city_id': string;
-
-/**
  * Примечание
  */
 'comment'?: string;
@@ -24220,6 +24485,26 @@ export class RequestService extends BaseService {
  * Признак выбора
  */
 'select'?: boolean;
+
+/**
+ * Подрядчик (ID берем из запроса - contractor_list)
+ */
+'contractor_id': number;
+
+/**
+ * Вид рейса
+ */
+'point_action_id'?: number;
+
+/**
+ * Город
+ */
+'city_id': number;
+
+/**
+ * Валюта
+ */
+'currency': number;
 }>;
 }
     },
@@ -24277,21 +24562,6 @@ export class RequestService extends BaseService {
 'request_id': number;
 
 /**
- * Подрядчик (ID берем из запроса - contractor_list)
- */
-'contractor_id': number;
-
-/**
- * Вид рейса
- */
-'point_action': string;
-
-/**
- * Город
- */
-'city_id': string;
-
-/**
  * Примечание
  */
 'comment'?: string;
@@ -24325,6 +24595,26 @@ export class RequestService extends BaseService {
  * Признак выбора
  */
 'select'?: boolean;
+
+/**
+ * Подрядчик (ID берем из запроса - contractor_list)
+ */
+'contractor_id': number;
+
+/**
+ * Вид рейса
+ */
+'point_action_id'?: number;
+
+/**
+ * Город
+ */
+'city_id': number;
+
+/**
+ * Валюта
+ */
+'currency': number;
 }>;
 }
     },
@@ -24784,6 +25074,11 @@ export class RequestService extends BaseService {
 'valid'?: string;
 
 /**
+ * Валидность
+ */
+'time_valid_text'?: string;
+
+/**
  * Статус
  */
 'status'?: number;
@@ -25239,6 +25534,11 @@ export class RequestService extends BaseService {
          * Валидность
          */
         'valid'?: string;
+        
+        /**
+         * Валидность
+         */
+        'time_valid_text'?: string;
         
         /**
          * Статус
@@ -25719,6 +26019,11 @@ export class RequestService extends BaseService {
 'valid'?: string;
 
 /**
+ * Валидность
+ */
+'time_valid_text'?: string;
+
+/**
  * Статус
  */
 'status'?: number;
@@ -26165,6 +26470,11 @@ export class RequestService extends BaseService {
 'valid'?: string;
 
 /**
+ * Валидность
+ */
+'time_valid_text'?: string;
+
+/**
  * Статус
  */
 'status'?: number;
@@ -26609,6 +26919,11 @@ export class RequestService extends BaseService {
 'valid'?: string;
 
 /**
+ * Валидность
+ */
+'time_valid_text'?: string;
+
+/**
  * Статус
  */
 'status'?: number;
@@ -26679,6 +26994,11 @@ export class RequestService extends BaseService {
  * ID сводных запросов
  */
 'id': Array<number>;
+
+/**
+ * Тип запроса
+ */
+'type'?: 'final' | 'custom' | 'svh' | 'delivery' | 'other';
 }
     },
     context?: HttpContext
@@ -26728,6 +27048,11 @@ export class RequestService extends BaseService {
  * ID сводных запросов
  */
 'id': Array<number>;
+
+/**
+ * Тип запроса
+ */
+'type'?: 'final' | 'custom' | 'svh' | 'delivery' | 'other';
 }
     },
     context?: HttpContext
@@ -27164,6 +27489,11 @@ export class RequestService extends BaseService {
  * Валидность
  */
 'valid'?: string;
+
+/**
+ * Валидность
+ */
+'time_valid_text'?: string;
 
 /**
  * Статус
@@ -27603,6 +27933,11 @@ export class RequestService extends BaseService {
          * Валидность
          */
         'valid'?: string;
+        
+        /**
+         * Валидность
+         */
+        'time_valid_text'?: string;
         
         /**
          * Статус
@@ -28057,6 +28392,11 @@ export class RequestService extends BaseService {
 'valid'?: string;
 
 /**
+ * Валидность
+ */
+'time_valid_text'?: string;
+
+/**
  * Статус
  */
 'status'?: number;
@@ -28487,6 +28827,11 @@ export class RequestService extends BaseService {
 'valid'?: string;
 
 /**
+ * Валидность
+ */
+'time_valid_text'?: string;
+
+/**
  * Статус
  */
 'status'?: number;
@@ -28915,6 +29260,11 @@ export class RequestService extends BaseService {
 'valid'?: string;
 
 /**
+ * Валидность
+ */
+'time_valid_text'?: string;
+
+/**
  * Статус
  */
 'status'?: number;
@@ -29224,6 +29574,11 @@ export class RequestService extends BaseService {
  * Валидность
  */
 'valid'?: string;
+
+/**
+ * Валидность
+ */
+'time_valid_text'?: string;
 
 /**
  * Статус
@@ -29543,6 +29898,11 @@ export class RequestService extends BaseService {
  * Валидность
  */
 'valid'?: string;
+
+/**
+ * Валидность
+ */
+'time_valid_text'?: string;
 
 /**
  * Статус

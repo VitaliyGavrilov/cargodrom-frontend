@@ -8,6 +8,7 @@ import { RegisterComponent } from './components/register/register.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { LogoutComponent } from './components/logout/logout.component';
 import { ConfirmComponent } from './components/confirm/confirm.component';
+import { PasswordRecoveryComponent } from './components/password-recovery/password-recovery.component';
 
 
 @NgModule({
@@ -15,7 +16,8 @@ import { ConfirmComponent } from './components/confirm/confirm.component';
     LoginComponent,
     RegisterComponent,
     LogoutComponent,
-    ConfirmComponent
+    ConfirmComponent,
+    PasswordRecoveryComponent
   ],
   imports: [
     CommonModule,

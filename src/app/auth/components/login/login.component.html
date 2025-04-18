@@ -15,16 +15,33 @@
               </div>
               <div class="form-item">
                 <div class="form-label">Пароль:</div>
+                <div class="form-input">
+                  <input [type]="passwordVisible ? 'text' : 'password'"
+                    name="password"
+                    formControlName="password"
+                    placeholder="—"
+                    autocomplete="off"
+                  >
+                  <button type="button" (click)="togglePasswordVisibility()" [class]="passwordVisible? 'btn-password password-visible':' btn-password toggle-password'"></button>
+                </div>
+              </div>
+              <!-- <div class="form-item">
+                <div class="form-label">Пароль:</div>
                 <div class="form-input"><input type="password" name="password" formControlName="password"
                     placeholder="—" autocomplete="off"></div>
-              </div>
+              </div> -->
             </div>
             <div class="form-row inline">
               <div class="form-item">
-                <span class="forgot">
+                <span class="forgot" [routerLink]="['/password_recovery']">
+                  <span class="helper">i</span>
+                  <span >Востановить пароль</span>
+                </span>
+
+                <!-- <span class="forgot">
                   <span class="helper" (click)="popup.note('Test')">i</span>
                   <span [routerLink]="['/remind']">Напомнить логин или пароль</span>
-                </span>
+                </span> -->
               </div>
               <div class="form-item">
                 <span class="btn" (click)="doLogin()">Войти в систему</span>

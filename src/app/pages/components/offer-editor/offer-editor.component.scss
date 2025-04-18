@@ -146,13 +146,13 @@ table.kp tr{
 
 }
 
-.table-list table tr:nth-child(odd) td {
+.table-form table tr:nth-child(odd) td {
   background: inherit;
 }
-.table-list table tr td:nth-child(1), .table-list table tr td:nth-child(2) {
+.table-form table tr td:nth-child(1), .table-form table tr td:nth-child(2) {
   background: #F7F9FC;
 }
-.table-list table tr th:nth-child(3) .column{
+.table-form table tr th:nth-child(3) .column{
   text-align: center;
 }
 

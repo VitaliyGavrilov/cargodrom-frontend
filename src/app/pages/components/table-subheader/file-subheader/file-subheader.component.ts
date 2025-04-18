@@ -17,6 +17,7 @@ export class TableSubheaderFileComponent implements OnInit {
 
   readonly xlsxMimeType = 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet';
 
+  @Input() titles:any={title:'',subtitle:''};
   @Input()  importMetods:any;
   @Output() export = new EventEmitter<void>();
   @Output() exportTemplate = new EventEmitter<void>();

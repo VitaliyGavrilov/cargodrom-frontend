@@ -894,14 +894,22 @@
           <div class="form-item i2">
             <div class="form-block-sub-title">В ставку ДОЛЖНО быть включено:</div>
             <div class="form-data">
-              <app-services-ediotor [services]="services" formControlName="services"></app-services-ediotor>
+              <app-services-ediotor 
+                [services]="services" 
+                formControlName="services"
+              >
+              </app-services-ediotor>
             </div>
           </div>
 
           <div class="form-item i2">
             <div class="form-block-sub-title">Дополнительные услуги:</div>
             <div class="form-data">
-              <app-services-ediotor [services]="servicesAdditionals" formControlName="services_optional"></app-services-ediotor>
+              <app-services-ediotor 
+                [services]="servicesAdditionals" 
+                formControlName="services_optional"
+              >
+              </app-services-ediotor>
             </div>
           </div>
 

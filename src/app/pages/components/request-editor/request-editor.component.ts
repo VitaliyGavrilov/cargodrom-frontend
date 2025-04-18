@@ -1032,9 +1032,28 @@ export class RequestEditorComponent implements OnInit, OnDestroy {
 
   //изменение инкотермс
   onIncotermsChange(incotem:any){
+    this.requestForm.controls['services'].reset();
+    this.requestForm.controls['services_optional'].reset();
+    // console.log('incotem xhange',this.incoterms);
+    // console.log(this.services);
+    let ser=[];
+    let opt=[];
+    ser = incotem.services_id.filter((number:any) => 
+      this.services.some(obj => obj.id === number)
+    );
+    opt = incotem.services_id.filter((number:any) => 
+      this.servicesAdditionals.some(obj => obj.id === number)
+    );
     this.requestForm.patchValue({
-      services: incotem.services_id,
+      services: ser,
+      services_optional: opt,
+      // services: incotem.services_id,
+      // services_optional: incotem.services_id,
     });
+    // console.log(
+    //   this.requestForm.controls['services'].value,
+    //   this.requestForm.controls['services_optional'].value
+    // );
   }
   //изменение поля режима отдельных мест
   onPlaceModeChange(){
@@ -1323,7 +1342,8 @@ export class RequestEditorComponent implements OnInit, OnDestroy {
   private getIncoterms(kind_id: number) {
     this.requestService.requestIncoterms({kind_id})
       .pipe(
-        tap((incoterms)=>this.incoterms=incoterms as Incoterms[]),
+        tap((incoterms)=>{this.incoterms=incoterms as Incoterms[];
+  }),
         takeUntil(this._destroy$)
       ).subscribe();
   }

@@ -35,14 +35,13 @@
     th:nth-child(3),td:nth-child(3){
       width: 20%;
     }
-    div.char{
+    div.char,div.char-mini{
       margin-left: 4px;
-      min-width: 80px;
+      margin-top: auto;
+      margin-bottom: auto;
     }
-    div.char-mini{
-      margin-left: 4px;
-      width: 10px;
-    }
+    div.char{min-width: 80px;}
+    div.char-mini{width: 10px;}
   }
 }
 

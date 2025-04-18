@@ -4,11 +4,14 @@
 }
 table thead{
   --mat-table-header-container-height:48px;
+  --mat-table-header-headline-line-height:13px;
+  // --mat-table-header-headline-size: 14px;
 }
 .mat-mdc-option {
   --mat-option-label-text-line-height: 13px;
   --mat-option-label-text-size: 13px;
 }
+
 
 table th .td-block-line{
   background-color: #83909E;
@@ -109,6 +112,7 @@ td.vertically .td-block{
   font-weight: 400;
   font-size: 13px;
   line-height: 16px;
+  max-width: 150px;
 
   // .mat-mdc-select-trigger { padding: 0; }
   // .mat-mdc-select-value-text { text-wrap: auto; }
@@ -127,7 +131,7 @@ mat-option.mat-mdc-option.table_options{
   font-weight: 400;
   font-size: 13px;
   line-height: 16px;
-  padding: 0 5px;
+  // padding: 0 5px;
 }
 
 

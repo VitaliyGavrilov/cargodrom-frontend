@@ -43,7 +43,7 @@
                   <th>
                     <div class="td-block">
                       <div class="column">
-                        <label style="display: flex; align-items: center;">
+                        <label style="display: flex; align-items: center; margin: auto 0;">
                           <mat-checkbox
                             (change)="onChangeCheckboxFullPermission($event)"
                             [indeterminate]="isIndeterminateFullPermission()"
@@ -100,7 +100,7 @@
                     <td *ngFor="let col of data?.permission?.columns;let j= index" >
                       <div class="td-block" >
                         <div class="column">
-                          <div style="color: white;"></div>
+                          <div style="color: white;">+</div>
                           <label *ngFor="let rule of row.value.rules">
                             <input type="radio"
                               [formControlName]="col.field"

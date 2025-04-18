@@ -37,6 +37,13 @@
           }
         }
       }
+    },
+    {
+      "type": "npm",
+      "script": "api",
+      "problemMatcher": [],
+      "label": "npm: api",
+      "detail": "ng-openapi-gen -i https://dev.cargodrom.com/openapi2.php"
     }
   ]
 }

@@ -98,8 +98,17 @@ export class RequestComponent extends Table<Request, 'id', RequestFilter> {
     return obj !== undefined ? obj : null; // Проверка на undefined
   }
 
-  navigateOnDetails(requestId:any){
-    this.router.navigate(['pages/request/details/final', requestId])
+  navigateOnDetails(requestId:any, tab:string){
+    console.log(tab);
+    let link;
+    if(tab=='custom'){
+      link='customs';
+    } else if(tab=='svh') {
+      link='point'
+    } else {
+      link=tab;
+    }
+    this.router.navigate(['pages/request/details',link, requestId])
   }
   navigateOnClient(clientId:any){
     this.router.navigate(['pages/customer/edit', clientId])

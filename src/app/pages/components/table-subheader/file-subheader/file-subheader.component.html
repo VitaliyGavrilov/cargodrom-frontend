@@ -1,11 +1,11 @@
 <div class="subheader">
-  <div class="title">Запросы</div>
+  <div class="title">{{titles.title}}</div>
 
   <div class="btns-file">
 
     <button [routerLink]="['add']" class=" file-btn add-link">
       <div></div>
-      <span>Новый запрос</span>
+      <span>Новый {{titles.subtitle}}</span>
     </button>
 
     <button (click)="selectFileToImport()" type="button" class="file-btn import">

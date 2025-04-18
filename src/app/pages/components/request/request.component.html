@@ -1,4 +1,5 @@
 <app-table-sunheader-file
+  [titles]="{title:'Запросы',subtitle:'запрос'}"
   [importMetods]="importMetods"
   (export)="exportFile()"
   (exportTemplate)="exportFileTemplate()"
@@ -20,7 +21,7 @@
             <div [class]="!col.title?'no-layout':'td-block-line'">
               <ng-container *ngFor="let miniCol of col.items;let miniColIndex=index">
                 <div class="column" *ngIf="miniCol.title"
-                  [style.width]="miniCol.width"
+                  [style.width]="col.class=='vertically'? col.items[col.items.length-1].width: miniCol.width"
                   [class]="miniCol.class"
                 >
                   <div class="col-content"
@@ -54,8 +55,8 @@
         <td mat-cell *matCellDef="let item" [style.width]="col.width" [class]="col.class">
           <div class="td-block" >
             <div class="column"
-              *ngFor="let miniCol of col.items"
-              [style.width]="miniCol.width"
+              *ngFor="let miniCol of col.items;let miniColIndex=index"
+              [style.width]="col.class=='vertically'? col.items[col.items.length-1].width: miniCol.width"
               [class]="miniCol.class"
               [ngSwitch]="miniCol.field"
             >
@@ -63,7 +64,7 @@
                 <div class="col-content">{{ getVal(item,miniCol.field) }}</div>
               </ng-template>
               <ng-template [ngSwitchCase]="'id'">
-                <a class="link" (click)="navigateOnDetails(item.id)">
+                <a class="link" (click)="navigateOnDetails(item.id,item.tabs[0])">
                   {{ getVal(item,miniCol.field) }}
                 </a>
               </ng-template>

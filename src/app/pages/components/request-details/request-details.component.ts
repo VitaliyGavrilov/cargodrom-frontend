@@ -92,6 +92,10 @@ export class RequestDetails extends Table<any, 'trade_rating', ContractorFilter>
     this.definitionResizeMethodInDetailPage();
   }
 
+  toConsole(i:any){
+    console.log(i);
+  }
+
   openOtherForm(data:any){
     const ref = this.rateOtherDialogRef;
     const config = {
@@ -423,7 +427,19 @@ export class RequestDetails extends Table<any, 'trade_rating', ContractorFilter>
   }
   // REQUESTS TO BACKEND
   createOffer(body:any){//create kp
-    this.requestService.requestOfferMake({body:{id:body}})
+    let rateType: "other" | "final" | "custom" | "svh" | "delivery" | undefined;
+
+    if (this.detailsMethod) {
+      rateType = this.detailsMethod === 'point' ? 'svh' :
+                (this.detailsMethod === 'other' ||
+                 this.detailsMethod === 'final' ||
+                 this.detailsMethod === 'custom' ||
+                 this.detailsMethod === 'delivery') ? this.detailsMethod : undefined;
+    } else {
+      rateType = undefined;
+    }
+
+    this.requestService.requestOfferMake({body:{id:body,type:rateType}})
       .pipe(
         tap((e)=>{
           console.log(e);
