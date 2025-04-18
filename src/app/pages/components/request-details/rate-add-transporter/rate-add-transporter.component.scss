@@ -1,13 +1,13 @@
 
 
-.table-list .mat-mdc-select {
+.table-form .mat-mdc-select {
   border: 1px solid #E0E5EB;
   .mat-mdc-select-trigger{
     padding: 11px 13px 9px;
   }
 }
 
-.table-list{
+.table-form{
   border-top: 1px solid #E0E5EB;
   border-bottom: 1px solid #E0E5EB;
 
@@ -27,7 +27,7 @@
     cursor: pointer;
   }
 }
-.table-list table tr:nth-child(odd) td {
+.table-form table tr:nth-child(odd) td {
   background: white;
 }
 

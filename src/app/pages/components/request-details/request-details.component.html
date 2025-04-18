@@ -351,7 +351,7 @@
               <ng-template [ngSwitchCase]="'route_text'">
                 <div class="col-content">
                   <button (click)="onOpenFullRouteDetailForm()" class="inverted_exclamation_mark"></button>
-                  {{ getVal(col,miniCol.field) }}
+                  {{ getVal(item,miniCol.field) }}
                 </div>
               </ng-template>
               <ng-template [ngSwitchCase]="'custom/route/route_type_key'">
