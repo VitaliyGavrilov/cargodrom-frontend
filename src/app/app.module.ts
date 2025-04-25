@@ -15,6 +15,7 @@ import { TitleStrategy } from '@angular/router';
 import { DateAdapter, MAT_DATE_LOCALE, NativeDateAdapter } from '@angular/material/core';
 import { MaterialModule } from './material/material.module';
 import { MatDatepickerModule } from '@angular/material/datepicker';
+import { NgScrollbarModule } from 'ngx-scrollbar';
 
 
 
@@ -29,6 +30,7 @@ import { MatDatepickerModule } from '@angular/material/datepicker';
     HttpClientModule,
     BrowserAnimationsModule,
     MatDatepickerModule,
+    NgScrollbarModule,
   ],
   providers: [
     {

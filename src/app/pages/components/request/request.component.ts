@@ -1,5 +1,5 @@
 import { SearchFilterSchema } from './../../../api/custom_models';
-import { Component, ViewEncapsulation } from '@angular/core';
+import { Component, ViewChild, ViewEncapsulation } from '@angular/core';
 import { LoadParams, Table } from '../../../classes';
 import { MatDialog } from '@angular/material/dialog';
 import { MatSnackBar } from '@angular/material/snack-bar';
@@ -8,6 +8,7 @@ import { Observable, map, takeUntil, tap } from 'rxjs';
 import { FilterService } from 'src/app/filter/services/filter.service';
 import { RequestService, UserService } from 'src/app/api/services';
 import { Request, RequestFilter } from 'src/app/api/custom_models/request';
+import { NgScrollbar } from 'ngx-scrollbar';
 
 @Component({
   selector: 'app-request',
@@ -27,6 +28,9 @@ export class RequestComponent extends Table<Request, 'id', RequestFilter> {
 
   importMetods:any;
 
+  // @ViewChild(NgScrollbar) scrollbar!: NgScrollbar;
+
+
 
   constructor(
     private requestService: RequestService,
@@ -44,6 +48,12 @@ export class RequestComponent extends Table<Request, 'id', RequestFilter> {
       import_con: this.requestService.requestImportConfirm.bind(this.requestService),
     }
   }
+
+  // updateContent() {
+
+  //     this.scrollbar.update();
+
+  // }
 
   override ngOnInit() {
     super.ngOnInit();
@@ -100,15 +110,24 @@ export class RequestComponent extends Table<Request, 'id', RequestFilter> {
 
   navigateOnDetails(requestId:any, tab:string){
     console.log(tab);
-    let link;
-    if(tab=='custom'){
-      link='customs';
-    } else if(tab=='svh') {
-      link='point'
+    if(tab){
+      let link;
+      if(tab=='custom'){
+        link='customs';
+      } else if(tab=='svh') {
+        link='point'
+      } else {
+        link=tab;
+      }
+      this.router.navigate(['pages/request/details',link, requestId])
     } else {
-      link=tab;
+      this.snackBar.open(
+        `Ошибка, рейты недоступны`,
+        undefined,
+        this.snackBarWithShortDuration
+      );
     }
-    this.router.navigate(['pages/request/details',link, requestId])
+
   }
   navigateOnClient(clientId:any){
     this.router.navigate(['pages/customer/edit', clientId])

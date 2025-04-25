@@ -49,6 +49,7 @@ import { TableSubheaderFileComponent } from './components/table-subheader/file-s
 import { DynamicTableComponent } from './tables/dynamic-table/dynamic-table.component';
 import { EmployeeRegisterComponent } from './components/employee-register/employee-register.component';
 import { RateAddOther } from './components/request-details/rate-add-other/rate-add-other.component';
+import { NgScrollbarModule } from 'ngx-scrollbar';
 
 
 
@@ -113,6 +114,7 @@ import { RateAddOther } from './components/request-details/rate-add-other/rate-a
     ReactiveFormsModule,
     MaterialModule,
     FilterModule,
+    NgScrollbarModule,
   ]
 })
 export class PagesModule { }

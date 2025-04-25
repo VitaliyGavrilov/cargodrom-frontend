@@ -33,8 +33,10 @@ export abstract class Table<T extends { id: number }, A = never, F = never> impl
   resizeMetod:string='';
   isResizing = false;
   resizingColumn: any = null;
+  resizingColumnBlock: any = null;
   startX: number = 0;
   startWidth: number = 0;
+  startWidthBlock: number = 0;
 
   detailsMethod:string='';
 
@@ -55,6 +57,8 @@ export abstract class Table<T extends { id: number }, A = never, F = never> impl
   isRowsLoad=false;
 
   requestCrmStatuses:any[]=[];
+
+  isTableFixedWidth:boolean=false;
 
   readonly xlsxMimeType = 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet';
 
@@ -638,9 +642,12 @@ export abstract class Table<T extends { id: number }, A = never, F = never> impl
           this.sortDir = schema.sort[0].dir;
 
           if (this.isBiddingMode) {
-            schema.table.pop();
+            // schema.table.pop();
             schema.table.unshift({column:'checkbox'});
           }
+          
+          this.isTableFixedWidth=!schema.table_width_set;
+          
 
         }),
         takeUntil(this.destroy$),
@@ -704,11 +711,13 @@ export abstract class Table<T extends { id: number }, A = never, F = never> impl
   }
 
 
-  startResize(event: MouseEvent, column: any) {
+  startResize(event: MouseEvent, column: any,colBlock:any) {    
     this.isResizing = true;
     this.resizingColumn = column;
+    this.resizingColumnBlock = colBlock;
     this.startX = event.pageX;
     this.startWidth = column.width ? parseInt(column.width, 10) : 100; // Начальная ширина
+    this.startWidthBlock = colBlock.width ? parseInt(column.width, 10) : 100; 
     event.preventDefault();
   }
 
@@ -717,6 +726,8 @@ export abstract class Table<T extends { id: number }, A = never, F = never> impl
     if (!this.isResizing || !this.resizingColumn) return;
     const width = this.startWidth + (event.pageX - this.startX);
     this.resizingColumn.width = `${width}px`;
+    const widthBlock = this.startWidthBlock + (event.pageX - this.startX);
+    this.resizingColumnBlock.width = `${widthBlock}px`;
   }
 
   @HostListener('document:mouseup')
@@ -727,6 +738,38 @@ export abstract class Table<T extends { id: number }, A = never, F = never> impl
     this.resizingColumn = null;
   }
 
+  updateColumnSize(){
+    
+    
+    
+    
+    const result = Array.from(
+      this.isRateDetailsMode
+      ?document.querySelectorAll('div.table-list.rate table thead tr th')
+      :document.querySelectorAll('table thead tr th'),
+      (th:any, columnIndex:number) => {
+        if(this.columnsData[columnIndex]){
+          console.log('th.offsetWidth',th.offsetWidth);
+          if(!this.isRateDetailsMode){
+            if(columnIndex===0){
+            this.columnsData[columnIndex].width=`${th.offsetWidth-1}px`;
+            }else{
+              this.columnsData[columnIndex].width=`${th.offsetWidth}px`;
+            }
+          } else {
+            this.columnsData[columnIndex].width=`${th.offsetWidth}px`;
+          }
+          
+        }
+        
+      }
+    );
+    this.isResizeColumnMode=!this.isResizeColumnMode;
+    this.isTableFixedWidth=false;
+    
+
+  }
+
   onSaveColumnWidth(){
     this.userService.userSaveTableParam({body: {method:this.resizeMetod,param:this.columnsData}})
       .pipe(
@@ -735,6 +778,16 @@ export abstract class Table<T extends { id: number }, A = never, F = never> impl
       )
     .subscribe(()=>{
       this.isResizeColumnMode=false;
+    });
+  }
+  onResetColumnWidth(){
+    this.userService.userResetTableParam({body: {method:this.resizeMetod}})
+      .pipe(
+        tap(()=>{}),
+        takeUntil(this.destroy$),
+      )
+    .subscribe(()=>{
+      this.onCancelColumnWidth();
     });
   }
 

@@ -1,3 +1,4 @@
+<div class="client-component" style="height: calc(100vh - 56px);display: flex; flex-direction: column;">
 <app-table-sunheader-file
   [titles]="{title:'Клиенты',subtitle:'клиент'}"
   [importMetods]="importMetods"
@@ -9,7 +10,7 @@
 <app-table-filter></app-table-filter>
 
 <div class="table-list" [class]="isResizeColumnMode?'resize':''" >
-  <table mat-table [dataSource]="rows" multiTemplateDataRows>
+  <table mat-table [dataSource]="rows" multiTemplateDataRows [style]="isTableFixedWidth?'width:100%;max-width:100%':''">
 
     <ng-container *ngFor="let col of columnsData;let colIndex=index"
       [matColumnDef]="col.column"
@@ -17,7 +18,7 @@
     >
       <!-- стандартный шаблон -->
       <ng-template [ngSwitchDefault]>
-        <th mat-header-cell *matHeaderCellDef [style.width]="col.width" [class]="col.class">
+        <th mat-header-cell *matHeaderCellDef [style.minWidth]="col.width" [class]="col.class">
           <div [class]="!col.title?'td-block':'td-block-column'">
             <div *ngIf="col.title" class="td-block-title">
               {{col.title}}
@@ -38,13 +39,13 @@
                   </div>
                   <div class="resize-handle"
                     *ngIf="miniColIndex !== col.items.length - 1"
-                    (mousedown)="startResize($event, miniCol)"
+                    (mousedown)="startResize($event, miniCol,columnsData[colIndex])"
                   >
                   </div>
                 </div>
                 <div class="resize-handle_end"
                   *ngIf="(miniColIndex == col.items.length - 1) && colIndex!==0"
-                  (mousedown)="startResize($event, columnsData[colIndex-1].items[columnsData[colIndex-1].items.length-1])"
+                  (mousedown)="startResize($event, columnsData[colIndex-1].items[columnsData[colIndex-1].items.length-1],columnsData[colIndex-1])"
                 >
                 </div>
               </ng-container>
@@ -77,10 +78,11 @@
           <mat-menu #menu="matMenu">
             <button class="table-settings" *ngIf="isResizeColumnMode" mat-menu-item (click)="onCancelColumnWidth()">Отменить изменения</button>
             <button class="table-settings" *ngIf="isResizeColumnMode" mat-menu-item (click)="onSaveColumnWidth()">Сохранить изменения</button>
-            <button class="table-settings" *ngIf="!isResizeColumnMode" mat-menu-item (click)="isResizeColumnMode=!isResizeColumnMode">Редактирование размера колонок</button>
+            <button class="table-settings" *ngIf="!isResizeColumnMode" mat-menu-item (click)="updateColumnSize()">Редактирование размера колонок</button>
+            <button class="table-settings" *ngIf="!isTableFixedWidth" mat-menu-item (click)="onResetColumnWidth()">Вернуть значения по умолчанию</button>
           </mat-menu>
           <div class="resize-handle_end"
-            (mousedown)="startResize($event, columnsData[colIndex-1].items[columnsData[colIndex-1].items.length-1])"
+            (mousedown)="startResize($event, columnsData[colIndex-1].items[columnsData[colIndex-1].items.length-1],columnsData[colIndex-1])"
           >
           </div>
         </th>
@@ -104,3 +106,4 @@
   (startChange)="onStartChange($event)"
   (countChange)="onCountChange($event)">
 </app-paginator>
+</div>

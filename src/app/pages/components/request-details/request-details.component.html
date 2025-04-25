@@ -1,3 +1,4 @@
+<div class="request-details-component" style="height: calc(100vh - 56px);display: flex; flex-direction: column;">
 <div class="subheader" >
   <div class="main_page_info">
     <div class="back" [routerLink]="['../../../../request']"></div>
@@ -24,35 +25,25 @@
 </div> -->
 
 <!-- *ngIf="isExpandedRequestInfo" -->
-<div class="expanded-request-info test" [ngClass]="isExpandedRequestInfo?'visible':''">
+<div class="expanded-request-info" [ngClass]="isExpandedRequestInfo?'visible':''">
   <div class="columns">
     <div class="col" style="width: 50%;">
       <div class="title">Направления</div>
       <div class="item w1">
         <div class="field">Отправление</div>
-        <div class="info">
-          {{currentRequest?.departure_text}}
-          <!-- {{currentRequest?.departure_country_name}}, {{currentRequest?.departure_city_name}}, {{currentRequest?.departure_address}} -->
-          <!-- <span class="comm">{{currentRequest?.departure_point_name}}</span> -->
-        </div>
+        <div class="info">{{currentRequest?.departure_text}}</div>
       </div>
       <div class="item w1">
         <div class="field">Назначения</div>
-        <div class="info">
-          {{currentRequest?.arrival_text}}
-          <!-- {{currentRequest?.arrival_country_name}}, {{currentRequest?.arrival_city_name}}, {{currentRequest?.arrival_address}}
-          <span class="comm">{{currentRequest?.arrival_point_name}}</span> -->
-        </div>
+        <div class="info">{{currentRequest?.arrival_text}}</div>
       </div>
     </div>
     <div class="col">
       <div class="title w1">Описание груза</div>
-
       <div class="item w4">
         <div class="field">Тип груза:</div>
         <div class="info">{{currentRequest?.cargo_type_text}}</div>
       </div>
-
       <div class="item w4">
         <div class="field">Названия груза:</div>
         <div class="info">{{currentRequest?.cargo_description}}</div>
@@ -70,7 +61,6 @@
           {{currentRequest?.cargo_places_density  | number:'1.0-1'}}<span> kg/m<sup class="sup">3</sup></span>
         </div>
       </div>
-
       <div class="item w4">
         <div class="field">Готовность груза:</div>
         <div class="info">{{currentRequest?.cargo_readiness}}</div>
@@ -105,9 +95,6 @@
       >
         {{currentRequest?.translate?.ru?.cargo_dimensions}}
       </textarea>
-      <!-- <div class="w1 dime">????????????????? (1200 x 20 x 20, 110 kg) x 11 Wooden pallets - Stackable</div>
-      <div class="w1 dime">????????????????? (1200 x 20 x 20, 110 kg) x 11 Wooden pallets - Stackable</div>
-      <div class="w1 dime">????????????????? (1200 x 20 x 20, 110 kg) x 11 Wooden pallets - Stackable</div> -->
     </div>
   </div>
   <div class="row" *ngIf="currentRequest.comment">
@@ -120,11 +107,6 @@
     <div *ngFor="let file of currentRequest.cargo_file" class="file-box" (click)="getRequestFile(file.id)">{{file.file_name}}</div>
   </div>
 </div>
-
-<!-- <ng-container *ngIf="!isOfferListShow">
-  <div class="subtitle">Коммерческие предложения: 0</div>
-  <div class="kp-none">Коммерческих предложений нет</div>
-</ng-container> -->
 
 <ng-container *ngIf="isOfferListShow">
   <div class="subtitle">Коммерческие предложения: {{offerList.total}}</div>
@@ -261,6 +243,7 @@
   </div>
 </div>
 
+
 <app-table-filter
   class="table-filter"
   [isBiddingMode]="isBiddingMode"
@@ -290,10 +273,10 @@
     </div>
 </app-table-filter>
 
-<div class="border-block" style="margin: 0 20px; border: 1px solid #E0E5EB; border-left: none;">
+<div class="table-border-block">
 
-<div class="table-list rate" [class]="isResizeColumnMode?'resize':''">
-  <table mat-table [dataSource]="rows" multiTemplateDataRows>
+<div class="table-list rate" style="position:absolute; top:0; left:0; bottom: 0;right: 0;" [class]="isResizeColumnMode?'resize':''">
+  <table mat-table [dataSource]="rows" multiTemplateDataRows [style]="isTableFixedWidth?'width:100%;max-width:100%':''">
     <ng-container *ngFor="let col of columnsData;let colIndex=index"
       [matColumnDef]="col.column"
       [ngSwitch]="col.column"
@@ -302,7 +285,7 @@
       <ng-template [ngSwitchDefault]>
 
         <!-- <th mat-header-cell *matHeaderCellDef [style.width]="col.width" [class]="col.class"> -->
-        <th mat-header-cell *matHeaderCellDef [class]="col.class">
+        <th mat-header-cell *matHeaderCellDef [class]="col.class" [style.minWidth]="col.width">
           <div [class]="!col.title?'td-block':'td-block-column'">
             <div *ngIf="col.title" class="td-block-title">{{col.title}}</div>
             <div [class]="!col.title?'no-layout':'td-block-line'">
@@ -320,14 +303,14 @@
                   </div>
                   <div class="resize-handle"
                     *ngIf="miniColIndex !== col.items.length - 1"
-                    (mousedown)="startResize($event, miniCol)"
+                    (mousedown)="startResize($event, miniCol,columnsData[colIndex])"
                   >
                   </div>
                 </div>
 
                 <div class="resize-handle_end"
                   *ngIf="(miniColIndex == col.items.length - 1) && colIndex!==0"
-                  (mousedown)="startResize($event, columnsData[colIndex-1].items[columnsData[colIndex-1].items.length-1])"
+                  (mousedown)="startResize($event, columnsData[colIndex-1].items[columnsData[colIndex-1].items.length-1],columnsData[colIndex-1])"
                 >
                 </div>
               </ng-container>
@@ -336,17 +319,17 @@
         </th>
 
         <!-- <td mat-cell *matCellDef="let item" [style.width]="col.width" [class]="col.class"> -->
-        <td mat-cell *matCellDef="let item;let i=index" [class]="col.class">
+        <td mat-cell *matCellDef="let item;let i=index" [class]="col.class" [style.minWidth]="col.width">
           <div class="td-block" >
             <div class="column"
               *ngFor="let miniCol of col.items;let miniColIndex=index"
               [style.width]="miniCol.width"
               [class]="miniCol.class"
               [ngSwitch]="miniCol.field"
-              [ngStyle]="{ 'z-index': colIndex+miniColIndex+(10*colIndex) }"
             >
+            <!-- [ngStyle]="{ 'z-index': colIndex+miniColIndex+(10*colIndex) }" -->
               <ng-template [ngSwitchDefault]>
-                <div class="col-content" (click)="toConsole([colIndex,miniColIndex,10])">{{ getVal(item,miniCol.field) }}</div>
+                <div class="col-content">{{ getVal(item,miniCol.field) }}</div>
               </ng-template>
               <ng-template [ngSwitchCase]="'route_text'">
                 <div class="col-content">
@@ -371,9 +354,9 @@
 
       <!-- select столбец -->
       <ng-template [ngSwitchCase]="'select'">
-        <th mat-header-cell *matHeaderCellDef [style.width]="col.width" [class]="col.class">
+        <th mat-header-cell *matHeaderCellDef [style.minWidth]="col.width" [class]="col.class">
           <div class="td-block" >
-            <div class="column">
+            
               <label class="checkbox-label">
                 <mat-checkbox class="testclass"
                   [indeterminate]="isCheckboxHeaderTableIndeterminate()"
@@ -383,14 +366,14 @@
                 >
                 </mat-checkbox>
               </label>
-            </div>
+            
           </div>
           <div class="resize-handle_end"
-            (mousedown)="startResize($event, columnsData[colIndex-1].items[columnsData[colIndex-1].items.length-1])"
+            (mousedown)="startResize($event, columnsData[colIndex-1].items[columnsData[colIndex-1].items.length-1],columnsData[colIndex-1])"
           >
           </div>
         </th>
-        <td mat-cell *matCellDef="let item" [style.width]="col.width" [class]="col.class">
+        <td mat-cell *matCellDef="let item" [style.minWidth]="col.width" [class]="col.class">
           <div class="td-block">
             <label class="checkbox-label" *ngIf="col.column==='select'">
               <mat-checkbox class="testclass"
@@ -404,10 +387,10 @@
       </ng-template>
       <!-- checked столбец -->
       <ng-template [ngSwitchCase]="'checked'">
-        <th mat-header-cell *matHeaderCellDef [style.width]="col.width" [class]="col.class">
+        <th mat-header-cell *matHeaderCellDef [style.minWidth]="col.width" [class]="col.class">
           <div class="td-block">КП</div>
         </th>
-        <td mat-cell *matCellDef="let item" [style.width]="col.width" [class]="col.class">
+        <td mat-cell *matCellDef="let item" [style.minWidth]="col.width" [class]="col.class">
           <div class="td-block">
             <label class="switch outer" *ngIf="col.column==='checked'">
               <input type="checkbox"  [checked]="item.selected" (change)="onCommercialOfferChange(item)" >
@@ -426,7 +409,8 @@
           <mat-menu #menu="matMenu">
             <button class="table-settings" *ngIf="isResizeColumnMode" mat-menu-item (click)="onCancelColumnWidth()">Отменить изменения</button>
             <button class="table-settings" *ngIf="isResizeColumnMode" mat-menu-item (click)="onSaveColumnWidth()">Сохранить изменения</button>
-            <button class="table-settings" *ngIf="!isResizeColumnMode" mat-menu-item (click)="isResizeColumnMode=!isResizeColumnMode">Редактирование размера колонок</button>
+            <button class="table-settings" *ngIf="!isResizeColumnMode" mat-menu-item (click)="updateColumnSize()">Редактирование размера колонок</button>
+            <button class="table-settings" *ngIf="!isTableFixedWidth" mat-menu-item (click)="onResetColumnWidth()">Вернуть значения по умолчанию</button>
           </mat-menu>
           <!-- <div class="resize-handle_end"
             (mousedown)="startResize($event, columnsData[colIndex-1].items[columnsData[colIndex-1].items.length-1])"
@@ -546,6 +530,8 @@
   (startChange)="onStartChange($event)"
   (countChange)="onCountChange($event)">
 </app-paginator>
+
+</div>
 
 <ng-template #rateOtherDialogRef let-data>
   <app-rate-add-other

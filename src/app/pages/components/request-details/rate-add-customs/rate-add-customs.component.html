@@ -1,4 +1,4 @@
-<form class="edit-form" [formGroup]="rateForm">
+<form class="edit-form" [formGroup]="rateForm" (ngSubmit)="rateSave()">
   <div class="form-block">
     <div class="form-row">
 
@@ -294,6 +294,7 @@
       Сохранить
     </button>
   </div>
+  <button type="submit" style="display: none;"></button>
 
 </form>
 

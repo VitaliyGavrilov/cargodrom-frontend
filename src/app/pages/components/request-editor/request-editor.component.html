@@ -29,7 +29,7 @@
                 <mat-option *ngFor="let option of filteredCustomers" [value]="option.id">
                   {{option.name}}
                 </mat-option>
-                <mat-option *ngIf="filteredCustomers.length==0" disabled >Городов нет</mat-option>
+                <mat-option *ngIf="filteredCustomers.length==0" disabled >Клиентов нет</mat-option>
               </mat-autocomplete>
               <mat-error *ngIf="requestForm.controls['customer_id'].hasError('required')">
                 Это поле обязательно
@@ -208,7 +208,7 @@
               <mat-option *ngFor="let option of filteredCargoPackage" [value]="option.id">
                 {{option.name}}
               </mat-option>
-              <mat-option *ngIf="filteredCargoPackage.length==0" disabled >Транспорта нет</mat-option>
+              <mat-option *ngIf="filteredCargoPackage.length==0" disabled >Упаковки нет</mat-option>
             </mat-autocomplete>
             <mat-error *ngIf="requestForm.controls['cargo_package_id'].hasError('required')">
               Это поле обязательно
@@ -245,7 +245,7 @@
               <mat-option *ngFor="let option of filteredCargoType" [value]="option.id">
                 {{option.name}}
               </mat-option>
-              <mat-option *ngIf="filteredCargoType.length==0" disabled >Транспорта нет</mat-option>
+              <mat-option *ngIf="filteredCargoType.length==0" disabled >Типа груза нет </mat-option>
             </mat-autocomplete>
             <mat-error *ngIf="requestForm.controls['cargo_type_id'].hasError('required')">
               Это поле обязательно
@@ -894,8 +894,8 @@
           <div class="form-item i2">
             <div class="form-block-sub-title">В ставку ДОЛЖНО быть включено:</div>
             <div class="form-data">
-              <app-services-ediotor 
-                [services]="services" 
+              <app-services-ediotor
+                [services]="services"
                 formControlName="services"
               >
               </app-services-ediotor>
@@ -905,8 +905,8 @@
           <div class="form-item i2">
             <div class="form-block-sub-title">Дополнительные услуги:</div>
             <div class="form-data">
-              <app-services-ediotor 
-                [services]="servicesAdditionals" 
+              <app-services-ediotor
+                [services]="servicesAdditionals"
                 formControlName="services_optional"
               >
               </app-services-ediotor>

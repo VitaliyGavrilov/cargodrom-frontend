@@ -1,3 +1,26 @@
+app-request-details{
+  height: 100%;
+}
+.request-details-component{
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  max-height: calc(100vh - 56px);
+}
+table .column{
+  // box-sizing: border-box;
+  // flex-grow: 1;
+}
+ng-scrollbar.ng-scrollbar  {
+  --scrollbar-size: 8px;
+  --scrollbar-thumb-color: #6200ee;
+  --scrollbar-track-color: #f1f1f1;
+  --scrollbar-border-radius: 4px;
+}
+.scrollbar-control{
+  background-color: red;
+}
+
 .table-settings  {
   --mat-menu-item-label-text-line-height:13px;
   --mat-menu-item-label-text-size:13px;
@@ -31,39 +54,45 @@ table .mdc-data-table__header-cell {
 .table-list .td-block .column {
   position: relative;
 }
-.table-list .resize-handle{
-  position: absolute;
-  right: -1.5px;
-  width: 3px;
-  top: -17px;
-  bottom: -8px;
-  background-color: inherit;
-  cursor: col-resize;
-  pointer-events: none;
-  z-index: 10;
+
+.table-list{
+  .resize-handle{
+    position: absolute;
+    right: -1.5px;
+    width: 3px;
+    top: -9px;
+    bottom: -7px;
+    background-color: inherit;
+    cursor: col-resize;
+    pointer-events: none;
+    z-index: 10;
+  }
+ .resize-handle_end {
+    cursor: col-resize;
+    position: absolute;
+    left: -2px;
+    width: 3px;
+    top: 0;
+    bottom: 0;
+    pointer-events: none;
+    z-index: 10;
+  }
 }
-.table-list.resize .resize-handle{
-  background-color: #DB563B;
-  pointer-events: all;
-}
-// .table-list{
-//   z-index: 1;
-// }
-.table-list .resize-handle_end {
-  cursor: col-resize;
-  position: absolute;
-  // right: 0;
-  left: -2px;
-  width: 3px;
-  top: 0;
-  bottom: 0;
-  // background-color: inherit;
-  pointer-events: none;
-  z-index: 10;
-}
-.table-list.resize .resize-handle_end {
-  background-color: #DB563B;
-  pointer-events: all;
+.table-list.resize {
+  .resize-handle, .resize-handle_end{
+    background-color: #DB563B;
+    pointer-events: all;
+  }
+  .resize-handle_end::before,.resize-handle::before{
+    content: '';
+    position: absolute;
+    left: -5px;
+    right: -5px;
+    top: 7px;
+    bottom: 7px;
+    background-color: #DB563B;
+    border-radius: 3px;
+  }
 }
 
 button{
@@ -109,6 +138,9 @@ td.vertically .td-block{
 }
 // mat-selects and mat-options in table
 .table-list .mat-mdc-select {
+  .mat-mdc-select-trigger{
+    padding: 0;
+  }
   background-color: inherit;
   border: none;
   font-weight: 400;

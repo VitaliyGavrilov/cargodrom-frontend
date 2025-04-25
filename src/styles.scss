@@ -29,17 +29,54 @@ body {
 }
 
 
+
 /* Убирает стрелочки в Chrome, Safari, Edge, Opera */
 input[type="number"]::-webkit-outer-spin-button,
 input[type="number"]::-webkit-inner-spin-button {
-  -webkit-appearance: none;
-  margin: 0;
+  -webkit-appearance: none; margin: 0;
 }
-
 /* Убирает стрелочки в Firefox */
 input[type="number"] {
   -moz-appearance: textfield;
 }
+
+/* Стили только для Firefox */
+@-moz-document url-prefix() {
+}
+
+
+
+
+// /* Стилизованный скроллбар */
+// ::-webkit-scrollbar {
+//   width: 14px;
+//   margin: 20px;
+//   padding: 20px;
+// }
+
+// ::-webkit-scrollbar-track {
+//   background: linear-gradient(to bottom, #ff7eb3, #ff758c);
+//   border-radius: 10px;
+
+// }
+
+// ::-webkit-scrollbar-thumb {
+//   background: rgba(255, 255, 255, 0.7);
+//   border-radius: 10px;
+//   border: 3px solid transparent;
+//   background-clip: content-box;
+// }
+
+// ::-webkit-scrollbar-thumb:hover {
+//   background: rgba(255, 255, 255, 0.9);
+//   background-clip: content-box;
+// }
+
+// html {
+//   scrollbar-color: rgba(255, 255, 255, 0.7) #ff758c;
+//   scrollbar-width: thin;
+//   scroll-margin-left: 10px;
+// }
 
 // @use '@angular/material' as mat;
 
