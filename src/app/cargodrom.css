@@ -958,7 +958,7 @@ table {
 .table-list td:last-child { border-right: 1px solid #E0E5EB; }
 .table-list table tr:nth-child(odd) td {  background: #F7F9FC;  }
 .table-list .td-block {  display: flex; flex-direction: row; width: 100%; align-items: center; box-sizing: border-box; padding: 9px 8px 7px; min-height: 48px; height: 100%;    }
-.table-list .td-block .column { display: flex; padding: 0 8px; }
+.table-list .td-block .column { display: flex; padding: 0 8px; flex-grow: 1; }
 .table-list .td-block-column { display: flex; flex-direction: column; height: 100%;   }
 .table-list .td-block-title { height: 22px; padding: 0 13px ; border-bottom: 1px solid #9ca6b1;  flex-grow: 1; display: flex; align-items: center; justify-content: center;  }
 .table-list .td-block-line {  display: flex; flex-direction: row; height: 100%; align-items: center;  flex-grow: 1; gap: 1px; width: 100%; }

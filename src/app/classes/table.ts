@@ -739,36 +739,64 @@ export abstract class Table<T extends { id: number }, A = never, F = never> impl
   }
 
   updateColumnSize(){
-    
-    
-    
-    
-    const result = Array.from(
-      this.isRateDetailsMode
-      ?document.querySelectorAll('div.table-list.rate table thead tr th')
-      :document.querySelectorAll('table thead tr th'),
-      (th:any, columnIndex:number) => {
-        if(this.columnsData[columnIndex]){
-          console.log('th.offsetWidth',th.offsetWidth);
-          if(!this.isRateDetailsMode){
-            if(columnIndex===0){
-            this.columnsData[columnIndex].width=`${th.offsetWidth-1}px`;
-            }else{
-              this.columnsData[columnIndex].width=`${th.offsetWidth}px`;
-            }
-          } else {
-            this.columnsData[columnIndex].width=`${th.offsetWidth}px`;
-          }
-          
-        }
+    const td = this.isRateDetailsMode   
+    ?document.querySelectorAll('div.table-list.rate table tbody tr:first-child td.mat-mdc-cell')
+    :document.querySelectorAll('table tbody tr:first-child td.mat-mdc-cell');
+    if(!td){
+      return;
+    }
+
+    td.forEach((col:any, columnIndex:number) => {
+      if(columnIndex===0){
+        this.columnsData[columnIndex].width=`${col.offsetWidth-2}px`;
+        console.log(1213);
         
+      } else {
+        this.columnsData[columnIndex].width=`${col.offsetWidth}px`;
       }
-    );
+      const miniColArr=col.querySelectorAll('div.column');
+      if(!miniColArr){
+        return;
+      }
+      miniColArr.forEach((miniCol:any, miniColumnIndex:number) => {
+        this.columnsData[columnIndex].items[miniColumnIndex]!.width=`${miniCol.offsetWidth-16}px`;
+      });
+    });
+
+
+
     this.isResizeColumnMode=!this.isResizeColumnMode;
     this.isTableFixedWidth=false;
-    
-
   }
+
+  // updateColumnSize(){
+  //   const result = Array.from(
+  //     this.isRateDetailsMode
+  //     ?document.querySelectorAll('div.table-list.rate table thead tr th')
+  //     :document.querySelectorAll('table thead tr th'),
+  //     (th:any, columnIndex:number) => {
+  //       if(this.columnsData[columnIndex]){
+  //         // console.log(th.querySelectorAll('div.column'));
+          
+  //         th.querySelectorAll('div.column').forEach((col:any, miniColumnIndex:number) => {
+  //           console.log(col, miniColumnIndex);
+  //       });
+          
+  //         if(!this.isRateDetailsMode){
+  //           if(columnIndex===0){
+  //           this.columnsData[columnIndex].width=`${th.offsetWidth-1}px`;
+  //           }else{
+  //             this.columnsData[columnIndex].width=`${th.offsetWidth}px`;
+  //           }
+  //         } else {
+  //           this.columnsData[columnIndex].width=`${th.offsetWidth}px`;
+  //         }
+  //       }
+  //     }
+  //   );
+  //   this.isResizeColumnMode=!this.isResizeColumnMode;
+  //   this.isTableFixedWidth=false;
+  // }
 
   onSaveColumnWidth(){
     this.userService.userSaveTableParam({body: {method:this.resizeMetod,param:this.columnsData}})
