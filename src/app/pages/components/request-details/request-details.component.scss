@@ -1,3 +1,6 @@
+.request-details-component{
+  margin-top: 48px;
+}
 .table-list.kp table td {
   background: white;
 }
@@ -24,6 +27,8 @@
 
 .expanded-request-info.visible {
   /* Конечное состояние - показано */
+  width: 100%;
+  box-sizing: border-box;
   opacity: 1;
   height: auto;
   padding: 0px 12px 0px 24px;

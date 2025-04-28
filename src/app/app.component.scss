@@ -1,15 +1,37 @@
-app-request-details{
-  height: 100%;
+// app-request-details{
+//   height: 100%;
+// }
+// .request-details-component{
+//   height: 100%;
+//   display: flex;
+//   flex-direction: column;
+//   max-height: calc(100vh - 56px);
+// }
+.header,.subheader{
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: 1000;
 }
-.request-details-component{
-  height: 100%;
-  display: flex;
-  flex-direction: column;
-  max-height: calc(100vh - 56px);
+.subheader{
+  top: 56px;
+  border-top: 1px solid #4B66AD;
 }
+.content{
+  margin-top: 115px;
+  .user-module{
+    padding-top: 12px;
+  }
+}
+app-request-editor, app-contractor-editor, app-client-editor{
+  margin-top: 40px;  
+}
+
+
 table .column{
-  // box-sizing: border-box;
-  // flex-grow: 1;
+  box-sizing: border-box;
+  flex-grow: 1;
 }
 ng-scrollbar.ng-scrollbar  {
   --scrollbar-size: 8px;
@@ -22,9 +44,10 @@ ng-scrollbar.ng-scrollbar  {
 }
 table a.link{
   color: rgba(0, 0, 0, 0.87);
-
 }
-
+table{
+  --mat-table-header-headline-size:13px;
+}
 .table-settings  {
   --mat-menu-item-label-text-line-height:13px;
   --mat-menu-item-label-text-size:13px;
@@ -111,10 +134,10 @@ button{
 .no-layout {
   display: contents;
 }
-td.vertically .td-block{
-  flex-direction: column;
-  align-items: flex-start;
-}
+// td.vertically .td-block{
+//   flex-direction: column;
+//   align-items: flex-start;
+// }
 
 
 .loader {
@@ -122,7 +145,7 @@ td.vertically .td-block{
   width: 100%; height: 100%;
   background-color: rgba(0, 0, 0, 0.5);
   display: flex; justify-content: center; align-items: center;
-  z-index: 1000;
+  z-index: 10000;
 }
 .cdk-overlay-container mat-snack-bar-container.mdc-snackbar.centered-snackbar {
   margin-top: 50vh;

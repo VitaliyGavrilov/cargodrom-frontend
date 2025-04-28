@@ -139,21 +139,6 @@ export class RequestDetails extends Table<any, 'trade_rating', ContractorFilter>
   getRatesPercent(rateCost:number,finalRateCost:number):number{
     return (rateCost / finalRateCost) * 100;
   }
-  //
-  getVal(obj: any, path: string): any {
-    if (!path.includes('/')) {
-        return obj[path] !== undefined ? obj[path] : null;
-    }
-    const keys = path.split('/');
-    for (const key of keys) {
-      if (obj && obj.hasOwnProperty(key)) {
-          obj = obj[key];
-      } else {
-          return null; // Если ключ не найден, возвращаем null
-      }
-    }
-    return obj !== undefined ? obj : null; // Проверка на undefined
-  }
 
   // REQUEST HANDLERS
   onDetailsRequestBtnClick(){

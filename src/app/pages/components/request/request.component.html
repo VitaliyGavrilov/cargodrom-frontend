@@ -1,4 +1,4 @@
-<div class="request-component" style="height: calc(100vh - 56px);display: flex; flex-direction: column; width: 100%;">
+<div class="request-component">
 <app-table-sunheader-file
   [titles]="{title:'Запросы',subtitle:'запрос'}"
   [importMetods]="importMetods"
@@ -25,7 +25,7 @@
             <div [class]="!col.title?'no-layout':'td-block-line'">
               <ng-container *ngFor="let miniCol of col.items;let miniColIndex=index">
                 <div class="column" *ngIf="miniCol.title"
-                  [style.width]="col.class=='vertically'? col.items[col.items.length-1].width: miniCol.width"
+                  [style.width]="miniCol.width"
                   [class]="miniCol.class"
                 >
                   <div class="col-content"
@@ -56,7 +56,7 @@
           <div class="td-block" >
             <div class="column"
               *ngFor="let miniCol of col.items;let miniColIndex=index"
-              [style.width]="col.class=='vertically'? col.items[col.items.length-1].width: miniCol.width"
+              [style.width]="miniCol.width"
               [class]="miniCol.class"
               [ngSwitch]="miniCol.field"
             >

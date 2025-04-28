@@ -93,21 +93,6 @@ export class ContractorComponent extends Table<Contractor, 'trade_rating', Contr
     return this.requestService.requestSaveBidding({body})
   }
 
-  getVal(obj: any, path: string): any {
-    if (!path?.includes('/')) {
-        return obj[path] !== undefined ? obj[path] : null;
-    }
-    const keys = path?.split('/');
-    for (const key of keys) {
-      if (obj && obj.hasOwnProperty(key)) {
-          obj = obj[key];
-      } else {
-          return null; // Если ключ не найден, возвращаем null
-      }
-    }
-    return obj !== undefined ? obj : null; // Проверка на undefined
-  }
-
   getSpecializationClass(n:number){
     let classSpec='';
     if(n===1)classSpec='avia';

@@ -95,34 +95,34 @@ export class RequestComponent extends Table<Request, 'id', RequestFilter> {
     return this.requestService.requestImportTemplate(this.filter as any) as Observable<{data: string; name: string}>;
   }
 
-  getVal(obj: any, path: string): any {
-    if (!path?.includes('/')) {
-      const value = obj[path] !== undefined ? obj[path] : null;
-      return this.transformClientValue(value,obj);
-    };
+  // getVal(obj: any, path: string): any {
+  //   if (!path?.includes('/')) {
+  //     const value = obj[path] !== undefined ? obj[path] : null;
+  //     return this.transformClientValue(value,obj);
+  //   };
     
-    const keys = path?.split('/');
-    for (const key of keys) {
-      if (obj && obj.hasOwnProperty(key)) {
-          obj = obj[key];
-      } else {
-        return null;
-      }
-    }
+  //   const keys = path?.split('/');
+  //   for (const key of keys) {
+  //     if (obj && obj.hasOwnProperty(key)) {
+  //         obj = obj[key];
+  //     } else {
+  //       return null;
+  //     }
+  //   }
     
-    const result = obj !== undefined ? obj : null;
-    return this.transformClientValue(result,obj);
-}
+  //   const result = obj !== undefined ? obj : null;
+  //   return this.transformClientValue(result,obj);
+  // }
 
-private transformClientValue(value: any, obj:any): SafeHtml {
-  if (typeof value === 'string') {
-    return value.replace(
-      /\[urlclient\](.*?)\[\/urlclient\]/ig, 
-      `<a class="link" target="_blank" href="/#/pages/customer/edit/${obj.customer_id}">$1</a>`
-    );
-  }
-  return value;
-}
+  // private transformClientValue(value: any, obj:any): SafeHtml {
+  //   if (typeof value === 'string') {
+  //     return value.replace(
+  //       /\[urlclient\](.*?)\[\/urlclient\]/ig, 
+  //       `<a class="link" target="_blank" href="/#/pages/customer/edit/${obj.customer_id}">$1</a>`
+  //     );
+  //   }
+  //   return value;
+  // }
 
   // getVal(obj: any, path: string): any {
   //   if (!path?.includes('/')) {

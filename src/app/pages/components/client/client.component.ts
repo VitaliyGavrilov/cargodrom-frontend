@@ -18,14 +18,9 @@ import { UserService } from 'src/app/api/services';
 })
 export class ClientComponent extends Table<Client, 'name', ClientFilter> {
   sortField = 'name' as const;
-
   importMetods:any;
-
   params:any;
-
   trackById = (_index: number, client: Client) => client.id!;
-
-
 
   constructor(
     private customerService: CustomerService,
@@ -77,65 +72,10 @@ export class ClientComponent extends Table<Client, 'name', ClientFilter> {
     return this.customerService.customerImportTemplate(this.filter as any) as Observable<{data: string; name: string}>;
   }
 
-  getVal(obj: any, path: string): any {
-    if (!path?.includes('/')) {
-        return obj[path] !== undefined ? obj[path] : null;
-    }
-    const keys = path?.split('/');
-    for (const key of keys) {
-      if (obj && obj.hasOwnProperty(key)) {
-          obj = obj[key];
-      } else {
-          return null; // Если ключ не найден, возвращаем null
-      }
-    }
-    return obj !== undefined ? obj : null; // Проверка на undefined
-  }
-
   override ngOnInit() {
     super.ngOnInit();
     this.resizeMetod='customer_list';
   }
-
-  // startResize(event: MouseEvent, column: any) {
-  //   this.isResizing = true;
-  //   this.resizingColumn = column;
-  //   this.startX = event.pageX;
-  //   this.startWidth = column.width ? parseInt(column.width, 10) : 100; // Начальная ширина
-  //   event.preventDefault();
-  // }
-
-  // @HostListener('document:mousemove', ['$event'])
-  // onMouseMove(event: MouseEvent) {
-  //   if (!this.isResizing || !this.resizingColumn) return;
-  //   const width = this.startWidth + (event.pageX - this.startX);
-  //   this.resizingColumn.width = `${width}px`;
-  // }
-
-  // @HostListener('document:mouseup')
-  // onMouseUp() {
-  //   if (this.isResizing) {
-  //     this.isResizing = false;
-  //   }
-  //   this.resizingColumn = null;
-  // }
-
-  // onSaveColumnWidth(){
-  //   console.log(this.load);
-
-  //   this.userService.userSaveTableParam({body: {method:'customer_list',param:this.columnsData}})
-  //     .pipe(
-  //       tap(()=>{}),
-  //       takeUntil(this.destroy$),
-  //     )
-  //   .subscribe(()=>{
-  //     this.isResizeColumnMode=false;
-  //   });
-  // }
-
-  // onCancelColumnWidth(){
-  //   location.reload();
-  // }
 
 }
 

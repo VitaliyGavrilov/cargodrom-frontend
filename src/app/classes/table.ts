@@ -99,33 +99,46 @@ export abstract class Table<T extends { id: number }, A = never, F = never> impl
     const segments = this.route.snapshot.url.map(s => s.path);
     this.isBiddingMode = segments[1] === 'bidding';
     this.isRateDetailsMode = segments[1] === 'details';
-
     if(this.isRateDetailsMode || this.isBiddingMode){
       if(this.isRateDetailsMode) this.detailsMethod=segments[2];
       this.requestId = Number(this.route.snapshot.paramMap.get('id'));
       this.getRequestInfo(this.requestId);
     }
-
     this.filterService.onApply().subscribe(filter => {
       this.onFilterChange(filter as F);
     });
     this.getListParam();
-
-    // if(this.isBiddingMode){
-    //   this.route.queryParams.subscribe(params => {
-    //     console.log('Received queryParams:', params);
-    //   });
-    // }
-
-
-
-
-    // this.subscribeRouteQueryParamMap();
   }
-
   ngOnDestroy(): void {
     this.destroy$.next();
     this.destroy$.complete();
+  }
+
+  getVal(obj: any, path: string): any {
+    if (!path?.includes('/')) {
+      const value = obj[path] !== undefined ? obj[path] : null;
+      return this.transformClientValue(value,obj);
+    };
+    const keys = path?.split('/');
+    for (const key of keys) {
+      if (obj && obj.hasOwnProperty(key)) {
+          obj = obj[key];
+      } else {
+        return null;
+      }
+    };
+    const result = obj !== undefined ? obj : null;
+    return this.transformClientValue(result,obj);
+  }
+
+  private transformClientValue(value: any, obj:any) {
+    if (typeof value === 'string') {
+      return value.replace(
+        /\[urlclient\](.*?)\[\/urlclient\]/ig, 
+        `<a class="link" target="_blank" href="/#/pages/customer/edit/${obj.customer_id}">$1</a>`
+      );
+    }
+    return value;
   }
 
   protected loadRows(): void {
@@ -173,7 +186,6 @@ export abstract class Table<T extends { id: number }, A = never, F = never> impl
   protected delete(params: { body: { id: number } }): Observable<void> {
     return of();
   }
-
 
   protected loadFilterSchema(): Observable<SearchFilterSchema> {
     return of({ header: [], main: [], additional: [] });
@@ -727,8 +739,8 @@ export abstract class Table<T extends { id: number }, A = never, F = never> impl
   onMouseMove(event: MouseEvent) {
     if (!this.isResizing || !this.resizingColumn) return;
     const width = this.startWidth + (event.pageX - this.startX);
-    this.resizingColumn.width = `${width}px`;
     const widthBlock = this.startWidthBlock + (event.pageX - this.startX);
+    this.resizingColumn.width = `${width}px`;
     this.resizingColumnBlock.width = `${widthBlock}px`;
   }
 
@@ -738,6 +750,7 @@ export abstract class Table<T extends { id: number }, A = never, F = never> impl
       this.isResizing = false;
     };
     this.resizingColumn = null;
+    this.resizingColumnBlock = null;
   }
 
   updateColumnSize(){
@@ -759,7 +772,8 @@ export abstract class Table<T extends { id: number }, A = never, F = never> impl
         return;
       };
       miniColArr.forEach((miniCol:any, miniColumnIndex:number) => {
-        this.columnsData[columnIndex].items[miniColumnIndex]!.width=`${miniCol.offsetWidth-16}px`;
+        // this.columnsData[columnIndex].items[miniColumnIndex]!.width=`${miniCol.offsetWidth-16}px`;
+        this.columnsData[columnIndex].items[miniColumnIndex]!.width=`${miniCol.offsetWidth}px`;
       });
     });
     this.isResizeColumnMode = !this.isResizeColumnMode;

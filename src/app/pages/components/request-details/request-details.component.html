@@ -1,4 +1,4 @@
-<div class="request-details-component" style="height: calc(100vh - 56px);display: flex; flex-direction: column;">
+<div class="request-details-component">
 <div class="subheader" >
   <div class="main_page_info">
     <div class="back" [routerLink]="['../../../../request']"></div>
@@ -275,7 +275,7 @@
 
 <div class="table-border-block">
 
-<div class="table-list rate" style="position:absolute; top:0; left:0; bottom: 0;right: 0;" [class]="isResizeColumnMode?'resize':''">
+<div class="table-list rate"[class]="isResizeColumnMode?'resize':''">
   <table mat-table [dataSource]="rows" multiTemplateDataRows [style]="isTableFixedWidth?'width:100%;max-width:100%':''">
     <ng-container *ngFor="let col of columnsData;let colIndex=index"
       [matColumnDef]="col.column"

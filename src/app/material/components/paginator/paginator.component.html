@@ -1,25 +1,27 @@
-<div class="table-footer">
-  <div class="limit">
-    <mat-form-field appearance="outline" class="ui-select">
-      <mat-select [ngModel]="count" (ngModelChange)="newCountSelected($event)">
-        <mat-option *ngFor="let limit of limits" [value]="limit">Показывать по {{ limit }}</mat-option>
-      </mat-select>
-    </mat-form-field>
-    <span class="note">Показаны: {{first}} - {{last}} из {{total}}</span>
-  </div>
-  <div class="pages">
-    <div class="navigator">
-      <a class="item arrow left icon icon-control-rewind" (click)="goToPage(prevPage)" *ngIf="currentPage > 0"></a>
-      <a class="item first icon icon-control-start" (click)="goToPage(0)" *ngIf="currentPage > 2">1</a>
-      <span class="dot" *ngIf="currentPage > 0">. . .</span>
-      <a class="item" (click)="goToPage(prevPrevPage)" *ngIf="currentPage > 1">{{ userPage(prevPrevPage) }}</a>
-      <a class="item" (click)="goToPage(prevPage)" *ngIf="currentPage > 0">{{ userPage(prevPage) }}</a>
-      <span class="item sel">{{ userPage(currentPage) }}</span>
-      <a class="item" (click)="goToPage(nextPage)" *ngIf="currentPage < lastPage">{{ userPage(nextPage) }}</a>
-      <a class="item" (click)="goToPage(nextNextPage)" *ngIf="currentPage < lastPage - 1">{{ userPage(nextNextPage) }}</a>
-      <span class="dot" *ngIf="currentPage < lastPage">. . .</span>
-      <a class="item last icon icon-control-end" (click)="goToPage(lastPage)" *ngIf="currentPage < lastPage - 1">{{userPage(lastPage)}}</a>
-      <a class="item arrow right icon icon-control-forward" (click)="goToPage(nextPage)" *ngIf="currentPage < lastPage"></a>
+<div class="table-footer" >
+  <ng-container *ngIf="total!=0">
+    <div class="limit">
+      <mat-form-field appearance="outline" class="ui-select">
+        <mat-select [ngModel]="count" (ngModelChange)="newCountSelected($event)">
+          <mat-option *ngFor="let limit of limits" [value]="limit">Показывать по {{ limit }}</mat-option>
+        </mat-select>
+      </mat-form-field>
+      <span class="note">Показаны: {{first}} - {{last}} из {{total}}</span>
     </div>
-  </div>
+    <div class="pages">
+      <div class="navigator">
+        <a class="item arrow left icon icon-control-rewind" (click)="goToPage(prevPage)" *ngIf="currentPage > 0"></a>
+        <a class="item first icon icon-control-start" (click)="goToPage(0)" *ngIf="currentPage > 2">1</a>
+        <span class="dot" *ngIf="currentPage > 0">. . .</span>
+        <a class="item" (click)="goToPage(prevPrevPage)" *ngIf="currentPage > 1">{{ userPage(prevPrevPage) }}</a>
+        <a class="item" (click)="goToPage(prevPage)" *ngIf="currentPage > 0">{{ userPage(prevPage) }}</a>
+        <span class="item sel">{{ userPage(currentPage) }}</span>
+        <a class="item" (click)="goToPage(nextPage)" *ngIf="currentPage < lastPage">{{ userPage(nextPage) }}</a>
+        <a class="item" (click)="goToPage(nextNextPage)" *ngIf="currentPage < lastPage - 1">{{ userPage(nextNextPage) }}</a>
+        <span class="dot" *ngIf="currentPage < lastPage">. . .</span>
+        <a class="item last icon icon-control-end" (click)="goToPage(lastPage)" *ngIf="currentPage < lastPage - 1">{{userPage(lastPage)}}</a>
+        <a class="item arrow right icon icon-control-forward" (click)="goToPage(nextPage)" *ngIf="currentPage < lastPage"></a>
+      </div>
+    </div>
+  </ng-container>
 </div>
