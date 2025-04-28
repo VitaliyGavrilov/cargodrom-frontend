@@ -9,6 +9,7 @@ import { FilterService } from 'src/app/filter/services/filter.service';
 import { RequestService, UserService } from 'src/app/api/services';
 import { Request, RequestFilter } from 'src/app/api/custom_models/request';
 import { NgScrollbar } from 'ngx-scrollbar';
+import { DomSanitizer, SafeHtml } from '@angular/platform-browser';
 
 @Component({
   selector: 'app-request',
@@ -33,6 +34,7 @@ export class RequestComponent extends Table<Request, 'id', RequestFilter> {
 
 
   constructor(
+    private sanitizer: DomSanitizer,
     private requestService: RequestService,
     filterService: FilterService,
     dialog: MatDialog,
@@ -95,18 +97,47 @@ export class RequestComponent extends Table<Request, 'id', RequestFilter> {
 
   getVal(obj: any, path: string): any {
     if (!path?.includes('/')) {
-      return obj[path] !== undefined ? obj[path] : null;
-    }
+      const value = obj[path] !== undefined ? obj[path] : null;
+      return this.transformClientValue(value,obj);
+    };
+    
     const keys = path?.split('/');
     for (const key of keys) {
       if (obj && obj.hasOwnProperty(key)) {
           obj = obj[key];
       } else {
-        return null; // Если ключ не найден, возвращаем null
+        return null;
       }
     }
-    return obj !== undefined ? obj : null; // Проверка на undefined
+    
+    const result = obj !== undefined ? obj : null;
+    return this.transformClientValue(result,obj);
+}
+
+private transformClientValue(value: any, obj:any): SafeHtml {
+  if (typeof value === 'string') {
+    return value.replace(
+      /\[urlclient\](.*?)\[\/urlclient\]/ig, 
+      `<a class="link" target="_blank" href="/#/pages/customer/edit/${obj.customer_id}">$1</a>`
+    );
   }
+  return value;
+}
+
+  // getVal(obj: any, path: string): any {
+  //   if (!path?.includes('/')) {
+  //     return obj[path] !== undefined ? obj[path] : null;
+  //   };
+  //   const keys = path?.split('/');
+  //   for (const key of keys) {
+  //     if (obj && obj.hasOwnProperty(key)) {
+  //         obj = obj[key];
+  //     } else {
+  //       return null; // Если ключ не найден, возвращаем null
+  //     }
+  //   }
+  //   return obj !== undefined ? obj : null; // Проверка на undefined
+  // }
 
   navigateOnDetails(requestId:any, tab:string){
     console.log(tab);

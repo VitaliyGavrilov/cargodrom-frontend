@@ -9,6 +9,7 @@ import { FilterService } from '../filter/services/filter.service';
 import { SearchFilterSchema } from '../api/custom_models';
 import { MatCheckboxChange } from '@angular/material/checkbox';
 import { UserService } from '../api/services';
+import { DomSanitizer } from '@angular/platform-browser';
 
 export interface LoadParams<T, F> {
   id?:number;
@@ -85,6 +86,7 @@ export abstract class Table<T extends { id: number }, A = never, F = never> impl
   @ViewChild('file', { static: true }) file?: ElementRef;
 
   constructor(
+    
     private route: ActivatedRoute,
     protected router: Router,
     private dialog: MatDialog,
@@ -734,7 +736,7 @@ export abstract class Table<T extends { id: number }, A = never, F = never> impl
   onMouseUp() {
     if (this.isResizing) {
       this.isResizing = false;
-    }
+    };
     this.resizingColumn = null;
   }
 
@@ -744,29 +746,24 @@ export abstract class Table<T extends { id: number }, A = never, F = never> impl
     :document.querySelectorAll('table tbody tr:first-child td.mat-mdc-cell');
     if(!td){
       return;
-    }
-
+    };
     td.forEach((col:any, columnIndex:number) => {
-      if(columnIndex===0){
-        this.columnsData[columnIndex].width=`${col.offsetWidth-2}px`;
-        console.log(1213);
-        
-      } else {
-        this.columnsData[columnIndex].width=`${col.offsetWidth}px`;
-      }
-      const miniColArr=col.querySelectorAll('div.column');
+      // if(columnIndex===0){
+      //   this.columnsData[columnIndex].width=`${col.offsetWidth-2}px`;
+      // } else {
+      //   this.columnsData[columnIndex].width=`${col.offsetWidth}px`;
+      // }
+      this.columnsData[columnIndex].width=`${col.offsetWidth}px`;
+      const miniColArr = col.querySelectorAll('div.column');
       if(!miniColArr){
         return;
-      }
+      };
       miniColArr.forEach((miniCol:any, miniColumnIndex:number) => {
         this.columnsData[columnIndex].items[miniColumnIndex]!.width=`${miniCol.offsetWidth-16}px`;
       });
     });
-
-
-
-    this.isResizeColumnMode=!this.isResizeColumnMode;
-    this.isTableFixedWidth=false;
+    this.isResizeColumnMode = !this.isResizeColumnMode;
+    this.isTableFixedWidth = false;
   }
 
   // updateColumnSize(){

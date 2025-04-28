@@ -61,7 +61,7 @@
               [ngSwitch]="miniCol.field"
             >
               <ng-template [ngSwitchDefault]>
-                <div class="col-content">{{ getVal(item,miniCol.field) }}</div>
+                <div class="col-content" [innerHTML]="getVal(item,miniCol.field)"></div>
               </ng-template>
               <ng-template [ngSwitchCase]="'id'">
                 <a class="link" (click)="navigateOnDetails(item.id,item.tabs[0])">
@@ -75,11 +75,18 @@
                   <div class="kso-item" [ngClass]="item.kso.o.active?'':'red'"></div>
                 </div>
               </ng-template>
-              <ng-template [ngSwitchCase]="'customer_name'">
-                <a class="link" (click)="navigateOnClient(item.customer_id)">
+              <ng-template [ngSwitchCase]="'customer_name'" >
+                <a  class="link" (click)="navigateOnClient(item.customer_id)">
                   {{ getVal(item,miniCol.field) }}
                 </a>
               </ng-template>
+              <!-- <ng-template [ngSwitchCase]="'customer_info'">
+                <ng-content [innerHTML]="getVal(item,miniCol.field)"></ng-content>
+                <a class="link" (click)="navigateOnClient(item.customer_id)">
+                  {{ getVal(item,miniCol.field) }}
+                </a>
+                <a target="_blank" [routerLink]="['/pages/customer/edit', item.customer_id]">123</a>
+              </ng-template> -->
               <ng-template [ngSwitchCase]="'transport_kind_id'">
                 <div [class]="getTypeClass(item.transport_kind_id)" ></div>
               </ng-template>
