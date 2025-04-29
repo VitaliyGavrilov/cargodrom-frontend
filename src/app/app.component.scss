@@ -7,26 +7,63 @@
 //   flex-direction: column;
 //   max-height: calc(100vh - 56px);
 // }
-.header,.subheader{
-  position: fixed;
+app-header, app-table-sunheader-file, app-editor-header, .subheader.component{
+  position: sticky;
   top: 0;
   left: 0;
   right: 0;
   z-index: 1000;
 }
-.subheader{
+app-table-sunheader-file, app-editor-header, .subheader.component{
+  .subheader{
+    border-top: 1px solid #4B66AD;
+  }
   top: 56px;
+}
+app-request-details .subheader.component{
   border-top: 1px solid #4B66AD;
 }
-.content{
-  margin-top: 115px;
-  .user-module{
-    padding-top: 12px;
+
+app-request, app-contractor, app-client{
+   app-table-filter{
+    position: sticky;
+    top: 115px;
+    left: 0;
+    right: 0;
+    z-index: 1000;
+    
+    
+    .filter{
+      background-color: #f7f9fc;
+      border-bottom: 1px solid #E0E5EB;
+    }
   }
 }
-app-request-editor, app-contractor-editor, app-client-editor{
-  margin-top: 40px;  
+
+app-settings{
+  min-height: 100vh;
 }
+
+// .header,.subheader{
+//   position: fixed;
+//   top: 0;
+//   left: 0;
+//   right: 0;
+//   z-index: 1000;
+// }
+// .subheader{
+//   top: 56px;
+//   border-top: 1px solid #4B66AD;
+// }
+// .content{
+//   margin-top: 115px;
+//   .user-module{
+//     padding-top: 12px;
+//   }
+// }
+// app-request-editor, app-contractor-editor, app-client-editor{
+//   margin-top: 40px;  
+// }
 
 
 table .column{
@@ -120,6 +157,9 @@ table .mdc-data-table__header-cell {
     background-color: #DB563B;
     border-radius: 3px;
   }
+  table thead .column{
+    overflow: visible;
+  }
 }
 
 button{
@@ -153,12 +193,14 @@ button{
 
 //TABLEs
 .table-list thead .column{
-  height: 32px;
+  height: 36px;
 }
+.table-list tbody .column {
+  overflow: hidden;
+}
+
 .table-list .td-block .column{
   align-items: center;
-
-
   font-weight: 400;
   font-size: 13px;
   line-height: 16px;

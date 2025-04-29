@@ -1,4 +1,4 @@
-<div class="contractor-component" style="height: calc(100vh - 56px);display: flex; flex-direction: column;">
+<div class="contractor-component">
 <app-table-sunheader-file *ngIf="!isBiddingMode"
   [titles]="{title:'Подрядчики', subtitle:'подрядчик'}"
   [importMetods]="importMetods"
@@ -26,7 +26,7 @@
 </app-table-filter>
 
 <div class="table-list" [class]="isResizeColumnMode?'resize':''"  >
-  <table mat-table [dataSource]="rows" multiTemplateDataRows [style]="isTableFixedWidth?'width:100%;max-width:100%':''">
+  <table class="sticky-header" mat-table [dataSource]="rows" multiTemplateDataRows [style]="isTableFixedWidth?'width:100%;max-width:100%':''">
 
     <ng-container *ngFor="let col of columnsData;let colIndex=index"
       [matColumnDef]="col.column"
@@ -226,7 +226,8 @@
     </ng-container>
 
 
-    <tr mat-header-row *matHeaderRowDef="column; sticky: true"></tr>
+    <!-- <tr mat-header-row *matHeaderRowDef="column; sticky: true"></tr> -->
+    <tr mat-header-row *matHeaderRowDef="column;"></tr>
     <tr mat-row *matRowDef="let row; columns: column;"></tr>
 
   </table>

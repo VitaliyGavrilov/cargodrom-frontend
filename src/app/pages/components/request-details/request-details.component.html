@@ -1,5 +1,5 @@
 <div class="request-details-component">
-<div class="subheader" >
+<div class="subheader component" >
   <div class="main_page_info">
     <div class="back" [routerLink]="['../../../../request']"></div>
     <app-request-info-block  [request]="currentRequest"></app-request-info-block>
@@ -276,7 +276,7 @@
 <div class="table-border-block">
 
 <div class="table-list rate"[class]="isResizeColumnMode?'resize':''">
-  <table mat-table [dataSource]="rows" multiTemplateDataRows [style]="isTableFixedWidth?'width:100%;max-width:100%':''">
+  <table class="sticky-header" mat-table [dataSource]="rows" multiTemplateDataRows [style]="isTableFixedWidth?'width:100%;max-width:100%':''">
     <ng-container *ngFor="let col of columnsData;let colIndex=index"
       [matColumnDef]="col.column"
       [ngSwitch]="col.column"
@@ -514,7 +514,8 @@
       </td>
     </ng-container>
 
-    <tr mat-header-row *matHeaderRowDef="column; sticky: true"></tr>
+    <tr mat-header-row *matHeaderRowDef="column;"></tr>
+    <!-- <tr mat-header-row *matHeaderRowDef="column; sticky: true"></tr> -->
     <tr mat-row *matRowDef="let element; columns: column;" class="example-element-row" [class.example-expanded-row]="expandedElement === element"></tr>
     <tr mat-row *matRowDef="let row; columns: ['expandedDetail']" class="example-detail-row" ></tr>
 

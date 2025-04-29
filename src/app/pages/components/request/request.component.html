@@ -13,7 +13,7 @@
 
 <!-- <ng-scrollbar [autoWidthDisabled]="true"> -->
 <div class="table-list" [class]="isResizeColumnMode?'resize':'' ">
-  <table mat-table [dataSource]="rows" multiTemplateDataRows [style]="isTableFixedWidth?'width:100%;max-width:100%':''">
+  <table class="sticky-header" mat-table [dataSource]="rows" multiTemplateDataRows [style]="isTableFixedWidth?'width:100%;max-width:100%':''">
     <ng-container *ngFor="let col of columnsData;let colIndex=index"
       [matColumnDef]="col.column"
       [ngSwitch]="col.column"
@@ -132,7 +132,8 @@
       </ng-template>
     </ng-container>
 
-    <tr mat-header-row *matHeaderRowDef="column; sticky: true"></tr>
+    <!-- <tr mat-header-row *matHeaderRowDef="column; sticky: true"></tr> -->
+    <tr mat-header-row *matHeaderRowDef="column;"></tr>
     <tr mat-row *matRowDef="let row; columns: column;"></tr>
 
   </table>
