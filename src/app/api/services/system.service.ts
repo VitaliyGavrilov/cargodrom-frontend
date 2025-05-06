@@ -145,7 +145,12 @@ export class SystemService extends BaseService {
     params?: {
     },
     context?: HttpContext
-  ): Observable<StrictHttpResponse<Array<{
+  ): Observable<StrictHttpResponse<{
+
+/**
+ * Рабочий курс
+ */
+'current'?: Array<{
 
 /**
  * ID
@@ -171,7 +176,51 @@ export class SystemService extends BaseService {
  * Символ
  */
 'char'?: string;
-}>>> {
+}>;
+
+/**
+ * Сводная информация
+ */
+'summary'?: {
+
+/**
+ * Заголовок
+ */
+'title'?: string;
+
+/**
+ * Источники
+ */
+'rows'?: Array<{
+
+/**
+ * Наименование источника
+ */
+'title'?: string;
+
+/**
+ * Ссылка на источник
+ */
+'url'?: string;
+
+/**
+ * Курсы
+ */
+'items'?: Array<{
+
+/**
+ * Наименование валюты
+ */
+'title'?: string;
+
+/**
+ * Значение курса
+ */
+'value'?: string;
+}>;
+}>;
+};
+}>> {
     const rb = new RequestBuilder(this.rootUrl, SystemService.SystemCurrencyPath, 'get');
     if (params) {
     }
@@ -181,7 +230,12 @@ export class SystemService extends BaseService {
     ).pipe(
       filter((r: any): r is HttpResponse<any> => r instanceof HttpResponse),
       map((r: HttpResponse<any>) => {
-        return r as StrictHttpResponse<Array<{
+        return r as StrictHttpResponse<{
+        
+        /**
+         * Рабочий курс
+         */
+        'current'?: Array<{
         
         /**
          * ID
@@ -207,7 +261,51 @@ export class SystemService extends BaseService {
          * Символ
          */
         'char'?: string;
-        }>>;
+        }>;
+        
+        /**
+         * Сводная информация
+         */
+        'summary'?: {
+        
+        /**
+         * Заголовок
+         */
+        'title'?: string;
+        
+        /**
+         * Источники
+         */
+        'rows'?: Array<{
+        
+        /**
+         * Наименование источника
+         */
+        'title'?: string;
+        
+        /**
+         * Ссылка на источник
+         */
+        'url'?: string;
+        
+        /**
+         * Курсы
+         */
+        'items'?: Array<{
+        
+        /**
+         * Наименование валюты
+         */
+        'title'?: string;
+        
+        /**
+         * Значение курса
+         */
+        'value'?: string;
+        }>;
+        }>;
+        };
+        }>;
       })
     );
   }
@@ -226,7 +324,12 @@ export class SystemService extends BaseService {
     params?: {
     },
     context?: HttpContext
-  ): Observable<Array<{
+  ): Observable<{
+
+/**
+ * Рабочий курс
+ */
+'current'?: Array<{
 
 /**
  * ID
@@ -252,9 +355,58 @@ export class SystemService extends BaseService {
  * Символ
  */
 'char'?: string;
-}>> {
+}>;
+
+/**
+ * Сводная информация
+ */
+'summary'?: {
+
+/**
+ * Заголовок
+ */
+'title'?: string;
+
+/**
+ * Источники
+ */
+'rows'?: Array<{
+
+/**
+ * Наименование источника
+ */
+'title'?: string;
+
+/**
+ * Ссылка на источник
+ */
+'url'?: string;
+
+/**
+ * Курсы
+ */
+'items'?: Array<{
+
+/**
+ * Наименование валюты
+ */
+'title'?: string;
+
+/**
+ * Значение курса
+ */
+'value'?: string;
+}>;
+}>;
+};
+}> {
     return this.systemCurrency$Response(params, context).pipe(
-      map((r: StrictHttpResponse<Array<{
+      map((r: StrictHttpResponse<{
+
+/**
+ * Рабочий курс
+ */
+'current'?: Array<{
 
 /**
  * ID
@@ -280,7 +432,56 @@ export class SystemService extends BaseService {
  * Символ
  */
 'char'?: string;
-}>>): Array<{
+}>;
+
+/**
+ * Сводная информация
+ */
+'summary'?: {
+
+/**
+ * Заголовок
+ */
+'title'?: string;
+
+/**
+ * Источники
+ */
+'rows'?: Array<{
+
+/**
+ * Наименование источника
+ */
+'title'?: string;
+
+/**
+ * Ссылка на источник
+ */
+'url'?: string;
+
+/**
+ * Курсы
+ */
+'items'?: Array<{
+
+/**
+ * Наименование валюты
+ */
+'title'?: string;
+
+/**
+ * Значение курса
+ */
+'value'?: string;
+}>;
+}>;
+};
+}>): {
+
+/**
+ * Рабочий курс
+ */
+'current'?: Array<{
 
 /**
  * ID
@@ -306,7 +507,51 @@ export class SystemService extends BaseService {
  * Символ
  */
 'char'?: string;
-}> => r.body)
+}>;
+
+/**
+ * Сводная информация
+ */
+'summary'?: {
+
+/**
+ * Заголовок
+ */
+'title'?: string;
+
+/**
+ * Источники
+ */
+'rows'?: Array<{
+
+/**
+ * Наименование источника
+ */
+'title'?: string;
+
+/**
+ * Ссылка на источник
+ */
+'url'?: string;
+
+/**
+ * Курсы
+ */
+'items'?: Array<{
+
+/**
+ * Наименование валюты
+ */
+'title'?: string;
+
+/**
+ * Значение курса
+ */
+'value'?: string;
+}>;
+}>;
+};
+} => r.body)
     );
   }
 

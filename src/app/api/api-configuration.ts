@@ -1,7 +1,6 @@
 /* tslint:disable */
 /* eslint-disable */
 import { Injectable } from '@angular/core';
-import { environment } from '../../environments/environment';
 
 /**
  * Global configuration
@@ -9,12 +8,8 @@ import { environment } from '../../environments/environment';
 @Injectable({
   providedIn: 'root',
 })
-// export class ApiConfiguration {
-//   rootUrl: string = 'https://dev.cargodrom.com/api/1.0';
-// }
-
 export class ApiConfiguration {
-  rootUrl: string = environment.apiUrl;
+  rootUrl: string = 'https://dev.cargodrom.com/api/1.0';
 }
 
 /**

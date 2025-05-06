@@ -115,11 +115,69 @@
       </svg>
       <span>Справочник</span>
     </a>
+    
     <span class="div"></span>
-    <ng-container *ngFor="let cur of currencyList">
+    
+    <ng-container *ngFor="let cur of currencyList.current" >
+      <app-currency [matMenuTriggerFor]="animals" style="cursor: pointer;" *ngIf="cur.currency" [name]="cur.code" [code]="cur.char" [rate]="cur.currency"></app-currency>
+    </ng-container>
+
+    <mat-menu style="display: none;" class="no-pading-content" #animals="matMenu">
+      <div class="currencys-popap">
+      <div class="title">{{currencyList.summary.title}}</div>
+      <div class="currencys" *ngFor="let row of currencyList.summary.rows">
+        <div class="subtitle">
+          <div class="text">{{row.title}}</div>
+          <a class="link" target="_blank" [href]="row.url">>></a>
+        </div>
+        <div class="currencys-list">
+          <div class="currency" *ngFor="let item of row.items">
+            <div class="name">{{item.title}}</div>
+            <div class="value">{{item.value}}</div>
+          </div>
+        </div>
+      </div>
+    </div>
+    </mat-menu>
+
+    <!-- <div class="currencys-popap" *ngIf="isVisiblePopap" style="position: fixed; background-color: white; color: black; top:0; right: 100px;">
+      <div class="title">{{currencyList.summary.title}}</div>
+      <div class="currencys" *ngFor="let row of currencyList.summary.rows">
+        <div class="subtitle">
+          <div class="text">{{row.title}}</div>
+          <a class="link" target="_blank" [href]="row.url">>></a>
+        </div>
+        <div class="currencys-list">
+          <div class="currency" *ngFor="let item of row.items">
+            <div class="name">{{item.title}}</div>
+            <div class="value">{{item.value}}</div>
+          </div>
+        </div>
+      </div>
+    </div> -->
+
+    <!-- <div class="currencys-popap" *ngIf="isVisiblePopap" style="position: absolute; background-color: white; color: black; top:200px; right: 100px;">
+      <div class="title">{{currencyList.summary.title}}</div>
+      <div class="currencys" *ngFor="let row of currencyList.summary.rows">
+        <div class="subtitle">
+          <div class="text">{{row.title}}</div>
+          <a class="link" target="_blank" [href]="row.url">>></a>
+        </div>
+        <div class="currencys-list">
+          <div class="currency" *ngFor="let item of row.items">
+            <div class="name">{{item.title}}</div>
+            <div class="value">{{item.value}}</div>
+          </div>
+        </div>
+      </div>
+    </div> -->
+
+    
+
+    <!-- <ng-container *ngFor="let cur of currencyList">
       <app-currency *ngIf="cur.currency" [name]="cur.code" [code]="cur.char" [rate]="cur.currency"></app-currency>
 
-    </ng-container>
+    </ng-container> -->
 
     <!-- <app-currency name="USD" code="$" [rate]="69.3475"></app-currency>
     <app-currency name="EUR" code="€" [rate]="80.322"></app-currency>
@@ -153,3 +211,21 @@
     </a>
   </div>
 </div>
+
+<!-- <ng-template #currencyDialog>
+  <div class="currencys-popap">
+    <div class="title">{{currencyList.summary.title}}</div>
+    <div class="currencys" *ngFor="let row of currencyList.summary.rows">
+      <div class="subtitle">
+        <div class="text">{{row.title}}</div>
+        <a class="link" target="_blank" [href]="row.url">>></a>
+      </div>
+      <div class="currencys-list">
+        <div class="currency" *ngFor="let item of row.items">
+          <div class="name">{{item.title}}</div>
+          <div class="value">{{item.value}}</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</ng-template> -->

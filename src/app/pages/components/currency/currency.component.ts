@@ -11,6 +11,8 @@ export class CurrencyComponent implements OnInit {
   @Input() code?: string;
   @Input() rate?: number;
 
+  
+
   constructor() { }
 
   ngOnInit(): void {

@@ -1,11 +1,11 @@
 <div class="table-footer" >
   <ng-container *ngIf="total!=0">
     <div class="limit">
-      <mat-form-field appearance="outline" class="ui-select">
+      <!-- <mat-form-field appearance="outline" class="ui-select"> -->
         <mat-select [ngModel]="count" (ngModelChange)="newCountSelected($event)">
           <mat-option *ngFor="let limit of limits" [value]="limit">Показывать по {{ limit }}</mat-option>
         </mat-select>
-      </mat-form-field>
+      <!-- </mat-form-field> -->
       <span class="note">Показаны: {{first}} - {{last}} из {{total}}</span>
     </div>
     <div class="pages">

@@ -1,0 +1,52 @@
+.currencys-popap{
+    display: flex;
+    gap: 15px;
+    flex-direction: column;
+    border: 1px solid black;
+  .title{
+    background-color: #4B66AD;
+    color: white;
+    padding: 5px 15px;
+  }  
+  .currencys{
+    margin: 0 15px;
+    .subtitle{
+        display: flex;
+        margin-bottom: 5px;
+        border-bottom: 1px solid #4B66AD;
+        .text{
+            margin-right: auto;
+        }
+        .link{
+            pointer-events: all;
+            color: #4B66AD;
+            text-decoration: none;
+            width: 45px;
+            display: flex;
+            
+        }
+        .link::after{
+            content: '';
+            margin-left: auto;
+            
+            width: 20px;
+            height: 20px;
+            background-image: url('../../../../assets/globe.svg');
+        }
+    }
+    .currencys-list{
+        display: flex;
+        gap: 15px;
+        .currency{
+            display: flex;
+            flex-direction: column;
+            gap: 5px;
+        }
+
+    }
+    
+  }
+  .currencys:last-child{
+    margin-bottom: 15px;
+  }
+}
