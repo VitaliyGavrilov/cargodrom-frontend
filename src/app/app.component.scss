@@ -22,7 +22,7 @@ app-header, app-table-sunheader-file, app-editor-header, .subheader.component{
   top: 0;
   left: 0;
   right: 0;
-  z-index: 100;
+  z-index: 1000;
 }
 app-table-sunheader-file, app-editor-header, .subheader.component{
   .subheader{

@@ -78,7 +78,7 @@ export abstract class Editor<T> implements OnInit {
 
   loadCurrencies(): void {
     this.systemService.systemCurrency().subscribe(
-      currencies => this.currencies = currencies ? (currencies as Currency[]).sort(byField('code', 'asc', 'case-insensitive')) : []
+      currencies => this.currencies = currencies.current ? (currencies.current as Currency[]).sort(byField('code', 'asc', 'case-insensitive')) : []
     );
     console.log(this.currencies);
 

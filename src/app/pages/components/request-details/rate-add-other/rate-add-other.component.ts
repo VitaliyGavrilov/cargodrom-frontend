@@ -103,7 +103,7 @@ export class RateAddOther implements OnInit, OnDestroy {
     this.contractorList = datas.contractors.items;
     this.pointList = datas.poinst;
     this.pointActionList = datas.prices;
-    this.currencyList = datas.currencys;
+    this.currencyList = datas.currencys.current;
     this.processData_charges(datas.charges);
   }
   processData_charges(charges:any){
@@ -404,7 +404,7 @@ export class RateAddOther implements OnInit, OnDestroy {
       next: (currencyList) => {
         console.log(currencyList);
 
-        this.currencyList=currencyList;
+        this.currencyList=currencyList.current;
       },
       error: (err) => {
         this.snackBar.open(`Ошибка получения валют: ` + err.error.error_message, undefined, this.snackBarWithShortDuration);

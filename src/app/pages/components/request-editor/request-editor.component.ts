@@ -1248,7 +1248,7 @@ export class RequestEditorComponent implements OnInit, OnDestroy {
   private getCurrencys() {
     return this.systemService.systemCurrency()
       .pipe(
-        tap((currencys)=> this.currencys = currencys as Currency[]),
+        tap((currencys)=> this.currencys = currencys.current as Currency[]),
         takeUntil(this._destroy$)
       );
   }

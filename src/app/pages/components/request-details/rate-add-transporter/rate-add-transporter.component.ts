@@ -381,7 +381,7 @@ export class RateAddTransporter implements OnInit, OnDestroy {
       takeUntil(this._destroy$)
     ).subscribe({
       next: (currencyList) => {
-        this.currencyList=currencyList;
+        this.currencyList=currencyList.current;
       },
       error: (err) => {
         this.snackBar.open(`Ошибка получения валют: ` + err.error.error_message, undefined, this.snackBarWithShortDuration);
