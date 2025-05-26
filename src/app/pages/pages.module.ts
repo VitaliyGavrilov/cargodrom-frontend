@@ -50,6 +50,7 @@ import { DynamicTableComponent } from './tables/dynamic-table/dynamic-table.comp
 import { EmployeeRegisterComponent } from './components/employee-register/employee-register.component';
 import { RateAddOther } from './components/request-details/rate-add-other/rate-add-other.component';
 import { NgScrollbarModule } from 'ngx-scrollbar';
+import { OrderEditorComponent } from './components/order-editor/order-editor.component';
 
 
 
@@ -62,6 +63,7 @@ import { NgScrollbarModule } from 'ngx-scrollbar';
     RequestComponent,
     RequestEditorComponent,
     OrderComponent,
+    OrderEditorComponent,
     BitComponent,
     TariffComponent,
     ReportComponent,

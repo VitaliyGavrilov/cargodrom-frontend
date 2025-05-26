@@ -978,6 +978,134 @@ export class OrderService extends BaseService {
     );
   }
 
+  /** Path part for operation `orderFormParam()` */
+  static readonly OrderFormParamPath = '/order_form_param';
+
+  /**
+   * Параметры для форм.
+   *
+   *
+   *
+   * This method provides access to the full `HttpResponse`, allowing access to response headers.
+   * To access only the response body, use `orderFormParam()` instead.
+   *
+   * This method doesn't expect any request body.
+   */
+  orderFormParam$Response(
+    params: {
+
+    /**
+     * Тип перевозки
+     */
+      kind_id: number;
+    },
+    context?: HttpContext
+  ): Observable<StrictHttpResponse<{
+
+/**
+ * Виды перевозки
+ */
+'kinds': Array<{
+}>;
+
+/**
+ * Статусы
+ */
+'statuses': Array<{
+}>;
+}>> {
+    const rb = new RequestBuilder(this.rootUrl, OrderService.OrderFormParamPath, 'get');
+    if (params) {
+      rb.query('kind_id', params.kind_id, {});
+    }
+
+    return this.http.request(
+      rb.build({ responseType: 'json', accept: 'application/json', context })
+    ).pipe(
+      filter((r: any): r is HttpResponse<any> => r instanceof HttpResponse),
+      map((r: HttpResponse<any>) => {
+        return r as StrictHttpResponse<{
+        
+        /**
+         * Виды перевозки
+         */
+        'kinds': Array<{
+        }>;
+        
+        /**
+         * Статусы
+         */
+        'statuses': Array<{
+        }>;
+        }>;
+      })
+    );
+  }
+
+  /**
+   * Параметры для форм.
+   *
+   *
+   *
+   * This method provides access only to the response body.
+   * To access the full response (for headers, for example), `orderFormParam$Response()` instead.
+   *
+   * This method doesn't expect any request body.
+   */
+  orderFormParam(
+    params: {
+
+    /**
+     * Тип перевозки
+     */
+      kind_id: number;
+    },
+    context?: HttpContext
+  ): Observable<{
+
+/**
+ * Виды перевозки
+ */
+'kinds': Array<{
+}>;
+
+/**
+ * Статусы
+ */
+'statuses': Array<{
+}>;
+}> {
+    return this.orderFormParam$Response(params, context).pipe(
+      map((r: StrictHttpResponse<{
+
+/**
+ * Виды перевозки
+ */
+'kinds': Array<{
+}>;
+
+/**
+ * Статусы
+ */
+'statuses': Array<{
+}>;
+}>): {
+
+/**
+ * Виды перевозки
+ */
+'kinds': Array<{
+}>;
+
+/**
+ * Статусы
+ */
+'statuses': Array<{
+}>;
+} => r.body)
+    );
+  }
+
   /** Path part for operation `orderList()` */
   static readonly OrderListPath = '/order_list';
 
@@ -1064,6 +1192,11 @@ export class OrderService extends BaseService {
 'customer_id': number;
 
 /**
+ * ID контрагента
+ */
+'contractor_id': number;
+
+/**
  * ID границы
  */
 'border_id': number;
@@ -1124,9 +1257,61 @@ export class OrderService extends BaseService {
 'tt': string;
 
 /**
+ * События
+ */
+'events': Array<{
+
+/**
+ * Текст события
+ */
+'text': string;
+
+/**
+ * Дата события
+ */
+'date': string;
+}>;
+
+/**
+ * Настройка статусов
+ */
+'statuses': Array<{
+
+/**
+ * ID статуса
+ */
+'status_id': number;
+
+/**
+ * Планируемая дата статуса
+ */
+'scheduled_date': string;
+
+/**
+ * Фактическая дата статуса
+ */
+'done_date': string;
+
+/**
+ * Дата для таблицы
+ */
+'date': string;
+
+/**
+ * Класс для ячейки
+ */
+'class': string;
+}>;
+
+/**
  * ID статуса движения груза
  */
 'cargo_status_id': number;
+
+/**
+ * Статус движения груза
+ */
+'cargo_status': string;
 
 /**
  * Дата следующего планируемого события
@@ -1196,6 +1381,11 @@ export class OrderService extends BaseService {
         'customer_id': number;
         
         /**
+         * ID контрагента
+         */
+        'contractor_id': number;
+        
+        /**
          * ID границы
          */
         'border_id': number;
@@ -1256,9 +1446,61 @@ export class OrderService extends BaseService {
         'tt': string;
         
         /**
+         * События
+         */
+        'events': Array<{
+        
+        /**
+         * Текст события
+         */
+        'text': string;
+        
+        /**
+         * Дата события
+         */
+        'date': string;
+        }>;
+        
+        /**
+         * Настройка статусов
+         */
+        'statuses': Array<{
+        
+        /**
+         * ID статуса
+         */
+        'status_id': number;
+        
+        /**
+         * Планируемая дата статуса
+         */
+        'scheduled_date': string;
+        
+        /**
+         * Фактическая дата статуса
+         */
+        'done_date': string;
+        
+        /**
+         * Дата для таблицы
+         */
+        'date': string;
+        
+        /**
+         * Класс для ячейки
+         */
+        'class': string;
+        }>;
+        
+        /**
          * ID статуса движения груза
          */
         'cargo_status_id': number;
+        
+        /**
+         * Статус движения груза
+         */
+        'cargo_status': string;
         
         /**
          * Дата следующего планируемого события
@@ -1368,6 +1610,11 @@ export class OrderService extends BaseService {
 'customer_id': number;
 
 /**
+ * ID контрагента
+ */
+'contractor_id': number;
+
+/**
  * ID границы
  */
 'border_id': number;
@@ -1428,9 +1675,61 @@ export class OrderService extends BaseService {
 'tt': string;
 
 /**
+ * События
+ */
+'events': Array<{
+
+/**
+ * Текст события
+ */
+'text': string;
+
+/**
+ * Дата события
+ */
+'date': string;
+}>;
+
+/**
+ * Настройка статусов
+ */
+'statuses': Array<{
+
+/**
+ * ID статуса
+ */
+'status_id': number;
+
+/**
+ * Планируемая дата статуса
+ */
+'scheduled_date': string;
+
+/**
+ * Фактическая дата статуса
+ */
+'done_date': string;
+
+/**
+ * Дата для таблицы
+ */
+'date': string;
+
+/**
+ * Класс для ячейки
+ */
+'class': string;
+}>;
+
+/**
  * ID статуса движения груза
  */
 'cargo_status_id': number;
+
+/**
+ * Статус движения груза
+ */
+'cargo_status': string;
 
 /**
  * Дата следующего планируемого события
@@ -1487,6 +1786,11 @@ export class OrderService extends BaseService {
 'customer_id': number;
 
 /**
+ * ID контрагента
+ */
+'contractor_id': number;
+
+/**
  * ID границы
  */
 'border_id': number;
@@ -1547,9 +1851,61 @@ export class OrderService extends BaseService {
 'tt': string;
 
 /**
+ * События
+ */
+'events': Array<{
+
+/**
+ * Текст события
+ */
+'text': string;
+
+/**
+ * Дата события
+ */
+'date': string;
+}>;
+
+/**
+ * Настройка статусов
+ */
+'statuses': Array<{
+
+/**
+ * ID статуса
+ */
+'status_id': number;
+
+/**
+ * Планируемая дата статуса
+ */
+'scheduled_date': string;
+
+/**
+ * Фактическая дата статуса
+ */
+'done_date': string;
+
+/**
+ * Дата для таблицы
+ */
+'date': string;
+
+/**
+ * Класс для ячейки
+ */
+'class': string;
+}>;
+
+/**
  * ID статуса движения груза
  */
 'cargo_status_id': number;
+
+/**
+ * Статус движения груза
+ */
+'cargo_status': string;
 
 /**
  * Дата следующего планируемого события
@@ -1604,6 +1960,11 @@ export class OrderService extends BaseService {
 'customer_id': number;
 
 /**
+ * ID контрагента
+ */
+'contractor_id': number;
+
+/**
  * ID границы
  */
 'border_id': number;
@@ -1664,9 +2025,61 @@ export class OrderService extends BaseService {
 'tt': string;
 
 /**
+ * События
+ */
+'events': Array<{
+
+/**
+ * Текст события
+ */
+'text': string;
+
+/**
+ * Дата события
+ */
+'date': string;
+}>;
+
+/**
+ * Настройка статусов
+ */
+'statuses': Array<{
+
+/**
+ * ID статуса
+ */
+'status_id': number;
+
+/**
+ * Планируемая дата статуса
+ */
+'scheduled_date': string;
+
+/**
+ * Фактическая дата статуса
+ */
+'done_date': string;
+
+/**
+ * Дата для таблицы
+ */
+'date': string;
+
+/**
+ * Класс для ячейки
+ */
+'class': string;
+}>;
+
+/**
  * ID статуса движения груза
  */
 'cargo_status_id': number;
+
+/**
+ * Статус движения груза
+ */
+'cargo_status': string;
 
 /**
  * Дата следующего планируемого события
@@ -1737,6 +2150,11 @@ export class OrderService extends BaseService {
 'customer_id': number;
 
 /**
+ * ID контрагента
+ */
+'contractor_id': number;
+
+/**
  * ID границы
  */
 'border_id': number;
@@ -1797,9 +2215,61 @@ export class OrderService extends BaseService {
 'tt': string;
 
 /**
+ * События
+ */
+'events': Array<{
+
+/**
+ * Текст события
+ */
+'text': string;
+
+/**
+ * Дата события
+ */
+'date': string;
+}>;
+
+/**
+ * Настройка статусов
+ */
+'statuses': Array<{
+
+/**
+ * ID статуса
+ */
+'status_id': number;
+
+/**
+ * Планируемая дата статуса
+ */
+'scheduled_date': string;
+
+/**
+ * Фактическая дата статуса
+ */
+'done_date': string;
+
+/**
+ * Дата для таблицы
+ */
+'date': string;
+
+/**
+ * Класс для ячейки
+ */
+'class': string;
+}>;
+
+/**
  * ID статуса движения груза
  */
 'cargo_status_id': number;
+
+/**
+ * Статус движения груза
+ */
+'cargo_status': string;
 
 /**
  * Дата следующего планируемого события
@@ -1852,6 +2322,11 @@ export class OrderService extends BaseService {
          * ID заказчика
          */
         'customer_id': number;
+        
+        /**
+         * ID контрагента
+         */
+        'contractor_id': number;
         
         /**
          * ID границы
@@ -1914,9 +2389,61 @@ export class OrderService extends BaseService {
         'tt': string;
         
         /**
+         * События
+         */
+        'events': Array<{
+        
+        /**
+         * Текст события
+         */
+        'text': string;
+        
+        /**
+         * Дата события
+         */
+        'date': string;
+        }>;
+        
+        /**
+         * Настройка статусов
+         */
+        'statuses': Array<{
+        
+        /**
+         * ID статуса
+         */
+        'status_id': number;
+        
+        /**
+         * Планируемая дата статуса
+         */
+        'scheduled_date': string;
+        
+        /**
+         * Фактическая дата статуса
+         */
+        'done_date': string;
+        
+        /**
+         * Дата для таблицы
+         */
+        'date': string;
+        
+        /**
+         * Класс для ячейки
+         */
+        'class': string;
+        }>;
+        
+        /**
          * ID статуса движения груза
          */
         'cargo_status_id': number;
+        
+        /**
+         * Статус движения груза
+         */
+        'cargo_status': string;
         
         /**
          * Дата следующего планируемого события
@@ -1984,6 +2511,11 @@ export class OrderService extends BaseService {
 'customer_id': number;
 
 /**
+ * ID контрагента
+ */
+'contractor_id': number;
+
+/**
  * ID границы
  */
 'border_id': number;
@@ -2044,9 +2576,61 @@ export class OrderService extends BaseService {
 'tt': string;
 
 /**
+ * События
+ */
+'events': Array<{
+
+/**
+ * Текст события
+ */
+'text': string;
+
+/**
+ * Дата события
+ */
+'date': string;
+}>;
+
+/**
+ * Настройка статусов
+ */
+'statuses': Array<{
+
+/**
+ * ID статуса
+ */
+'status_id': number;
+
+/**
+ * Планируемая дата статуса
+ */
+'scheduled_date': string;
+
+/**
+ * Фактическая дата статуса
+ */
+'done_date': string;
+
+/**
+ * Дата для таблицы
+ */
+'date': string;
+
+/**
+ * Класс для ячейки
+ */
+'class': string;
+}>;
+
+/**
  * ID статуса движения груза
  */
 'cargo_status_id': number;
+
+/**
+ * Статус движения груза
+ */
+'cargo_status': string;
 
 /**
  * Дата следующего планируемого события
@@ -2092,6 +2676,11 @@ export class OrderService extends BaseService {
 'customer_id': number;
 
 /**
+ * ID контрагента
+ */
+'contractor_id': number;
+
+/**
  * ID границы
  */
 'border_id': number;
@@ -2152,9 +2741,61 @@ export class OrderService extends BaseService {
 'tt': string;
 
 /**
+ * События
+ */
+'events': Array<{
+
+/**
+ * Текст события
+ */
+'text': string;
+
+/**
+ * Дата события
+ */
+'date': string;
+}>;
+
+/**
+ * Настройка статусов
+ */
+'statuses': Array<{
+
+/**
+ * ID статуса
+ */
+'status_id': number;
+
+/**
+ * Планируемая дата статуса
+ */
+'scheduled_date': string;
+
+/**
+ * Фактическая дата статуса
+ */
+'done_date': string;
+
+/**
+ * Дата для таблицы
+ */
+'date': string;
+
+/**
+ * Класс для ячейки
+ */
+'class': string;
+}>;
+
+/**
  * ID статуса движения груза
  */
 'cargo_status_id': number;
+
+/**
+ * Статус движения груза
+ */
+'cargo_status': string;
 
 /**
  * Дата следующего планируемого события
@@ -2198,6 +2839,11 @@ export class OrderService extends BaseService {
 'customer_id': number;
 
 /**
+ * ID контрагента
+ */
+'contractor_id': number;
+
+/**
  * ID границы
  */
 'border_id': number;
@@ -2258,9 +2904,61 @@ export class OrderService extends BaseService {
 'tt': string;
 
 /**
+ * События
+ */
+'events': Array<{
+
+/**
+ * Текст события
+ */
+'text': string;
+
+/**
+ * Дата события
+ */
+'date': string;
+}>;
+
+/**
+ * Настройка статусов
+ */
+'statuses': Array<{
+
+/**
+ * ID статуса
+ */
+'status_id': number;
+
+/**
+ * Планируемая дата статуса
+ */
+'scheduled_date': string;
+
+/**
+ * Фактическая дата статуса
+ */
+'done_date': string;
+
+/**
+ * Дата для таблицы
+ */
+'date': string;
+
+/**
+ * Класс для ячейки
+ */
+'class': string;
+}>;
+
+/**
  * ID статуса движения груза
  */
 'cargo_status_id': number;
+
+/**
+ * Статус движения груза
+ */
+'cargo_status': string;
 
 /**
  * Дата следующего планируемого события
@@ -2415,6 +3113,11 @@ export class OrderService extends BaseService {
 'customer_id': number;
 
 /**
+ * ID контрагента
+ */
+'contractor_id': number;
+
+/**
  * ID границы
  */
 'border_id': number;
@@ -2475,19 +3178,41 @@ export class OrderService extends BaseService {
 'tt': string;
 
 /**
- * ID статуса движения груза
+ * События
  */
-'cargo_status_id': number;
+'events': Array<{
 
 /**
- * Дата следующего планируемого события
+ * Текст события
  */
-'schedule_event_date': string;
+'text': string;
 
 /**
- * Следующее планируемое событие
+ * Дата события
  */
-'schedule_event_text': string;
+'date': string;
+}>;
+
+/**
+ * Настройка статусов
+ */
+'statuses': Array<{
+
+/**
+ * ID статуса
+ */
+'status_id': number;
+
+/**
+ * Планируемая дата статуса
+ */
+'scheduled_date': string;
+
+/**
+ * Фактическая дата статуса
+ */
+'done_date': string;
+}>;
 }
     },
     context?: HttpContext
@@ -2549,6 +3274,11 @@ export class OrderService extends BaseService {
 'customer_id': number;
 
 /**
+ * ID контрагента
+ */
+'contractor_id': number;
+
+/**
  * ID границы
  */
 'border_id': number;
@@ -2609,19 +3339,41 @@ export class OrderService extends BaseService {
 'tt': string;
 
 /**
- * ID статуса движения груза
+ * События
  */
-'cargo_status_id': number;
+'events': Array<{
 
 /**
- * Дата следующего планируемого события
+ * Текст события
  */
-'schedule_event_date': string;
+'text': string;
 
 /**
- * Следующее планируемое событие
+ * Дата события
  */
-'schedule_event_text': string;
+'date': string;
+}>;
+
+/**
+ * Настройка статусов
+ */
+'statuses': Array<{
+
+/**
+ * ID статуса
+ */
+'status_id': number;
+
+/**
+ * Планируемая дата статуса
+ */
+'scheduled_date': string;
+
+/**
+ * Фактическая дата статуса
+ */
+'done_date': string;
+}>;
 }
     },
     context?: HttpContext
@@ -2687,6 +3439,11 @@ export class OrderService extends BaseService {
 'customer_id'?: number;
 
 /**
+ * ID контрагента
+ */
+'contractor_id'?: number;
+
+/**
  * ID границы
  */
 'border_id'?: number;
@@ -2747,19 +3504,41 @@ export class OrderService extends BaseService {
 'tt'?: string;
 
 /**
- * ID статуса движения груза
+ * События
  */
-'cargo_status_id'?: number;
+'events'?: Array<{
 
 /**
- * Дата следующего планируемого события
+ * Текст события
  */
-'schedule_event_date'?: string;
+'text': string;
 
 /**
- * Следующее планируемое событие
+ * Дата события
  */
-'schedule_event_text'?: string;
+'date': string;
+}>;
+
+/**
+ * Настройка статусов
+ */
+'statuses'?: Array<{
+
+/**
+ * ID статуса
+ */
+'status_id': number;
+
+/**
+ * Планируемая дата статуса
+ */
+'scheduled_date': string;
+
+/**
+ * Фактическая дата статуса
+ */
+'done_date': string;
+}>;
 }
     },
     context?: HttpContext
@@ -2826,6 +3605,11 @@ export class OrderService extends BaseService {
 'customer_id'?: number;
 
 /**
+ * ID контрагента
+ */
+'contractor_id'?: number;
+
+/**
  * ID границы
  */
 'border_id'?: number;
@@ -2886,19 +3670,41 @@ export class OrderService extends BaseService {
 'tt'?: string;
 
 /**
- * ID статуса движения груза
+ * События
  */
-'cargo_status_id'?: number;
+'events'?: Array<{
 
 /**
- * Дата следующего планируемого события
+ * Текст события
  */
-'schedule_event_date'?: string;
+'text': string;
 
 /**
- * Следующее планируемое событие
+ * Дата события
  */
-'schedule_event_text'?: string;
+'date': string;
+}>;
+
+/**
+ * Настройка статусов
+ */
+'statuses'?: Array<{
+
+/**
+ * ID статуса
+ */
+'status_id': number;
+
+/**
+ * Планируемая дата статуса
+ */
+'scheduled_date': string;
+
+/**
+ * Фактическая дата статуса
+ */
+'done_date': string;
+}>;
 }
     },
     context?: HttpContext
@@ -3019,104 +3825,6 @@ export class OrderService extends BaseService {
  * Статус выполнения
  */
 'result': 'OK';
-} => r.body)
-    );
-  }
-
-  /** Path part for operation `orderFormParam()` */
-  static readonly OrderFormParamPath = '/order_form_param';
-
-  /**
-   * Параметры для форм заказа.
-   *
-   *
-   *
-   * This method provides access to the full `HttpResponse`, allowing access to response headers.
-   * To access only the response body, use `orderFormParam()` instead.
-   *
-   * This method doesn't expect any request body.
-   */
-  orderFormParam$Response(
-    params?: {
-
-    /**
-     * ID Заказа
-     */
-      id?: number;
-    },
-    context?: HttpContext
-  ): Observable<StrictHttpResponse<{
-
-/**
- * Валюты
- */
-'currency': Array<{
-}>;
-}>> {
-    const rb = new RequestBuilder(this.rootUrl, OrderService.OrderFormParamPath, 'get');
-    if (params) {
-      rb.query('id', params.id, {});
-    }
-
-    return this.http.request(
-      rb.build({ responseType: 'json', accept: 'application/json', context })
-    ).pipe(
-      filter((r: any): r is HttpResponse<any> => r instanceof HttpResponse),
-      map((r: HttpResponse<any>) => {
-        return r as StrictHttpResponse<{
-        
-        /**
-         * Валюты
-         */
-        'currency': Array<{
-        }>;
-        }>;
-      })
-    );
-  }
-
-  /**
-   * Параметры для форм заказа.
-   *
-   *
-   *
-   * This method provides access only to the response body.
-   * To access the full response (for headers, for example), `orderFormParam$Response()` instead.
-   *
-   * This method doesn't expect any request body.
-   */
-  orderFormParam(
-    params?: {
-
-    /**
-     * ID Заказа
-     */
-      id?: number;
-    },
-    context?: HttpContext
-  ): Observable<{
-
-/**
- * Валюты
- */
-'currency': Array<{
-}>;
-}> {
-    return this.orderFormParam$Response(params, context).pipe(
-      map((r: StrictHttpResponse<{
-
-/**
- * Валюты
- */
-'currency': Array<{
-}>;
-}>): {
-
-/**
- * Валюты
- */
-'currency': Array<{
-}>;
 } => r.body)
     );
   }

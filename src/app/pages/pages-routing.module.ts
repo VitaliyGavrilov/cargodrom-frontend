@@ -18,6 +18,7 @@ import { RequestEditorTranslateComponent } from './components/request-editor-tra
 import { RequestRateComponent } from './components/request-rate/request-rate.component';
 import { RequestDetails } from './components/request-details/request-details.component';
 import { OfferEditorComponent } from './components/offer-editor/offer-editor.component';
+import { OrderEditorComponent } from './components/order-editor/order-editor.component';
 // import { RequestPage } from './places/request/request.component';
 
 const routes: Routes = [
@@ -139,9 +140,27 @@ const routes: Routes = [
         canActivate: [AuthGuard],
       },
       {
-        path: 'order',
+        path: 'order/transportation',
         component: OrderComponent,
         title: 'Заказы',
+        canActivate: [AuthGuard],
+      },
+      {
+        path: 'order/docs',
+        component: OrderComponent,
+        title: 'Заказы',
+        canActivate: [AuthGuard],
+      },
+      {
+        path: 'order/add',
+        component: OrderEditorComponent,
+        title: 'Новый заказ',
+        canActivate: [AuthGuard],
+      },
+      {
+        path: 'order/edit/:id',
+        component: OrderEditorComponent,
+        title: 'Редактирование заказа',
         canActivate: [AuthGuard],
       },
       {

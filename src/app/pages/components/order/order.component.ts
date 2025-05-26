@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, TemplateRef, ViewChild } from '@angular/core';
 
 import { CustomerService } from './../../../api/services/customer.service';
 import { Client, ClientFilter, SearchFilterSchema } from './../../../api/custom_models';
@@ -24,8 +24,11 @@ export class OrderComponent extends Table<Client, 'name', ClientFilter> {
   params:any;
   trackById = (_index: number, client: Client) => client.id!;
 
+  @ViewChild('analyticsPopap') analyticsPopap!: TemplateRef<void>;
+
   constructor(
     private orderService: OrderService,
+    private matDialog: MatDialog,
     filterService: FilterService,
     dialog: MatDialog,
     snackBar: MatSnackBar,
@@ -44,4 +47,11 @@ export class OrderComponent extends Table<Client, 'name', ClientFilter> {
   protected override loadFilterSchemaTest(): Observable<any>  {
     return this.orderService.orderListParam().pipe(map(val => val as any));
   }
+
+  openAnalytics(){
+    this.matDialog.open(this.analyticsPopap, { panelClass: 'popap-analytics' }).afterClosed().subscribe(res => {
+    });
+
+  }
+
 }

@@ -21,7 +21,10 @@ $cargodrom-frontend-theme: mat.define-light-theme((
 @include mat.all-component-themes($cargodrom-frontend-theme);
 
 // Импорт других стилей
-@import url('./app/cargodrom.css');
+@import url('./app/styles/cargodrom.css');
+@import url('./app/styles/material.css');
+@import url('./app/styles/btn.css');
+
 
 html, body { height: 100%; }
 body {

@@ -18,9 +18,11 @@ export class TableSubheaderFileComponent implements OnInit {
   readonly xlsxMimeType = 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet';
 
   @Input() titles:any={title:'',subtitle:''};
+  @Input() orderPage:boolean=false;
   @Input()  importMetods:any;
   @Output() export = new EventEmitter<void>();
   @Output() exportTemplate = new EventEmitter<void>();
+  @Output() openAnalytics = new EventEmitter<void>();
 
   @ViewChild('file', { static: true }) file?: ElementRef;
   @ViewChild('exportDialogRef') exportDialogRef?: TemplateRef<void>;
@@ -35,6 +37,9 @@ export class TableSubheaderFileComponent implements OnInit {
 
   ngOnInit(): void {
 
+  }
+  openPopapAnalytics(){
+    this.openAnalytics.emit();
   }
 
   confirmTableFileDownload(): void {

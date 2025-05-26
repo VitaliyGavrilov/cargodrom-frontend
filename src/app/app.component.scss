@@ -35,7 +35,7 @@ app-request-details .subheader.component{
 }
 
 app-request, app-contractor, app-client{
-   app-table-filter{
+  app-table-filter{
     position: sticky;
     top: 114.5px;
     left: 0;
@@ -348,6 +348,15 @@ app-paginator mat-select.mat-mdc-select {
 
 
 //mat-option
+mat-option.mat-mdc-option .mdc-list-item__primary-text{
+  line-height: 18px;
+}
+mat-option.mat-mdc-option{
+  min-height: auto;
+  padding-top: 6px; 
+  padding-bottom: 6px;
+}
+
 .mat-mdc-option {
   --mat-option-selected-state-label-text-color: #DB563B;
 }

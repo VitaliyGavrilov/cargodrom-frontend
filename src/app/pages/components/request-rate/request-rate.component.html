@@ -140,12 +140,12 @@
 
     </div>
 
-    <div class="form-row">
+    <div class="form-row" *ngIf="request.comment">
       <div class="form-row-title">Comment</div>
       <div class="comment">{{request?.comment}}</div>
     </div>
 
-    <div class="form-row">
+    <div class="form-row" *ngIf="request.documents_file.length>0 || request.cargo_file.length>0">
       <div class="form-row-title">Attached Files</div>
       <div class="form-item-layout wrap">
         <div class="file-box"

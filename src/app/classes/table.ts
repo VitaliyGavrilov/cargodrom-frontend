@@ -652,27 +652,18 @@ export abstract class Table<T extends { id: number }, A = never, F = never> impl
     this.loadFilterSchemaTest(param)
       .pipe(
         tap((schema)=>{
+          console.log('schema',schema);
           this.sortField = schema.sort[0].field;
           this.sortDir = schema.sort[0].dir;
-
           if (this.isBiddingMode) {
-            // schema.table.pop();
-            schema.table.unshift({column:'checkbox'});
+            schema.table.unshift({column:'checkbox',width:'50px', items: [{field:'', title:'', width:'100%'}]});
           }
-          
           this.isTableFixedWidth=!schema.table_width_set;
-          
-
         }),
         takeUntil(this.destroy$),
       )
       .subscribe({
         next: (schema) => {
-          // if(this.isRateDetailsMode){
-          //   this.schemaCharges=schema.forms.charges
-          // }
-
-          console.log('schema',schema);
           this.filterService.setSearchFilterSchema(schema.search);
           schema.table.forEach((col:any)=>{
             this.column?.push(col.column);
@@ -684,18 +675,6 @@ export abstract class Table<T extends { id: number }, A = never, F = never> impl
           if(schema.status){
             this.requestCrmStatuses=schema.status;
           }
-
-
-          // if(this.isRateDetailsMode){
-          //   this.columnsData=schema.table;
-          //   this.schemaCharges=schema.forms.charges;
-          // }
-
-          // this.router.navigate(['.'], {
-          //   queryParams: { sortCol: schema.sort[0].field, sortDir: schema.sort[0].dir },
-          //   queryParamsHandling: 'merge',
-          //   relativeTo: this.route,
-          // });
         },
         error: (err) => this.snackBar.open(`Ошибка получения параметров вывода таблицы ` + err.error.error_message, undefined, this.snackBarWithShortDuration),
         complete:()=> {
@@ -761,18 +740,12 @@ export abstract class Table<T extends { id: number }, A = never, F = never> impl
       return;
     };
     td.forEach((col:any, columnIndex:number) => {
-      // if(columnIndex===0){
-      //   this.columnsData[columnIndex].width=`${col.offsetWidth-2}px`;
-      // } else {
-      //   this.columnsData[columnIndex].width=`${col.offsetWidth}px`;
-      // }
       this.columnsData[columnIndex].width=`${col.offsetWidth}px`;
       const miniColArr = col.querySelectorAll('div.column');
       if(!miniColArr){
         return;
       };
       miniColArr.forEach((miniCol:any, miniColumnIndex:number) => {
-        // this.columnsData[columnIndex].items[miniColumnIndex]!.width=`${miniCol.offsetWidth-16}px`;
         this.columnsData[columnIndex].items[miniColumnIndex]!.width=`${miniCol.offsetWidth}px`;
       });
     });

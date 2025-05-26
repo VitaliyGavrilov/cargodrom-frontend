@@ -1,0 +1,14 @@
+/* const */
+
+/* components */
+/* popap-analytics */
+.popap-analytics .cross {
+  position: absolute;
+  top: 5px;
+  right: 5px;
+  cursor: pointer;
+}
+.popap-analytics .mat-mdc-dialog-content {
+  border-top: 1px solid #9ca6b1;
+  background-color: #F7F9FC;
+}

@@ -33,7 +33,7 @@
 
     <div formGroupName="custom" class="block">
       <div class="one_profit">
-        <mat-checkbox class="testclass" formControlName="one_profit" (change)="setChange()"></mat-checkbox>
+        <label><mat-checkbox class="testclass" formControlName="one_profit" (change)="setChange()"></mat-checkbox></label>
         <p>Единый профит на все ставки</p>
         <input type="number" formControlName="one_profit_amount" (keyup)="setChange();resetPercent(kpForm.get('param.custom'))">
         <mat-form-field appearance="outline" class="ui-select">
@@ -49,7 +49,7 @@
         или
         <input type="number" formControlName="one_profit_percent" (keyup)="setChange();resetAmount(kpForm.get('param.custom'))">
         <p>%</p>
-        <mat-checkbox style="margin-left: auto;" class="testclass" formControlName="detail_items" (change)="setChange()"></mat-checkbox>
+        <label><mat-checkbox style="margin-left: auto;" class="testclass" formControlName="detail_items" (change)="setChange()"></mat-checkbox></label>
         Детализировать ставку в КП
       </div>
 
@@ -131,7 +131,7 @@
 
               <td>
                 <div class="td-block" >
-                  <mat-checkbox class="testclass" style="margin: 0 auto;" formControlName="main" (change)="onMainFieldChange(customRows,i,$event)"></mat-checkbox>
+                  <label><mat-checkbox class="testclass" style="margin: 0 auto;" formControlName="main" (change)="onMainFieldChange(customRows,i,$event)"></mat-checkbox></label>
                 </div>
               </td>
 
@@ -165,7 +165,7 @@
 
               <td>
                 <div *ngFor="let service of returnServiceControls(row); let j = index" [formGroupName]="j" class="service checkboxs" >
-                  <mat-checkbox class="testclass"  formControlName="select" (change)="setChange(row,false)"></mat-checkbox>
+                  <label><mat-checkbox class="testclass"  formControlName="select" (change)="setChange(row,false)"></mat-checkbox></label>
                 </div>
               </td>
 
@@ -183,7 +183,7 @@
 
     <div formGroupName="storage" class="block">
       <div class="one_profit">
-        <mat-checkbox class="testclass" formControlName="one_profit" (change)="setChange()"></mat-checkbox>
+        <label><mat-checkbox class="testclass" formControlName="one_profit" (change)="setChange()"></mat-checkbox></label>
         <p>Единый профит на все ставки</p>
         <input type="number" formControlName="one_profit_amount" (keyup)="setChange();resetPercent(kpForm.get('param.storage'))">
         <mat-form-field appearance="outline" class="ui-select">
@@ -194,7 +194,7 @@
         или
         <input type="number" formControlName="one_profit_percent" (keyup)="setChange();resetAmount(kpForm.get('param.storage'))">
         <p>%</p>
-        <mat-checkbox style="margin-left: auto;" class="testclass" formControlName="detail_items" (change)="setChange()"></mat-checkbox>
+        <label><mat-checkbox style="margin-left: auto;" class="testclass" formControlName="detail_items" (change)="setChange()"></mat-checkbox></label>
         Детализировать ставку в КП
       </div>
 
@@ -275,7 +275,7 @@
 
               <td>
                 <div class="td-block" >
-                  <mat-checkbox (change)="onMainFieldChange(storageRows,i,$event)" class="testclass" style="margin: 0 auto;" formControlName="main"></mat-checkbox>
+                  <label><mat-checkbox (change)="onMainFieldChange(storageRows,i,$event)" class="testclass" style="margin: 0 auto;" formControlName="main"></mat-checkbox></label>
                 </div>
               </td>
 
@@ -309,10 +309,9 @@
 
               <td>
                 <div *ngFor="let service of returnServiceControls(row); let j = index" [formGroupName]="j" class="service checkboxs" >
-                  <mat-checkbox class="testclass"  formControlName="select" (change)="setChange(row,false)"></mat-checkbox>
+                  <label><mat-checkbox class="testclass"  formControlName="select" (change)="setChange(row,false)"></mat-checkbox></label>
                 </div>
               </td>
-
             </tr>
           </ng-container>
         </tbody>
@@ -327,7 +326,7 @@
 
     <div formGroupName="delivery" class="block">
       <div class="one_profit">
-        <mat-checkbox class="testclass" formControlName="one_profit" (change)="setChange()"></mat-checkbox>
+        <label><mat-checkbox class="testclass" formControlName="one_profit" (change)="setChange()"></mat-checkbox></label>
         <p>Единый профит на все ставки</p>
         <input type="number" formControlName="one_profit_amount" (keyup)="setChange();resetPercent(kpForm.get('param.delivery'))">
         <mat-form-field appearance="outline" class="ui-select">
@@ -338,7 +337,7 @@
         или
         <input type="number" formControlName="one_profit_percent" (keyup)="setChange();resetAmount(kpForm.get('param.delivery'))">
         <p>%</p>
-        <mat-checkbox style="margin-left: auto;" class="testclass" formControlName="detail_items" (change)="setChange()"></mat-checkbox>
+        <label><mat-checkbox style="margin-left: auto;" class="testclass" formControlName="detail_items" (change)="setChange()"></mat-checkbox></label>
         Детализировать ставку в КП
       </div>
 
@@ -414,7 +413,7 @@
 
               <td>
                 <div class="td-block" >
-                  <mat-checkbox (change)="onMainFieldChange(deliveryRows,i,$event)" class="testclass" style="margin: 0 auto;" formControlName="main"></mat-checkbox>
+                  <label><mat-checkbox (change)="onMainFieldChange(deliveryRows,i,$event)" class="testclass" style="margin: 0 auto;" formControlName="main"></mat-checkbox></label>
                 </div>
               </td>
 
@@ -448,7 +447,7 @@
 
               <td>
                 <div *ngFor="let service of returnServiceControls(row); let j = index" [formGroupName]="j" class="service checkboxs" >
-                  <mat-checkbox class="testclass"  formControlName="select" (change)="setChange(row,false)"></mat-checkbox>
+                  <label><mat-checkbox class="testclass"  formControlName="select" (change)="setChange(row,false)"></mat-checkbox></label>
                 </div>
               </td>
 

@@ -27,9 +27,10 @@
   border: 0;
   display: flex;
   flex-direction: row;
-  margin: 12px;
-  margin-left: auto;
+  // margin-left: auto;
   gap: 12px;
+  padding: 0;
+  margin: auto 20px auto auto;
 
   button{
     display: block;

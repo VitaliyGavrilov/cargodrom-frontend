@@ -23,7 +23,14 @@
     margin-right: 0;
   }
 }
-
+.one_profit{
+  label:last-child{
+    margin-left: auto;
+  }
+}
+td label{
+  margin: 0 auto;
+}
 // .datepiker{
 //   display: flex;
 //   justify-content: space-between;

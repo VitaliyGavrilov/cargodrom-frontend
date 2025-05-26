@@ -332,9 +332,9 @@
                 <div class="col-content">{{ getVal(item,miniCol.field) }}</div>
               </ng-template>
               <ng-template [ngSwitchCase]="'route_text'">
-                <div class="col-content">
+                <div class="col-content" style="display: flex; align-items: anchor-center;">
                   <button (click)="onOpenFullRouteDetailForm()" class="inverted_exclamation_mark"></button>
-                  {{ getVal(item,miniCol.field) }}
+                  <span style="margin-top: 1px;">{{getVal(item,miniCol.field) }}</span>
                 </div>
               </ng-template>
               <ng-template [ngSwitchCase]="'custom/route/route_type_key'">
