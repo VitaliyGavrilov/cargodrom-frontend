@@ -74,12 +74,14 @@
             [class]="miniCol.class"
             [ngSwitch]="miniCol.field"
           >
-            <ng-template [ngSwitchDefault]>{{ getVal(item,miniCol.field) }}</ng-template>
-            <ng-template [ngSwitchCase]="'contact_info_text'">
+            <ng-template [ngSwitchDefault]>
+              <div class="col-content" [innerHTML]="getVal(item,miniCol.field)"></div>
+            </ng-template>
+            <!-- <ng-template [ngSwitchCase]="'contact_info_text'">
               <ng-container *ngFor="let contact of item.contacts">
                 Тел.: <span class="bk">{{contact.phone}}</span>, E-mail.: <span class="bk">{{contact.email}}</span>
               </ng-container>
-            </ng-template>
+            </ng-template> -->
             <ng-template [ngSwitchCase]="'specialization_text'">
               <span class="type" *ngFor="let spec of item.specialization" [ngClass]="getSpecializationClass(spec)"></span>
             </ng-template>

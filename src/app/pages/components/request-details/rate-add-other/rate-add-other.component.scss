@@ -28,7 +28,7 @@
       .column:nth-child(3){width: 10%;}
       .column:nth-child(4){width: 10%;}
       .column:nth-child(5){width: 6%;}
-      .column:nth-child(6){width: 5%;}
+      .column:nth-child(6){width: 96px; flex-grow: 0;}
       .column:nth-child(7){width: 15%;}
       .column:nth-child(8){width: 6%;}
     }

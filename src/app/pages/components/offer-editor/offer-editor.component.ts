@@ -120,11 +120,12 @@ export class OfferEditorComponent implements OnInit, OnDestroy {
   }
 
   validReset(){
-    this.kpForm.controls['valid'].reset();
+    // this.kpForm.controls['valid'].reset();
+    this.kpForm.value.valid='';
   }
 
   returnValid():string{
-    return this.kpForm.value.valid? formatDate(this.kpForm.value.valid,'dd MMMM yyyy','ru-US'): '';
+    return this.kpForm.value.valid && this.kpForm.value.valid!='' && this.kpForm.value.valid!="0000-00-00"? formatDate(this.kpForm.value.valid,'dd MMMM yyyy','ru-US'): '';
   }
 
   getVal(obj: any, path: string ): any {

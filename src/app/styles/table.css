@@ -1,0 +1,9 @@
+.table-list table .compact-abbr .col-content {
+  letter-spacing: 2px;
+  white-space: nowrap;
+}
+.table-list table .flex-wrap {
+  display: flex;
+  gap: 6px;
+  flex-wrap: wrap;
+}
