@@ -37,15 +37,10 @@
         <p>Единый профит на все ставки</p>
         <input type="number" formControlName="one_profit_amount" (keyup)="setChange();resetPercent(kpForm.get('param.custom'))">
         <mat-form-field appearance="outline" class="ui-select">
-          <mat-select formControlName="one_profit_amount_currency" (valueChange)="setChange()">
+          <mat-select style="height: 40px;" formControlName="one_profit_amount_currency" (valueChange)="setChange()">
             <mat-option *ngFor="let currency of currencyList;" [value]="currency.id" >{{ currency.code }}</mat-option>
           </mat-select>
         </mat-form-field>
-
-          <!-- <mat-select formControlName="one_profit_amount_currency" (valueChange)="setChange()">
-            <mat-option *ngFor="let currency of currencyList;" [value]="currency.id" >{{ currency.code }}</mat-option>
-          </mat-select> -->
-
         или
         <input type="number" formControlName="one_profit_percent" (keyup)="setChange();resetAmount(kpForm.get('param.custom'))">
         <p>%</p>
@@ -187,10 +182,11 @@
         <p>Единый профит на все ставки</p>
         <input type="number" formControlName="one_profit_amount" (keyup)="setChange();resetPercent(kpForm.get('param.storage'))">
         <mat-form-field appearance="outline" class="ui-select">
-          <mat-select formControlName="one_profit_amount_currency" (valueChange)="setChange()">
+          <mat-select style="height: 40px;" formControlName="one_profit_amount_currency" (valueChange)="setChange()">
             <mat-option *ngFor="let currency of currencyList;" [value]="currency.id" >{{ currency.code }}</mat-option>
           </mat-select>
         </mat-form-field>
+        
         или
         <input type="number" formControlName="one_profit_percent" (keyup)="setChange();resetAmount(kpForm.get('param.storage'))">
         <p>%</p>
@@ -330,7 +326,7 @@
         <p>Единый профит на все ставки</p>
         <input type="number" formControlName="one_profit_amount" (keyup)="setChange();resetPercent(kpForm.get('param.delivery'))">
         <mat-form-field appearance="outline" class="ui-select">
-          <mat-select formControlName="one_profit_amount_currency" (valueChange)="setChange()">
+          <mat-select style="height: 40px;" formControlName="one_profit_amount_currency" (valueChange)="setChange()">
             <mat-option *ngFor="let currency of currencyList;" [value]="currency.id" >{{ currency.code }}</mat-option>
           </mat-select>
         </mat-form-field>

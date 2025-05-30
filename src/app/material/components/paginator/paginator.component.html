@@ -2,7 +2,7 @@
   <ng-container *ngIf="total!=0">
     <div class="limit">
       <!-- <mat-form-field appearance="outline" class="ui-select"> -->
-        <mat-select [ngModel]="count" (ngModelChange)="newCountSelected($event)">
+        <mat-select [ngModel]="count" (ngModelChange)="newCountSelected($event)" style="width: 180px;">
           <mat-option *ngFor="let limit of limits" [value]="limit">Показывать по {{ limit }}</mat-option>
         </mat-select>
       <!-- </mat-form-field> -->

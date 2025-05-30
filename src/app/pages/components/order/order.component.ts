@@ -37,6 +37,7 @@ export class OrderComponent extends Table<Client, 'name', ClientFilter> {
     userService:UserService,
   ) {
     super(route, router, dialog, snackBar, filterService,userService);
+    this.resizeMetod='order_list';
   }
 
   load<Client>(params: LoadParams<Client, ClientFilter>): Observable<{ total: number; items: Client[]; }> {

@@ -1,4 +1,16 @@
 /* const */
+body{
+  --mat-option-selected-state-label-text-color: #DB563B;
+  --mat-option-label-text-line-height: 13px;
+  --mat-option-label-text-size: 13px;
+
+  --mat-menu-item-label-text-line-height:13px;
+  --mat-menu-item-label-text-size:13px;
+
+  --mat-table-header-container-height:48px;
+  --mat-table-header-headline-line-height:13px;
+  --mat-table-header-headline-size:13px;
+}
 
 /* components */
 /* popap-analytics */
@@ -11,4 +23,92 @@
 .popap-analytics .mat-mdc-dialog-content {
   border-top: 1px solid #9ca6b1;
   background-color: #F7F9FC;
+}
+
+/* MAT SELECT */
+/* базовый дизайн мат селектора */
+form mat-select.mat-mdc-select, app-paginator mat-select.mat-mdc-select, .filter .additional mat-select.mat-mdc-select{
+  background: #F7F9FC;
+  font-size: 15px;
+  line-height: 15px;
+  .mat-mdc-select-trigger {border: 1px solid #E0E5EB;border-radius: 6px;
+    padding: 0 13px; margin: 0;
+    box-sizing: border-box;
+    height: 40px;
+  } 
+}
+/* стрелочка в мат селекторах */
+mat-select .mat-mdc-select-arrow {
+  background: url('../../assets/pic-select-arrow.svg') no-repeat;
+  width: 10px; height: 10px;
+  background-position: center;
+  svg {display: none;}
+}
+
+/* MAT OPTION */
+mat-option.mat-mdc-option{
+  min-height: auto;
+  padding-top: 6px; 
+  padding-bottom: 6px;
+  .mat-mdc-option-pseudo-checkbox{
+    display: none;
+  }
+}
+
+/* MAT CHECKBOX */
+/* mat-checkbox.mat-mdc-checkbox .mat-mdc-checkbox-ripple, 
+mat-checkbox.mat-mdc-checkbox .mdc-checkbox__ripple,
+mat-checkbox.mat-mdc-checkbox .mat-mdc-checkbox-touch-target {
+  display: none; 
+}
+mat-checkbox.mat-mdc-checkbox .mdc-checkbox__background{
+
+}
+mat-checkbox.mat-mdc-checkbox input[type="checkbox"] {
+  width: 20px; height: 20px;
+}
+
+/* если надо поменять местами чекбокс и текс добавляем класс reverse */
+/* mat-checkbox.mat-mdc-checkbox.reverse{ 
+  .mdc-form-field {flex-direction: row-reverse;}
+}  */
+
+.mat-mdc-checkbox .mdc-form-field .mdc-checkbox,
+.mat-mdc-checkbox .mdc-form-field .mdc-label {
+  display: none !important;
+}
+.checkbox-label .mat-mdc-checkbox{
+  display: flex;
+}
+.mat-mdc-checkbox .mdc-form-field {
+  cursor: pointer;
+  vertical-align: top; position: relative;
+  border: 1px solid #E0E5EB;
+  background: #F7F9FC;
+  width: 18px; height: 18px;
+  display: flex; justify-content: center; align-items: center;
+}
+.mat-mdc-checkbox .mdc-form-field::after {
+  content: "";
+  display: block;
+  background: #F7F9FC;
+  width: 8px; height: 8px;
+  margin: 0 ; padding: 0;
+}
+.mat-mdc-checkbox.mat-mdc-checkbox-checked .mdc-form-field::after{
+  content: "";
+  display: block;
+  background: #DB563B;
+  width: 8px; height: 8px;
+  margin: 0; padding: 0;
+}
+.mat-mdc-checkbox.mat-mdc-checkbox-indeterminate .mdc-form-field::after {
+  content: "";
+  display: block;
+  background: #DB563B;
+  width: 10px; height: 3px;
+  margin: 0; padding: 0;
+}
+.mat-mdc-checkbox.mat-mdc-checkbox-disabled {
+  opacity: 0.4;
 }

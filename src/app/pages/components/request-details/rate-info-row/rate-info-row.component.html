@@ -189,7 +189,7 @@
 
         <div class="paths" *ngFor="let item of rate?.values">
           <div>{{item.kind.name}}</div>
-          <div style="flex-grow: 1;">{{item.arrival_city.name}}-{{item.departure_city.name}}</div>
+          <div style="flex-grow: 1;">{{item.arrival_city?.name}}-{{item.departure_city?.name}}</div>
           <div>{{item.days_min}}-{{item.days_max}}</div>
           <div style="flex-grow: 2;">{{item?.comment}}</div>
           <div>{{item.amount}}</div>

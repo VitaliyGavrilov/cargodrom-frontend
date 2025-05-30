@@ -1,0 +1,16 @@
+.form-block input[type="text"], input[type="number"],.form-block select, .form-block textarea { 
+  font-family: 'regular', 'arial', 'sans-serif'; 
+  background: #F7F9FC; 
+  border: 1px solid #E0E5EB; 
+  color: #2C3640; 
+  font-size: 15px; line-height: 15px; 
+  border-radius: 6px; 
+  height: 40px; width: 100%; 
+  box-sizing: border-box;
+  padding: 11.5px 13px; margin: 0;
+}
+.form-block input[type="text"][readonly],input[type="number"][readonly], .form-block select[readonly], .form-block textarea[readonly] { background: transparent; border: 1px dashed #C3CCD6; color: #2C3640; }
+.form-block input[type="text"]::placeholder,input[type="number"]::placeholder { color: #606A74; }
+.form-block .form-row.bg input[type="text"] { background: #fff; }
+.form-block .form-row.bg input[type="text"][readonly] { background: #EDF2F7; }
+.form-block .form-row.bg textarea { background: #fff; resize: none; }
