@@ -5,13 +5,18 @@
   .title {
     background-color: #4b66ad;
     color: white;
-    padding: 5px 15px;
+    padding: 15px 15px 10px;
+    font-weight: bold;
+    font-size: 13px;
+  
   }
   .currencys {
     margin: 0 15px;
     .subtitle {
       display: flex;
+      align-items: baseline;
       margin-bottom: 5px;
+      padding-bottom: 1px;
       border-bottom: 1px solid #4b66ad;
       font-weight: bold;
       .text {
@@ -27,17 +32,18 @@
       }
       .link::after {
         content: "";
-        margin-left: auto;
-        width: 20px;
-        height: 20px;
+        margin-left: 5px;
+        width: 18px;
+        height: 18px;
         background-image: url("../../../../assets/globe.svg");
       }
     }
     .currencys-list {
       display: flex;
-      gap: 15px;
+      // gap: 15px;
       .currency {
         display: flex;
+        min-width: 71px;
         flex-direction: column;
         gap: 5px;
         .name {
@@ -48,6 +54,7 @@
         }
         .value {
           color: #2c3640;
+          font-weight: bold;
         }
       }
     }
@@ -56,3 +63,4 @@
     margin-bottom: 15px;
   }
 }
+

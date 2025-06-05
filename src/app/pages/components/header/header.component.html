@@ -118,11 +118,16 @@
     
     <span class="div"></span>
     
-    <ng-container *ngFor="let cur of currencyList.current" >
-      <app-currency [matMenuTriggerFor]="animals" style="cursor: pointer;" *ngIf="cur.currency" [name]="cur.code" [code]="cur.char" [rate]="cur.currency"></app-currency>
-    </ng-container>
+    <div class="triger" [matMenuTriggerFor]="animals" (click)="getCurrency()">
+      <ng-container *ngFor="let cur of currencyList.current" >
+        <app-currency  style="cursor: pointer; display: flex;" *ngIf="cur.currency" [name]="cur.code" [code]="cur.char" [rate]="cur.currency"></app-currency>
+      </ng-container>
+    </div>
+   
+    
+    
 
-    <mat-menu  style="display: none;" class="no-pading-content" #animals="matMenu">
+    <mat-menu style="display: none;" class="currencys-popap-menu" #animals="matMenu" panelClass="ssss">
       <div class="currencys-popap">
       <div class="title">{{currencyList.summary?.title}}</div>
       <div class="currencys" *ngFor="let row of currencyList.summary?.rows">

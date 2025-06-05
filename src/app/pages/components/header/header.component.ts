@@ -1,6 +1,6 @@
 import { Component, OnInit, TemplateRef, ViewChild } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
-import { Subject, takeUntil, tap } from 'rxjs';
+import { interval, startWith, Subject, switchMap, takeUntil, tap } from 'rxjs';
 import { SystemService } from 'src/app/api/services';
 
 @Component({
@@ -23,7 +23,7 @@ export class HeaderComponent implements OnInit {
   ) { }
 
   ngOnInit(): void {
-    this.getCurrency();
+    this.updateCurrency();
   }
   // openDialog() {
   //   // this.matDialog.open(this.currencyDialog);
@@ -34,19 +34,37 @@ export class HeaderComponent implements OnInit {
   // }
 
   getCurrency(){
-      this.systemService.systemCurrency().pipe(
-        tap((currencyList) => {
-        }),
-        takeUntil(this._destroy$)
-      ).subscribe({
-        next: (currencyList) => {
-          this.currencyList=currencyList;
-        },
-        error: (err) => {
-          console.log('ошибка получения валют в хеадере');
+    this.systemService.systemCurrency().pipe(
+      tap((currencyList) => {
+      }),
+      takeUntil(this._destroy$)
+    ).subscribe({
+      next: (currencyList) => {
+        console.log('currencyList',currencyList);
+        
+        this.currencyList=currencyList;
+      },
+      error: (err) => {
+        console.log('ошибка получения валют в хеадере');
+      }
+    });
+  }
 
-        }
-      });
-    }
-
-}
+  updateCurrency() {
+    interval(600000)// Запускаем интервал каждые 10 минут (600000 миллисекунд)
+    .pipe(
+      startWith(0), // Начинаем сразу с первого вызова
+      switchMap(() => this.systemService.systemCurrency()), // Отменяем предыдущий запрос и делаем новый
+      takeUntil(this._destroy$)
+    )
+    .subscribe({
+      next: (currencyList) => {
+        console.log('currencyList', currencyList);
+        this.currencyList = currencyList;
+      },
+      error: (err) => {
+        console.log('Ошибка получения валют в хеадере', err);
+      }
+    });
+  }
+} 

@@ -8,8 +8,9 @@
     height: 15px; 
     background-image: url(../../../../assets/pic-btn-calendar.svg);
     background-repeat: no-repeat;
+    background-position: center;
     position: absolute; 
-    top:15px; 
+    bottom: 11.5px; 
     right: 20px;
     cursor: pointer;
   }
@@ -33,6 +34,6 @@ button.add-event{
   color: white;
 }
 
-.form-block table .column input{
-    padding: 11px 8px 9px;
-}
+// .form-block table .column input{
+//     padding: 11px 8px 9px;
+// }

@@ -161,15 +161,15 @@
         <ng-template [ngSwitchCase]="'checked'">
           <th mat-header-cell *matHeaderCellDef [style.width]="'64px'">
             <div class="td-block">
-              <label class="checkbox-label">
+              
                 <mat-checkbox class="testclass"
                   [checked]="isKpCheckboxHeaderTableChecked()"
                   (change)="onKpCheckboxHeaderTableChange($event)"
                   [indeterminate]="isKpCheckboxHeaderTableIndeterminate()"
-                  [ngClass]="isKpCheckboxHeaderTableIndeterminate()?'mat-mdc-checkbox-indeterminate':''"
+                  
                 >
                 </mat-checkbox>
-              </label>
+              
 
             </div>
           </th>
