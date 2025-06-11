@@ -92,6 +92,11 @@ export class RateAddCustoms implements OnInit, OnDestroy {
     });
   }
 
+  get requestChar(){
+    const i = this.currencyList.find((r:any) => r.id === this.rateForm.value.currency);
+    return i?.char?i.char:'?';
+  }
+  
   setContractorName(contractor_id:number) {
     const contractor = this.contractorList.find((r:any) => r.id === contractor_id);
     this.rateForm.patchValue({

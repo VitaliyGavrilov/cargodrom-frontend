@@ -273,10 +273,17 @@ export class RateAddPoint implements OnInit, OnDestroy {
     ).subscribe({
       next: (currencyList) => {
         this.currencyList=currencyList.current;
+        console.log(currencyList);
+        
       },
       error: (err) => {
         this.snackBar.open(`Ошибка получения валют: ` + err.error.error_message, undefined, this.snackBarWithShortDuration);
       }
     });
+  }
+
+  get requestChar(){
+    const i = this.currencyList.find((r:any) => r.id === this.rateForm.value.currency);
+    return i?.char?i.char:'?';
   }
 }

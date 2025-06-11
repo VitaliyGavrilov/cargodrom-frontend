@@ -91,13 +91,13 @@
   margin-top: 20px;
   align-items: baseline;
   .unit.l{
-    width: 135px;
+    min-width: 135px;
   }
   .unit.m{
-    width: 120px;
+    min-width: 120px;
   }
   .unit.s{
-    width: 90px;
+    min-width: 90px;
   }
   .unit input{
     width: 75px;

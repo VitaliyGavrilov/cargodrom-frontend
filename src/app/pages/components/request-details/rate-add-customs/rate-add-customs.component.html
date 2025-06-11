@@ -163,11 +163,11 @@
                   </label>
 
                   <span class="unit" [style]="!chargeModel.field_min? 'z-index: -1;':''">
-                    Min $: <input type="number" formControlName="min" (ngModelChange)="calckChargeCost(chargeValue)" [readonly]="!chargeModel.field_min">
+                    Min {{requestChar}}: <input type="number" formControlName="min" (ngModelChange)="calckChargeCost(chargeValue)" [readonly]="!chargeModel.field_min">
                   </span>
 
                   <span class="unit l" *ngIf="!chargeModel.field_comment && chargeModel.unit">
-                    <input type="number" formControlName="price" (ngModelChange)="calckChargeCost(chargeValue)" >$/{{chargeModel.unit}}
+                    <input type="number" formControlName="price" (ngModelChange)="calckChargeCost(chargeValue)" >{{requestChar}}/{{chargeModel.unit}}
                   </span>
 
                   <div class="cross" *ngIf="!chargeModel.field_comment && chargeModel.unit"></div>
@@ -181,7 +181,7 @@
                   <span class="comment" *ngIf="chargeModel.field_comment"><input type="text" formControlName="comment"></span>
 
                   <span class="unit s">
-                    <input type="number" formControlName="cost" [readonly]="!chargeModel.field_comment && chargeModel.unit!==''" (ngModelChange)="chargeModel.field_comment?calckCommentChargePrice(chargeValue):calckRateCost()">$
+                    <input type="number" formControlName="cost" [readonly]="!chargeModel.field_comment && chargeModel.unit!==''" (ngModelChange)="chargeModel.field_comment?calckCommentChargePrice(chargeValue):calckRateCost()">{{requestChar}}
                   </span>
                 </ng-container>
 
@@ -255,11 +255,11 @@
           <div class="total-detail" *ngIf="rateForm.value.rate_type==='detail'">
             <div class="">Total:</div>
             <div class="color-red">{{rateForm.value.total_cost}}</div>
-            <div class="color-red">$</div>
+            <div class="color-red">{{requestChar}}</div>
           </div>
 
           <div class="total-nodetail" *ngIf="rateForm.value.rate_type==='nodetail'">
-            <div>Total, USD:</div>
+            <div>Total, {{requestChar}}:</div>
             <input type="number" class="total-cost" formControlName="total_cost">
           </div>
 

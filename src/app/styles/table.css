@@ -8,8 +8,8 @@
   flex-wrap: wrap;
 }
 
-tbody tr td.light-green{
-  background: #e4ffe3;
+.table-list table tbody tr td.light-green{
+  background: #e4ffe3 !important;
 }
 /* statuses in order-table */
 .table-list .td-block .column.status{ padding: 0;}

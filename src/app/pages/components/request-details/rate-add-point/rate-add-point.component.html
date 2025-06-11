@@ -111,7 +111,7 @@
                   {{chargeModel.title}}
                 </label>
                 <span class="unit l" *ngIf="!chargeModel.field_comment">
-                  <input type="number" formControlName="price" (ngModelChange)="calckChargeCost(chargeValue)" >$/{{chargeModel.unit}}
+                  <input type="number" formControlName="price" (ngModelChange)="calckChargeCost(chargeValue)" >{{requestChar}}/{{chargeModel.unit}}
                 </span>
                 <div class="cross" *ngIf="!chargeModel.field_comment"></div>
                 <span class="unit m" *ngIf="!chargeModel.field_comment">
@@ -120,7 +120,7 @@
                 <div class="equal" *ngIf="!chargeModel.field_comment">═</div>
                 <span class="comment" *ngIf="chargeModel.field_comment"><input type="text" formControlName="comment"></span>
                 <span class="unit s">
-                  <input type="number" formControlName="cost" [readonly]="!chargeModel.field_comment" (ngModelChange)="chargeModel.field_comment?calckCommentChargePrice(chargeValue):calckRateCost()">$
+                  <input type="number" formControlName="cost" [readonly]="!chargeModel.field_comment" (ngModelChange)="chargeModel.field_comment?calckCommentChargePrice(chargeValue):calckRateCost()">{{requestChar}}
                 </span>
               </ng-template>
             </div>
@@ -162,7 +162,7 @@
 
     <div class="form-row" >
       <div class="form-item" style="margin-bottom: 20px; width: 100px;">
-        <div class="form-label">Сумма:</div>
+        <div class="form-label">Сумма {{requestChar!='?'?', '+requestChar:''}}:</div>
         <div class="form-data">
           <input type="number" formControlName="cost" readonly>
         </div>
