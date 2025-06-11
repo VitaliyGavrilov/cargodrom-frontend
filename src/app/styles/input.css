@@ -9,6 +9,10 @@
   box-sizing: border-box;
   padding: 11.5px 13px; margin: 0;
 }
+.form-block textarea {
+  min-height: fit-content;
+}
+
 .form-block input[type="text"][readonly],input[type="number"][readonly], .form-block select[readonly], .form-block textarea[readonly] { background: transparent; border: 1px dashed #C3CCD6; color: #2C3640; }
 .form-block input[type="text"]::placeholder,input[type="number"]::placeholder { color: #606A74; }
 .form-block .form-row.bg input[type="text"] { background: #fff; }

@@ -264,7 +264,7 @@
       >
         ТОРГИ
       </button>
-      <button *ngIf="(detailsMethod!=='final' && currentRequest.tabs?.length==1) || (currentRequest.tabs?.length>1 && (detailsMethod=='customs'||detailsMethod=='final' ) ) " class="add kp" (click)="onAddKpBtnClick()">
+      <button *ngIf="arrDetailsCheckedCheck.length!==0 && ((detailsMethod!=='final' && currentRequest.tabs?.length==1) || (currentRequest.tabs?.length>1 && (detailsMethod=='customs'||detailsMethod=='final' ) ) )" class="add kp" (click)="onAddKpBtnClick()">
         <span style="text-wrap: nowrap" >+ КП</span>
       </button>
 
@@ -319,7 +319,7 @@
         </th>
 
         <!-- <td mat-cell *matCellDef="let item" [style.width]="col.width" [class]="col.class"> -->
-        <td mat-cell *matCellDef="let item;let i=index" [class]="col.class" [style.minWidth]="col.width">
+        <td mat-cell *matCellDef="let item;let i=index" [class]="col.class" [style.minWidth]="col.width" [class]="'light-green'">
           <div class="td-block" >
             <div class="column"
               *ngFor="let miniCol of col.items;let miniColIndex=index"

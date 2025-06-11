@@ -7,3 +7,19 @@
   gap: 6px;
   flex-wrap: wrap;
 }
+
+tbody tr td.light-green{
+  background: #e4ffe3;
+}
+/* statuses in order-table */
+.table-list .td-block .column.status{ padding: 0;}
+.status .col-content{width: 30px; height: 30px; background-size: contain; background-repeat: no-repeat; background-position: center; margin: 0 auto;}
+.icon-status-1 .col-content{ background-image: url(../../assets/pic_cargo-status/1_departure_storage.svg) }
+.icon-status-2 .col-content{ background-image: url(../../assets/pic_cargo-status/2_transport_to_point.svg) }
+.icon-status-3 .col-content{ background-image: url(../../assets/pic_cargo-status/3_at_point.svg) }
+.icon-status-4 .col-content{ background-image: url(../../assets/pic_cargo-status/4_custom.svg) }
+.icon-status-5 .col-content{ background-image: url(../../assets/pic_cargo-status/5_transport.svg) }
+.icon-status-6 .col-content{ background-image: url(../../assets/pic_cargo-status/6_at_arrival_point.svg) }
+.icon-status-7 .col-content{ background-image: url(../../assets/pic_cargo-status/7_custom_import.svg) }
+.icon-status-8 .col-content{ background-image: url(../../assets/pic_cargo-status/8_delivery.svg) }
+.icon-status-9 .col-content{ background-image: url(../../assets/pic_cargo-status/9_delivered.svg) }
