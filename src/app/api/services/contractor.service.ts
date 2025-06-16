@@ -444,6 +444,11 @@ export class ContractorService extends BaseService {
 'contact_info'?: string;
 
 /**
+ * Контактная информация для таблицы
+ */
+'contact_info_tbl'?: string;
+
+/**
  * Специализация
  */
 'specialization'?: Array<string>;
@@ -841,6 +846,11 @@ export class ContractorService extends BaseService {
          * Контактная информация
          */
         'contact_info'?: string;
+        
+        /**
+         * Контактная информация для таблицы
+         */
+        'contact_info_tbl'?: string;
         
         /**
          * Специализация
@@ -1302,6 +1312,11 @@ export class ContractorService extends BaseService {
 'contact_info'?: string;
 
 /**
+ * Контактная информация для таблицы
+ */
+'contact_info_tbl'?: string;
+
+/**
  * Специализация
  */
 'specialization'?: Array<string>;
@@ -1683,6 +1698,11 @@ export class ContractorService extends BaseService {
 'contact_info'?: string;
 
 /**
+ * Контактная информация для таблицы
+ */
+'contact_info_tbl'?: string;
+
+/**
  * Специализация
  */
 'specialization'?: Array<string>;
@@ -2060,6 +2080,11 @@ export class ContractorService extends BaseService {
  * Контактная информация
  */
 'contact_info'?: string;
+
+/**
+ * Контактная информация для таблицы
+ */
+'contact_info_tbl'?: string;
 
 /**
  * Специализация
@@ -3414,6 +3439,11 @@ export class ContractorService extends BaseService {
 'contact_info'?: string;
 
 /**
+ * Контактная информация для таблицы
+ */
+'contact_info_tbl'?: string;
+
+/**
  * Специализация
  */
 'specialization'?: Array<string>;
@@ -3791,6 +3821,11 @@ export class ContractorService extends BaseService {
          * Контактная информация
          */
         'contact_info'?: string;
+        
+        /**
+         * Контактная информация для таблицы
+         */
+        'contact_info_tbl'?: string;
         
         /**
          * Специализация
@@ -4185,6 +4220,11 @@ export class ContractorService extends BaseService {
 'contact_info'?: string;
 
 /**
+ * Контактная информация для таблицы
+ */
+'contact_info_tbl'?: string;
+
+/**
  * Специализация
  */
 'specialization'?: Array<string>;
@@ -4555,6 +4595,11 @@ export class ContractorService extends BaseService {
 'contact_info'?: string;
 
 /**
+ * Контактная информация для таблицы
+ */
+'contact_info_tbl'?: string;
+
+/**
  * Специализация
  */
 'specialization'?: Array<string>;
@@ -4921,6 +4966,11 @@ export class ContractorService extends BaseService {
  * Контактная информация
  */
 'contact_info'?: string;
+
+/**
+ * Контактная информация для таблицы
+ */
+'contact_info_tbl'?: string;
 
 /**
  * Специализация

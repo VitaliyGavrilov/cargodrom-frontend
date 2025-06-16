@@ -625,6 +625,16 @@ export class RequestService extends BaseService {
  * Вкладки
  */
 'tabs': Array<string>;
+
+/**
+ * Класс строки
+ */
+'row_class'?: string;
+
+/**
+ * Класс ячейки
+ */
+'cell_class'?: string;
 }>;
 }>> {
     const rb = new RequestBuilder(this.rootUrl, RequestService.RequestListPath, 'get');
@@ -1148,6 +1158,16 @@ export class RequestService extends BaseService {
          * Вкладки
          */
         'tabs': Array<string>;
+        
+        /**
+         * Класс строки
+         */
+        'row_class'?: string;
+        
+        /**
+         * Класс ячейки
+         */
+        'cell_class'?: string;
         }>;
         }>;
       })
@@ -1755,6 +1775,16 @@ export class RequestService extends BaseService {
  * Вкладки
  */
 'tabs': Array<string>;
+
+/**
+ * Класс строки
+ */
+'row_class'?: string;
+
+/**
+ * Класс ячейки
+ */
+'cell_class'?: string;
 }>;
 }> {
     return this.requestList$Response(params, context).pipe(
@@ -2254,6 +2284,16 @@ export class RequestService extends BaseService {
  * Вкладки
  */
 'tabs': Array<string>;
+
+/**
+ * Класс строки
+ */
+'row_class'?: string;
+
+/**
+ * Класс ячейки
+ */
+'cell_class'?: string;
 }>;
 }>): {
 
@@ -2751,6 +2791,16 @@ export class RequestService extends BaseService {
  * Вкладки
  */
 'tabs': Array<string>;
+
+/**
+ * Класс строки
+ */
+'row_class'?: string;
+
+/**
+ * Класс ячейки
+ */
+'cell_class'?: string;
 }>;
 } => r.body)
     );
@@ -4223,6 +4273,16 @@ export class RequestService extends BaseService {
 'tabs': Array<string>;
 
 /**
+ * Класс строки
+ */
+'row_class'?: string;
+
+/**
+ * Класс ячейки
+ */
+'cell_class'?: string;
+
+/**
  * Документы (файлы)
  */
 'documents_file'?: {
@@ -4724,6 +4784,16 @@ export class RequestService extends BaseService {
          * Вкладки
          */
         'tabs': Array<string>;
+        
+        /**
+         * Класс строки
+         */
+        'row_class'?: string;
+        
+        /**
+         * Класс ячейки
+         */
+        'cell_class'?: string;
         
         /**
          * Документы (файлы)
@@ -5242,6 +5312,16 @@ export class RequestService extends BaseService {
 'tabs': Array<string>;
 
 /**
+ * Класс строки
+ */
+'row_class'?: string;
+
+/**
+ * Класс ячейки
+ */
+'cell_class'?: string;
+
+/**
  * Документы (файлы)
  */
 'documents_file'?: {
@@ -5736,6 +5816,16 @@ export class RequestService extends BaseService {
 'tabs': Array<string>;
 
 /**
+ * Класс строки
+ */
+'row_class'?: string;
+
+/**
+ * Класс ячейки
+ */
+'cell_class'?: string;
+
+/**
  * Документы (файлы)
  */
 'documents_file'?: {
@@ -6226,6 +6316,16 @@ export class RequestService extends BaseService {
  * Вкладки
  */
 'tabs': Array<string>;
+
+/**
+ * Класс строки
+ */
+'row_class'?: string;
+
+/**
+ * Класс ячейки
+ */
+'cell_class'?: string;
 
 /**
  * Документы (файлы)
@@ -20399,6 +20499,18 @@ export class RequestService extends BaseService {
 };
 
 /**
+ * Город отправки
+ */
+'departure_city': {
+};
+
+/**
+ * Город прибытия
+ */
+'arrival_city': {
+};
+
+/**
  * Вид рейса
  */
 'point_action_id': number;
@@ -20729,6 +20841,18 @@ export class RequestService extends BaseService {
          * Адрес
          */
         'address'?: string;
+        };
+        
+        /**
+         * Город отправки
+         */
+        'departure_city': {
+        };
+        
+        /**
+         * Город прибытия
+         */
+        'arrival_city': {
         };
         
         /**
@@ -21113,6 +21237,18 @@ export class RequestService extends BaseService {
 };
 
 /**
+ * Город отправки
+ */
+'departure_city': {
+};
+
+/**
+ * Город прибытия
+ */
+'arrival_city': {
+};
+
+/**
  * Вид рейса
  */
 'point_action_id': number;
@@ -21431,6 +21567,18 @@ export class RequestService extends BaseService {
 };
 
 /**
+ * Город отправки
+ */
+'departure_city': {
+};
+
+/**
+ * Город прибытия
+ */
+'arrival_city': {
+};
+
+/**
  * Вид рейса
  */
 'point_action_id': number;
@@ -21744,6 +21892,18 @@ export class RequestService extends BaseService {
  * Адрес
  */
 'address'?: string;
+};
+
+/**
+ * Город отправки
+ */
+'departure_city': {
+};
+
+/**
+ * Город прибытия
+ */
+'arrival_city': {
 };
 
 /**
@@ -22192,6 +22352,11 @@ export class RequestService extends BaseService {
       request_id: number;
 
     /**
+     * Коммерческое
+     */
+      offer?: number;
+
+    /**
      * Подрядчики (ID берем из запроса - contractor_list)
      */
       contractor?: number;
@@ -22315,6 +22480,16 @@ export class RequestService extends BaseService {
 'customs_rate': string;
 
 /**
+ * Итого: Перевозка
+ */
+'delivery_rate': string;
+
+/**
+ * Итого: СВХ
+ */
+'svh_rate': string;
+
+/**
  * Итого: Локальные
  */
 'local_rate': string;
@@ -22358,11 +22533,22 @@ export class RequestService extends BaseService {
  * В коммерческом предложении
  */
 'offer'?: boolean;
+
+/**
+ * Класс строки
+ */
+'row_class'?: string;
+
+/**
+ * Класс ячейки
+ */
+'cell_class'?: string;
 }>;
 }>> {
     const rb = new RequestBuilder(this.rootUrl, RequestService.RequestRateFinalListPath, 'get');
     if (params) {
       rb.query('request_id', params.request_id, {});
+      rb.query('offer', params.offer, {});
       rb.query('contractor', params.contractor, {});
       rb.query('carrier', params.carrier, {"style":"form","explode":false});
       rb.query('departure_flight', params.departure_flight, {});
@@ -22450,6 +22636,16 @@ export class RequestService extends BaseService {
         'customs_rate': string;
         
         /**
+         * Итого: Перевозка
+         */
+        'delivery_rate': string;
+        
+        /**
+         * Итого: СВХ
+         */
+        'svh_rate': string;
+        
+        /**
          * Итого: Локальные
          */
         'local_rate': string;
@@ -22493,6 +22689,16 @@ export class RequestService extends BaseService {
          * В коммерческом предложении
          */
         'offer'?: boolean;
+        
+        /**
+         * Класс строки
+         */
+        'row_class'?: string;
+        
+        /**
+         * Класс ячейки
+         */
+        'cell_class'?: string;
         }>;
         }>;
       })
@@ -22516,6 +22722,11 @@ export class RequestService extends BaseService {
      * ID Запроса
      */
       request_id: number;
+
+    /**
+     * Коммерческое
+     */
+      offer?: number;
 
     /**
      * Подрядчики (ID берем из запроса - contractor_list)
@@ -22641,6 +22852,16 @@ export class RequestService extends BaseService {
 'customs_rate': string;
 
 /**
+ * Итого: Перевозка
+ */
+'delivery_rate': string;
+
+/**
+ * Итого: СВХ
+ */
+'svh_rate': string;
+
+/**
  * Итого: Локальные
  */
 'local_rate': string;
@@ -22684,6 +22905,16 @@ export class RequestService extends BaseService {
  * В коммерческом предложении
  */
 'offer'?: boolean;
+
+/**
+ * Класс строки
+ */
+'row_class'?: string;
+
+/**
+ * Класс ячейки
+ */
+'cell_class'?: string;
 }>;
 }> {
     return this.requestRateFinalList$Response(params, context).pipe(
@@ -22759,6 +22990,16 @@ export class RequestService extends BaseService {
 'customs_rate': string;
 
 /**
+ * Итого: Перевозка
+ */
+'delivery_rate': string;
+
+/**
+ * Итого: СВХ
+ */
+'svh_rate': string;
+
+/**
  * Итого: Локальные
  */
 'local_rate': string;
@@ -22802,6 +23043,16 @@ export class RequestService extends BaseService {
  * В коммерческом предложении
  */
 'offer'?: boolean;
+
+/**
+ * Класс строки
+ */
+'row_class'?: string;
+
+/**
+ * Класс ячейки
+ */
+'cell_class'?: string;
 }>;
 }>): {
 
@@ -22875,6 +23126,16 @@ export class RequestService extends BaseService {
 'customs_rate': string;
 
 /**
+ * Итого: Перевозка
+ */
+'delivery_rate': string;
+
+/**
+ * Итого: СВХ
+ */
+'svh_rate': string;
+
+/**
  * Итого: Локальные
  */
 'local_rate': string;
@@ -22918,6 +23179,16 @@ export class RequestService extends BaseService {
  * В коммерческом предложении
  */
 'offer'?: boolean;
+
+/**
+ * Класс строки
+ */
+'row_class'?: string;
+
+/**
+ * Класс ячейки
+ */
+'cell_class'?: string;
 }>;
 } => r.body)
     );

@@ -1239,22 +1239,27 @@ export class OrderService extends BaseService {
 /**
  * Номер документа ТС
  */
-'doc_tc_number': string;
+'doc_tc_number'?: string;
 
 /**
  * Track ТС
  */
-'track_tc': string;
+'track_tc'?: string;
 
 /**
  * Track СВХ
  */
-'track_svh': string;
+'track_svh'?: string;
 
 /**
  * TT
  */
-'tt': string;
+'tt'?: string;
+
+/**
+ * Комментарий
+ */
+'comment'?: string;
 
 /**
  * События
@@ -1264,12 +1269,17 @@ export class OrderService extends BaseService {
 /**
  * Текст события
  */
-'text': string;
+'text'?: string;
 
 /**
  * Дата события
  */
-'date': string;
+'date'?: string;
+
+/**
+ * Дата события кратко
+ */
+'date_short'?: string;
 }>;
 
 /**
@@ -1280,17 +1290,17 @@ export class OrderService extends BaseService {
 /**
  * ID статуса
  */
-'status_id': number;
+'status_id'?: number;
 
 /**
  * Планируемая дата статуса
  */
-'scheduled_date': string;
+'scheduled_date'?: string;
 
 /**
  * Фактическая дата статуса
  */
-'done_date': string;
+'done_date'?: string;
 
 /**
  * Дата для таблицы
@@ -1314,14 +1324,10 @@ export class OrderService extends BaseService {
 'cargo_status': string;
 
 /**
- * Дата следующего планируемого события
+ * Следующее планируемое события
  */
-'schedule_event_date': string;
-
-/**
- * Следующее планируемое событие
- */
-'schedule_event_text': string;
+'next_events': {
+};
 
 /**
  * Дата создания
@@ -1332,6 +1338,56 @@ export class OrderService extends BaseService {
  * Статус заказа
  */
 'status': number;
+
+/**
+ * Наименование заказчика
+ */
+'customer_name': string;
+
+/**
+ * Наименование контрагента
+ */
+'contractor_name': string;
+
+/**
+ * Наименование страны отправления
+ */
+'departure_country_name': string;
+
+/**
+ * Наименование города отправления
+ */
+'departure_city_name': string;
+
+/**
+ * Наименование пункта отправления
+ */
+'departure_point_name': string;
+
+/**
+ * Откуда
+ */
+'departure_text': string;
+
+/**
+ * Наименование страны прибытия
+ */
+'arrival_country_name': string;
+
+/**
+ * Наименование города прибытия
+ */
+'arrival_city_name': string;
+
+/**
+ * Наименование пункта прибытия
+ */
+'arrival_point_name': string;
+
+/**
+ * Откуда
+ */
+'arrival_text': string;
 }>;
 }>> {
     const rb = new RequestBuilder(this.rootUrl, OrderService.OrderListPath, 'get');
@@ -1428,22 +1484,27 @@ export class OrderService extends BaseService {
         /**
          * Номер документа ТС
          */
-        'doc_tc_number': string;
+        'doc_tc_number'?: string;
         
         /**
          * Track ТС
          */
-        'track_tc': string;
+        'track_tc'?: string;
         
         /**
          * Track СВХ
          */
-        'track_svh': string;
+        'track_svh'?: string;
         
         /**
          * TT
          */
-        'tt': string;
+        'tt'?: string;
+        
+        /**
+         * Комментарий
+         */
+        'comment'?: string;
         
         /**
          * События
@@ -1453,12 +1514,17 @@ export class OrderService extends BaseService {
         /**
          * Текст события
          */
-        'text': string;
+        'text'?: string;
         
         /**
          * Дата события
          */
-        'date': string;
+        'date'?: string;
+        
+        /**
+         * Дата события кратко
+         */
+        'date_short'?: string;
         }>;
         
         /**
@@ -1469,17 +1535,17 @@ export class OrderService extends BaseService {
         /**
          * ID статуса
          */
-        'status_id': number;
+        'status_id'?: number;
         
         /**
          * Планируемая дата статуса
          */
-        'scheduled_date': string;
+        'scheduled_date'?: string;
         
         /**
          * Фактическая дата статуса
          */
-        'done_date': string;
+        'done_date'?: string;
         
         /**
          * Дата для таблицы
@@ -1503,14 +1569,10 @@ export class OrderService extends BaseService {
         'cargo_status': string;
         
         /**
-         * Дата следующего планируемого события
+         * Следующее планируемое события
          */
-        'schedule_event_date': string;
-        
-        /**
-         * Следующее планируемое событие
-         */
-        'schedule_event_text': string;
+        'next_events': {
+        };
         
         /**
          * Дата создания
@@ -1521,6 +1583,56 @@ export class OrderService extends BaseService {
          * Статус заказа
          */
         'status': number;
+        
+        /**
+         * Наименование заказчика
+         */
+        'customer_name': string;
+        
+        /**
+         * Наименование контрагента
+         */
+        'contractor_name': string;
+        
+        /**
+         * Наименование страны отправления
+         */
+        'departure_country_name': string;
+        
+        /**
+         * Наименование города отправления
+         */
+        'departure_city_name': string;
+        
+        /**
+         * Наименование пункта отправления
+         */
+        'departure_point_name': string;
+        
+        /**
+         * Откуда
+         */
+        'departure_text': string;
+        
+        /**
+         * Наименование страны прибытия
+         */
+        'arrival_country_name': string;
+        
+        /**
+         * Наименование города прибытия
+         */
+        'arrival_city_name': string;
+        
+        /**
+         * Наименование пункта прибытия
+         */
+        'arrival_point_name': string;
+        
+        /**
+         * Откуда
+         */
+        'arrival_text': string;
         }>;
         }>;
       })
@@ -1657,22 +1769,27 @@ export class OrderService extends BaseService {
 /**
  * Номер документа ТС
  */
-'doc_tc_number': string;
+'doc_tc_number'?: string;
 
 /**
  * Track ТС
  */
-'track_tc': string;
+'track_tc'?: string;
 
 /**
  * Track СВХ
  */
-'track_svh': string;
+'track_svh'?: string;
 
 /**
  * TT
  */
-'tt': string;
+'tt'?: string;
+
+/**
+ * Комментарий
+ */
+'comment'?: string;
 
 /**
  * События
@@ -1682,12 +1799,17 @@ export class OrderService extends BaseService {
 /**
  * Текст события
  */
-'text': string;
+'text'?: string;
 
 /**
  * Дата события
  */
-'date': string;
+'date'?: string;
+
+/**
+ * Дата события кратко
+ */
+'date_short'?: string;
 }>;
 
 /**
@@ -1698,17 +1820,17 @@ export class OrderService extends BaseService {
 /**
  * ID статуса
  */
-'status_id': number;
+'status_id'?: number;
 
 /**
  * Планируемая дата статуса
  */
-'scheduled_date': string;
+'scheduled_date'?: string;
 
 /**
  * Фактическая дата статуса
  */
-'done_date': string;
+'done_date'?: string;
 
 /**
  * Дата для таблицы
@@ -1732,14 +1854,10 @@ export class OrderService extends BaseService {
 'cargo_status': string;
 
 /**
- * Дата следующего планируемого события
+ * Следующее планируемое события
  */
-'schedule_event_date': string;
-
-/**
- * Следующее планируемое событие
- */
-'schedule_event_text': string;
+'next_events': {
+};
 
 /**
  * Дата создания
@@ -1750,6 +1868,56 @@ export class OrderService extends BaseService {
  * Статус заказа
  */
 'status': number;
+
+/**
+ * Наименование заказчика
+ */
+'customer_name': string;
+
+/**
+ * Наименование контрагента
+ */
+'contractor_name': string;
+
+/**
+ * Наименование страны отправления
+ */
+'departure_country_name': string;
+
+/**
+ * Наименование города отправления
+ */
+'departure_city_name': string;
+
+/**
+ * Наименование пункта отправления
+ */
+'departure_point_name': string;
+
+/**
+ * Откуда
+ */
+'departure_text': string;
+
+/**
+ * Наименование страны прибытия
+ */
+'arrival_country_name': string;
+
+/**
+ * Наименование города прибытия
+ */
+'arrival_city_name': string;
+
+/**
+ * Наименование пункта прибытия
+ */
+'arrival_point_name': string;
+
+/**
+ * Откуда
+ */
+'arrival_text': string;
 }>;
 }> {
     return this.orderList$Response(params, context).pipe(
@@ -1833,22 +2001,27 @@ export class OrderService extends BaseService {
 /**
  * Номер документа ТС
  */
-'doc_tc_number': string;
+'doc_tc_number'?: string;
 
 /**
  * Track ТС
  */
-'track_tc': string;
+'track_tc'?: string;
 
 /**
  * Track СВХ
  */
-'track_svh': string;
+'track_svh'?: string;
 
 /**
  * TT
  */
-'tt': string;
+'tt'?: string;
+
+/**
+ * Комментарий
+ */
+'comment'?: string;
 
 /**
  * События
@@ -1858,12 +2031,17 @@ export class OrderService extends BaseService {
 /**
  * Текст события
  */
-'text': string;
+'text'?: string;
 
 /**
  * Дата события
  */
-'date': string;
+'date'?: string;
+
+/**
+ * Дата события кратко
+ */
+'date_short'?: string;
 }>;
 
 /**
@@ -1874,17 +2052,17 @@ export class OrderService extends BaseService {
 /**
  * ID статуса
  */
-'status_id': number;
+'status_id'?: number;
 
 /**
  * Планируемая дата статуса
  */
-'scheduled_date': string;
+'scheduled_date'?: string;
 
 /**
  * Фактическая дата статуса
  */
-'done_date': string;
+'done_date'?: string;
 
 /**
  * Дата для таблицы
@@ -1908,14 +2086,10 @@ export class OrderService extends BaseService {
 'cargo_status': string;
 
 /**
- * Дата следующего планируемого события
+ * Следующее планируемое события
  */
-'schedule_event_date': string;
-
-/**
- * Следующее планируемое событие
- */
-'schedule_event_text': string;
+'next_events': {
+};
 
 /**
  * Дата создания
@@ -1926,6 +2100,56 @@ export class OrderService extends BaseService {
  * Статус заказа
  */
 'status': number;
+
+/**
+ * Наименование заказчика
+ */
+'customer_name': string;
+
+/**
+ * Наименование контрагента
+ */
+'contractor_name': string;
+
+/**
+ * Наименование страны отправления
+ */
+'departure_country_name': string;
+
+/**
+ * Наименование города отправления
+ */
+'departure_city_name': string;
+
+/**
+ * Наименование пункта отправления
+ */
+'departure_point_name': string;
+
+/**
+ * Откуда
+ */
+'departure_text': string;
+
+/**
+ * Наименование страны прибытия
+ */
+'arrival_country_name': string;
+
+/**
+ * Наименование города прибытия
+ */
+'arrival_city_name': string;
+
+/**
+ * Наименование пункта прибытия
+ */
+'arrival_point_name': string;
+
+/**
+ * Откуда
+ */
+'arrival_text': string;
 }>;
 }>): {
 
@@ -2007,22 +2231,27 @@ export class OrderService extends BaseService {
 /**
  * Номер документа ТС
  */
-'doc_tc_number': string;
+'doc_tc_number'?: string;
 
 /**
  * Track ТС
  */
-'track_tc': string;
+'track_tc'?: string;
 
 /**
  * Track СВХ
  */
-'track_svh': string;
+'track_svh'?: string;
 
 /**
  * TT
  */
-'tt': string;
+'tt'?: string;
+
+/**
+ * Комментарий
+ */
+'comment'?: string;
 
 /**
  * События
@@ -2032,12 +2261,17 @@ export class OrderService extends BaseService {
 /**
  * Текст события
  */
-'text': string;
+'text'?: string;
 
 /**
  * Дата события
  */
-'date': string;
+'date'?: string;
+
+/**
+ * Дата события кратко
+ */
+'date_short'?: string;
 }>;
 
 /**
@@ -2048,17 +2282,17 @@ export class OrderService extends BaseService {
 /**
  * ID статуса
  */
-'status_id': number;
+'status_id'?: number;
 
 /**
  * Планируемая дата статуса
  */
-'scheduled_date': string;
+'scheduled_date'?: string;
 
 /**
  * Фактическая дата статуса
  */
-'done_date': string;
+'done_date'?: string;
 
 /**
  * Дата для таблицы
@@ -2082,14 +2316,10 @@ export class OrderService extends BaseService {
 'cargo_status': string;
 
 /**
- * Дата следующего планируемого события
+ * Следующее планируемое события
  */
-'schedule_event_date': string;
-
-/**
- * Следующее планируемое событие
- */
-'schedule_event_text': string;
+'next_events': {
+};
 
 /**
  * Дата создания
@@ -2100,6 +2330,56 @@ export class OrderService extends BaseService {
  * Статус заказа
  */
 'status': number;
+
+/**
+ * Наименование заказчика
+ */
+'customer_name': string;
+
+/**
+ * Наименование контрагента
+ */
+'contractor_name': string;
+
+/**
+ * Наименование страны отправления
+ */
+'departure_country_name': string;
+
+/**
+ * Наименование города отправления
+ */
+'departure_city_name': string;
+
+/**
+ * Наименование пункта отправления
+ */
+'departure_point_name': string;
+
+/**
+ * Откуда
+ */
+'departure_text': string;
+
+/**
+ * Наименование страны прибытия
+ */
+'arrival_country_name': string;
+
+/**
+ * Наименование города прибытия
+ */
+'arrival_city_name': string;
+
+/**
+ * Наименование пункта прибытия
+ */
+'arrival_point_name': string;
+
+/**
+ * Откуда
+ */
+'arrival_text': string;
 }>;
 } => r.body)
     );
@@ -2197,22 +2477,27 @@ export class OrderService extends BaseService {
 /**
  * Номер документа ТС
  */
-'doc_tc_number': string;
+'doc_tc_number'?: string;
 
 /**
  * Track ТС
  */
-'track_tc': string;
+'track_tc'?: string;
 
 /**
  * Track СВХ
  */
-'track_svh': string;
+'track_svh'?: string;
 
 /**
  * TT
  */
-'tt': string;
+'tt'?: string;
+
+/**
+ * Комментарий
+ */
+'comment'?: string;
 
 /**
  * События
@@ -2222,12 +2507,17 @@ export class OrderService extends BaseService {
 /**
  * Текст события
  */
-'text': string;
+'text'?: string;
 
 /**
  * Дата события
  */
-'date': string;
+'date'?: string;
+
+/**
+ * Дата события кратко
+ */
+'date_short'?: string;
 }>;
 
 /**
@@ -2238,17 +2528,17 @@ export class OrderService extends BaseService {
 /**
  * ID статуса
  */
-'status_id': number;
+'status_id'?: number;
 
 /**
  * Планируемая дата статуса
  */
-'scheduled_date': string;
+'scheduled_date'?: string;
 
 /**
  * Фактическая дата статуса
  */
-'done_date': string;
+'done_date'?: string;
 
 /**
  * Дата для таблицы
@@ -2272,14 +2562,10 @@ export class OrderService extends BaseService {
 'cargo_status': string;
 
 /**
- * Дата следующего планируемого события
+ * Следующее планируемое события
  */
-'schedule_event_date': string;
-
-/**
- * Следующее планируемое событие
- */
-'schedule_event_text': string;
+'next_events': {
+};
 
 /**
  * Дата создания
@@ -2290,6 +2576,56 @@ export class OrderService extends BaseService {
  * Статус заказа
  */
 'status': number;
+
+/**
+ * Наименование заказчика
+ */
+'customer_name': string;
+
+/**
+ * Наименование контрагента
+ */
+'contractor_name': string;
+
+/**
+ * Наименование страны отправления
+ */
+'departure_country_name': string;
+
+/**
+ * Наименование города отправления
+ */
+'departure_city_name': string;
+
+/**
+ * Наименование пункта отправления
+ */
+'departure_point_name': string;
+
+/**
+ * Откуда
+ */
+'departure_text': string;
+
+/**
+ * Наименование страны прибытия
+ */
+'arrival_country_name': string;
+
+/**
+ * Наименование города прибытия
+ */
+'arrival_city_name': string;
+
+/**
+ * Наименование пункта прибытия
+ */
+'arrival_point_name': string;
+
+/**
+ * Откуда
+ */
+'arrival_text': string;
 }>> {
     const rb = new RequestBuilder(this.rootUrl, OrderService.OrderInfoPath, 'get');
     if (params) {
@@ -2371,22 +2707,27 @@ export class OrderService extends BaseService {
         /**
          * Номер документа ТС
          */
-        'doc_tc_number': string;
+        'doc_tc_number'?: string;
         
         /**
          * Track ТС
          */
-        'track_tc': string;
+        'track_tc'?: string;
         
         /**
          * Track СВХ
          */
-        'track_svh': string;
+        'track_svh'?: string;
         
         /**
          * TT
          */
-        'tt': string;
+        'tt'?: string;
+        
+        /**
+         * Комментарий
+         */
+        'comment'?: string;
         
         /**
          * События
@@ -2396,12 +2737,17 @@ export class OrderService extends BaseService {
         /**
          * Текст события
          */
-        'text': string;
+        'text'?: string;
         
         /**
          * Дата события
          */
-        'date': string;
+        'date'?: string;
+        
+        /**
+         * Дата события кратко
+         */
+        'date_short'?: string;
         }>;
         
         /**
@@ -2412,17 +2758,17 @@ export class OrderService extends BaseService {
         /**
          * ID статуса
          */
-        'status_id': number;
+        'status_id'?: number;
         
         /**
          * Планируемая дата статуса
          */
-        'scheduled_date': string;
+        'scheduled_date'?: string;
         
         /**
          * Фактическая дата статуса
          */
-        'done_date': string;
+        'done_date'?: string;
         
         /**
          * Дата для таблицы
@@ -2446,14 +2792,10 @@ export class OrderService extends BaseService {
         'cargo_status': string;
         
         /**
-         * Дата следующего планируемого события
+         * Следующее планируемое события
          */
-        'schedule_event_date': string;
-        
-        /**
-         * Следующее планируемое событие
-         */
-        'schedule_event_text': string;
+        'next_events': {
+        };
         
         /**
          * Дата создания
@@ -2464,6 +2806,56 @@ export class OrderService extends BaseService {
          * Статус заказа
          */
         'status': number;
+        
+        /**
+         * Наименование заказчика
+         */
+        'customer_name': string;
+        
+        /**
+         * Наименование контрагента
+         */
+        'contractor_name': string;
+        
+        /**
+         * Наименование страны отправления
+         */
+        'departure_country_name': string;
+        
+        /**
+         * Наименование города отправления
+         */
+        'departure_city_name': string;
+        
+        /**
+         * Наименование пункта отправления
+         */
+        'departure_point_name': string;
+        
+        /**
+         * Откуда
+         */
+        'departure_text': string;
+        
+        /**
+         * Наименование страны прибытия
+         */
+        'arrival_country_name': string;
+        
+        /**
+         * Наименование города прибытия
+         */
+        'arrival_city_name': string;
+        
+        /**
+         * Наименование пункта прибытия
+         */
+        'arrival_point_name': string;
+        
+        /**
+         * Откуда
+         */
+        'arrival_text': string;
         }>;
       })
     );
@@ -2558,22 +2950,27 @@ export class OrderService extends BaseService {
 /**
  * Номер документа ТС
  */
-'doc_tc_number': string;
+'doc_tc_number'?: string;
 
 /**
  * Track ТС
  */
-'track_tc': string;
+'track_tc'?: string;
 
 /**
  * Track СВХ
  */
-'track_svh': string;
+'track_svh'?: string;
 
 /**
  * TT
  */
-'tt': string;
+'tt'?: string;
+
+/**
+ * Комментарий
+ */
+'comment'?: string;
 
 /**
  * События
@@ -2583,12 +2980,17 @@ export class OrderService extends BaseService {
 /**
  * Текст события
  */
-'text': string;
+'text'?: string;
 
 /**
  * Дата события
  */
-'date': string;
+'date'?: string;
+
+/**
+ * Дата события кратко
+ */
+'date_short'?: string;
 }>;
 
 /**
@@ -2599,17 +3001,17 @@ export class OrderService extends BaseService {
 /**
  * ID статуса
  */
-'status_id': number;
+'status_id'?: number;
 
 /**
  * Планируемая дата статуса
  */
-'scheduled_date': string;
+'scheduled_date'?: string;
 
 /**
  * Фактическая дата статуса
  */
-'done_date': string;
+'done_date'?: string;
 
 /**
  * Дата для таблицы
@@ -2633,14 +3035,10 @@ export class OrderService extends BaseService {
 'cargo_status': string;
 
 /**
- * Дата следующего планируемого события
+ * Следующее планируемое события
  */
-'schedule_event_date': string;
-
-/**
- * Следующее планируемое событие
- */
-'schedule_event_text': string;
+'next_events': {
+};
 
 /**
  * Дата создания
@@ -2651,6 +3049,56 @@ export class OrderService extends BaseService {
  * Статус заказа
  */
 'status': number;
+
+/**
+ * Наименование заказчика
+ */
+'customer_name': string;
+
+/**
+ * Наименование контрагента
+ */
+'contractor_name': string;
+
+/**
+ * Наименование страны отправления
+ */
+'departure_country_name': string;
+
+/**
+ * Наименование города отправления
+ */
+'departure_city_name': string;
+
+/**
+ * Наименование пункта отправления
+ */
+'departure_point_name': string;
+
+/**
+ * Откуда
+ */
+'departure_text': string;
+
+/**
+ * Наименование страны прибытия
+ */
+'arrival_country_name': string;
+
+/**
+ * Наименование города прибытия
+ */
+'arrival_city_name': string;
+
+/**
+ * Наименование пункта прибытия
+ */
+'arrival_point_name': string;
+
+/**
+ * Откуда
+ */
+'arrival_text': string;
 }> {
     return this.orderInfo$Response(params, context).pipe(
       map((r: StrictHttpResponse<{
@@ -2723,22 +3171,27 @@ export class OrderService extends BaseService {
 /**
  * Номер документа ТС
  */
-'doc_tc_number': string;
+'doc_tc_number'?: string;
 
 /**
  * Track ТС
  */
-'track_tc': string;
+'track_tc'?: string;
 
 /**
  * Track СВХ
  */
-'track_svh': string;
+'track_svh'?: string;
 
 /**
  * TT
  */
-'tt': string;
+'tt'?: string;
+
+/**
+ * Комментарий
+ */
+'comment'?: string;
 
 /**
  * События
@@ -2748,12 +3201,17 @@ export class OrderService extends BaseService {
 /**
  * Текст события
  */
-'text': string;
+'text'?: string;
 
 /**
  * Дата события
  */
-'date': string;
+'date'?: string;
+
+/**
+ * Дата события кратко
+ */
+'date_short'?: string;
 }>;
 
 /**
@@ -2764,17 +3222,17 @@ export class OrderService extends BaseService {
 /**
  * ID статуса
  */
-'status_id': number;
+'status_id'?: number;
 
 /**
  * Планируемая дата статуса
  */
-'scheduled_date': string;
+'scheduled_date'?: string;
 
 /**
  * Фактическая дата статуса
  */
-'done_date': string;
+'done_date'?: string;
 
 /**
  * Дата для таблицы
@@ -2798,14 +3256,10 @@ export class OrderService extends BaseService {
 'cargo_status': string;
 
 /**
- * Дата следующего планируемого события
+ * Следующее планируемое события
  */
-'schedule_event_date': string;
-
-/**
- * Следующее планируемое событие
- */
-'schedule_event_text': string;
+'next_events': {
+};
 
 /**
  * Дата создания
@@ -2816,6 +3270,56 @@ export class OrderService extends BaseService {
  * Статус заказа
  */
 'status': number;
+
+/**
+ * Наименование заказчика
+ */
+'customer_name': string;
+
+/**
+ * Наименование контрагента
+ */
+'contractor_name': string;
+
+/**
+ * Наименование страны отправления
+ */
+'departure_country_name': string;
+
+/**
+ * Наименование города отправления
+ */
+'departure_city_name': string;
+
+/**
+ * Наименование пункта отправления
+ */
+'departure_point_name': string;
+
+/**
+ * Откуда
+ */
+'departure_text': string;
+
+/**
+ * Наименование страны прибытия
+ */
+'arrival_country_name': string;
+
+/**
+ * Наименование города прибытия
+ */
+'arrival_city_name': string;
+
+/**
+ * Наименование пункта прибытия
+ */
+'arrival_point_name': string;
+
+/**
+ * Откуда
+ */
+'arrival_text': string;
 }>): {
 
 /**
@@ -2886,22 +3390,27 @@ export class OrderService extends BaseService {
 /**
  * Номер документа ТС
  */
-'doc_tc_number': string;
+'doc_tc_number'?: string;
 
 /**
  * Track ТС
  */
-'track_tc': string;
+'track_tc'?: string;
 
 /**
  * Track СВХ
  */
-'track_svh': string;
+'track_svh'?: string;
 
 /**
  * TT
  */
-'tt': string;
+'tt'?: string;
+
+/**
+ * Комментарий
+ */
+'comment'?: string;
 
 /**
  * События
@@ -2911,12 +3420,17 @@ export class OrderService extends BaseService {
 /**
  * Текст события
  */
-'text': string;
+'text'?: string;
 
 /**
  * Дата события
  */
-'date': string;
+'date'?: string;
+
+/**
+ * Дата события кратко
+ */
+'date_short'?: string;
 }>;
 
 /**
@@ -2927,17 +3441,17 @@ export class OrderService extends BaseService {
 /**
  * ID статуса
  */
-'status_id': number;
+'status_id'?: number;
 
 /**
  * Планируемая дата статуса
  */
-'scheduled_date': string;
+'scheduled_date'?: string;
 
 /**
  * Фактическая дата статуса
  */
-'done_date': string;
+'done_date'?: string;
 
 /**
  * Дата для таблицы
@@ -2961,14 +3475,10 @@ export class OrderService extends BaseService {
 'cargo_status': string;
 
 /**
- * Дата следующего планируемого события
+ * Следующее планируемое события
  */
-'schedule_event_date': string;
-
-/**
- * Следующее планируемое событие
- */
-'schedule_event_text': string;
+'next_events': {
+};
 
 /**
  * Дата создания
@@ -2979,6 +3489,56 @@ export class OrderService extends BaseService {
  * Статус заказа
  */
 'status': number;
+
+/**
+ * Наименование заказчика
+ */
+'customer_name': string;
+
+/**
+ * Наименование контрагента
+ */
+'contractor_name': string;
+
+/**
+ * Наименование страны отправления
+ */
+'departure_country_name': string;
+
+/**
+ * Наименование города отправления
+ */
+'departure_city_name': string;
+
+/**
+ * Наименование пункта отправления
+ */
+'departure_point_name': string;
+
+/**
+ * Откуда
+ */
+'departure_text': string;
+
+/**
+ * Наименование страны прибытия
+ */
+'arrival_country_name': string;
+
+/**
+ * Наименование города прибытия
+ */
+'arrival_city_name': string;
+
+/**
+ * Наименование пункта прибытия
+ */
+'arrival_point_name': string;
+
+/**
+ * Откуда
+ */
+'arrival_text': string;
 } => r.body)
     );
   }
@@ -3160,58 +3720,73 @@ export class OrderService extends BaseService {
 /**
  * Номер документа ТС
  */
-'doc_tc_number': string;
+'doc_tc_number'?: string;
 
 /**
  * Track ТС
  */
-'track_tc': string;
+'track_tc'?: string;
 
 /**
  * Track СВХ
  */
-'track_svh': string;
+'track_svh'?: string;
 
 /**
  * TT
  */
-'tt': string;
+'tt'?: string;
+
+/**
+ * Комментарий
+ */
+'comment'?: string;
 
 /**
  * События
  */
-'events': Array<{
+'events'?: Array<{
 
 /**
  * Текст события
  */
-'text': string;
+'text'?: string;
 
 /**
  * Дата события
  */
-'date': string;
+'date'?: string;
 }>;
 
 /**
  * Настройка статусов
  */
-'statuses': Array<{
+'statuses'?: Array<{
 
 /**
  * ID статуса
  */
-'status_id': number;
+'status_id'?: number;
 
 /**
  * Планируемая дата статуса
  */
-'scheduled_date': string;
+'scheduled_date'?: string;
 
 /**
  * Фактическая дата статуса
  */
-'done_date': string;
+'done_date'?: string;
+
+/**
+ * Фактическая дата для таблицы
+ */
+'date'?: string;
+
+/**
+ * Класс для ячейки таблицы
+ */
+'class'?: string;
 }>;
 }
     },
@@ -3321,58 +3896,73 @@ export class OrderService extends BaseService {
 /**
  * Номер документа ТС
  */
-'doc_tc_number': string;
+'doc_tc_number'?: string;
 
 /**
  * Track ТС
  */
-'track_tc': string;
+'track_tc'?: string;
 
 /**
  * Track СВХ
  */
-'track_svh': string;
+'track_svh'?: string;
 
 /**
  * TT
  */
-'tt': string;
+'tt'?: string;
+
+/**
+ * Комментарий
+ */
+'comment'?: string;
 
 /**
  * События
  */
-'events': Array<{
+'events'?: Array<{
 
 /**
  * Текст события
  */
-'text': string;
+'text'?: string;
 
 /**
  * Дата события
  */
-'date': string;
+'date'?: string;
 }>;
 
 /**
  * Настройка статусов
  */
-'statuses': Array<{
+'statuses'?: Array<{
 
 /**
  * ID статуса
  */
-'status_id': number;
+'status_id'?: number;
 
 /**
  * Планируемая дата статуса
  */
-'scheduled_date': string;
+'scheduled_date'?: string;
 
 /**
  * Фактическая дата статуса
  */
-'done_date': string;
+'done_date'?: string;
+
+/**
+ * Фактическая дата для таблицы
+ */
+'date'?: string;
+
+/**
+ * Класс для ячейки таблицы
+ */
+'class'?: string;
 }>;
 }
     },
@@ -3504,6 +4094,11 @@ export class OrderService extends BaseService {
 'tt'?: string;
 
 /**
+ * Комментарий
+ */
+'comment'?: string;
+
+/**
  * События
  */
 'events'?: Array<{
@@ -3511,12 +4106,12 @@ export class OrderService extends BaseService {
 /**
  * Текст события
  */
-'text': string;
+'text'?: string;
 
 /**
  * Дата события
  */
-'date': string;
+'date'?: string;
 }>;
 
 /**
@@ -3527,17 +4122,27 @@ export class OrderService extends BaseService {
 /**
  * ID статуса
  */
-'status_id': number;
+'status_id'?: number;
 
 /**
  * Планируемая дата статуса
  */
-'scheduled_date': string;
+'scheduled_date'?: string;
 
 /**
  * Фактическая дата статуса
  */
-'done_date': string;
+'done_date'?: string;
+
+/**
+ * Фактическая дата для таблицы
+ */
+'date'?: string;
+
+/**
+ * Класс для ячейки таблицы
+ */
+'class'?: string;
 }>;
 }
     },
@@ -3670,6 +4275,11 @@ export class OrderService extends BaseService {
 'tt'?: string;
 
 /**
+ * Комментарий
+ */
+'comment'?: string;
+
+/**
  * События
  */
 'events'?: Array<{
@@ -3677,12 +4287,12 @@ export class OrderService extends BaseService {
 /**
  * Текст события
  */
-'text': string;
+'text'?: string;
 
 /**
  * Дата события
  */
-'date': string;
+'date'?: string;
 }>;
 
 /**
@@ -3693,17 +4303,27 @@ export class OrderService extends BaseService {
 /**
  * ID статуса
  */
-'status_id': number;
+'status_id'?: number;
 
 /**
  * Планируемая дата статуса
  */
-'scheduled_date': string;
+'scheduled_date'?: string;
 
 /**
  * Фактическая дата статуса
  */
-'done_date': string;
+'done_date'?: string;
+
+/**
+ * Фактическая дата для таблицы
+ */
+'date'?: string;
+
+/**
+ * Класс для ячейки таблицы
+ */
+'class'?: string;
 }>;
 }
     },
