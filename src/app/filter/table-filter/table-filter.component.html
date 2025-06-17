@@ -35,7 +35,7 @@
     </div>
 
     <div class="item func">
-      <div>
+      <div *ngIf="filterService.searchFilterSchema?.main">
         <span class="btn apply" (click)="filterService.apply()"><span>Применить</span></span>
         <span class="btn reset" (click)="filterService.reset()"><span></span></span>
       </div>

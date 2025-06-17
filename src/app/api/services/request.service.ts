@@ -22362,26 +22362,6 @@ export class RequestService extends BaseService {
       contractor?: number;
 
     /**
-     * Авиалинии (ID берем из запроса - transport_carrier)
-     */
-      carrier?: Array<string>;
-
-    /**
-     * Тип маршрута (ID берем из запроса - direction_flight)
-     */
-      departure_flight?: string;
-
-    /**
-     * Аэропорт вылета (ID берем из запроса - direction_point)
-     */
-      departure_point?: number;
-
-    /**
-     * Аэропорт прибытия (ID берем из запроса - direction_point)
-     */
-      arrival_point?: number;
-
-    /**
      * Начальная позиция
      */
       start?: number;
@@ -22550,10 +22530,6 @@ export class RequestService extends BaseService {
       rb.query('request_id', params.request_id, {});
       rb.query('offer', params.offer, {});
       rb.query('contractor', params.contractor, {});
-      rb.query('carrier', params.carrier, {"style":"form","explode":false});
-      rb.query('departure_flight', params.departure_flight, {});
-      rb.query('departure_point', params.departure_point, {});
-      rb.query('arrival_point', params.arrival_point, {});
       rb.query('start', params.start, {});
       rb.query('count', params.count, {});
       rb.query('sort', params.sort, {"style":"form","explode":false});
@@ -22732,26 +22708,6 @@ export class RequestService extends BaseService {
      * Подрядчики (ID берем из запроса - contractor_list)
      */
       contractor?: number;
-
-    /**
-     * Авиалинии (ID берем из запроса - transport_carrier)
-     */
-      carrier?: Array<string>;
-
-    /**
-     * Тип маршрута (ID берем из запроса - direction_flight)
-     */
-      departure_flight?: string;
-
-    /**
-     * Аэропорт вылета (ID берем из запроса - direction_point)
-     */
-      departure_point?: number;
-
-    /**
-     * Аэропорт прибытия (ID берем из запроса - direction_point)
-     */
-      arrival_point?: number;
 
     /**
      * Начальная позиция
@@ -23313,11 +23269,6 @@ export class RequestService extends BaseService {
       request_id: number;
 
     /**
-     * Подрядчики (ID берем из запроса - contractor_list)
-     */
-      contractor?: number;
-
-    /**
      * Начальная позиция
      */
       start?: number;
@@ -23603,7 +23554,6 @@ export class RequestService extends BaseService {
     const rb = new RequestBuilder(this.rootUrl, RequestService.RequestRateOtherListPath, 'get');
     if (params) {
       rb.query('request_id', params.request_id, {});
-      rb.query('contractor', params.contractor, {});
       rb.query('start', params.start, {});
       rb.query('count', params.count, {});
       rb.query('sort', params.sort, {"style":"form","explode":false});
@@ -23891,11 +23841,6 @@ export class RequestService extends BaseService {
      * ID Запроса
      */
       request_id: number;
-
-    /**
-     * Подрядчики (ID берем из запроса - contractor_list)
-     */
-      contractor?: number;
 
     /**
      * Начальная позиция
@@ -25012,62 +24957,62 @@ export class RequestService extends BaseService {
 /**
  * Массив ставок До границы
  */
-'custom': {
+'custom'?: {
 
 /**
  * Единый профит на все ставки
  */
-'one_profit': boolean;
+'one_profit'?: boolean;
 
 /**
  * Единый профит на все ставки - Сумма
  */
-'one_profit_amount': number;
+'one_profit_amount'?: number;
 
 /**
  * Единый профит на все ставки - Валюта (ID берем из запроса - system_currency)
  */
-'one_profit_amount_currency': number;
+'one_profit_amount_currency'?: number;
 
 /**
  * Единый профит на все ставки - Процент
  */
-'one_profit_percent': number;
+'one_profit_percent'?: number;
 
 /**
  * Детализировать ставку в КП
  */
-'detail_items': boolean;
+'detail_items'?: boolean;
 
 /**
  * Ставки
  */
-'rows': Array<{
+'rows'?: Array<{
 
 /**
  * ID ставки
  */
-'id': number;
+'id'?: number;
 
 /**
  * Профит - Сумма
  */
-'profit_amount': number;
+'profit_amount'?: number;
 
 /**
  * Профит - Процент
  */
-'profit_percent': number;
+'profit_percent'?: number;
 
 /**
  * Итого Входящее
  */
-'income_total_cost': number;
+'income_total_cost'?: number;
 
 /**
  * Итого
  */
-'total_cost': number;
+'total_cost'?: number;
 
 /**
  * Главный рейт, использовать для итогового КП
@@ -25077,37 +25022,37 @@ export class RequestService extends BaseService {
 /**
  * Услуги
  */
-'services': Array<{
+'services'?: Array<{
 
 /**
  * ID Услуги
  */
-'field': string;
+'field'?: string;
 
 /**
  * Стоимость
  */
-'amount': number;
+'amount'?: number;
 
 /**
  * Профит - Сумма
  */
-'profit_amount': number;
+'profit_amount'?: number;
 
 /**
  * Профит - Процент
  */
-'profit_percent': number;
+'profit_percent'?: number;
 
 /**
  * Итого
  */
-'total_cost': number;
+'total_cost'?: number;
 
 /**
  * Включено
  */
-'select': boolean;
+'select'?: boolean;
 }>;
 }>;
 };
@@ -25115,62 +25060,62 @@ export class RequestService extends BaseService {
 /**
  * Массив ставок Склад (СВХ)
  */
-'storage': {
+'storage'?: {
 
 /**
  * Единый профит на все ставки
  */
-'one_profit': boolean;
+'one_profit'?: boolean;
 
 /**
  * Единый профит на все ставки - Сумма
  */
-'one_profit_amount': number;
+'one_profit_amount'?: number;
 
 /**
  * Единый профит на все ставки - Валюта (ID берем из запроса - system_currency)
  */
-'one_profit_amount_currency': number;
+'one_profit_amount_currency'?: number;
 
 /**
  * Единый профит на все ставки - Процент
  */
-'one_profit_percent': number;
+'one_profit_percent'?: number;
 
 /**
  * Детализировать ставку в КП
  */
-'detail_items': boolean;
+'detail_items'?: boolean;
 
 /**
  * Ставки
  */
-'rows': Array<{
+'rows'?: Array<{
 
 /**
  * ID ставки
  */
-'id': number;
+'id'?: number;
 
 /**
  * Профит - Сумма
  */
-'profit_amount': number;
+'profit_amount'?: number;
 
 /**
  * Профит - Процент
  */
-'profit_percent': number;
+'profit_percent'?: number;
 
 /**
  * Итого Входящее
  */
-'income_total_cost': number;
+'income_total_cost'?: number;
 
 /**
  * Итого
  */
-'total_cost': number;
+'total_cost'?: number;
 
 /**
  * Главный рейт, использовать для итогового КП
@@ -25180,37 +25125,37 @@ export class RequestService extends BaseService {
 /**
  * Услуги
  */
-'services': Array<{
+'services'?: Array<{
 
 /**
  * ID Услуги
  */
-'field': string;
+'field'?: string;
 
 /**
  * Стоимость
  */
-'amount': number;
+'amount'?: number;
 
 /**
  * Профит - Сумма
  */
-'profit_amount': number;
+'profit_amount'?: number;
 
 /**
  * Профит - Процент
  */
-'profit_percent': number;
+'profit_percent'?: number;
 
 /**
  * Итого
  */
-'total_cost': number;
+'total_cost'?: number;
 
 /**
  * Включено
  */
-'select': boolean;
+'select'?: boolean;
 }>;
 }>;
 };
@@ -25218,62 +25163,62 @@ export class RequestService extends BaseService {
 /**
  * Массив ставок Вывоз
  */
-'delivery': {
+'delivery'?: {
 
 /**
  * Единый профит на все ставки
  */
-'one_profit': boolean;
+'one_profit'?: boolean;
 
 /**
  * Единый профит на все ставки - Сумма
  */
-'one_profit_amount': number;
+'one_profit_amount'?: number;
 
 /**
  * Единый профит на все ставки - Валюта (ID берем из запроса - system_currency)
  */
-'one_profit_amount_currency': number;
+'one_profit_amount_currency'?: number;
 
 /**
  * Единый профит на все ставки - Процент
  */
-'one_profit_percent': number;
+'one_profit_percent'?: number;
 
 /**
  * Детализировать ставку в КП
  */
-'detail_items': boolean;
+'detail_items'?: boolean;
 
 /**
  * Ставки
  */
-'rows': Array<{
+'rows'?: Array<{
 
 /**
  * ID ставки
  */
-'id': number;
+'id'?: number;
 
 /**
  * Профит - Сумма
  */
-'profit_amount': number;
+'profit_amount'?: number;
 
 /**
  * Профит - Процент
  */
-'profit_percent': number;
+'profit_percent'?: number;
 
 /**
  * Итого Входящее
  */
-'income_total_cost': number;
+'income_total_cost'?: number;
 
 /**
  * Итого
  */
-'total_cost': number;
+'total_cost'?: number;
 
 /**
  * Главный рейт, использовать для итогового КП
@@ -25283,37 +25228,37 @@ export class RequestService extends BaseService {
 /**
  * Услуги
  */
-'services': Array<{
+'services'?: Array<{
 
 /**
  * ID Услуги
  */
-'field': string;
+'field'?: string;
 
 /**
  * Стоимость
  */
-'amount': number;
+'amount'?: number;
 
 /**
  * Профит - Сумма
  */
-'profit_amount': number;
+'profit_amount'?: number;
 
 /**
  * Профит - Процент
  */
-'profit_percent': number;
+'profit_percent'?: number;
 
 /**
  * Итого
  */
-'total_cost': number;
+'total_cost'?: number;
 
 /**
  * Включено
  */
-'select': boolean;
+'select'?: boolean;
 }>;
 }>;
 };
@@ -25325,9 +25270,19 @@ export class RequestService extends BaseService {
 'rate_amount'?: string;
 
 /**
+ * Вх. ставка
+ */
+'rate_amount_text'?: string;
+
+/**
  * Профит
  */
 'profit_amount'?: string;
+
+/**
+ * Профит
+ */
+'profit_amount_text'?: string;
 
 /**
  * %
@@ -25335,9 +25290,19 @@ export class RequestService extends BaseService {
 'profit_percent'?: string;
 
 /**
+ * %
+ */
+'profit_percent_text'?: string;
+
+/**
  * Ставка итого
  */
 'rate_total'?: string;
+
+/**
+ * Ставка итого
+ */
+'rate_total_text'?: string;
 
 /**
  * Валидность
@@ -25474,62 +25439,62 @@ export class RequestService extends BaseService {
         /**
          * Массив ставок До границы
          */
-        'custom': {
+        'custom'?: {
         
         /**
          * Единый профит на все ставки
          */
-        'one_profit': boolean;
+        'one_profit'?: boolean;
         
         /**
          * Единый профит на все ставки - Сумма
          */
-        'one_profit_amount': number;
+        'one_profit_amount'?: number;
         
         /**
          * Единый профит на все ставки - Валюта (ID берем из запроса - system_currency)
          */
-        'one_profit_amount_currency': number;
+        'one_profit_amount_currency'?: number;
         
         /**
          * Единый профит на все ставки - Процент
          */
-        'one_profit_percent': number;
+        'one_profit_percent'?: number;
         
         /**
          * Детализировать ставку в КП
          */
-        'detail_items': boolean;
+        'detail_items'?: boolean;
         
         /**
          * Ставки
          */
-        'rows': Array<{
+        'rows'?: Array<{
         
         /**
          * ID ставки
          */
-        'id': number;
+        'id'?: number;
         
         /**
          * Профит - Сумма
          */
-        'profit_amount': number;
+        'profit_amount'?: number;
         
         /**
          * Профит - Процент
          */
-        'profit_percent': number;
+        'profit_percent'?: number;
         
         /**
          * Итого Входящее
          */
-        'income_total_cost': number;
+        'income_total_cost'?: number;
         
         /**
          * Итого
          */
-        'total_cost': number;
+        'total_cost'?: number;
         
         /**
          * Главный рейт, использовать для итогового КП
@@ -25539,37 +25504,37 @@ export class RequestService extends BaseService {
         /**
          * Услуги
          */
-        'services': Array<{
+        'services'?: Array<{
         
         /**
          * ID Услуги
          */
-        'field': string;
+        'field'?: string;
         
         /**
          * Стоимость
          */
-        'amount': number;
+        'amount'?: number;
         
         /**
          * Профит - Сумма
          */
-        'profit_amount': number;
+        'profit_amount'?: number;
         
         /**
          * Профит - Процент
          */
-        'profit_percent': number;
+        'profit_percent'?: number;
         
         /**
          * Итого
          */
-        'total_cost': number;
+        'total_cost'?: number;
         
         /**
          * Включено
          */
-        'select': boolean;
+        'select'?: boolean;
         }>;
         }>;
         };
@@ -25577,62 +25542,62 @@ export class RequestService extends BaseService {
         /**
          * Массив ставок Склад (СВХ)
          */
-        'storage': {
+        'storage'?: {
         
         /**
          * Единый профит на все ставки
          */
-        'one_profit': boolean;
+        'one_profit'?: boolean;
         
         /**
          * Единый профит на все ставки - Сумма
          */
-        'one_profit_amount': number;
+        'one_profit_amount'?: number;
         
         /**
          * Единый профит на все ставки - Валюта (ID берем из запроса - system_currency)
          */
-        'one_profit_amount_currency': number;
+        'one_profit_amount_currency'?: number;
         
         /**
          * Единый профит на все ставки - Процент
          */
-        'one_profit_percent': number;
+        'one_profit_percent'?: number;
         
         /**
          * Детализировать ставку в КП
          */
-        'detail_items': boolean;
+        'detail_items'?: boolean;
         
         /**
          * Ставки
          */
-        'rows': Array<{
+        'rows'?: Array<{
         
         /**
          * ID ставки
          */
-        'id': number;
+        'id'?: number;
         
         /**
          * Профит - Сумма
          */
-        'profit_amount': number;
+        'profit_amount'?: number;
         
         /**
          * Профит - Процент
          */
-        'profit_percent': number;
+        'profit_percent'?: number;
         
         /**
          * Итого Входящее
          */
-        'income_total_cost': number;
+        'income_total_cost'?: number;
         
         /**
          * Итого
          */
-        'total_cost': number;
+        'total_cost'?: number;
         
         /**
          * Главный рейт, использовать для итогового КП
@@ -25642,37 +25607,37 @@ export class RequestService extends BaseService {
         /**
          * Услуги
          */
-        'services': Array<{
+        'services'?: Array<{
         
         /**
          * ID Услуги
          */
-        'field': string;
+        'field'?: string;
         
         /**
          * Стоимость
          */
-        'amount': number;
+        'amount'?: number;
         
         /**
          * Профит - Сумма
          */
-        'profit_amount': number;
+        'profit_amount'?: number;
         
         /**
          * Профит - Процент
          */
-        'profit_percent': number;
+        'profit_percent'?: number;
         
         /**
          * Итого
          */
-        'total_cost': number;
+        'total_cost'?: number;
         
         /**
          * Включено
          */
-        'select': boolean;
+        'select'?: boolean;
         }>;
         }>;
         };
@@ -25680,62 +25645,62 @@ export class RequestService extends BaseService {
         /**
          * Массив ставок Вывоз
          */
-        'delivery': {
+        'delivery'?: {
         
         /**
          * Единый профит на все ставки
          */
-        'one_profit': boolean;
+        'one_profit'?: boolean;
         
         /**
          * Единый профит на все ставки - Сумма
          */
-        'one_profit_amount': number;
+        'one_profit_amount'?: number;
         
         /**
          * Единый профит на все ставки - Валюта (ID берем из запроса - system_currency)
          */
-        'one_profit_amount_currency': number;
+        'one_profit_amount_currency'?: number;
         
         /**
          * Единый профит на все ставки - Процент
          */
-        'one_profit_percent': number;
+        'one_profit_percent'?: number;
         
         /**
          * Детализировать ставку в КП
          */
-        'detail_items': boolean;
+        'detail_items'?: boolean;
         
         /**
          * Ставки
          */
-        'rows': Array<{
+        'rows'?: Array<{
         
         /**
          * ID ставки
          */
-        'id': number;
+        'id'?: number;
         
         /**
          * Профит - Сумма
          */
-        'profit_amount': number;
+        'profit_amount'?: number;
         
         /**
          * Профит - Процент
          */
-        'profit_percent': number;
+        'profit_percent'?: number;
         
         /**
          * Итого Входящее
          */
-        'income_total_cost': number;
+        'income_total_cost'?: number;
         
         /**
          * Итого
          */
-        'total_cost': number;
+        'total_cost'?: number;
         
         /**
          * Главный рейт, использовать для итогового КП
@@ -25745,37 +25710,37 @@ export class RequestService extends BaseService {
         /**
          * Услуги
          */
-        'services': Array<{
+        'services'?: Array<{
         
         /**
          * ID Услуги
          */
-        'field': string;
+        'field'?: string;
         
         /**
          * Стоимость
          */
-        'amount': number;
+        'amount'?: number;
         
         /**
          * Профит - Сумма
          */
-        'profit_amount': number;
+        'profit_amount'?: number;
         
         /**
          * Профит - Процент
          */
-        'profit_percent': number;
+        'profit_percent'?: number;
         
         /**
          * Итого
          */
-        'total_cost': number;
+        'total_cost'?: number;
         
         /**
          * Включено
          */
-        'select': boolean;
+        'select'?: boolean;
         }>;
         }>;
         };
@@ -25787,9 +25752,19 @@ export class RequestService extends BaseService {
         'rate_amount'?: string;
         
         /**
+         * Вх. ставка
+         */
+        'rate_amount_text'?: string;
+        
+        /**
          * Профит
          */
         'profit_amount'?: string;
+        
+        /**
+         * Профит
+         */
+        'profit_amount_text'?: string;
         
         /**
          * %
@@ -25797,9 +25772,19 @@ export class RequestService extends BaseService {
         'profit_percent'?: string;
         
         /**
+         * %
+         */
+        'profit_percent_text'?: string;
+        
+        /**
          * Ставка итого
          */
         'rate_total'?: string;
+        
+        /**
+         * Ставка итого
+         */
+        'rate_total_text'?: string;
         
         /**
          * Валидность
@@ -25957,62 +25942,62 @@ export class RequestService extends BaseService {
 /**
  * Массив ставок До границы
  */
-'custom': {
+'custom'?: {
 
 /**
  * Единый профит на все ставки
  */
-'one_profit': boolean;
+'one_profit'?: boolean;
 
 /**
  * Единый профит на все ставки - Сумма
  */
-'one_profit_amount': number;
+'one_profit_amount'?: number;
 
 /**
  * Единый профит на все ставки - Валюта (ID берем из запроса - system_currency)
  */
-'one_profit_amount_currency': number;
+'one_profit_amount_currency'?: number;
 
 /**
  * Единый профит на все ставки - Процент
  */
-'one_profit_percent': number;
+'one_profit_percent'?: number;
 
 /**
  * Детализировать ставку в КП
  */
-'detail_items': boolean;
+'detail_items'?: boolean;
 
 /**
  * Ставки
  */
-'rows': Array<{
+'rows'?: Array<{
 
 /**
  * ID ставки
  */
-'id': number;
+'id'?: number;
 
 /**
  * Профит - Сумма
  */
-'profit_amount': number;
+'profit_amount'?: number;
 
 /**
  * Профит - Процент
  */
-'profit_percent': number;
+'profit_percent'?: number;
 
 /**
  * Итого Входящее
  */
-'income_total_cost': number;
+'income_total_cost'?: number;
 
 /**
  * Итого
  */
-'total_cost': number;
+'total_cost'?: number;
 
 /**
  * Главный рейт, использовать для итогового КП
@@ -26022,37 +26007,37 @@ export class RequestService extends BaseService {
 /**
  * Услуги
  */
-'services': Array<{
+'services'?: Array<{
 
 /**
  * ID Услуги
  */
-'field': string;
+'field'?: string;
 
 /**
  * Стоимость
  */
-'amount': number;
+'amount'?: number;
 
 /**
  * Профит - Сумма
  */
-'profit_amount': number;
+'profit_amount'?: number;
 
 /**
  * Профит - Процент
  */
-'profit_percent': number;
+'profit_percent'?: number;
 
 /**
  * Итого
  */
-'total_cost': number;
+'total_cost'?: number;
 
 /**
  * Включено
  */
-'select': boolean;
+'select'?: boolean;
 }>;
 }>;
 };
@@ -26060,62 +26045,62 @@ export class RequestService extends BaseService {
 /**
  * Массив ставок Склад (СВХ)
  */
-'storage': {
+'storage'?: {
 
 /**
  * Единый профит на все ставки
  */
-'one_profit': boolean;
+'one_profit'?: boolean;
 
 /**
  * Единый профит на все ставки - Сумма
  */
-'one_profit_amount': number;
+'one_profit_amount'?: number;
 
 /**
  * Единый профит на все ставки - Валюта (ID берем из запроса - system_currency)
  */
-'one_profit_amount_currency': number;
+'one_profit_amount_currency'?: number;
 
 /**
  * Единый профит на все ставки - Процент
  */
-'one_profit_percent': number;
+'one_profit_percent'?: number;
 
 /**
  * Детализировать ставку в КП
  */
-'detail_items': boolean;
+'detail_items'?: boolean;
 
 /**
  * Ставки
  */
-'rows': Array<{
+'rows'?: Array<{
 
 /**
  * ID ставки
  */
-'id': number;
+'id'?: number;
 
 /**
  * Профит - Сумма
  */
-'profit_amount': number;
+'profit_amount'?: number;
 
 /**
  * Профит - Процент
  */
-'profit_percent': number;
+'profit_percent'?: number;
 
 /**
  * Итого Входящее
  */
-'income_total_cost': number;
+'income_total_cost'?: number;
 
 /**
  * Итого
  */
-'total_cost': number;
+'total_cost'?: number;
 
 /**
  * Главный рейт, использовать для итогового КП
@@ -26125,37 +26110,37 @@ export class RequestService extends BaseService {
 /**
  * Услуги
  */
-'services': Array<{
+'services'?: Array<{
 
 /**
  * ID Услуги
  */
-'field': string;
+'field'?: string;
 
 /**
  * Стоимость
  */
-'amount': number;
+'amount'?: number;
 
 /**
  * Профит - Сумма
  */
-'profit_amount': number;
+'profit_amount'?: number;
 
 /**
  * Профит - Процент
  */
-'profit_percent': number;
+'profit_percent'?: number;
 
 /**
  * Итого
  */
-'total_cost': number;
+'total_cost'?: number;
 
 /**
  * Включено
  */
-'select': boolean;
+'select'?: boolean;
 }>;
 }>;
 };
@@ -26163,62 +26148,62 @@ export class RequestService extends BaseService {
 /**
  * Массив ставок Вывоз
  */
-'delivery': {
+'delivery'?: {
 
 /**
  * Единый профит на все ставки
  */
-'one_profit': boolean;
+'one_profit'?: boolean;
 
 /**
  * Единый профит на все ставки - Сумма
  */
-'one_profit_amount': number;
+'one_profit_amount'?: number;
 
 /**
  * Единый профит на все ставки - Валюта (ID берем из запроса - system_currency)
  */
-'one_profit_amount_currency': number;
+'one_profit_amount_currency'?: number;
 
 /**
  * Единый профит на все ставки - Процент
  */
-'one_profit_percent': number;
+'one_profit_percent'?: number;
 
 /**
  * Детализировать ставку в КП
  */
-'detail_items': boolean;
+'detail_items'?: boolean;
 
 /**
  * Ставки
  */
-'rows': Array<{
+'rows'?: Array<{
 
 /**
  * ID ставки
  */
-'id': number;
+'id'?: number;
 
 /**
  * Профит - Сумма
  */
-'profit_amount': number;
+'profit_amount'?: number;
 
 /**
  * Профит - Процент
  */
-'profit_percent': number;
+'profit_percent'?: number;
 
 /**
  * Итого Входящее
  */
-'income_total_cost': number;
+'income_total_cost'?: number;
 
 /**
  * Итого
  */
-'total_cost': number;
+'total_cost'?: number;
 
 /**
  * Главный рейт, использовать для итогового КП
@@ -26228,37 +26213,37 @@ export class RequestService extends BaseService {
 /**
  * Услуги
  */
-'services': Array<{
+'services'?: Array<{
 
 /**
  * ID Услуги
  */
-'field': string;
+'field'?: string;
 
 /**
  * Стоимость
  */
-'amount': number;
+'amount'?: number;
 
 /**
  * Профит - Сумма
  */
-'profit_amount': number;
+'profit_amount'?: number;
 
 /**
  * Профит - Процент
  */
-'profit_percent': number;
+'profit_percent'?: number;
 
 /**
  * Итого
  */
-'total_cost': number;
+'total_cost'?: number;
 
 /**
  * Включено
  */
-'select': boolean;
+'select'?: boolean;
 }>;
 }>;
 };
@@ -26270,9 +26255,19 @@ export class RequestService extends BaseService {
 'rate_amount'?: string;
 
 /**
+ * Вх. ставка
+ */
+'rate_amount_text'?: string;
+
+/**
  * Профит
  */
 'profit_amount'?: string;
+
+/**
+ * Профит
+ */
+'profit_amount_text'?: string;
 
 /**
  * %
@@ -26280,9 +26275,19 @@ export class RequestService extends BaseService {
 'profit_percent'?: string;
 
 /**
+ * %
+ */
+'profit_percent_text'?: string;
+
+/**
  * Ставка итого
  */
 'rate_total'?: string;
+
+/**
+ * Ставка итого
+ */
+'rate_total_text'?: string;
 
 /**
  * Валидность
@@ -26408,62 +26413,62 @@ export class RequestService extends BaseService {
 /**
  * Массив ставок До границы
  */
-'custom': {
+'custom'?: {
 
 /**
  * Единый профит на все ставки
  */
-'one_profit': boolean;
+'one_profit'?: boolean;
 
 /**
  * Единый профит на все ставки - Сумма
  */
-'one_profit_amount': number;
+'one_profit_amount'?: number;
 
 /**
  * Единый профит на все ставки - Валюта (ID берем из запроса - system_currency)
  */
-'one_profit_amount_currency': number;
+'one_profit_amount_currency'?: number;
 
 /**
  * Единый профит на все ставки - Процент
  */
-'one_profit_percent': number;
+'one_profit_percent'?: number;
 
 /**
  * Детализировать ставку в КП
  */
-'detail_items': boolean;
+'detail_items'?: boolean;
 
 /**
  * Ставки
  */
-'rows': Array<{
+'rows'?: Array<{
 
 /**
  * ID ставки
  */
-'id': number;
+'id'?: number;
 
 /**
  * Профит - Сумма
  */
-'profit_amount': number;
+'profit_amount'?: number;
 
 /**
  * Профит - Процент
  */
-'profit_percent': number;
+'profit_percent'?: number;
 
 /**
  * Итого Входящее
  */
-'income_total_cost': number;
+'income_total_cost'?: number;
 
 /**
  * Итого
  */
-'total_cost': number;
+'total_cost'?: number;
 
 /**
  * Главный рейт, использовать для итогового КП
@@ -26473,37 +26478,37 @@ export class RequestService extends BaseService {
 /**
  * Услуги
  */
-'services': Array<{
+'services'?: Array<{
 
 /**
  * ID Услуги
  */
-'field': string;
+'field'?: string;
 
 /**
  * Стоимость
  */
-'amount': number;
+'amount'?: number;
 
 /**
  * Профит - Сумма
  */
-'profit_amount': number;
+'profit_amount'?: number;
 
 /**
  * Профит - Процент
  */
-'profit_percent': number;
+'profit_percent'?: number;
 
 /**
  * Итого
  */
-'total_cost': number;
+'total_cost'?: number;
 
 /**
  * Включено
  */
-'select': boolean;
+'select'?: boolean;
 }>;
 }>;
 };
@@ -26511,62 +26516,62 @@ export class RequestService extends BaseService {
 /**
  * Массив ставок Склад (СВХ)
  */
-'storage': {
+'storage'?: {
 
 /**
  * Единый профит на все ставки
  */
-'one_profit': boolean;
+'one_profit'?: boolean;
 
 /**
  * Единый профит на все ставки - Сумма
  */
-'one_profit_amount': number;
+'one_profit_amount'?: number;
 
 /**
  * Единый профит на все ставки - Валюта (ID берем из запроса - system_currency)
  */
-'one_profit_amount_currency': number;
+'one_profit_amount_currency'?: number;
 
 /**
  * Единый профит на все ставки - Процент
  */
-'one_profit_percent': number;
+'one_profit_percent'?: number;
 
 /**
  * Детализировать ставку в КП
  */
-'detail_items': boolean;
+'detail_items'?: boolean;
 
 /**
  * Ставки
  */
-'rows': Array<{
+'rows'?: Array<{
 
 /**
  * ID ставки
  */
-'id': number;
+'id'?: number;
 
 /**
  * Профит - Сумма
  */
-'profit_amount': number;
+'profit_amount'?: number;
 
 /**
  * Профит - Процент
  */
-'profit_percent': number;
+'profit_percent'?: number;
 
 /**
  * Итого Входящее
  */
-'income_total_cost': number;
+'income_total_cost'?: number;
 
 /**
  * Итого
  */
-'total_cost': number;
+'total_cost'?: number;
 
 /**
  * Главный рейт, использовать для итогового КП
@@ -26576,37 +26581,37 @@ export class RequestService extends BaseService {
 /**
  * Услуги
  */
-'services': Array<{
+'services'?: Array<{
 
 /**
  * ID Услуги
  */
-'field': string;
+'field'?: string;
 
 /**
  * Стоимость
  */
-'amount': number;
+'amount'?: number;
 
 /**
  * Профит - Сумма
  */
-'profit_amount': number;
+'profit_amount'?: number;
 
 /**
  * Профит - Процент
  */
-'profit_percent': number;
+'profit_percent'?: number;
 
 /**
  * Итого
  */
-'total_cost': number;
+'total_cost'?: number;
 
 /**
  * Включено
  */
-'select': boolean;
+'select'?: boolean;
 }>;
 }>;
 };
@@ -26614,62 +26619,62 @@ export class RequestService extends BaseService {
 /**
  * Массив ставок Вывоз
  */
-'delivery': {
+'delivery'?: {
 
 /**
  * Единый профит на все ставки
  */
-'one_profit': boolean;
+'one_profit'?: boolean;
 
 /**
  * Единый профит на все ставки - Сумма
  */
-'one_profit_amount': number;
+'one_profit_amount'?: number;
 
 /**
  * Единый профит на все ставки - Валюта (ID берем из запроса - system_currency)
  */
-'one_profit_amount_currency': number;
+'one_profit_amount_currency'?: number;
 
 /**
  * Единый профит на все ставки - Процент
  */
-'one_profit_percent': number;
+'one_profit_percent'?: number;
 
 /**
  * Детализировать ставку в КП
  */
-'detail_items': boolean;
+'detail_items'?: boolean;
 
 /**
  * Ставки
  */
-'rows': Array<{
+'rows'?: Array<{
 
 /**
  * ID ставки
  */
-'id': number;
+'id'?: number;
 
 /**
  * Профит - Сумма
  */
-'profit_amount': number;
+'profit_amount'?: number;
 
 /**
  * Профит - Процент
  */
-'profit_percent': number;
+'profit_percent'?: number;
 
 /**
  * Итого Входящее
  */
-'income_total_cost': number;
+'income_total_cost'?: number;
 
 /**
  * Итого
  */
-'total_cost': number;
+'total_cost'?: number;
 
 /**
  * Главный рейт, использовать для итогового КП
@@ -26679,37 +26684,37 @@ export class RequestService extends BaseService {
 /**
  * Услуги
  */
-'services': Array<{
+'services'?: Array<{
 
 /**
  * ID Услуги
  */
-'field': string;
+'field'?: string;
 
 /**
  * Стоимость
  */
-'amount': number;
+'amount'?: number;
 
 /**
  * Профит - Сумма
  */
-'profit_amount': number;
+'profit_amount'?: number;
 
 /**
  * Профит - Процент
  */
-'profit_percent': number;
+'profit_percent'?: number;
 
 /**
  * Итого
  */
-'total_cost': number;
+'total_cost'?: number;
 
 /**
  * Включено
  */
-'select': boolean;
+'select'?: boolean;
 }>;
 }>;
 };
@@ -26721,9 +26726,19 @@ export class RequestService extends BaseService {
 'rate_amount'?: string;
 
 /**
+ * Вх. ставка
+ */
+'rate_amount_text'?: string;
+
+/**
  * Профит
  */
 'profit_amount'?: string;
+
+/**
+ * Профит
+ */
+'profit_amount_text'?: string;
 
 /**
  * %
@@ -26731,9 +26746,19 @@ export class RequestService extends BaseService {
 'profit_percent'?: string;
 
 /**
+ * %
+ */
+'profit_percent_text'?: string;
+
+/**
  * Ставка итого
  */
 'rate_total'?: string;
+
+/**
+ * Ставка итого
+ */
+'rate_total_text'?: string;
 
 /**
  * Валидность
@@ -26857,62 +26882,62 @@ export class RequestService extends BaseService {
 /**
  * Массив ставок До границы
  */
-'custom': {
+'custom'?: {
 
 /**
  * Единый профит на все ставки
  */
-'one_profit': boolean;
+'one_profit'?: boolean;
 
 /**
  * Единый профит на все ставки - Сумма
  */
-'one_profit_amount': number;
+'one_profit_amount'?: number;
 
 /**
  * Единый профит на все ставки - Валюта (ID берем из запроса - system_currency)
  */
-'one_profit_amount_currency': number;
+'one_profit_amount_currency'?: number;
 
 /**
  * Единый профит на все ставки - Процент
  */
-'one_profit_percent': number;
+'one_profit_percent'?: number;
 
 /**
  * Детализировать ставку в КП
  */
-'detail_items': boolean;
+'detail_items'?: boolean;
 
 /**
  * Ставки
  */
-'rows': Array<{
+'rows'?: Array<{
 
 /**
  * ID ставки
  */
-'id': number;
+'id'?: number;
 
 /**
  * Профит - Сумма
  */
-'profit_amount': number;
+'profit_amount'?: number;
 
 /**
  * Профит - Процент
  */
-'profit_percent': number;
+'profit_percent'?: number;
 
 /**
  * Итого Входящее
  */
-'income_total_cost': number;
+'income_total_cost'?: number;
 
 /**
  * Итого
  */
-'total_cost': number;
+'total_cost'?: number;
 
 /**
  * Главный рейт, использовать для итогового КП
@@ -26922,37 +26947,37 @@ export class RequestService extends BaseService {
 /**
  * Услуги
  */
-'services': Array<{
+'services'?: Array<{
 
 /**
  * ID Услуги
  */
-'field': string;
+'field'?: string;
 
 /**
  * Стоимость
  */
-'amount': number;
+'amount'?: number;
 
 /**
  * Профит - Сумма
  */
-'profit_amount': number;
+'profit_amount'?: number;
 
 /**
  * Профит - Процент
  */
-'profit_percent': number;
+'profit_percent'?: number;
 
 /**
  * Итого
  */
-'total_cost': number;
+'total_cost'?: number;
 
 /**
  * Включено
  */
-'select': boolean;
+'select'?: boolean;
 }>;
 }>;
 };
@@ -26960,62 +26985,62 @@ export class RequestService extends BaseService {
 /**
  * Массив ставок Склад (СВХ)
  */
-'storage': {
+'storage'?: {
 
 /**
  * Единый профит на все ставки
  */
-'one_profit': boolean;
+'one_profit'?: boolean;
 
 /**
  * Единый профит на все ставки - Сумма
  */
-'one_profit_amount': number;
+'one_profit_amount'?: number;
 
 /**
  * Единый профит на все ставки - Валюта (ID берем из запроса - system_currency)
  */
-'one_profit_amount_currency': number;
+'one_profit_amount_currency'?: number;
 
 /**
  * Единый профит на все ставки - Процент
  */
-'one_profit_percent': number;
+'one_profit_percent'?: number;
 
 /**
  * Детализировать ставку в КП
  */
-'detail_items': boolean;
+'detail_items'?: boolean;
 
 /**
  * Ставки
  */
-'rows': Array<{
+'rows'?: Array<{
 
 /**
  * ID ставки
  */
-'id': number;
+'id'?: number;
 
 /**
  * Профит - Сумма
  */
-'profit_amount': number;
+'profit_amount'?: number;
 
 /**
  * Профит - Процент
  */
-'profit_percent': number;
+'profit_percent'?: number;
 
 /**
  * Итого Входящее
  */
-'income_total_cost': number;
+'income_total_cost'?: number;
 
 /**
  * Итого
  */
-'total_cost': number;
+'total_cost'?: number;
 
 /**
  * Главный рейт, использовать для итогового КП
@@ -27025,37 +27050,37 @@ export class RequestService extends BaseService {
 /**
  * Услуги
  */
-'services': Array<{
+'services'?: Array<{
 
 /**
  * ID Услуги
  */
-'field': string;
+'field'?: string;
 
 /**
  * Стоимость
  */
-'amount': number;
+'amount'?: number;
 
 /**
  * Профит - Сумма
  */
-'profit_amount': number;
+'profit_amount'?: number;
 
 /**
  * Профит - Процент
  */
-'profit_percent': number;
+'profit_percent'?: number;
 
 /**
  * Итого
  */
-'total_cost': number;
+'total_cost'?: number;
 
 /**
  * Включено
  */
-'select': boolean;
+'select'?: boolean;
 }>;
 }>;
 };
@@ -27063,62 +27088,62 @@ export class RequestService extends BaseService {
 /**
  * Массив ставок Вывоз
  */
-'delivery': {
+'delivery'?: {
 
 /**
  * Единый профит на все ставки
  */
-'one_profit': boolean;
+'one_profit'?: boolean;
 
 /**
  * Единый профит на все ставки - Сумма
  */
-'one_profit_amount': number;
+'one_profit_amount'?: number;
 
 /**
  * Единый профит на все ставки - Валюта (ID берем из запроса - system_currency)
  */
-'one_profit_amount_currency': number;
+'one_profit_amount_currency'?: number;
 
 /**
  * Единый профит на все ставки - Процент
  */
-'one_profit_percent': number;
+'one_profit_percent'?: number;
 
 /**
  * Детализировать ставку в КП
  */
-'detail_items': boolean;
+'detail_items'?: boolean;
 
 /**
  * Ставки
  */
-'rows': Array<{
+'rows'?: Array<{
 
 /**
  * ID ставки
  */
-'id': number;
+'id'?: number;
 
 /**
  * Профит - Сумма
  */
-'profit_amount': number;
+'profit_amount'?: number;
 
 /**
  * Профит - Процент
  */
-'profit_percent': number;
+'profit_percent'?: number;
 
 /**
  * Итого Входящее
  */
-'income_total_cost': number;
+'income_total_cost'?: number;
 
 /**
  * Итого
  */
-'total_cost': number;
+'total_cost'?: number;
 
 /**
  * Главный рейт, использовать для итогового КП
@@ -27128,37 +27153,37 @@ export class RequestService extends BaseService {
 /**
  * Услуги
  */
-'services': Array<{
+'services'?: Array<{
 
 /**
  * ID Услуги
  */
-'field': string;
+'field'?: string;
 
 /**
  * Стоимость
  */
-'amount': number;
+'amount'?: number;
 
 /**
  * Профит - Сумма
  */
-'profit_amount': number;
+'profit_amount'?: number;
 
 /**
  * Профит - Процент
  */
-'profit_percent': number;
+'profit_percent'?: number;
 
 /**
  * Итого
  */
-'total_cost': number;
+'total_cost'?: number;
 
 /**
  * Включено
  */
-'select': boolean;
+'select'?: boolean;
 }>;
 }>;
 };
@@ -27170,9 +27195,19 @@ export class RequestService extends BaseService {
 'rate_amount'?: string;
 
 /**
+ * Вх. ставка
+ */
+'rate_amount_text'?: string;
+
+/**
  * Профит
  */
 'profit_amount'?: string;
+
+/**
+ * Профит
+ */
+'profit_amount_text'?: string;
 
 /**
  * %
@@ -27180,9 +27215,19 @@ export class RequestService extends BaseService {
 'profit_percent'?: string;
 
 /**
+ * %
+ */
+'profit_percent_text'?: string;
+
+/**
  * Ставка итого
  */
 'rate_total'?: string;
+
+/**
+ * Ставка итого
+ */
+'rate_total_text'?: string;
 
 /**
  * Валидность
@@ -27429,62 +27474,62 @@ export class RequestService extends BaseService {
 /**
  * Массив ставок До границы
  */
-'custom': {
+'custom'?: {
 
 /**
  * Единый профит на все ставки
  */
-'one_profit': boolean;
+'one_profit'?: boolean;
 
 /**
  * Единый профит на все ставки - Сумма
  */
-'one_profit_amount': number;
+'one_profit_amount'?: number;
 
 /**
  * Единый профит на все ставки - Валюта (ID берем из запроса - system_currency)
  */
-'one_profit_amount_currency': number;
+'one_profit_amount_currency'?: number;
 
 /**
  * Единый профит на все ставки - Процент
  */
-'one_profit_percent': number;
+'one_profit_percent'?: number;
 
 /**
  * Детализировать ставку в КП
  */
-'detail_items': boolean;
+'detail_items'?: boolean;
 
 /**
  * Ставки
  */
-'rows': Array<{
+'rows'?: Array<{
 
 /**
  * ID ставки
  */
-'id': number;
+'id'?: number;
 
 /**
  * Профит - Сумма
  */
-'profit_amount': number;
+'profit_amount'?: number;
 
 /**
  * Профит - Процент
  */
-'profit_percent': number;
+'profit_percent'?: number;
 
 /**
  * Итого Входящее
  */
-'income_total_cost': number;
+'income_total_cost'?: number;
 
 /**
  * Итого
  */
-'total_cost': number;
+'total_cost'?: number;
 
 /**
  * Главный рейт, использовать для итогового КП
@@ -27494,37 +27539,37 @@ export class RequestService extends BaseService {
 /**
  * Услуги
  */
-'services': Array<{
+'services'?: Array<{
 
 /**
  * ID Услуги
  */
-'field': string;
+'field'?: string;
 
 /**
  * Стоимость
  */
-'amount': number;
+'amount'?: number;
 
 /**
  * Профит - Сумма
  */
-'profit_amount': number;
+'profit_amount'?: number;
 
 /**
  * Профит - Процент
  */
-'profit_percent': number;
+'profit_percent'?: number;
 
 /**
  * Итого
  */
-'total_cost': number;
+'total_cost'?: number;
 
 /**
  * Включено
  */
-'select': boolean;
+'select'?: boolean;
 }>;
 }>;
 };
@@ -27532,62 +27577,62 @@ export class RequestService extends BaseService {
 /**
  * Массив ставок Склад (СВХ)
  */
-'storage': {
+'storage'?: {
 
 /**
  * Единый профит на все ставки
  */
-'one_profit': boolean;
+'one_profit'?: boolean;
 
 /**
  * Единый профит на все ставки - Сумма
  */
-'one_profit_amount': number;
+'one_profit_amount'?: number;
 
 /**
  * Единый профит на все ставки - Валюта (ID берем из запроса - system_currency)
  */
-'one_profit_amount_currency': number;
+'one_profit_amount_currency'?: number;
 
 /**
  * Единый профит на все ставки - Процент
  */
-'one_profit_percent': number;
+'one_profit_percent'?: number;
 
 /**
  * Детализировать ставку в КП
  */
-'detail_items': boolean;
+'detail_items'?: boolean;
 
 /**
  * Ставки
  */
-'rows': Array<{
+'rows'?: Array<{
 
 /**
  * ID ставки
  */
-'id': number;
+'id'?: number;
 
 /**
  * Профит - Сумма
  */
-'profit_amount': number;
+'profit_amount'?: number;
 
 /**
  * Профит - Процент
  */
-'profit_percent': number;
+'profit_percent'?: number;
 
 /**
  * Итого Входящее
  */
-'income_total_cost': number;
+'income_total_cost'?: number;
 
 /**
  * Итого
  */
-'total_cost': number;
+'total_cost'?: number;
 
 /**
  * Главный рейт, использовать для итогового КП
@@ -27597,37 +27642,37 @@ export class RequestService extends BaseService {
 /**
  * Услуги
  */
-'services': Array<{
+'services'?: Array<{
 
 /**
  * ID Услуги
  */
-'field': string;
+'field'?: string;
 
 /**
  * Стоимость
  */
-'amount': number;
+'amount'?: number;
 
 /**
  * Профит - Сумма
  */
-'profit_amount': number;
+'profit_amount'?: number;
 
 /**
  * Профит - Процент
  */
-'profit_percent': number;
+'profit_percent'?: number;
 
 /**
  * Итого
  */
-'total_cost': number;
+'total_cost'?: number;
 
 /**
  * Включено
  */
-'select': boolean;
+'select'?: boolean;
 }>;
 }>;
 };
@@ -27635,62 +27680,62 @@ export class RequestService extends BaseService {
 /**
  * Массив ставок Вывоз
  */
-'delivery': {
+'delivery'?: {
 
 /**
  * Единый профит на все ставки
  */
-'one_profit': boolean;
+'one_profit'?: boolean;
 
 /**
  * Единый профит на все ставки - Сумма
  */
-'one_profit_amount': number;
+'one_profit_amount'?: number;
 
 /**
  * Единый профит на все ставки - Валюта (ID берем из запроса - system_currency)
  */
-'one_profit_amount_currency': number;
+'one_profit_amount_currency'?: number;
 
 /**
  * Единый профит на все ставки - Процент
  */
-'one_profit_percent': number;
+'one_profit_percent'?: number;
 
 /**
  * Детализировать ставку в КП
  */
-'detail_items': boolean;
+'detail_items'?: boolean;
 
 /**
  * Ставки
  */
-'rows': Array<{
+'rows'?: Array<{
 
 /**
  * ID ставки
  */
-'id': number;
+'id'?: number;
 
 /**
  * Профит - Сумма
  */
-'profit_amount': number;
+'profit_amount'?: number;
 
 /**
  * Профит - Процент
  */
-'profit_percent': number;
+'profit_percent'?: number;
 
 /**
  * Итого Входящее
  */
-'income_total_cost': number;
+'income_total_cost'?: number;
 
 /**
  * Итого
  */
-'total_cost': number;
+'total_cost'?: number;
 
 /**
  * Главный рейт, использовать для итогового КП
@@ -27700,37 +27745,37 @@ export class RequestService extends BaseService {
 /**
  * Услуги
  */
-'services': Array<{
+'services'?: Array<{
 
 /**
  * ID Услуги
  */
-'field': string;
+'field'?: string;
 
 /**
  * Стоимость
  */
-'amount': number;
+'amount'?: number;
 
 /**
  * Профит - Сумма
  */
-'profit_amount': number;
+'profit_amount'?: number;
 
 /**
  * Профит - Процент
  */
-'profit_percent': number;
+'profit_percent'?: number;
 
 /**
  * Итого
  */
-'total_cost': number;
+'total_cost'?: number;
 
 /**
  * Включено
  */
-'select': boolean;
+'select'?: boolean;
 }>;
 }>;
 };
@@ -27742,9 +27787,19 @@ export class RequestService extends BaseService {
 'rate_amount'?: string;
 
 /**
+ * Вх. ставка
+ */
+'rate_amount_text'?: string;
+
+/**
  * Профит
  */
 'profit_amount'?: string;
+
+/**
+ * Профит
+ */
+'profit_amount_text'?: string;
 
 /**
  * %
@@ -27752,9 +27807,19 @@ export class RequestService extends BaseService {
 'profit_percent'?: string;
 
 /**
+ * %
+ */
+'profit_percent_text'?: string;
+
+/**
  * Ставка итого
  */
 'rate_total'?: string;
+
+/**
+ * Ставка итого
+ */
+'rate_total_text'?: string;
 
 /**
  * Валидность
@@ -27873,62 +27938,62 @@ export class RequestService extends BaseService {
         /**
          * Массив ставок До границы
          */
-        'custom': {
+        'custom'?: {
         
         /**
          * Единый профит на все ставки
          */
-        'one_profit': boolean;
+        'one_profit'?: boolean;
         
         /**
          * Единый профит на все ставки - Сумма
          */
-        'one_profit_amount': number;
+        'one_profit_amount'?: number;
         
         /**
          * Единый профит на все ставки - Валюта (ID берем из запроса - system_currency)
          */
-        'one_profit_amount_currency': number;
+        'one_profit_amount_currency'?: number;
         
         /**
          * Единый профит на все ставки - Процент
          */
-        'one_profit_percent': number;
+        'one_profit_percent'?: number;
         
         /**
          * Детализировать ставку в КП
          */
-        'detail_items': boolean;
+        'detail_items'?: boolean;
         
         /**
          * Ставки
          */
-        'rows': Array<{
+        'rows'?: Array<{
         
         /**
          * ID ставки
          */
-        'id': number;
+        'id'?: number;
         
         /**
          * Профит - Сумма
          */
-        'profit_amount': number;
+        'profit_amount'?: number;
         
         /**
          * Профит - Процент
          */
-        'profit_percent': number;
+        'profit_percent'?: number;
         
         /**
          * Итого Входящее
          */
-        'income_total_cost': number;
+        'income_total_cost'?: number;
         
         /**
          * Итого
          */
-        'total_cost': number;
+        'total_cost'?: number;
         
         /**
          * Главный рейт, использовать для итогового КП
@@ -27938,37 +28003,37 @@ export class RequestService extends BaseService {
         /**
          * Услуги
          */
-        'services': Array<{
+        'services'?: Array<{
         
         /**
          * ID Услуги
          */
-        'field': string;
+        'field'?: string;
         
         /**
          * Стоимость
          */
-        'amount': number;
+        'amount'?: number;
         
         /**
          * Профит - Сумма
          */
-        'profit_amount': number;
+        'profit_amount'?: number;
         
         /**
          * Профит - Процент
          */
-        'profit_percent': number;
+        'profit_percent'?: number;
         
         /**
          * Итого
          */
-        'total_cost': number;
+        'total_cost'?: number;
         
         /**
          * Включено
          */
-        'select': boolean;
+        'select'?: boolean;
         }>;
         }>;
         };
@@ -27976,62 +28041,62 @@ export class RequestService extends BaseService {
         /**
          * Массив ставок Склад (СВХ)
          */
-        'storage': {
+        'storage'?: {
         
         /**
          * Единый профит на все ставки
          */
-        'one_profit': boolean;
+        'one_profit'?: boolean;
         
         /**
          * Единый профит на все ставки - Сумма
          */
-        'one_profit_amount': number;
+        'one_profit_amount'?: number;
         
         /**
          * Единый профит на все ставки - Валюта (ID берем из запроса - system_currency)
          */
-        'one_profit_amount_currency': number;
+        'one_profit_amount_currency'?: number;
         
         /**
          * Единый профит на все ставки - Процент
          */
-        'one_profit_percent': number;
+        'one_profit_percent'?: number;
         
         /**
          * Детализировать ставку в КП
          */
-        'detail_items': boolean;
+        'detail_items'?: boolean;
         
         /**
          * Ставки
          */
-        'rows': Array<{
+        'rows'?: Array<{
         
         /**
          * ID ставки
          */
-        'id': number;
+        'id'?: number;
         
         /**
          * Профит - Сумма
          */
-        'profit_amount': number;
+        'profit_amount'?: number;
         
         /**
          * Профит - Процент
          */
-        'profit_percent': number;
+        'profit_percent'?: number;
         
         /**
          * Итого Входящее
          */
-        'income_total_cost': number;
+        'income_total_cost'?: number;
         
         /**
          * Итого
          */
-        'total_cost': number;
+        'total_cost'?: number;
         
         /**
          * Главный рейт, использовать для итогового КП
@@ -28041,37 +28106,37 @@ export class RequestService extends BaseService {
         /**
          * Услуги
          */
-        'services': Array<{
+        'services'?: Array<{
         
         /**
          * ID Услуги
          */
-        'field': string;
+        'field'?: string;
         
         /**
          * Стоимость
          */
-        'amount': number;
+        'amount'?: number;
         
         /**
          * Профит - Сумма
          */
-        'profit_amount': number;
+        'profit_amount'?: number;
         
         /**
          * Профит - Процент
          */
-        'profit_percent': number;
+        'profit_percent'?: number;
         
         /**
          * Итого
          */
-        'total_cost': number;
+        'total_cost'?: number;
         
         /**
          * Включено
          */
-        'select': boolean;
+        'select'?: boolean;
         }>;
         }>;
         };
@@ -28079,62 +28144,62 @@ export class RequestService extends BaseService {
         /**
          * Массив ставок Вывоз
          */
-        'delivery': {
+        'delivery'?: {
         
         /**
          * Единый профит на все ставки
          */
-        'one_profit': boolean;
+        'one_profit'?: boolean;
         
         /**
          * Единый профит на все ставки - Сумма
          */
-        'one_profit_amount': number;
+        'one_profit_amount'?: number;
         
         /**
          * Единый профит на все ставки - Валюта (ID берем из запроса - system_currency)
          */
-        'one_profit_amount_currency': number;
+        'one_profit_amount_currency'?: number;
         
         /**
          * Единый профит на все ставки - Процент
          */
-        'one_profit_percent': number;
+        'one_profit_percent'?: number;
         
         /**
          * Детализировать ставку в КП
          */
-        'detail_items': boolean;
+        'detail_items'?: boolean;
         
         /**
          * Ставки
          */
-        'rows': Array<{
+        'rows'?: Array<{
         
         /**
          * ID ставки
          */
-        'id': number;
+        'id'?: number;
         
         /**
          * Профит - Сумма
          */
-        'profit_amount': number;
+        'profit_amount'?: number;
         
         /**
          * Профит - Процент
          */
-        'profit_percent': number;
+        'profit_percent'?: number;
         
         /**
          * Итого Входящее
          */
-        'income_total_cost': number;
+        'income_total_cost'?: number;
         
         /**
          * Итого
          */
-        'total_cost': number;
+        'total_cost'?: number;
         
         /**
          * Главный рейт, использовать для итогового КП
@@ -28144,37 +28209,37 @@ export class RequestService extends BaseService {
         /**
          * Услуги
          */
-        'services': Array<{
+        'services'?: Array<{
         
         /**
          * ID Услуги
          */
-        'field': string;
+        'field'?: string;
         
         /**
          * Стоимость
          */
-        'amount': number;
+        'amount'?: number;
         
         /**
          * Профит - Сумма
          */
-        'profit_amount': number;
+        'profit_amount'?: number;
         
         /**
          * Профит - Процент
          */
-        'profit_percent': number;
+        'profit_percent'?: number;
         
         /**
          * Итого
          */
-        'total_cost': number;
+        'total_cost'?: number;
         
         /**
          * Включено
          */
-        'select': boolean;
+        'select'?: boolean;
         }>;
         }>;
         };
@@ -28186,9 +28251,19 @@ export class RequestService extends BaseService {
         'rate_amount'?: string;
         
         /**
+         * Вх. ставка
+         */
+        'rate_amount_text'?: string;
+        
+        /**
          * Профит
          */
         'profit_amount'?: string;
+        
+        /**
+         * Профит
+         */
+        'profit_amount_text'?: string;
         
         /**
          * %
@@ -28196,9 +28271,19 @@ export class RequestService extends BaseService {
         'profit_percent'?: string;
         
         /**
+         * %
+         */
+        'profit_percent_text'?: string;
+        
+        /**
          * Ставка итого
          */
         'rate_total'?: string;
+        
+        /**
+         * Ставка итого
+         */
+        'rate_total_text'?: string;
         
         /**
          * Валидность
@@ -28330,62 +28415,62 @@ export class RequestService extends BaseService {
 /**
  * Массив ставок До границы
  */
-'custom': {
+'custom'?: {
 
 /**
  * Единый профит на все ставки
  */
-'one_profit': boolean;
+'one_profit'?: boolean;
 
 /**
  * Единый профит на все ставки - Сумма
  */
-'one_profit_amount': number;
+'one_profit_amount'?: number;
 
 /**
  * Единый профит на все ставки - Валюта (ID берем из запроса - system_currency)
  */
-'one_profit_amount_currency': number;
+'one_profit_amount_currency'?: number;
 
 /**
  * Единый профит на все ставки - Процент
  */
-'one_profit_percent': number;
+'one_profit_percent'?: number;
 
 /**
  * Детализировать ставку в КП
  */
-'detail_items': boolean;
+'detail_items'?: boolean;
 
 /**
  * Ставки
  */
-'rows': Array<{
+'rows'?: Array<{
 
 /**
  * ID ставки
  */
-'id': number;
+'id'?: number;
 
 /**
  * Профит - Сумма
  */
-'profit_amount': number;
+'profit_amount'?: number;
 
 /**
  * Профит - Процент
  */
-'profit_percent': number;
+'profit_percent'?: number;
 
 /**
  * Итого Входящее
  */
-'income_total_cost': number;
+'income_total_cost'?: number;
 
 /**
  * Итого
  */
-'total_cost': number;
+'total_cost'?: number;
 
 /**
  * Главный рейт, использовать для итогового КП
@@ -28395,37 +28480,37 @@ export class RequestService extends BaseService {
 /**
  * Услуги
  */
-'services': Array<{
+'services'?: Array<{
 
 /**
  * ID Услуги
  */
-'field': string;
+'field'?: string;
 
 /**
  * Стоимость
  */
-'amount': number;
+'amount'?: number;
 
 /**
  * Профит - Сумма
  */
-'profit_amount': number;
+'profit_amount'?: number;
 
 /**
  * Профит - Процент
  */
-'profit_percent': number;
+'profit_percent'?: number;
 
 /**
  * Итого
  */
-'total_cost': number;
+'total_cost'?: number;
 
 /**
  * Включено
  */
-'select': boolean;
+'select'?: boolean;
 }>;
 }>;
 };
@@ -28433,62 +28518,62 @@ export class RequestService extends BaseService {
 /**
  * Массив ставок Склад (СВХ)
  */
-'storage': {
+'storage'?: {
 
 /**
  * Единый профит на все ставки
  */
-'one_profit': boolean;
+'one_profit'?: boolean;
 
 /**
  * Единый профит на все ставки - Сумма
  */
-'one_profit_amount': number;
+'one_profit_amount'?: number;
 
 /**
  * Единый профит на все ставки - Валюта (ID берем из запроса - system_currency)
  */
-'one_profit_amount_currency': number;
+'one_profit_amount_currency'?: number;
 
 /**
  * Единый профит на все ставки - Процент
  */
-'one_profit_percent': number;
+'one_profit_percent'?: number;
 
 /**
  * Детализировать ставку в КП
  */
-'detail_items': boolean;
+'detail_items'?: boolean;
 
 /**
  * Ставки
  */
-'rows': Array<{
+'rows'?: Array<{
 
 /**
  * ID ставки
  */
-'id': number;
+'id'?: number;
 
 /**
  * Профит - Сумма
  */
-'profit_amount': number;
+'profit_amount'?: number;
 
 /**
  * Профит - Процент
  */
-'profit_percent': number;
+'profit_percent'?: number;
 
 /**
  * Итого Входящее
  */
-'income_total_cost': number;
+'income_total_cost'?: number;
 
 /**
  * Итого
  */
-'total_cost': number;
+'total_cost'?: number;
 
 /**
  * Главный рейт, использовать для итогового КП
@@ -28498,37 +28583,37 @@ export class RequestService extends BaseService {
 /**
  * Услуги
  */
-'services': Array<{
+'services'?: Array<{
 
 /**
  * ID Услуги
  */
-'field': string;
+'field'?: string;
 
 /**
  * Стоимость
  */
-'amount': number;
+'amount'?: number;
 
 /**
  * Профит - Сумма
  */
-'profit_amount': number;
+'profit_amount'?: number;
 
 /**
  * Профит - Процент
  */
-'profit_percent': number;
+'profit_percent'?: number;
 
 /**
  * Итого
  */
-'total_cost': number;
+'total_cost'?: number;
 
 /**
  * Включено
  */
-'select': boolean;
+'select'?: boolean;
 }>;
 }>;
 };
@@ -28536,62 +28621,62 @@ export class RequestService extends BaseService {
 /**
  * Массив ставок Вывоз
  */
-'delivery': {
+'delivery'?: {
 
 /**
  * Единый профит на все ставки
  */
-'one_profit': boolean;
+'one_profit'?: boolean;
 
 /**
  * Единый профит на все ставки - Сумма
  */
-'one_profit_amount': number;
+'one_profit_amount'?: number;
 
 /**
  * Единый профит на все ставки - Валюта (ID берем из запроса - system_currency)
  */
-'one_profit_amount_currency': number;
+'one_profit_amount_currency'?: number;
 
 /**
  * Единый профит на все ставки - Процент
  */
-'one_profit_percent': number;
+'one_profit_percent'?: number;
 
 /**
  * Детализировать ставку в КП
  */
-'detail_items': boolean;
+'detail_items'?: boolean;
 
 /**
  * Ставки
  */
-'rows': Array<{
+'rows'?: Array<{
 
 /**
  * ID ставки
  */
-'id': number;
+'id'?: number;
 
 /**
  * Профит - Сумма
  */
-'profit_amount': number;
+'profit_amount'?: number;
 
 /**
  * Профит - Процент
  */
-'profit_percent': number;
+'profit_percent'?: number;
 
 /**
  * Итого Входящее
  */
-'income_total_cost': number;
+'income_total_cost'?: number;
 
 /**
  * Итого
  */
-'total_cost': number;
+'total_cost'?: number;
 
 /**
  * Главный рейт, использовать для итогового КП
@@ -28601,37 +28686,37 @@ export class RequestService extends BaseService {
 /**
  * Услуги
  */
-'services': Array<{
+'services'?: Array<{
 
 /**
  * ID Услуги
  */
-'field': string;
+'field'?: string;
 
 /**
  * Стоимость
  */
-'amount': number;
+'amount'?: number;
 
 /**
  * Профит - Сумма
  */
-'profit_amount': number;
+'profit_amount'?: number;
 
 /**
  * Профит - Процент
  */
-'profit_percent': number;
+'profit_percent'?: number;
 
 /**
  * Итого
  */
-'total_cost': number;
+'total_cost'?: number;
 
 /**
  * Включено
  */
-'select': boolean;
+'select'?: boolean;
 }>;
 }>;
 };
@@ -28643,9 +28728,19 @@ export class RequestService extends BaseService {
 'rate_amount'?: string;
 
 /**
+ * Вх. ставка
+ */
+'rate_amount_text'?: string;
+
+/**
  * Профит
  */
 'profit_amount'?: string;
+
+/**
+ * Профит
+ */
+'profit_amount_text'?: string;
 
 /**
  * %
@@ -28653,9 +28748,19 @@ export class RequestService extends BaseService {
 'profit_percent'?: string;
 
 /**
+ * %
+ */
+'profit_percent_text'?: string;
+
+/**
  * Ставка итого
  */
 'rate_total'?: string;
+
+/**
+ * Ставка итого
+ */
+'rate_total_text'?: string;
 
 /**
  * Валидность
@@ -28765,62 +28870,62 @@ export class RequestService extends BaseService {
 /**
  * Массив ставок До границы
  */
-'custom': {
+'custom'?: {
 
 /**
  * Единый профит на все ставки
  */
-'one_profit': boolean;
+'one_profit'?: boolean;
 
 /**
  * Единый профит на все ставки - Сумма
  */
-'one_profit_amount': number;
+'one_profit_amount'?: number;
 
 /**
  * Единый профит на все ставки - Валюта (ID берем из запроса - system_currency)
  */
-'one_profit_amount_currency': number;
+'one_profit_amount_currency'?: number;
 
 /**
  * Единый профит на все ставки - Процент
  */
-'one_profit_percent': number;
+'one_profit_percent'?: number;
 
 /**
  * Детализировать ставку в КП
  */
-'detail_items': boolean;
+'detail_items'?: boolean;
 
 /**
  * Ставки
  */
-'rows': Array<{
+'rows'?: Array<{
 
 /**
  * ID ставки
  */
-'id': number;
+'id'?: number;
 
 /**
  * Профит - Сумма
  */
-'profit_amount': number;
+'profit_amount'?: number;
 
 /**
  * Профит - Процент
  */
-'profit_percent': number;
+'profit_percent'?: number;
 
 /**
  * Итого Входящее
  */
-'income_total_cost': number;
+'income_total_cost'?: number;
 
 /**
  * Итого
  */
-'total_cost': number;
+'total_cost'?: number;
 
 /**
  * Главный рейт, использовать для итогового КП
@@ -28830,37 +28935,37 @@ export class RequestService extends BaseService {
 /**
  * Услуги
  */
-'services': Array<{
+'services'?: Array<{
 
 /**
  * ID Услуги
  */
-'field': string;
+'field'?: string;
 
 /**
  * Стоимость
  */
-'amount': number;
+'amount'?: number;
 
 /**
  * Профит - Сумма
  */
-'profit_amount': number;
+'profit_amount'?: number;
 
 /**
  * Профит - Процент
  */
-'profit_percent': number;
+'profit_percent'?: number;
 
 /**
  * Итого
  */
-'total_cost': number;
+'total_cost'?: number;
 
 /**
  * Включено
  */
-'select': boolean;
+'select'?: boolean;
 }>;
 }>;
 };
@@ -28868,62 +28973,62 @@ export class RequestService extends BaseService {
 /**
  * Массив ставок Склад (СВХ)
  */
-'storage': {
+'storage'?: {
 
 /**
  * Единый профит на все ставки
  */
-'one_profit': boolean;
+'one_profit'?: boolean;
 
 /**
  * Единый профит на все ставки - Сумма
  */
-'one_profit_amount': number;
+'one_profit_amount'?: number;
 
 /**
  * Единый профит на все ставки - Валюта (ID берем из запроса - system_currency)
  */
-'one_profit_amount_currency': number;
+'one_profit_amount_currency'?: number;
 
 /**
  * Единый профит на все ставки - Процент
  */
-'one_profit_percent': number;
+'one_profit_percent'?: number;
 
 /**
  * Детализировать ставку в КП
  */
-'detail_items': boolean;
+'detail_items'?: boolean;
 
 /**
  * Ставки
  */
-'rows': Array<{
+'rows'?: Array<{
 
 /**
  * ID ставки
  */
-'id': number;
+'id'?: number;
 
 /**
  * Профит - Сумма
  */
-'profit_amount': number;
+'profit_amount'?: number;
 
 /**
  * Профит - Процент
  */
-'profit_percent': number;
+'profit_percent'?: number;
 
 /**
  * Итого Входящее
  */
-'income_total_cost': number;
+'income_total_cost'?: number;
 
 /**
  * Итого
  */
-'total_cost': number;
+'total_cost'?: number;
 
 /**
  * Главный рейт, использовать для итогового КП
@@ -28933,37 +29038,37 @@ export class RequestService extends BaseService {
 /**
  * Услуги
  */
-'services': Array<{
+'services'?: Array<{
 
 /**
  * ID Услуги
  */
-'field': string;
+'field'?: string;
 
 /**
  * Стоимость
  */
-'amount': number;
+'amount'?: number;
 
 /**
  * Профит - Сумма
  */
-'profit_amount': number;
+'profit_amount'?: number;
 
 /**
  * Профит - Процент
  */
-'profit_percent': number;
+'profit_percent'?: number;
 
 /**
  * Итого
  */
-'total_cost': number;
+'total_cost'?: number;
 
 /**
  * Включено
  */
-'select': boolean;
+'select'?: boolean;
 }>;
 }>;
 };
@@ -28971,62 +29076,62 @@ export class RequestService extends BaseService {
 /**
  * Массив ставок Вывоз
  */
-'delivery': {
+'delivery'?: {
 
 /**
  * Единый профит на все ставки
  */
-'one_profit': boolean;
+'one_profit'?: boolean;
 
 /**
  * Единый профит на все ставки - Сумма
  */
-'one_profit_amount': number;
+'one_profit_amount'?: number;
 
 /**
  * Единый профит на все ставки - Валюта (ID берем из запроса - system_currency)
  */
-'one_profit_amount_currency': number;
+'one_profit_amount_currency'?: number;
 
 /**
  * Единый профит на все ставки - Процент
  */
-'one_profit_percent': number;
+'one_profit_percent'?: number;
 
 /**
  * Детализировать ставку в КП
  */
-'detail_items': boolean;
+'detail_items'?: boolean;
 
 /**
  * Ставки
  */
-'rows': Array<{
+'rows'?: Array<{
 
 /**
  * ID ставки
  */
-'id': number;
+'id'?: number;
 
 /**
  * Профит - Сумма
  */
-'profit_amount': number;
+'profit_amount'?: number;
 
 /**
  * Профит - Процент
  */
-'profit_percent': number;
+'profit_percent'?: number;
 
 /**
  * Итого Входящее
  */
-'income_total_cost': number;
+'income_total_cost'?: number;
 
 /**
  * Итого
  */
-'total_cost': number;
+'total_cost'?: number;
 
 /**
  * Главный рейт, использовать для итогового КП
@@ -29036,37 +29141,37 @@ export class RequestService extends BaseService {
 /**
  * Услуги
  */
-'services': Array<{
+'services'?: Array<{
 
 /**
  * ID Услуги
  */
-'field': string;
+'field'?: string;
 
 /**
  * Стоимость
  */
-'amount': number;
+'amount'?: number;
 
 /**
  * Профит - Сумма
  */
-'profit_amount': number;
+'profit_amount'?: number;
 
 /**
  * Профит - Процент
  */
-'profit_percent': number;
+'profit_percent'?: number;
 
 /**
  * Итого
  */
-'total_cost': number;
+'total_cost'?: number;
 
 /**
  * Включено
  */
-'select': boolean;
+'select'?: boolean;
 }>;
 }>;
 };
@@ -29078,9 +29183,19 @@ export class RequestService extends BaseService {
 'rate_amount'?: string;
 
 /**
+ * Вх. ставка
+ */
+'rate_amount_text'?: string;
+
+/**
  * Профит
  */
 'profit_amount'?: string;
+
+/**
+ * Профит
+ */
+'profit_amount_text'?: string;
 
 /**
  * %
@@ -29088,9 +29203,19 @@ export class RequestService extends BaseService {
 'profit_percent'?: string;
 
 /**
+ * %
+ */
+'profit_percent_text'?: string;
+
+/**
  * Ставка итого
  */
 'rate_total'?: string;
+
+/**
+ * Ставка итого
+ */
+'rate_total_text'?: string;
 
 /**
  * Валидность
@@ -29198,62 +29323,62 @@ export class RequestService extends BaseService {
 /**
  * Массив ставок До границы
  */
-'custom': {
+'custom'?: {
 
 /**
  * Единый профит на все ставки
  */
-'one_profit': boolean;
+'one_profit'?: boolean;
 
 /**
  * Единый профит на все ставки - Сумма
  */
-'one_profit_amount': number;
+'one_profit_amount'?: number;
 
 /**
  * Единый профит на все ставки - Валюта (ID берем из запроса - system_currency)
  */
-'one_profit_amount_currency': number;
+'one_profit_amount_currency'?: number;
 
 /**
  * Единый профит на все ставки - Процент
  */
-'one_profit_percent': number;
+'one_profit_percent'?: number;
 
 /**
  * Детализировать ставку в КП
  */
-'detail_items': boolean;
+'detail_items'?: boolean;
 
 /**
  * Ставки
  */
-'rows': Array<{
+'rows'?: Array<{
 
 /**
  * ID ставки
  */
-'id': number;
+'id'?: number;
 
 /**
  * Профит - Сумма
  */
-'profit_amount': number;
+'profit_amount'?: number;
 
 /**
  * Профит - Процент
  */
-'profit_percent': number;
+'profit_percent'?: number;
 
 /**
  * Итого Входящее
  */
-'income_total_cost': number;
+'income_total_cost'?: number;
 
 /**
  * Итого
  */
-'total_cost': number;
+'total_cost'?: number;
 
 /**
  * Главный рейт, использовать для итогового КП
@@ -29263,37 +29388,37 @@ export class RequestService extends BaseService {
 /**
  * Услуги
  */
-'services': Array<{
+'services'?: Array<{
 
 /**
  * ID Услуги
  */
-'field': string;
+'field'?: string;
 
 /**
  * Стоимость
  */
-'amount': number;
+'amount'?: number;
 
 /**
  * Профит - Сумма
  */
-'profit_amount': number;
+'profit_amount'?: number;
 
 /**
  * Профит - Процент
  */
-'profit_percent': number;
+'profit_percent'?: number;
 
 /**
  * Итого
  */
-'total_cost': number;
+'total_cost'?: number;
 
 /**
  * Включено
  */
-'select': boolean;
+'select'?: boolean;
 }>;
 }>;
 };
@@ -29301,62 +29426,62 @@ export class RequestService extends BaseService {
 /**
  * Массив ставок Склад (СВХ)
  */
-'storage': {
+'storage'?: {
 
 /**
  * Единый профит на все ставки
  */
-'one_profit': boolean;
+'one_profit'?: boolean;
 
 /**
  * Единый профит на все ставки - Сумма
  */
-'one_profit_amount': number;
+'one_profit_amount'?: number;
 
 /**
  * Единый профит на все ставки - Валюта (ID берем из запроса - system_currency)
  */
-'one_profit_amount_currency': number;
+'one_profit_amount_currency'?: number;
 
 /**
  * Единый профит на все ставки - Процент
  */
-'one_profit_percent': number;
+'one_profit_percent'?: number;
 
 /**
  * Детализировать ставку в КП
  */
-'detail_items': boolean;
+'detail_items'?: boolean;
 
 /**
  * Ставки
  */
-'rows': Array<{
+'rows'?: Array<{
 
 /**
  * ID ставки
  */
-'id': number;
+'id'?: number;
 
 /**
  * Профит - Сумма
  */
-'profit_amount': number;
+'profit_amount'?: number;
 
 /**
  * Профит - Процент
  */
-'profit_percent': number;
+'profit_percent'?: number;
 
 /**
  * Итого Входящее
  */
-'income_total_cost': number;
+'income_total_cost'?: number;
 
 /**
  * Итого
  */
-'total_cost': number;
+'total_cost'?: number;
 
 /**
  * Главный рейт, использовать для итогового КП
@@ -29366,37 +29491,37 @@ export class RequestService extends BaseService {
 /**
  * Услуги
  */
-'services': Array<{
+'services'?: Array<{
 
 /**
  * ID Услуги
  */
-'field': string;
+'field'?: string;
 
 /**
  * Стоимость
  */
-'amount': number;
+'amount'?: number;
 
 /**
  * Профит - Сумма
  */
-'profit_amount': number;
+'profit_amount'?: number;
 
 /**
  * Профит - Процент
  */
-'profit_percent': number;
+'profit_percent'?: number;
 
 /**
  * Итого
  */
-'total_cost': number;
+'total_cost'?: number;
 
 /**
  * Включено
  */
-'select': boolean;
+'select'?: boolean;
 }>;
 }>;
 };
@@ -29404,62 +29529,62 @@ export class RequestService extends BaseService {
 /**
  * Массив ставок Вывоз
  */
-'delivery': {
+'delivery'?: {
 
 /**
  * Единый профит на все ставки
  */
-'one_profit': boolean;
+'one_profit'?: boolean;
 
 /**
  * Единый профит на все ставки - Сумма
  */
-'one_profit_amount': number;
+'one_profit_amount'?: number;
 
 /**
  * Единый профит на все ставки - Валюта (ID берем из запроса - system_currency)
  */
-'one_profit_amount_currency': number;
+'one_profit_amount_currency'?: number;
 
 /**
  * Единый профит на все ставки - Процент
  */
-'one_profit_percent': number;
+'one_profit_percent'?: number;
 
 /**
  * Детализировать ставку в КП
  */
-'detail_items': boolean;
+'detail_items'?: boolean;
 
 /**
  * Ставки
  */
-'rows': Array<{
+'rows'?: Array<{
 
 /**
  * ID ставки
  */
-'id': number;
+'id'?: number;
 
 /**
  * Профит - Сумма
  */
-'profit_amount': number;
+'profit_amount'?: number;
 
 /**
  * Профит - Процент
  */
-'profit_percent': number;
+'profit_percent'?: number;
 
 /**
  * Итого Входящее
  */
-'income_total_cost': number;
+'income_total_cost'?: number;
 
 /**
  * Итого
  */
-'total_cost': number;
+'total_cost'?: number;
 
 /**
  * Главный рейт, использовать для итогового КП
@@ -29469,37 +29594,37 @@ export class RequestService extends BaseService {
 /**
  * Услуги
  */
-'services': Array<{
+'services'?: Array<{
 
 /**
  * ID Услуги
  */
-'field': string;
+'field'?: string;
 
 /**
  * Стоимость
  */
-'amount': number;
+'amount'?: number;
 
 /**
  * Профит - Сумма
  */
-'profit_amount': number;
+'profit_amount'?: number;
 
 /**
  * Профит - Процент
  */
-'profit_percent': number;
+'profit_percent'?: number;
 
 /**
  * Итого
  */
-'total_cost': number;
+'total_cost'?: number;
 
 /**
  * Включено
  */
-'select': boolean;
+'select'?: boolean;
 }>;
 }>;
 };
@@ -29511,9 +29636,19 @@ export class RequestService extends BaseService {
 'rate_amount'?: string;
 
 /**
+ * Вх. ставка
+ */
+'rate_amount_text'?: string;
+
+/**
  * Профит
  */
 'profit_amount'?: string;
+
+/**
+ * Профит
+ */
+'profit_amount_text'?: string;
 
 /**
  * %
@@ -29521,9 +29656,19 @@ export class RequestService extends BaseService {
 'profit_percent'?: string;
 
 /**
+ * %
+ */
+'profit_percent_text'?: string;
+
+/**
  * Ставка итого
  */
 'rate_total'?: string;
+
+/**
+ * Ставка итого
+ */
+'rate_total_text'?: string;
 
 /**
  * Валидность
@@ -30942,67 +31087,67 @@ export class RequestService extends BaseService {
 /**
  * Массив ставок До границы
  */
-'custom': {
+'custom'?: {
 
 /**
  * Единый профит на все ставки
  */
-'one_profit': boolean;
+'one_profit'?: boolean;
 
 /**
  * Единый профит на все ставки - Сумма
  */
-'one_profit_amount': number;
+'one_profit_amount'?: number;
 
 /**
  * Единый профит на все ставки - Валюта (ID берем из запроса - system_currency)
  */
-'one_profit_amount_currency': number;
+'one_profit_amount_currency'?: number;
 
 /**
  * Единый профит на все ставки - Процент
  */
-'one_profit_percent': number;
+'one_profit_percent'?: number;
 
 /**
  * Детализировать ставку в КП
  */
-'detail_items': boolean;
+'detail_items'?: boolean;
 
 /**
  * Ставки
  */
-'rows': Array<{
+'rows'?: Array<{
 
 /**
  * ID ставки
  */
-'id': number;
+'id'?: number;
 
 /**
  * Профит - Сумма
  */
-'profit_amount': number;
+'profit_amount'?: number;
 
 /**
  * Профит - Процент
  */
-'profit_percent': number;
+'profit_percent'?: number;
 
 /**
  * Признак изменения значения
  */
-'profit_changed': boolean;
+'profit_changed'?: boolean;
 
 /**
  * Итого Входящее
  */
-'income_total_cost': number;
+'income_total_cost'?: number;
 
 /**
  * Итого
  */
-'total_cost': number;
+'total_cost'?: number;
 
 /**
  * Главный рейт, использовать для итогового КП
@@ -31012,42 +31157,42 @@ export class RequestService extends BaseService {
 /**
  * Услуги
  */
-'services': Array<{
+'services'?: Array<{
 
 /**
  * ID Услуги
  */
-'field': string;
+'field'?: string;
 
 /**
  * Стоимость
  */
-'amount': number;
+'amount'?: number;
 
 /**
  * Профит - Сумма
  */
-'profit_amount': number;
+'profit_amount'?: number;
 
 /**
  * Профит - Процент
  */
-'profit_percent': number;
+'profit_percent'?: number;
 
 /**
  * Признак изменения значения
  */
-'profit_changed': boolean;
+'profit_changed'?: boolean;
 
 /**
  * Итого
  */
-'total_cost': number;
+'total_cost'?: number;
 
 /**
  * Включено
  */
-'select': boolean;
+'select'?: boolean;
 }>;
 }>;
 };
@@ -31055,67 +31200,67 @@ export class RequestService extends BaseService {
 /**
  * Массив ставок Склад (СВХ)
  */
-'storage': {
+'storage'?: {
 
 /**
  * Единый профит на все ставки
  */
-'one_profit': boolean;
+'one_profit'?: boolean;
 
 /**
  * Единый профит на все ставки - Сумма
  */
-'one_profit_amount': number;
+'one_profit_amount'?: number;
 
 /**
  * Единый профит на все ставки - Валюта (ID берем из запроса - system_currency)
  */
-'one_profit_amount_currency': number;
+'one_profit_amount_currency'?: number;
 
 /**
  * Единый профит на все ставки - Процент
  */
-'one_profit_percent': number;
+'one_profit_percent'?: number;
 
 /**
  * Детализировать ставку в КП
  */
-'detail_items': boolean;
+'detail_items'?: boolean;
 
 /**
  * Ставки
  */
-'rows': Array<{
+'rows'?: Array<{
 
 /**
  * ID ставки
  */
-'id': number;
+'id'?: number;
 
 /**
  * Профит - Сумма
  */
-'profit_amount': number;
+'profit_amount'?: number;
 
 /**
  * Профит - Процент
  */
-'profit_percent': number;
+'profit_percent'?: number;
 
 /**
  * Признак изменения значения
  */
-'profit_changed': boolean;
+'profit_changed'?: boolean;
 
 /**
  * Итого Входящее
  */
-'income_total_cost': number;
+'income_total_cost'?: number;
 
 /**
  * Итого
  */
-'total_cost': number;
+'total_cost'?: number;
 
 /**
  * Главный рейт, использовать для итогового КП
@@ -31125,42 +31270,42 @@ export class RequestService extends BaseService {
 /**
  * Услуги
  */
-'services': Array<{
+'services'?: Array<{
 
 /**
  * ID Услуги
  */
-'field': string;
+'field'?: string;
 
 /**
  * Стоимость
  */
-'amount': number;
+'amount'?: number;
 
 /**
  * Профит - Сумма
  */
-'profit_amount': number;
+'profit_amount'?: number;
 
 /**
  * Профит - Процент
  */
-'profit_percent': number;
+'profit_percent'?: number;
 
 /**
  * Признак изменения значения
  */
-'profit_changed': boolean;
+'profit_changed'?: boolean;
 
 /**
  * Итого
  */
-'total_cost': number;
+'total_cost'?: number;
 
 /**
  * Включено
  */
-'select': boolean;
+'select'?: boolean;
 }>;
 }>;
 };
@@ -31168,67 +31313,67 @@ export class RequestService extends BaseService {
 /**
  * Массив ставок Вывоз
  */
-'delivery': {
+'delivery'?: {
 
 /**
  * Единый профит на все ставки
  */
-'one_profit': boolean;
+'one_profit'?: boolean;
 
 /**
  * Единый профит на все ставки - Сумма
  */
-'one_profit_amount': number;
+'one_profit_amount'?: number;
 
 /**
  * Единый профит на все ставки - Валюта (ID берем из запроса - system_currency)
  */
-'one_profit_amount_currency': number;
+'one_profit_amount_currency'?: number;
 
 /**
  * Единый профит на все ставки - Процент
  */
-'one_profit_percent': number;
+'one_profit_percent'?: number;
 
 /**
  * Детализировать ставку в КП
  */
-'detail_items': boolean;
+'detail_items'?: boolean;
 
 /**
  * Ставки
  */
-'rows': Array<{
+'rows'?: Array<{
 
 /**
  * ID ставки
  */
-'id': number;
+'id'?: number;
 
 /**
  * Профит - Сумма
  */
-'profit_amount': number;
+'profit_amount'?: number;
 
 /**
  * Профит - Процент
  */
-'profit_percent': number;
+'profit_percent'?: number;
 
 /**
  * Признак изменения значения
  */
-'profit_changed': boolean;
+'profit_changed'?: boolean;
 
 /**
  * Итого Входящее
  */
-'income_total_cost': number;
+'income_total_cost'?: number;
 
 /**
  * Итого
  */
-'total_cost': number;
+'total_cost'?: number;
 
 /**
  * Главный рейт, использовать для итогового КП
@@ -31238,42 +31383,42 @@ export class RequestService extends BaseService {
 /**
  * Услуги
  */
-'services': Array<{
+'services'?: Array<{
 
 /**
  * ID Услуги
  */
-'field': string;
+'field'?: string;
 
 /**
  * Стоимость
  */
-'amount': number;
+'amount'?: number;
 
 /**
  * Профит - Сумма
  */
-'profit_amount': number;
+'profit_amount'?: number;
 
 /**
  * Профит - Процент
  */
-'profit_percent': number;
+'profit_percent'?: number;
 
 /**
  * Признак изменения значения
  */
-'profit_changed': boolean;
+'profit_changed'?: boolean;
 
 /**
  * Итого
  */
-'total_cost': number;
+'total_cost'?: number;
 
 /**
  * Включено
  */
-'select': boolean;
+'select'?: boolean;
 }>;
 }>;
 };
@@ -31285,9 +31430,19 @@ export class RequestService extends BaseService {
 'rate_amount'?: string;
 
 /**
+ * Вх. ставка
+ */
+'rate_amount_text'?: string;
+
+/**
  * Профит
  */
 'profit_amount'?: string;
+
+/**
+ * Профит
+ */
+'profit_amount_text'?: string;
 
 /**
  * %
@@ -31295,9 +31450,19 @@ export class RequestService extends BaseService {
 'profit_percent'?: string;
 
 /**
+ * %
+ */
+'profit_percent_text'?: string;
+
+/**
  * Ставка итого
  */
 'rate_total'?: string;
+
+/**
+ * Ставка итого
+ */
+'rate_total_text'?: string;
 
 /**
  * Статус
@@ -31381,67 +31546,67 @@ export class RequestService extends BaseService {
         /**
          * Массив ставок До границы
          */
-        'custom': {
+        'custom'?: {
         
         /**
          * Единый профит на все ставки
          */
-        'one_profit': boolean;
+        'one_profit'?: boolean;
         
         /**
          * Единый профит на все ставки - Сумма
          */
-        'one_profit_amount': number;
+        'one_profit_amount'?: number;
         
         /**
          * Единый профит на все ставки - Валюта (ID берем из запроса - system_currency)
          */
-        'one_profit_amount_currency': number;
+        'one_profit_amount_currency'?: number;
         
         /**
          * Единый профит на все ставки - Процент
          */
-        'one_profit_percent': number;
+        'one_profit_percent'?: number;
         
         /**
          * Детализировать ставку в КП
          */
-        'detail_items': boolean;
+        'detail_items'?: boolean;
         
         /**
          * Ставки
          */
-        'rows': Array<{
+        'rows'?: Array<{
         
         /**
          * ID ставки
          */
-        'id': number;
+        'id'?: number;
         
         /**
          * Профит - Сумма
          */
-        'profit_amount': number;
+        'profit_amount'?: number;
         
         /**
          * Профит - Процент
          */
-        'profit_percent': number;
+        'profit_percent'?: number;
         
         /**
          * Признак изменения значения
          */
-        'profit_changed': boolean;
+        'profit_changed'?: boolean;
         
         /**
          * Итого Входящее
          */
-        'income_total_cost': number;
+        'income_total_cost'?: number;
         
         /**
          * Итого
          */
-        'total_cost': number;
+        'total_cost'?: number;
         
         /**
          * Главный рейт, использовать для итогового КП
@@ -31451,42 +31616,42 @@ export class RequestService extends BaseService {
         /**
          * Услуги
          */
-        'services': Array<{
+        'services'?: Array<{
         
         /**
          * ID Услуги
          */
-        'field': string;
+        'field'?: string;
         
         /**
          * Стоимость
          */
-        'amount': number;
+        'amount'?: number;
         
         /**
          * Профит - Сумма
          */
-        'profit_amount': number;
+        'profit_amount'?: number;
         
         /**
          * Профит - Процент
          */
-        'profit_percent': number;
+        'profit_percent'?: number;
         
         /**
          * Признак изменения значения
          */
-        'profit_changed': boolean;
+        'profit_changed'?: boolean;
         
         /**
          * Итого
          */
-        'total_cost': number;
+        'total_cost'?: number;
         
         /**
          * Включено
          */
-        'select': boolean;
+        'select'?: boolean;
         }>;
         }>;
         };
@@ -31494,67 +31659,67 @@ export class RequestService extends BaseService {
         /**
          * Массив ставок Склад (СВХ)
          */
-        'storage': {
+        'storage'?: {
         
         /**
          * Единый профит на все ставки
          */
-        'one_profit': boolean;
+        'one_profit'?: boolean;
         
         /**
          * Единый профит на все ставки - Сумма
          */
-        'one_profit_amount': number;
+        'one_profit_amount'?: number;
         
         /**
          * Единый профит на все ставки - Валюта (ID берем из запроса - system_currency)
          */
-        'one_profit_amount_currency': number;
+        'one_profit_amount_currency'?: number;
         
         /**
          * Единый профит на все ставки - Процент
          */
-        'one_profit_percent': number;
+        'one_profit_percent'?: number;
         
         /**
          * Детализировать ставку в КП
          */
-        'detail_items': boolean;
+        'detail_items'?: boolean;
         
         /**
          * Ставки
          */
-        'rows': Array<{
+        'rows'?: Array<{
         
         /**
          * ID ставки
          */
-        'id': number;
+        'id'?: number;
         
         /**
          * Профит - Сумма
          */
-        'profit_amount': number;
+        'profit_amount'?: number;
         
         /**
          * Профит - Процент
          */
-        'profit_percent': number;
+        'profit_percent'?: number;
         
         /**
          * Признак изменения значения
          */
-        'profit_changed': boolean;
+        'profit_changed'?: boolean;
         
         /**
          * Итого Входящее
          */
-        'income_total_cost': number;
+        'income_total_cost'?: number;
         
         /**
          * Итого
          */
-        'total_cost': number;
+        'total_cost'?: number;
         
         /**
          * Главный рейт, использовать для итогового КП
@@ -31564,42 +31729,42 @@ export class RequestService extends BaseService {
         /**
          * Услуги
          */
-        'services': Array<{
+        'services'?: Array<{
         
         /**
          * ID Услуги
          */
-        'field': string;
+        'field'?: string;
         
         /**
          * Стоимость
          */
-        'amount': number;
+        'amount'?: number;
         
         /**
          * Профит - Сумма
          */
-        'profit_amount': number;
+        'profit_amount'?: number;
         
         /**
          * Профит - Процент
          */
-        'profit_percent': number;
+        'profit_percent'?: number;
         
         /**
          * Признак изменения значения
          */
-        'profit_changed': boolean;
+        'profit_changed'?: boolean;
         
         /**
          * Итого
          */
-        'total_cost': number;
+        'total_cost'?: number;
         
         /**
          * Включено
          */
-        'select': boolean;
+        'select'?: boolean;
         }>;
         }>;
         };
@@ -31607,67 +31772,67 @@ export class RequestService extends BaseService {
         /**
          * Массив ставок Вывоз
          */
-        'delivery': {
+        'delivery'?: {
         
         /**
          * Единый профит на все ставки
          */
-        'one_profit': boolean;
+        'one_profit'?: boolean;
         
         /**
          * Единый профит на все ставки - Сумма
          */
-        'one_profit_amount': number;
+        'one_profit_amount'?: number;
         
         /**
          * Единый профит на все ставки - Валюта (ID берем из запроса - system_currency)
          */
-        'one_profit_amount_currency': number;
+        'one_profit_amount_currency'?: number;
         
         /**
          * Единый профит на все ставки - Процент
          */
-        'one_profit_percent': number;
+        'one_profit_percent'?: number;
         
         /**
          * Детализировать ставку в КП
          */
-        'detail_items': boolean;
+        'detail_items'?: boolean;
         
         /**
          * Ставки
          */
-        'rows': Array<{
+        'rows'?: Array<{
         
         /**
          * ID ставки
          */
-        'id': number;
+        'id'?: number;
         
         /**
          * Профит - Сумма
          */
-        'profit_amount': number;
+        'profit_amount'?: number;
         
         /**
          * Профит - Процент
          */
-        'profit_percent': number;
+        'profit_percent'?: number;
         
         /**
          * Признак изменения значения
          */
-        'profit_changed': boolean;
+        'profit_changed'?: boolean;
         
         /**
          * Итого Входящее
          */
-        'income_total_cost': number;
+        'income_total_cost'?: number;
         
         /**
          * Итого
          */
-        'total_cost': number;
+        'total_cost'?: number;
         
         /**
          * Главный рейт, использовать для итогового КП
@@ -31677,42 +31842,42 @@ export class RequestService extends BaseService {
         /**
          * Услуги
          */
-        'services': Array<{
+        'services'?: Array<{
         
         /**
          * ID Услуги
          */
-        'field': string;
+        'field'?: string;
         
         /**
          * Стоимость
          */
-        'amount': number;
+        'amount'?: number;
         
         /**
          * Профит - Сумма
          */
-        'profit_amount': number;
+        'profit_amount'?: number;
         
         /**
          * Профит - Процент
          */
-        'profit_percent': number;
+        'profit_percent'?: number;
         
         /**
          * Признак изменения значения
          */
-        'profit_changed': boolean;
+        'profit_changed'?: boolean;
         
         /**
          * Итого
          */
-        'total_cost': number;
+        'total_cost'?: number;
         
         /**
          * Включено
          */
-        'select': boolean;
+        'select'?: boolean;
         }>;
         }>;
         };
@@ -31724,9 +31889,19 @@ export class RequestService extends BaseService {
         'rate_amount'?: string;
         
         /**
+         * Вх. ставка
+         */
+        'rate_amount_text'?: string;
+        
+        /**
          * Профит
          */
         'profit_amount'?: string;
+        
+        /**
+         * Профит
+         */
+        'profit_amount_text'?: string;
         
         /**
          * %
@@ -31734,9 +31909,19 @@ export class RequestService extends BaseService {
         'profit_percent'?: string;
         
         /**
+         * %
+         */
+        'profit_percent_text'?: string;
+        
+        /**
          * Ставка итого
          */
         'rate_total'?: string;
+        
+        /**
+         * Ставка итого
+         */
+        'rate_total_text'?: string;
         
         /**
          * Статус
@@ -32105,67 +32290,67 @@ export class RequestService extends BaseService {
 /**
  * Массив ставок До границы
  */
-'custom': {
+'custom'?: {
 
 /**
  * Единый профит на все ставки
  */
-'one_profit': boolean;
+'one_profit'?: boolean;
 
 /**
  * Единый профит на все ставки - Сумма
  */
-'one_profit_amount': number;
+'one_profit_amount'?: number;
 
 /**
  * Единый профит на все ставки - Валюта (ID берем из запроса - system_currency)
  */
-'one_profit_amount_currency': number;
+'one_profit_amount_currency'?: number;
 
 /**
  * Единый профит на все ставки - Процент
  */
-'one_profit_percent': number;
+'one_profit_percent'?: number;
 
 /**
  * Детализировать ставку в КП
  */
-'detail_items': boolean;
+'detail_items'?: boolean;
 
 /**
  * Ставки
  */
-'rows': Array<{
+'rows'?: Array<{
 
 /**
  * ID ставки
  */
-'id': number;
+'id'?: number;
 
 /**
  * Профит - Сумма
  */
-'profit_amount': number;
+'profit_amount'?: number;
 
 /**
  * Профит - Процент
  */
-'profit_percent': number;
+'profit_percent'?: number;
 
 /**
  * Признак изменения значения
  */
-'profit_changed': boolean;
+'profit_changed'?: boolean;
 
 /**
  * Итого Входящее
  */
-'income_total_cost': number;
+'income_total_cost'?: number;
 
 /**
  * Итого
  */
-'total_cost': number;
+'total_cost'?: number;
 
 /**
  * Главный рейт, использовать для итогового КП
@@ -32175,42 +32360,42 @@ export class RequestService extends BaseService {
 /**
  * Услуги
  */
-'services': Array<{
+'services'?: Array<{
 
 /**
  * ID Услуги
  */
-'field': string;
+'field'?: string;
 
 /**
  * Стоимость
  */
-'amount': number;
+'amount'?: number;
 
 /**
  * Профит - Сумма
  */
-'profit_amount': number;
+'profit_amount'?: number;
 
 /**
  * Профит - Процент
  */
-'profit_percent': number;
+'profit_percent'?: number;
 
 /**
  * Признак изменения значения
  */
-'profit_changed': boolean;
+'profit_changed'?: boolean;
 
 /**
  * Итого
  */
-'total_cost': number;
+'total_cost'?: number;
 
 /**
  * Включено
  */
-'select': boolean;
+'select'?: boolean;
 }>;
 }>;
 };
@@ -32218,67 +32403,67 @@ export class RequestService extends BaseService {
 /**
  * Массив ставок Склад (СВХ)
  */
-'storage': {
+'storage'?: {
 
 /**
  * Единый профит на все ставки
  */
-'one_profit': boolean;
+'one_profit'?: boolean;
 
 /**
  * Единый профит на все ставки - Сумма
  */
-'one_profit_amount': number;
+'one_profit_amount'?: number;
 
 /**
  * Единый профит на все ставки - Валюта (ID берем из запроса - system_currency)
  */
-'one_profit_amount_currency': number;
+'one_profit_amount_currency'?: number;
 
 /**
  * Единый профит на все ставки - Процент
  */
-'one_profit_percent': number;
+'one_profit_percent'?: number;
 
 /**
  * Детализировать ставку в КП
  */
-'detail_items': boolean;
+'detail_items'?: boolean;
 
 /**
  * Ставки
  */
-'rows': Array<{
+'rows'?: Array<{
 
 /**
  * ID ставки
  */
-'id': number;
+'id'?: number;
 
 /**
  * Профит - Сумма
  */
-'profit_amount': number;
+'profit_amount'?: number;
 
 /**
  * Профит - Процент
  */
-'profit_percent': number;
+'profit_percent'?: number;
 
 /**
  * Признак изменения значения
  */
-'profit_changed': boolean;
+'profit_changed'?: boolean;
 
 /**
  * Итого Входящее
  */
-'income_total_cost': number;
+'income_total_cost'?: number;
 
 /**
  * Итого
  */
-'total_cost': number;
+'total_cost'?: number;
 
 /**
  * Главный рейт, использовать для итогового КП
@@ -32288,42 +32473,42 @@ export class RequestService extends BaseService {
 /**
  * Услуги
  */
-'services': Array<{
+'services'?: Array<{
 
 /**
  * ID Услуги
  */
-'field': string;
+'field'?: string;
 
 /**
  * Стоимость
  */
-'amount': number;
+'amount'?: number;
 
 /**
  * Профит - Сумма
  */
-'profit_amount': number;
+'profit_amount'?: number;
 
 /**
  * Профит - Процент
  */
-'profit_percent': number;
+'profit_percent'?: number;
 
 /**
  * Признак изменения значения
  */
-'profit_changed': boolean;
+'profit_changed'?: boolean;
 
 /**
  * Итого
  */
-'total_cost': number;
+'total_cost'?: number;
 
 /**
  * Включено
  */
-'select': boolean;
+'select'?: boolean;
 }>;
 }>;
 };
@@ -32331,67 +32516,67 @@ export class RequestService extends BaseService {
 /**
  * Массив ставок Вывоз
  */
-'delivery': {
+'delivery'?: {
 
 /**
  * Единый профит на все ставки
  */
-'one_profit': boolean;
+'one_profit'?: boolean;
 
 /**
  * Единый профит на все ставки - Сумма
  */
-'one_profit_amount': number;
+'one_profit_amount'?: number;
 
 /**
  * Единый профит на все ставки - Валюта (ID берем из запроса - system_currency)
  */
-'one_profit_amount_currency': number;
+'one_profit_amount_currency'?: number;
 
 /**
  * Единый профит на все ставки - Процент
  */
-'one_profit_percent': number;
+'one_profit_percent'?: number;
 
 /**
  * Детализировать ставку в КП
  */
-'detail_items': boolean;
+'detail_items'?: boolean;
 
 /**
  * Ставки
  */
-'rows': Array<{
+'rows'?: Array<{
 
 /**
  * ID ставки
  */
-'id': number;
+'id'?: number;
 
 /**
  * Профит - Сумма
  */
-'profit_amount': number;
+'profit_amount'?: number;
 
 /**
  * Профит - Процент
  */
-'profit_percent': number;
+'profit_percent'?: number;
 
 /**
  * Признак изменения значения
  */
-'profit_changed': boolean;
+'profit_changed'?: boolean;
 
 /**
  * Итого Входящее
  */
-'income_total_cost': number;
+'income_total_cost'?: number;
 
 /**
  * Итого
  */
-'total_cost': number;
+'total_cost'?: number;
 
 /**
  * Главный рейт, использовать для итогового КП
@@ -32401,42 +32586,42 @@ export class RequestService extends BaseService {
 /**
  * Услуги
  */
-'services': Array<{
+'services'?: Array<{
 
 /**
  * ID Услуги
  */
-'field': string;
+'field'?: string;
 
 /**
  * Стоимость
  */
-'amount': number;
+'amount'?: number;
 
 /**
  * Профит - Сумма
  */
-'profit_amount': number;
+'profit_amount'?: number;
 
 /**
  * Профит - Процент
  */
-'profit_percent': number;
+'profit_percent'?: number;
 
 /**
  * Признак изменения значения
  */
-'profit_changed': boolean;
+'profit_changed'?: boolean;
 
 /**
  * Итого
  */
-'total_cost': number;
+'total_cost'?: number;
 
 /**
  * Включено
  */
-'select': boolean;
+'select'?: boolean;
 }>;
 }>;
 };
@@ -32448,9 +32633,19 @@ export class RequestService extends BaseService {
 'rate_amount'?: string;
 
 /**
+ * Вх. ставка
+ */
+'rate_amount_text'?: string;
+
+/**
  * Профит
  */
 'profit_amount'?: string;
+
+/**
+ * Профит
+ */
+'profit_amount_text'?: string;
 
 /**
  * %
@@ -32458,9 +32653,19 @@ export class RequestService extends BaseService {
 'profit_percent'?: string;
 
 /**
+ * %
+ */
+'profit_percent_text'?: string;
+
+/**
  * Ставка итого
  */
 'rate_total'?: string;
+
+/**
+ * Ставка итого
+ */
+'rate_total_text'?: string;
 
 /**
  * Статус
@@ -32535,67 +32740,67 @@ export class RequestService extends BaseService {
 /**
  * Массив ставок До границы
  */
-'custom': {
+'custom'?: {
 
 /**
  * Единый профит на все ставки
  */
-'one_profit': boolean;
+'one_profit'?: boolean;
 
 /**
  * Единый профит на все ставки - Сумма
  */
-'one_profit_amount': number;
+'one_profit_amount'?: number;
 
 /**
  * Единый профит на все ставки - Валюта (ID берем из запроса - system_currency)
  */
-'one_profit_amount_currency': number;
+'one_profit_amount_currency'?: number;
 
 /**
  * Единый профит на все ставки - Процент
  */
-'one_profit_percent': number;
+'one_profit_percent'?: number;
 
 /**
  * Детализировать ставку в КП
  */
-'detail_items': boolean;
+'detail_items'?: boolean;
 
 /**
  * Ставки
  */
-'rows': Array<{
+'rows'?: Array<{
 
 /**
  * ID ставки
  */
-'id': number;
+'id'?: number;
 
 /**
  * Профит - Сумма
  */
-'profit_amount': number;
+'profit_amount'?: number;
 
 /**
  * Профит - Процент
  */
-'profit_percent': number;
+'profit_percent'?: number;
 
 /**
  * Признак изменения значения
  */
-'profit_changed': boolean;
+'profit_changed'?: boolean;
 
 /**
  * Итого Входящее
  */
-'income_total_cost': number;
+'income_total_cost'?: number;
 
 /**
  * Итого
  */
-'total_cost': number;
+'total_cost'?: number;
 
 /**
  * Главный рейт, использовать для итогового КП
@@ -32605,42 +32810,42 @@ export class RequestService extends BaseService {
 /**
  * Услуги
  */
-'services': Array<{
+'services'?: Array<{
 
 /**
  * ID Услуги
  */
-'field': string;
+'field'?: string;
 
 /**
  * Стоимость
  */
-'amount': number;
+'amount'?: number;
 
 /**
  * Профит - Сумма
  */
-'profit_amount': number;
+'profit_amount'?: number;
 
 /**
  * Профит - Процент
  */
-'profit_percent': number;
+'profit_percent'?: number;
 
 /**
  * Признак изменения значения
  */
-'profit_changed': boolean;
+'profit_changed'?: boolean;
 
 /**
  * Итого
  */
-'total_cost': number;
+'total_cost'?: number;
 
 /**
  * Включено
  */
-'select': boolean;
+'select'?: boolean;
 }>;
 }>;
 };
@@ -32648,67 +32853,67 @@ export class RequestService extends BaseService {
 /**
  * Массив ставок Склад (СВХ)
  */
-'storage': {
+'storage'?: {
 
 /**
  * Единый профит на все ставки
  */
-'one_profit': boolean;
+'one_profit'?: boolean;
 
 /**
  * Единый профит на все ставки - Сумма
  */
-'one_profit_amount': number;
+'one_profit_amount'?: number;
 
 /**
  * Единый профит на все ставки - Валюта (ID берем из запроса - system_currency)
  */
-'one_profit_amount_currency': number;
+'one_profit_amount_currency'?: number;
 
 /**
  * Единый профит на все ставки - Процент
  */
-'one_profit_percent': number;
+'one_profit_percent'?: number;
 
 /**
  * Детализировать ставку в КП
  */
-'detail_items': boolean;
+'detail_items'?: boolean;
 
 /**
  * Ставки
  */
-'rows': Array<{
+'rows'?: Array<{
 
 /**
  * ID ставки
  */
-'id': number;
+'id'?: number;
 
 /**
  * Профит - Сумма
  */
-'profit_amount': number;
+'profit_amount'?: number;
 
 /**
  * Профит - Процент
  */
-'profit_percent': number;
+'profit_percent'?: number;
 
 /**
  * Признак изменения значения
  */
-'profit_changed': boolean;
+'profit_changed'?: boolean;
 
 /**
  * Итого Входящее
  */
-'income_total_cost': number;
+'income_total_cost'?: number;
 
 /**
  * Итого
  */
-'total_cost': number;
+'total_cost'?: number;
 
 /**
  * Главный рейт, использовать для итогового КП
@@ -32718,42 +32923,42 @@ export class RequestService extends BaseService {
 /**
  * Услуги
  */
-'services': Array<{
+'services'?: Array<{
 
 /**
  * ID Услуги
  */
-'field': string;
+'field'?: string;
 
 /**
  * Стоимость
  */
-'amount': number;
+'amount'?: number;
 
 /**
  * Профит - Сумма
  */
-'profit_amount': number;
+'profit_amount'?: number;
 
 /**
  * Профит - Процент
  */
-'profit_percent': number;
+'profit_percent'?: number;
 
 /**
  * Признак изменения значения
  */
-'profit_changed': boolean;
+'profit_changed'?: boolean;
 
 /**
  * Итого
  */
-'total_cost': number;
+'total_cost'?: number;
 
 /**
  * Включено
  */
-'select': boolean;
+'select'?: boolean;
 }>;
 }>;
 };
@@ -32761,67 +32966,67 @@ export class RequestService extends BaseService {
 /**
  * Массив ставок Вывоз
  */
-'delivery': {
+'delivery'?: {
 
 /**
  * Единый профит на все ставки
  */
-'one_profit': boolean;
+'one_profit'?: boolean;
 
 /**
  * Единый профит на все ставки - Сумма
  */
-'one_profit_amount': number;
+'one_profit_amount'?: number;
 
 /**
  * Единый профит на все ставки - Валюта (ID берем из запроса - system_currency)
  */
-'one_profit_amount_currency': number;
+'one_profit_amount_currency'?: number;
 
 /**
  * Единый профит на все ставки - Процент
  */
-'one_profit_percent': number;
+'one_profit_percent'?: number;
 
 /**
  * Детализировать ставку в КП
  */
-'detail_items': boolean;
+'detail_items'?: boolean;
 
 /**
  * Ставки
  */
-'rows': Array<{
+'rows'?: Array<{
 
 /**
  * ID ставки
  */
-'id': number;
+'id'?: number;
 
 /**
  * Профит - Сумма
  */
-'profit_amount': number;
+'profit_amount'?: number;
 
 /**
  * Профит - Процент
  */
-'profit_percent': number;
+'profit_percent'?: number;
 
 /**
  * Признак изменения значения
  */
-'profit_changed': boolean;
+'profit_changed'?: boolean;
 
 /**
  * Итого Входящее
  */
-'income_total_cost': number;
+'income_total_cost'?: number;
 
 /**
  * Итого
  */
-'total_cost': number;
+'total_cost'?: number;
 
 /**
  * Главный рейт, использовать для итогового КП
@@ -32831,42 +33036,42 @@ export class RequestService extends BaseService {
 /**
  * Услуги
  */
-'services': Array<{
+'services'?: Array<{
 
 /**
  * ID Услуги
  */
-'field': string;
+'field'?: string;
 
 /**
  * Стоимость
  */
-'amount': number;
+'amount'?: number;
 
 /**
  * Профит - Сумма
  */
-'profit_amount': number;
+'profit_amount'?: number;
 
 /**
  * Профит - Процент
  */
-'profit_percent': number;
+'profit_percent'?: number;
 
 /**
  * Признак изменения значения
  */
-'profit_changed': boolean;
+'profit_changed'?: boolean;
 
 /**
  * Итого
  */
-'total_cost': number;
+'total_cost'?: number;
 
 /**
  * Включено
  */
-'select': boolean;
+'select'?: boolean;
 }>;
 }>;
 };
@@ -32878,9 +33083,19 @@ export class RequestService extends BaseService {
 'rate_amount'?: string;
 
 /**
+ * Вх. ставка
+ */
+'rate_amount_text'?: string;
+
+/**
  * Профит
  */
 'profit_amount'?: string;
+
+/**
+ * Профит
+ */
+'profit_amount_text'?: string;
 
 /**
  * %
@@ -32888,9 +33103,19 @@ export class RequestService extends BaseService {
 'profit_percent'?: string;
 
 /**
+ * %
+ */
+'profit_percent_text'?: string;
+
+/**
  * Ставка итого
  */
 'rate_total'?: string;
+
+/**
+ * Ставка итого
+ */
+'rate_total_text'?: string;
 
 /**
  * Статус
@@ -32963,67 +33188,67 @@ export class RequestService extends BaseService {
 /**
  * Массив ставок До границы
  */
-'custom': {
+'custom'?: {
 
 /**
  * Единый профит на все ставки
  */
-'one_profit': boolean;
+'one_profit'?: boolean;
 
 /**
  * Единый профит на все ставки - Сумма
  */
-'one_profit_amount': number;
+'one_profit_amount'?: number;
 
 /**
  * Единый профит на все ставки - Валюта (ID берем из запроса - system_currency)
  */
-'one_profit_amount_currency': number;
+'one_profit_amount_currency'?: number;
 
 /**
  * Единый профит на все ставки - Процент
  */
-'one_profit_percent': number;
+'one_profit_percent'?: number;
 
 /**
  * Детализировать ставку в КП
  */
-'detail_items': boolean;
+'detail_items'?: boolean;
 
 /**
  * Ставки
  */
-'rows': Array<{
+'rows'?: Array<{
 
 /**
  * ID ставки
  */
-'id': number;
+'id'?: number;
 
 /**
  * Профит - Сумма
  */
-'profit_amount': number;
+'profit_amount'?: number;
 
 /**
  * Профит - Процент
  */
-'profit_percent': number;
+'profit_percent'?: number;
 
 /**
  * Признак изменения значения
  */
-'profit_changed': boolean;
+'profit_changed'?: boolean;
 
 /**
  * Итого Входящее
  */
-'income_total_cost': number;
+'income_total_cost'?: number;
 
 /**
  * Итого
  */
-'total_cost': number;
+'total_cost'?: number;
 
 /**
  * Главный рейт, использовать для итогового КП
@@ -33033,42 +33258,42 @@ export class RequestService extends BaseService {
 /**
  * Услуги
  */
-'services': Array<{
+'services'?: Array<{
 
 /**
  * ID Услуги
  */
-'field': string;
+'field'?: string;
 
 /**
  * Стоимость
  */
-'amount': number;
+'amount'?: number;
 
 /**
  * Профит - Сумма
  */
-'profit_amount': number;
+'profit_amount'?: number;
 
 /**
  * Профит - Процент
  */
-'profit_percent': number;
+'profit_percent'?: number;
 
 /**
  * Признак изменения значения
  */
-'profit_changed': boolean;
+'profit_changed'?: boolean;
 
 /**
  * Итого
  */
-'total_cost': number;
+'total_cost'?: number;
 
 /**
  * Включено
  */
-'select': boolean;
+'select'?: boolean;
 }>;
 }>;
 };
@@ -33076,67 +33301,67 @@ export class RequestService extends BaseService {
 /**
  * Массив ставок Склад (СВХ)
  */
-'storage': {
+'storage'?: {
 
 /**
  * Единый профит на все ставки
  */
-'one_profit': boolean;
+'one_profit'?: boolean;
 
 /**
  * Единый профит на все ставки - Сумма
  */
-'one_profit_amount': number;
+'one_profit_amount'?: number;
 
 /**
  * Единый профит на все ставки - Валюта (ID берем из запроса - system_currency)
  */
-'one_profit_amount_currency': number;
+'one_profit_amount_currency'?: number;
 
 /**
  * Единый профит на все ставки - Процент
  */
-'one_profit_percent': number;
+'one_profit_percent'?: number;
 
 /**
  * Детализировать ставку в КП
  */
-'detail_items': boolean;
+'detail_items'?: boolean;
 
 /**
  * Ставки
  */
-'rows': Array<{
+'rows'?: Array<{
 
 /**
  * ID ставки
  */
-'id': number;
+'id'?: number;
 
 /**
  * Профит - Сумма
  */
-'profit_amount': number;
+'profit_amount'?: number;
 
 /**
  * Профит - Процент
  */
-'profit_percent': number;
+'profit_percent'?: number;
 
 /**
  * Признак изменения значения
  */
-'profit_changed': boolean;
+'profit_changed'?: boolean;
 
 /**
  * Итого Входящее
  */
-'income_total_cost': number;
+'income_total_cost'?: number;
 
 /**
  * Итого
  */
-'total_cost': number;
+'total_cost'?: number;
 
 /**
  * Главный рейт, использовать для итогового КП
@@ -33146,42 +33371,42 @@ export class RequestService extends BaseService {
 /**
  * Услуги
  */
-'services': Array<{
+'services'?: Array<{
 
 /**
  * ID Услуги
  */
-'field': string;
+'field'?: string;
 
 /**
  * Стоимость
  */
-'amount': number;
+'amount'?: number;
 
 /**
  * Профит - Сумма
  */
-'profit_amount': number;
+'profit_amount'?: number;
 
 /**
  * Профит - Процент
  */
-'profit_percent': number;
+'profit_percent'?: number;
 
 /**
  * Признак изменения значения
  */
-'profit_changed': boolean;
+'profit_changed'?: boolean;
 
 /**
  * Итого
  */
-'total_cost': number;
+'total_cost'?: number;
 
 /**
  * Включено
  */
-'select': boolean;
+'select'?: boolean;
 }>;
 }>;
 };
@@ -33189,67 +33414,67 @@ export class RequestService extends BaseService {
 /**
  * Массив ставок Вывоз
  */
-'delivery': {
+'delivery'?: {
 
 /**
  * Единый профит на все ставки
  */
-'one_profit': boolean;
+'one_profit'?: boolean;
 
 /**
  * Единый профит на все ставки - Сумма
  */
-'one_profit_amount': number;
+'one_profit_amount'?: number;
 
 /**
  * Единый профит на все ставки - Валюта (ID берем из запроса - system_currency)
  */
-'one_profit_amount_currency': number;
+'one_profit_amount_currency'?: number;
 
 /**
  * Единый профит на все ставки - Процент
  */
-'one_profit_percent': number;
+'one_profit_percent'?: number;
 
 /**
  * Детализировать ставку в КП
  */
-'detail_items': boolean;
+'detail_items'?: boolean;
 
 /**
  * Ставки
  */
-'rows': Array<{
+'rows'?: Array<{
 
 /**
  * ID ставки
  */
-'id': number;
+'id'?: number;
 
 /**
  * Профит - Сумма
  */
-'profit_amount': number;
+'profit_amount'?: number;
 
 /**
  * Профит - Процент
  */
-'profit_percent': number;
+'profit_percent'?: number;
 
 /**
  * Признак изменения значения
  */
-'profit_changed': boolean;
+'profit_changed'?: boolean;
 
 /**
  * Итого Входящее
  */
-'income_total_cost': number;
+'income_total_cost'?: number;
 
 /**
  * Итого
  */
-'total_cost': number;
+'total_cost'?: number;
 
 /**
  * Главный рейт, использовать для итогового КП
@@ -33259,42 +33484,42 @@ export class RequestService extends BaseService {
 /**
  * Услуги
  */
-'services': Array<{
+'services'?: Array<{
 
 /**
  * ID Услуги
  */
-'field': string;
+'field'?: string;
 
 /**
  * Стоимость
  */
-'amount': number;
+'amount'?: number;
 
 /**
  * Профит - Сумма
  */
-'profit_amount': number;
+'profit_amount'?: number;
 
 /**
  * Профит - Процент
  */
-'profit_percent': number;
+'profit_percent'?: number;
 
 /**
  * Признак изменения значения
  */
-'profit_changed': boolean;
+'profit_changed'?: boolean;
 
 /**
  * Итого
  */
-'total_cost': number;
+'total_cost'?: number;
 
 /**
  * Включено
  */
-'select': boolean;
+'select'?: boolean;
 }>;
 }>;
 };
@@ -33306,9 +33531,19 @@ export class RequestService extends BaseService {
 'rate_amount'?: string;
 
 /**
+ * Вх. ставка
+ */
+'rate_amount_text'?: string;
+
+/**
  * Профит
  */
 'profit_amount'?: string;
+
+/**
+ * Профит
+ */
+'profit_amount_text'?: string;
 
 /**
  * %
@@ -33316,9 +33551,19 @@ export class RequestService extends BaseService {
 'profit_percent'?: string;
 
 /**
+ * %
+ */
+'profit_percent_text'?: string;
+
+/**
  * Ставка итого
  */
 'rate_total'?: string;
+
+/**
+ * Ставка итого
+ */
+'rate_total_text'?: string;
 
 /**
  * Статус

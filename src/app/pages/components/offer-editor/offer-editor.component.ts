@@ -49,12 +49,7 @@ export class OfferEditorComponent implements OnInit, OnDestroy {
     private snackBar: MatSnackBar,
     private matDialog: MatDialog,
     private orderService: OrderService,
-  ) { }
-
-  ngOnInit(): void {
-    const segments = this.route.snapshot.url.map(s => s.path);
-    this.offerId = segments[1] as unknown as number ;
-
+  ) { 
     this.kpForm = this.fb.group({
       uid: ['', Validators.required],
       param: this.fb.group({
@@ -66,29 +61,40 @@ export class OfferEditorComponent implements OnInit, OnDestroy {
       status: [0, Validators.required],
       comment: ['']
     });
+  }
+
+  ngOnInit(): void {
+    const segments = this.route.snapshot.url.map(s => s.path);
+    this.offerId = segments[1] as unknown as number ;
+
+    
     this.getOffer();
     this.getCurrency();
 
-    this.kpForm.valueChanges
-      .pipe(
-        debounceTime(1500),
-        distinctUntilChanged(),
-        takeUntil(this._destroy$),
-      )
-      .subscribe((e:any) => {
-        if(this.calckStatus) {
-          console.log('lalala',e);
-          this.getCalckOffer(e)
-        } else {
-          console.log('no lalala');
-        }
-      })
-    ;
+    this.subscribeForm();
+
+    
 
   }
   ngOnDestroy(): void {
     this._destroy$.next(null);
     this._destroy$.complete();
+  }
+
+  subscribeForm(){
+    this.kpForm.valueChanges.pipe(
+      debounceTime(1500),
+      distinctUntilChanged(),
+      takeUntil(this._destroy$),
+    )
+    .subscribe((e:any) => {
+      if(this.calckStatus) {
+        console.log('lalala',e);
+        this.getCalckOffer(e)
+      } else {
+        console.log('no lalala');
+      }
+    })
   }
 
   returnVisibilityOrdBtn():boolean{
@@ -362,19 +368,23 @@ export class OfferEditorComponent implements OnInit, OnDestroy {
   getOffer() {
     this.requestService.requestOfferInfo({id: this.offerId}).pipe(
       tap((offer) => {
+        this.offer=offer;
         console.log(offer);
         this.calckStatus=false;
         this.fillFormWithData(offer);  // Метод для заполнения формы данными
+        this.getRequest();
+        
       }),
       takeUntil(this._destroy$)
     ).subscribe({
       next: (offer) => {
+        
         console.log('Data loaded successfully');
-        this.offer=offer;
-        this.getRequest();
+        
+        
       },
       error: (err) => {
-        this.snackBar.open(`Ошибка редактирования запроса: ` + err.error.error_message, undefined, this.snackBarWithShortDuration);
+        this.snackBar.open(`Ошибка получения кп: ` + err?.error?.error_message, undefined, this.snackBarWithShortDuration);
       }
     });
   }
@@ -393,7 +403,7 @@ export class OfferEditorComponent implements OnInit, OnDestroy {
 
       },
       error: (err) => {
-        this.snackBar.open(`Ошибка редактирования запроса: ` + err.error?.error_message, undefined, this.snackBarWithShortDuration);
+        this.snackBar.open(`Ошибка расчета кп: ` + err.error?.error_message, undefined, this.snackBarWithShortDuration);
       }
     });
   }
@@ -401,13 +411,18 @@ export class OfferEditorComponent implements OnInit, OnDestroy {
   getRequest(){
     this.requestService.requestInfo({id:this.offer.request_id}).pipe(
       tap((currencyList) => {
+        this.request=currencyList;
+        console.log(this.request);
+        
       }),
       takeUntil(this._destroy$)
     ).subscribe({
       next: (req) => {
-        this.request=req;
+        
+        
       },
       error: (err) => {
+        console.log('err');
         this.snackBar.open(`Ошибка получения запроса: ` + err.error.error_message, undefined, this.snackBarWithShortDuration);
       }
     });

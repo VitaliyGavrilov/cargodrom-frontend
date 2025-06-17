@@ -26,12 +26,12 @@
     <div class="block">
     </div> -->
 
-    <div class="table_title">
+    <div class="table_title" *ngIf="offer?.param?.custom.title">
       <span>Ставки:</span>
       <div>До границы</div>
     </div>
 
-    <div formGroupName="custom" class="block">
+    <div formGroupName="custom" class="block" *ngIf="offer?.param?.custom.title">
       <div class="one_profit">
         <label><mat-checkbox class="testclass" formControlName="one_profit" (change)="setChange()"></mat-checkbox></label>
         <p>Единый профит на все ставки</p>
@@ -171,12 +171,12 @@
 
     </div>
 
-    <div class="table_title">
+    <div class="table_title" *ngIf="offer?.param?.storage.title">
       <span>Ставки:</span>
       <div>Склад (СВХ)</div>
     </div>
 
-    <div formGroupName="storage" class="block">
+    <div formGroupName="storage" class="block" *ngIf="offer?.param?.storage.title">
       <div class="one_profit">
         <label><mat-checkbox class="testclass" formControlName="one_profit" (change)="setChange()"></mat-checkbox></label>
         <p>Единый профит на все ставки</p>
@@ -315,12 +315,12 @@
 
     </div>
 
-    <div class="table_title">
+    <div class="table_title" *ngIf="offer?.param?.delivery.title">
       <span>Ставки:</span>
       <div>Вывоз</div>
     </div>
 
-    <div formGroupName="delivery" class="block">
+    <div formGroupName="delivery" class="block" *ngIf="offer?.param?.delivery.title">
       <div class="one_profit">
         <label><mat-checkbox class="testclass" formControlName="one_profit" (change)="setChange()"></mat-checkbox></label>
         <p>Единый профит на все ставки</p>
