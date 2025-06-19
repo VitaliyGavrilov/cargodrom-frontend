@@ -433,11 +433,12 @@ export class RequestDetails extends Table<any, 'trade_rating', ContractorFilter>
       ).subscribe({
         next: (contractor) => {
           this.loadRows();
+          this.getOfferList();
           this.snackBar.open(`кп успех`, undefined, this.snackBarWithShortDuration);
           this.arrDetailsCheckedCheck=[];
         },
         error: (err) => {
-          this.snackBar.open(`Ошибка запроса маршрутов: ` + err.error.error_message, undefined, this.snackBarWithShortDuration);
+          this.snackBar.open(`Ошибка создания кп: ` + err.error.error_message, undefined, this.snackBarWithShortDuration);
         }
       });
   }

@@ -103,7 +103,7 @@ export class OfferEditorComponent implements OnInit, OnDestroy {
       return arr.some((item:any) => item.main === true);
     }
     // Проверяем каждый массив
-    return hasMain(this.customRows.value) && hasMain(this.storageRows.value) && hasMain(this.deliveryRows.value);
+    return (hasMain(this.customRows.value) || !this.offer?.param?.custom.title) && (hasMain(this.storageRows.value) || !this.offer?.param?.storage.title) && (hasMain(this.deliveryRows.value) || !this.offer?.param?.delivery.title);
   }
 
   onMainFieldChange(rows:any, i:number, { checked }: MatCheckboxChange){
