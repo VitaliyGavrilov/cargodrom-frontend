@@ -1197,6 +1197,11 @@ export class OrderService extends BaseService {
 'contractor_id': number;
 
 /**
+ * ID КП
+ */
+'offer_id': number;
+
+/**
  * ID границы
  */
 'border_id': number;
@@ -1440,6 +1445,11 @@ export class OrderService extends BaseService {
          * ID контрагента
          */
         'contractor_id': number;
+        
+        /**
+         * ID КП
+         */
+        'offer_id': number;
         
         /**
          * ID границы
@@ -1727,6 +1737,11 @@ export class OrderService extends BaseService {
 'contractor_id': number;
 
 /**
+ * ID КП
+ */
+'offer_id': number;
+
+/**
  * ID границы
  */
 'border_id': number;
@@ -1959,6 +1974,11 @@ export class OrderService extends BaseService {
 'contractor_id': number;
 
 /**
+ * ID КП
+ */
+'offer_id': number;
+
+/**
  * ID границы
  */
 'border_id': number;
@@ -2187,6 +2207,11 @@ export class OrderService extends BaseService {
  * ID контрагента
  */
 'contractor_id': number;
+
+/**
+ * ID КП
+ */
+'offer_id': number;
 
 /**
  * ID границы
@@ -2435,6 +2460,11 @@ export class OrderService extends BaseService {
 'contractor_id': number;
 
 /**
+ * ID КП
+ */
+'offer_id': number;
+
+/**
  * ID границы
  */
 'border_id': number;
@@ -2663,6 +2693,11 @@ export class OrderService extends BaseService {
          * ID контрагента
          */
         'contractor_id': number;
+        
+        /**
+         * ID КП
+         */
+        'offer_id': number;
         
         /**
          * ID границы
@@ -2908,6 +2943,11 @@ export class OrderService extends BaseService {
 'contractor_id': number;
 
 /**
+ * ID КП
+ */
+'offer_id': number;
+
+/**
  * ID границы
  */
 'border_id': number;
@@ -3129,6 +3169,11 @@ export class OrderService extends BaseService {
 'contractor_id': number;
 
 /**
+ * ID КП
+ */
+'offer_id': number;
+
+/**
  * ID границы
  */
 'border_id': number;
@@ -3346,6 +3391,11 @@ export class OrderService extends BaseService {
  * ID контрагента
  */
 'contractor_id': number;
+
+/**
+ * ID КП
+ */
+'offer_id': number;
 
 /**
  * ID границы
@@ -3678,6 +3728,11 @@ export class OrderService extends BaseService {
 'contractor_id': number;
 
 /**
+ * ID КП
+ */
+'offer_id': number;
+
+/**
  * ID границы
  */
 'border_id': number;
@@ -3852,6 +3907,11 @@ export class OrderService extends BaseService {
  * ID контрагента
  */
 'contractor_id': number;
+
+/**
+ * ID КП
+ */
+'offer_id': number;
 
 /**
  * ID границы
@@ -4034,6 +4094,11 @@ export class OrderService extends BaseService {
 'contractor_id'?: number;
 
 /**
+ * ID КП
+ */
+'offer_id'?: number;
+
+/**
  * ID границы
  */
 'border_id'?: number;
@@ -4213,6 +4278,11 @@ export class OrderService extends BaseService {
  * ID контрагента
  */
 'contractor_id'?: number;
+
+/**
+ * ID КП
+ */
+'offer_id'?: number;
 
 /**
  * ID границы

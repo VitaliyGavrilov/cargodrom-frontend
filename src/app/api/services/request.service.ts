@@ -20304,17 +20304,12 @@ export class RequestService extends BaseService {
     /**
      * Наименование аэропорта (ID берем из запроса - direction_point)
      */
-      point?: number;
+      arrival_point?: number;
 
     /**
      * Подрядчики (ID берем из запроса - contractor_list)
      */
       contractor?: number;
-
-    /**
-     * Тип ТС (ID берем из запроса - transport_type)
-     */
-      type?: number;
 
     /**
      * Начальная позиция
@@ -20675,9 +20670,8 @@ export class RequestService extends BaseService {
     const rb = new RequestBuilder(this.rootUrl, RequestService.RequestRateTransporterListPath, 'get');
     if (params) {
       rb.query('request_id', params.request_id, {});
-      rb.query('point', params.point, {});
+      rb.query('arrival_point', params.arrival_point, {});
       rb.query('contractor', params.contractor, {});
-      rb.query('type', params.type, {});
       rb.query('start', params.start, {});
       rb.query('count', params.count, {});
       rb.query('sort', params.sort, {"style":"form","explode":false});
@@ -21042,17 +21036,12 @@ export class RequestService extends BaseService {
     /**
      * Наименование аэропорта (ID берем из запроса - direction_point)
      */
-      point?: number;
+      arrival_point?: number;
 
     /**
      * Подрядчики (ID берем из запроса - contractor_list)
      */
       contractor?: number;
-
-    /**
-     * Тип ТС (ID берем из запроса - transport_type)
-     */
-      type?: number;
 
     /**
      * Начальная позиция
@@ -22362,6 +22351,26 @@ export class RequestService extends BaseService {
       contractor?: number;
 
     /**
+     * Авиалинии (ID берем из запроса - transport_carrier)
+     */
+      carrier?: number;
+
+    /**
+     * Тип маршрута (ID берем из запроса - direction_flight)
+     */
+      departure_flight?: string;
+
+    /**
+     * Аэропорт вылета (ID берем из запроса - direction_point)
+     */
+      departure_point?: number;
+
+    /**
+     * Аэропорт (ID берем из запроса - direction_point)
+     */
+      arrival_point?: number;
+
+    /**
      * Начальная позиция
      */
       start?: number;
@@ -22530,6 +22539,10 @@ export class RequestService extends BaseService {
       rb.query('request_id', params.request_id, {});
       rb.query('offer', params.offer, {});
       rb.query('contractor', params.contractor, {});
+      rb.query('carrier', params.carrier, {});
+      rb.query('departure_flight', params.departure_flight, {});
+      rb.query('departure_point', params.departure_point, {});
+      rb.query('arrival_point', params.arrival_point, {});
       rb.query('start', params.start, {});
       rb.query('count', params.count, {});
       rb.query('sort', params.sort, {"style":"form","explode":false});
@@ -22708,6 +22721,26 @@ export class RequestService extends BaseService {
      * Подрядчики (ID берем из запроса - contractor_list)
      */
       contractor?: number;
+
+    /**
+     * Авиалинии (ID берем из запроса - transport_carrier)
+     */
+      carrier?: number;
+
+    /**
+     * Тип маршрута (ID берем из запроса - direction_flight)
+     */
+      departure_flight?: string;
+
+    /**
+     * Аэропорт вылета (ID берем из запроса - direction_point)
+     */
+      departure_point?: number;
+
+    /**
+     * Аэропорт (ID берем из запроса - direction_point)
+     */
+      arrival_point?: number;
 
     /**
      * Начальная позиция
