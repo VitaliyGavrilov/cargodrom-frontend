@@ -45,12 +45,12 @@ import { OfferEditorComponent } from './components/offer-editor/offer-editor.com
 // import { RequestPage } from './places/request/request.component';
 import { RequestTableComponent } from './components/request-table/request-table.component';
 import { TableSubheaderFileComponent } from './components/table-subheader/file-subheader/file-subheader.component';
-// import { TableComponent } from './tables/table/table.component';
-import { DynamicTableComponent } from './tables/dynamic-table/dynamic-table.component';
+
 import { EmployeeRegisterComponent } from './components/employee-register/employee-register.component';
 import { RateAddOther } from './components/request-details/rate-add-other/rate-add-other.component';
 import { NgScrollbarModule } from 'ngx-scrollbar';
 import { OrderEditorComponent } from './components/order-editor/order-editor.component';
+import { TestPage } from './components/test-page/test-page.component';
 
 
 
@@ -104,9 +104,9 @@ import { OrderEditorComponent } from './components/order-editor/order-editor.com
 
     TableSubheaderFileComponent,
     // TableComponent,
-
-    DynamicTableComponent,
     EmployeeRegisterComponent,
+
+    TestPage,
 
   ],
   imports: [

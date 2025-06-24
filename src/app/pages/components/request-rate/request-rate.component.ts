@@ -20,8 +20,8 @@ export class RequestRateComponent implements OnInit, OnDestroy {
   //ПЕРЕМЕННЫЕ
   id: number=0;
   //снек бар
-  snackBarWithShortDuration: MatSnackBarConfig = { duration: 1000 };
-  snackBarWithLongDuration: MatSnackBarConfig = { duration: 3000 };
+  snackBarWithShortDuration: MatSnackBarConfig = { duration: 4000 };
+  snackBarWithLongDuration: MatSnackBarConfig = { duration: 8000 };
   //отписки
   private _destroy$ = new Subject();
   //переменные окружения
@@ -136,7 +136,7 @@ export class RequestRateComponent implements OnInit, OnDestroy {
           this.request=rates;
         },
         error: (err) => {
-          this.snackBar.open(`Ошибка получения перевода запроса: ` + err.error.error_message, undefined, this.snackBarWithShortDuration)
+          this.snackBar.open(`${err.error.error_message}: ` + err.error.error_message_description, undefined, this.snackBarWithShortDuration);
         }
       });
   }
@@ -169,7 +169,7 @@ export class RequestRateComponent implements OnInit, OnDestroy {
           // this.snackBar.open(`Данные сохранены`, undefined, this.snackBarWithLongDuration);
         },
         error: (err) => {
-          this.snackBar.open(`Ошибка получения перевода запроса: ` + err.error.error_message, undefined, this.snackBarWithShortDuration)
+          this.snackBar.open(`${err.error.error_message}: ` + err.error.error_message_description, undefined, this.snackBarWithShortDuration);
         }
       });
   }

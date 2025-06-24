@@ -47,8 +47,8 @@ export class RateEditorComponent implements OnInit, OnDestroy, OnChanges, Contro
   onTouched = () => { };
   private touched = false;
 
-  snackBarWithShortDuration: MatSnackBarConfig = { duration: 1000 };
-  snackBarWithLongDuration: MatSnackBarConfig = { duration: 3000 };
+  snackBarWithShortDuration: MatSnackBarConfig = { duration: 4000 };
+  snackBarWithLongDuration: MatSnackBarConfig = { duration: 8000 };
 
   private _destroy$ = new Subject();
   rateForm: FormGroup;
@@ -356,7 +356,7 @@ export class RateEditorComponent implements OnInit, OnDestroy, OnChanges, Contro
           this.transportCarrier=transportCarrier;
         },
         error: (err) => {
-          this.snackBar.open(`Ошибка запроса перевозчиков: ` + err.error.error_message, undefined, this.snackBarWithShortDuration);
+          this.snackBar.open(`${err.error.error_message}: ` + err.error.error_message_description, undefined, this.snackBarWithShortDuration);
         }
       });
   }
@@ -376,7 +376,7 @@ export class RateEditorComponent implements OnInit, OnDestroy, OnChanges, Contro
             this.transportRoute=transportRoute;
           },
           error: (err) => {
-            this.snackBar.open(`Ошибка запроса маршрутов: ` + err.error.error_message, undefined, this.snackBarWithShortDuration);
+            this.snackBar.open(`${err.error.error_message}: ` + err.error.error_message_description, undefined, this.snackBarWithShortDuration);
           }
         });
     }
