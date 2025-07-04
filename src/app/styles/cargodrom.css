@@ -418,7 +418,7 @@ app-pages{ .content {min-height: 100%; height: auto; }}
 .form-block .options .lnk-data { display: none; }
 
 .form-block [type="checkbox"] { display: none; }
-.form-block [type="checkbox"] + i { cursor: pointer; display: inline-block; vertical-align: top; position: relative; border: 1px solid #E0E5EB; background: #F7F9FC; width: 18px; height: 18px; margin: -2px 10px -3px 0; }
+.form-block [type="checkbox"] + i { cursor: pointer; display: inline-block; vertical-align: top; position: relative; border: 1px solid #E0E5EB; background: #F7F9FC; width: 18px; min-width: 18px; height: 18px; margin: -2px 10px -3px 0; }
 .form-block [type="checkbox"] + i + span { color: #83909E; cursor: pointer; }
 .form-block [type="checkbox"]:checked + i:before { content: ""; position: absolute; vertical-align: top; left: 5px; top: 5px; background: #DB563B; width: 8px; height: 8px; }
 .form-block [type="checkbox"]:checked + i + span { color: #2C3640; }

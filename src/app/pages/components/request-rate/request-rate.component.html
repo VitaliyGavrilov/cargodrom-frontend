@@ -91,7 +91,7 @@
         </div>
 
         <div class="form-item-layout">
-          <div class="form-item">
+          <div class="form-item" *ngIf="request?.cargo_readiness">
             <div class="form-label">Cargo readiness:</div>
             <div class="form-data">
               <div>{{request?.cargo_readiness}}</div>
@@ -133,9 +133,9 @@
 
       </div>
 
-      <div class="form-col">
+      <div class="form-col" style="display: flex; flex-direction: column;">
         <div class="form-col-title">Dimensions</div>
-        <textarea readonly style="border: none;">{{request?.cargo_dimensions}}</textarea>
+        <textarea readonly style="border: none; flex-grow: 1;">{{request?.cargo_dimensions}}</textarea>
       </div>
 
     </div>
@@ -179,6 +179,7 @@
           [chargeModel]="chargeModel"
           [weight]="request.cargo_places_paid_weight"
           [request]="request"
+          [currency]="currencyList"
         >
         </app-rate-editor>
       </div>

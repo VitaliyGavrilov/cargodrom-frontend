@@ -237,6 +237,11 @@ export class ContractorService extends BaseService {
 'allow_trade'?: boolean;
 
 /**
+ * Валюта
+ */
+'currency'?: number;
+
+/**
  * Участник торгов
  */
 'allow_trade_text'?: string;
@@ -639,6 +644,11 @@ export class ContractorService extends BaseService {
          * Участник торгов
          */
         'allow_trade'?: boolean;
+        
+        /**
+         * Валюта
+         */
+        'currency'?: number;
         
         /**
          * Участник торгов
@@ -1105,6 +1115,11 @@ export class ContractorService extends BaseService {
 'allow_trade'?: boolean;
 
 /**
+ * Валюта
+ */
+'currency'?: number;
+
+/**
  * Участник торгов
  */
 'allow_trade_text'?: string;
@@ -1491,6 +1506,11 @@ export class ContractorService extends BaseService {
 'allow_trade'?: boolean;
 
 /**
+ * Валюта
+ */
+'currency'?: number;
+
+/**
  * Участник торгов
  */
 'allow_trade_text'?: string;
@@ -1873,6 +1893,11 @@ export class ContractorService extends BaseService {
  * Участник торгов
  */
 'allow_trade'?: boolean;
+
+/**
+ * Валюта
+ */
+'currency'?: number;
 
 /**
  * Участник торгов
@@ -3232,6 +3257,11 @@ export class ContractorService extends BaseService {
 'allow_trade'?: boolean;
 
 /**
+ * Валюта
+ */
+'currency'?: number;
+
+/**
  * Участник торгов
  */
 'allow_trade_text'?: string;
@@ -3614,6 +3644,11 @@ export class ContractorService extends BaseService {
          * Участник торгов
          */
         'allow_trade'?: boolean;
+        
+        /**
+         * Валюта
+         */
+        'currency'?: number;
         
         /**
          * Участник торгов
@@ -4013,6 +4048,11 @@ export class ContractorService extends BaseService {
 'allow_trade'?: boolean;
 
 /**
+ * Валюта
+ */
+'currency'?: number;
+
+/**
  * Участник торгов
  */
 'allow_trade_text'?: string;
@@ -4388,6 +4428,11 @@ export class ContractorService extends BaseService {
 'allow_trade'?: boolean;
 
 /**
+ * Валюта
+ */
+'currency'?: number;
+
+/**
  * Участник торгов
  */
 'allow_trade_text'?: string;
@@ -4761,6 +4806,11 @@ export class ContractorService extends BaseService {
 'allow_trade'?: boolean;
 
 /**
+ * Валюта
+ */
+'currency'?: number;
+
+/**
  * Участник торгов
  */
 'allow_trade_text'?: string;
@@ -5103,6 +5153,11 @@ export class ContractorService extends BaseService {
 'allow_trade'?: boolean;
 
 /**
+ * Валюта
+ */
+'currency': number;
+
+/**
  * Контактные лица
  */
 'contacts'?: Array<{
@@ -5317,6 +5372,11 @@ export class ContractorService extends BaseService {
  * Участник торгов
  */
 'allow_trade'?: boolean;
+
+/**
+ * Валюта
+ */
+'currency': number;
 
 /**
  * Контактные лица
@@ -5544,6 +5604,11 @@ export class ContractorService extends BaseService {
 'allow_trade'?: boolean;
 
 /**
+ * Валюта
+ */
+'currency'?: number;
+
+/**
  * Контактные лица
  */
 'contacts'?: Array<{
@@ -5758,6 +5823,11 @@ export class ContractorService extends BaseService {
  * Участник торгов
  */
 'allow_trade'?: boolean;
+
+/**
+ * Валюта
+ */
+'currency'?: number;
 
 /**
  * Контактные лица

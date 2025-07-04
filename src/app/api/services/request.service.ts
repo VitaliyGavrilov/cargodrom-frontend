@@ -12244,6 +12244,11 @@ export class RequestService extends BaseService {
 'cargo_readiness'?: string;
 
 /**
+ * Валюта
+ */
+'currency': number;
+
+/**
  * Страна отправления, ID
  */
 'departure_country_id'?: string;
@@ -12416,9 +12421,14 @@ export class RequestService extends BaseService {
 'num'?: string;
 
 /**
- * Транспортная компания (Airline) (ID берем из запроса - transport_carrier)
+ * Транспортная компания (ИАТА) (ID берем из запроса - transport_carrier)
  */
-'carrier_id': number;
+'carrier_name': string;
+
+/**
+ * Транспортная компания (Описание) (ID берем из запроса - transport_carrier)
+ */
+'carrier_desc': string;
 
 /**
  * ID Маршрут (ID берем из запроса - direction_route)
@@ -12439,6 +12449,11 @@ export class RequestService extends BaseService {
  * Ближайшие рейсы (Nearest flight etd)
  */
 'nearest_flight'?: Array<string>;
+
+/**
+ * Валюта
+ */
+'currency': number;
 
 /**
  * Время транзита
@@ -12610,6 +12625,11 @@ export class RequestService extends BaseService {
          * Готовность
          */
         'cargo_readiness'?: string;
+        
+        /**
+         * Валюта
+         */
+        'currency': number;
         
         /**
          * Страна отправления, ID
@@ -12784,9 +12804,14 @@ export class RequestService extends BaseService {
         'num'?: string;
         
         /**
-         * Транспортная компания (Airline) (ID берем из запроса - transport_carrier)
+         * Транспортная компания (ИАТА) (ID берем из запроса - transport_carrier)
          */
-        'carrier_id': number;
+        'carrier_name': string;
+        
+        /**
+         * Транспортная компания (Описание) (ID берем из запроса - transport_carrier)
+         */
+        'carrier_desc': string;
         
         /**
          * ID Маршрут (ID берем из запроса - direction_route)
@@ -12807,6 +12832,11 @@ export class RequestService extends BaseService {
          * Ближайшие рейсы (Nearest flight etd)
          */
         'nearest_flight'?: Array<string>;
+        
+        /**
+         * Валюта
+         */
+        'currency': number;
         
         /**
          * Время транзита
@@ -12993,6 +13023,11 @@ export class RequestService extends BaseService {
 'cargo_readiness'?: string;
 
 /**
+ * Валюта
+ */
+'currency': number;
+
+/**
  * Страна отправления, ID
  */
 'departure_country_id'?: string;
@@ -13165,9 +13200,14 @@ export class RequestService extends BaseService {
 'num'?: string;
 
 /**
- * Транспортная компания (Airline) (ID берем из запроса - transport_carrier)
+ * Транспортная компания (ИАТА) (ID берем из запроса - transport_carrier)
  */
-'carrier_id': number;
+'carrier_name': string;
+
+/**
+ * Транспортная компания (Описание) (ID берем из запроса - transport_carrier)
+ */
+'carrier_desc': string;
 
 /**
  * ID Маршрут (ID берем из запроса - direction_route)
@@ -13188,6 +13228,11 @@ export class RequestService extends BaseService {
  * Ближайшие рейсы (Nearest flight etd)
  */
 'nearest_flight'?: Array<string>;
+
+/**
+ * Валюта
+ */
+'currency': number;
 
 /**
  * Время транзита
@@ -13352,6 +13397,11 @@ export class RequestService extends BaseService {
 'cargo_readiness'?: string;
 
 /**
+ * Валюта
+ */
+'currency': number;
+
+/**
  * Страна отправления, ID
  */
 'departure_country_id'?: string;
@@ -13524,9 +13574,14 @@ export class RequestService extends BaseService {
 'num'?: string;
 
 /**
- * Транспортная компания (Airline) (ID берем из запроса - transport_carrier)
+ * Транспортная компания (ИАТА) (ID берем из запроса - transport_carrier)
  */
-'carrier_id': number;
+'carrier_name': string;
+
+/**
+ * Транспортная компания (Описание) (ID берем из запроса - transport_carrier)
+ */
+'carrier_desc': string;
 
 /**
  * ID Маршрут (ID берем из запроса - direction_route)
@@ -13547,6 +13602,11 @@ export class RequestService extends BaseService {
  * Ближайшие рейсы (Nearest flight etd)
  */
 'nearest_flight'?: Array<string>;
+
+/**
+ * Валюта
+ */
+'currency': number;
 
 /**
  * Время транзита
@@ -13709,6 +13769,11 @@ export class RequestService extends BaseService {
 'cargo_readiness'?: string;
 
 /**
+ * Валюта
+ */
+'currency': number;
+
+/**
  * Страна отправления, ID
  */
 'departure_country_id'?: string;
@@ -13881,9 +13946,14 @@ export class RequestService extends BaseService {
 'num'?: string;
 
 /**
- * Транспортная компания (Airline) (ID берем из запроса - transport_carrier)
+ * Транспортная компания (ИАТА) (ID берем из запроса - transport_carrier)
  */
-'carrier_id': number;
+'carrier_name': string;
+
+/**
+ * Транспортная компания (Описание) (ID берем из запроса - transport_carrier)
+ */
+'carrier_desc': string;
 
 /**
  * ID Маршрут (ID берем из запроса - direction_route)
@@ -13904,6 +13974,11 @@ export class RequestService extends BaseService {
  * Ближайшие рейсы (Nearest flight etd)
  */
 'nearest_flight'?: Array<string>;
+
+/**
+ * Валюта
+ */
+'currency': number;
 
 /**
  * Время транзита
@@ -14100,9 +14175,14 @@ export class RequestService extends BaseService {
 'num'?: string;
 
 /**
- * Транспортная компания (Airline) (ID берем из запроса - transport_carrier)
+ * Транспортная компания (ИАТА) (ID берем из запроса - transport_carrier)
  */
-'carrier_id': number;
+'carrier_name': string;
+
+/**
+ * Транспортная компания (Описание) (ID берем из запроса - transport_carrier)
+ */
+'carrier_desc': string;
 
 /**
  * ID Маршрут (ID берем из запроса - direction_route)
@@ -14123,6 +14203,11 @@ export class RequestService extends BaseService {
  * Ближайшие рейсы (Nearest flight etd)
  */
 'nearest_flight'?: Array<string>;
+
+/**
+ * Валюта
+ */
+'currency': number;
 
 /**
  * Время транзита
@@ -14287,9 +14372,14 @@ export class RequestService extends BaseService {
 'num'?: string;
 
 /**
- * Транспортная компания (Airline) (ID берем из запроса - transport_carrier)
+ * Транспортная компания (ИАТА) (ID берем из запроса - transport_carrier)
  */
-'carrier_id': number;
+'carrier_name': string;
+
+/**
+ * Транспортная компания (Описание) (ID берем из запроса - transport_carrier)
+ */
+'carrier_desc': string;
 
 /**
  * ID Маршрут (ID берем из запроса - direction_route)
@@ -14310,6 +14400,11 @@ export class RequestService extends BaseService {
  * Ближайшие рейсы (Nearest flight etd)
  */
 'nearest_flight'?: Array<string>;
+
+/**
+ * Валюта
+ */
+'currency': number;
 
 /**
  * Время транзита

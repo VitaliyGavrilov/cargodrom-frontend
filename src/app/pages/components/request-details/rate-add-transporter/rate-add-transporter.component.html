@@ -15,7 +15,7 @@
               (keyup)="filteredContractors($event)"
             >
             <mat-autocomplete autoActiveFirstOption="false" #contractor="matAutocomplete" [displayWith]="displayFn_Contractors.bind(this)">
-              <mat-option *ngFor="let contractor of filteredContractorsArr" [value]="contractor.id">{{contractor.name}}</mat-option>
+              <mat-option (onSelectionChange)="onContratorChange(contractor)" *ngFor="let contractor of filteredContractorsArr" [value]="contractor.id">{{contractor.name}}</mat-option>
             </mat-autocomplete>
           </div>
         </div>

@@ -50,7 +50,8 @@ import { EmployeeRegisterComponent } from './components/employee-register/employ
 import { RateAddOther } from './components/request-details/rate-add-other/rate-add-other.component';
 import { NgScrollbarModule } from 'ngx-scrollbar';
 import { OrderEditorComponent } from './components/order-editor/order-editor.component';
-import { TestPage } from './components/test-page/test-page.component';
+import { TestPage } from './places/test-page/test-page.component';
+import { TableListComponent } from './table-list/table-list.component';
 
 
 
@@ -107,6 +108,7 @@ import { TestPage } from './components/test-page/test-page.component';
     EmployeeRegisterComponent,
 
     TestPage,
+    TableListComponent,
 
   ],
   imports: [

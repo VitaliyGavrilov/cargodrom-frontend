@@ -11,6 +11,7 @@ import { MatSnackBar, MatSnackBarConfig } from '@angular/material/snack-bar';
 import { TransportCarrier, TransportRoute } from 'src/app/api/custom_models/transport';
 import { formatDate } from '@angular/common';
 import { MatDialog } from '@angular/material/dialog';
+import { CalculationsService } from '../../services/calculations.service';
 
 @Component({
   selector: 'app-rate-editor',
@@ -37,6 +38,7 @@ export class RateEditorComponent implements OnInit, OnDestroy, OnChanges, Contro
   @Input() chargeModel?:any;
   @Input() weight?:number;
   @Input() request?:any;
+  @Input() currency?:any;
 
   @Output() removeRate = new EventEmitter<void>();
   @Output() addRate = new EventEmitter<void>();
@@ -69,6 +71,7 @@ export class RateEditorComponent implements OnInit, OnDestroy, OnChanges, Contro
   @ViewChild('deleteRateDialogRef') deleteRateDialogRef?: TemplateRef<void>;
 
   constructor(
+    private calculationsService: CalculationsService,
     private fb: FormBuilder,
     private transportService: TransportService,
     private snackBar: MatSnackBar,
@@ -77,7 +80,8 @@ export class RateEditorComponent implements OnInit, OnDestroy, OnChanges, Contro
     private directionService: DirectionService,
   ) {
     this.rateForm = this.fb.group({
-      carrier_id: [,[]],
+      carrier_desc: [,[]],
+      carrier_name: [,[]],
       comment: [,[]],
       departure_schedule: [[],[]],
       id: [,[]],
@@ -92,6 +96,7 @@ export class RateEditorComponent implements OnInit, OnDestroy, OnChanges, Contro
         transit_time_from: [, []],
         transit_time_to: [, []],
       }),
+      currency: [,[]],
       values: fb.array([
         // this.fb.group({
         //   comment: [,[]],
@@ -111,7 +116,7 @@ export class RateEditorComponent implements OnInit, OnDestroy, OnChanges, Contro
   ngOnInit(): void {
     this.getTransportCarrier();
     this.getTransportRoute();
-
+    
     this.chargeModel.forEach((i:any)=>{
       this.charges.push(this.fb.group({
         comment: [,[]],
@@ -121,7 +126,7 @@ export class RateEditorComponent implements OnInit, OnDestroy, OnChanges, Contro
         min: [,[]],
         price: [,[]],
         select: [i.status,[]],
-        value: [i.unit==='kg'?this.weight:0,[]],
+        value: [i.unit==='kg'?this.weight:1,[]],
       }));
       this.rateForm.markAsTouched();
     });
@@ -135,12 +140,28 @@ export class RateEditorComponent implements OnInit, OnDestroy, OnChanges, Contro
         this.touched = true;
       }
     });
+    
+    if(this.rateForm.value.currency==null){
+      this.rateForm.patchValue({
+        currency: this.request.currency
+      })
+    }
     this.rateForm.markAsTouched();
   }
   ngOnDestroy(): void {
     this._destroy$.next(null);
     this._destroy$.complete();
   }
+
+  get rateChar(){
+    const i = this.currency?.find((r:any) => r.id === this.rateForm.value.currency);
+    return i?.char?i.char:'?';
+  }
+  get rateCode(){
+    const i = this.currency?.find((r:any) => r.id === this.rateForm.value.currency);
+    return i?.code?i.code:'?';
+  }
+
   ngOnChanges(changes: SimpleChanges): void {
     if(this.rateForm.value.rate_type==='detail') this.calckTotalCost();
   }
@@ -209,18 +230,24 @@ export class RateEditorComponent implements OnInit, OnDestroy, OnChanges, Contro
       },
     });
   }
+
   filterRote(){
-    const filterRoute=this.transportRoute?.filter((option:any) => option.name.toLowerCase().replaceAll(' ', '').includes(this.rateForm.value.route_name.toLowerCase().replaceAll(' ', '')));
+    const filterRoute=this.transportRoute?.filter((option:any) => option.name.toLowerCase().replaceAll(' ', '').includes(this.rateForm.value.route_name?.toLowerCase().replaceAll(' ', '')));
     return filterRoute.length==0
     ? []
     : filterRoute
   }
+  filterIata(){
+    const filterIata=this.transportCarrier?.filter((option:any) => option.iata.toLowerCase().replaceAll(' ', '').includes(this.rateForm.value.carrier_name?.toLowerCase().replaceAll(' ', '')));
+    return filterIata.length==0
+    ? []
+    : filterIata
+  }
 
-
-  returnAirlineName(id:number):string{
+  returnAirlineName(iata:string):string{
     let name:any='';
     this.transportCarrier.forEach((i:TransportCarrier)=>{
-      if(id==i.id){ name=i.name };
+      if(iata?.toLowerCase()==i.iata?.toLowerCase()){ name=i.name };
     });
     return name;
   }
@@ -231,6 +258,7 @@ export class RateEditorComponent implements OnInit, OnDestroy, OnChanges, Contro
     });
     return id===undefined?' ? ':name
   }
+
   onRateTypeChange(){
     this.charges.controls.forEach((e:any)=>{
       e.controls['comment'].reset();
@@ -242,17 +270,44 @@ export class RateEditorComponent implements OnInit, OnDestroy, OnChanges, Contro
     this.rateForm.controls['total_cost'].reset();
   }
   //Calck
-  calck(control:any){
-    if(control.value.min){
-      control.patchValue({
-        cost: control.value.min<control.value.price * control.value.value?control.value.price * control.value.value:control.value.min
-      });
-    } else if(control.value.fix) {
-      control.patchValue({cost: (control.value.price * control.value.value)+control.value.fix});
-    } else {
-      control.patchValue({cost: control.value.price * control.value.value});
-    }
+  calck(control: any) {
+    const costValue = this.calculationsService.calculateRate(
+      control.value.price,
+      control.value.value,
+      { min: control.value.min, fix: control.value.fix}
+    );
+    control.patchValue({ cost: costValue });
   }
+  // calck(control: any) {
+  //   let costValue: number;
+
+  //   if (control.value.min) {
+  //     costValue = control.value.min < control.value.price * control.value.value 
+  //     ? control.value.price * control.value.value 
+  //     : control.value.min;
+  //   } else if (control.value.fix) {
+  //     costValue = (control.value.price * control.value.value) + control.value.fix;
+  //   } else {
+  //     costValue = control.value.price * control.value.value;
+  //   }
+
+  //   // Округляем до двух знаков после запятой
+  //   const roundedCost = parseFloat(costValue.toFixed(2));
+
+  //   control.patchValue({ cost: roundedCost });
+  // }
+  // calck(control:any){
+  //   if(control.value.min){
+  //     control.patchValue({
+  //       cost: control.value.min<control.value.price * control.value.value?control.value.price * control.value.value:control.value.min
+  //     });
+  //   } else if(control.value.fix) {
+  //     control.patchValue({cost: (control.value.price * control.value.value)+control.value.fix});
+  //   } else {
+  //     control.patchValue({cost: control.value.price * control.value.value});
+  //   }
+  // }
+
   calckCost(control:any){
     control.patchValue({
       value: control.value.cost,
@@ -260,11 +315,18 @@ export class RateEditorComponent implements OnInit, OnDestroy, OnChanges, Contro
     });
   }
   calckTotalCost(){
-    let cost=0;
+    // let cost=0;
+    let cost:any[]=[];
+    // this.rateForm.value.values.forEach((v:any)=>{
+    //   if(v.select)cost=cost+v.cost
+    // });
     this.rateForm.value.values.forEach((v:any)=>{
-      if(v.select)cost=cost+v.cost
+      if(v.select){
+        cost.push(v.cost)
+      }
     });
-    this.rateForm.patchValue({ total_cost:cost });
+    let sum = this.calculationsService.calculateSum(cost);
+    this.rateForm.patchValue({ total_cost:sum });
   }
   // Datepicker multy
   returnSelectDateText(){

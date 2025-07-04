@@ -116,7 +116,7 @@
                       [matAutocomplete]="contractor"
                     >
                     <mat-autocomplete #contractor="matAutocomplete" [displayWith]="displayFn_contractor.bind(this)">
-                      <mat-option *ngFor="let contractor of filteredContractors(chargeValue)" [value]="contractor.id">{{contractor.name}}</mat-option>
+                      <mat-option *ngFor="let contractor of filteredContractors(chargeValue)" (onSelectionChange)="onContratorChange(contractor,chargeValue)" [value]="contractor.id">{{contractor.name}}</mat-option>
                     </mat-autocomplete>
                   </div>
                   <div class="column">

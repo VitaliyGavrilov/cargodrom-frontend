@@ -1,3 +1,10 @@
+// input[ng-reflect-name="carrier_name"]{
+//   color: red;
+// }
+// input[ng-reflect-name="to"],input[formcontrolname="to"]{
+//   color: red;
+// }
+
 
 .calendar {
   background: #F7F9FC;
@@ -67,16 +74,20 @@
   .charge_on{
     // width: 65%;
     // min-width: 50%;
-    min-width: 65%;
-    margin-right: auto;
+    width: 70%;
+    margin-right: 40px;
+    padding-right: 40px;
+    border-right: 1px dashed #E0E5EB;
     label{
-      width: 300px;
+      width: 250px;
+      display: flex;
+      align-items: center;
     }
   }
   .charge_off{
     // width: 22%;
-    min-width: 22%;
-    margin-right: auto;
+    width: 30%;
+    // margin-right: auto;
   }
 
 }

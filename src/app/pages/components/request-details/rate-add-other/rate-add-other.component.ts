@@ -203,6 +203,7 @@ export class RateAddOther implements OnInit, OnDestroy {
     });
   }
 
+  
   setContractorName(contractor_id:number) {
     const contractor = this.contractorList.find((r:any) => r.id === contractor_id);
     this.rateForm.patchValue({
@@ -210,9 +211,12 @@ export class RateAddOther implements OnInit, OnDestroy {
     });
   }
 
-  onContratorChange(contractor:any){
-    this.rateForm.patchValue({
-      contractor_id: contractor.id,
+  onContratorChange(contractor:any,control:any){
+    control.patchValue({
+      currency: contractor.currency
+      
+
+      // contractor_id: contractor.id,
       // contractor_name: contractor.name,
     });
   }

@@ -1,7 +1,7 @@
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { ActivatedRoute, ParamMap, Router } from '@angular/router';
 import { SortColumn } from '../api/custom_models/sort-column';
-import { Directive, OnInit, OnDestroy, ViewChild, TemplateRef, ElementRef, HostListener } from '@angular/core';
+import { Directive, OnInit, OnDestroy, ViewChild, TemplateRef, ElementRef, HostListener, inject } from '@angular/core';
 import { NEVER, Observable, of, Subject, takeUntil, tap } from 'rxjs';
 import { MatSnackBarConfig } from '@angular/material/snack-bar';
 import { MatDialog } from '@angular/material/dialog';
@@ -10,6 +10,7 @@ import { SearchFilterSchema } from '../api/custom_models';
 import { MatCheckboxChange } from '@angular/material/checkbox';
 import { UserService } from '../api/services';
 import { DomSanitizer } from '@angular/platform-browser';
+import { TableListService } from '../pages/table-list/table-list.service';
 
 export interface LoadParams<T, F> {
   id?:number;
@@ -85,15 +86,18 @@ export abstract class Table<T extends { id: number }, A = never, F = never> impl
 
   @ViewChild('file', { static: true }) file?: ElementRef;
 
+  tableService!:TableListService;
+
   constructor(
-    
     private route: ActivatedRoute,
     protected router: Router,
     private dialog: MatDialog,
     protected snackBar: MatSnackBar,
     protected filterService: FilterService,
     protected userService: UserService,
-  ) {}
+  ) {
+    this.tableService = inject(TableListService)
+  }
 
   ngOnInit(): void {
     const segments = this.route.snapshot.url.map(s => s.path);
@@ -167,6 +171,7 @@ export abstract class Table<T extends { id: number }, A = never, F = never> impl
     //   : { start: this.start, count: this.count, sort: JSON.stringify(sortCol) as unknown as SortColumn<T>[], ...this.filter  };
 
     this.load(params)
+    // this.tableService.getRows(params)
       .subscribe(rows => {
         console.log('rows', rows);
         this.rows = rows ? rows.items as T[] : [];

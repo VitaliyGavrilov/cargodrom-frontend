@@ -32,6 +32,7 @@ export class RequestRateComponent implements OnInit, OnDestroy {
   currentRateNumber:number=0;
   chargeModel:any=[];
   transportCarrier:any=[];
+  currencyList:any;
   readonly xlsxMimeType = 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet';
   //КОНСТРУКТОР
   constructor(
@@ -40,6 +41,7 @@ export class RequestRateComponent implements OnInit, OnDestroy {
     private requestService: RequestService,
     private snackBar: MatSnackBar,
     private fileSevice: FileService,
+    private systemService: SystemService
   ) {
     this.requestForm = this.fb.group({
       uid: [,[]],
@@ -57,6 +59,7 @@ export class RequestRateComponent implements OnInit, OnDestroy {
       uid:uid
     })
     this.getRequestRates(uid);
+    this.getCurrency()
   }
 
   //ВЛОЖЕННАЯ ФОРМА РЕДАКТИРОВАНИ РЕЙТОВ
@@ -64,6 +67,9 @@ export class RequestRateComponent implements OnInit, OnDestroy {
     this.rates.removeAt(i);
     this.requestForm.markAsTouched();
     this.currentRateNumber=this.rates.length-1;
+    if(this.rates.length<1){
+      this.addRate()
+    }
   }
   addRate() {
     if(this.rates.length<8){
@@ -91,6 +97,22 @@ export class RequestRateComponent implements OnInit, OnDestroy {
   copyDestinationText(){
     window.navigator.clipboard.writeText(`${this.request.arrival_country_name}, ${this.request.arrival_city_name}, ${this.request.arrival_address}, ${this.request.arrival_point_name}`)
     this.snackBar.open(`Address copied: ` + `${this.request.arrival_country_name}, ${this.request.arrival_city_name}, ${this.request.arrival_address}, ${this.request.arrival_point_name}`, undefined, this.snackBarWithLongDuration);
+  }
+
+  getCurrency(){
+    this.systemService.systemCurrency().pipe(
+      tap((currencyList) => {
+      }),
+      takeUntil(this._destroy$)
+    ).subscribe({
+      next: (currencyList) => {
+        console.log('currencyList',currencyList);
+        this.currencyList=currencyList.current;
+      },
+      error: (err) => {
+        console.log('ошибка получения валют в хеадере');
+      }
+    });
   }
 
   // Приватные методы:
@@ -122,7 +144,7 @@ export class RequestRateComponent implements OnInit, OnDestroy {
         tap((rates)=> {
           console.log('getRequestRates', rates);
           if (!rates) throw ({ error: { error_message: `Запрос не существует` } });
-          this.rates.push(this.fb.control({}));
+          // this.rates.push(this.fb.control({}));
           rates.rates?.forEach((e:any) => {
             this.addRate();
             this.requestForm.patchValue(rates);

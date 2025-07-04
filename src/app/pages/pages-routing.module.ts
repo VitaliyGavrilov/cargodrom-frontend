@@ -19,7 +19,7 @@ import { RequestRateComponent } from './components/request-rate/request-rate.com
 import { RequestDetails } from './components/request-details/request-details.component';
 import { OfferEditorComponent } from './components/offer-editor/offer-editor.component';
 import { OrderEditorComponent } from './components/order-editor/order-editor.component';
-import { TestPage } from './components/test-page/test-page.component';
+import { TestPage } from './places/test-page/test-page.component';
 // import { RequestPage } from './places/request/request.component';
 
 const routes: Routes = [

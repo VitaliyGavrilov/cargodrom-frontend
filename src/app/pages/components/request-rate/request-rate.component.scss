@@ -94,6 +94,7 @@ div{
   padding: 40px;
   font-weight: bold;
   color: #2C3640;
+  
 }
 .form-col:first-child{
   margin-left: -40px;
@@ -231,8 +232,11 @@ div.mat-calendar-body-selected, .mat-calendar-body-cell.selected .mat-calendar-b
   height: 45px;  margin-bottom: -40px;  display: flex;
 }
 .rate_label{
-  display: flex;  justify-content: center;  align-items: center;
-  height: 100%;  width: 130px;
+  justify-content: center; 
+  padding: 0 5px;
+  
+  display: flex; align-items: center;
+  height: 100%; min-width: 130px;
   border-right: 1px solid #C3CCD6;  border-top: 1px solid #C3CCD6;
   font-weight: bold;
   cursor: pointer;
@@ -357,6 +361,7 @@ div.mat-calendar-body-selected, .mat-calendar-body-cell.selected .mat-calendar-b
   width: 100%;  margin-bottom: 25px;
 }
 //charges chexbox
+
 .form-block [type="checkbox"]:checked + i + span {
   font-weight: bold;
   font-size: 17px;
@@ -376,7 +381,7 @@ div.mat-calendar-body-selected, .mat-calendar-body-cell.selected .mat-calendar-b
   margin-left: 5px;
 }
 .list-charges .unit{
-  margin-right: 80px;
+  // margin-right: 80px;
 }
 .charges-values:last-child .unit{
   width: 10px;
@@ -487,8 +492,12 @@ input[type='number'] {
 // .charges-values:last-child{
 //   width: 80px;
 // }
+
 .charges-values .values-input{
   max-width: 75px;
+}
+.additional .form-data{
+  width: 75px;
 }
 // .charges-values .values-input:first-child{
 //   margin-right: 0px;

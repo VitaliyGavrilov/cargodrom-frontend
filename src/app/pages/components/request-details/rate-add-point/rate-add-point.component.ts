@@ -100,6 +100,7 @@ export class RateAddPoint implements OnInit, OnDestroy {
   onContratorChange(contractor:any){
     this.rateForm.patchValue({
       contractor_id: contractor.id,
+      currency: contractor.currency,
       // contractor_name: contractor.name,
     });
   }

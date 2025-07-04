@@ -1,4 +1,4 @@
-<form class="edit-form" [formGroup]="rateForm" (ngSubmit)="rateSave()">
+<form class="edit-form" [formGroup]="rateForm">
   <div class="form-block">
     <div class="form-row">
 
@@ -32,7 +32,33 @@
           </div>
         </div>
 
-        <div class="form-item">
+      <div class="form-item">
+        <div class="form-label">Airline:</div>
+        <div class="form-data">
+          <input type="text" 
+            formControlName="carrier_desc" 
+            [readonly]="returnAirlineName(rateForm.value.carrier_name)!=''" 
+            [value]="returnAirlineName(rateForm.value.carrier_name)"
+          >
+        </div>
+      </div>
+
+      <div class="form-item" style="width: 150px;">
+        <div class="form-label">Airline (iata):</div>
+        <div class="form-data">
+          <input
+            type="text"
+            style="text-transform: uppercase"
+            formControlName="carrier_name"
+            [matAutocomplete]="carrier_name"
+          >
+          <mat-autocomplete autoActiveFirstOption #carrier_name="matAutocomplete">
+            <mat-option *ngFor="let route of filterIata()" [value]="route.iata">{{route.iata}}</mat-option>
+          </mat-autocomplete>
+        </div>
+      </div>
+
+        <!-- <div class="form-item">
           <div class="form-label">Airline:</div>
           <div class="form-data">
             <input type="text" readonly [value]="returnAirlineName(rateForm.value.carrier_id)">
@@ -41,7 +67,7 @@
 
         <ng-container *ngTemplateOutlet="formItemSelector;
           context: { label: 'Airline (iata):', control: 'carrier_id', data: transportCarrier, key:'iata', class:'w80px'}">
-        </ng-container>
+        </ng-container> -->
 
         <!-- <ng-container *ngTemplateOutlet="formItemSelector;
           context: { label: 'Подрядчик:', control: 'contractor_id', data: contractorList, key:'name'}">

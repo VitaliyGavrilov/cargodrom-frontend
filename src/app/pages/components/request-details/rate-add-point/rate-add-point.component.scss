@@ -7,9 +7,12 @@
   border-bottom: 1px solid #E0E5EB;
   padding: 40px 0;
   .charge_on{
-    width: 62%;
+    width: 70%;
+    margin-right: 40px;
+    padding-right: 40px;
+    border-right: 1px dashed #E0E5EB;
     label{
-      width: 400px;
+      width: 250px;
     }
   }
   .charge_off{

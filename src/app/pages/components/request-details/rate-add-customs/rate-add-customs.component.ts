@@ -73,7 +73,9 @@ export class RateAddCustoms implements OnInit, OnDestroy {
       request_id:[this.requestId,[]],
       contractor_id: [,[]],
       contractor_name: ['',[]],
-      carrier_id: [,[]],
+      // carrier_id: [,[]],
+      carrier_name: [,[]],
+      carrier_desc: [,[]],
       comment: [,[]],
       departure_schedule: [,[]],
       id: [,[]],
@@ -107,6 +109,7 @@ export class RateAddCustoms implements OnInit, OnDestroy {
   onContratorChange(contractor:any){
     this.rateForm.patchValue({
       contractor_id: contractor.id,
+      currency: contractor.currency
       // contractor_name: contractor.name,
     });
   }
@@ -179,10 +182,15 @@ export class RateAddCustoms implements OnInit, OnDestroy {
     ? []
     : filterRoute
   }
-
   filterContractor(){
     const filterContractor=this.contractorList.filter((option:any) => option.name.toLowerCase().replaceAll(' ', '').includes(this.rateForm.value.contractor_name.toLowerCase().replaceAll(' ', '')));
     return filterContractor;
+  }
+  filterIata(){
+    const filterIata=this.transportCarrier?.filter((option:any) => option.iata.toLowerCase().replaceAll(' ', '').includes(this.rateForm.value.carrier_name?.toLowerCase().replaceAll(' ', '')));
+    return filterIata.length==0
+    ? []
+    : filterIata
   }
 
   // Charges
@@ -264,10 +272,17 @@ export class RateAddCustoms implements OnInit, OnDestroy {
     calendar.updateTodaysDate();
   }
   //airline
-  returnAirlineName(id: number): string | undefined {
-    const carrier = this.transportCarrier.find((i: TransportCarrier) => id === i.id);
-    return carrier ? carrier.name : '';
+  returnAirlineName(iata:string):string{
+    let name:any='';
+    this.transportCarrier.forEach((i:TransportCarrier)=>{
+      if(iata?.toLowerCase()==i.iata?.toLowerCase()){ name=i.name };
+    });
+    return name;
   }
+  // returnAirlineName(id: number): string | undefined {
+  //   const carrier = this.transportCarrier.find((i: TransportCarrier) => id === i.id);
+  //   return carrier ? carrier.name : '';
+  // }
   // returnAirlineName(id:number):string{
   //   let name:any='';
   //   this.transportCarrier.forEach((i:TransportCarrier)=>{

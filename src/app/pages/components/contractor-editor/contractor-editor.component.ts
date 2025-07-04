@@ -36,6 +36,7 @@ export class ContractorEditorComponent implements OnInit {
   countries: Country[] = []; filteredCountries: Country[] = [];
   cities: City[] = []; filteredCitys: City[] = [];
   counterpartys:Counterparty[]=[]; filteredCounterpartys:Counterparty[]=[];
+  currencyList:any;
 
   snackBarWithShortDuration: MatSnackBarConfig = { duration: 1000 };
   snackBarWithLongDuration: MatSnackBarConfig = { duration: 3000 };
@@ -87,7 +88,8 @@ export class ContractorEditorComponent implements OnInit {
       allow_trade:[false],
       counterparty_id: ['', [Validators.required]],
       // carrier_name:[,[]],
-      carrier_id:[,[]]
+      carrier_id:[,[]],
+      currency:[,[]]
     });
 
     // this.change$
@@ -123,6 +125,7 @@ export class ContractorEditorComponent implements OnInit {
         this.getTaxSystems(),
         this.getAssociations(),
         this.getRequestFormats(),
+        this.getCurrency(),
       ]));
       // После завершения всех запросов проверяем режим редактирования
       if (this.isEditMode) {
@@ -563,6 +566,16 @@ export class ContractorEditorComponent implements OnInit {
         return throwError(() => err); // Пробрасываем ошибку дальше
       })
     );
+  }
+
+  getCurrency(){
+    return this.systemService.systemCurrency()
+      .pipe(
+        tap((currencyList) =>{
+          this.currencyList=currencyList.current;
+        }),
+        takeUntil(this._destroy$)
+      );
   }
 
   // private getContractor() {

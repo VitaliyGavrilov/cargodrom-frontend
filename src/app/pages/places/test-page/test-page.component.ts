@@ -14,7 +14,7 @@ export class TestPage implements OnInit {
   ) {}
 
   ngOnInit(): void {
-    this.tableList.getRows(';;').subscribe({
+    this.tableList.getRows().subscribe({
       next: (rows) => {
         console.log(rows);
         
