@@ -16,6 +16,13 @@ button.icon.delete-gr{
 button.icon.delete{
   background-image: url('../../assets/pic-btn-del.svg');  
 }
+button.icon.edit{
+  background-image: url('../../assets/pic-btn-edit.svg');  
+}
+button.icon.edit-w{
+  background-image: url('../../assets/pic-btn-edit-w.svg');  
+}
+
 
 .edit-form .btns.size56 {
   gap: 8px;
@@ -65,4 +72,27 @@ button.icon.delete{
     background-image: url('../../assets/pic-btn-cancel.svg');
   }
 
+}
+
+button.long{
+  height: 40px;
+  display: flex;
+  align-items: center;
+  border-radius: 6px;
+  &::before{
+    display: block;
+    width: 20px;
+    height: 20px;
+    content: '';
+    background-repeat: no-repeat;
+    background-position: center;
+    margin-right: 6px;
+  }
+  &.save{
+    background-color: #DB563B;
+    color: white;
+    &::before{
+      background-image: url('../../assets/pic-btn-save.svg');
+    }
+  }
 }

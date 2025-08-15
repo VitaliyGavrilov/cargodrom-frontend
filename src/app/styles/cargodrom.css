@@ -212,7 +212,7 @@ app-pages{ .content {min-height: 100%; height: auto; }}
 .table > .filter { border: solid #e0e5eb; border-width: 1px 1px 0 1px; }
 .filter { display: flex; flex-direction: column;  }
 .filter .base { display: flex; }
-.filter .item { padding: 20px; display: flex; }
+.filter .item { padding: 20px; display: flex; box-sizing: border-box; }
 @media (max-width: 1750px) {
   .filter .item { padding: 10px; display: flex; }
 }

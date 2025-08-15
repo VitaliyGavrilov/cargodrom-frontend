@@ -5,6 +5,7 @@ export { CustomerService } from './services/customer.service';
 export { DataService } from './services/data.service';
 export { DirectionService } from './services/direction.service';
 export { FileService } from './services/file.service';
+export { MessageService } from './services/message.service';
 export { OrderService } from './services/order.service';
 export { RequestService } from './services/request.service';
 export { SettingsService } from './services/settings.service';

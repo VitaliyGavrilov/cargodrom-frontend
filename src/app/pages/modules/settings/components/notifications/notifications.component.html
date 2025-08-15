@@ -1,0 +1,19 @@
+<form (ngSubmit)="onSubmit()" [formGroup]="form">
+  <div class="form-block">
+    <div class="form-row">
+      <div class="form-block-title" style="margin-bottom: 40px; padding: 0;">События в системе</div>
+      <div class="form-item-layout" style="flex-wrap: wrap; gap: 20px 0;">
+        <mat-checkbox *ngFor="let item of events" style="width: 25%;" [style]="isEventSelected(item.id)?'font-weight: bold;':''" [checked]="isEventSelected(item.id)" (change)="onEventChange($event, item.id)">{{item.name}}</mat-checkbox>
+      </div>
+    </div>
+    <div class="form-row">
+      <div class="form-block-title"  style="margin-bottom: 40px; padding: 0;">Способ уведомления</div>
+      <div class="form-item-layout" style="flex-wrap: wrap;">
+        <mat-checkbox *ngFor="let item of types" style="width: 25%;" [checked]="isTypeSelected(item.id)" (change)="onTypeChange($event, item.id)">{{item.name}}</mat-checkbox>
+      </div>
+    </div>
+    <div class="form-row">
+      <button class="save long" type="submit">Сохранить изменения</button>
+    </div>
+  </div>
+</form>

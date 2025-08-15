@@ -8,6 +8,7 @@ export interface FilterControl {
   form:  'autocomplete' | 'text' | 'checkbox' | 'checkbox_reset' | 'select' | 'period_days' | 'radio';
   field: string;
   name:  string;
+  width?: string;
 }
 
 export interface FilterSelectControl extends FilterControl {
@@ -32,6 +33,7 @@ export interface FilterCheckboxControl extends FilterControl {
     id: string;
     name: string;
   }[];
+  any_text?:string;
 }
 
 export interface FilterRadioControl extends FilterControl {
@@ -40,6 +42,7 @@ export interface FilterRadioControl extends FilterControl {
     id: string;
     name: string;
   }[];
+  any_text?:string;
 }
 
 export interface FilterPeriodControl extends FilterControl {

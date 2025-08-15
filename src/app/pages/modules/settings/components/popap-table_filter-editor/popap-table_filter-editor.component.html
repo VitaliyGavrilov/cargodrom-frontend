@@ -1,0 +1,51 @@
+
+<h2 mat-dialog-title style="padding: 0 40px 10px;">Добавить фильтр</h2>
+
+<mat-dialog-content style="padding: 0; width: 25vw;">
+<form (ngSubmit)="onSubmit()" [formGroup]="form">
+  <div class='form-block' >
+    <div class="form-row bg" style="display: flex; flex-direction: column; gap: 25px; padding: 20px 40px;">
+      <div class="form-item">
+        <div class="form-label">наименнование фильтра: </div>
+        <div class="form-data">
+          <input matInput type="text" formControlName="name" >
+        </div>
+      </div>
+      <div class="form-item" *ngIf="!data.filter.type_fixed">
+        <div class="form-label">тип поля фильтра: </div>
+        <div class="form-data" >
+          <mat-select formControlName="type">
+            <mat-option value="">-- Не выбрано --</mat-option>
+            <mat-option *ngFor="let item of filterTypes;" [value]="item.id">{{ item.name }}</mat-option>
+          </mat-select>
+        </div>
+      </div>
+      <div class="form-item">
+        <div class="form-label">место: </div>
+        <div class="form-data" >
+          <mat-select formControlName="place">
+            <mat-option value="">-- Не выбрано --</mat-option>
+            <ng-container *ngFor="let item of filteredPlace;">
+              <mat-option  [value]="item.id" >{{ item.name }}</mat-option>
+            </ng-container>
+          </mat-select>
+        </div>
+      </div>
+      <div class="form-item">
+        <div class="form-data">
+          <mat-checkbox formControlName="show" class="switcher" >
+            {{form.value.show?'Фильтр включен':'Фильтр отключен'}}
+          </mat-checkbox>
+        </div>
+      </div>
+    </div>
+  </div>
+</form>
+</mat-dialog-content>
+
+<mat-dialog-actions align="end" style="padding:20px 40px;">
+  <!-- <button mat-button mat-dialog-close (click)="onCancel()">Отмена</button> -->
+  <!-- <button mat-raised-button [mat-dialog-close]="form.value.table" (click)="onSubmit()" style="background: #DB563B; color: white; margin-right: auto;">Сохранить</button> -->
+  <button mat-raised-button (click)="onSubmit()" style="background: #DB563B; color: white; margin-right: auto;">Сохранить</button>
+</mat-dialog-actions>
+

@@ -34,7 +34,7 @@ import { RequestRateComponent } from './components/request-rate/request-rate.com
 import { RateEditorComponent } from './components/rate-editor/rate-editor.component';
 
 import { ClipboardModule } from '@angular/cdk/clipboard';
-import { HttpClientModule } from '@angular/common/http';
+import { HTTP_INTERCEPTORS, HttpClientModule } from '@angular/common/http';
 import { RequestInfoBlock } from './components/request-info-block/request-info-block.component';
 import { RequestDetails } from './components/request-details/request-details.component';
 import { RateInfoRow } from './components/request-details/rate-info-row/rate-info-row.component';
@@ -51,12 +51,15 @@ import { RateAddOther } from './components/request-details/rate-add-other/rate-a
 import { NgScrollbarModule } from 'ngx-scrollbar';
 import { OrderEditorComponent } from './components/order-editor/order-editor.component';
 import { TestPage } from './places/test-page/test-page.component';
-import { TableListComponent } from './table-list/table-list.component';
+import { GridTableComponent } from './table/components/simple-table/grid-table.component';
+import { LoadingInterceptor } from '../loader/loader.interceptor';
+
 
 
 
 
 @NgModule({
+  
   declarations: [
     DashboardComponent,
     PagesComponent,
@@ -108,7 +111,9 @@ import { TableListComponent } from './table-list/table-list.component';
     EmployeeRegisterComponent,
 
     TestPage,
-    TableListComponent,
+    
+
+    // SimpleTableComponent,
 
   ],
   imports: [

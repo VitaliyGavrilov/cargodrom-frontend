@@ -16,12 +16,15 @@ import { DateAdapter, MAT_DATE_LOCALE, NativeDateAdapter } from '@angular/materi
 import { MaterialModule } from './material/material.module';
 import { MatDatepickerModule } from '@angular/material/datepicker';
 import { NgScrollbarModule } from 'ngx-scrollbar';
+import { LoaderComponent } from './loader/loader.component';
+import { LoadingInterceptor } from './loader/loader.interceptor';
 
 
 
 @NgModule({
   declarations: [
     AppComponent,
+    LoaderComponent,
   ],
   imports: [
     BrowserModule,
@@ -33,6 +36,9 @@ import { NgScrollbarModule } from 'ngx-scrollbar';
     NgScrollbarModule,
   ],
   providers: [
+    
+    { provide: HTTP_INTERCEPTORS, useClass: LoadingInterceptor, multi: true }
+  ,
     {
       provide: HTTP_INTERCEPTORS,
       useClass: TokenInterceptor,

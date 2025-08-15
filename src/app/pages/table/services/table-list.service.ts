@@ -1,11 +1,12 @@
 import { Injectable, OnDestroy } from '@angular/core';
 import { Location } from '@angular/common';
-import { Observable, Subject, takeUntil } from 'rxjs';
+import { Observable, of, Subject, takeUntil } from 'rxjs';
 import { 
   ContractorService, 
   CustomerService, 
   OrderService, 
-  RequestService 
+  RequestService, 
+  SettingsService
 } from 'src/app/api/services';
 
 type TableMethod<T = any> = (params?: any) => Observable<T>;
@@ -13,7 +14,7 @@ type TableMethod<T = any> = (params?: any) => Observable<T>;
 type TableConfig = {
   path: string; // Просто строка для поиска в URL
   rows: TableMethod;
-  param: TableMethod;
+  columns: TableMethod;
 };
 
 type TablesMap = {
@@ -29,54 +30,58 @@ export class TableListService implements OnDestroy {
     rate_final: {
       path: 'pages/request/details/final',
       rows: (params) => this.requestService.requestRateFinalList(params),
-      param: (params) => this.requestService.requestRateListParam(params)
+      columns: (params) => this.requestService.requestRateListParam(params)
     },
     rate_transporter: {
       path: 'pages/request/details/transporter',
       rows: (params) => this.requestService.requestRateTransporterList(params),
-      param: (params) => this.requestService.requestRateListParam(params)
+      columns: (params) => this.requestService.requestRateListParam(params)
     },
     rate_custom: {
       path: 'pages/request/details/custom',
       rows: (params) => this.requestService.requestRateCustomsList(params),
-      param: (params) => this.requestService.requestRateListParam(params)
+      columns: (params) => this.requestService.requestRateListParam(params)
     },
     rate_point: {
       path: 'pages/request/details/point',
       rows: (params) => this.requestService.requestRatePointList(params),
-      param: (params) => this.requestService.requestRateListParam(params)
+      columns: (params) => this.requestService.requestRateListParam(params)
     },
     rate_other: {
       path: 'pages/request/details/other',
       rows: (params) => this.requestService.requestRateOtherList(params),
-      param: (params) => this.requestService.requestRateListParam(params)
+      columns: (params) => this.requestService.requestRateListParam(params)
     },
     test: {
       path: 'pages/test',
       rows: (params) => this.requestService.requestList(params),
-      param: (params) => this.requestService.requestListParam(params)
+      columns: (params) => this.requestService.requestListParam(params)
     },
     request: {
       path: 'pages/request',
       rows: (params) => this.requestService.requestList(params),
-      param: (params) => this.requestService.requestListParam(params)
+      columns: (params) => this.requestService.requestListParam(params)
     },
     contractor: {
       path: 'pages/contractor',
       rows: (params) => this.contractorService.contractorList(params),
-      param: (params) => this.contractorService.contractorListParam(params)
+      columns: (params) => this.contractorService.contractorListParam(params)
     },
     customer: {
       path: 'pages/customer',
       rows: (params) => this.customerService.customerList(params),
-      param: (params) => this.customerService.customerListParam(params)
+      columns: (params) => this.customerService.customerListParam(params)
     },
     order: {
       path: 'pages/order/transportation',
       rows: (params) => this.orderService.orderList(params),
-      param: (params) => this.orderService.orderListParam(params)
+      columns: (params) => this.orderService.orderListParam(params)
     },
-    
+    // settings_filters: {
+    //   path: 'pages/settings/table-filter/',
+    //   rows: (params) => this.settingsSertvice.settingsFilterList(params),
+    //   columns: (params) => this.getTableFiltersListParam(params)
+    // },
   };
 
   constructor(
@@ -85,6 +90,7 @@ export class TableListService implements OnDestroy {
     private readonly requestService: RequestService,
     private readonly customerService: CustomerService,
     private readonly orderService: OrderService,
+    private readonly settingsSertvice: SettingsService,
   ) {}
 
   ngOnDestroy(): void {
@@ -103,7 +109,7 @@ export class TableListService implements OnDestroy {
     return found?.[0] ?? null;
   }
 
-  private getTableMethod<T>(method: 'rows' | 'param', params?: any): Observable<T> {
+  private getTableMethod<T>(method: 'rows' | 'columns', params?: any): Observable<T> {
     const tableKey = this.getCurrentTableKey() ?? 'request';
     const table = this.tables[tableKey];
     
@@ -126,8 +132,21 @@ export class TableListService implements OnDestroy {
   }
 
   getParam<T = any>(params?: any): Observable<T> {
-    return this.getTableMethod<T>('param', params).pipe(
+    return this.getTableMethod<T>('columns', params).pipe(
       takeUntil(this.destroy$)
     );
   }
+
+  // getTableFiltersListParam(param: any): Observable<any> {
+  //   const result = {
+  //     metod: 'getTableFiltersListParam',
+  //     param: param,
+  //     param1: paramSettingsTableFilter,
+  //   };
+  //   return of(result); // Используем `of` из RxJS для создания Observable
+  // }
 }
+
+
+
+

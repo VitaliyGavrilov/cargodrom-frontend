@@ -1,0 +1,74 @@
+<form (ngSubmit)="onSubmit()" [formGroup]="form">
+  <div class="form-block">
+    <div class="form-row">
+      <div class="form-item-layout" style="width: 75%">
+        <div class="form-item" style="width: 67%;">
+          <div class="form-label">часовой пояс:</div>
+          <div class="form-data">
+            <mat-select formControlName="timezone">
+              <mat-option value="">-- Не выбрано --</mat-option>
+              <mat-option *ngFor="let item of timezone" [value]="item.code">{{
+                item.name
+              }}</mat-option>
+            </mat-select>
+          </div>
+        </div>
+        <div class="form-item" style="width: 33%;">
+          <div class="form-label">язык интерфейса:</div>
+          <div class="form-data">
+            <mat-select formControlName="lang">
+              <mat-option value="">-- Не выбрано --</mat-option>
+              <mat-option *ngFor="let item of language" [value]="item.id">{{
+                item.name
+              }}</mat-option>
+            </mat-select>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="form-row">
+      <div class="form-item-layout" style="width: 75%">
+        <div class="form-item" style="width: 33%;">
+          <div class="form-label">валюта №1:</div>
+          <div class="form-data">
+            <mat-select formControlName="currency_1">
+              <mat-option value="">-- Не выбрано --</mat-option>
+              <mat-option *ngFor="let item of currency" [value]="item.id" [disabled]="item.id==form.value.currency_2||item.id==form.value.currency_3">{{
+                item.name
+              }}</mat-option>
+            </mat-select>
+          </div>
+        </div>
+        <div class="form-item" style="width: 33%;">
+          <div class="form-label">валюта №2:</div>
+          <div class="form-data">
+            <mat-select
+              formControlName="currency_2"
+            >
+              <mat-option value="">-- Не выбрано --</mat-option>
+              <mat-option *ngFor="let item of currency" [value]="item.id" [disabled]="item.id==form.value.currency_1||item.id==form.value.currency_3">
+                {{ item.name }}
+              </mat-option>
+            </mat-select>
+          </div>
+        </div>
+        <div class="form-item" style="width: 33%;">
+          <div class="form-label">валюта №3:</div>
+          <div class="form-data">
+            <mat-select
+              formControlName="currency_3"
+            >
+              <mat-option value="">-- Не выбрано --</mat-option>
+              <mat-option *ngFor="let item of currency" [value]="item.id" [disabled]="item.id==form.value.currency_2||item.id==form.value.currency_1">
+                {{ item.name }}
+              </mat-option>
+            </mat-select>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="form-row">
+      <button class="save long" type="submit">Сохранить изменения</button>
+    </div>
+  </div>
+</form>

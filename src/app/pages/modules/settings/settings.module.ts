@@ -17,6 +17,13 @@ import { DepartmentEmployeeComponent } from './components/department-employee/de
 import { PersonalSettingsComponent } from './components/personal-settings/personal-settings.component';
 import { ClientGroupComponent } from './components/client-group/client-group.component';
 import { ClientGroupEditorComponent } from './components/client-group-editor/client-group-editor.component';
+import { GridTableComponent } from '../../table/components/simple-table/grid-table.component';
+import { FilterListComponent } from './components/filter-list/filter-list.component';
+import { AddPopupComponent } from './components/popap-table_filter-editor/popap-table_filter-editor.component';
+import { PagesModule } from '../../pages.module';
+import { GeneralSettingsComponent } from './components/general-settings/general-settings.component';
+import { NotificationsComponent } from './components/notifications/notifications.component';
+
 
 
 @NgModule({
@@ -33,7 +40,13 @@ import { ClientGroupEditorComponent } from './components/client-group-editor/cli
     DepartmentEmployeeComponent,
     PersonalSettingsComponent,
     ClientGroupComponent,
-    ClientGroupEditorComponent
+    ClientGroupEditorComponent,
+    FilterListComponent,
+    GridTableComponent,
+    AddPopupComponent,
+    GeneralSettingsComponent,
+    NotificationsComponent,
+    
   ],
   imports: [
     CommonModule,
@@ -41,7 +54,6 @@ import { ClientGroupEditorComponent } from './components/client-group-editor/cli
     FormsModule,
     ReactiveFormsModule,
     SettingsRoutingModule,
-
   ]
 })
 export class SettingsModule { }

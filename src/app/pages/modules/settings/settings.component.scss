@@ -47,17 +47,7 @@
   background-position: center;
 }
 
-.settings-common {
-  background-image: url('../../../../assets/pic-settings-common.svg');
-}
 
-.settings-company-structure {
-  background-image: url('../../../../assets/pic-settings-company-structure.svg');
-}
-
-.settings-directory {
-  background-image: url('../../../../assets/pic-settings-directory.svg');
-}
 
 .side-menu .group-name .name {
   flex-grow: 1;
@@ -109,3 +99,14 @@
   background: #fff;
   color: #4B66AD;
 }
+
+.menu-group {
+  .ico{ opacity: 0.5 };
+  &.open { .ico{opacity: 1} };
+  &.open { border-bottom: 1px solid #4B66AD;};
+}
+.settings-common { background-image: url('../../../../assets/settings-menu/general-settings.svg'); }//общие настройки
+.settings-company-structure { background-image: url('../../../../assets/settings-menu/organization-structure.svg'); }//структура организаций
+.settings-directory { background-image: url('../../../../assets/settings-menu/directories.svg'); }//справочник
+.settings-table-filter{ background-image: url('../../../../assets/settings-menu/pic-filter-w.svg'); }//фильтры на формах
+.settings-system{ background-image: url('../../../../assets/settings-menu/system.svg'); }//система

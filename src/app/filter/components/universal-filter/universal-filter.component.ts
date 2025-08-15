@@ -13,6 +13,7 @@ export class UniversalFilterComponent implements OnInit {
   constructor() { }
 
   ngOnInit(): void {
+    
   }
 
 }

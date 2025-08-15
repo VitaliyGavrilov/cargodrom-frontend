@@ -6,6 +6,7 @@ import { Title } from '@angular/platform-browser';
 import { count, forkJoin, Subject, takeUntil, tap } from 'rxjs';
 import { Contractor } from 'src/app/api/custom_models';
 import { ContractorService, DirectionService, RequestService, SystemService, TransportService } from 'src/app/api/services';
+import { LoaderService } from 'src/app/pages/services/loader.service';
 
 @Component({
   selector: 'app-rate-add-other',
@@ -53,6 +54,7 @@ export class RateAddOther implements OnInit, OnDestroy {
     private requestService: RequestService,
     private directionService: DirectionService,
     private systemService: SystemService,
+    private loaderService: LoaderService
   ) {
     this.rateForm = this.fb.group({
       id:[,[]],
@@ -76,28 +78,50 @@ export class RateAddOther implements OnInit, OnDestroy {
     this._destroy$.complete();
   }
 
-  initialization_getAllData(): void {
-    forkJoin({
-      charges: this.requestService.requestRateFormParam({request_id:this.currentRequest.id, method:'other'}),
-      contractors: this.contractorService.contractorList(),
-      poinst: this.directionService.directionCity({ country_id:this.currentRequest.arrival_country_id }),
-      prices: this.transportService.transportPointAction({direction:'arrival'}),
-      currencys: this.systemService.systemCurrency(),
-    }).pipe(
-      tap(schema => {
-        console.log(schema);
-      }),
-      takeUntil(this._destroy$)
-    ).subscribe({
-      next: (datas) => {
-      // next: ({ charges, contractors, poinst, prices, currencys }) => {
-        this.processData(datas);
-      },
-      error: (err) => {
-        this.snackBar.open(`Ошибка загрузки данных: ${err.message}`, 'Закрыть');
-      }
-    });
-  }
+initialization_getAllData(): void {
+  this.loaderService.wrapRequests({
+    charges: this.requestService.requestRateFormParam({request_id:this.currentRequest.id, method:'other'}),
+    contractors: this.contractorService.contractorList(),
+    poinst: this.directionService.directionCity({ country_id:this.currentRequest.arrival_country_id }),
+    prices: this.transportService.transportPointAction({direction:'arrival'}),
+    currencys: this.systemService.systemCurrency()
+  }).pipe(
+    tap(schema => {
+      console.log(schema);
+    }),
+    takeUntil(this._destroy$)
+  ).subscribe({
+    next: (datas) => {
+      this.processData(datas);
+    },
+    error: (err) => {
+      this.snackBar.open(`Ошибка загрузки данных: ${err.message}`, 'Закрыть');
+    }
+  });
+}
+
+  // initialization_getAllData(): void {
+  //   forkJoin({
+  //     charges: this.requestService.requestRateFormParam({request_id:this.currentRequest.id, method:'other'}),
+  //     contractors: this.contractorService.contractorList(),
+  //     poinst: this.directionService.directionCity({ country_id:this.currentRequest.arrival_country_id }),
+  //     prices: this.transportService.transportPointAction({direction:'arrival'}),
+  //     currencys: this.systemService.systemCurrency(),
+  //   }).pipe(
+  //     tap(schema => {
+  //       console.log(schema);
+  //     }),
+  //     takeUntil(this._destroy$)
+  //   ).subscribe({
+  //     next: (datas) => {
+  //     // next: ({ charges, contractors, poinst, prices, currencys }) => {
+  //       this.processData(datas);
+  //     },
+  //     error: (err) => {
+  //       this.snackBar.open(`Ошибка загрузки данных: ${err.message}`, 'Закрыть');
+  //     }
+  //   });
+  // }
 
   processData(datas:any){
     this.contractorList = datas.contractors.items;

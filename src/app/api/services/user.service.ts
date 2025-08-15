@@ -1756,4 +1756,682 @@ export class UserService extends BaseService {
     );
   }
 
+  /** Path part for operation `userGetParam()` */
+  static readonly UserGetParamPath = '/user_get_param';
+
+  /**
+   * Получение параметров пользователя.
+   *
+   *
+   *
+   * This method provides access to the full `HttpResponse`, allowing access to response headers.
+   * To access only the response body, use `userGetParam()` instead.
+   *
+   * This method doesn't expect any request body.
+   */
+  userGetParam$Response(
+    params?: {
+    },
+    context?: HttpContext
+  ): Observable<StrictHttpResponse<{
+
+/**
+ * Часовой пояс
+ */
+'timezone'?: string;
+
+/**
+ * Язык интерфейса
+ */
+'language'?: string;
+
+/**
+ * Основная валюта
+ */
+'currency_main'?: string;
+
+/**
+ * Валюта №2
+ */
+'currency_2'?: string;
+
+/**
+ * Валюта №3
+ */
+'currency_3'?: string;
+
+/**
+ * events
+ */
+'events'?: {
+};
+
+/**
+ * Способ уведомления: SMS
+ */
+'notify_sms'?: boolean;
+
+/**
+ * Способ уведомления: E-mail
+ */
+'notify_email'?: boolean;
+
+/**
+ * Способ уведомления: Skype
+ */
+'notify_skype'?: boolean;
+
+/**
+ * Способ уведомления: Система
+ */
+'notify_system'?: boolean;
+}>> {
+    const rb = new RequestBuilder(this.rootUrl, UserService.UserGetParamPath, 'get');
+    if (params) {
+    }
+
+    return this.http.request(
+      rb.build({ responseType: 'json', accept: 'application/json', context })
+    ).pipe(
+      filter((r: any): r is HttpResponse<any> => r instanceof HttpResponse),
+      map((r: HttpResponse<any>) => {
+        return r as StrictHttpResponse<{
+        
+        /**
+         * Часовой пояс
+         */
+        'timezone'?: string;
+        
+        /**
+         * Язык интерфейса
+         */
+        'language'?: string;
+        
+        /**
+         * Основная валюта
+         */
+        'currency_main'?: string;
+        
+        /**
+         * Валюта №2
+         */
+        'currency_2'?: string;
+        
+        /**
+         * Валюта №3
+         */
+        'currency_3'?: string;
+        
+        /**
+         * events
+         */
+        'events'?: {
+        };
+        
+        /**
+         * Способ уведомления: SMS
+         */
+        'notify_sms'?: boolean;
+        
+        /**
+         * Способ уведомления: E-mail
+         */
+        'notify_email'?: boolean;
+        
+        /**
+         * Способ уведомления: Skype
+         */
+        'notify_skype'?: boolean;
+        
+        /**
+         * Способ уведомления: Система
+         */
+        'notify_system'?: boolean;
+        }>;
+      })
+    );
+  }
+
+  /**
+   * Получение параметров пользователя.
+   *
+   *
+   *
+   * This method provides access only to the response body.
+   * To access the full response (for headers, for example), `userGetParam$Response()` instead.
+   *
+   * This method doesn't expect any request body.
+   */
+  userGetParam(
+    params?: {
+    },
+    context?: HttpContext
+  ): Observable<{
+
+/**
+ * Часовой пояс
+ */
+'timezone'?: string;
+
+/**
+ * Язык интерфейса
+ */
+'language'?: string;
+
+/**
+ * Основная валюта
+ */
+'currency_main'?: string;
+
+/**
+ * Валюта №2
+ */
+'currency_2'?: string;
+
+/**
+ * Валюта №3
+ */
+'currency_3'?: string;
+
+/**
+ * events
+ */
+'events'?: {
+};
+
+/**
+ * Способ уведомления: SMS
+ */
+'notify_sms'?: boolean;
+
+/**
+ * Способ уведомления: E-mail
+ */
+'notify_email'?: boolean;
+
+/**
+ * Способ уведомления: Skype
+ */
+'notify_skype'?: boolean;
+
+/**
+ * Способ уведомления: Система
+ */
+'notify_system'?: boolean;
+}> {
+    return this.userGetParam$Response(params, context).pipe(
+      map((r: StrictHttpResponse<{
+
+/**
+ * Часовой пояс
+ */
+'timezone'?: string;
+
+/**
+ * Язык интерфейса
+ */
+'language'?: string;
+
+/**
+ * Основная валюта
+ */
+'currency_main'?: string;
+
+/**
+ * Валюта №2
+ */
+'currency_2'?: string;
+
+/**
+ * Валюта №3
+ */
+'currency_3'?: string;
+
+/**
+ * events
+ */
+'events'?: {
+};
+
+/**
+ * Способ уведомления: SMS
+ */
+'notify_sms'?: boolean;
+
+/**
+ * Способ уведомления: E-mail
+ */
+'notify_email'?: boolean;
+
+/**
+ * Способ уведомления: Skype
+ */
+'notify_skype'?: boolean;
+
+/**
+ * Способ уведомления: Система
+ */
+'notify_system'?: boolean;
+}>): {
+
+/**
+ * Часовой пояс
+ */
+'timezone'?: string;
+
+/**
+ * Язык интерфейса
+ */
+'language'?: string;
+
+/**
+ * Основная валюта
+ */
+'currency_main'?: string;
+
+/**
+ * Валюта №2
+ */
+'currency_2'?: string;
+
+/**
+ * Валюта №3
+ */
+'currency_3'?: string;
+
+/**
+ * events
+ */
+'events'?: {
+};
+
+/**
+ * Способ уведомления: SMS
+ */
+'notify_sms'?: boolean;
+
+/**
+ * Способ уведомления: E-mail
+ */
+'notify_email'?: boolean;
+
+/**
+ * Способ уведомления: Skype
+ */
+'notify_skype'?: boolean;
+
+/**
+ * Способ уведомления: Система
+ */
+'notify_system'?: boolean;
+} => r.body)
+    );
+  }
+
+  /** Path part for operation `userSaveParam()` */
+  static readonly UserSaveParamPath = '/user_save_param';
+
+  /**
+   * Сохранение параметров пользователя.
+   *
+   *
+   *
+   * This method provides access to the full `HttpResponse`, allowing access to response headers.
+   * To access only the response body, use `userSaveParam()` instead.
+   *
+   * This method sends `application/json` and handles request body of type `application/json`.
+   */
+  userSaveParam$Response(
+    params?: {
+      body?: {
+
+/**
+ * Часовой пояс
+ */
+'timezone'?: string;
+
+/**
+ * Язык интерфейса
+ */
+'language'?: string;
+
+/**
+ * Основная валюта
+ */
+'currency_main'?: string;
+
+/**
+ * Валюта №2
+ */
+'currency_2'?: string;
+
+/**
+ * Валюта №3
+ */
+'currency_3'?: string;
+
+/**
+ * events
+ */
+'events'?: {
+};
+
+/**
+ * Способ уведомления: SMS
+ */
+'notify_sms'?: boolean;
+
+/**
+ * Способ уведомления: E-mail
+ */
+'notify_email'?: boolean;
+
+/**
+ * Способ уведомления: Skype
+ */
+'notify_skype'?: boolean;
+
+/**
+ * Способ уведомления: Система
+ */
+'notify_system'?: boolean;
+}
+    },
+    context?: HttpContext
+  ): Observable<StrictHttpResponse<{
+
+/**
+ * Статус выполнения
+ */
+'result': 'OK';
+}>> {
+    const rb = new RequestBuilder(this.rootUrl, UserService.UserSaveParamPath, 'post');
+    if (params) {
+      rb.body(params.body, 'application/json');
+    }
+
+    return this.http.request(
+      rb.build({ responseType: 'json', accept: 'application/json', context })
+    ).pipe(
+      filter((r: any): r is HttpResponse<any> => r instanceof HttpResponse),
+      map((r: HttpResponse<any>) => {
+        return r as StrictHttpResponse<{
+        
+        /**
+         * Статус выполнения
+         */
+        'result': 'OK';
+        }>;
+      })
+    );
+  }
+
+  /**
+   * Сохранение параметров пользователя.
+   *
+   *
+   *
+   * This method provides access only to the response body.
+   * To access the full response (for headers, for example), `userSaveParam$Response()` instead.
+   *
+   * This method sends `application/json` and handles request body of type `application/json`.
+   */
+  userSaveParam(
+    params?: {
+      body?: {
+
+/**
+ * Часовой пояс
+ */
+'timezone'?: string;
+
+/**
+ * Язык интерфейса
+ */
+'language'?: string;
+
+/**
+ * Основная валюта
+ */
+'currency_main'?: string;
+
+/**
+ * Валюта №2
+ */
+'currency_2'?: string;
+
+/**
+ * Валюта №3
+ */
+'currency_3'?: string;
+
+/**
+ * events
+ */
+'events'?: {
+};
+
+/**
+ * Способ уведомления: SMS
+ */
+'notify_sms'?: boolean;
+
+/**
+ * Способ уведомления: E-mail
+ */
+'notify_email'?: boolean;
+
+/**
+ * Способ уведомления: Skype
+ */
+'notify_skype'?: boolean;
+
+/**
+ * Способ уведомления: Система
+ */
+'notify_system'?: boolean;
+}
+    },
+    context?: HttpContext
+  ): Observable<{
+
+/**
+ * Статус выполнения
+ */
+'result': 'OK';
+}> {
+    return this.userSaveParam$Response(params, context).pipe(
+      map((r: StrictHttpResponse<{
+
+/**
+ * Статус выполнения
+ */
+'result': 'OK';
+}>): {
+
+/**
+ * Статус выполнения
+ */
+'result': 'OK';
+} => r.body)
+    );
+  }
+
+  /** Path part for operation `userFormParamParam()` */
+  static readonly UserFormParamParamPath = '/user_form_param_param';
+
+  /**
+   * Параметры для формы параметров пользователя.
+   *
+   *
+   *
+   * This method provides access to the full `HttpResponse`, allowing access to response headers.
+   * To access only the response body, use `userFormParamParam()` instead.
+   *
+   * This method doesn't expect any request body.
+   */
+  userFormParamParam$Response(
+    params?: {
+    },
+    context?: HttpContext
+  ): Observable<StrictHttpResponse<{
+
+/**
+ * Часовые пояса
+ */
+'timezone': Array<{
+}>;
+
+/**
+ * Языки
+ */
+'language': Array<{
+}>;
+
+/**
+ * Валюты
+ */
+'currency': Array<{
+}>;
+
+/**
+ * События
+ */
+'events': Array<{
+}>;
+}>> {
+    const rb = new RequestBuilder(this.rootUrl, UserService.UserFormParamParamPath, 'get');
+    if (params) {
+    }
+
+    return this.http.request(
+      rb.build({ responseType: 'json', accept: 'application/json', context })
+    ).pipe(
+      filter((r: any): r is HttpResponse<any> => r instanceof HttpResponse),
+      map((r: HttpResponse<any>) => {
+        return r as StrictHttpResponse<{
+        
+        /**
+         * Часовые пояса
+         */
+        'timezone': Array<{
+        }>;
+        
+        /**
+         * Языки
+         */
+        'language': Array<{
+        }>;
+        
+        /**
+         * Валюты
+         */
+        'currency': Array<{
+        }>;
+        
+        /**
+         * События
+         */
+        'events': Array<{
+        }>;
+        }>;
+      })
+    );
+  }
+
+  /**
+   * Параметры для формы параметров пользователя.
+   *
+   *
+   *
+   * This method provides access only to the response body.
+   * To access the full response (for headers, for example), `userFormParamParam$Response()` instead.
+   *
+   * This method doesn't expect any request body.
+   */
+  userFormParamParam(
+    params?: {
+    },
+    context?: HttpContext
+  ): Observable<{
+
+/**
+ * Часовые пояса
+ */
+'timezone': Array<{
+}>;
+
+/**
+ * Языки
+ */
+'language': Array<{
+}>;
+
+/**
+ * Валюты
+ */
+'currency': Array<{
+}>;
+
+/**
+ * События
+ */
+'events': Array<{
+}>;
+}> {
+    return this.userFormParamParam$Response(params, context).pipe(
+      map((r: StrictHttpResponse<{
+
+/**
+ * Часовые пояса
+ */
+'timezone': Array<{
+}>;
+
+/**
+ * Языки
+ */
+'language': Array<{
+}>;
+
+/**
+ * Валюты
+ */
+'currency': Array<{
+}>;
+
+/**
+ * События
+ */
+'events': Array<{
+}>;
+}>): {
+
+/**
+ * Часовые пояса
+ */
+'timezone': Array<{
+}>;
+
+/**
+ * Языки
+ */
+'language': Array<{
+}>;
+
+/**
+ * Валюты
+ */
+'currency': Array<{
+}>;
+
+/**
+ * События
+ */
+'events': Array<{
+}>;
+} => r.body)
+    );
+  }
+
 }

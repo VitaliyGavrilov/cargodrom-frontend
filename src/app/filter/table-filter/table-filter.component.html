@@ -6,7 +6,9 @@
     <app-universal-filter
       class="item"
       *ngFor="let control of filterService.searchFilterSchema?.main"
-      [filterControl]="control">
+      [filterControl]="control"
+      [style.width.px]="control.width"
+    >
     </app-universal-filter>
 
     <!-- <app-universal-filter [ngClass]="isBiddingMode ? '' : 'dn' "

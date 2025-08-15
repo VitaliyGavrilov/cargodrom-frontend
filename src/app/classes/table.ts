@@ -10,7 +10,7 @@ import { SearchFilterSchema } from '../api/custom_models';
 import { MatCheckboxChange } from '@angular/material/checkbox';
 import { UserService } from '../api/services';
 import { DomSanitizer } from '@angular/platform-browser';
-import { TableListService } from '../pages/table-list/table-list.service';
+import { TableListService } from '../pages/table/services/table-list.service';
 
 export interface LoadParams<T, F> {
   id?:number;

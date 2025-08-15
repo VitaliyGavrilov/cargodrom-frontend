@@ -1,6 +1,10 @@
 <div>
   <div class="title">{{ filterControl.name }}:</div>
   <div class="data checkbox">
+    <label *ngIf="filterControl.any_text">
+      <input [(ngModel)]="filter.value[filterControl.field]" type="radio" [value]="''" (click)="filter.value[filterControl.field]=''">
+      <span>{{ filterControl.any_text}} </span>
+    </label>
     <label *ngFor="let choice of filterControl.array">
       <input [(ngModel)]="filter.value[filterControl.field]" type="radio" [value]="choice.id" (click)="change(choice.id)">
       <span>{{ choice.name }} </span>

@@ -370,10 +370,10 @@ export class RequestDetails extends Table<any, 'trade_rating', ContractorFilter>
   // OPEN EDITOR popap
   openRateEditor(mode:string, data?: any) {
     const rateEditors: { [key: string]: { ref: any; config?: any } } = {
-      transporter: { ref: this.rateTransporterDialogRef, config: { height: 'fit-content', maxHeight:'95vh', minWidth: '85vw',  maxWidth: '95vw' } },
-      customs:     { ref: this.rateСustomsDialogRef, config: { height: 'fit-content', maxHeight:'95vh', minWidth: '85vw',  maxWidth: '95vw' } },
-      point:       { ref: this.ratePointDialogRef, config: { height: 'fit-content', maxHeight:'95vh', minWidth: '85vw',  maxWidth: '95vw' } },
-      other:       { ref: this.rateOtherDialogRef, config: { height: 'fit-content', maxHeight:'95vh', minWidth: '85vw',  maxWidth: '95vw' } },
+      transporter: { ref: this.rateTransporterDialogRef, config: { height: 'fit-content', maxHeight:'95vh', maxWidth: '95vw' } },
+      customs:     { ref: this.rateСustomsDialogRef, config: { height: 'fit-content', maxHeight:'95vh', maxWidth: '95vw' } },
+      point:       { ref: this.ratePointDialogRef, config: { height: 'fit-content', maxHeight:'95vh', maxWidth: '95vw' } },
+      other:       { ref: this.rateOtherDialogRef, config: { height: 'fit-content', maxHeight:'95vh', maxWidth: '95vw' } },
     };
     // const editor = rateEditors[this.detailsMethod];
     const editor = rateEditors[mode];

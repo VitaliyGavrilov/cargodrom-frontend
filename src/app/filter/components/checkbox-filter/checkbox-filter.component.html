@@ -1,6 +1,14 @@
 <div>
   <div class="title">{{ filterControl.name }}:</div>
   <div class="data checkbox">
+    <label *ngIf="filterControl.any_text">
+      <input type="checkbox" 
+       [checked]="filter.value[filterControl.field].length==0" 
+       [disabled]="filter.value[filterControl.field].length==0"
+       (change)="filter.value[filterControl.field]=[]"
+      >
+        <span>{{ filterControl.any_text}}</span>
+    </label>
     <label *ngFor="let choice of filterControl.array">
       <input type="checkbox" [value]="choice.id" [checked]="checked(choice.id)" (change)="change(choice.id)"><span>{{ choice.name }}</span>
     </label>

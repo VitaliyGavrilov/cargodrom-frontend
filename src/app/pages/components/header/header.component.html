@@ -118,8 +118,8 @@
     
     <span class="div"></span>
     
-    <div class="triger" [matMenuTriggerFor]="animals" (click)="getCurrency()">
-      <ng-container *ngFor="let cur of currencyList.current" >
+    <div class="triger" [matMenuTriggerFor]="animals" (click)="updateCurrency()">
+      <ng-container *ngFor="let cur of currencyList" >
         <app-currency  style="cursor: pointer; display: flex;" *ngIf="cur.currency" [name]="cur.code" [code]="cur.char" [rate]="cur.currency"></app-currency>
       </ng-container>
     </div>
@@ -129,8 +129,8 @@
 
     <mat-menu style="display: none;" class="currencys-popap-menu" #animals="matMenu" panelClass="ssss">
       <div class="currencys-popap">
-      <div class="title">{{currencyList.summary?.title}}</div>
-      <div class="currencys" *ngFor="let row of currencyList.summary?.rows">
+      <div class="title">{{currencySummary?.title}}</div>
+      <div class="currencys" *ngFor="let row of currencySummary?.rows">
         <div class="subtitle">
           <div class="text">{{row.title}}</div>
           <a class="link" target="_blank" [href]="row.url">>></a>

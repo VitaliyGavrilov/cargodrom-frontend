@@ -11,7 +11,7 @@ import { LoaderService } from '../app/pages/services/loader.service';
 })
 export class AppComponent {
   title = 'cargodrom-frontend';
-  isLoading$ = this.loaderService.isLoading$;
+  // isLoading$ = this.loaderService.isLoading$;
 
   constructor(
     private userService: UserService,

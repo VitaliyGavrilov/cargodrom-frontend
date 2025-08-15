@@ -19,6 +19,10 @@ import { MatTabsModule } from '@angular/material/tabs';
 import { MatMenuModule } from '@angular/material/menu';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { MatRadioModule } from '@angular/material/radio';
+
+// CDK Modules
+import { DragDropModule } from '@angular/cdk/drag-drop'; // <-- Добавьте этот импорт
+
 // DateAdapter Configuration
 import {
   DateAdapter,
@@ -27,14 +31,13 @@ import {
   MatNativeDateModule
 } from '@angular/material/core';
 import { CustomDateAdapter } from '../adapters/custom-date.adapter';
-//import { APP_DATE_FORMATS } from '../adapters/custom-date.adapter'; // Импортируем форматы
+
 // Components & Directives
 import { PopupDialogComponent } from './components/popup-dialog/popup-dialog.component';
 import { PaginatorComponent } from './components/paginator/paginator.component';
 import { EditorHeaderComponent } from './components/editor-header/editor-header.component';
 import { FocusInitialDirective } from './directives/focus-initial.directive';
 import { PhoneMaskDirective } from './directives/phone-mask.directive';
-
 
 @NgModule({
   declarations: [
@@ -60,22 +63,22 @@ import { PhoneMaskDirective } from './directives/phone-mask.directive';
     MatCheckboxModule,
     MatButtonModule,
     MatDatepickerModule,
-    MatNativeDateModule, // Добавляем этот модуль
+    MatNativeDateModule,
     MatTableModule,
     MatButtonToggleModule,
     MatTabsModule,
     MatMenuModule,
     MatProgressSpinnerModule,
     MatRadioModule,
+    
+    DragDropModule, // <-- Добавьте этот модуль в imports
   ],
   providers: [
-    //{ provide: MAT_DATE_LOCALE, useValue: 'ru-RU' },
     {
       provide: DateAdapter,
       useClass: CustomDateAdapter,
       deps: [MAT_DATE_LOCALE]
     },
-    //{ provide: MAT_DATE_FORMATS, useValue: MAT_DATE_FORMATS }, // Добавляем провайдер форматов
   ],
   exports: [
     // Re-export all Material modules
@@ -88,13 +91,15 @@ import { PhoneMaskDirective } from './directives/phone-mask.directive';
     MatCheckboxModule,
     MatButtonModule,
     MatDatepickerModule,
-    MatNativeDateModule, // Экспортируем модуль
+    MatNativeDateModule,
     MatTableModule,
     MatButtonToggleModule,
     MatTabsModule,
     MatMenuModule,
     MatProgressSpinnerModule,
     MatRadioModule,
+    
+    DragDropModule, // <-- И экспортируйте его
 
     // Your custom components & directives
     PopupDialogComponent,

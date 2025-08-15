@@ -12,6 +12,9 @@ import { PositionComponent } from './components/position/position.component';
 import { SettingsComponent } from './settings.component';
 import { ClientGroupComponent } from './components/client-group/client-group.component';
 import { ClientGroupEditorComponent } from './components/client-group-editor/client-group-editor.component';
+import { FilterListComponent } from './components/filter-list/filter-list.component';
+import { GeneralSettingsComponent } from './components/general-settings/general-settings.component';
+import { NotificationsComponent } from './components/notifications/notifications.component';
 
 const routes: Routes = [
   {
@@ -58,6 +61,36 @@ const routes: Routes = [
         component: ClientGroupComponent,
         pathMatch: 'full',
         title: 'Группы клиентов'
+      },
+      {
+        path: 'table-filter/:table',
+        component: FilterListComponent,
+        pathMatch: 'full',
+        title: 'Фильтры на формах',
+      },
+      {
+        path: 'general-settings',
+        component: GeneralSettingsComponent,
+        pathMatch: 'full',
+        title: 'Общие настройки',
+      },
+      {
+        path: 'branding',
+        component: FilterListComponent,
+        pathMatch: 'full',
+        title: 'Брендирование',
+      },
+      {
+        path: 'notifications',
+        component: NotificationsComponent,
+        pathMatch: 'full',
+        title: 'Уведомления',
+      },
+      {
+        path: 'mailings',
+        component: FilterListComponent,
+        pathMatch: 'full',
+        title: 'Рассылки',
       },
     ]
   },
@@ -121,6 +154,18 @@ const routes: Routes = [
     pathMatch: 'full',
     title: 'Редактирование группы клиентов',
   },
+  // {
+  //   path: 'table-filter/:table/add',
+  //   component: FilterListComponent,
+  //   pathMatch: 'full',
+  //   title: 'Фильтры на формах',
+  // },
+  // {
+  //   path: 'table-filter/:table/:id',
+  //   component: FilterListComponent,
+  //   pathMatch: 'full',
+  //   title: 'Фильтры на формах',
+  // },
 ];
 
 @NgModule({

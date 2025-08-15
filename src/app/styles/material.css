@@ -40,6 +40,7 @@ form mat-select.mat-mdc-select, /* для форм */
     height: 40px;
   } 
 }
+form .bg mat-select.mat-mdc-select {background: white;}
 app-paginator mat-select.mat-mdc-select/* для пагинатора */{
   font-size: 13px;
   line-height: 15px;
@@ -87,7 +88,6 @@ mat-checkbox.mat-mdc-checkbox{
   padding: 0;
   --mdc-checkbox-state-layer-size: 20px;
 }
-
 mat-checkbox.mat-mdc-checkbox input[type="checkbox"] {
   width: 20px; height: 20px;
   border: 1px solid #E0E5EB;
@@ -108,12 +108,48 @@ mat-checkbox.mat-mdc-checkbox input[type="checkbox"]::after {
   padding: 0;
   margin: auto 0;
 }
-mat-checkbox.mat-mdc-checkbox input[type="checkbox"].mdc-checkbox--selected::after {
+/* mat-checkbox.mat-mdc-checkbox input[type="checkbox"].mdc-checkbox--selected::after {
   height: 9px;
+} */
+mat-checkbox.mat-mdc-checkbox-checked{
+  label{
+    font-weight: bold;
+  }
+  input[type="checkbox"].mdc-checkbox--selected::after {
+    height: 9px;
+  }
 }
 mat-checkbox.mat-mdc-checkbox input[type="checkbox"]:indeterminate::after {
   height: 2px;
 }
+
+.switcher .mdc-checkbox{
+  width: 40px;
+  height: 18px;
+  flex: none;
+
+}
+mat-checkbox.mat-mdc-checkbox.switcher input[type="checkbox"] {
+  width: 40px;
+  height: 18px;
+  border-radius: 8px;
+  border: 1px solid #C3CCD6;
+  justify-content: stretch;
+}
+mat-checkbox.mat-mdc-checkbox.switcher  input[type="checkbox"]::after {
+  width: 16px;
+  height: 10px;
+  border-radius: 5px;
+  margin: auto 3px;
+  margin-left: 3px;
+  background-color: #E0E5EB;
+}
+mat-checkbox.mat-mdc-checkbox.switcher input[type="checkbox"].mdc-checkbox--selected::after {
+  margin-left: auto;
+  background-color: #DB563B;
+}
+
+
 
 /* если надо поменять местами чекбокс и текс добавляем класс reverse */
 mat-checkbox.mat-mdc-checkbox.reverse{ 

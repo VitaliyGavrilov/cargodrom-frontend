@@ -16,7 +16,7 @@ export class RequestManagerService {
   // * @returns Promise с результатами всех очередей.
   async executeQueues(queues: Observable<any>[][]): Promise<any[][]> {
     // Показываем лоадер
-    this.loaderService.showLoader();
+    // this.loaderService.showLoader();
     try {
       const results: any[][] = [];
       // Выполняем очереди последовательно
@@ -36,7 +36,7 @@ export class RequestManagerService {
       throw error;
     } finally {
       // Скрываем лоадер
-      this.loaderService.hideLoader();
+      // this.loaderService.hideLoader();
     }
   }
 }

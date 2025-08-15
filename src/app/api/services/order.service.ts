@@ -1130,7 +1130,7 @@ export class OrderService extends BaseService {
     /**
      * Статус заказа (ID берем из запроса - order_status)
      */
-      status_id?: Array<string>;
+      status_id?: number;
 
     /**
      * Начальная позиция
@@ -1398,7 +1398,7 @@ export class OrderService extends BaseService {
     const rb = new RequestBuilder(this.rootUrl, OrderService.OrderListPath, 'get');
     if (params) {
       rb.query('time_add', params.time_add, {});
-      rb.query('status_id', params.status_id, {"style":"form","explode":false});
+      rb.query('status_id', params.status_id, {});
       rb.query('start', params.start, {});
       rb.query('count', params.count, {});
       rb.query('sort', params.sort, {"style":"form","explode":false});
@@ -1670,7 +1670,7 @@ export class OrderService extends BaseService {
     /**
      * Статус заказа (ID берем из запроса - order_status)
      */
-      status_id?: Array<string>;
+      status_id?: number;
 
     /**
      * Начальная позиция

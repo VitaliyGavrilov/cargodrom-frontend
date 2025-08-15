@@ -1,0 +1,45 @@
+<div class="flex-table" cdkDropList (cdkDropListDropped)="drop($event)">
+  
+  <div class="flex-row header">
+    <div *ngFor="let column of columns" class="flex-cell" [class]="column?.class" [ngSwitch]="column.field">
+      <ng-template [ngSwitchDefault]>
+        {{column.title}}
+      </ng-template>
+    </div>
+  </div>
+  <div *ngFor="let row of rows" 
+       class="flex-row draggable-row body"
+       [class]="row.show?'':'no-active_filter'"
+       cdkDrag 
+       [cdkDragData]="row"
+       [cdkDragDisabled]="dragDisabled"
+       cdkDragBoundary=".flex-table">
+    
+    <div *ngFor="let column of columns" class="flex-cell" [class]="column?.class" [ngSwitch]="column.field">
+      <ng-template [ngSwitchDefault]>
+        {{row[column.field]}}
+      </ng-template>
+
+      <ng-template [ngSwitchCase]="'status'">
+        <mat-checkbox [checked]="row.show" (change)="onFilterShowChange(row)" class="switcher">
+          {{row.show?'Фильтр включен':'Фильтр отключен'}}
+        </mat-checkbox>
+      </ng-template>
+
+      <ng-template [ngSwitchCase]="'btn'">
+        <button class="icon edit" (click)="openFilterEditor(row)"></button>
+        <!-- <button class="icon delete-gr" (click)="onDeletefilter(row.id)"></button> -->
+      </ng-template>
+
+      <ng-template [ngSwitchCase]="'move'">
+        <div cdkDragHandle 
+             class="drag-handle"
+             (mouseenter)="onDragHandleMouseEnter($event)"
+             (mouseleave)="onDragHandleMouseLeave($event)">
+          <span class="move-icon "></span>
+          Переместить
+        </div>
+      </ng-template>
+    </div>
+  </div>
+</div>

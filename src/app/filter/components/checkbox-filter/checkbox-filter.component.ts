@@ -15,6 +15,7 @@ export class CheckboxFilterComponent implements OnInit {
   ) { }
 
   ngOnInit(): void {
+    
   }
 
   change(id: string): void {
@@ -28,6 +29,8 @@ export class CheckboxFilterComponent implements OnInit {
     } else {
       array.push(id);
     }
+    
+    
   }
 
   checked(id: string): boolean {

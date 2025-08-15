@@ -1,0 +1,37 @@
+<!-- grid-table.component.html -->
+<div class="grid-table" cdkDropList (cdkDropListDropped)="onDrop($event)">
+  <!-- Header row -->
+  <div class="grid-header" [style.grid-template-columns]="gridTemplateColumns">
+    <div *ngFor="let column of columns" 
+         class="grid-header-cell"
+         [class]="column.headerClass">
+      {{column.title}}
+    </div>
+  </div>
+  
+  <!-- Data rows -->
+  <div *ngFor="let row of rows; let i = index"
+       class="grid-row"
+       [style.grid-template-columns]="gridTemplateColumns"
+       [class.no-active]="!row.show"
+       cdkDrag
+       [cdkDragData]="row"
+       [cdkDragDisabled]="!dragEnabled">
+       
+    <div *ngFor="let column of columns" 
+         class="grid-cell"
+         [class]="column.class">
+         
+      <ng-container *ngIf="getTemplateForField(column.field); else defaultCell">
+        <ng-container *ngTemplateOutlet="getTemplateForField(column.field); context: { $implicit: row }">
+        </ng-container>
+      </ng-container>
+      
+      <ng-template #defaultCell>
+        {{row[column.field]}}
+      </ng-template>
+    </div>
+  </div>
+</div>
+
+<ng-content></ng-content>
