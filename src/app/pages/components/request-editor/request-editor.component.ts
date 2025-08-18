@@ -1183,7 +1183,7 @@ export class RequestEditorComponent implements OnInit, OnDestroy {
       );
   }
   private getCustomersByName(string: string) {
-    this.customerService.customerList({name:string})
+    this.customerService.customerList({filter:{name:string}})
       .pipe(
         tap((customer) => this.customers = customer.items as unknown as Customer[]),
         takeUntil(this._destroy$),

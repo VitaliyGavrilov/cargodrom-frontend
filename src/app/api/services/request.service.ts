@@ -38,71 +38,6 @@ export class RequestService extends BaseService {
     params?: {
 
     /**
-     * Поиск запроса по номеру...
-     */
-      id?: string;
-
-    /**
-     * Период (day, week, month, dd.mm.YYYY-dd.mm.YYYY)
-     */
-      time_add?: any;
-
-    /**
-     * Статус запроса (ID берем из запроса - request_status)
-     */
-      status_id?: Array<string>;
-
-    /**
-     * Вид запроса (ID берем из запроса - request_type)
-     */
-      request_type_id?: number;
-
-    /**
-     * Статус CRM (ID берем из запроса - request_status_crm)
-     */
-      status_crm_id?: Array<string>;
-
-    /**
-     * Страна отправления (ID берем из запроса - direction_country)
-     */
-      departure_country_id?: number;
-
-    /**
-     * Страна назначения (ID берем из запроса - direction_country)
-     */
-      arrival_country_id?: number;
-
-    /**
-     * Клиент (ID берем из запроса - customer_list)
-     */
-      customer_id?: number;
-
-    /**
-     * Подрядчик (ID берем из запроса - contractor_list)
-     */
-      rate_contractor_id?: number;
-
-    /**
-     * Город отправления (ID берем из запроса - direction_city)
-     */
-      departure_city_id?: number;
-
-    /**
-     * Город назначения (ID берем из запроса - direction_city)
-     */
-      arrival_city_id?: number;
-
-    /**
-     * Сотрудник (ID берем из запроса - company_employee_list)
-     */
-      manager_executor_id?: number;
-
-    /**
-     * Вид перевозки (ID берем из запроса - transport_kind)
-     */
-      transport_kind_id?: number;
-
-    /**
      * Начальная позиция
      */
       start?: number;
@@ -111,6 +46,12 @@ export class RequestService extends BaseService {
      * Лимит позиций на страницу
      */
       count?: number;
+
+    /**
+     * Фильтр
+     */
+      filter?: {
+};
 
     /**
      * Сортировка
@@ -639,21 +580,9 @@ export class RequestService extends BaseService {
 }>> {
     const rb = new RequestBuilder(this.rootUrl, RequestService.RequestListPath, 'get');
     if (params) {
-      rb.query('id', params.id, {});
-      rb.query('time_add', params.time_add, {});
-      rb.query('status_id', params.status_id, {"style":"form","explode":false});
-      rb.query('request_type_id', params.request_type_id, {});
-      rb.query('status_crm_id', params.status_crm_id, {"style":"form","explode":false});
-      rb.query('departure_country_id', params.departure_country_id, {});
-      rb.query('arrival_country_id', params.arrival_country_id, {});
-      rb.query('customer_id', params.customer_id, {});
-      rb.query('rate_contractor_id', params.rate_contractor_id, {});
-      rb.query('departure_city_id', params.departure_city_id, {});
-      rb.query('arrival_city_id', params.arrival_city_id, {});
-      rb.query('manager_executor_id', params.manager_executor_id, {});
-      rb.query('transport_kind_id', params.transport_kind_id, {});
       rb.query('start', params.start, {});
       rb.query('count', params.count, {});
+      rb.query('filter', params.filter, {});
       rb.query('sort', params.sort, {"style":"form","explode":false});
     }
 
@@ -1188,71 +1117,6 @@ export class RequestService extends BaseService {
     params?: {
 
     /**
-     * Поиск запроса по номеру...
-     */
-      id?: string;
-
-    /**
-     * Период (day, week, month, dd.mm.YYYY-dd.mm.YYYY)
-     */
-      time_add?: any;
-
-    /**
-     * Статус запроса (ID берем из запроса - request_status)
-     */
-      status_id?: Array<string>;
-
-    /**
-     * Вид запроса (ID берем из запроса - request_type)
-     */
-      request_type_id?: number;
-
-    /**
-     * Статус CRM (ID берем из запроса - request_status_crm)
-     */
-      status_crm_id?: Array<string>;
-
-    /**
-     * Страна отправления (ID берем из запроса - direction_country)
-     */
-      departure_country_id?: number;
-
-    /**
-     * Страна назначения (ID берем из запроса - direction_country)
-     */
-      arrival_country_id?: number;
-
-    /**
-     * Клиент (ID берем из запроса - customer_list)
-     */
-      customer_id?: number;
-
-    /**
-     * Подрядчик (ID берем из запроса - contractor_list)
-     */
-      rate_contractor_id?: number;
-
-    /**
-     * Город отправления (ID берем из запроса - direction_city)
-     */
-      departure_city_id?: number;
-
-    /**
-     * Город назначения (ID берем из запроса - direction_city)
-     */
-      arrival_city_id?: number;
-
-    /**
-     * Сотрудник (ID берем из запроса - company_employee_list)
-     */
-      manager_executor_id?: number;
-
-    /**
-     * Вид перевозки (ID берем из запроса - transport_kind)
-     */
-      transport_kind_id?: number;
-
-    /**
      * Начальная позиция
      */
       start?: number;
@@ -1261,6 +1125,12 @@ export class RequestService extends BaseService {
      * Лимит позиций на страницу
      */
       count?: number;
+
+    /**
+     * Фильтр
+     */
+      filter?: {
+};
 
     /**
      * Сортировка
@@ -9709,69 +9579,10 @@ export class RequestService extends BaseService {
     params?: {
 
     /**
-     * Поиск запроса по номеру...
+     * Фильтр
      */
-      id?: string;
-
-    /**
-     * Период (day, week, month, dd.mm.YYYY-dd.mm.YYYY)
-     */
-      time_add?: any;
-
-    /**
-     * Статус запроса (ID берем из запроса - request_status)
-     */
-      status_id?: Array<string>;
-
-    /**
-     * Вид запроса (ID берем из запроса - request_type)
-     */
-      request_type_id?: number;
-
-    /**
-     * Статус CRM (ID берем из запроса - request_status_crm)
-     */
-      status_crm_id?: Array<string>;
-
-    /**
-     * Страна отправления (ID берем из запроса - direction_country)
-     */
-      departure_country_id?: number;
-
-    /**
-     * Страна назначения (ID берем из запроса - direction_country)
-     */
-      arrival_country_id?: number;
-
-    /**
-     * Клиент (ID берем из запроса - customer_list)
-     */
-      customer_id?: number;
-
-    /**
-     * Подрядчик (ID берем из запроса - contractor_list)
-     */
-      rate_contractor_id?: number;
-
-    /**
-     * Город отправления (ID берем из запроса - direction_city)
-     */
-      departure_city_id?: number;
-
-    /**
-     * Город назначения (ID берем из запроса - direction_city)
-     */
-      arrival_city_id?: number;
-
-    /**
-     * Сотрудник (ID берем из запроса - company_employee_list)
-     */
-      manager_executor_id?: number;
-
-    /**
-     * Вид перевозки (ID берем из запроса - transport_kind)
-     */
-      transport_kind_id?: number;
+      filter?: {
+};
 
     /**
      * Сортировка
@@ -9804,19 +9615,7 @@ export class RequestService extends BaseService {
 }>> {
     const rb = new RequestBuilder(this.rootUrl, RequestService.RequestExportPath, 'get');
     if (params) {
-      rb.query('id', params.id, {});
-      rb.query('time_add', params.time_add, {});
-      rb.query('status_id', params.status_id, {"style":"form","explode":false});
-      rb.query('request_type_id', params.request_type_id, {});
-      rb.query('status_crm_id', params.status_crm_id, {"style":"form","explode":false});
-      rb.query('departure_country_id', params.departure_country_id, {});
-      rb.query('arrival_country_id', params.arrival_country_id, {});
-      rb.query('customer_id', params.customer_id, {});
-      rb.query('rate_contractor_id', params.rate_contractor_id, {});
-      rb.query('departure_city_id', params.departure_city_id, {});
-      rb.query('arrival_city_id', params.arrival_city_id, {});
-      rb.query('manager_executor_id', params.manager_executor_id, {});
-      rb.query('transport_kind_id', params.transport_kind_id, {});
+      rb.query('filter', params.filter, {});
       rb.query('sort', params.sort, {"style":"form","explode":false});
     }
 
@@ -9855,69 +9654,10 @@ export class RequestService extends BaseService {
     params?: {
 
     /**
-     * Поиск запроса по номеру...
+     * Фильтр
      */
-      id?: string;
-
-    /**
-     * Период (day, week, month, dd.mm.YYYY-dd.mm.YYYY)
-     */
-      time_add?: any;
-
-    /**
-     * Статус запроса (ID берем из запроса - request_status)
-     */
-      status_id?: Array<string>;
-
-    /**
-     * Вид запроса (ID берем из запроса - request_type)
-     */
-      request_type_id?: number;
-
-    /**
-     * Статус CRM (ID берем из запроса - request_status_crm)
-     */
-      status_crm_id?: Array<string>;
-
-    /**
-     * Страна отправления (ID берем из запроса - direction_country)
-     */
-      departure_country_id?: number;
-
-    /**
-     * Страна назначения (ID берем из запроса - direction_country)
-     */
-      arrival_country_id?: number;
-
-    /**
-     * Клиент (ID берем из запроса - customer_list)
-     */
-      customer_id?: number;
-
-    /**
-     * Подрядчик (ID берем из запроса - contractor_list)
-     */
-      rate_contractor_id?: number;
-
-    /**
-     * Город отправления (ID берем из запроса - direction_city)
-     */
-      departure_city_id?: number;
-
-    /**
-     * Город назначения (ID берем из запроса - direction_city)
-     */
-      arrival_city_id?: number;
-
-    /**
-     * Сотрудник (ID берем из запроса - company_employee_list)
-     */
-      manager_executor_id?: number;
-
-    /**
-     * Вид перевозки (ID берем из запроса - transport_kind)
-     */
-      transport_kind_id?: number;
+      filter?: {
+};
 
     /**
      * Сортировка
@@ -15849,31 +15589,6 @@ export class RequestService extends BaseService {
       request_id: number;
 
     /**
-     * Подрядчики
-     */
-      contractor?: number;
-
-    /**
-     * Авиалинии
-     */
-      carrier?: number;
-
-    /**
-     * Тип маршрута (ID берем из запроса - direction_flight)
-     */
-      departure_flight?: number;
-
-    /**
-     * Аэропорт вылета
-     */
-      departure_point?: number;
-
-    /**
-     * Аэропорт прибытия
-     */
-      arrival_point?: number;
-
-    /**
      * Начальная позиция
      */
       start?: number;
@@ -15882,6 +15597,12 @@ export class RequestService extends BaseService {
      * Лимит позиций на страницу
      */
       count?: number;
+
+    /**
+     * Фильтр
+     */
+      filter?: {
+};
 
     /**
      * Сортировка
@@ -16310,13 +16031,9 @@ export class RequestService extends BaseService {
     const rb = new RequestBuilder(this.rootUrl, RequestService.RequestRateCustomsListPath, 'get');
     if (params) {
       rb.query('request_id', params.request_id, {});
-      rb.query('contractor', params.contractor, {});
-      rb.query('carrier', params.carrier, {});
-      rb.query('departure_flight', params.departure_flight, {});
-      rb.query('departure_point', params.departure_point, {});
-      rb.query('arrival_point', params.arrival_point, {});
       rb.query('start', params.start, {});
       rb.query('count', params.count, {});
+      rb.query('filter', params.filter, {});
       rb.query('sort', params.sort, {"style":"form","explode":false});
     }
 
@@ -16755,31 +16472,6 @@ export class RequestService extends BaseService {
       request_id: number;
 
     /**
-     * Подрядчики
-     */
-      contractor?: number;
-
-    /**
-     * Авиалинии
-     */
-      carrier?: number;
-
-    /**
-     * Тип маршрута (ID берем из запроса - direction_flight)
-     */
-      departure_flight?: number;
-
-    /**
-     * Аэропорт вылета
-     */
-      departure_point?: number;
-
-    /**
-     * Аэропорт прибытия
-     */
-      arrival_point?: number;
-
-    /**
      * Начальная позиция
      */
       start?: number;
@@ -16788,6 +16480,12 @@ export class RequestService extends BaseService {
      * Лимит позиций на страницу
      */
       count?: number;
+
+    /**
+     * Фильтр
+     */
+      filter?: {
+};
 
     /**
      * Сортировка
@@ -18443,16 +18141,6 @@ export class RequestService extends BaseService {
       request_id: number;
 
     /**
-     * Наименование аэропорта
-     */
-      point?: number;
-
-    /**
-     * Вид прайса
-     */
-      point_action?: number;
-
-    /**
      * Начальная позиция
      */
       start?: number;
@@ -18461,6 +18149,12 @@ export class RequestService extends BaseService {
      * Лимит позиций на страницу
      */
       count?: number;
+
+    /**
+     * Фильтр
+     */
+      filter?: {
+};
 
     /**
      * Сортировка
@@ -18801,10 +18495,9 @@ export class RequestService extends BaseService {
     const rb = new RequestBuilder(this.rootUrl, RequestService.RequestRatePointListPath, 'get');
     if (params) {
       rb.query('request_id', params.request_id, {});
-      rb.query('point', params.point, {});
-      rb.query('point_action', params.point_action, {});
       rb.query('start', params.start, {});
       rb.query('count', params.count, {});
+      rb.query('filter', params.filter, {});
       rb.query('sort', params.sort, {"style":"form","explode":false});
     }
 
@@ -19155,16 +18848,6 @@ export class RequestService extends BaseService {
       request_id: number;
 
     /**
-     * Наименование аэропорта
-     */
-      point?: number;
-
-    /**
-     * Вид прайса
-     */
-      point_action?: number;
-
-    /**
      * Начальная позиция
      */
       start?: number;
@@ -19173,6 +18856,12 @@ export class RequestService extends BaseService {
      * Лимит позиций на страницу
      */
       count?: number;
+
+    /**
+     * Фильтр
+     */
+      filter?: {
+};
 
     /**
      * Сортировка
@@ -20432,16 +20121,6 @@ export class RequestService extends BaseService {
       request_id: number;
 
     /**
-     * Наименование аэропорта
-     */
-      arrival_point?: number;
-
-    /**
-     * Подрядчики
-     */
-      contractor?: number;
-
-    /**
      * Начальная позиция
      */
       start?: number;
@@ -20450,6 +20129,12 @@ export class RequestService extends BaseService {
      * Лимит позиций на страницу
      */
       count?: number;
+
+    /**
+     * Фильтр
+     */
+      filter?: {
+};
 
     /**
      * Сортировка
@@ -20800,10 +20485,9 @@ export class RequestService extends BaseService {
     const rb = new RequestBuilder(this.rootUrl, RequestService.RequestRateTransporterListPath, 'get');
     if (params) {
       rb.query('request_id', params.request_id, {});
-      rb.query('arrival_point', params.arrival_point, {});
-      rb.query('contractor', params.contractor, {});
       rb.query('start', params.start, {});
       rb.query('count', params.count, {});
+      rb.query('filter', params.filter, {});
       rb.query('sort', params.sort, {"style":"form","explode":false});
     }
 
@@ -21164,16 +20848,6 @@ export class RequestService extends BaseService {
       request_id: number;
 
     /**
-     * Наименование аэропорта
-     */
-      arrival_point?: number;
-
-    /**
-     * Подрядчики
-     */
-      contractor?: number;
-
-    /**
      * Начальная позиция
      */
       start?: number;
@@ -21182,6 +20856,12 @@ export class RequestService extends BaseService {
      * Лимит позиций на страницу
      */
       count?: number;
+
+    /**
+     * Фильтр
+     */
+      filter?: {
+};
 
     /**
      * Сортировка
@@ -22471,36 +22151,6 @@ export class RequestService extends BaseService {
       request_id: number;
 
     /**
-     * Коммерческое
-     */
-      offer?: number;
-
-    /**
-     * Подрядчики (ID берем из запроса - contractor_list)
-     */
-      contractor?: number;
-
-    /**
-     * Авиалинии (ID берем из запроса - transport_carrier)
-     */
-      carrier?: number;
-
-    /**
-     * Тип маршрута (ID берем из запроса - direction_flight)
-     */
-      departure_flight?: string;
-
-    /**
-     * Аэропорт вылета (ID берем из запроса - direction_point)
-     */
-      departure_point?: number;
-
-    /**
-     * Аэропорт (ID берем из запроса - direction_point)
-     */
-      arrival_point?: number;
-
-    /**
      * Начальная позиция
      */
       start?: number;
@@ -22509,6 +22159,12 @@ export class RequestService extends BaseService {
      * Лимит позиций на страницу
      */
       count?: number;
+
+    /**
+     * Фильтр
+     */
+      filter?: {
+};
 
     /**
      * Сортировка
@@ -22667,14 +22323,9 @@ export class RequestService extends BaseService {
     const rb = new RequestBuilder(this.rootUrl, RequestService.RequestRateFinalListPath, 'get');
     if (params) {
       rb.query('request_id', params.request_id, {});
-      rb.query('offer', params.offer, {});
-      rb.query('contractor', params.contractor, {});
-      rb.query('carrier', params.carrier, {});
-      rb.query('departure_flight', params.departure_flight, {});
-      rb.query('departure_point', params.departure_point, {});
-      rb.query('arrival_point', params.arrival_point, {});
       rb.query('start', params.start, {});
       rb.query('count', params.count, {});
+      rb.query('filter', params.filter, {});
       rb.query('sort', params.sort, {"style":"form","explode":false});
     }
 
@@ -22843,36 +22494,6 @@ export class RequestService extends BaseService {
       request_id: number;
 
     /**
-     * Коммерческое
-     */
-      offer?: number;
-
-    /**
-     * Подрядчики (ID берем из запроса - contractor_list)
-     */
-      contractor?: number;
-
-    /**
-     * Авиалинии (ID берем из запроса - transport_carrier)
-     */
-      carrier?: number;
-
-    /**
-     * Тип маршрута (ID берем из запроса - direction_flight)
-     */
-      departure_flight?: string;
-
-    /**
-     * Аэропорт вылета (ID берем из запроса - direction_point)
-     */
-      departure_point?: number;
-
-    /**
-     * Аэропорт (ID берем из запроса - direction_point)
-     */
-      arrival_point?: number;
-
-    /**
      * Начальная позиция
      */
       start?: number;
@@ -22881,6 +22502,12 @@ export class RequestService extends BaseService {
      * Лимит позиций на страницу
      */
       count?: number;
+
+    /**
+     * Фильтр
+     */
+      filter?: {
+};
 
     /**
      * Сортировка
@@ -23432,11 +23059,6 @@ export class RequestService extends BaseService {
       request_id: number;
 
     /**
-     * Подрядчики
-     */
-      contractor?: number;
-
-    /**
      * Начальная позиция
      */
       start?: number;
@@ -23445,6 +23067,12 @@ export class RequestService extends BaseService {
      * Лимит позиций на страницу
      */
       count?: number;
+
+    /**
+     * Фильтр
+     */
+      filter?: {
+};
 
     /**
      * Сортировка
@@ -23722,9 +23350,9 @@ export class RequestService extends BaseService {
     const rb = new RequestBuilder(this.rootUrl, RequestService.RequestRateOtherListPath, 'get');
     if (params) {
       rb.query('request_id', params.request_id, {});
-      rb.query('contractor', params.contractor, {});
       rb.query('start', params.start, {});
       rb.query('count', params.count, {});
+      rb.query('filter', params.filter, {});
       rb.query('sort', params.sort, {"style":"form","explode":false});
     }
 
@@ -24012,11 +23640,6 @@ export class RequestService extends BaseService {
       request_id: number;
 
     /**
-     * Подрядчики
-     */
-      contractor?: number;
-
-    /**
      * Начальная позиция
      */
       start?: number;
@@ -24025,6 +23648,12 @@ export class RequestService extends BaseService {
      * Лимит позиций на страницу
      */
       count?: number;
+
+    /**
+     * Фильтр
+     */
+      filter?: {
+};
 
     /**
      * Сортировка

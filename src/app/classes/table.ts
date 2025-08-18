@@ -147,16 +147,16 @@ export abstract class Table<T extends { id: number }, A = never, F = never> impl
 
   protected loadRows(): void {
     const sortCol = this.getSort();
-    let params: any = { start: this.start, count: this.count, ...this.filter };
+    // let params: any = { start: this.start, count: this.count, ...this.filter ,city_id:['3',1,3] };
+    let params: any = { start: this.start, count: this.count, filter: JSON.stringify(this.filter) };
     if (this.isRateDetailsMode) {
       params = { ...params, request_id: this.requestId, method: this.detailsMethod };
     } else if (this.isBiddingMode) {
       params = { ...params, bidding_request_id: this.requestId };
     } else {
-      params = { ...params, sort: JSON.stringify(sortCol) };
+      params = { ...params, sort: JSON.stringify(sortCol)};
     }
     console.log(params);
-
     // let params:any;
     // if(this.isRateDetailsMode){
     //   params= { request_id:this.requestId, method: this.detailsMethod, start: this.start, count: this.count, ...this.filter };
@@ -165,12 +165,11 @@ export abstract class Table<T extends { id: number }, A = never, F = never> impl
     // } else {
     //   params= { start: this.start, count: this.count, sort: JSON.stringify(sortCol) as unknown as SortColumn<T>[], ...this.filter  };
     // }
-
+    
     // let params = this.isRateDetailsMode
     //   ? { request_id:this.requestId, method: this.detailsMethod, start: this.start, count: this.count, ...this.filter }
     //   : { start: this.start, count: this.count, sort: JSON.stringify(sortCol) as unknown as SortColumn<T>[], ...this.filter  };
-
-    this.load(params)
+    this.load(params as any)
     // this.tableService.getRows(params)
       .subscribe(rows => {
         console.log('rows', rows);

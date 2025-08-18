@@ -7,7 +7,7 @@
       class="item"
       *ngFor="let control of filterService.searchFilterSchema?.main"
       [filterControl]="control"
-      [style.width.px]="control.width"
+      [style.width]="control.width"
     >
     </app-universal-filter>
 

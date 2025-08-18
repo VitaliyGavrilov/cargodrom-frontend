@@ -1,4 +1,4 @@
-.form-block input[type="text"], input[type="number"],.form-block select, .form-block textarea { 
+.form-block input[type="text"], input[type="number"],.form-block select, .form-block textarea, .filter .main input[type="text"] { 
   font-family: 'regular', 'arial', 'sans-serif'; 
   background: #F7F9FC; 
   border: 1px solid #E0E5EB; 

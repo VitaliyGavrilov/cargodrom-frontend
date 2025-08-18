@@ -1123,16 +1123,6 @@ export class OrderService extends BaseService {
     params?: {
 
     /**
-     * Период (day, week, month, dd.mm.YYYY-dd.mm.YYYY)
-     */
-      time_add?: any;
-
-    /**
-     * Статус заказа (ID берем из запроса - order_status)
-     */
-      status_id?: number;
-
-    /**
      * Начальная позиция
      */
       start?: number;
@@ -1141,6 +1131,12 @@ export class OrderService extends BaseService {
      * Лимит позиций на страницу
      */
       count?: number;
+
+    /**
+     * Фильтр
+     */
+      filter?: {
+};
 
     /**
      * Сортировка
@@ -1397,10 +1393,9 @@ export class OrderService extends BaseService {
 }>> {
     const rb = new RequestBuilder(this.rootUrl, OrderService.OrderListPath, 'get');
     if (params) {
-      rb.query('time_add', params.time_add, {});
-      rb.query('status_id', params.status_id, {});
       rb.query('start', params.start, {});
       rb.query('count', params.count, {});
+      rb.query('filter', params.filter, {});
       rb.query('sort', params.sort, {"style":"form","explode":false});
     }
 
@@ -1663,16 +1658,6 @@ export class OrderService extends BaseService {
     params?: {
 
     /**
-     * Период (day, week, month, dd.mm.YYYY-dd.mm.YYYY)
-     */
-      time_add?: any;
-
-    /**
-     * Статус заказа (ID берем из запроса - order_status)
-     */
-      status_id?: number;
-
-    /**
      * Начальная позиция
      */
       start?: number;
@@ -1681,6 +1666,12 @@ export class OrderService extends BaseService {
      * Лимит позиций на страницу
      */
       count?: number;
+
+    /**
+     * Фильтр
+     */
+      filter?: {
+};
 
     /**
      * Сортировка

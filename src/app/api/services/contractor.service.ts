@@ -38,41 +38,6 @@ export class ContractorService extends BaseService {
     params?: {
 
     /**
-     * Поиск подрядчика по названию...
-     */
-      name?: string;
-
-    /**
-     * Специализация (ID берем из запроса - transport_kind)
-     */
-      specialization?: Array<string>;
-
-    /**
-     * Рейтинг (ID берем из запроса - system_rating)
-     */
-      rating?: number;
-
-    /**
-     * Доступ к торгам
-     */
-      allow_trade?: number;
-
-    /**
-     * Направление откуда (ID берем из запроса - direction_country)
-     */
-      country_departure_id?: number;
-
-    /**
-     * Направление куда (ID берем из запроса - direction_country)
-     */
-      country_arrival_id?: number;
-
-    /**
-     * ID запроса для торгов
-     */
-      bidding_request_id?: number;
-
-    /**
      * Начальная позиция
      */
       start?: number;
@@ -81,6 +46,12 @@ export class ContractorService extends BaseService {
      * Лимит позиций на страницу
      */
       count?: number;
+
+    /**
+     * Фильтр
+     */
+      filter?: {
+};
 
     /**
      * Сортировка
@@ -491,15 +462,9 @@ export class ContractorService extends BaseService {
 }>> {
     const rb = new RequestBuilder(this.rootUrl, ContractorService.ContractorListPath, 'get');
     if (params) {
-      rb.query('name', params.name, {});
-      rb.query('specialization', params.specialization, {"style":"form","explode":false});
-      rb.query('rating', params.rating, {});
-      rb.query('allow_trade', params.allow_trade, {});
-      rb.query('country_departure_id', params.country_departure_id, {});
-      rb.query('country_arrival_id', params.country_arrival_id, {});
-      rb.query('bidding_request_id', params.bidding_request_id, {});
       rb.query('start', params.start, {});
       rb.query('count', params.count, {});
+      rb.query('filter', params.filter, {});
       rb.query('sort', params.sort, {"style":"form","explode":false});
     }
 
@@ -916,41 +881,6 @@ export class ContractorService extends BaseService {
     params?: {
 
     /**
-     * Поиск подрядчика по названию...
-     */
-      name?: string;
-
-    /**
-     * Специализация (ID берем из запроса - transport_kind)
-     */
-      specialization?: Array<string>;
-
-    /**
-     * Рейтинг (ID берем из запроса - system_rating)
-     */
-      rating?: number;
-
-    /**
-     * Доступ к торгам
-     */
-      allow_trade?: number;
-
-    /**
-     * Направление откуда (ID берем из запроса - direction_country)
-     */
-      country_departure_id?: number;
-
-    /**
-     * Направление куда (ID берем из запроса - direction_country)
-     */
-      country_arrival_id?: number;
-
-    /**
-     * ID запроса для торгов
-     */
-      bidding_request_id?: number;
-
-    /**
      * Начальная позиция
      */
       start?: number;
@@ -959,6 +889,12 @@ export class ContractorService extends BaseService {
      * Лимит позиций на страницу
      */
       count?: number;
+
+    /**
+     * Фильтр
+     */
+      filter?: {
+};
 
     /**
      * Сортировка
@@ -8201,39 +8137,10 @@ export class ContractorService extends BaseService {
     params?: {
 
     /**
-     * Поиск подрядчика по названию...
+     * Фильтр
      */
-      name?: string;
-
-    /**
-     * Специализация (ID берем из запроса - transport_kind)
-     */
-      specialization?: Array<string>;
-
-    /**
-     * Рейтинг (ID берем из запроса - system_rating)
-     */
-      rating?: number;
-
-    /**
-     * Доступ к торгам
-     */
-      allow_trade?: number;
-
-    /**
-     * Направление откуда (ID берем из запроса - direction_country)
-     */
-      country_departure_id?: number;
-
-    /**
-     * Направление куда (ID берем из запроса - direction_country)
-     */
-      country_arrival_id?: number;
-
-    /**
-     * ID запроса для торгов
-     */
-      bidding_request_id?: number;
+      filter?: {
+};
 
     /**
      * Сортировка
@@ -8266,13 +8173,7 @@ export class ContractorService extends BaseService {
 }>> {
     const rb = new RequestBuilder(this.rootUrl, ContractorService.ContractorExportPath, 'get');
     if (params) {
-      rb.query('name', params.name, {});
-      rb.query('specialization', params.specialization, {"style":"form","explode":false});
-      rb.query('rating', params.rating, {});
-      rb.query('allow_trade', params.allow_trade, {});
-      rb.query('country_departure_id', params.country_departure_id, {});
-      rb.query('country_arrival_id', params.country_arrival_id, {});
-      rb.query('bidding_request_id', params.bidding_request_id, {});
+      rb.query('filter', params.filter, {});
       rb.query('sort', params.sort, {"style":"form","explode":false});
     }
 
@@ -8311,39 +8212,10 @@ export class ContractorService extends BaseService {
     params?: {
 
     /**
-     * Поиск подрядчика по названию...
+     * Фильтр
      */
-      name?: string;
-
-    /**
-     * Специализация (ID берем из запроса - transport_kind)
-     */
-      specialization?: Array<string>;
-
-    /**
-     * Рейтинг (ID берем из запроса - system_rating)
-     */
-      rating?: number;
-
-    /**
-     * Доступ к торгам
-     */
-      allow_trade?: number;
-
-    /**
-     * Направление откуда (ID берем из запроса - direction_country)
-     */
-      country_departure_id?: number;
-
-    /**
-     * Направление куда (ID берем из запроса - direction_country)
-     */
-      country_arrival_id?: number;
-
-    /**
-     * ID запроса для торгов
-     */
-      bidding_request_id?: number;
+      filter?: {
+};
 
     /**
      * Сортировка

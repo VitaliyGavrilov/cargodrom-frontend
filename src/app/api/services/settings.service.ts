@@ -1110,6 +1110,11 @@ export class SettingsService extends BaseService {
 'type': string;
 
 /**
+ * Тип фильтра текст
+ */
+'type_text'?: string;
+
+/**
  * Тип фильтра фиксирован
  */
 'type_fixed'?: boolean;
@@ -1178,6 +1183,11 @@ export class SettingsService extends BaseService {
          * Тип фильтра
          */
         'type': string;
+        
+        /**
+         * Тип фильтра текст
+         */
+        'type_text'?: string;
         
         /**
          * Тип фильтра фиксирован
@@ -1271,6 +1281,11 @@ export class SettingsService extends BaseService {
 'type': string;
 
 /**
+ * Тип фильтра текст
+ */
+'type_text'?: string;
+
+/**
  * Тип фильтра фиксирован
  */
 'type_fixed'?: boolean;
@@ -1330,6 +1345,11 @@ export class SettingsService extends BaseService {
 'type': string;
 
 /**
+ * Тип фильтра текст
+ */
+'type_text'?: string;
+
+/**
  * Тип фильтра фиксирован
  */
 'type_fixed'?: boolean;
@@ -1385,6 +1405,11 @@ export class SettingsService extends BaseService {
  * Тип фильтра
  */
 'type': string;
+
+/**
+ * Тип фильтра текст
+ */
+'type_text'?: string;
 
 /**
  * Тип фильтра фиксирован

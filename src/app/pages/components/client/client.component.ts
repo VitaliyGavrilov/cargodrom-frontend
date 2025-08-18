@@ -41,6 +41,8 @@ export class ClientComponent extends Table<Client, 'name', ClientFilter> {
 
   load<Client>(params: LoadParams<Client, ClientFilter>): Observable<{ total: number; items: Client[]; }> {
     this.params=params;
+    console.log(params);
+    
     return this.customerService.customerList(params as any) as unknown as Observable<{ total: number; items: Client[]; column: string[], sort: string[] }>;
   }
 

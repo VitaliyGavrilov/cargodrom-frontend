@@ -1069,6 +1069,7 @@ th.mat-header-cell:first-of-type, td.mat-cell:first-of-type, td.mat-footer-cell:
 }
 
 .filter-item {
+  margin: auto;
   display: flex;
   flex: 1;
   flex-direction: column;
