@@ -154,6 +154,8 @@ export class AddPopupComponent implements OnInit, OnDestroy {
 
   onCancel(): void {
     this.dialogRef.close();
+    console.log(123);
+    
   }
   onSubmit(): void {
     this.saveFilter(this.form.value);

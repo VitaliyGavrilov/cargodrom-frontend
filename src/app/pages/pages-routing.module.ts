@@ -20,6 +20,8 @@ import { RequestDetails } from './components/request-details/request-details.com
 import { OfferEditorComponent } from './components/offer-editor/offer-editor.component';
 import { OrderEditorComponent } from './components/order-editor/order-editor.component';
 import { TestPage } from './places/test-page/test-page.component';
+import { MessagePage } from './components/message/message.page';
+import { MessageEditorComponent } from './components/message-editor/message-editor.component';
 // import { RequestPage } from './places/request/request.component';
 
 const routes: Routes = [
@@ -233,6 +235,37 @@ const routes: Routes = [
         title: 'Справочник',
         canActivate: [AuthGuard],
       },
+      {
+        path: 'message',
+        component: MessagePage,
+        pathMatch: 'full',
+        title: 'Сообщения',
+        canActivate: [AuthGuard],
+        
+      },
+      // {
+      //   path: 'message',
+      //   component: MessagePage,
+      //   // pathMatch: 'full',
+      //   title: 'Сообщения',
+      //   canActivate: [AuthGuard],
+      //   children: [
+      //     {
+      //       path: 'edit/:id',
+      //       component: MessagePage,
+      //       title: 'Редактирование сообщения',
+      //       pathMatch: 'full',
+      //       canActivate: [AuthGuard],
+      //     },
+      //     {
+      //       path: 'add',
+      //       component: MessagePage,
+      //       title: 'Создание сообщения',
+      //       pathMatch: 'full',
+      //       canActivate: [AuthGuard],
+      //     },
+      //   ]
+      // },
       {
         path: 'settings',
         loadChildren: () => import('./modules/settings/settings.module').then(m => m.SettingsModule),

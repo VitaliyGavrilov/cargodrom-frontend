@@ -1,7 +1,7 @@
 import { Component, OnInit, TemplateRef, ViewChild } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { interval, startWith, Subject, switchMap, takeUntil, tap } from 'rxjs';
-import { SystemService } from 'src/app/api/services';
+import { MessageService, SystemService } from 'src/app/api/services';
 import { CurrencyService } from '../../services/сurrency/currency.service';
 
 @Component({
@@ -17,18 +17,22 @@ export class HeaderComponent implements OnInit {
   currencyList:any[]=[];
   currencySummary:any={};
 
+  numberOfNewMessages:number=0;
+
   // @ViewChild('currencyDialog') currencyDialog!: TemplateRef<void>;
 
   constructor(
     private systemService: SystemService,
     private matDialog: MatDialog,
     private currencyService: CurrencyService,
+    private messageService: MessageService,
   ) { }
 
   ngOnInit(): void {
     // this.updateCurrency();
     this.subscribeCurrency();
     this.subscribeSummary();
+    this.getNewMessage();
   }
 
   private subscribeCurrency(){
@@ -49,6 +53,16 @@ export class HeaderComponent implements OnInit {
     .subscribe(summary => {
       this.currencySummary = summary;
       console.log('summary',summary);
+    });
+  }
+
+  private getNewMessage(){
+    this.messageService.messageGetNew().pipe(
+      takeUntil(this._destroy$)
+    )
+    .subscribe(mes => {
+      this.numberOfNewMessages = mes.length;
+      console.log('new message',mes);
     });
   }
 

@@ -32,8 +32,8 @@
 
     <label style="display: inline-flex">
       <mat-date-range-input [rangePicker]="picker" [formGroup]="range" (click)="picker.open()" [ngClass]="dataBorder ? 'border-on' : 'border-off' ">
-        <input matStartDate placeholder="дд.мм.гггг" (dateChange)="startDateChange($event)" formControlName="start">
-        <input matEndDate placeholder="дд.мм.гггг" (dateChange)="endDateChange($event)" formControlName="end">
+        <input style="border: none; border-radius: 0;" matStartDate placeholder="дд.мм.гггг" (dateChange)="startDateChange($event)" formControlName="start">
+        <input style="border: none; border-radius: 0;" matEndDate placeholder="дд.мм.гггг" (dateChange)="endDateChange($event)" formControlName="end">
       </mat-date-range-input>
 
       <span style="height: 12.5px; width: 13px;">

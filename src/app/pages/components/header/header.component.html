@@ -187,13 +187,13 @@
     <!-- <app-currency name="USD" code="$" [rate]="69.3475"></app-currency>
     <app-currency name="EUR" code="€" [rate]="80.322"></app-currency>
     <app-currency name="CNY" code="Ұ" [rate]="10.1193"></app-currency> -->
-    <span class="fn msg">
+    <span class="fn msg" routerLink="./message" routerLinkActive="sel">
       <span><svg width="22" height="25" viewBox="0 0 22 25" fill="none" xmlns="http://www.w3.org/2000/svg">
           <path
             d="M19.329 3H2.67096C1.19586 3 0 4.1958 0 5.67096V16.329C0 17.8041 1.19586 19 2.67096 19H5V25L11 19H19.329C20.8042 19 22 17.8041 22 16.329V5.67096C22 4.1958 20.8042 3 19.329 3ZM21 16.329C21 17.2504 20.2504 18 19.329 18H11H10.5858L10.2929 18.2928L6 22.5858V19V18H5H2.67096C1.74957 18 1 17.2504 1 16.329V5.67096C1 4.74957 1.74957 4 2.67096 4H19.329C20.2504 4 21 4.74957 21 5.67096V16.329ZM8 11C8 11.5523 7.55231 12 7 12C6.44769 12 6 11.5523 6 11C6 10.4477 6.44769 10 7 10C7.55231 10 8 10.4477 8 11ZM12 11C12 11.5523 11.5523 12 11 12C10.4477 12 10 11.5523 10 11C10 10.4477 10.4477 10 11 10C11.5523 10 12 10.4477 12 11ZM16 11C16 11.5523 15.5523 12 15 12C14.4478 12 14 11.5523 14 11C14 10.4477 14.4478 10 15 10C15.5523 10 16 10.4477 16 11Z"
             fill="white"></path>
         </svg>
-        <span>2</span>
+        <span *ngIf="numberOfNewMessages>=1">{{numberOfNewMessages}}</span>
       </span>
     </span>
     <span class="fn config" routerLink="./settings" routerLinkActive="sel">

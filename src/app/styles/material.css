@@ -1,7 +1,7 @@
 /* const */
 body{
   --mat-option-selected-state-label-text-color: #DB563B;
-  --mat-option-label-text-line-height: 13px;
+  --mat-option-label-text-line-height: 15px;
   --mat-option-label-text-size: 13px;
 
   --mat-menu-item-label-text-line-height:13px;

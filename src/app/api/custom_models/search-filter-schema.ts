@@ -9,6 +9,10 @@ export interface FilterControl {
   field: string;
   name:  string;
   width?: string;
+  array?: {  // сделаем array опциональным для всех
+    id: number | string | boolean;
+    name: string;
+  }[];
 }
 
 export interface FilterSelectControl extends FilterControl {

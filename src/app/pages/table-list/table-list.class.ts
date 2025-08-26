@@ -1,16 +1,16 @@
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { ActivatedRoute, ParamMap, Router } from '@angular/router';
-import { SortColumn } from '../api/custom_models/sort-column';
+import { SortColumn } from '../../api/custom_models/sort-column';
 import { Directive, OnInit, OnDestroy, ViewChild, TemplateRef, ElementRef, HostListener, inject } from '@angular/core';
-import { BehaviorSubject, NEVER, Observable, of, Subject, takeUntil, tap } from 'rxjs';
+import { NEVER, Observable, of, Subject, takeUntil, tap } from 'rxjs';
 import { MatSnackBarConfig } from '@angular/material/snack-bar';
 import { MatDialog } from '@angular/material/dialog';
-import { FilterService } from '../filter/services/filter.service';
-import { SearchFilterSchema } from '../api/custom_models';
+import { FilterService } from '../../filter/services/filter.service';
+import { SearchFilterSchema } from '../../api/custom_models';
 import { MatCheckboxChange } from '@angular/material/checkbox';
-import { UserService } from '../api/services';
+import { UserService } from '../../api/services';
 import { DomSanitizer } from '@angular/platform-browser';
-import { TableListService } from '../pages/table-list/table-list.service';
+import { TableListService } from './table-list.service';
 
 export interface LoadParams<T, F> {
   id?:number;
@@ -21,11 +21,7 @@ export interface LoadParams<T, F> {
 }
 
 @Directive()
-export abstract class Table<T extends { id: number }, A = never, F = never> implements OnInit, OnDestroy {
-
-  private rowsSubject = new BehaviorSubject<T[]>([]);
-  rows$: Observable<T[]> = this.rowsSubject.asObservable();
-
+export abstract class TableList<T extends { id: number }, A = never, F = never> implements OnInit, OnDestroy {
   snackBarWithShortDuration: MatSnackBarConfig = { duration: 1000 };
   snackBarWithLongDuration: MatSnackBarConfig = { duration: 5000 };
   filter?: F;
@@ -93,9 +89,9 @@ export abstract class Table<T extends { id: number }, A = never, F = never> impl
   tableService!:TableListService;
 
   constructor(
-    protected route: ActivatedRoute,
+    private route: ActivatedRoute,
     protected router: Router,
-    protected dialog: MatDialog,
+    private dialog: MatDialog,
     protected snackBar: MatSnackBar,
     protected filterService: FilterService,
     protected userService: UserService,
@@ -173,13 +169,11 @@ export abstract class Table<T extends { id: number }, A = never, F = never> impl
     // let params = this.isRateDetailsMode
     //   ? { request_id:this.requestId, method: this.detailsMethod, start: this.start, count: this.count, ...this.filter }
     //   : { start: this.start, count: this.count, sort: JSON.stringify(sortCol) as unknown as SortColumn<T>[], ...this.filter  };
-    this.load(params as any)
-    // this.tableService.getRows(params)
+    // this.load(params as any)
+    this.tableService.getRows(params)
       .subscribe(rows => {
         console.log('rows', rows);
         this.rows = rows ? rows.items as T[] : [];
-        // Отправляем данные в BehaviorSubject
-        this.rowsSubject.next(rows.items as T[]);
         this.total = rows.total;
 
         if(this.isBiddingMode){
@@ -189,7 +183,7 @@ export abstract class Table<T extends { id: number }, A = never, F = never> impl
           });
           this.getContractorsSelectRequest();
         }
-         this.isRowsLoad=true
+        this.isRowsLoad=true
       });
   }
 
@@ -663,8 +657,8 @@ export abstract class Table<T extends { id: number }, A = never, F = never> impl
       .pipe(
         tap((schema)=>{
           console.log('schema',schema);
-          // this.sortField = schema.sort[0].field;
-          // this.sortDir = schema.sort[0].dir;
+          this.sortField = schema.sort[0].field;
+          this.sortDir = schema.sort[0].dir;
           if (this.isBiddingMode) {
             schema.table.unshift({column:'checkbox',width:'50px', items: [{field:'', title:'', width:'100%'}]});
           }
@@ -674,13 +668,11 @@ export abstract class Table<T extends { id: number }, A = never, F = never> impl
       )
       .subscribe({
         next: (schema) => {
-          
-          
           this.filterService.setSearchFilterSchema(schema.search);
           schema.table.forEach((col:any)=>{
             this.column?.push(col.column);
           });
-          schema.sort?.forEach((sor:any)=>{
+          schema.sort.forEach((sor:any)=>{
             this.sortableColumns?.push(sor.field);
           });
           this.columnsData=schema.table;
@@ -688,7 +680,7 @@ export abstract class Table<T extends { id: number }, A = never, F = never> impl
             this.requestCrmStatuses=schema.status;
           }
         },
-        error: (err) => this.snackBar.open(`Ошибка получения параметров вывода таблицы ` + err.error.error_message, undefined, this.snackBarWithShortDuration) ,
+        error: (err) => this.snackBar.open(`Ошибка получения параметров вывода таблицы ` + err.error.error_message, undefined, this.snackBarWithShortDuration),
         complete:()=> {
           this.subscribeRouteQueryParamMap();
         }

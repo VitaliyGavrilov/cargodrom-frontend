@@ -19,10 +19,12 @@ export class TableSubheaderFileComponent implements OnInit {
 
   @Input() titles:any={title:'',subtitle:''};
   @Input() orderPage:boolean=false;
-  @Input()  importMetods:any;
+  @Input() importMetods:any;
+  @Input() addPopap:boolean=false;
   @Output() export = new EventEmitter<void>();
   @Output() exportTemplate = new EventEmitter<void>();
   @Output() openAnalytics = new EventEmitter<void>();
+  @Output() openAddPopap = new EventEmitter<void>();
 
   @ViewChild('file', { static: true }) file?: ElementRef;
   @ViewChild('exportDialogRef') exportDialogRef?: TemplateRef<void>;
@@ -36,10 +38,17 @@ export class TableSubheaderFileComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
+    
+    
 
   }
   openPopapAnalytics(){
     this.openAnalytics.emit();
+  }
+  onOpenPopapAdd(){
+    console.log('onOpenPopapAdd');
+    
+    this.openAddPopap.emit();
   }
 
   confirmTableFileDownload(): void {

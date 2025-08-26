@@ -1,5 +1,7 @@
 .filter .row .w1 {
-  width: 1px;
+  width: 20%;
+  max-width: 20%;
+  // max-width: calc(20% - 40px);
 }
 
 // .main .search-box{

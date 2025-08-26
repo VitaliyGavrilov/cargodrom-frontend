@@ -7,7 +7,12 @@
   <div class="btns-file">
 
     <!-- <button [routerLink]="['add']" class="file-btn add-link"> -->
-    <button [routerLink]="orderPage?['/pages/order/add']:['add']" class="file-btn add-link">
+    <button *ngIf="!addPopap" [routerLink]="orderPage?['/pages/order/add']:['add']" class="file-btn add-link">
+      <div></div>
+      <span>Новый {{titles.subtitle}}</span>
+    </button>
+
+    <button *ngIf="addPopap" (click)="onOpenPopapAdd()" class="file-btn add-link">
       <div></div>
       <span>Новый {{titles.subtitle}}</span>
     </button>
@@ -22,7 +27,7 @@
       <span>Шаблон для импорта</span>
     </button>
 
-    <button (click)="confirmTableFileDownload()" type="button" class="file-btn export">
+    <button *ngIf="importMetods" (click)="confirmTableFileDownload()" type="button" class="file-btn export">
       <div></div>
       <span>Экспорт данных</span>
     </button>

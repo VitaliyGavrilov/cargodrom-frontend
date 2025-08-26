@@ -189,7 +189,7 @@ import { MomentDateAdapter } from '@angular/material-moment-adapter';
 import { MatMenuTrigger } from '@angular/material/menu';
 import { MatDatepickerInputEvent } from '@angular/material/datepicker';
 import { GridTableComponent } from "../../../../table/components/simple-table/grid-table.component";
-import { TableListService } from 'src/app/pages/table/services/table-list.service';
+import { TableListService } from 'src/app/pages/table-list/table-list.service';
 import { LoginComponent } from 'src/app/auth/components/login/login.component';
 import { CdkDragDrop, moveItemInArray } from '@angular/cdk/drag-drop';
 import { AddPopupComponent } from '../popap-table_filter-editor/popap-table_filter-editor.component';
@@ -407,8 +407,8 @@ const paramSettingsTableFilter = [
     ]
   },
   {
-    title: 'Поле баз данных',
-    field: 'field',
+    title: 'Место',
+    field: 'place_text',
     subcolumns: [
       {
         value:'value'

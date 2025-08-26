@@ -1,0 +1,87 @@
+<button class="cross" (click)="onCancel()" style="
+  position: absolute; 
+  right: 14px; top: 14px; 
+  background: inherit; background-image: url(../../../../assets/pic-btn-cancel-black.svg);
+  height: 14px;
+  width: 14px; 
+  z-index: 2;"
+  >
+</button>
+
+<h2 mat-dialog-title style="padding: 0 40px 10px;">Новое сообщение</h2>
+
+<mat-dialog-content style="padding: 0; width: 30vw;">
+<form (ngSubmit)="onSubmit()" [formGroup]="form">
+  <div class='form-block' >
+    <div class="form-row bg" style="display: flex; flex-direction: column; gap: 25px; padding: 20px 40px;">
+      <div class="form-item" style="width: 300px;">
+        <div class="form-label">тема: </div>
+        <div class="form-data">
+          <input matInput type="text" formControlName="subject" >
+        </div>
+      </div>
+      <div class="form-item">
+        <div class="form-label">сообщение: </div>
+        <div class="form-data">
+          <textarea formControlName="text" style="height: 150px;"></textarea>
+        </div>
+      </div>
+      <div class="form-item"  style="width: 300px;">
+        <div class="form-label">статус: </div>
+        <div class="form-data" >
+        <mat-select formControlName="status">
+            <mat-option value="">-- Не выбрано --</mat-option>
+            <mat-option *ngFor="let item of messageStatus;" [value]="item.id">{{ item.name }}</mat-option>
+        </mat-select>
+        </div>
+        </div>
+      <div class="form-item-layout">
+        <div class="form-item" style="max-width: 170px;">
+        <div class="form-label">получатель: </div>
+        <div class="form-data">
+          <mat-select formControlName="to" (selectionChange)="onToChange()">
+            <mat-option value="">-- Не выбрано --</mat-option>
+            <mat-option [value]=1>Пользователи</mat-option>
+            <mat-option [value]=2>Компании</mat-option>
+            <mat-option [value]=3>Подрядчики</mat-option>
+          </mat-select>
+        </div>
+      </div> 
+      <div class="form-item" *ngIf="form.value.to==1">
+        <div class="form-label">пользователи: </div>
+        <div class="form-data">
+          <input type="text" formControlName="to_user_id">
+        </div>
+      </div>  
+      <div class="form-item" *ngIf="form.value.to=='2'">
+        <div class="form-label">компании: </div>
+        <div class="form-data" >
+          <mat-select formControlName="to_company_id">
+            <mat-option value="">-- Не выбрано --</mat-option>
+            <mat-option *ngFor="let item of companys;" [value]="item.id">{{ item.name }}</mat-option>
+          </mat-select>
+        </div>
+      </div>
+      <div class="form-item" *ngIf="form.value.to=='3'">
+        <div class="form-label">подрядчики: </div>
+        <div class="form-data" >
+          <mat-select formControlName="to_contractor_id">
+            <mat-option value="">-- Не выбрано --</mat-option>
+            <mat-option *ngFor="let item of contractors;" [value]="item.id">{{ item.name }}</mat-option>
+          </mat-select>
+        </div>
+      </div>
+      </div>
+    
+    </div>
+  </div>
+</form>
+</mat-dialog-content>
+
+<mat-dialog-actions align="end" style="padding:20px 40px;">
+  <!-- <button mat-button mat-dialog-close (click)="onCancel()">Отмена</button> -->
+  <!-- <button mat-raised-button [mat-dialog-close]="form.value.table" (click)="onSubmit()" style="background: #DB563B; color: white; margin-right: auto;">Сохранить</button> -->
+  <button mat-raised-button (click)="onSubmit()" style="background: #DB563B; color: white; margin-right: auto;">Сохранить</button>
+  
+</mat-dialog-actions>
+

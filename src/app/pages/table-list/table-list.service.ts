@@ -6,7 +6,8 @@ import {
   CustomerService, 
   OrderService, 
   RequestService, 
-  SettingsService
+  SettingsService,
+  MessageService,
 } from 'src/app/api/services';
 
 type TableMethod<T = any> = (params?: any) => Observable<T>;
@@ -77,6 +78,11 @@ export class TableListService implements OnDestroy {
       rows: (params) => this.orderService.orderList(params),
       columns: (params) => this.orderService.orderListParam(params)
     },
+    message: {
+      path: 'pages/message',
+      rows: (params) => this.messageService.messageList(params),
+      columns: (params) => this.messageService.messageListParam(params)
+    },
     // settings_filters: {
     //   path: 'pages/settings/table-filter/',
     //   rows: (params) => this.settingsSertvice.settingsFilterList(params),
@@ -91,6 +97,7 @@ export class TableListService implements OnDestroy {
     private readonly customerService: CustomerService,
     private readonly orderService: OrderService,
     private readonly settingsSertvice: SettingsService,
+    private readonly messageService: MessageService,
   ) {}
 
   ngOnDestroy(): void {

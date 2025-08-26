@@ -71,6 +71,11 @@ export class MessageService extends BaseService {
 'time_add': string;
 
 /**
+ * Дата создания
+ */
+'date': string;
+
+/**
  * Тема
  */
 'subject': string;
@@ -83,23 +88,33 @@ export class MessageService extends BaseService {
 /**
  * Доп. данные
  */
-'data': {
+'data'?: {
 };
 
 /**
  * Кому пользователь
  */
-'to_user_id': number;
+'to_user_id'?: number;
 
 /**
  * Кому фирма
  */
-'to_company_id': number;
+'to_company_id'?: number;
 
 /**
  * Кому контрагент
  */
-'to_contractor_id': number;
+'to_contractor_id'?: number;
+
+/**
+ * Статус
+ */
+'status': string;
+
+/**
+ * Статус
+ */
+'status_text': string;
 }>;
 }>> {
     const rb = new RequestBuilder(this.rootUrl, MessageService.MessageListPath, 'get');
@@ -136,6 +151,11 @@ export class MessageService extends BaseService {
         'time_add': string;
         
         /**
+         * Дата создания
+         */
+        'date': string;
+        
+        /**
          * Тема
          */
         'subject': string;
@@ -148,23 +168,33 @@ export class MessageService extends BaseService {
         /**
          * Доп. данные
          */
-        'data': {
+        'data'?: {
         };
         
         /**
          * Кому пользователь
          */
-        'to_user_id': number;
+        'to_user_id'?: number;
         
         /**
          * Кому фирма
          */
-        'to_company_id': number;
+        'to_company_id'?: number;
         
         /**
          * Кому контрагент
          */
-        'to_contractor_id': number;
+        'to_contractor_id'?: number;
+        
+        /**
+         * Статус
+         */
+        'status': string;
+        
+        /**
+         * Статус
+         */
+        'status_text': string;
         }>;
         }>;
       })
@@ -218,6 +248,11 @@ export class MessageService extends BaseService {
 'time_add': string;
 
 /**
+ * Дата создания
+ */
+'date': string;
+
+/**
  * Тема
  */
 'subject': string;
@@ -230,23 +265,33 @@ export class MessageService extends BaseService {
 /**
  * Доп. данные
  */
-'data': {
+'data'?: {
 };
 
 /**
  * Кому пользователь
  */
-'to_user_id': number;
+'to_user_id'?: number;
 
 /**
  * Кому фирма
  */
-'to_company_id': number;
+'to_company_id'?: number;
 
 /**
  * Кому контрагент
  */
-'to_contractor_id': number;
+'to_contractor_id'?: number;
+
+/**
+ * Статус
+ */
+'status': string;
+
+/**
+ * Статус
+ */
+'status_text': string;
 }>;
 }> {
     return this.messageList$Response(params, context).pipe(
@@ -273,6 +318,11 @@ export class MessageService extends BaseService {
 'time_add': string;
 
 /**
+ * Дата создания
+ */
+'date': string;
+
+/**
  * Тема
  */
 'subject': string;
@@ -285,23 +335,33 @@ export class MessageService extends BaseService {
 /**
  * Доп. данные
  */
-'data': {
+'data'?: {
 };
 
 /**
  * Кому пользователь
  */
-'to_user_id': number;
+'to_user_id'?: number;
 
 /**
  * Кому фирма
  */
-'to_company_id': number;
+'to_company_id'?: number;
 
 /**
  * Кому контрагент
  */
-'to_contractor_id': number;
+'to_contractor_id'?: number;
+
+/**
+ * Статус
+ */
+'status': string;
+
+/**
+ * Статус
+ */
+'status_text': string;
 }>;
 }>): {
 
@@ -326,6 +386,11 @@ export class MessageService extends BaseService {
 'time_add': string;
 
 /**
+ * Дата создания
+ */
+'date': string;
+
+/**
  * Тема
  */
 'subject': string;
@@ -338,23 +403,990 @@ export class MessageService extends BaseService {
 /**
  * Доп. данные
  */
-'data': {
+'data'?: {
 };
 
 /**
  * Кому пользователь
  */
-'to_user_id': number;
+'to_user_id'?: number;
 
 /**
  * Кому фирма
  */
-'to_company_id': number;
+'to_company_id'?: number;
 
 /**
  * Кому контрагент
  */
-'to_contractor_id': number;
+'to_contractor_id'?: number;
+
+/**
+ * Статус
+ */
+'status': string;
+
+/**
+ * Статус
+ */
+'status_text': string;
+}>;
+} => r.body)
+    );
+  }
+
+  /** Path part for operation `messageListParam()` */
+  static readonly MessageListParamPath = '/message_list_param';
+
+  /**
+   * Параметры вывода клиентов.
+   *
+   *
+   *
+   * This method provides access to the full `HttpResponse`, allowing access to response headers.
+   * To access only the response body, use `messageListParam()` instead.
+   *
+   * This method doesn't expect any request body.
+   */
+  messageListParam$Response(
+    params?: {
+    },
+    context?: HttpContext
+  ): Observable<StrictHttpResponse<{
+
+/**
+ * Параметры поиска
+ */
+'search'?: Array<{
+
+/**
+ * Поиск в заголовке
+ */
+'header'?: Array<{
+
+/**
+ * Переменная
+ */
+'field'?: string;
+
+/**
+ * Элемент формы
+ */
+'form'?: 'autocomplete' | 'period' | 'select' | 'text' | 'checkbox' | 'checkbox_reset';
+
+/**
+ * Наименование
+ */
+'name'?: string;
+
+/**
+ * Источник
+ */
+'source'?: string;
+
+/**
+ * Массив данных
+ */
+'array'?: Array<{
+
+/**
+ * ID
+ */
+'id'?: string;
+
+/**
+ * Наименование
+ */
+'name'?: string;
+}>;
+}>;
+
+/**
+ * Поиск основной
+ */
+'main'?: Array<{
+
+/**
+ * Переменная
+ */
+'field'?: string;
+
+/**
+ * Элемент формы
+ */
+'form'?: 'autocomplete' | 'period' | 'select' | 'text' | 'checkbox' | 'checkbox_reset';
+
+/**
+ * Наименование
+ */
+'name'?: string;
+
+/**
+ * Источник
+ */
+'source'?: string;
+
+/**
+ * Массив данных
+ */
+'array'?: Array<{
+
+/**
+ * ID
+ */
+'id'?: string;
+
+/**
+ * Наименование
+ */
+'name'?: string;
+}>;
+}>;
+
+/**
+ * Поиск расширенный
+ */
+'additional'?: Array<{
+
+/**
+ * Переменная
+ */
+'field'?: string;
+
+/**
+ * Элемент формы
+ */
+'form'?: 'autocomplete' | 'period' | 'select' | 'text' | 'checkbox' | 'checkbox_reset';
+
+/**
+ * Наименование
+ */
+'name'?: string;
+
+/**
+ * Источник
+ */
+'source'?: string;
+
+/**
+ * Массив данных
+ */
+'array'?: Array<{
+
+/**
+ * ID
+ */
+'id'?: string;
+
+/**
+ * Наименование
+ */
+'name'?: string;
+}>;
+}>;
+}>;
+
+/**
+ * Параметры таблицы
+ */
+'table'?: Array<{
+
+/**
+ * Блок колонок
+ */
+'column'?: string;
+
+/**
+ * Данные колонок
+ */
+'items'?: Array<{
+
+/**
+ * Поле
+ */
+'field'?: string;
+
+/**
+ * Заголовок поля
+ */
+'title'?: string;
+
+/**
+ * Ширина поля
+ */
+'width'?: number;
+}>;
+}>;
+
+/**
+ * Параметры сортировки
+ */
+'order'?: Array<{
+
+/**
+ * Поле
+ */
+'field'?: string;
+
+/**
+ * Сортировка по умолчанию
+ */
+'dir'?: string;
+}>;
+}>> {
+    const rb = new RequestBuilder(this.rootUrl, MessageService.MessageListParamPath, 'get');
+    if (params) {
+    }
+
+    return this.http.request(
+      rb.build({ responseType: 'json', accept: 'application/json', context })
+    ).pipe(
+      filter((r: any): r is HttpResponse<any> => r instanceof HttpResponse),
+      map((r: HttpResponse<any>) => {
+        return r as StrictHttpResponse<{
+        
+        /**
+         * Параметры поиска
+         */
+        'search'?: Array<{
+        
+        /**
+         * Поиск в заголовке
+         */
+        'header'?: Array<{
+        
+        /**
+         * Переменная
+         */
+        'field'?: string;
+        
+        /**
+         * Элемент формы
+         */
+        'form'?: 'autocomplete' | 'period' | 'select' | 'text' | 'checkbox' | 'checkbox_reset';
+        
+        /**
+         * Наименование
+         */
+        'name'?: string;
+        
+        /**
+         * Источник
+         */
+        'source'?: string;
+        
+        /**
+         * Массив данных
+         */
+        'array'?: Array<{
+        
+        /**
+         * ID
+         */
+        'id'?: string;
+        
+        /**
+         * Наименование
+         */
+        'name'?: string;
+        }>;
+        }>;
+        
+        /**
+         * Поиск основной
+         */
+        'main'?: Array<{
+        
+        /**
+         * Переменная
+         */
+        'field'?: string;
+        
+        /**
+         * Элемент формы
+         */
+        'form'?: 'autocomplete' | 'period' | 'select' | 'text' | 'checkbox' | 'checkbox_reset';
+        
+        /**
+         * Наименование
+         */
+        'name'?: string;
+        
+        /**
+         * Источник
+         */
+        'source'?: string;
+        
+        /**
+         * Массив данных
+         */
+        'array'?: Array<{
+        
+        /**
+         * ID
+         */
+        'id'?: string;
+        
+        /**
+         * Наименование
+         */
+        'name'?: string;
+        }>;
+        }>;
+        
+        /**
+         * Поиск расширенный
+         */
+        'additional'?: Array<{
+        
+        /**
+         * Переменная
+         */
+        'field'?: string;
+        
+        /**
+         * Элемент формы
+         */
+        'form'?: 'autocomplete' | 'period' | 'select' | 'text' | 'checkbox' | 'checkbox_reset';
+        
+        /**
+         * Наименование
+         */
+        'name'?: string;
+        
+        /**
+         * Источник
+         */
+        'source'?: string;
+        
+        /**
+         * Массив данных
+         */
+        'array'?: Array<{
+        
+        /**
+         * ID
+         */
+        'id'?: string;
+        
+        /**
+         * Наименование
+         */
+        'name'?: string;
+        }>;
+        }>;
+        }>;
+        
+        /**
+         * Параметры таблицы
+         */
+        'table'?: Array<{
+        
+        /**
+         * Блок колонок
+         */
+        'column'?: string;
+        
+        /**
+         * Данные колонок
+         */
+        'items'?: Array<{
+        
+        /**
+         * Поле
+         */
+        'field'?: string;
+        
+        /**
+         * Заголовок поля
+         */
+        'title'?: string;
+        
+        /**
+         * Ширина поля
+         */
+        'width'?: number;
+        }>;
+        }>;
+        
+        /**
+         * Параметры сортировки
+         */
+        'order'?: Array<{
+        
+        /**
+         * Поле
+         */
+        'field'?: string;
+        
+        /**
+         * Сортировка по умолчанию
+         */
+        'dir'?: string;
+        }>;
+        }>;
+      })
+    );
+  }
+
+  /**
+   * Параметры вывода клиентов.
+   *
+   *
+   *
+   * This method provides access only to the response body.
+   * To access the full response (for headers, for example), `messageListParam$Response()` instead.
+   *
+   * This method doesn't expect any request body.
+   */
+  messageListParam(
+    params?: {
+    },
+    context?: HttpContext
+  ): Observable<{
+
+/**
+ * Параметры поиска
+ */
+'search'?: Array<{
+
+/**
+ * Поиск в заголовке
+ */
+'header'?: Array<{
+
+/**
+ * Переменная
+ */
+'field'?: string;
+
+/**
+ * Элемент формы
+ */
+'form'?: 'autocomplete' | 'period' | 'select' | 'text' | 'checkbox' | 'checkbox_reset';
+
+/**
+ * Наименование
+ */
+'name'?: string;
+
+/**
+ * Источник
+ */
+'source'?: string;
+
+/**
+ * Массив данных
+ */
+'array'?: Array<{
+
+/**
+ * ID
+ */
+'id'?: string;
+
+/**
+ * Наименование
+ */
+'name'?: string;
+}>;
+}>;
+
+/**
+ * Поиск основной
+ */
+'main'?: Array<{
+
+/**
+ * Переменная
+ */
+'field'?: string;
+
+/**
+ * Элемент формы
+ */
+'form'?: 'autocomplete' | 'period' | 'select' | 'text' | 'checkbox' | 'checkbox_reset';
+
+/**
+ * Наименование
+ */
+'name'?: string;
+
+/**
+ * Источник
+ */
+'source'?: string;
+
+/**
+ * Массив данных
+ */
+'array'?: Array<{
+
+/**
+ * ID
+ */
+'id'?: string;
+
+/**
+ * Наименование
+ */
+'name'?: string;
+}>;
+}>;
+
+/**
+ * Поиск расширенный
+ */
+'additional'?: Array<{
+
+/**
+ * Переменная
+ */
+'field'?: string;
+
+/**
+ * Элемент формы
+ */
+'form'?: 'autocomplete' | 'period' | 'select' | 'text' | 'checkbox' | 'checkbox_reset';
+
+/**
+ * Наименование
+ */
+'name'?: string;
+
+/**
+ * Источник
+ */
+'source'?: string;
+
+/**
+ * Массив данных
+ */
+'array'?: Array<{
+
+/**
+ * ID
+ */
+'id'?: string;
+
+/**
+ * Наименование
+ */
+'name'?: string;
+}>;
+}>;
+}>;
+
+/**
+ * Параметры таблицы
+ */
+'table'?: Array<{
+
+/**
+ * Блок колонок
+ */
+'column'?: string;
+
+/**
+ * Данные колонок
+ */
+'items'?: Array<{
+
+/**
+ * Поле
+ */
+'field'?: string;
+
+/**
+ * Заголовок поля
+ */
+'title'?: string;
+
+/**
+ * Ширина поля
+ */
+'width'?: number;
+}>;
+}>;
+
+/**
+ * Параметры сортировки
+ */
+'order'?: Array<{
+
+/**
+ * Поле
+ */
+'field'?: string;
+
+/**
+ * Сортировка по умолчанию
+ */
+'dir'?: string;
+}>;
+}> {
+    return this.messageListParam$Response(params, context).pipe(
+      map((r: StrictHttpResponse<{
+
+/**
+ * Параметры поиска
+ */
+'search'?: Array<{
+
+/**
+ * Поиск в заголовке
+ */
+'header'?: Array<{
+
+/**
+ * Переменная
+ */
+'field'?: string;
+
+/**
+ * Элемент формы
+ */
+'form'?: 'autocomplete' | 'period' | 'select' | 'text' | 'checkbox' | 'checkbox_reset';
+
+/**
+ * Наименование
+ */
+'name'?: string;
+
+/**
+ * Источник
+ */
+'source'?: string;
+
+/**
+ * Массив данных
+ */
+'array'?: Array<{
+
+/**
+ * ID
+ */
+'id'?: string;
+
+/**
+ * Наименование
+ */
+'name'?: string;
+}>;
+}>;
+
+/**
+ * Поиск основной
+ */
+'main'?: Array<{
+
+/**
+ * Переменная
+ */
+'field'?: string;
+
+/**
+ * Элемент формы
+ */
+'form'?: 'autocomplete' | 'period' | 'select' | 'text' | 'checkbox' | 'checkbox_reset';
+
+/**
+ * Наименование
+ */
+'name'?: string;
+
+/**
+ * Источник
+ */
+'source'?: string;
+
+/**
+ * Массив данных
+ */
+'array'?: Array<{
+
+/**
+ * ID
+ */
+'id'?: string;
+
+/**
+ * Наименование
+ */
+'name'?: string;
+}>;
+}>;
+
+/**
+ * Поиск расширенный
+ */
+'additional'?: Array<{
+
+/**
+ * Переменная
+ */
+'field'?: string;
+
+/**
+ * Элемент формы
+ */
+'form'?: 'autocomplete' | 'period' | 'select' | 'text' | 'checkbox' | 'checkbox_reset';
+
+/**
+ * Наименование
+ */
+'name'?: string;
+
+/**
+ * Источник
+ */
+'source'?: string;
+
+/**
+ * Массив данных
+ */
+'array'?: Array<{
+
+/**
+ * ID
+ */
+'id'?: string;
+
+/**
+ * Наименование
+ */
+'name'?: string;
+}>;
+}>;
+}>;
+
+/**
+ * Параметры таблицы
+ */
+'table'?: Array<{
+
+/**
+ * Блок колонок
+ */
+'column'?: string;
+
+/**
+ * Данные колонок
+ */
+'items'?: Array<{
+
+/**
+ * Поле
+ */
+'field'?: string;
+
+/**
+ * Заголовок поля
+ */
+'title'?: string;
+
+/**
+ * Ширина поля
+ */
+'width'?: number;
+}>;
+}>;
+
+/**
+ * Параметры сортировки
+ */
+'order'?: Array<{
+
+/**
+ * Поле
+ */
+'field'?: string;
+
+/**
+ * Сортировка по умолчанию
+ */
+'dir'?: string;
+}>;
+}>): {
+
+/**
+ * Параметры поиска
+ */
+'search'?: Array<{
+
+/**
+ * Поиск в заголовке
+ */
+'header'?: Array<{
+
+/**
+ * Переменная
+ */
+'field'?: string;
+
+/**
+ * Элемент формы
+ */
+'form'?: 'autocomplete' | 'period' | 'select' | 'text' | 'checkbox' | 'checkbox_reset';
+
+/**
+ * Наименование
+ */
+'name'?: string;
+
+/**
+ * Источник
+ */
+'source'?: string;
+
+/**
+ * Массив данных
+ */
+'array'?: Array<{
+
+/**
+ * ID
+ */
+'id'?: string;
+
+/**
+ * Наименование
+ */
+'name'?: string;
+}>;
+}>;
+
+/**
+ * Поиск основной
+ */
+'main'?: Array<{
+
+/**
+ * Переменная
+ */
+'field'?: string;
+
+/**
+ * Элемент формы
+ */
+'form'?: 'autocomplete' | 'period' | 'select' | 'text' | 'checkbox' | 'checkbox_reset';
+
+/**
+ * Наименование
+ */
+'name'?: string;
+
+/**
+ * Источник
+ */
+'source'?: string;
+
+/**
+ * Массив данных
+ */
+'array'?: Array<{
+
+/**
+ * ID
+ */
+'id'?: string;
+
+/**
+ * Наименование
+ */
+'name'?: string;
+}>;
+}>;
+
+/**
+ * Поиск расширенный
+ */
+'additional'?: Array<{
+
+/**
+ * Переменная
+ */
+'field'?: string;
+
+/**
+ * Элемент формы
+ */
+'form'?: 'autocomplete' | 'period' | 'select' | 'text' | 'checkbox' | 'checkbox_reset';
+
+/**
+ * Наименование
+ */
+'name'?: string;
+
+/**
+ * Источник
+ */
+'source'?: string;
+
+/**
+ * Массив данных
+ */
+'array'?: Array<{
+
+/**
+ * ID
+ */
+'id'?: string;
+
+/**
+ * Наименование
+ */
+'name'?: string;
+}>;
+}>;
+}>;
+
+/**
+ * Параметры таблицы
+ */
+'table'?: Array<{
+
+/**
+ * Блок колонок
+ */
+'column'?: string;
+
+/**
+ * Данные колонок
+ */
+'items'?: Array<{
+
+/**
+ * Поле
+ */
+'field'?: string;
+
+/**
+ * Заголовок поля
+ */
+'title'?: string;
+
+/**
+ * Ширина поля
+ */
+'width'?: number;
+}>;
+}>;
+
+/**
+ * Параметры сортировки
+ */
+'order'?: Array<{
+
+/**
+ * Поле
+ */
+'field'?: string;
+
+/**
+ * Сортировка по умолчанию
+ */
+'dir'?: string;
 }>;
 } => r.body)
     );
@@ -380,15 +1412,9 @@ export class MessageService extends BaseService {
   ): Observable<StrictHttpResponse<{
 
 /**
- * Таблицы
+ * Статусы
  */
-'tables': Array<{
-}>;
-
-/**
- * Типы
- */
-'types': Array<{
+'status': Array<{
 }>;
 }>> {
     const rb = new RequestBuilder(this.rootUrl, MessageService.MessageFormParamPath, 'get');
@@ -403,15 +1429,9 @@ export class MessageService extends BaseService {
         return r as StrictHttpResponse<{
         
         /**
-         * Таблицы
+         * Статусы
          */
-        'tables': Array<{
-        }>;
-        
-        /**
-         * Типы
-         */
-        'types': Array<{
+        'status': Array<{
         }>;
         }>;
       })
@@ -435,43 +1455,25 @@ export class MessageService extends BaseService {
   ): Observable<{
 
 /**
- * Таблицы
+ * Статусы
  */
-'tables': Array<{
-}>;
-
-/**
- * Типы
- */
-'types': Array<{
+'status': Array<{
 }>;
 }> {
     return this.messageFormParam$Response(params, context).pipe(
       map((r: StrictHttpResponse<{
 
 /**
- * Таблицы
+ * Статусы
  */
-'tables': Array<{
-}>;
-
-/**
- * Типы
- */
-'types': Array<{
+'status': Array<{
 }>;
 }>): {
 
 /**
- * Таблицы
+ * Статусы
  */
-'tables': Array<{
-}>;
-
-/**
- * Типы
- */
-'types': Array<{
+'status': Array<{
 }>;
 } => r.body)
     );
@@ -512,23 +1514,28 @@ export class MessageService extends BaseService {
 /**
  * Доп. данные
  */
-'data': {
+'data'?: {
 };
 
 /**
  * Кому пользователь
  */
-'to_user_id': number;
+'to_user_id'?: number;
 
 /**
  * Кому фирма
  */
-'to_company_id': number;
+'to_company_id'?: number;
 
 /**
  * Кому контрагент
  */
-'to_contractor_id': number;
+'to_contractor_id'?: number;
+
+/**
+ * Статус
+ */
+'status': string;
 }
     },
     context?: HttpContext
@@ -592,23 +1599,28 @@ export class MessageService extends BaseService {
 /**
  * Доп. данные
  */
-'data': {
+'data'?: {
 };
 
 /**
  * Кому пользователь
  */
-'to_user_id': number;
+'to_user_id'?: number;
 
 /**
  * Кому фирма
  */
-'to_company_id': number;
+'to_company_id'?: number;
 
 /**
  * Кому контрагент
  */
-'to_contractor_id': number;
+'to_contractor_id'?: number;
+
+/**
+ * Статус
+ */
+'status': string;
 }
     },
     context?: HttpContext

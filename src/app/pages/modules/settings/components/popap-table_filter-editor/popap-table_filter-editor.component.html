@@ -1,3 +1,12 @@
+<button class="cross" (click)="onCancel()" style="
+  position: absolute; 
+  right: 14px; top: 14px; 
+  background: inherit; background-image: url(../../../../assets/pic-btn-cancel-black.svg);
+  height: 14px;
+  width: 14px; 
+  z-index: 2;"
+  >
+</button>
 
 <h2 mat-dialog-title style="padding: 0 40px 10px;">Добавить фильтр</h2>
 
@@ -47,5 +56,6 @@
   <!-- <button mat-button mat-dialog-close (click)="onCancel()">Отмена</button> -->
   <!-- <button mat-raised-button [mat-dialog-close]="form.value.table" (click)="onSubmit()" style="background: #DB563B; color: white; margin-right: auto;">Сохранить</button> -->
   <button mat-raised-button (click)="onSubmit()" style="background: #DB563B; color: white; margin-right: auto;">Сохранить</button>
+  
 </mat-dialog-actions>
 

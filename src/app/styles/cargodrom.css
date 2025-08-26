@@ -263,10 +263,11 @@ app-pages{ .content {min-height: 100%; height: auto; }}
 .filter .ui-select-item.selected:hover { background: #e99786; }
 
 .filter > .add { display: flex; flex-direction: column; background: #fff; border-top: 1px solid #E0E5EB; }
-.filter > .add .row { display: flex; width: 100%; }
+.filter > .add .row { display: flex; width: 100%; flex-wrap: wrap; }
 .filter > .add .item  { flex-grow: 1; }
 .filter > .add .item > div { width: 100%; }
-.filter > .add .item + .item { border-left: none; padding-left: 0; }
+/* .filter > .add .item + .item { border-left: none; padding-left: 0; } */
+.filter > .add .item + .item { border-left: none; }
 .filter > .add .item .data { margin-top: 6px; }
 .filter > .add .title { font-size: 10px; text-transform: uppercase; }
 .filter > .add input[type="text"] { font-family: regular; border: 1px solid #E0E5EB; border-radius: 6px; font-size: 14px; color: #606A74; padding: 10px 10px 10px; width: 100%; box-sizing: border-box; }
@@ -1118,7 +1119,7 @@ th.mat-header-cell:first-of-type, td.mat-cell:first-of-type, td.mat-footer-cell:
   /* min-height: 100px; */
   visibility: visible;  /* Элемент становится видимым */
   opacity: 1;           /* Элемент становится прозрачным */
-  max-height: 200px;     /* Ширина становится 200px */
+  max-height: 400px;/*   Ширина становится 200px */
   transform: translateY(0);
   transition: opacity 1s ease, max-height 1s ease, visibility 1s ease, transform 1s ease;
 }

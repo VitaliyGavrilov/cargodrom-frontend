@@ -1133,6 +1133,11 @@ export class SettingsService extends BaseService {
  * Место
  */
 'place': string;
+
+/**
+ * Место текст
+ */
+'place_text'?: string;
 }>;
 }>> {
     const rb = new RequestBuilder(this.rootUrl, SettingsService.SettingsFilterListPath, 'get');
@@ -1208,6 +1213,11 @@ export class SettingsService extends BaseService {
          * Место
          */
         'place': string;
+        
+        /**
+         * Место текст
+         */
+        'place_text'?: string;
         }>;
         }>;
       })
@@ -1304,6 +1314,11 @@ export class SettingsService extends BaseService {
  * Место
  */
 'place': string;
+
+/**
+ * Место текст
+ */
+'place_text'?: string;
 }>;
 }> {
     return this.settingsFilterList$Response(params, context).pipe(
@@ -1368,6 +1383,11 @@ export class SettingsService extends BaseService {
  * Место
  */
 'place': string;
+
+/**
+ * Место текст
+ */
+'place_text'?: string;
 }>;
 }>): {
 
@@ -1430,6 +1450,11 @@ export class SettingsService extends BaseService {
  * Место
  */
 'place': string;
+
+/**
+ * Место текст
+ */
+'place_text'?: string;
 }>;
 } => r.body)
     );

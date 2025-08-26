@@ -53,6 +53,8 @@ import { OrderEditorComponent } from './components/order-editor/order-editor.com
 import { TestPage } from './places/test-page/test-page.component';
 import { GridTableComponent } from './table/components/simple-table/grid-table.component';
 import { LoadingInterceptor } from '../loader/loader.interceptor';
+import { MessagePage } from './components/message/message.page';
+import { MessageEditorComponent } from './components/message-editor/message-editor.component';
 
 
 
@@ -111,6 +113,8 @@ import { LoadingInterceptor } from '../loader/loader.interceptor';
     EmployeeRegisterComponent,
 
     TestPage,
+    MessagePage,
+    MessageEditorComponent,
     
 
     // SimpleTableComponent,

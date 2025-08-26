@@ -1,5 +1,5 @@
 import { Component, OnInit } from "@angular/core";
-import { TableListService } from "../../table/services/table-list.service";
+import { TableListService } from "../../table-list/table-list.service";
 
 @Component({
   selector: 'app-test-page',
