@@ -1,0 +1,44 @@
+.table-list {
+  display: grid;
+  width: 100%;
+}
+
+/* Грид для header */
+.head {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(0, 1fr));
+}
+
+.head .column {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(0, 1fr));
+}
+
+.head .sub-column {
+  display: grid;
+  place-items: center;
+}
+
+/* Грид для body */
+.body {
+  display: grid;
+}
+
+.row {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(0, 1fr));
+}
+
+.row .column {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(0, 1fr));
+}
+
+.row .sub-column {
+  display: grid;
+  place-items: start;
+}
+
+.content {
+  width: 100%;
+}

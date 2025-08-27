@@ -663,8 +663,8 @@ export abstract class Table<T extends { id: number }, A = never, F = never> impl
       .pipe(
         tap((schema)=>{
           console.log('schema',schema);
-          // this.sortField = schema.sort[0].field;
-          // this.sortDir = schema.sort[0].dir;
+          this.sortField = schema.sort[0].field;
+          this.sortDir = schema.sort[0].dir;
           if (this.isBiddingMode) {
             schema.table.unshift({column:'checkbox',width:'50px', items: [{field:'', title:'', width:'100%'}]});
           }
@@ -674,8 +674,6 @@ export abstract class Table<T extends { id: number }, A = never, F = never> impl
       )
       .subscribe({
         next: (schema) => {
-          
-          
           this.filterService.setSearchFilterSchema(schema.search);
           schema.table.forEach((col:any)=>{
             this.column?.push(col.column);

@@ -55,6 +55,7 @@ import { GridTableComponent } from './table/components/simple-table/grid-table.c
 import { LoadingInterceptor } from '../loader/loader.interceptor';
 import { MessagePage } from './components/message/message.page';
 import { MessageEditorComponent } from './components/message-editor/message-editor.component';
+import { TableList } from './table-list/table-list.component';
 
 
 
@@ -115,6 +116,7 @@ import { MessageEditorComponent } from './components/message-editor/message-edit
     TestPage,
     MessagePage,
     MessageEditorComponent,
+    TableList,
     
 
     // SimpleTableComponent,

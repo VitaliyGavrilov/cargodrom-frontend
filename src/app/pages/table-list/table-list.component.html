@@ -1,0 +1,21 @@
+<!-- <div class="table-list">
+  <div class="head">
+    <div class="column" *ngFor="let column of columns" [class]="column.class" [style.width]="column.width" [style]="column.style">
+      <div class="sub-column" *ngFor="let subColumn of column.items" [class]="subColumn.class" [style.width]="subColumn.width" [style]="subColumn.style">
+        <div class="content">{{subColumn.title}}</div>
+      </div>
+    </div>
+  </div>
+  <div class="body">
+    <div class="row" *ngFor="let row of rows; let i = index" >   
+      <div class="column" *ngFor="let column of columns" [class]="column.class" [style.width]="column.width" [style]="column.style">
+        <div class="sub-column" *ngFor="let subColumn of column.items" [class]="subColumn.class" [style.width]="subColumn.width" [style]="subColumn.style" >
+          <div class="content" [ngSwitch]="subColumn.field">
+            <ng-template [ngSwitchDefault]>{{row[subColumn.field]}}</ng-template>
+            <ng-template [ngSwitchCase]="'id'">test</ng-template>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div> -->

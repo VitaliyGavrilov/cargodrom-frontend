@@ -80,7 +80,7 @@ export class AddPopupComponent implements OnInit, OnDestroy {
   get filteredPlace(){
     return this.filterPlaces.filter((el:any)=>{
       if(el.id=='header'){
-        return this.table.header && this.currentType.header
+        return this.table.header && this.currentType?.header
       } else {
         return true
       }
