@@ -46,6 +46,22 @@ export class MessageService extends BaseService {
      * Лимит позиций на страницу
      */
       count?: number;
+
+    /**
+     * Сортировка
+     */
+      sort?: Array<{
+
+/**
+ * Поле сортировки
+ */
+'field'?: 'id';
+
+/**
+ * Направление сортировки
+ */
+'dir'?: 'asc' | 'desc';
+}>;
     },
     context?: HttpContext
   ): Observable<StrictHttpResponse<{
@@ -121,6 +137,7 @@ export class MessageService extends BaseService {
     if (params) {
       rb.query('start', params.start, {});
       rb.query('count', params.count, {});
+      rb.query('sort', params.sort, {"style":"form","explode":false});
     }
 
     return this.http.request(
@@ -223,6 +240,22 @@ export class MessageService extends BaseService {
      * Лимит позиций на страницу
      */
       count?: number;
+
+    /**
+     * Сортировка
+     */
+      sort?: Array<{
+
+/**
+ * Поле сортировки
+ */
+'field'?: 'id';
+
+/**
+ * Направление сортировки
+ */
+'dir'?: 'asc' | 'desc';
+}>;
     },
     context?: HttpContext
   ): Observable<{

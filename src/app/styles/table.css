@@ -23,3 +23,16 @@
 .icon-status-7 .col-content{ background-image: url(../../assets/pic_cargo-status/7_custom_import.svg) }
 .icon-status-8 .col-content{ background-image: url(../../assets/pic_cargo-status/8_delivery.svg) }
 .icon-status-9 .col-content{ background-image: url(../../assets/pic_cargo-status/9_delivered.svg) }
+
+table{
+  --mat-table-row-item-label-text-color: var(--text);
+  --mat-table-row-item-outline-color: var(--line);
+  --mat-table-background-color: var(--background2)
+}
+table.cdk-table thead{
+  background-color: var(--background3);
+}
+
+.table,table{
+  background-color: var(--background2);
+}

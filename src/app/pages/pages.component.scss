@@ -44,6 +44,7 @@
   cursor: pointer;
 
   height: 12.5px;
+  background-color: inherit;
 }
 
 div.mat-calendar-body-cell-content{
@@ -260,6 +261,6 @@ h1.mat-dialog-title{
 
 
 .table-list .mat-mdc-table{
-  background-color: #83909E;
+  // background-color: #83909E;
   box-shadow: 0 0 5px rgba(0,0,0,0.1);
 }

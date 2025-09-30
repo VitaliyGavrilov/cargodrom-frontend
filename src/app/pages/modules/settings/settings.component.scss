@@ -18,12 +18,12 @@
 }
 
 .side-menu {
-  background: #4B66AD;
-  color: #FFFFFF;
+  background: var(--header_menu, #4B66AD);
+  color: var(--header_menu_text, #FFFFFF );
 }
 
 .side-menu a {
-  color: #FFFFFF;
+  color: var(--header_menu_text, #FFFFFF );
   text-decoration: none;
 }
 
@@ -60,7 +60,9 @@
 }
 
 .side-menu .menu-group.open {
-  background: #5B77C1;
+  // background: var(--header_menu, #5B77C1);
+  // filter: brightness(80%);
+  
 }
 
 .side-menu .menu-group.open .group-name .ico {}
@@ -96,14 +98,16 @@
 }
 
 .side-menu .menu-item.open {
-  background: #fff;
-  color: #4B66AD;
+  background: var(--background, #fff );
+  color: var(--header_menu, #4B66AD);
 }
 
 .menu-group {
   .ico{ opacity: 0.5 };
-  &.open { .ico{opacity: 1} };
-  &.open { border-bottom: 1px solid #4B66AD;};
+  &.open { 
+    border-bottom: 1px solid #4B66AD; background: color-mix(in srgb, var(--header_menu) 83%, black);
+    .ico{opacity: 1} 
+  };
 }
 .settings-common { background-image: url('../../../../assets/settings-menu/general-settings.svg'); }//общие настройки
 .settings-company-structure { background-image: url('../../../../assets/settings-menu/organization-structure.svg'); }//структура организаций

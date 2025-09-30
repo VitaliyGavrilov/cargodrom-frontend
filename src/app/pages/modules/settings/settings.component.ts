@@ -1,6 +1,6 @@
 import { Router, ActivatedRoute, NavigationEnd } from '@angular/router';
 import { Component, OnInit, ViewEncapsulation, OnDestroy } from '@angular/core';
-import { Subject, Subscription } from 'rxjs';
+import { Subject, Subscription, takeUntil, tap } from 'rxjs';
 import { MySettingsService } from '../../services/mySetting.service';
 import { MatDialog } from '@angular/material/dialog';
 
@@ -38,7 +38,12 @@ export class SettingsComponent implements OnInit, OnDestroy {
     private dialog: MatDialog,
     
   ) {
-    this.routerEventSubscription = router.events.subscribe(s => {
+    this.routerEventSubscription = router.events
+    .pipe(
+            tap(()=>{}),
+            takeUntil(this._destroy$),
+          )
+    .subscribe(s => {
       if (s instanceof NavigationEnd) {
         this.detectMenuItemAndGroup();
       }
@@ -46,7 +51,12 @@ export class SettingsComponent implements OnInit, OnDestroy {
   }
 
   ngOnInit(): void {
-    this.mySettingService.loadMenuGroups().subscribe({
+    this.mySettingService.loadMenuGroups()
+    .pipe(
+            tap(()=>{}),
+            takeUntil(this._destroy$),
+          )
+    .subscribe({
       next: () => {
         this.settings = this.mySettingService.getMenuGroups();
         this.detectMenuItemAndGroup();
@@ -57,7 +67,7 @@ export class SettingsComponent implements OnInit, OnDestroy {
   ngOnDestroy(): void {
     this._destroy$.next(null);
     this._destroy$.complete();
-    this.routerEventSubscription.unsubscribe();
+    // this.routerEventSubscription.unsubscribe();
   }
 
   openPopap(popap:any){

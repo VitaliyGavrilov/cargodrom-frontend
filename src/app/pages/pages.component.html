@@ -1,5 +1,5 @@
-<div class="content">
-  <div class="user-module">
+<div class="content" [style]="colors$ | async">
+  <div class="user-module" >
     <app-header></app-header>
     <router-outlet></router-outlet>
   </div>

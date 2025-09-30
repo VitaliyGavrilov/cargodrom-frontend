@@ -32,8 +32,9 @@ form mat-select.mat-mdc-select, /* для форм */
   background: #F7F9FC;
   font-size: 15px;
   line-height: 15px;
+  border-radius: 6px;
   .mat-mdc-select-trigger {
-    border: 1px solid #E0E5EB;
+    border: 1px solid var(--line);
     border-radius: 6px;
     padding: 0 13px; margin: 0;
     box-sizing: border-box;
@@ -206,3 +207,16 @@ mat-checkbox.mat-mdc-checkbox.reverse{
 .mat-mdc-checkbox.mat-mdc-checkbox-disabled {
   opacity: 0.4;
 } */
+
+/* optgroup */
+/* optgroup-label */
+.mat-mdc-optgroup {
+  --mat-optgroup-label-text-color: #606A74;
+  --mat-optgroup-label-text-line-height: 10px;
+  --mat-optgroup-label-text-size: 10px;
+  
+  text-transform: uppercase;  
+  /* --mat-optgroup-label-text-tracking; */
+  /* --mat-optgroup-label-text-weight; */  
+  /* --mat-optgroup-label-text-font: */
+}

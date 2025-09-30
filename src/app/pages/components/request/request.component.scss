@@ -11,11 +11,11 @@
 .kso-item{
   width: 8px;
   height: 28px;
-  background-color: #81DD7C;
+  background-color: var(--event_positive, #81DD7C);
   margin-left: 2px;
-}
-.red{
-  background-color: #FD7171;
+  &.negative{
+    background-color: var(--event_negative, #FD7171);
+  }
 }
 
 .kso-item:first-child{

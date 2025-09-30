@@ -21,7 +21,7 @@ export class LoaderService {
         if (this.activeRequests === 0) {
           this.isLoadingSubject.next(false);
         }
-      }, 1500); // Задержка скрытия
+      }, 100); // Задержка скрытия
     }
   }
 }

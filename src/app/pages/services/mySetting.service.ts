@@ -129,12 +129,11 @@ export class MySettingsService {
           canAdd: false,
           // addButtonTitle: 'Добавить подразделение'
         },
-        // {
-        //   title: 'Брендирование',
-        //   link: './branding',
-        //   canAdd: false,
-        //   // addButtonTitle: 'Добавить должность'
-        // },
+        {
+          title: 'Брендирование',
+          link: './branding',
+          canAdd: false,
+        },
         {
           title: 'Уведомления',
           link: './notifications',

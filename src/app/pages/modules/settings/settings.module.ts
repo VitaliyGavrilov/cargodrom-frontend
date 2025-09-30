@@ -23,6 +23,8 @@ import { AddPopupComponent } from './components/popap-table_filter-editor/popap-
 import { PagesModule } from '../../pages.module';
 import { GeneralSettingsComponent } from './components/general-settings/general-settings.component';
 import { NotificationsComponent } from './components/notifications/notifications.component';
+import { BrandingComponent } from './components/branding/branding.component';
+import { HeaderComponent } from '../../components/header/header.component';
 
 
 
@@ -46,6 +48,7 @@ import { NotificationsComponent } from './components/notifications/notifications
     AddPopupComponent,
     GeneralSettingsComponent,
     NotificationsComponent,
+    BrandingComponent,
     
   ],
   imports: [
@@ -54,6 +57,7 @@ import { NotificationsComponent } from './components/notifications/notifications
     FormsModule,
     ReactiveFormsModule,
     SettingsRoutingModule,
+    PagesModule,
   ]
 })
 export class SettingsModule { }

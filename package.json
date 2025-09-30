@@ -5,12 +5,18 @@
     "ng": "ng",
     "start": "ng serve",
     "start:port": "ng serve --port 3434",
-    "build": "ng build --base-href /cargodrom-frontend",
+    "build": "ng build --configuration development --base-href /cargodrom-frontend",
     "watch": "ng build --watch --configuration development",
     "test": "ng test",
     "api": "ng-openapi-gen -i https://dev.cargodrom.com/openapi2.php",
-    "build:github": "ng build --configuration production --base-href https://TriviumStudio.github.io/cargodrom-frontend/",
-    "test:headless": "ng test --watch=false --browsers=ChromeHeadless"
+    "build:github": "ng build --configuration development --base-href https://TriviumStudio.github.io/cargodrom-frontend/",
+    "test:headless": "ng test --watch=false --browsers=ChromeHeadless",
+
+    "build-prod_in_crm": "ng build --configuration production --base-href /crm/ --output-path dist/crm",
+    "build_test_prod": "ng build --configuration production --base-href /prod/ --output-path dist/test-prod",
+    "build_test_dev": "ng build --configuration development --base-href /dev/ --output-path dist/test-dev",
+    "build_test_both": "npm run build_test_prod && npm run build_test_dev"
+
   },
   "private": true,
   "dependencies": {

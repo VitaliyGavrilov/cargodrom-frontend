@@ -1,6 +1,7 @@
 .subheader{
   display: flex;
   align-items: center;
+  background-color: var(--background2, white);
 }
 
 .btns-file{
@@ -17,7 +18,7 @@
     font-size: 13px;
     line-height: 13px;
     letter-spacing: normal;
-    color: #606A74;
+    color: var(--text2, #606A74);
     cursor: pointer;
     padding: 6px;
     div{

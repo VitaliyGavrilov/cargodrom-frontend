@@ -15,7 +15,7 @@ import { DomSanitizer, SafeHtml } from '@angular/platform-browser';
   selector: 'app-request',
   templateUrl: './request.component.html',
   styleUrls: ['./request.component.scss'],
-  encapsulation: ViewEncapsulation.None,
+  // encapsulation: ViewEncapsulation.None,
   providers: [FilterService]
 })
 

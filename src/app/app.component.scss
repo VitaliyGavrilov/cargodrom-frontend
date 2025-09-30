@@ -9,8 +9,17 @@
 // }
 
 
-  
 
+.demo{
+  app-header, app-table-sunheader-file, app-editor-header, .subheader.component{
+    position: static;
+  }
+  app-request, app-contractor, app-client{
+  app-table-filter{
+    position: static;
+  }
+}
+}
 app-header, app-table-sunheader-file, app-editor-header, .subheader.component{
   position: sticky;
   top: 0;
@@ -20,7 +29,7 @@ app-header, app-table-sunheader-file, app-editor-header, .subheader.component{
 }
 app-table-sunheader-file, app-editor-header, .subheader.component{
   .subheader{
-    border-top: 1px solid #4B66AD;
+    border-top: 1px solid var(--header_menu,#4B66AD);
   }
   top: 56px;
 }
@@ -36,8 +45,8 @@ app-request, app-contractor, app-client{
     right: 0;
     z-index: 100;
     .filter{
-      background-color: #f7f9fc;
-      border-bottom: 1px solid #E0E5EB;
+      background-color: var(--background, #f7f9fc);
+      border-bottom: 1px solid var(--line, #E0E5EB);
     }
   }
 }
@@ -83,7 +92,7 @@ ng-scrollbar.ng-scrollbar  {
   background-color: red;
 }
 table a.link{
-  color: rgba(0, 0, 0, 0.87);
+  color: var(--text, rgba(0, 0, 0, 0.87));
 }
 
 

@@ -1,6 +1,14 @@
 <div class="header">
   <div class="main-menu">
+    <!-- <a *ngIf="logoUrl$ | async==''" class="logo" href="/erp"></a>
+    <img *ngIf="logoUrl$ | async!=''" [src]="logoUrl$ | async" alt="logo" routerLink="./erp" style="cursor: pointer;"> -->
+
+    <!-- <a *ngIf="(logoUrl$ | async) == ''" class="logo" href="/erp"></a> -->
+    <!-- Показываем картинку логотипа если она есть -->
+    <!-- <img *ngIf="(logoUrl$ | async) != ''" [src]="logoUrl$ | async" alt="logo" routerLink="./erp" style="cursor: pointer;"> -->
+
     <a class="logo" href="/erp"></a>
+
     <a class="item dashboard" routerLink="./dashboard" routerLinkActive="sel">
       <svg width="18" height="18" viewBox="0 0 18 18" fill="none" xmlns="http://www.w3.org/2000/svg">
         <path
@@ -116,7 +124,7 @@
       <span>Справочник</span>
     </a>
     
-    <span class="div"></span>
+    <span class="div" style="min-width: 15px;"></span>
     
     <div class="triger" [matMenuTriggerFor]="animals" (click)="updateCurrency()">
       <ng-container *ngFor="let cur of currencyList" >

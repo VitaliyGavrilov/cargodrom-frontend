@@ -15,6 +15,7 @@ import { ClientGroupEditorComponent } from './components/client-group-editor/cli
 import { FilterListComponent } from './components/filter-list/filter-list.component';
 import { GeneralSettingsComponent } from './components/general-settings/general-settings.component';
 import { NotificationsComponent } from './components/notifications/notifications.component';
+import { BrandingComponent } from './components/branding/branding.component';
 
 const routes: Routes = [
   {
@@ -76,7 +77,7 @@ const routes: Routes = [
       },
       {
         path: 'branding',
-        component: FilterListComponent,
+        component: BrandingComponent,
         pathMatch: 'full',
         title: 'Брендирование',
       },

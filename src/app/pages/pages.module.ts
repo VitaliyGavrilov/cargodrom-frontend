@@ -56,6 +56,10 @@ import { LoadingInterceptor } from '../loader/loader.interceptor';
 import { MessagePage } from './components/message/message.page';
 import { MessageEditorComponent } from './components/message-editor/message-editor.component';
 import { TableList } from './table-list/table-list.component';
+import { BaseTableComponent } from './table/components/base-table/base-table.componet';
+import { CustomersTableComponent } from './table/components/base-table/customers-table.component';
+import { SettingsModule } from './modules/settings/settings.module';
+import { IconComponent } from './icon/icon.component';
 
 
 
@@ -120,6 +124,9 @@ import { TableList } from './table-list/table-list.component';
     
 
     // SimpleTableComponent,
+    BaseTableComponent,
+    CustomersTableComponent,
+    IconComponent
 
   ],
   imports: [
@@ -130,6 +137,7 @@ import { TableList } from './table-list/table-list.component';
     MaterialModule,
     FilterModule,
     NgScrollbarModule,
-  ]
+  ],
+  exports: [HeaderComponent, RequestComponent, IconComponent]
 })
 export class PagesModule { }

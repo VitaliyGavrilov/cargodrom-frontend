@@ -1,0 +1,189 @@
+.brending-menu{
+  display: flex; 
+  width: 100%; 
+  border-bottom: 1px solid #C3CCD6; 
+  gap:40px;
+  .pages{
+    display: flex; 
+    width: 45%;
+    flex-grow: 1;
+    .page{
+      padding: 12px 24px;
+      border: 1px solid #C3CCD6;
+      font-size: 15px;
+      font-style: normal;
+      font-weight: 700;
+      line-height: 22px;
+      cursor: pointer;
+      border-bottom: none;
+    }
+  }
+  .btns{
+    display: flex;
+    width: 715px;
+    min-width: 715px;
+    padding: 0 40px;
+    box-sizing: border-box;
+    gap: 40px;
+    button{
+      display: flex;
+      width: 170px; flex-grow: 1;
+      font-size: 13px; font-style: normal; font-weight: 400; line-height: 18px;
+      background-color: inherit;
+      padding: 12px 0;
+    }
+    app-icon{
+      margin-right: 8px;
+    }
+  }
+}
+.brending-form{
+  display: flex;
+  flex-wrap: wrap;
+  gap:40px;
+  .demo{
+    width: 45%;
+    flex-grow: 1;
+    svg{ width: 100%; height: auto;}
+  }
+  .inputs{
+    display: flex; 
+    width: 715px;
+    padding: 0 40px; 
+    box-sizing: border-box; 
+    gap: 20px 40px; 
+    
+    flex-wrap: wrap; 
+    align-items: end; align-content: flex-start;
+    .input{width: 184px; flex-grow: 0; height: fit-content;}
+  }
+}
+@media (max-width: 1750px) {
+  .brending-form{
+    
+    .inputs{
+      width: 100%;
+      
+    }
+    .demo{
+      width: 100%;
+      
+    }
+  }
+}
+.form-row:not(:last-child){
+  gap: 24px;
+  display: flex;
+  flex-direction: column;
+  .info{
+    width: 720px;
+    padding-left: 16px;
+    border-left: 2px solid #DB563B;
+    color: #606A74;
+    box-sizing:content-box;
+  }
+}
+
+.color{
+  position: relative;
+  input{
+    padding-left: 90px;
+  }
+  
+}
+.color::before{
+  content: '';
+  display: block;
+  position: absolute;
+  width: 64px;
+  height: 12px;
+  margin: auto 0 ;
+  top: calc(50% - 6px);
+  left: 16px;
+  background-color: var(--input-color);
+  border: 1px solid #E0E5EB;
+  
+}
+mat-option .color::before{
+  left:0
+}
+mat-option .color div{
+  margin-left: 74px;
+}
+
+.logo-input{
+  position: relative;
+  max-width: 720px;
+  width: 50%;
+  cursor: pointer;
+}
+
+// .logo-input::after, .logo-input::before{
+//   content: '';
+//   width: 40px;
+//   height: 38px;
+//   display: block;
+//   position: absolute;
+//   background-color: white;
+//   background-position: center;
+//   background-repeat: no-repeat;
+// }
+// .logo-input::after{
+//   right: 1px;
+//   top:1px;
+//   border-top-right-radius: 6px;
+//   border-bottom-right-radius: 6px;
+//   background-image: url(../../../../../../assets/pic-btn-del-gray.svg);
+// }
+// .logo-input::before{
+//   right: 41px;
+//   top:1px;
+//   border-right: 1px solid #E0E5EB;
+//   border-left: 1px solid #E0E5EB;
+//   background-image: url(../../../../../../assets/pic-btn-edit.svg);
+// }
+
+.logo-input{
+  button{
+    width: 40px;
+    height: 38px;
+    display: block;
+    position: absolute;
+    background-color: white;
+  }
+  button.edit{
+    right: 41px;
+    top:1px;
+    border-right: 1px solid #E0E5EB;
+    border-left: 1px solid #E0E5EB;
+  }
+  button.delete-gr{
+    right: 1px;
+    top:1px;
+    border-top-right-radius: 6px;
+    border-bottom-right-radius: 6px; 
+  }
+}
+
+.demo .page{
+  width: 720px;
+  height: 384px;
+  border: 1px solid #C3CCD6;
+  .header {
+    display: flex;
+    height: 21px;
+    background-color: var(--header_menu);
+    .name{
+      color: var(--header_menu_text);
+    }
+  }
+  
+}
+
+.sony{
+  background-image: url('https://dev.cargodrom.com//content/branding/327.fe3cfe712b34f56b042054f9665bec7d/logo.jpg');
+  width: 100px; height: 100px;
+  background-position: center;
+  background-size: cover;
+  
+}

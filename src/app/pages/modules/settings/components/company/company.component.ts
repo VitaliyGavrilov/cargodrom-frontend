@@ -34,12 +34,11 @@ export class CompanyComponent extends Table<Company> {
 
   override ngOnInit(): void {
     super.ngOnInit();
-    this.loadRows()
+    this.loadRows();
   }
 
   load<Company>(params: { start?: number; count?: number; sort?: SortColumn<Company>[]; }): Observable<{ total: number; items: Company[]; }> {
-
-
+    console.log('Company');
     return this.companyService.companyList(params as any) as unknown as Observable<{ total: number; items: Company[]; }>;
   }
 

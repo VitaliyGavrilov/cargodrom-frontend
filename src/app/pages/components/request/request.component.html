@@ -70,9 +70,9 @@
               </ng-template>
               <ng-template [ngSwitchCase]="'kso'">
                 <div class="kso-block">
-                  <div class="kso-item" [ngClass]="item.kso.k.active?'':'red'"></div>
-                  <div class="kso-item" [ngClass]="item.kso.s.active?'':'red'"></div>
-                  <div class="kso-item" [ngClass]="item.kso.o.active?'':'red'"></div>
+                  <div class="kso-item" [ngClass]="item.kso.k.active?'':'negative'"></div>
+                  <div class="kso-item" [ngClass]="item.kso.s.active?'':'negative'"></div>
+                  <div class="kso-item" [ngClass]="item.kso.o.active?'':'negative'"></div>
                 </div>
               </ng-template>
               <ng-template [ngSwitchCase]="'customer_name'" >
@@ -154,4 +154,4 @@
 
 </div>
 
-<!-- <app-table-list></app-table-list> -->
+<app-table-list></app-table-list>

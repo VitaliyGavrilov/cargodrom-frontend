@@ -1,8 +1,9 @@
 import { Component, OnInit, TemplateRef, ViewChild } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
-import { interval, startWith, Subject, switchMap, takeUntil, tap } from 'rxjs';
+import { interval, Observable, startWith, Subject, switchMap, takeUntil, tap } from 'rxjs';
 import { MessageService, SystemService } from 'src/app/api/services';
 import { CurrencyService } from '../../services/сurrency/currency.service';
+import { BrandingService } from '../../pages.service';
 
 @Component({
   selector: 'app-header',
@@ -11,6 +12,8 @@ import { CurrencyService } from '../../services/сurrency/currency.service';
 })
 export class HeaderComponent implements OnInit {
   private _destroy$ = new Subject();
+
+  logoUrl$: Observable<string>;
 
   // isVisiblePopap = false;
 
@@ -26,9 +29,12 @@ export class HeaderComponent implements OnInit {
     private matDialog: MatDialog,
     private currencyService: CurrencyService,
     private messageService: MessageService,
-  ) { }
+    private pageService: BrandingService,
+
+  ) {this.logoUrl$ = this.pageService.getLogoLink(); }
 
   ngOnInit(): void {
+    
     // this.updateCurrency();
     this.subscribeCurrency();
     this.subscribeSummary();

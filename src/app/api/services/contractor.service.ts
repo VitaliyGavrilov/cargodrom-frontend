@@ -208,7 +208,7 @@ export class ContractorService extends BaseService {
 'allow_trade'?: boolean;
 
 /**
- * Валюта
+ * Валюта (ID берем из запроса - system_currency)
  */
 'currency'?: number;
 
@@ -308,6 +308,11 @@ export class ContractorService extends BaseService {
 'id': number;
 
 /**
+ * ФИО
+ */
+'name'?: string;
+
+/**
  * Фамилия
  */
 'name_f'?: string;
@@ -321,11 +326,6 @@ export class ContractorService extends BaseService {
  * Отчество
  */
 'name_o'?: string;
-
-/**
- * ФИО
- */
-'name'?: string;
 
 /**
  * Должность
@@ -611,7 +611,7 @@ export class ContractorService extends BaseService {
         'allow_trade'?: boolean;
         
         /**
-         * Валюта
+         * Валюта (ID берем из запроса - system_currency)
          */
         'currency'?: number;
         
@@ -711,6 +711,11 @@ export class ContractorService extends BaseService {
         'id': number;
         
         /**
+         * ФИО
+         */
+        'name'?: string;
+        
+        /**
          * Фамилия
          */
         'name_f'?: string;
@@ -724,11 +729,6 @@ export class ContractorService extends BaseService {
          * Отчество
          */
         'name_o'?: string;
-        
-        /**
-         * ФИО
-         */
-        'name'?: string;
         
         /**
          * Должность
@@ -1051,7 +1051,7 @@ export class ContractorService extends BaseService {
 'allow_trade'?: boolean;
 
 /**
- * Валюта
+ * Валюта (ID берем из запроса - system_currency)
  */
 'currency'?: number;
 
@@ -1151,6 +1151,11 @@ export class ContractorService extends BaseService {
 'id': number;
 
 /**
+ * ФИО
+ */
+'name'?: string;
+
+/**
  * Фамилия
  */
 'name_f'?: string;
@@ -1164,11 +1169,6 @@ export class ContractorService extends BaseService {
  * Отчество
  */
 'name_o'?: string;
-
-/**
- * ФИО
- */
-'name'?: string;
 
 /**
  * Должность
@@ -1442,7 +1442,7 @@ export class ContractorService extends BaseService {
 'allow_trade'?: boolean;
 
 /**
- * Валюта
+ * Валюта (ID берем из запроса - system_currency)
  */
 'currency'?: number;
 
@@ -1542,6 +1542,11 @@ export class ContractorService extends BaseService {
 'id': number;
 
 /**
+ * ФИО
+ */
+'name'?: string;
+
+/**
  * Фамилия
  */
 'name_f'?: string;
@@ -1555,11 +1560,6 @@ export class ContractorService extends BaseService {
  * Отчество
  */
 'name_o'?: string;
-
-/**
- * ФИО
- */
-'name'?: string;
 
 /**
  * Должность
@@ -1831,7 +1831,7 @@ export class ContractorService extends BaseService {
 'allow_trade'?: boolean;
 
 /**
- * Валюта
+ * Валюта (ID берем из запроса - system_currency)
  */
 'currency'?: number;
 
@@ -1931,6 +1931,11 @@ export class ContractorService extends BaseService {
 'id': number;
 
 /**
+ * ФИО
+ */
+'name'?: string;
+
+/**
  * Фамилия
  */
 'name_f'?: string;
@@ -1944,11 +1949,6 @@ export class ContractorService extends BaseService {
  * Отчество
  */
 'name_o'?: string;
-
-/**
- * ФИО
- */
-'name'?: string;
 
 /**
  * Должность
@@ -3193,7 +3193,7 @@ export class ContractorService extends BaseService {
 'allow_trade'?: boolean;
 
 /**
- * Валюта
+ * Валюта (ID берем из запроса - system_currency)
  */
 'currency'?: number;
 
@@ -3293,6 +3293,11 @@ export class ContractorService extends BaseService {
 'id': number;
 
 /**
+ * ФИО
+ */
+'name'?: string;
+
+/**
  * Фамилия
  */
 'name_f'?: string;
@@ -3306,11 +3311,6 @@ export class ContractorService extends BaseService {
  * Отчество
  */
 'name_o'?: string;
-
-/**
- * ФИО
- */
-'name'?: string;
 
 /**
  * Должность
@@ -3582,7 +3582,7 @@ export class ContractorService extends BaseService {
         'allow_trade'?: boolean;
         
         /**
-         * Валюта
+         * Валюта (ID берем из запроса - system_currency)
          */
         'currency'?: number;
         
@@ -3682,6 +3682,11 @@ export class ContractorService extends BaseService {
         'id': number;
         
         /**
+         * ФИО
+         */
+        'name'?: string;
+        
+        /**
          * Фамилия
          */
         'name_f'?: string;
@@ -3695,11 +3700,6 @@ export class ContractorService extends BaseService {
          * Отчество
          */
         'name_o'?: string;
-        
-        /**
-         * ФИО
-         */
-        'name'?: string;
         
         /**
          * Должность
@@ -3984,7 +3984,7 @@ export class ContractorService extends BaseService {
 'allow_trade'?: boolean;
 
 /**
- * Валюта
+ * Валюта (ID берем из запроса - system_currency)
  */
 'currency'?: number;
 
@@ -4084,6 +4084,11 @@ export class ContractorService extends BaseService {
 'id': number;
 
 /**
+ * ФИО
+ */
+'name'?: string;
+
+/**
  * Фамилия
  */
 'name_f'?: string;
@@ -4097,11 +4102,6 @@ export class ContractorService extends BaseService {
  * Отчество
  */
 'name_o'?: string;
-
-/**
- * ФИО
- */
-'name'?: string;
 
 /**
  * Должность
@@ -4364,7 +4364,7 @@ export class ContractorService extends BaseService {
 'allow_trade'?: boolean;
 
 /**
- * Валюта
+ * Валюта (ID берем из запроса - system_currency)
  */
 'currency'?: number;
 
@@ -4464,6 +4464,11 @@ export class ContractorService extends BaseService {
 'id': number;
 
 /**
+ * ФИО
+ */
+'name'?: string;
+
+/**
  * Фамилия
  */
 'name_f'?: string;
@@ -4477,11 +4482,6 @@ export class ContractorService extends BaseService {
  * Отчество
  */
 'name_o'?: string;
-
-/**
- * ФИО
- */
-'name'?: string;
 
 /**
  * Должность
@@ -4742,7 +4742,7 @@ export class ContractorService extends BaseService {
 'allow_trade'?: boolean;
 
 /**
- * Валюта
+ * Валюта (ID берем из запроса - system_currency)
  */
 'currency'?: number;
 
@@ -4842,6 +4842,11 @@ export class ContractorService extends BaseService {
 'id': number;
 
 /**
+ * ФИО
+ */
+'name'?: string;
+
+/**
  * Фамилия
  */
 'name_f'?: string;
@@ -4855,11 +4860,6 @@ export class ContractorService extends BaseService {
  * Отчество
  */
 'name_o'?: string;
-
-/**
- * ФИО
- */
-'name'?: string;
 
 /**
  * Должность
@@ -5089,7 +5089,7 @@ export class ContractorService extends BaseService {
 'allow_trade'?: boolean;
 
 /**
- * Валюта
+ * Валюта (ID берем из запроса - system_currency)
  */
 'currency': number;
 
@@ -5097,6 +5097,11 @@ export class ContractorService extends BaseService {
  * Контактные лица
  */
 'contacts'?: Array<{
+
+/**
+ * ФИО
+ */
+'name'?: string;
 
 /**
  * Фамилия
@@ -5310,7 +5315,7 @@ export class ContractorService extends BaseService {
 'allow_trade'?: boolean;
 
 /**
- * Валюта
+ * Валюта (ID берем из запроса - system_currency)
  */
 'currency': number;
 
@@ -5318,6 +5323,11 @@ export class ContractorService extends BaseService {
  * Контактные лица
  */
 'contacts'?: Array<{
+
+/**
+ * ФИО
+ */
+'name'?: string;
 
 /**
  * Фамилия
@@ -5540,7 +5550,7 @@ export class ContractorService extends BaseService {
 'allow_trade'?: boolean;
 
 /**
- * Валюта
+ * Валюта (ID берем из запроса - system_currency)
  */
 'currency'?: number;
 
@@ -5553,6 +5563,11 @@ export class ContractorService extends BaseService {
  * ID
  */
 'id'?: number;
+
+/**
+ * ФИО
+ */
+'name'?: string;
 
 /**
  * Фамилия
@@ -5761,7 +5776,7 @@ export class ContractorService extends BaseService {
 'allow_trade'?: boolean;
 
 /**
- * Валюта
+ * Валюта (ID берем из запроса - system_currency)
  */
 'currency'?: number;
 
@@ -5774,6 +5789,11 @@ export class ContractorService extends BaseService {
  * ID
  */
 'id'?: number;
+
+/**
+ * ФИО
+ */
+'name'?: string;
 
 /**
  * Фамилия
@@ -6036,6 +6056,11 @@ export class ContractorService extends BaseService {
 'id': number;
 
 /**
+ * ФИО
+ */
+'name'?: string;
+
+/**
  * Фамилия
  */
 'name_f'?: string;
@@ -6049,11 +6074,6 @@ export class ContractorService extends BaseService {
  * Отчество
  */
 'name_o'?: string;
-
-/**
- * ФИО
- */
-'name'?: string;
 
 /**
  * Должность
@@ -6157,6 +6177,11 @@ export class ContractorService extends BaseService {
         'id': number;
         
         /**
+         * ФИО
+         */
+        'name'?: string;
+        
+        /**
          * Фамилия
          */
         'name_f'?: string;
@@ -6170,11 +6195,6 @@ export class ContractorService extends BaseService {
          * Отчество
          */
         'name_o'?: string;
-        
-        /**
-         * ФИО
-         */
-        'name'?: string;
         
         /**
          * Должность
@@ -6314,6 +6334,11 @@ export class ContractorService extends BaseService {
 'id': number;
 
 /**
+ * ФИО
+ */
+'name'?: string;
+
+/**
  * Фамилия
  */
 'name_f'?: string;
@@ -6327,11 +6352,6 @@ export class ContractorService extends BaseService {
  * Отчество
  */
 'name_o'?: string;
-
-/**
- * ФИО
- */
-'name'?: string;
 
 /**
  * Должность
@@ -6423,6 +6443,11 @@ export class ContractorService extends BaseService {
 'id': number;
 
 /**
+ * ФИО
+ */
+'name'?: string;
+
+/**
  * Фамилия
  */
 'name_f'?: string;
@@ -6436,11 +6461,6 @@ export class ContractorService extends BaseService {
  * Отчество
  */
 'name_o'?: string;
-
-/**
- * ФИО
- */
-'name'?: string;
 
 /**
  * Должность
@@ -6530,6 +6550,11 @@ export class ContractorService extends BaseService {
 'id': number;
 
 /**
+ * ФИО
+ */
+'name'?: string;
+
+/**
  * Фамилия
  */
 'name_f'?: string;
@@ -6543,11 +6568,6 @@ export class ContractorService extends BaseService {
  * Отчество
  */
 'name_o'?: string;
-
-/**
- * ФИО
- */
-'name'?: string;
 
 /**
  * Должность
@@ -6663,6 +6683,11 @@ export class ContractorService extends BaseService {
 'id': number;
 
 /**
+ * ФИО
+ */
+'name'?: string;
+
+/**
  * Фамилия
  */
 'name_f'?: string;
@@ -6676,11 +6701,6 @@ export class ContractorService extends BaseService {
  * Отчество
  */
 'name_o'?: string;
-
-/**
- * ФИО
- */
-'name'?: string;
 
 /**
  * Должность
@@ -6781,6 +6801,11 @@ export class ContractorService extends BaseService {
         'id': number;
         
         /**
+         * ФИО
+         */
+        'name'?: string;
+        
+        /**
          * Фамилия
          */
         'name_f'?: string;
@@ -6794,11 +6819,6 @@ export class ContractorService extends BaseService {
          * Отчество
          */
         'name_o'?: string;
-        
-        /**
-         * ФИО
-         */
-        'name'?: string;
         
         /**
          * Должность
@@ -6912,6 +6932,11 @@ export class ContractorService extends BaseService {
 'id': number;
 
 /**
+ * ФИО
+ */
+'name'?: string;
+
+/**
  * Фамилия
  */
 'name_f'?: string;
@@ -6925,11 +6950,6 @@ export class ContractorService extends BaseService {
  * Отчество
  */
 'name_o'?: string;
-
-/**
- * ФИО
- */
-'name'?: string;
 
 /**
  * Должность
@@ -7021,6 +7041,11 @@ export class ContractorService extends BaseService {
 'id': number;
 
 /**
+ * ФИО
+ */
+'name'?: string;
+
+/**
  * Фамилия
  */
 'name_f'?: string;
@@ -7034,11 +7059,6 @@ export class ContractorService extends BaseService {
  * Отчество
  */
 'name_o'?: string;
-
-/**
- * ФИО
- */
-'name'?: string;
 
 /**
  * Должность
@@ -7128,6 +7148,11 @@ export class ContractorService extends BaseService {
 'id': number;
 
 /**
+ * ФИО
+ */
+'name'?: string;
+
+/**
  * Фамилия
  */
 'name_f'?: string;
@@ -7141,11 +7166,6 @@ export class ContractorService extends BaseService {
  * Отчество
  */
 'name_o'?: string;
-
-/**
- * ФИО
- */
-'name'?: string;
 
 /**
  * Должность
@@ -7252,6 +7272,11 @@ export class ContractorService extends BaseService {
  * ID подрядчика
  */
 'contractor_id': number;
+
+/**
+ * ФИО
+ */
+'name': string;
 
 /**
  * Фамилия
@@ -7392,6 +7417,11 @@ export class ContractorService extends BaseService {
  * ID подрядчика
  */
 'contractor_id': number;
+
+/**
+ * ФИО
+ */
+'name': string;
 
 /**
  * Фамилия
@@ -7543,6 +7573,11 @@ export class ContractorService extends BaseService {
 'contractor_id'?: number;
 
 /**
+ * ФИО
+ */
+'name'?: string;
+
+/**
  * Фамилия
  */
 'name_f'?: string;
@@ -7676,6 +7711,11 @@ export class ContractorService extends BaseService {
  * ID подрядчика
  */
 'contractor_id'?: number;
+
+/**
+ * ФИО
+ */
+'name'?: string;
 
 /**
  * Фамилия

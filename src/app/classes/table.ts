@@ -174,6 +174,10 @@ export abstract class Table<T extends { id: number }, A = never, F = never> impl
     //   ? { request_id:this.requestId, method: this.detailsMethod, start: this.start, count: this.count, ...this.filter }
     //   : { start: this.start, count: this.count, sort: JSON.stringify(sortCol) as unknown as SortColumn<T>[], ...this.filter  };
     this.load(params as any)
+    .pipe(
+        tap(()=>{}),
+        takeUntil(this.destroy$),
+      )
     // this.tableService.getRows(params)
       .subscribe(rows => {
         console.log('rows', rows);
@@ -663,8 +667,6 @@ export abstract class Table<T extends { id: number }, A = never, F = never> impl
       .pipe(
         tap((schema)=>{
           console.log('schema',schema);
-          this.sortField = schema.sort[0].field;
-          this.sortDir = schema.sort[0].dir;
           if (this.isBiddingMode) {
             schema.table.unshift({column:'checkbox',width:'50px', items: [{field:'', title:'', width:'100%'}]});
           }
@@ -674,6 +676,9 @@ export abstract class Table<T extends { id: number }, A = never, F = never> impl
       )
       .subscribe({
         next: (schema) => {
+          this.sortField = schema.sort[0]?.field;
+          this.sortDir = schema.sort[0]?.dir;
+
           this.filterService.setSearchFilterSchema(schema.search);
           schema.table.forEach((col:any)=>{
             this.column?.push(col.column);
@@ -685,10 +690,11 @@ export abstract class Table<T extends { id: number }, A = never, F = never> impl
           if(schema.status){
             this.requestCrmStatuses=schema.status;
           }
-        },
-        error: (err) => this.snackBar.open(`Ошибка получения параметров вывода таблицы ` + err.error.error_message, undefined, this.snackBarWithShortDuration) ,
-        complete:()=> {
           this.subscribeRouteQueryParamMap();
+        },
+        error: (err) => this.snackBar.open(`Ошибка получения параметров вывода таблицы ` + err?.error?.error_message, undefined, this.snackBarWithShortDuration) ,
+        complete:()=> {
+          // this.subscribeRouteQueryParamMap();
         }
       });
   }

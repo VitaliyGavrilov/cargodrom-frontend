@@ -8,7 +8,7 @@ import { MatDialog } from '@angular/material/dialog';
   selector: 'app-table-sunheader-file',
   templateUrl: './file-subheader.component.html',
   styleUrls: ['./file-subheader.component.scss'],
-  encapsulation: ViewEncapsulation.None
+  // encapsulation: ViewEncapsulation.None
 })
 export class TableSubheaderFileComponent implements OnInit {
 

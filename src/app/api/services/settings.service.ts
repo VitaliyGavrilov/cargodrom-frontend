@@ -81,6 +81,17 @@ export class SettingsService extends BaseService {
 'branding_logo'?: string;
 
 /**
+ * Брендирование: Имя файла логотипа
+ */
+'branding_logo_name'?: string;
+
+/**
+ * Брендирование: Использование брендовых цветов
+ */
+'branding_colors'?: {
+};
+
+/**
  * Виды налогообложения
  */
 'tax'?: Array<{
@@ -198,6 +209,12 @@ export class SettingsService extends BaseService {
  * Стартовая страница
  */
 'start_page'?: string;
+
+/**
+ * Цвета
+ */
+'colors'?: {
+};
 }>> {
     const rb = new RequestBuilder(this.rootUrl, SettingsService.SettingsGetPath, 'get');
     if (params) {
@@ -249,6 +266,17 @@ export class SettingsService extends BaseService {
          * Брендирование: Логотип вашей компании, url
          */
         'branding_logo'?: string;
+        
+        /**
+         * Брендирование: Имя файла логотипа
+         */
+        'branding_logo_name'?: string;
+        
+        /**
+         * Брендирование: Использование брендовых цветов
+         */
+        'branding_colors'?: {
+        };
         
         /**
          * Виды налогообложения
@@ -368,6 +396,12 @@ export class SettingsService extends BaseService {
          * Стартовая страница
          */
         'start_page'?: string;
+        
+        /**
+         * Цвета
+         */
+        'colors'?: {
+        };
         }>;
       })
     );
@@ -430,6 +464,17 @@ export class SettingsService extends BaseService {
 'branding_logo'?: string;
 
 /**
+ * Брендирование: Имя файла логотипа
+ */
+'branding_logo_name'?: string;
+
+/**
+ * Брендирование: Использование брендовых цветов
+ */
+'branding_colors'?: {
+};
+
+/**
  * Виды налогообложения
  */
 'tax'?: Array<{
@@ -547,6 +592,12 @@ export class SettingsService extends BaseService {
  * Стартовая страница
  */
 'start_page'?: string;
+
+/**
+ * Цвета
+ */
+'colors'?: {
+};
 }> {
     return this.settingsGet$Response(params, context).pipe(
       map((r: StrictHttpResponse<{
@@ -592,6 +643,17 @@ export class SettingsService extends BaseService {
 'branding_logo'?: string;
 
 /**
+ * Брендирование: Имя файла логотипа
+ */
+'branding_logo_name'?: string;
+
+/**
+ * Брендирование: Использование брендовых цветов
+ */
+'branding_colors'?: {
+};
+
+/**
  * Виды налогообложения
  */
 'tax'?: Array<{
@@ -709,6 +771,12 @@ export class SettingsService extends BaseService {
  * Стартовая страница
  */
 'start_page'?: string;
+
+/**
+ * Цвета
+ */
+'colors'?: {
+};
 }>): {
 
 /**
@@ -752,6 +820,17 @@ export class SettingsService extends BaseService {
 'branding_logo'?: string;
 
 /**
+ * Брендирование: Имя файла логотипа
+ */
+'branding_logo_name'?: string;
+
+/**
+ * Брендирование: Использование брендовых цветов
+ */
+'branding_colors'?: {
+};
+
+/**
  * Виды налогообложения
  */
 'tax'?: Array<{
@@ -869,6 +948,12 @@ export class SettingsService extends BaseService {
  * Стартовая страница
  */
 'start_page'?: string;
+
+/**
+ * Цвета
+ */
+'colors'?: {
+};
 } => r.body)
     );
   }
@@ -929,6 +1014,17 @@ export class SettingsService extends BaseService {
  * Брендирование: Логотип вашей компании, строка base64 (svg, png, jpg, gif, bmp)
  */
 'branding_logo'?: string;
+
+/**
+ * Брендирование: Имя файла логотипа
+ */
+'branding_logo_name'?: string;
+
+/**
+ * Брендирование: Использование брендовых цветов
+ */
+'branding_colors'?: {
+};
 }
     },
     context?: HttpContext
@@ -1013,6 +1109,17 @@ export class SettingsService extends BaseService {
  * Брендирование: Логотип вашей компании, строка base64 (svg, png, jpg, gif, bmp)
  */
 'branding_logo'?: string;
+
+/**
+ * Брендирование: Имя файла логотипа
+ */
+'branding_logo_name'?: string;
+
+/**
+ * Брендирование: Использование брендовых цветов
+ */
+'branding_colors'?: {
+};
 }
     },
     context?: HttpContext
