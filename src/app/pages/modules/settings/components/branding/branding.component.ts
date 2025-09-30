@@ -263,7 +263,14 @@ export class BrandingComponent extends BaseComponent implements OnInit {
   }
 
   private postSettings() {
-    const body = this.fileInput.nativeElement.value? this.form.value :{branding_colors:this.form.value.branding_colors };
+    let body;
+    if(this.fileInput.nativeElement.value){
+      body =this.form.value;
+    }  else if (!this.fileInput.nativeElement.value&&!this.fileNameInput.nativeElement.value) {
+      body =this.form.value;
+    } else {
+      body={branding_colors:this.form.value.branding_colors }
+    }
     this.settingsSertvice.settingsUpdate({ body: body })
       .pipe(
         takeUntil(this.destroy$)
@@ -276,7 +283,7 @@ export class BrandingComponent extends BaseComponent implements OnInit {
           this.snackBar.open(`Ошибка получения массивов для селекторов формы: ${err}`, undefined, this.snackBarWithShortDuration);
         },
       });
-  }  
+  } 
   
   onSubmit() {
     this.postSettings();
