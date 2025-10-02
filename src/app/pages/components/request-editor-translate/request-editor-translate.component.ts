@@ -7,6 +7,7 @@ import { Location } from '@angular/common';
 import { CityService } from '../../services/city.service';
 import { CountryService } from '../../services/country.service';
 import { MatSnackBar, MatSnackBarConfig } from '@angular/material/snack-bar';
+import { NavigationHistoryService } from '../../services/navigation-history.service';
 
 @Component({
   selector: 'app-request-editor-translate',
@@ -33,6 +34,7 @@ export class RequestEditorTranslateComponent implements OnInit, OnDestroy {
     private requestService: RequestService,
     private snackBar: MatSnackBar,
     private router: Router,
+    private navigationHistoryService: NavigationHistoryService,
   ) {
     this.requestFormTranslateRu = this.fb.group({
       departure_country_name: [, []],
@@ -127,9 +129,11 @@ export class RequestEditorTranslateComponent implements OnInit, OnDestroy {
   }
   send(){
     // this.router.navigate(['pages/request/bidding', this.requestId, { state: { translate: 'true' } }]);
-    this.router.navigate(['/pages/request/bidding', this.requestId], { queryParams: { translate: true } });
+    // this.router.navigate(['/pages/request/bidding', this.requestId], { queryParams: { translate: true } });
+    this.router.navigate(['/pages/request/bidding', this.requestId]);
   }
   remove():void {
-    window.location.reload();
+    // window.location.reload();
+    this.navigationHistoryService.back(`/pages/request/details/final/${this.requestId}`)
   }
 }

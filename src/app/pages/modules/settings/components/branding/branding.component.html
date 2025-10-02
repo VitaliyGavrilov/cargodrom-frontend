@@ -70,15 +70,23 @@
                     </div>
                   </mat-option>
                 </mat-optgroup>
-                <mat-optgroup [label]="'История'">
+                <mat-optgroup [label]="'История'" *ngIf="colorHistoryObj[col.id].length>1" >
+                  <ng-container *ngFor="let history of colorHistoryObj[col.id]">
+                    <mat-option *ngIf="history!=col.color" [value]="history" style="display: flex;">
+                      <div class="color" [ngStyle]="{'--input-color': history}">
+                        <div>{{history}}</div>
+                      </div>
+                    </mat-option>
+                  </ng-container>
+                  
                 </mat-optgroup>
               </mat-autocomplete>
             </div>
           </div>
+          <input type="color">
           
         </div>
       </div>
-      
     </div>
 
     <div class="form-row">

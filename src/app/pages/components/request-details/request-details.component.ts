@@ -11,6 +11,7 @@ import { FileService, RequestService, UserService } from 'src/app/api/services';
 import { MatCheckboxChange } from '@angular/material/checkbox';
 import { RateAddCustoms } from './rate-add-customs/rate-add-customs.component';
 import { LogoutComponent } from 'src/app/auth/components/logout/logout.component';
+import { NavigationHistoryService } from '../../services/navigation-history.service';
 
 interface LoadRows{
   id?:number| undefined;
@@ -75,6 +76,7 @@ export class RequestDetails extends Table<any, 'trade_rating', ContractorFilter>
     private matDialog: MatDialog,
     private fileSrvice: FileService,
     userService: UserService,
+    private navigationHistoryService:NavigationHistoryService,
   ) {
     super(route, router, dialog, snackBar, filter,userService)
   }
@@ -365,7 +367,8 @@ export class RequestDetails extends Table<any, 'trade_rating', ContractorFilter>
     this.router.navigate(['pages/request'])
   }
   navToBidTable(){
-    this.router.navigate(['pages/request/bidding', this.requestId])
+    // this.router.navigate(['pages/request/bidding', this.requestId])
+    this.router.navigate(['/pages/request/edit/translate', this.requestId]);
   }
   // OPEN EDITOR popap
   openRateEditor(mode:string, data?: any) {
@@ -750,4 +753,7 @@ export class RequestDetails extends Table<any, 'trade_rating', ContractorFilter>
     });
   }
 
+  goBack(): void {
+    this.navigationHistoryService.back(`/pages/request`);
+  }
 }

@@ -2,6 +2,7 @@ import { ChangeDetectorRef, Component, OnInit, ViewEncapsulation } from '@angula
 import { LoaderService } from './services/loader.service';
 import { Observable } from 'rxjs';
 import { BrandingService } from './pages.service';
+import { NavigationHistoryService } from './services/navigation-history.service';
 
 @Component({
   selector: 'app-pages',
@@ -18,6 +19,7 @@ export class PagesComponent implements OnInit {
     private loaderService: LoaderService,
     private cdRef: ChangeDetectorRef , // ← Добавляем
     private pageService: BrandingService,
+    private navigationHistoryService: NavigationHistoryService,
   ) {
     this.colors$ = this.pageService.getColors(); 
   }

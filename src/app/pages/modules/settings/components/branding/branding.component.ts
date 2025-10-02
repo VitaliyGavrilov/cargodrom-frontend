@@ -37,6 +37,8 @@ export class BrandingComponent extends BaseComponent implements OnInit {
   canUndo = false;
   canRedo = false;
 
+  colorHistoryObj:any;
+
   private colorHistory: any[] = []; // История значений
   private currentHistoryIndex = -1; // Текущая позиция в истории
   private maxHistoryLength = 50; // Максимальная длина истории
@@ -170,6 +172,7 @@ export class BrandingComponent extends BaseComponent implements OnInit {
     this.colorHistory = [JSON.parse(JSON.stringify(initialColors))]; // Глубокая копия
     this.currentHistoryIndex = 0;
     this.updateUndoRedoState();
+    this.colorHistoryObj=this.transformArrayToObject(this.colorHistory)
   }
 
   private subscribeToColorChanges(): void {
@@ -184,6 +187,32 @@ export class BrandingComponent extends BaseComponent implements OnInit {
         this.addToHistory(newColors);
       });
   }
+
+  transformArrayToObject(array: any[]): { [key: string]: any[] } {
+  const result: { [key: string]: any[] } = {};
+
+  if (!array || array.length === 0) {
+    return result;
+  }
+
+  // Проходим по всем объектам в массиве
+  array.forEach(item => {
+    // Проходим по всем ключам каждого объекта
+    Object.keys(item).forEach(key => {
+      // Если ключа еще нет в результате, создаем пустой массив
+      if (!result[key]) {
+        result[key] = [];
+      }
+      
+      // Добавляем значение только если его еще нет в массиве
+      if (!result[key].includes(item[key])) {
+        result[key].push(item[key]);
+      }
+    });
+  });
+
+  return result;
+}
 
   private addToHistory(colors: any): void {
     // Если мы не в конце истории, обрезаем историю после текущей позиции
@@ -202,6 +231,10 @@ export class BrandingComponent extends BaseComponent implements OnInit {
     }
 
     this.updateUndoRedoState();
+    console.log('colorHistory',this.colorHistory);
+    this.colorHistoryObj=this.transformArrayToObject(this.colorHistory)
+    console.log('colorHistoryObj',this.colorHistoryObj);
+    
   }
 
   // Кнопка "Назад"

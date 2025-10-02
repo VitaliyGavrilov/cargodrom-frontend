@@ -17,7 +17,7 @@ import { MaterialModule } from './material/material.module';
 import { MatDatepickerModule } from '@angular/material/datepicker';
 import { NgScrollbarModule } from 'ngx-scrollbar';
 import { LoaderComponent } from './loader/loader.component';
-import { LoadingInterceptor } from './loader/loader.interceptor';
+import { LoadingInterceptor } from './interceptors/loader.interceptor';
 
 
 

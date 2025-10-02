@@ -52,7 +52,7 @@ import { NgScrollbarModule } from 'ngx-scrollbar';
 import { OrderEditorComponent } from './components/order-editor/order-editor.component';
 import { TestPage } from './places/test-page/test-page.component';
 import { GridTableComponent } from './table/components/simple-table/grid-table.component';
-import { LoadingInterceptor } from '../loader/loader.interceptor';
+import { LoadingInterceptor } from '../interceptors/loader.interceptor';
 import { MessagePage } from './components/message/message.page';
 import { MessageEditorComponent } from './components/message-editor/message-editor.component';
 import { TableList } from './table-list/table-list.component';
@@ -60,6 +60,7 @@ import { BaseTableComponent } from './table/components/base-table/base-table.com
 import { CustomersTableComponent } from './table/components/base-table/customers-table.component';
 import { SettingsModule } from './modules/settings/settings.module';
 import { IconComponent } from './icon/icon.component';
+import { NavigationHistoryService } from './services/navigation-history.service';
 
 
 
@@ -137,6 +138,9 @@ import { IconComponent } from './icon/icon.component';
     MaterialModule,
     FilterModule,
     NgScrollbarModule,
+  ],
+  providers: [
+    NavigationHistoryService,// Сервис будет доступен в рамках PagesModule
   ],
   exports: [HeaderComponent, RequestComponent, IconComponent]
 })

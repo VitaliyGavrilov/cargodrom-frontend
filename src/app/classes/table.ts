@@ -607,13 +607,14 @@ export abstract class Table<T extends { id: number }, A = never, F = never> impl
         takeUntil(this.destroy$))
       .subscribe({
         next:(answer)=>{
-          if(answer.need_translate){
-            this.dialog.open(this.translateRef!).afterClosed().subscribe(res => {
-              if(res) this.router.navigate(['/pages/request/edit/translate', this.requestId]);
-            })
-          } else {
-            this.saveTrueContractorSelectRequest();
-          }
+          // if(answer.need_translate){
+          //   this.dialog.open(this.translateRef!).afterClosed().subscribe(res => {
+          //     if(res) this.router.navigate(['/pages/request/edit/translate', this.requestId]);
+          //   })
+          // } else {
+          //   this.saveTrueContractorSelectRequest();
+          // }
+          this.saveTrueContractorSelectRequest();
         },
         error:(err)=>{
           this.dialog.open(this.saveBiddingRef!, { data: {err} }).afterClosed()

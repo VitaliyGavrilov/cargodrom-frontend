@@ -1,5 +1,6 @@
 import { Location } from '@angular/common';
 import { Component, Input, OnInit, Output, EventEmitter } from '@angular/core';
+import { NavigationHistoryService } from 'src/app/pages/services/navigation-history.service';
 
 @Component({
   selector: 'app-editor-header',
@@ -22,6 +23,7 @@ export class EditorHeaderComponent implements OnInit {
 
   constructor(
     private location: Location,
+    private navigationHistoryService: NavigationHistoryService,
   ) { }
 
   ngOnInit(): void {
@@ -36,7 +38,8 @@ export class EditorHeaderComponent implements OnInit {
   }
 
   goBack(): void {
-    this.location.back();
+    // this.location.back();
+    this.navigationHistoryService.back('./')
   }
 
   goCalc():void{

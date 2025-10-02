@@ -9,6 +9,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { Observable, map, of } from 'rxjs';
 import { FilterService } from 'src/app/filter/services/filter.service';
 import { RequestService, UserService } from 'src/app/api/services';
+import { NavigationHistoryService } from '../../services/navigation-history.service';
 @Component({
   selector: 'app-contractor',
   templateUrl: './contractor.component.html',
@@ -33,6 +34,7 @@ export class ContractorComponent extends Table<Contractor, 'trade_rating', Contr
     router: Router,
     filter: FilterService,
     userService: UserService,
+    private navigationHistoryService: NavigationHistoryService,
   ) {
     super(route, router, dialog, snackBar, filter,userService);
     this.importMetods = {
@@ -102,5 +104,9 @@ export class ContractorComponent extends Table<Contractor, 'trade_rating', Contr
     if(n===3)classSpec='rw';
     if(n===4)classSpec='sea';
     return classSpec;
+  }
+
+  goBack(): void {
+    this.navigationHistoryService.back(`/pages/request/details/final/${this.requestId}`);
   }
 }
