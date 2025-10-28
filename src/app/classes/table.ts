@@ -11,6 +11,7 @@ import { MatCheckboxChange } from '@angular/material/checkbox';
 import { UserService } from '../api/services';
 import { DomSanitizer } from '@angular/platform-browser';
 import { TableListService } from '../pages/table-list/table-list.service';
+import { environment } from 'src/environments/environment';
 
 export interface LoadParams<T, F> {
   id?:number;
@@ -141,10 +142,10 @@ export abstract class Table<T extends { id: number }, A = never, F = never> impl
 
   private transformClientValue(value: any, obj:any) {
     if (typeof value === 'string') {
-      const baseUrl = window.location.origin;
+      const baseUrl = window.location.href.split('/#')[0];
       return value.replace(
-        /\[urlclient\](.*?)\[\/urlclient\]/ig, 
-        `<a class="link" target="_blank" href="${baseUrl}/pages/customer/edit/${obj.customer_id}">$1</a>`
+        /\[urlclient\](.*?)\[\/urlclient\]/ig,
+        `<a class="link" target="_blank" href="${baseUrl}/#/pages/customer/edit/${obj.customer_id}">$1</a>`
       );
     }
     return value;
