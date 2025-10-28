@@ -18,6 +18,8 @@ import { MatDatepickerModule } from '@angular/material/datepicker';
 import { NgScrollbarModule } from 'ngx-scrollbar';
 import { LoaderComponent } from './loader/loader.component';
 import { LoadingInterceptor } from './interceptors/loader.interceptor';
+import { SharedModule } from './shared/shared.module';
+
 
 
 
@@ -25,6 +27,7 @@ import { LoadingInterceptor } from './interceptors/loader.interceptor';
   declarations: [
     AppComponent,
     LoaderComponent,
+    
   ],
   imports: [
     BrowserModule,
@@ -34,6 +37,7 @@ import { LoadingInterceptor } from './interceptors/loader.interceptor';
     BrowserAnimationsModule,
     MatDatepickerModule,
     NgScrollbarModule,
+    SharedModule,
   ],
   providers: [
     

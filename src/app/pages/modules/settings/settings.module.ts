@@ -25,6 +25,7 @@ import { GeneralSettingsComponent } from './components/general-settings/general-
 import { NotificationsComponent } from './components/notifications/notifications.component';
 import { BrandingComponent } from './components/branding/branding.component';
 import { HeaderComponent } from '../../components/header/header.component';
+import { SharedModule } from 'src/app/shared/shared.module';
 
 
 
@@ -57,7 +58,9 @@ import { HeaderComponent } from '../../components/header/header.component';
     FormsModule,
     ReactiveFormsModule,
     SettingsRoutingModule,
-    PagesModule,
-  ]
+    // PagesModule,
+    SharedModule,
+    PagesModule
+]
 })
 export class SettingsModule { }

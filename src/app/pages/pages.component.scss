@@ -5,7 +5,7 @@
   color: #606A74;
 }
 .main .border-on .mat-date-range-input-separator{
-  color: #DB563B;
+  color: var(--accent,  #DB563B);
 }
 .main .data .mat-date-range-input-container input {
   display: block;
@@ -52,7 +52,7 @@ div.mat-calendar-body-cell-content{
 }
 
 div.mat-calendar-body-selected,.mat-calendar-body-cell.selected .mat-calendar-body-cell-content{
-  background: #DB563B;
+  background: var(--accent,  #DB563B);
 }
 .mat-calendar-body-in-range::before {
   background: #83909E;
@@ -105,11 +105,11 @@ div.mat-calendar-body-selected,.mat-calendar-body-cell.selected .mat-calendar-bo
 
 }
 .main .value-selected .mat-mdc-select-value-text{
-  color: #DB563B;
+  color: var(--accent,  #DB563B);
 
 }
 // .main .mat-select-arrow{
-//   color: #DB563B;
+//   color: var(--accent,  #DB563B);
 
 // }
 .main .mat-select {
@@ -156,7 +156,7 @@ div.mat-calendar-body-selected,.mat-calendar-body-cell.selected .mat-calendar-bo
 // .mat-checkbox.testclass.mat-checkbox-checked label::after{
 //   content: "";
 //   display: block;
-//   background: #DB563B;
+//   background: var(--accent,  #DB563B);
 //   width: 8px;
 //   height: 8px;
 //   margin: 0 ;
@@ -167,7 +167,7 @@ div.mat-calendar-body-selected,.mat-calendar-body-cell.selected .mat-calendar-bo
 // .mat-checkbox.testclass.mat-checkbox-indeterminate label::after{
 //   content: "";
 //   display: block;
-//   background: #DB563B;
+//   background: var(--accent,  #DB563B);
 //   width: 10px;
 //   height: 3px;
 //   margin: 0 ;
@@ -218,16 +218,16 @@ div.mat-calendar-body-selected,.mat-calendar-body-cell.selected .mat-calendar-bo
 h1.mat-dialog-title{
   font-size: 26px;
   line-height: 30px;
-  color: #4b66ad;
+  color: var(--header_menu, #4B66AD);
   text-decoration: none;
 }
 
 .mat-dialog-actions button.save{
-  background: #DB563B;
+  background: var(--accent,  #DB563B);
   color: #fff;
 }
 .mat-dialog-actions button.download{
-  background: #4b66ad;
+  background: var(--header_menu, #4B66AD);
   color: #fff;
 }
 .mat-dialog-actions button.cancel{
@@ -256,7 +256,7 @@ h1.mat-dialog-title{
 }
 
 .radio-btn :checked + span {
-  border-color: #DB563B;
+  border-color: var(--accent,  #DB563B);
 }
 
 

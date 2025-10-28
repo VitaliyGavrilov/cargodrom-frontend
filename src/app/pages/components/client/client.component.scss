@@ -12,7 +12,7 @@
 //   pointer-events: none;
 // }
 // .table-list.resize .resize-handle{
-//   background-color: #DB563B;
+//   background-color: var(--accent,  #DB563B);
 //   pointer-events: all;
 // }
 // // .table-list{
@@ -30,7 +30,7 @@
 //   pointer-events: none;
 // }
 // .table-list.resize .resize-handle_end {
-//   background-color: #DB563B;
+//   background-color: var(--accent,  #DB563B);
 //   pointer-events: all;
 // }
 

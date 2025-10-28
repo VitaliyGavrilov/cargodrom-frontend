@@ -2,8 +2,8 @@
   <div class="title">{{ filterControl.name }}:</div>
   <div class="data select">
     <mat-form-field appearance="outline" class="ui-select w100">
-      <mat-select [(ngModel)]="filter.value[filterControl.field]">
-        <mat-option value="">-- Не выбрано --</mat-option>
+      <div class="new-icon cancel s10px" style="--icon-color: var(--accent, #DB563B)" (click)="multi?filter.value[filterControl.field]=[] : filter.value[filterControl.field]='';$event.stopPropagation()" *ngIf="filter.value[filterControl.field]!=''"></div>
+      <mat-select [(ngModel)]="filter.value[filterControl.field]" [multiple]="multi" placeholder="-- Пусто --">
         <mat-option *ngFor="let item of filterControl.array;" [value]="item.id">{{ item.name }}</mat-option>
       </mat-select>
     </mat-form-field>

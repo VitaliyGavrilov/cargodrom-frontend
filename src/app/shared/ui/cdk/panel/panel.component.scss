@@ -1,0 +1,151 @@
+.panel-container {
+  position: relative;
+  width: 100%;
+}
+
+.panel-dropdown {
+  position: absolute;
+  left: 0;
+  right: 0;
+  z-index: 1050;
+  
+  &.dropdown-bottom {
+    top: 100%;
+    margin-top: 8px;
+    
+    .panel-content {
+      animation: slideDown 0.2s ease-out;
+    }
+  }
+  
+  &.dropdown-top {
+    bottom: 100%;
+    margin-bottom: 8px;
+    
+    .panel-content {
+      animation: slideUp 0.2s ease-out;
+    }
+  }
+}
+
+.panel-backdrop {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: transparent;
+  z-index: -1;
+}
+
+.panel-content {
+  position: relative;
+  background: white;
+  border-radius: 8px;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.15);
+  padding: 16px;
+  z-index: 1051;
+  border: 1px solid #e0e0e0;
+  
+  // Стрелка-указатель
+  &::before {
+    content: '';
+    position: absolute;
+    width: 12px;
+    height: 12px;
+    background: white;
+    border: 1px solid #e0e0e0;
+    border-bottom: none;
+    border-right: none;
+    transform: rotate(45deg);
+  }
+  
+  .dropdown-bottom &::before {
+    top: -6px;
+    left: 20px;
+    border-top: none;
+    border-left: none;
+    transform: rotate(45deg);
+  }
+  
+  .dropdown-top &::before {
+    bottom: -6px;
+    left: 20px;
+    border-bottom: none;
+    border-right: none;
+    transform: rotate(-135deg);
+  }
+}
+
+// Анимации
+@keyframes slideDown {
+  from {
+    opacity: 0;
+    transform: translateY(-10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes slideUp {
+  from {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+// Адаптивность
+@media (max-width: 480px) {
+  .panel-container {
+    max-width: 100%;
+  }
+  
+  .panel-content {
+    padding: 12px;
+    
+    &::before {
+      display: none;
+    }
+  }
+  
+  .panel-dropdown {
+    &.dropdown-bottom,
+    &.dropdown-top {
+      position: fixed;
+      left: 16px;
+      right: 16px;
+      margin: 0;
+      
+      .panel-content {
+        animation: fadeIn 0.2s ease-out;
+      }
+    }
+    
+    &.dropdown-bottom {
+      top: auto;
+      bottom: 16px;
+    }
+    
+    &.dropdown-top {
+      bottom: auto;
+      top: 16px;
+    }
+  }
+  
+  @keyframes fadeIn {
+    from {
+      opacity: 0;
+      transform: scale(0.95);
+    }
+    to {
+      opacity: 1;
+      transform: scale(1);
+    }
+  }
+}

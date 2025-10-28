@@ -134,7 +134,7 @@
 //  btn save rates
 .btn-save-rates{
   margin-top: 24px;
-  background-color: #DB563B;
+  background-color: var(--accent,  #DB563B);
   border: none;
   border-radius: 6px;
   padding: 10px;
@@ -212,7 +212,7 @@ input::-webkit-inner-spin-button {
   text-align: end;
 }
 .color-red{
-  color: #DB563B;
+  color: var(--accent,  #DB563B);
 }
 .form-block .total [type=checkbox]:checked + i + span {
   font-weight: normal;

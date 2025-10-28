@@ -44,13 +44,15 @@ export class FilterService implements OnDestroy {
   }
 
   private getDefault(control: FilterControl): any {
-    if (control.form === 'checkbox' || control.form === 'checkbox_reset') {
+    if (control.form === 'checkbox' || control.form === 'checkbox_reset' || control.form === 'multi_select') {
       return [];
     }
     return '';
   }
 
   reset(): void {
+    console.log(this.value);
+    
     if (this.searchFilterSchema) {
       const allControls = this.getAllControls(this.searchFilterSchema);
       allControls.forEach(control => {
@@ -97,5 +99,18 @@ export class FilterService implements OnDestroy {
 
   ngOnDestroy(): void {
     this.search$.complete();
+  }
+
+  hasAdditionalFilters(): boolean {
+    if (!this.searchFilterSchema?.additional) {
+      return false;
+    }
+    return this.searchFilterSchema.additional.some(control => {
+      const value = this.value[control.field];
+      return value !== '' && 
+            value !== null && 
+            value !== undefined && 
+            !(Array.isArray(value) && value.length === 0);
+    });
   }
 }

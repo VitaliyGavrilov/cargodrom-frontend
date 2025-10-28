@@ -8,27 +8,27 @@
 
     <!-- <button [routerLink]="['add']" class="file-btn add-link"> -->
     <button *ngIf="!addPopap" [routerLink]="orderPage?['/pages/order/add']:['add']" class="file-btn add-link">
-      <div></div>
+      <div class="new-icon add-link" style="--icon-color:var(--accent, #DB563B);"></div>
       <span>Новый {{titles.subtitle}}</span>
     </button>
 
     <button *ngIf="addPopap" (click)="onOpenPopapAdd()" class="file-btn add-link">
-      <div></div>
+      <div class="new-icon add-link" style="--icon-color: var(--accent, #DB563B);"></div>
       <span>Новый {{titles.subtitle}}</span>
     </button>
 
     <button *ngIf="importMetods" (click)="selectFileToImport()" type="button" class="file-btn import">
-      <div></div>
+      <div class="new-icon import" style="--icon-color: var(--accent, #DB563B);"></div>
       <span>Импорт данных</span>
     </button>
 
     <button (click)="confirmTemplateFileDownload()" type="button" class="file-btn export hover">
-      <div></div>
+      <div class="new-icon export" style="--icon-color: var(--accent, #DB563B);"></div>
       <span>Шаблон для импорта</span>
     </button>
 
     <button *ngIf="importMetods" (click)="confirmTableFileDownload()" type="button" class="file-btn export">
-      <div></div>
+      <div class="new-icon export" style="--icon-color: var(--accent, #DB563B);"></div>
       <span>Экспорт данных</span>
     </button>
 
@@ -74,14 +74,14 @@
     <p *ngIf="data.res.update">{{ data.res.update.text }}</p>
   </div>
   <div mat-dialog-actions align="end">
-    <button style="background: #DB563B; color: #fff;"
+    <button style="background: var(--accent,  #DB563B); color: #fff;"
       mat-button
       [mat-dialog-close]="1"
       *ngIf="data.res.insert || data.res.update"
       >
       Сохранить данные
     </button>
-    <button style="background: #4b66ad; color: #fff;"
+    <button style="background: var(--header_menu, #4B66AD); color: #fff;"
       mat-button
       [mat-dialog-close]="2"
       >

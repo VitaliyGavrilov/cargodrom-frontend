@@ -133,7 +133,7 @@
       display: flex; flex-wrap: wrap;
       width: 100%; height: fit-content;
       .title{
-        color: #4B66AD;
+        color: var(--header_menu, #4B66AD);
         font-weight: bold; font-size: 20px; line-height: 20px;
         margin-bottom: 25px;
       }
@@ -177,7 +177,7 @@
       border-radius: 6px;
       height: 15px; width: fit-content;
       padding: 10px 10px 10px 35px; margin: 0 5px 15px 0;
-      color: #DB563B;
+      color: var(--accent,  #DB563B);
       text-wrap: nowrap;
       background: url(../../../../assets/pic-btn-download.svg) no-repeat;
       background-position: 10px;
@@ -305,7 +305,7 @@ tr.example-detail-row {
         font-size: 13px;
         font-weight: 400;
         line-height: 12px;
-        color: #DB563B;
+        color: var(--accent,  #DB563B);
         margin-bottom: 5px;
       }
       .sum{
@@ -319,7 +319,7 @@ tr.example-detail-row {
     }
     .cost:first-child{
       .label{color: #2C3640;}
-      .sum{color: #DB563B;}
+      .sum{color: var(--accent,  #DB563B);}
     }
   }
 }
@@ -459,7 +459,7 @@ tr.example-detail-row {
     background-image:url(../../../../assets/pic-btn-edit-w.svg);
   }
   button.edit{
-    background-color: #DB563B;
+    background-color: var(--accent,  #DB563B);
   }
   .dub::before{
     background-image:url(../../../../assets/pic-btn-double.svg);
@@ -477,7 +477,7 @@ tr.example-detail-row {
   border-bottom: #E0E5EB 1px solid;
   padding: 40px;
   .cost{
-    color: #DB563B;
+    color: var(--accent,  #DB563B);
     font-size: 48px;
     font-weight: 700;
     line-height: 48px;

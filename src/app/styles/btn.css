@@ -24,7 +24,11 @@ button.icon.delete{
   background-image: url('../../assets/pic-btn-del.svg');  
 }
 button.icon.edit{
-  background-image: url('../../assets/pic-btn-edit.svg');  
+  background-image: url('../../assets/pic-btn-edit.svg');
+  &::before{
+    --icon-bg-image: url('../../assets/pic-btn-edit.svg');
+    /* background-image: url('../../assets/pic-btn-edit.svg'); */
+  }
 }
 button.icon.edit-w{
   background-image: url('../../assets/pic-btn-edit-w.svg');  
@@ -52,7 +56,7 @@ button.icon.edit-w{
   }
 
   button.save {
-    background-color: #DB563B;
+    background-color: var(--accent,  #DB563B);
   }
   button.del {
     background-color: black;
@@ -86,20 +90,8 @@ button.long{
   display: flex;
   align-items: center;
   border-radius: 6px;
-  &::before{
-    display: block;
-    width: 20px;
-    height: 20px;
-    content: '';
-    background-repeat: no-repeat;
-    background-position: center;
+  div.new-icon::before{
     margin-right: 6px;
   }
-  &.save{
-    background-color: #DB563B;
-    color: white;
-    &::before{
-      background-image: url('../../assets/pic-btn-save.svg');
-    }
-  }
 }
+

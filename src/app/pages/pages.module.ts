@@ -61,6 +61,7 @@ import { CustomersTableComponent } from './table/components/base-table/customers
 import { SettingsModule } from './modules/settings/settings.module';
 import { IconComponent } from './icon/icon.component';
 import { NavigationHistoryService } from './services/navigation-history.service';
+import { SharedModule } from '../shared/shared.module';
 
 
 
@@ -127,7 +128,8 @@ import { NavigationHistoryService } from './services/navigation-history.service'
     // SimpleTableComponent,
     BaseTableComponent,
     CustomersTableComponent,
-    IconComponent
+    IconComponent,
+    
 
   ],
   imports: [
@@ -138,6 +140,7 @@ import { NavigationHistoryService } from './services/navigation-history.service'
     MaterialModule,
     FilterModule,
     NgScrollbarModule,
+    SharedModule,
   ],
   providers: [
     NavigationHistoryService,// Сервис будет доступен в рамках PagesModule

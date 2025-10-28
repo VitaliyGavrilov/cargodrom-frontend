@@ -161,31 +161,56 @@ export class RequestComponent extends Table<Request, 'id', RequestFilter> {
 
   }
   navigateOnClient(clientId:any){
-    this.router.navigate(['pages/customer/edit', clientId])
+    // this.router.navigate(['pages/customer/edit', clientId]);
+    this.router.navigateByUrl(`/pages/customer/edit/${clientId}`)
   }
 
-  updateRequest(request:any){
-    const body ={
-      status_crm_id: request.status_crm_id,
-      id: request.id
+
+  updateRequest(request: any, newStatusId: string) {
+    const originalStatus = request.status_crm_id;
+    // Временно меняем статус для отображения
+    request.status_crm_id = newStatusId;
+    const body: any = {
+        status_crm_id: newStatusId,
+        id: request.id
     };
-    this.requestService.requestUpdate({body}).pipe().subscribe({
-      next: () => {
-        this.snackBar.open(
-          `Статус CRM успешно изменён`,
-          undefined,
-          this.snackBarWithShortDuration
-        );
+    this.requestService.requestUpdate({ body }).subscribe({
+      next: () => { 
+        this.snackBar.open(`Статус CRM успешно изменён`, undefined, this.snackBarWithShortDuration);
       },
-      error: (err) => {
-        this.snackBar.open(
-          `Ошибка редактирования CRM статуса запроса: ` + err.error.error_message,
-          undefined,
-          this.snackBarWithShortDuration
-        );
+      error: (err) => {    
+        request.status_crm_id = originalStatus;
+        this.snackBar.open(`Ошибка редактирования CRM статуса запроса: ` + err.error.error_message, undefined, this.snackBarWithShortDuration);
       }
     });
   }
+
+  // updateRequest(request:any,status_id:string){
+  //   const originalStatus = request.status_crm_id;
+    
+  //   const body ={
+  //     status_crm_id: request.status_crm_id,
+  //     id: request.id
+  //   };
+  //   this.requestService.requestUpdate({body}).pipe().subscribe({
+  //     next: () => {
+  //       request.status_crm_id=status_id;
+  //       this.snackBar.open(
+  //         `Статус CRM успешно изменён`,
+  //         undefined,
+  //         this.snackBarWithShortDuration
+  //       );
+  //     },
+  //     error: (err) => {
+  //       request.status_crm_id=originalStatus;
+  //       this.snackBar.open(
+  //         `Ошибка редактирования CRM статуса запроса: ` + err.error.error_message,
+  //         undefined,
+  //         this.snackBarWithShortDuration
+  //       );
+  //     }
+  //   });
+  // }
 
   tableRequest_returnColorCrmStatus(value:any){
     if (!this.requestCrmStatuses) return '';

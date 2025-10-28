@@ -9,6 +9,7 @@ import { FilterService } from '../../services/filter.service';
 })
 export class SelectFilterComponent implements OnInit {
   @Input() filterControl!: FilterSelectControl;
+  @Input() multi: boolean = false;
 
   constructor(
     public filter: FilterService,

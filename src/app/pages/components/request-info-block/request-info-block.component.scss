@@ -29,7 +29,7 @@
     font-weight: 700;
     line-height: 26px;
     text-align: left;
-    color: #4B66AD;
+    color: var(--header_menu, #4B66AD);
   }
   .subtitle{
     font-size: 13px;

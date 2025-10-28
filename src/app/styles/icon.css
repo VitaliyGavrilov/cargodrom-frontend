@@ -1,0 +1,37 @@
+.new-icon{
+  &::before{ 
+    width: var(--icon-w, var(--icon-s, 100%)); 
+    height: var(--icon-h, var(--icon-s, 100%));
+    background: var(--icon-color-gradient,var(--icon-color)) !important;
+
+    mask-image: var(--icon-bg-image); -webkit-mask-image: var(--icon-bg-image);
+    mask-repeat: no-repeat; -webkit-mask-repeat: no-repeat;
+    mask-position: center; -webkit-mask-position: center;
+    mask-size: contain; -webkit-mask-size: contain;
+
+    content: '';
+    display: inline-block;
+    background-repeat: no-repeat;
+  }
+  /* варианты иконок */
+  &.edit::before{--icon-bg-image: url('../../assets/pic-btn-edit.svg')}
+  &.delet::before{--icon-bg-image: url('../../assets/pic-btn-del.svg')} /* &.delet-gr::before{--icon-bg-image: url('../../assets/pic-btn-del-gray.svg')}; */
+  &.back::before{--icon-bg-image: url('../../assets/pic-btn-back.svg')}
+  &.repeat::before{--icon-bg-image: url('../../assets/pic-btn-repeat.svg')}
+  &.cancel::before{--icon-bg-image: url('../../assets/pic-btn-cancel-black.svg')}
+  &.save::before{--icon-bg-image: url('../../assets/pic-btn-save.svg')}
+  &.funnel::before{--icon-bg-image: url('../../assets/pic-filter.svg')}
+
+  &.add-link::before{--icon-bg-image: url('../../assets/pic-btn-addLink.svg')}
+  &.import::before{--icon-bg-image: url('../../assets/pic-btn-import.svg')}
+  &.export::before{--icon-bg-image: url('../../assets/pic-btn-export.svg')}
+  /* размеры (s-size, когда ширина и высота равны)*/
+  &.s10px{--icon-s:10px}
+  &.s16px{--icon-s:16px}
+  &.s14px{--icon-s:14px}
+  &.s10px{--icon-s:10px}
+  /* gradient */
+  &.gradient{
+    --icon-color-gradient: linear-gradient(0deg, var(--icon-color), var(--accent));
+  }
+}

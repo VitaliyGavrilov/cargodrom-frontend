@@ -1,0 +1,13 @@
+<div class="panel-container">
+  <ng-content select="[trigger]"></ng-content>
+  
+  <div class="panel-dropdown" 
+       *ngIf="isOpen"
+       [class.dropdown-bottom]="placement === 'bottom'"
+       [class.dropdown-top]="placement === 'top'">
+    <div class="panel-backdrop" (click)="onBackdropClick($event)"></div>
+    <div class="panel-content" (click)="onContentClick($event)">
+      <ng-content select="[content]"></ng-content>
+    </div>
+  </div>
+</div>

@@ -2,6 +2,8 @@
   [title]="'Новое коммерческое предложение'"
   [content]="true"
   [request]="request"
+  [backLink]="'/pages/request/details/final/'+request.id"
+  
 >
   <div btns class="btns" style="margin-top: 0;">
     <button class="ord" type="button" (click)="onCreateOrder()" [style.visibility]="returnVisibilityOrdBtn()?'visible':'hidden'">создать заказ</button>

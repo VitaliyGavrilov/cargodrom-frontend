@@ -35,7 +35,7 @@
 //  btn save rates
 .btn-save-rates{
   margin-top: 24px;
-  background-color: #DB563B;
+  background-color: var(--accent,  #DB563B);
   border: none;
   border-radius: 6px;
   padding: 10px;
@@ -59,7 +59,7 @@
   height: 40px;
   border-radius: 6px;
   border: none;
-  background-color: #DB563B;
+  background-color: var(--accent,  #DB563B);
   margin-top: 17px;
   margin-left: 24px;
   color: white;

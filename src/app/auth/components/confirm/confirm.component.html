@@ -30,7 +30,7 @@
 
             <div class="form-row inline">
               <p *ngIf="remainingTime !== 0">Отправить проверочный код код еще раз, через {{ formattedTime }}</p>
-              <p *ngIf="remainingTime === 0" (click)="reSendCode()" style="cursor: pointer; color: #DB563B;">Отправить код повторно</p>
+              <p *ngIf="remainingTime === 0" (click)="reSendCode()" style="cursor: pointer; color: var(--accent,  #DB563B);">Отправить код повторно</p>
 
               <!-- <div class="form-item">
 

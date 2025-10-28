@@ -1,0 +1,8 @@
+<div 
+  class="layout-backdrop" 
+  *ngIf="show"
+  (click)="onBackdropClick($event)">
+  <div class="layout-content">
+    <ng-content></ng-content>
+  </div>
+</div>

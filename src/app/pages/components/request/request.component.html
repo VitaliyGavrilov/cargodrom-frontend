@@ -64,6 +64,8 @@
                 <div class="col-content" [innerHTML]="getVal(item,miniCol.field)"></div>
               </ng-template>
               <ng-template [ngSwitchCase]="'id'">
+                
+                
                 <a class="link" (click)="navigateOnDetails(item.id,item.tabs[0])">
                   {{ getVal(item,miniCol.field) }}
                 </a>
@@ -75,11 +77,11 @@
                   <div class="kso-item" [ngClass]="item.kso.o.active?'':'negative'"></div>
                 </div>
               </ng-template>
-              <ng-template [ngSwitchCase]="'customer_name'" >
+              <!-- <ng-template [ngSwitchCase]="'customer_name'" >
                 <a  class="link" (click)="navigateOnClient(item.customer_id)">
                   {{ getVal(item,miniCol.field) }}
-                </a>
-              </ng-template>
+                </a> 
+              </ng-template> -->
               <!-- <ng-template [ngSwitchCase]="'customer_info'">
                 <ng-content [innerHTML]="getVal(item,miniCol.field)"></ng-content>
                 <a class="link" (click)="navigateOnClient(item.customer_id)">
@@ -91,19 +93,23 @@
                 <div [class]="getTypeClass(item.transport_kind_id)" ></div>
               </ng-template>
               <ng-template [ngSwitchCase]="'status_crm_name'">
-                <mat-select
+                <mat-select 
                   panelWidth="140px"
                   [value]="item.status_crm_id"
-                  [style.color]="tableRequest_returnColorCrmStatus(item.status_crm_id)"
+                  [style.color]="'var(--'+requestCrmStatuses[item.status_crm_id-1]?.color+')'"
                   class="select-no-wrap"
+                  (selectionChange)="updateRequest(item, $event.value)"
+                  [disabled]="item.status_crm_id==1"
                 >
-                  <mat-option
+                  <mat-option *ngFor="let status of requestCrmStatuses;"
                     class="table_options"
-                    *ngFor="let status of requestCrmStatuses;"
+                    [disabled]="status.id==1"
                     [value]="status.id"
-                    [style.color]="status.color"
-                    (click)="item.status_crm_id=status.id;updateRequest(item)"
+                    [style.color]="'var(--'+status.color+')'"
                   >
+                  <!-- (selectionChange)="updateRequest(item, $event.value)" -->
+                  <!-- style.color]="tableRequest_returnColorCrmStatus(item.status_crm_id)" -->
+                  <!-- (click)="item.status_crm_id=status.id;updateRequest(item)" -->
                     {{ status.name }}
                   </mat-option>
                 </mat-select>
@@ -154,4 +160,4 @@
 
 </div>
 
-<app-table-list></app-table-list>
+<!-- <app-table-list></app-table-list> -->

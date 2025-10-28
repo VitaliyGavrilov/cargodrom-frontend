@@ -5,7 +5,7 @@ export interface SearchFilterSchema {
 }
 
 export interface FilterControl {
-  form:  'autocomplete' | 'text' | 'checkbox' | 'checkbox_reset' | 'select' | 'period_days' | 'radio';
+  form:  'autocomplete' | 'text' | 'checkbox' | 'checkbox_reset' | 'select' | 'period_days' | 'radio' | 'multi_select';
   field: string;
   name:  string;
   width?: string;
@@ -16,7 +16,7 @@ export interface FilterControl {
 }
 
 export interface FilterSelectControl extends FilterControl {
-  form: 'select';
+  form: 'select'|'multi_select';
   array: {
     id: number | '' | boolean;
     name: string;

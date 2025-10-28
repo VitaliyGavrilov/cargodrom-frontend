@@ -1,0 +1,5 @@
+<app-layout [show]="show" (closed)="close()">
+  <div class="popup-content" (click)="$event.stopPropagation()">
+    <ng-content></ng-content>
+  </div>
+</app-layout>

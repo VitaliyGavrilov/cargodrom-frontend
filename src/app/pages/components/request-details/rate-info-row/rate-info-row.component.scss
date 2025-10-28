@@ -24,7 +24,7 @@
       .cost_block{
         border-bottom: #E0E5EB 1px solid;
         padding: 40px;
-        color: #DB563B;
+        color: var(--accent,  #DB563B);
         .cost{
           font-size: 48px;
           font-weight: 700;
@@ -62,7 +62,7 @@
         .agent_block{
           .detailed{
             margin-top: 10px;
-            color: #DB563B;
+            color: var(--accent,  #DB563B);
             font-weight: 400;
             font-size: 13px;
             line-height: 12px;
@@ -210,7 +210,7 @@
       //     margin: 10px 0 0 0;
       //     span{
       //       font-weight: 700;
-      //       color: #4B66AD;
+      //       color: var(--header_menu, #4B66AD);
       //       width: fit-content;
       //     }
       //   }
@@ -273,7 +273,7 @@
           margin-top: 10px;
           span{
             font-weight: 700;
-            color: #4B66AD;
+            color: var(--header_menu, #4B66AD);
             width: fit-content;
           }
         }
@@ -382,7 +382,7 @@ table.other_charges {
 //     background-image:url(../../../../../assets/pic-btn-edit-w.svg);
 //   }
 //   button.edit{
-//     background-color: #DB563B;
+//     background-color: var(--accent,  #DB563B);
 //   }
 //   .dub::before{
 //     background-image:url(../../../../../assets/pic-btn-double.svg);

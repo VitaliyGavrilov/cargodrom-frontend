@@ -145,7 +145,7 @@ table .mdc-data-table__header-cell {
 }
 .table-list.resize {
   .resize-handle, .resize-handle_end{
-    background-color: #DB563B;
+    background-color: var(--accent,  #DB563B);
     pointer-events: all;
   }
   .resize-handle_end::before,.resize-handle::before{
@@ -155,7 +155,7 @@ table .mdc-data-table__header-cell {
     right: -5px;
     top: 7px;
     bottom: 7px;
-    background-color: #DB563B;
+    background-color: var(--accent,  #DB563B);
     border-radius: 3px;
   }
   table thead .column{
@@ -397,16 +397,16 @@ mat-form-field.mat-mdc-form-field {
 //   --mdc-checkbox-disabled-unselected-icon-color: rgba(0, 0, 0, 0.38); /* Цвет иконки для невыбранного чекбокса в disabled состоянии */
 //   --mdc-checkbox-selected-checkmark-color: #fff; /* Цвет галочки в выбранном чекбоксе */
 //   --mdc-checkbox-selected-focus-icon-color: blue; /* Цвет иконки выбранного чекбокса при фокусе */
-//   --mdc-checkbox-selected-hover-icon-color: #DB563B; /* Цвет иконки выбранного чекбокса при наведении */
-//   --mdc-checkbox-selected-icon-color: #DB563B; /* Цвет иконки для выбранного чекбокса */
-//   --mdc-checkbox-selected-pressed-icon-color: #DB563B; /* Цвет иконки выбранного чекбокса при нажатии */
+//   --mdc-checkbox-selected-hover-icon-color: var(--accent,  #DB563B); /* Цвет иконки выбранного чекбокса при наведении */
+//   --mdc-checkbox-selected-icon-color: var(--accent,  #DB563B); /* Цвет иконки для выбранного чекбокса */
+//   --mdc-checkbox-selected-pressed-icon-color: var(--accent,  #DB563B); /* Цвет иконки выбранного чекбокса при нажатии */
 //   --mdc-checkbox-unselected-focus-icon-color: #212121; /* Цвет иконки для невыбранного чекбокса при фокусе */
 //   --mdc-checkbox-unselected-hover-icon-color: #212121; /* Цвет иконки для невыбранного чекбокса при наведении */
 //   --mdc-checkbox-unselected-icon-color: rgba(0, 0, 0, 0.54); /* Цвет иконки для невыбранного чекбокса */
 //   --mdc-checkbox-unselected-pressed-icon-color: rgba(0, 0, 0, 0.54); /* Цвет иконки для невыбранного чекбокса при нажатии */
-//   --mdc-checkbox-selected-focus-state-layer-color: #DB563B; /* Цвет слоя фокуса для выбранного чекбокса */
-//   --mdc-checkbox-selected-hover-state-layer-color: #DB563B; /* Цвет слоя наведения для выбранного чекбокса */
-//   --mdc-checkbox-selected-pressed-state-layer-color: #DB563B; /* Цвет слоя нажатия для выбранного чекбокса */
+//   --mdc-checkbox-selected-focus-state-layer-color: var(--accent,  #DB563B); /* Цвет слоя фокуса для выбранного чекбокса */
+//   --mdc-checkbox-selected-hover-state-layer-color: var(--accent,  #DB563B); /* Цвет слоя наведения для выбранного чекбокса */
+//   --mdc-checkbox-selected-pressed-state-layer-color: var(--accent,  #DB563B); /* Цвет слоя нажатия для выбранного чекбокса */
 //   --mdc-checkbox-unselected-focus-state-layer-color: black; /* Цвет слоя фокуса для невыбранного чекбокса */
 //   --mdc-checkbox-unselected-hover-state-layer-color: black; /* Цвет слоя наведения для невыбранного чекбокса */
 //   --mdc-checkbox-unselected-pressed-state-layer-color: black; /* Цвет слоя нажатия для невыбранного чекбокса */

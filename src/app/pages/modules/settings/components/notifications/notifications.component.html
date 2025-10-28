@@ -12,6 +12,14 @@
         <mat-checkbox *ngFor="let item of types" style="width: 25%;" [checked]="isTypeSelected(item.id)" (change)="onTypeChange($event, item.id)">{{item.name}}</mat-checkbox>
       </div>
     </div>
+
+    <div class="form-row">
+      <div class="form-block-title"  style="margin-bottom: 40px; padding: 0;">Изменение тарифов</div>
+      <div class="form-item-layout">
+    
+      </div>
+    </div>
+
     <div class="form-row">
       <button class="save long" type="submit">Сохранить изменения</button>
     </div>

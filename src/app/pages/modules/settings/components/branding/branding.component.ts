@@ -89,6 +89,10 @@ export class BrandingComponent extends BaseComponent implements OnInit {
     this.getSettings();
   }
 
+  testLog(log:any){
+    console.log(log)
+  }
+
   onFileSelected(event: any): void {
     const file: File = event.target.files[0];
     if (file) {

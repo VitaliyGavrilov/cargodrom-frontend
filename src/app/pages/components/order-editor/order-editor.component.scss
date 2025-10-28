@@ -30,7 +30,7 @@ button.add-event{
   padding: 6px;
   width: fit-content;
   margin: 10px 0 10px auto;
-  background-color: #DB563B;
+  background-color: var(--accent,  #DB563B);
   color: white;
 }
 

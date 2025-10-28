@@ -63,7 +63,7 @@
     background-image:url(../../../assets/pic-btn-rate-plus.svg);
   }
   button.add{
-    background-color: #DB563B;
+    background-color: var(--accent,  #DB563B);
     color: white;
   }
   .dub::before{

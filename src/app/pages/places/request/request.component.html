@@ -31,14 +31,14 @@
     <p *ngIf="data.res.update">{{ data.res.update.text }}</p>
   </div>
   <div mat-dialog-actions align="end">
-    <button style="background: #DB563B; color: #fff;"
+    <button style="background: var(--accent,  #DB563B); color: #fff;"
       mat-button
       [mat-dialog-close]="1"
       *ngIf="data.res.insert || data.res.update"
       >
       Сохранить данные
     </button>
-    <button style="background: #4b66ad; color: #fff;"
+    <button style="background: var(--header_menu, #4B66AD); color: #fff;"
       mat-button
       [mat-dialog-close]="2"
       >

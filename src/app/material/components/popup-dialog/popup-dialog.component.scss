@@ -45,7 +45,7 @@
   cursor: pointer;
   font-size: 15px;
   color: #FFFFFF;
-  background: #DB563B;
+  background: var(--accent,  #DB563B);
   box-shadow: 0px 2px 8px rgba(44, 54, 64, 0.13);
   border-radius: 6px;
   padding: 13px 16px;

@@ -11,12 +11,10 @@
     "api": "ng-openapi-gen -i https://dev.cargodrom.com/openapi2.php",
     "build:github": "ng build --configuration development --base-href https://TriviumStudio.github.io/cargodrom-frontend/",
     "test:headless": "ng test --watch=false --browsers=ChromeHeadless",
-
     "build-prod_in_crm": "ng build --configuration production --base-href /crm/ --output-path dist/crm",
     "build_test_prod": "ng build --configuration production --base-href /prod/ --output-path dist/test-prod",
     "build_test_dev": "ng build --configuration development --base-href /dev/ --output-path dist/test-dev",
     "build_test_both": "npm run build_test_prod && npm run build_test_dev"
-
   },
   "private": true,
   "dependencies": {
@@ -32,6 +30,8 @@
     "@angular/platform-browser-dynamic": "^16.2.12",
     "@angular/router": "^16.2.12",
     "moment": "^2.30.1",
+    "ngx-color": "^9.0.0",
+    "ngx-color-picker": "^15.0.0",
     "ngx-mask": "^15.0.0",
     "ngx-scrollbar": "^12.0.0",
     "rxjs": "~7.5.0",

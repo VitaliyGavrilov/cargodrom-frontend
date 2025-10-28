@@ -141,13 +141,24 @@ export abstract class Table<T extends { id: number }, A = never, F = never> impl
 
   private transformClientValue(value: any, obj:any) {
     if (typeof value === 'string') {
+      const baseUrl = window.location.origin;
       return value.replace(
         /\[urlclient\](.*?)\[\/urlclient\]/ig, 
-        `<a class="link" target="_blank" href="/#/pages/customer/edit/${obj.customer_id}">$1</a>`
+        `<a class="link" target="_blank" href="${baseUrl}/pages/customer/edit/${obj.customer_id}">$1</a>`
       );
     }
     return value;
   }
+
+  // private transformClientValue(value: any, obj:any) {
+  //   if (typeof value === 'string') {
+  //     return value.replace(
+  //       /\[urlclient\](.*?)\[\/urlclient\]/ig, 
+  //       `<a class="link" target="_blank" href="/#/pages/customer/edit/${obj.customer_id}">$1</a>`
+  //     );
+  //   }
+  //   return value;
+  // }
 
   protected loadRows(): void {
     const sortCol = this.getSort();

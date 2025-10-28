@@ -1,0 +1,36 @@
+<!-- color-picker.component.html -->
+<div class="color-picker-container" #container [style]="{'--input-color': color}">
+  <input 
+    type="text"
+    [value]="color" (click)="togglePicker()"
+    readonly
+    class="color-input"
+    [placeholder]="placeholder"
+    (blur)="handleTouched()"
+    
+  >
+    
+  <div class="picker-dropdown" 
+       *ngIf="isOpen"
+       [class.dropdown-top]="placement === 'top'"
+       [class.dropdown-bottom]="placement === 'bottom'">
+    <div class="picker-backdrop" (click)="closePicker()"></div>
+    <div class="picker-content">
+      <!-- (colorChange)="onColorChange($event)"> -->
+      <color-chrome
+        [color]="currentColor"
+        [disableAlpha]="true"
+        (colorChange)="currentColor=$event">
+      </color-chrome>
+      <div style="display: flex; margin: 0 auto; gap:5px">
+        <div *ngFor="let col of history" style="width: 12px; height: 12px; border-radius: 50%;" [style]="{'background-color': col}" (click)="currentColor=col"></div>
+      </div>
+      
+      <button type="button" class="close-btn apply-btn " [style]="{'background-color': currentColor}" (click)="apply()" [disabled]="currentColor==color">
+        {{currentColor==color?'Цвет активен':'Применить'}}
+      </button>
+    </div>
+  </div>
+</div>
+
+

@@ -36,7 +36,7 @@ td label{
 //   justify-content: space-between;
 //   background: inherit;
 //   border: none;
-//   color: #DB563B;
+//   color: var(--accent,  #DB563B);
 //   font-size: 15px;
 //   font-weight: 400;
 //   line-height: 15px;
@@ -57,7 +57,7 @@ td label{
 input[type="date"]{
   background: inherit;
   border: none;
-  color: #DB563B;
+  color: var(--accent,  #DB563B);
   width: 115px;
   padding: 11px 0 9px;
   font-size: 15px;
@@ -270,7 +270,7 @@ table.kp{
     text-transform: uppercase;
   }
   .ord{
-    background-color: #4B66AD;
+    background-color: var(--header_menu, #4B66AD);
     color: white;
     margin-left: auto;
     width: 90px;
@@ -286,7 +286,7 @@ table.kp{
     margin: 0 auto 8px ;
   }
   .sav{
-    background-color: #DB563B;
+    background-color: var(--accent,  #DB563B);
     color: white;
 
 

@@ -30,8 +30,9 @@
     <div class="item" [ngClass]="{'open': showMore}" *ngIf="filterService.hasAdditional">
       <div>
         <div class="title">&nbsp;</div>
-        <div class="data">
-          <span class="addition-filter" (click)="toggleMore()">Дополнительно</span>
+        <div class="data" style="display: flex; cursor: pointer;" (click)="toggleMore()">
+          <div class="new-icon funnel s16px" [ngClass]="{ 'gradient': filterService.hasAdditionalFilters()}" style="--icon-color: var(--text2, #D9D9D9)"></div>
+          <span class="addition-filter" >Дополнительно</span>
         </div>
       </div>
     </div>

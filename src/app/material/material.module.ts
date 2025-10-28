@@ -22,6 +22,7 @@ import { MatRadioModule } from '@angular/material/radio';
 
 // CDK Modules
 import { DragDropModule } from '@angular/cdk/drag-drop'; // <-- Добавьте этот импорт
+import {OverlayModule} from '@angular/cdk/overlay';
 
 // DateAdapter Configuration
 import {
@@ -38,6 +39,8 @@ import { PaginatorComponent } from './components/paginator/paginator.component';
 import { EditorHeaderComponent } from './components/editor-header/editor-header.component';
 import { FocusInitialDirective } from './directives/focus-initial.directive';
 import { PhoneMaskDirective } from './directives/phone-mask.directive';
+
+import {MatIconModule} from '@angular/material/icon';
 
 @NgModule({
   declarations: [
@@ -70,8 +73,10 @@ import { PhoneMaskDirective } from './directives/phone-mask.directive';
     MatMenuModule,
     MatProgressSpinnerModule,
     MatRadioModule,
-    
     DragDropModule, // <-- Добавьте этот модуль в imports
+    OverlayModule,
+
+    MatIconModule,
   ],
   providers: [
     {
@@ -100,6 +105,7 @@ import { PhoneMaskDirective } from './directives/phone-mask.directive';
     MatRadioModule,
     
     DragDropModule, // <-- И экспортируйте его
+    OverlayModule,
 
     // Your custom components & directives
     PopupDialogComponent,
@@ -107,6 +113,8 @@ import { PhoneMaskDirective } from './directives/phone-mask.directive';
     EditorHeaderComponent,
     FocusInitialDirective,
     PhoneMaskDirective,
+
+    MatIconModule,
   ]
 })
 export class MaterialModule {}

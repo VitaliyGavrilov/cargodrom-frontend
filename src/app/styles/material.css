@@ -1,6 +1,6 @@
 /* const */
 body{
-  --mat-option-selected-state-label-text-color: #DB563B;
+  --mat-option-selected-state-label-text-color: var(--accent,  #DB563B);
   --mat-option-label-text-line-height: 15px;
   --mat-option-label-text-size: 13px;
 
@@ -105,7 +105,7 @@ mat-checkbox.mat-mdc-checkbox input[type="checkbox"]::after {
   content: '';
   display: block;
   width: 9px;
-  background-color: #DB563B;
+  background-color: var(--accent,  #DB563B);
   padding: 0;
   margin: auto 0;
 }
@@ -147,7 +147,7 @@ mat-checkbox.mat-mdc-checkbox.switcher  input[type="checkbox"]::after {
 }
 mat-checkbox.mat-mdc-checkbox.switcher input[type="checkbox"].mdc-checkbox--selected::after {
   margin-left: auto;
-  background-color: #DB563B;
+  background-color: var(--accent,  #DB563B);
 }
 
 
@@ -193,14 +193,14 @@ mat-checkbox.mat-mdc-checkbox.reverse{
 .mat-mdc-checkbox.mat-mdc-checkbox-checked .mdc-form-field::after{
   content: "";
   display: block;
-  background: #DB563B;
+  background: var(--accent,  #DB563B);
   width: 8px; height: 8px;
   margin: 0; padding: 0;
 }
 .mat-mdc-checkbox.mat-mdc-checkbox-indeterminate .mdc-form-field::after {
   content: "";
   display: block;
-  background: #DB563B;
+  background: var(--accent,  #DB563B);
   width: 10px; height: 3px;
   margin: 0; padding: 0;
 }

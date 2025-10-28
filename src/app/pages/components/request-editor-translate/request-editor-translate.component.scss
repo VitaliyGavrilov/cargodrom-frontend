@@ -42,7 +42,7 @@ padding-top: 0;
 }
 
 .bl{
-  background-color: #4B66AD;
+  background-color: var(--header_menu, #4B66AD);
 }
 
 .form-block{

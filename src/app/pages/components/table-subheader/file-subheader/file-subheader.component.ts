@@ -56,7 +56,8 @@ export class TableSubheaderFileComponent implements OnInit {
       return;
     }
     this.dialog.open(this.exportDialogRef,
-      { data: 'Экспортировать данные о подрядчиках в Excel файл?'}
+      { data: 'Экспортировать данные о '+this.titles.subtitle+'ах в Excel файл?'
+      }
     ).afterClosed().subscribe(res => {
       if (res) { this.export.emit();}
     });

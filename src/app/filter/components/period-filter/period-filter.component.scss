@@ -1,6 +1,6 @@
 .border-on{
   border-bottom: 1px #DB563B solid;
-  color: #DB563B ;
+  color: var(--accent,  #DB563B) ;
 }
 
 .border-off{

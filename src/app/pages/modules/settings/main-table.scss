@@ -91,7 +91,7 @@
 
 .main-table .link-txt:before {
   content: "TXT";
-  color: #DB563B;
+  color: var(--accent,  #DB563B);
   font-size: 11px;
   line-height: 11px;
   margin-top: 13px;
@@ -100,7 +100,7 @@
 
 .main-table .link-pdf:before {
   content: "PDF";
-  color: #DB563B;
+  color: var(--accent,  #DB563B);
   font-size: 11px;
   line-height: 11px;
   margin-top: 13px;

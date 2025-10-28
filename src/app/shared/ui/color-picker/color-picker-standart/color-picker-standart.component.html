@@ -1,0 +1,45 @@
+<app-panel 
+  [isOpen]="isOpen" 
+  [preferredPlacement]="preferredPlacement"
+  (closed)="closePicker()">
+  
+  <!-- Триггер -->
+  <div trigger class="color-picker-trigger" [style]="{'--input-color': color}">
+    <input 
+      type="text"
+      [value]="color" 
+      (click)="togglePicker()"
+      readonly
+      class="color-input"
+      [placeholder]="placeholder"
+      (blur)="handleTouched()"
+    >
+  </div>
+
+  <!-- Контент панели -->
+  <div content>
+    <color-chrome
+      [color]="currentColor"
+      [disableAlpha]="true"
+      (colorChange)="currentColor = $event">
+    </color-chrome>
+    
+    <div class="color-history">
+      <div 
+        *ngFor="let col of history" 
+        class="history-color" 
+        [style]="{'background-color': col}" 
+        (click)="currentColor = col">
+      </div>
+    </div>
+    
+    <button 
+      type="button" 
+      class="close-btn apply-btn" 
+      [style]="{'background-color': currentColor}" 
+      (click)="apply()" 
+      [disabled]="currentColor == color">
+      {{ currentColor == color ? 'Цвет активен' : 'Применить' }}
+    </button>
+  </div>
+</app-panel>

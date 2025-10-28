@@ -20,6 +20,7 @@ export class EditorHeaderComponent implements OnInit {
   @Input() request: any={};
   @Output() send = new EventEmitter<void>();
   @Input() isSend = false;
+  @Input() backLink:string = '';
 
   constructor(
     private location: Location,
@@ -39,7 +40,7 @@ export class EditorHeaderComponent implements OnInit {
 
   goBack(): void {
     // this.location.back();
-    this.navigationHistoryService.back('./')
+    this.navigationHistoryService.back(this.backLink)
   }
 
   goCalc():void{
