@@ -177,10 +177,10 @@ export class ContractorEditorComponent implements OnInit {
     .subscribe((value: any) => {
       if(typeof value==='string'){
         this.filteredTransportCarrier = this.transportCarrier.filter((item: any) => {
-          return item.name && item.name.toLowerCase().includes(value.toLowerCase());
+          return item.full_name && item.full_name.toLowerCase().includes(value.toLowerCase());
         });
         if(this.filteredTransportCarrier.length==1){
-          if(this.filteredTransportCarrier[0].name?.toLowerCase()===value.toLowerCase()){
+          if(this.filteredTransportCarrier[0].full_name?.toLowerCase()===value.toLowerCase()){
             this.contractorForm.patchValue({
               carrier_id: this.filteredTransportCarrier[0].id,
             });
@@ -312,7 +312,7 @@ export class ContractorEditorComponent implements OnInit {
       return '';
     }
     const obj = this.transportCarrier.find(obj => obj.id === id);
-    return obj?.name || '';
+    return obj?.full_name || '';
   }
   displayFn_TypeId(id: any): string {
     if (!this.contractorTypes) {

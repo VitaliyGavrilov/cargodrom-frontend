@@ -68,6 +68,11 @@ export class ContractorService extends BaseService {
  */
 'dir'?: 'asc' | 'desc';
 }>;
+
+    /**
+     * ID запроса торгов
+     */
+      bidding_request_id?: number;
     },
     context?: HttpContext
   ): Observable<StrictHttpResponse<{
@@ -466,6 +471,7 @@ export class ContractorService extends BaseService {
       rb.query('count', params.count, {});
       rb.query('filter', params.filter, {});
       rb.query('sort', params.sort, {"style":"form","explode":false});
+      rb.query('bidding_request_id', params.bidding_request_id, {});
     }
 
     return this.http.request(
@@ -911,6 +917,11 @@ export class ContractorService extends BaseService {
  */
 'dir'?: 'asc' | 'desc';
 }>;
+
+    /**
+     * ID запроса торгов
+     */
+      bidding_request_id?: number;
     },
     context?: HttpContext
   ): Observable<{

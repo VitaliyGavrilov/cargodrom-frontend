@@ -5,7 +5,7 @@
     <div class="form-row">
       <div class="form-item-layout">
 
-        <div class="form-data form-item torg">
+        <div class="form-data form-item torg" style="width: 50%;">
           <label>
             <input type="checkbox" formControlName="allow_trade">
             <i> </i>
@@ -48,7 +48,7 @@
             <input matInput type="text" formControlName="carrier_id" [matAutocomplete]="carrier_id">
             <mat-autocomplete #carrier_id="matAutocomplete" [displayWith]="displayFn_CarrierId.bind(this)">
               <mat-option *ngFor="let option of filteredTransportCarrier" [value]="option.id">
-                {{option.name}}
+                {{option.full_name}}
               </mat-option>
             </mat-autocomplete>
             <mat-error *ngIf="contractorForm.controls['carrier_id'].hasError('required')">
