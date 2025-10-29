@@ -11,6 +11,7 @@ import { FilterListComponent } from '../filter-list/filter-list.component';
 import { CurrencyService } from 'src/app/pages/services/сurrency/currency.service';
 import { BaseComponent } from 'src/app/classes/base-component';
 import { FormHistoryService } from './branding.service';
+import { DomSanitizer, SafeResourceUrl } from '@angular/platform-browser';
 
 type PageTypes = 'Таблица' | 'Форма';
 
@@ -39,6 +40,9 @@ export class BrandingComponent extends BaseComponent implements OnInit {
 
   colorHistoryObj:any;
 
+  tableLink:any=this.getSafeUrl('/#/pages/request');
+  formLink:any=this.getSafeUrl('/#/pages/request/add')
+
   private colorHistory: any[] = []; // История значений
   private currentHistoryIndex = -1; // Текущая позиция в истории
   private maxHistoryLength = 50; // Максимальная длина истории
@@ -53,6 +57,7 @@ export class BrandingComponent extends BaseComponent implements OnInit {
     private systemService: SystemService,
     private currencyService: CurrencyService,
     private historyService: FormHistoryService,
+    private sanitizer: DomSanitizer,
   ) {
     super();
     this.form = this.fb.group({
@@ -324,6 +329,16 @@ export class BrandingComponent extends BaseComponent implements OnInit {
   
   onSubmit() {
     this.postSettings();
+  }
+
+  getSafeUrl(path: string): SafeResourceUrl {
+    const fullUrl = this.returnFullLinkIframe(path);
+    return this.sanitizer.bypassSecurityTrustResourceUrl(fullUrl);
+  }
+
+  returnFullLinkIframe(link:string): string {
+    const baseUrl = window.location.href.split('/#')[0];    
+    return baseUrl+link;
   }
 
   header:any={

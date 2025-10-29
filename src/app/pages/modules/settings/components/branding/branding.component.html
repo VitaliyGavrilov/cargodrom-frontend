@@ -45,8 +45,8 @@
 
       <div class="brending-form" >
         <div class="demo">
-          <iframe [style]="{'display': currentPageType=='Таблица'?'':'none'}" src="/#/pages/request" scrolling="no" frameborder="0" [appIframeStyle]="getCssVariablesString()" title="Демо таблица"></iframe>
-          <iframe [style]="{'display': currentPageType=='Форма'?'':'none'}" src="/#/pages/request/add" scrolling="no" frameborder="0" [appIframeStyle]="getCssVariablesString()" title="Демо форма" style="pointer-events: none;"></iframe>
+          <iframe [style]="{'display': currentPageType=='Таблица'?'':'none'}" [src]="tableLink" scrolling="no" frameborder="0" [appIframeStyle]="getCssVariablesString()" title="Демо таблица"></iframe>
+          <iframe [style]="{'display': currentPageType=='Форма'?'':'none'}" [src]="formLink" scrolling="no" frameborder="0" [appIframeStyle]="getCssVariablesString()" title="Демо форма" style="pointer-events: none;"></iframe>
           <!-- <app-header [style]="getCssVariablesString()"></app-header>
           <app-request [style]="getCssVariablesString()"></app-request> -->
         </div>

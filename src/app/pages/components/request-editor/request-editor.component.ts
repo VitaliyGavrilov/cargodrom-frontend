@@ -73,7 +73,7 @@ export class RequestEditorComponent implements OnInit, OnDestroy {
   currentPlacesDensity: number = 0 ;
   currentDepartureCountryName:string='';
   currentArrivalCountryName:string='';
-  transport_kind_id?:number;
+  transport_kind_id?:number|string;
   //снек бар
 
   //отписки
@@ -1298,7 +1298,7 @@ export class RequestEditorComponent implements OnInit, OnDestroy {
   //     ).subscribe();
   // }
 
-  private getDeparturePoint(country_id: number, transport_kind_id: number) {
+  private getDeparturePoint(country_id: any, transport_kind_id: any) {
     this.directionService.directionPoint({country_id:country_id, transport_kind_id:transport_kind_id})
       .pipe(
         tap((departurePoint) =>{
@@ -1311,7 +1311,7 @@ export class RequestEditorComponent implements OnInit, OnDestroy {
         takeUntil(this._destroy$)
       ).subscribe();
   }
-  private getArrivalPoint(country_id: number, transport_kind_id: number) {
+  private getArrivalPoint(country_id: any, transport_kind_id: any) {
     this.directionService.directionPoint({country_id:country_id, transport_kind_id:transport_kind_id})
       .pipe(
         tap(arrivalPoint => {

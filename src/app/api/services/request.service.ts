@@ -125,7 +125,7 @@ export class RequestService extends BaseService {
 /**
  * Вид перевозки (ID берем из запроса - transport_kind)
  */
-'transport_kind_id'?: number;
+'transport_kind_id'?: string;
 
 /**
  * Вид перевозки
@@ -161,6 +161,11 @@ export class RequestService extends BaseService {
  * Вид упаковки (ID берем из запроса - cargo_package)
  */
 'cargo_package_id'?: number;
+
+/**
+ * Свой вид упаковки (для id 13)
+ */
+'cargo_package_custom'?: string;
 
 /**
  * Вид упаковки (Наименование) (ID берем из запроса - cargo_package)
@@ -207,6 +212,11 @@ export class RequestService extends BaseService {
  * Вид упаковки (ID берем из запроса - cargo_package)
  */
 'cargo_package_id'?: number;
+
+/**
+ * Свой вид упаковки (для id 13)
+ */
+'cargo_package_custom'?: string;
 
 /**
  * Вид упаковки (Наименование) (ID берем из запроса - cargo_package)
@@ -318,7 +328,7 @@ export class RequestService extends BaseService {
 /**
  * Страна отправления (ID берем из запроса - direction_country)
  */
-'departure_country_id'?: number;
+'departure_country_id'?: string;
 
 /**
  * Страна отправления
@@ -358,7 +368,7 @@ export class RequestService extends BaseService {
 /**
  * Страна назначения (ID берем из запроса - direction_country)
  */
-'arrival_country_id'?: number;
+'arrival_country_id'?: string;
 
 /**
  * Страна назначения
@@ -646,7 +656,7 @@ export class RequestService extends BaseService {
         /**
          * Вид перевозки (ID берем из запроса - transport_kind)
          */
-        'transport_kind_id'?: number;
+        'transport_kind_id'?: string;
         
         /**
          * Вид перевозки
@@ -682,6 +692,11 @@ export class RequestService extends BaseService {
          * Вид упаковки (ID берем из запроса - cargo_package)
          */
         'cargo_package_id'?: number;
+        
+        /**
+         * Свой вид упаковки (для id 13)
+         */
+        'cargo_package_custom'?: string;
         
         /**
          * Вид упаковки (Наименование) (ID берем из запроса - cargo_package)
@@ -728,6 +743,11 @@ export class RequestService extends BaseService {
          * Вид упаковки (ID берем из запроса - cargo_package)
          */
         'cargo_package_id'?: number;
+        
+        /**
+         * Свой вид упаковки (для id 13)
+         */
+        'cargo_package_custom'?: string;
         
         /**
          * Вид упаковки (Наименование) (ID берем из запроса - cargo_package)
@@ -839,7 +859,7 @@ export class RequestService extends BaseService {
         /**
          * Страна отправления (ID берем из запроса - direction_country)
          */
-        'departure_country_id'?: number;
+        'departure_country_id'?: string;
         
         /**
          * Страна отправления
@@ -879,7 +899,7 @@ export class RequestService extends BaseService {
         /**
          * Страна назначения (ID берем из запроса - direction_country)
          */
-        'arrival_country_id'?: number;
+        'arrival_country_id'?: string;
         
         /**
          * Страна назначения
@@ -1204,7 +1224,7 @@ export class RequestService extends BaseService {
 /**
  * Вид перевозки (ID берем из запроса - transport_kind)
  */
-'transport_kind_id'?: number;
+'transport_kind_id'?: string;
 
 /**
  * Вид перевозки
@@ -1240,6 +1260,11 @@ export class RequestService extends BaseService {
  * Вид упаковки (ID берем из запроса - cargo_package)
  */
 'cargo_package_id'?: number;
+
+/**
+ * Свой вид упаковки (для id 13)
+ */
+'cargo_package_custom'?: string;
 
 /**
  * Вид упаковки (Наименование) (ID берем из запроса - cargo_package)
@@ -1286,6 +1311,11 @@ export class RequestService extends BaseService {
  * Вид упаковки (ID берем из запроса - cargo_package)
  */
 'cargo_package_id'?: number;
+
+/**
+ * Свой вид упаковки (для id 13)
+ */
+'cargo_package_custom'?: string;
 
 /**
  * Вид упаковки (Наименование) (ID берем из запроса - cargo_package)
@@ -1397,7 +1427,7 @@ export class RequestService extends BaseService {
 /**
  * Страна отправления (ID берем из запроса - direction_country)
  */
-'departure_country_id'?: number;
+'departure_country_id'?: string;
 
 /**
  * Страна отправления
@@ -1437,7 +1467,7 @@ export class RequestService extends BaseService {
 /**
  * Страна назначения (ID берем из запроса - direction_country)
  */
-'arrival_country_id'?: number;
+'arrival_country_id'?: string;
 
 /**
  * Страна назначения
@@ -1713,7 +1743,7 @@ export class RequestService extends BaseService {
 /**
  * Вид перевозки (ID берем из запроса - transport_kind)
  */
-'transport_kind_id'?: number;
+'transport_kind_id'?: string;
 
 /**
  * Вид перевозки
@@ -1749,6 +1779,11 @@ export class RequestService extends BaseService {
  * Вид упаковки (ID берем из запроса - cargo_package)
  */
 'cargo_package_id'?: number;
+
+/**
+ * Свой вид упаковки (для id 13)
+ */
+'cargo_package_custom'?: string;
 
 /**
  * Вид упаковки (Наименование) (ID берем из запроса - cargo_package)
@@ -1795,6 +1830,11 @@ export class RequestService extends BaseService {
  * Вид упаковки (ID берем из запроса - cargo_package)
  */
 'cargo_package_id'?: number;
+
+/**
+ * Свой вид упаковки (для id 13)
+ */
+'cargo_package_custom'?: string;
 
 /**
  * Вид упаковки (Наименование) (ID берем из запроса - cargo_package)
@@ -1906,7 +1946,7 @@ export class RequestService extends BaseService {
 /**
  * Страна отправления (ID берем из запроса - direction_country)
  */
-'departure_country_id'?: number;
+'departure_country_id'?: string;
 
 /**
  * Страна отправления
@@ -1946,7 +1986,7 @@ export class RequestService extends BaseService {
 /**
  * Страна назначения (ID берем из запроса - direction_country)
  */
-'arrival_country_id'?: number;
+'arrival_country_id'?: string;
 
 /**
  * Страна назначения
@@ -2220,7 +2260,7 @@ export class RequestService extends BaseService {
 /**
  * Вид перевозки (ID берем из запроса - transport_kind)
  */
-'transport_kind_id'?: number;
+'transport_kind_id'?: string;
 
 /**
  * Вид перевозки
@@ -2256,6 +2296,11 @@ export class RequestService extends BaseService {
  * Вид упаковки (ID берем из запроса - cargo_package)
  */
 'cargo_package_id'?: number;
+
+/**
+ * Свой вид упаковки (для id 13)
+ */
+'cargo_package_custom'?: string;
 
 /**
  * Вид упаковки (Наименование) (ID берем из запроса - cargo_package)
@@ -2302,6 +2347,11 @@ export class RequestService extends BaseService {
  * Вид упаковки (ID берем из запроса - cargo_package)
  */
 'cargo_package_id'?: number;
+
+/**
+ * Свой вид упаковки (для id 13)
+ */
+'cargo_package_custom'?: string;
 
 /**
  * Вид упаковки (Наименование) (ID берем из запроса - cargo_package)
@@ -2413,7 +2463,7 @@ export class RequestService extends BaseService {
 /**
  * Страна отправления (ID берем из запроса - direction_country)
  */
-'departure_country_id'?: number;
+'departure_country_id'?: string;
 
 /**
  * Страна отправления
@@ -2453,7 +2503,7 @@ export class RequestService extends BaseService {
 /**
  * Страна назначения (ID берем из запроса - direction_country)
  */
-'arrival_country_id'?: number;
+'arrival_country_id'?: string;
 
 /**
  * Страна назначения
@@ -3700,7 +3750,7 @@ export class RequestService extends BaseService {
 /**
  * Вид перевозки (ID берем из запроса - transport_kind)
  */
-'transport_kind_id'?: number;
+'transport_kind_id'?: string;
 
 /**
  * Вид перевозки
@@ -3736,6 +3786,11 @@ export class RequestService extends BaseService {
  * Вид упаковки (ID берем из запроса - cargo_package)
  */
 'cargo_package_id'?: number;
+
+/**
+ * Свой вид упаковки (для id 13)
+ */
+'cargo_package_custom'?: string;
 
 /**
  * Вид упаковки (Наименование) (ID берем из запроса - cargo_package)
@@ -3782,6 +3837,11 @@ export class RequestService extends BaseService {
  * Вид упаковки (ID берем из запроса - cargo_package)
  */
 'cargo_package_id'?: number;
+
+/**
+ * Свой вид упаковки (для id 13)
+ */
+'cargo_package_custom'?: string;
 
 /**
  * Вид упаковки (Наименование) (ID берем из запроса - cargo_package)
@@ -3893,7 +3953,7 @@ export class RequestService extends BaseService {
 /**
  * Страна отправления (ID берем из запроса - direction_country)
  */
-'departure_country_id'?: number;
+'departure_country_id'?: string;
 
 /**
  * Страна отправления
@@ -3933,7 +3993,7 @@ export class RequestService extends BaseService {
 /**
  * Страна назначения (ID берем из запроса - direction_country)
  */
-'arrival_country_id'?: number;
+'arrival_country_id'?: string;
 
 /**
  * Страна назначения
@@ -4213,7 +4273,7 @@ export class RequestService extends BaseService {
         /**
          * Вид перевозки (ID берем из запроса - transport_kind)
          */
-        'transport_kind_id'?: number;
+        'transport_kind_id'?: string;
         
         /**
          * Вид перевозки
@@ -4249,6 +4309,11 @@ export class RequestService extends BaseService {
          * Вид упаковки (ID берем из запроса - cargo_package)
          */
         'cargo_package_id'?: number;
+        
+        /**
+         * Свой вид упаковки (для id 13)
+         */
+        'cargo_package_custom'?: string;
         
         /**
          * Вид упаковки (Наименование) (ID берем из запроса - cargo_package)
@@ -4295,6 +4360,11 @@ export class RequestService extends BaseService {
          * Вид упаковки (ID берем из запроса - cargo_package)
          */
         'cargo_package_id'?: number;
+        
+        /**
+         * Свой вид упаковки (для id 13)
+         */
+        'cargo_package_custom'?: string;
         
         /**
          * Вид упаковки (Наименование) (ID берем из запроса - cargo_package)
@@ -4406,7 +4476,7 @@ export class RequestService extends BaseService {
         /**
          * Страна отправления (ID берем из запроса - direction_country)
          */
-        'departure_country_id'?: number;
+        'departure_country_id'?: string;
         
         /**
          * Страна отправления
@@ -4446,7 +4516,7 @@ export class RequestService extends BaseService {
         /**
          * Страна назначения (ID берем из запроса - direction_country)
          */
-        'arrival_country_id'?: number;
+        'arrival_country_id'?: string;
         
         /**
          * Страна назначения
@@ -4739,7 +4809,7 @@ export class RequestService extends BaseService {
 /**
  * Вид перевозки (ID берем из запроса - transport_kind)
  */
-'transport_kind_id'?: number;
+'transport_kind_id'?: string;
 
 /**
  * Вид перевозки
@@ -4775,6 +4845,11 @@ export class RequestService extends BaseService {
  * Вид упаковки (ID берем из запроса - cargo_package)
  */
 'cargo_package_id'?: number;
+
+/**
+ * Свой вид упаковки (для id 13)
+ */
+'cargo_package_custom'?: string;
 
 /**
  * Вид упаковки (Наименование) (ID берем из запроса - cargo_package)
@@ -4821,6 +4896,11 @@ export class RequestService extends BaseService {
  * Вид упаковки (ID берем из запроса - cargo_package)
  */
 'cargo_package_id'?: number;
+
+/**
+ * Свой вид упаковки (для id 13)
+ */
+'cargo_package_custom'?: string;
 
 /**
  * Вид упаковки (Наименование) (ID берем из запроса - cargo_package)
@@ -4932,7 +5012,7 @@ export class RequestService extends BaseService {
 /**
  * Страна отправления (ID берем из запроса - direction_country)
  */
-'departure_country_id'?: number;
+'departure_country_id'?: string;
 
 /**
  * Страна отправления
@@ -4972,7 +5052,7 @@ export class RequestService extends BaseService {
 /**
  * Страна назначения (ID берем из запроса - direction_country)
  */
-'arrival_country_id'?: number;
+'arrival_country_id'?: string;
 
 /**
  * Страна назначения
@@ -5243,7 +5323,7 @@ export class RequestService extends BaseService {
 /**
  * Вид перевозки (ID берем из запроса - transport_kind)
  */
-'transport_kind_id'?: number;
+'transport_kind_id'?: string;
 
 /**
  * Вид перевозки
@@ -5279,6 +5359,11 @@ export class RequestService extends BaseService {
  * Вид упаковки (ID берем из запроса - cargo_package)
  */
 'cargo_package_id'?: number;
+
+/**
+ * Свой вид упаковки (для id 13)
+ */
+'cargo_package_custom'?: string;
 
 /**
  * Вид упаковки (Наименование) (ID берем из запроса - cargo_package)
@@ -5325,6 +5410,11 @@ export class RequestService extends BaseService {
  * Вид упаковки (ID берем из запроса - cargo_package)
  */
 'cargo_package_id'?: number;
+
+/**
+ * Свой вид упаковки (для id 13)
+ */
+'cargo_package_custom'?: string;
 
 /**
  * Вид упаковки (Наименование) (ID берем из запроса - cargo_package)
@@ -5436,7 +5526,7 @@ export class RequestService extends BaseService {
 /**
  * Страна отправления (ID берем из запроса - direction_country)
  */
-'departure_country_id'?: number;
+'departure_country_id'?: string;
 
 /**
  * Страна отправления
@@ -5476,7 +5566,7 @@ export class RequestService extends BaseService {
 /**
  * Страна назначения (ID берем из запроса - direction_country)
  */
-'arrival_country_id'?: number;
+'arrival_country_id'?: string;
 
 /**
  * Страна назначения
@@ -5745,7 +5835,7 @@ export class RequestService extends BaseService {
 /**
  * Вид перевозки (ID берем из запроса - transport_kind)
  */
-'transport_kind_id'?: number;
+'transport_kind_id'?: string;
 
 /**
  * Вид перевозки
@@ -5781,6 +5871,11 @@ export class RequestService extends BaseService {
  * Вид упаковки (ID берем из запроса - cargo_package)
  */
 'cargo_package_id'?: number;
+
+/**
+ * Свой вид упаковки (для id 13)
+ */
+'cargo_package_custom'?: string;
 
 /**
  * Вид упаковки (Наименование) (ID берем из запроса - cargo_package)
@@ -5827,6 +5922,11 @@ export class RequestService extends BaseService {
  * Вид упаковки (ID берем из запроса - cargo_package)
  */
 'cargo_package_id'?: number;
+
+/**
+ * Свой вид упаковки (для id 13)
+ */
+'cargo_package_custom'?: string;
 
 /**
  * Вид упаковки (Наименование) (ID берем из запроса - cargo_package)
@@ -5938,7 +6038,7 @@ export class RequestService extends BaseService {
 /**
  * Страна отправления (ID берем из запроса - direction_country)
  */
-'departure_country_id'?: number;
+'departure_country_id'?: string;
 
 /**
  * Страна отправления
@@ -5978,7 +6078,7 @@ export class RequestService extends BaseService {
 /**
  * Страна назначения (ID берем из запроса - direction_country)
  */
-'arrival_country_id'?: number;
+'arrival_country_id'?: string;
 
 /**
  * Страна назначения
@@ -6236,7 +6336,7 @@ export class RequestService extends BaseService {
 /**
  * Вид перевозки (ID берем из запроса - transport_kind)
  */
-'transport_kind_id': number;
+'transport_kind_id': string;
 
 /**
  * Тип транспорта (ID берем из запроса - transport_type)
@@ -6257,6 +6357,11 @@ export class RequestService extends BaseService {
  * Вид упаковки (ID берем из запроса - cargo_package)
  */
 'cargo_package_id'?: number;
+
+/**
+ * Свой вид упаковки (для id 13)
+ */
+'cargo_package_custom'?: string;
 
 /**
  * Температурный режим
@@ -6298,6 +6403,11 @@ export class RequestService extends BaseService {
  * Вид упаковки (ID берем из запроса - cargo_package)
  */
 'cargo_package_id'?: number;
+
+/**
+ * Свой вид упаковки (для id 13)
+ */
+'cargo_package_custom'?: string;
 
 /**
  * Признак возможности штабелировать груз (ID берем из запроса - cargo_package)
@@ -6388,7 +6498,7 @@ export class RequestService extends BaseService {
 /**
  * Страна отправления (ID берем из запроса - direction_country)
  */
-'departure_country_id': number;
+'departure_country_id': string;
 
 /**
  * Аэропорт вылета (ID берем из запроса - direction_point)
@@ -6408,7 +6518,7 @@ export class RequestService extends BaseService {
 /**
  * Страна назначения (ID берем из запроса - direction_country)
  */
-'arrival_country_id': number;
+'arrival_country_id': string;
 
 /**
  * Аэропорт прибытия (ID берем из запроса - direction_point)
@@ -6527,7 +6637,7 @@ export class RequestService extends BaseService {
 /**
  * Вид перевозки (ID берем из запроса - transport_kind)
  */
-'transport_kind_id': number;
+'transport_kind_id': string;
 
 /**
  * Тип транспорта (ID берем из запроса - transport_type)
@@ -6548,6 +6658,11 @@ export class RequestService extends BaseService {
  * Вид упаковки (ID берем из запроса - cargo_package)
  */
 'cargo_package_id'?: number;
+
+/**
+ * Свой вид упаковки (для id 13)
+ */
+'cargo_package_custom'?: string;
 
 /**
  * Температурный режим
@@ -6589,6 +6704,11 @@ export class RequestService extends BaseService {
  * Вид упаковки (ID берем из запроса - cargo_package)
  */
 'cargo_package_id'?: number;
+
+/**
+ * Свой вид упаковки (для id 13)
+ */
+'cargo_package_custom'?: string;
 
 /**
  * Признак возможности штабелировать груз (ID берем из запроса - cargo_package)
@@ -6679,7 +6799,7 @@ export class RequestService extends BaseService {
 /**
  * Страна отправления (ID берем из запроса - direction_country)
  */
-'departure_country_id': number;
+'departure_country_id': string;
 
 /**
  * Аэропорт вылета (ID берем из запроса - direction_point)
@@ -6699,7 +6819,7 @@ export class RequestService extends BaseService {
 /**
  * Страна назначения (ID берем из запроса - direction_country)
  */
-'arrival_country_id': number;
+'arrival_country_id': string;
 
 /**
  * Аэропорт прибытия (ID берем из запроса - direction_point)
@@ -6827,7 +6947,7 @@ export class RequestService extends BaseService {
 /**
  * Вид перевозки (ID берем из запроса - transport_kind)
  */
-'transport_kind_id'?: number;
+'transport_kind_id'?: string;
 
 /**
  * Тип транспорта (ID берем из запроса - transport_type)
@@ -6848,6 +6968,11 @@ export class RequestService extends BaseService {
  * Вид упаковки (ID берем из запроса - cargo_package)
  */
 'cargo_package_id'?: number;
+
+/**
+ * Свой вид упаковки (для id 13)
+ */
+'cargo_package_custom'?: string;
 
 /**
  * Температурный режим
@@ -6889,6 +7014,11 @@ export class RequestService extends BaseService {
  * Вид упаковки (ID берем из запроса - cargo_package)
  */
 'cargo_package_id'?: number;
+
+/**
+ * Свой вид упаковки (для id 13)
+ */
+'cargo_package_custom'?: string;
 
 /**
  * Признак возможности штабелировать груз (ID берем из запроса - cargo_package)
@@ -6979,7 +7109,7 @@ export class RequestService extends BaseService {
 /**
  * Страна отправления (ID берем из запроса - direction_country)
  */
-'departure_country_id'?: number;
+'departure_country_id'?: string;
 
 /**
  * Аэропорт вылета (ID берем из запроса - direction_point)
@@ -6999,7 +7129,7 @@ export class RequestService extends BaseService {
 /**
  * Страна назначения (ID берем из запроса - direction_country)
  */
-'arrival_country_id'?: number;
+'arrival_country_id'?: string;
 
 /**
  * Аэропорт прибытия (ID берем из запроса - direction_point)
@@ -7128,7 +7258,7 @@ export class RequestService extends BaseService {
 /**
  * Вид перевозки (ID берем из запроса - transport_kind)
  */
-'transport_kind_id'?: number;
+'transport_kind_id'?: string;
 
 /**
  * Тип транспорта (ID берем из запроса - transport_type)
@@ -7149,6 +7279,11 @@ export class RequestService extends BaseService {
  * Вид упаковки (ID берем из запроса - cargo_package)
  */
 'cargo_package_id'?: number;
+
+/**
+ * Свой вид упаковки (для id 13)
+ */
+'cargo_package_custom'?: string;
 
 /**
  * Температурный режим
@@ -7190,6 +7325,11 @@ export class RequestService extends BaseService {
  * Вид упаковки (ID берем из запроса - cargo_package)
  */
 'cargo_package_id'?: number;
+
+/**
+ * Свой вид упаковки (для id 13)
+ */
+'cargo_package_custom'?: string;
 
 /**
  * Признак возможности штабелировать груз (ID берем из запроса - cargo_package)
@@ -7280,7 +7420,7 @@ export class RequestService extends BaseService {
 /**
  * Страна отправления (ID берем из запроса - direction_country)
  */
-'departure_country_id'?: number;
+'departure_country_id'?: string;
 
 /**
  * Аэропорт вылета (ID берем из запроса - direction_point)
@@ -7300,7 +7440,7 @@ export class RequestService extends BaseService {
 /**
  * Страна назначения (ID берем из запроса - direction_country)
  */
-'arrival_country_id'?: number;
+'arrival_country_id'?: string;
 
 /**
  * Аэропорт прибытия (ID берем из запроса - direction_point)

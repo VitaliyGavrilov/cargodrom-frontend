@@ -76,6 +76,28 @@ export class SettingsService extends BaseService {
 'notify_event'?: Array<string>;
 
 /**
+ * Параметры для уведомлений
+ */
+'notify_param'?: {
+
+/**
+ * Параметры для уведомлений: Изменение тарифов
+ */
+'notify_change_tariff'?: {
+
+/**
+ * Параметры для уведомлений: Изменение тарифов - Интервал проверки изменения курсов, мин
+ */
+'check_time_interval'?: number;
+
+/**
+ * Параметры для уведомлений: Изменение тарифов - Порог изменения, %
+ */
+'threshold_of_change'?: number;
+};
+};
+
+/**
  * Брендирование: Логотип вашей компании, url
  */
 'branding_logo'?: string;
@@ -261,6 +283,28 @@ export class SettingsService extends BaseService {
          * События для уведомлений
          */
         'notify_event'?: Array<string>;
+        
+        /**
+         * Параметры для уведомлений
+         */
+        'notify_param'?: {
+        
+        /**
+         * Параметры для уведомлений: Изменение тарифов
+         */
+        'notify_change_tariff'?: {
+        
+        /**
+         * Параметры для уведомлений: Изменение тарифов - Интервал проверки изменения курсов, мин
+         */
+        'check_time_interval'?: number;
+        
+        /**
+         * Параметры для уведомлений: Изменение тарифов - Порог изменения, %
+         */
+        'threshold_of_change'?: number;
+        };
+        };
         
         /**
          * Брендирование: Логотип вашей компании, url
@@ -459,6 +503,28 @@ export class SettingsService extends BaseService {
 'notify_event'?: Array<string>;
 
 /**
+ * Параметры для уведомлений
+ */
+'notify_param'?: {
+
+/**
+ * Параметры для уведомлений: Изменение тарифов
+ */
+'notify_change_tariff'?: {
+
+/**
+ * Параметры для уведомлений: Изменение тарифов - Интервал проверки изменения курсов, мин
+ */
+'check_time_interval'?: number;
+
+/**
+ * Параметры для уведомлений: Изменение тарифов - Порог изменения, %
+ */
+'threshold_of_change'?: number;
+};
+};
+
+/**
  * Брендирование: Логотип вашей компании, url
  */
 'branding_logo'?: string;
@@ -638,6 +704,28 @@ export class SettingsService extends BaseService {
 'notify_event'?: Array<string>;
 
 /**
+ * Параметры для уведомлений
+ */
+'notify_param'?: {
+
+/**
+ * Параметры для уведомлений: Изменение тарифов
+ */
+'notify_change_tariff'?: {
+
+/**
+ * Параметры для уведомлений: Изменение тарифов - Интервал проверки изменения курсов, мин
+ */
+'check_time_interval'?: number;
+
+/**
+ * Параметры для уведомлений: Изменение тарифов - Порог изменения, %
+ */
+'threshold_of_change'?: number;
+};
+};
+
+/**
  * Брендирование: Логотип вашей компании, url
  */
 'branding_logo'?: string;
@@ -813,6 +901,28 @@ export class SettingsService extends BaseService {
  * События для уведомлений
  */
 'notify_event'?: Array<string>;
+
+/**
+ * Параметры для уведомлений
+ */
+'notify_param'?: {
+
+/**
+ * Параметры для уведомлений: Изменение тарифов
+ */
+'notify_change_tariff'?: {
+
+/**
+ * Параметры для уведомлений: Изменение тарифов - Интервал проверки изменения курсов, мин
+ */
+'check_time_interval'?: number;
+
+/**
+ * Параметры для уведомлений: Изменение тарифов - Порог изменения, %
+ */
+'threshold_of_change'?: number;
+};
+};
 
 /**
  * Брендирование: Логотип вашей компании, url
@@ -1011,6 +1121,28 @@ export class SettingsService extends BaseService {
 'notify_event'?: Array<string>;
 
 /**
+ * Параметры для уведомлений
+ */
+'notify_param'?: {
+
+/**
+ * Параметры для уведомлений: Изменение тарифов
+ */
+'notify_change_tariff'?: {
+
+/**
+ * Параметры для уведомлений: Изменение тарифов - Интервал проверки изменения курсов, мин
+ */
+'check_time_interval'?: number;
+
+/**
+ * Параметры для уведомлений: Изменение тарифов - Порог изменения, %
+ */
+'threshold_of_change'?: number;
+};
+};
+
+/**
  * Брендирование: Логотип вашей компании, строка base64 (svg, png, jpg, gif, bmp)
  */
 'branding_logo'?: string;
@@ -1104,6 +1236,28 @@ export class SettingsService extends BaseService {
  * События для уведомлений
  */
 'notify_event'?: Array<string>;
+
+/**
+ * Параметры для уведомлений
+ */
+'notify_param'?: {
+
+/**
+ * Параметры для уведомлений: Изменение тарифов
+ */
+'notify_change_tariff'?: {
+
+/**
+ * Параметры для уведомлений: Изменение тарифов - Интервал проверки изменения курсов, мин
+ */
+'check_time_interval'?: number;
+
+/**
+ * Параметры для уведомлений: Изменение тарифов - Порог изменения, %
+ */
+'threshold_of_change'?: number;
+};
+};
 
 /**
  * Брендирование: Логотип вашей компании, строка base64 (svg, png, jpg, gif, bmp)
