@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import { SettingsService } from 'src/app/api/services';
 import { BehaviorSubject, Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
+import { environment } from 'src/environments/environment';
 
 /**
  * Сервис для работы с настройками приложения (брендинг, темы, настройки страниц)
@@ -10,7 +11,7 @@ import { map } from 'rxjs/operators';
   providedIn: 'root'
 })
 export class BrandingService {
-  private readonly baseLink = 'https://dev.cargodrom.com/';
+  private readonly baseLink = environment.production?'https://cargodrom.com/':'https://dev.cargodrom.com/';
   
   // Subject для хранения ссылки на логотип
   private logoLinkSubject = new BehaviorSubject<string>('');

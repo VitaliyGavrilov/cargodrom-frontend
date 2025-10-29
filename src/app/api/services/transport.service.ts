@@ -798,6 +798,11 @@ export class TransportService extends BaseService {
  * IATA
  */
 'iata'?: string;
+
+/**
+ * IATA: Наименование
+ */
+'full_name'?: string;
 }>>> {
     const rb = new RequestBuilder(this.rootUrl, TransportService.TransportCarrierPath, 'get');
     if (params) {
@@ -831,6 +836,11 @@ export class TransportService extends BaseService {
          * IATA
          */
         'iata'?: string;
+        
+        /**
+         * IATA: Наименование
+         */
+        'full_name'?: string;
         }>>;
       })
     );
@@ -881,6 +891,11 @@ export class TransportService extends BaseService {
  * IATA
  */
 'iata'?: string;
+
+/**
+ * IATA: Наименование
+ */
+'full_name'?: string;
 }>> {
     return this.transportCarrier$Response(params, context).pipe(
       map((r: StrictHttpResponse<Array<{
@@ -904,6 +919,11 @@ export class TransportService extends BaseService {
  * IATA
  */
 'iata'?: string;
+
+/**
+ * IATA: Наименование
+ */
+'full_name'?: string;
 }>>): Array<{
 
 /**
@@ -925,6 +945,11 @@ export class TransportService extends BaseService {
  * IATA
  */
 'iata'?: string;
+
+/**
+ * IATA: Наименование
+ */
+'full_name'?: string;
 }> => r.body)
     );
   }
