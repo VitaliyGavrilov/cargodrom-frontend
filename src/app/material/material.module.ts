@@ -31,7 +31,7 @@ import {
   MAT_DATE_LOCALE,
   MatNativeDateModule
 } from '@angular/material/core';
-import { CustomDateAdapter } from '../adapters/custom-date.adapter';
+import { CustomDateAdapter } from '../shared/adapters/custom-date.adapter';
 
 // Components & Directives
 import { PopupDialogComponent } from './components/popup-dialog/popup-dialog.component';

@@ -1,4 +1,4 @@
-import { transportSubKindTable, unknownCountry } from './../../../constants';
+import { transportSubKindTable, unknownCountry } from 'src/app/shared/constants';
 import { Component, Input, ViewEncapsulation } from '@angular/core';
 import { ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
 import { MatCheckboxChange } from '@angular/material/checkbox';

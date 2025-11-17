@@ -356,10 +356,11 @@
           (paste)="onPlaceEditorChange()"
           [num]="i+1"
           [data_CargoPackages]="cargoPackages"
+          (placeCargoPackageChange)="placeCargoPackageChange(i)"
           >
         </app-place-editor>
         <div class="form-item-table-row btn-del-place">
-          <span class="btn add-file" (click)="addPlace()">Добавить место</span>
+          <span class="btn add-file" (click)="addPlace()">Добавить позицию</span>
         </div>
       </div>
 

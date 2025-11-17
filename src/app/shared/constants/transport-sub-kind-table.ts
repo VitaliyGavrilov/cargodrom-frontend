@@ -1,4 +1,4 @@
-import { TransportSubKind } from "../api/custom_models/transport";
+import { TransportSubKind } from "src/app/api/custom_models/transport";
 
 export const transportSubKindTable: {
   kind: TransportSubKind,

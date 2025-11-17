@@ -9,6 +9,8 @@ import {ConfirmComponent} from "./auth/components/confirm/confirm.component";
 import { RequestRateComponent } from './pages/components/request-rate/request-rate.component';
 import { EmployeeRegisterComponent } from './pages/components/employee-register/employee-register.component';
 import { PasswordRecoveryComponent } from './auth/components/password-recovery/password-recovery.component';
+import { PagesModule } from './pages/pages.module';
+import { FeaturesModule } from './features/features.module';
 
 const config: ExtraOptions = {
   useHash: true,
@@ -18,11 +20,34 @@ const config: ExtraOptions = {
 };
 
 const routes: Routes = [
+  // { // Основные фичи(FeaturesModule)
+  //   path: '',
+  //   loadChildren: () => import('./features/features.module').then(m => m.FeaturesModule),
+  //   // canActivate: [AuthGuard]
+  // },
+
+  // // // { // Публичные фичи(FeaturesPublicModule)
+  // // //   path: '',
+  // // //   loadChildren: () => import('./features-public/features-public.module').then(m => m.FeaturesPublicModule),
+  // // //   canActivate: [UserGuard]
+  // // // },
+  // // // { // Аутентификация(AuthModule)
+  // // //   path: 'auth',
+  // // //   loadChildren: () => import('./auth/auth.module').then(m => m.AuthModule),
+  // // //   canActivate: [UserGuard]
+  // // // },
+
+
+
+
+
+  // старая схема
   {
     path: 'pages',
     loadChildren: () => import('./pages/pages.module').then(m => m.PagesModule),
     // canActivate: [AuthGuard]
   },
+  // Публичные роуты(Public)
   { path: 'password_recovery', component: PasswordRecoveryComponent, canActivate: [UserGuard], title: 'Востановление пароля' },
   { path: 'rate_request/:uid', component: RequestRateComponent, title: 'Rates' },
   { path: 'employee_register/:uid', component: EmployeeRegisterComponent, title: 'Employee Register' },
@@ -31,8 +56,12 @@ const routes: Routes = [
   { path: 'register', component: RegisterComponent, canActivate: [UserGuard], title: 'Регистрация в системе'},
   { path: 'confirm', component: ConfirmComponent, canActivate: [UserGuard], title: 'Код подтверждения'},
   { path: 'confirm/:uid', component: ConfirmComponent, canActivate: [UserGuard], title: 'Код подтверждения' },
+  // Редиректы(redirect)
+  { path: 'rate', redirectTo: 'rate_request/5191ebbc0ba015a608f285b78b524449' },
+  
   { path: '', redirectTo: 'pages', pathMatch: 'full' },
   { path: '**', redirectTo: 'pages' },
+
 ];
 
 @NgModule({

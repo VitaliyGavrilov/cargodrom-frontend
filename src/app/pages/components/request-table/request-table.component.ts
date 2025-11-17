@@ -1,6 +1,6 @@
 import { SearchFilterSchema } from '../../../api/custom_models';
 import { Component, ViewEncapsulation } from '@angular/core';
-import { LoadParams, Table } from '../../../classes';
+import { LoadParams, Table } from 'src/app/shared/classes';
 import { MatDialog } from '@angular/material/dialog';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { ActivatedRoute, Router } from '@angular/router';
@@ -8,7 +8,7 @@ import { Observable, map } from 'rxjs';
 import { FilterService } from 'src/app/filter/services/filter.service';
 import { RequestService } from 'src/app/api/services';
 import { Request, RequestFilter } from 'src/app/api/custom_models/request';
-import { TablePage } from 'src/app/classes/table-page';
+import { TablePage } from 'src/app/shared/classes/table-page';
 
 @Component({
   selector: 'app-request-table',

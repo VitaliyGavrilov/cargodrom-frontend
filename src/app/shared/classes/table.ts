@@ -1,16 +1,16 @@
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { ActivatedRoute, ParamMap, Router } from '@angular/router';
-import { SortColumn } from '../api/custom_models/sort-column';
+import { SortColumn } from 'src/app/api/custom_models/sort-column';
 import { Directive, OnInit, OnDestroy, ViewChild, TemplateRef, ElementRef, HostListener, inject } from '@angular/core';
 import { BehaviorSubject, NEVER, Observable, of, Subject, takeUntil, tap } from 'rxjs';
 import { MatSnackBarConfig } from '@angular/material/snack-bar';
 import { MatDialog } from '@angular/material/dialog';
-import { FilterService } from '../filter/services/filter.service';
-import { SearchFilterSchema } from '../api/custom_models';
+import { FilterService } from 'src/app/filter/services/filter.service';
+import { SearchFilterSchema } from 'src/app/api/custom_models';
 import { MatCheckboxChange } from '@angular/material/checkbox';
-import { UserService } from '../api/services';
+import { UserService } from 'src/app/api/services';
 import { DomSanitizer } from '@angular/platform-browser';
-import { TableListService } from '../pages/table-list/table-list.service';
+import { TableListService } from 'src/app/pages/table-list/table-list.service';
 import { environment } from 'src/environments/environment';
 
 export interface LoadParams<T, F> {
@@ -69,12 +69,13 @@ export abstract class Table<T extends { id: number }, A = never, F = never> impl
 
   readonly xlsxMimeType = 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet';
 
-  protected abstract load<T>(params?: LoadParams<T, F>): Observable<{ total: number, items: T[], column?: string[], sort?: string[],sort_new?:any }>;
+  protected abstract load<T>(params?: LoadParams<T, F>): Observable<{ total: number, items: T[], column?: string[], sort?: string[],sort_new?:any, full_total?:number}>;
 
   protected removedMessage: string = 'Запись удалена';
 
   protected destroy$ = new Subject<void>();
   rows: T[] = [];
+  fullTotal = 0;
   total = 0;
   start = 0;
   limits = [10, 25, 50, 100];
@@ -154,7 +155,7 @@ export abstract class Table<T extends { id: number }, A = never, F = never> impl
   // private transformClientValue(value: any, obj:any) {
   //   if (typeof value === 'string') {
   //     return value.replace(
-  //       /\[urlclient\](.*?)\[\/urlclient\]/ig, 
+  //       /\[urlclient\](.*?)\[\/urlclient\]/ig,
   //       `<a class="link" target="_blank" href="/#/pages/customer/edit/${obj.customer_id}">$1</a>`
   //     );
   //   }
@@ -181,7 +182,7 @@ export abstract class Table<T extends { id: number }, A = never, F = never> impl
     // } else {
     //   params= { start: this.start, count: this.count, sort: JSON.stringify(sortCol) as unknown as SortColumn<T>[], ...this.filter  };
     // }
-    
+
     // let params = this.isRateDetailsMode
     //   ? { request_id:this.requestId, method: this.detailsMethod, start: this.start, count: this.count, ...this.filter }
     //   : { start: this.start, count: this.count, sort: JSON.stringify(sortCol) as unknown as SortColumn<T>[], ...this.filter  };
@@ -197,6 +198,7 @@ export abstract class Table<T extends { id: number }, A = never, F = never> impl
         // Отправляем данные в BehaviorSubject
         this.rowsSubject.next(rows.items as T[]);
         this.total = rows.total;
+        this.fullTotal = rows.full_total?rows.full_total:0;
 
         if(this.isBiddingMode){
           this.arrRowsId=[];
@@ -733,13 +735,13 @@ export abstract class Table<T extends { id: number }, A = never, F = never> impl
   }
 
 
-  startResize(event: MouseEvent, column: any,colBlock:any) {    
+  startResize(event: MouseEvent, column: any,colBlock:any) {
     this.isResizing = true;
     this.resizingColumn = column;
     this.resizingColumnBlock = colBlock;
     this.startX = event.pageX;
     this.startWidth = column.width ? parseInt(column.width, 10) : 100; // Начальная ширина
-    this.startWidthBlock = colBlock.width ? parseInt(column.width, 10) : 100; 
+    this.startWidthBlock = colBlock.width ? parseInt(column.width, 10) : 100;
     event.preventDefault();
   }
 
@@ -762,7 +764,7 @@ export abstract class Table<T extends { id: number }, A = never, F = never> impl
   }
 
   updateColumnSize(){
-    const td = this.isRateDetailsMode   
+    const td = this.isRateDetailsMode
     ?document.querySelectorAll('div.table-list.rate table tbody tr:first-child td.mat-mdc-cell')
     :document.querySelectorAll('table tbody tr:first-child td.mat-mdc-cell');
     if(!td){
@@ -790,11 +792,11 @@ export abstract class Table<T extends { id: number }, A = never, F = never> impl
   //     (th:any, columnIndex:number) => {
   //       if(this.columnsData[columnIndex]){
   //         // console.log(th.querySelectorAll('div.column'));
-          
+
   //         th.querySelectorAll('div.column').forEach((col:any, miniColumnIndex:number) => {
   //           console.log(col, miniColumnIndex);
   //       });
-          
+
   //         if(!this.isRateDetailsMode){
   //           if(columnIndex===0){
   //           this.columnsData[columnIndex].width=`${th.offsetWidth-1}px`;

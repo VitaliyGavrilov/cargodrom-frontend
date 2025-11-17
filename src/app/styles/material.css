@@ -39,7 +39,7 @@ form mat-select.mat-mdc-select, /* для форм */
     padding: 0 13px; margin: 0;
     box-sizing: border-box;
     height: 40px;
-  } 
+  }
 }
 form .bg mat-select.mat-mdc-select {background: white;}
 app-paginator mat-select.mat-mdc-select/* для пагинатора */{
@@ -53,7 +53,7 @@ app-paginator mat-select.mat-mdc-select/* для пагинатора */{
     padding: 0 13px; margin: 0;
     box-sizing: border-box;
     height: 40px;
-  } 
+  }
 }
 /* стрелочка в мат селекторах */
 mat-select .mat-mdc-select-arrow {
@@ -69,7 +69,7 @@ mat-select[aria-expanded='true'] .mat-mdc-select-arrow {
 /* MAT OPTION */
 mat-option.mat-mdc-option{
   min-height: auto;
-  padding-top: 6px; 
+  padding-top: 6px;
   padding-bottom: 6px;
   .mat-mdc-option-pseudo-checkbox{
     display: none;
@@ -77,11 +77,11 @@ mat-option.mat-mdc-option{
 }
 
 /* MAT CHECKBOX */
-mat-checkbox.mat-mdc-checkbox .mat-mdc-checkbox-ripple, 
+mat-checkbox.mat-mdc-checkbox .mat-mdc-checkbox-ripple,
 mat-checkbox.mat-mdc-checkbox .mdc-checkbox__ripple,
 mat-checkbox.mat-mdc-checkbox .mat-mdc-checkbox-touch-target,
 mat-checkbox.mat-mdc-checkbox .mdc-checkbox__background {
-  display: none; 
+  display: none;
 }
 
 mat-checkbox.mat-mdc-checkbox{
@@ -153,9 +153,9 @@ mat-checkbox.mat-mdc-checkbox.switcher input[type="checkbox"].mdc-checkbox--sele
 
 
 /* если надо поменять местами чекбокс и текс добавляем класс reverse */
-mat-checkbox.mat-mdc-checkbox.reverse{ 
+mat-checkbox.mat-mdc-checkbox.reverse{
   .mdc-form-field {flex-direction: row-reverse;}
-}  
+}
 
 /* MAT MENU PANEL */
 /* для попапа валют */
@@ -214,9 +214,10 @@ mat-checkbox.mat-mdc-checkbox.reverse{
   --mat-optgroup-label-text-color: #606A74;
   --mat-optgroup-label-text-line-height: 10px;
   --mat-optgroup-label-text-size: 10px;
-  
-  text-transform: uppercase;  
+
+  text-transform: uppercase;
   /* --mat-optgroup-label-text-tracking; */
-  /* --mat-optgroup-label-text-weight; */  
+  /* --mat-optgroup-label-text-weight; */
   /* --mat-optgroup-label-text-font: */
 }
+

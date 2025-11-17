@@ -4,7 +4,7 @@ import { catchError, debounceTime, distinctUntilChanged, forkJoin, fromEvent, la
 import { City } from './../../../api/custom_models/city';
 import { Association } from './../../../api/custom_models/association';
 import { Country } from './../../../api/custom_models/country';
-import { FormArray, FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { FormArray, FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { Contractor, ContractorRequestFormat, ContractorType } from './../../../api/custom_models/contractor';
 import { ContractorService } from './../../../api/services/contractor.service';
 import { Component, ElementRef, OnInit, ViewChild, ViewEncapsulation } from '@angular/core';
@@ -24,6 +24,7 @@ import { Counterparty } from 'src/app/api/custom_models/counterparty';
   encapsulation: ViewEncapsulation.None
 })
 export class ContractorEditorComponent implements OnInit {
+  carrierFilterCtrl = new FormControl();
   isNavigateAfterSave:boolean=true;
 
   contractor: Partial<Contractor> = {};
@@ -46,6 +47,7 @@ export class ContractorEditorComponent implements OnInit {
   taxSystems: TaxSystem[] = []; filteredTaxs: TaxSystem[] = [];
   nameForHeader?: string;
   // counterpartys:Counterparty[]=[];
+  formParams:any;
 
   private _destroy$ = new Subject();
 
@@ -68,27 +70,27 @@ export class ContractorEditorComponent implements OnInit {
   ) {
     this.contractorForm = this.fb.group({
       id: [''],
-      address: ['', []],
-      name: ['', [Validators.required]],
-      ind: ['', []],
-      phone: ['', []],
-      web: ['', []],
-      rating_nps: [{ value: 0, disabled: true }, []],
-      user_rating_nps: [{ value: 0, disabled: true }, []],
+      address: [''],
+      name: [''],
+      ind: [''],
+      phone: [''],
+      web: [''],
+      rating_nps: [{ value: 0, disabled: true }],
+      user_rating_nps: [{ value: 0, disabled: true }],
       contacts: fb.array([], []),
       association_id: [[]],
-      tax_id: [undefined, [Validators.required]],
+      tax_id: [undefined],
       // type_id: [undefined, [Validators.required]],
-      type_id: ['', [Validators.required]],
-      language_id: [undefined, [Validators.required]],
-      country_id: ['', [Validators.required]],
-      city_id: ['', [Validators.required]],
-      request_format_id: ['', [Validators.required]],
+      type_id: [''],
+      language_id: [undefined],
+      country_id: [''],
+      city_id: [''],
+      request_format_id: [''],
       // exclude_from_trade: [false]
       allow_trade:[false],
-      counterparty_id: ['', [Validators.required]],
+      counterparty_id: [''],
       // carrier_name:[,[]],
-      carrier_id:[,[]],
+      carrier_id:[[],[]],
       currency:[,[]]
     });
 
@@ -102,10 +104,21 @@ export class ContractorEditorComponent implements OnInit {
     // });
   }
 
+  onSearchChange(event: any) {
+  const searchText = event.target.value.toLowerCase();
+  this.filteredTransportCarrier = this.transportCarrier.filter(carrier =>
+    carrier.full_name.toLowerCase().includes(searchText)
+  );
+}
+displayName(item: any): string {
+  return item ? item.full_name : '';
+}
+
   ngOnInit(): void {
     this.initialization_chooseModeForm();
     this.initialization_getDatas();
     this.initialization_subscribeForm();
+    this.getFormParam();
 
 
   }
@@ -577,6 +590,52 @@ export class ContractorEditorComponent implements OnInit {
         takeUntil(this._destroy$)
       );
   }
+  getFormParam(body?:any){
+    this.contractorService.contractorParam({body:body})
+      .pipe(
+        tap((formParams) =>{
+          this.formParams=formParams;
+          console.log('getFormParam body',body);
+          console.log('getFormParam formParams',formParams.required);
+
+        }),
+        takeUntil(this._destroy$)
+      ).subscribe({
+      next: () => {
+        this.applyRequiredValidators();
+        if(!body)this.subscribeDependentFields();
+
+
+      },
+      error: (err) => this.snackBar.open(`Ошибка сохранения подрядчика: ` + err.error.error_message, undefined, this.snackBarWithShortDuration)});
+  }
+  applyRequiredValidators() {
+    this.formParams.required?.forEach((required_item:any) => {
+      const control = this.contractorForm.get(required_item.field);
+      if (control) {
+        control.setValidators(Validators.required);
+        control.updateValueAndValidity();
+      }
+    });
+  }
+
+  subscribeDependentFields(){
+    this.formParams.dependent_fields?.forEach((dependent_field:string) => {
+      this.contractorForm.get(dependent_field)?.valueChanges
+      .pipe(
+        debounceTime(1500),
+        distinctUntilChanged(),
+        takeUntil(this._destroy$),)
+      .subscribe((value: any) => {
+        const body = { dependent_fields: this.formParams.dependent_fields?.map((dependent_field:any) => ({field: dependent_field, value: this.contractorForm.value[dependent_field]}))}
+        // const body = this.formParams.dependent_fields?.map((dependent_field:any) => ({dependent_fields: [{field: dependent_field, value: this.contractorForm.value[dependent_field]}]}));
+        this.getFormParam(body);
+
+
+      })
+    })
+  }
+
 
   // private getContractor() {
   //   const id = Number(this.route.snapshot.paramMap.get('id'));
@@ -606,6 +665,8 @@ export class ContractorEditorComponent implements OnInit {
   //       }
   //     });
   // }
+
+
 
 
 

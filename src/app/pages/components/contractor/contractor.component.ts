@@ -2,7 +2,7 @@ import { ContractorFilter } from './../../../api/custom_models/contractor-filter
 import { ContractorService } from './../../../api/services/contractor.service';
 import { Component } from '@angular/core';
 import { Contractor, SearchFilterSchema } from '../../../api/custom_models';
-import { LoadParams, Table } from '../../../classes';
+import { LoadParams, Table } from 'src/app/shared/classes';
 import { MatDialog } from '@angular/material/dialog';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { ActivatedRoute, Router } from '@angular/router';
@@ -53,13 +53,13 @@ export class ContractorComponent extends Table<Contractor, 'trade_rating', Contr
 
   //методы для таблицы
 
-  load<Contractor>(params: LoadParams<Contractor, ContractorFilter>): Observable<{ total: number; items: Contractor[]; }> {
+  load<Contractor>(params: LoadParams<Contractor, ContractorFilter>): Observable<{ total: number; items: Contractor[]; full_total:number }> {
     this.params=params;
     console.log(123);
 
     // return this.contractorService.contractorList(params as any) as unknown as Observable<{ total: number; items: Contractor[]; }>;
     // return this.importMetods.test(params as any) as unknown as Observable<{ total: number; items: Contractor[]; }>;
-    return this.contractorService.contractorList(params as any) as unknown as Observable<{ total: number; items: Contractor[]; }>;
+    return this.contractorService.contractorList(params as any) as unknown as Observable<{ total: number; items: Contractor[]; full_total:number  }>;
   }
   protected override loadFilterSchemaTest(): Observable<any>  {
     return this.contractorService.contractorListParam().pipe(map(val => val as any));

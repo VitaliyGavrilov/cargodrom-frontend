@@ -5,7 +5,7 @@
     <div class="form-row">
       <div class="form-item-layout">
 
-        <div class="form-data form-item torg" style="width: 50%;">
+        <div class="form-data form-item torg">
           <label>
             <input type="checkbox" formControlName="allow_trade">
             <i> </i>
@@ -14,15 +14,24 @@
         </div>
 
         <div class="form-item">
-          <div class="form-label">Вид подрядчика: <span class="req">•</span></div>
+          <div class="form-label"></div>
+          <div class="form-data">
+          </div>
+        </div>
+
+
+
+        <div class="form-item">
+          <div class="form-label">
+            Вид подрядчика:
+            <ng-container *ngTemplateOutlet="inputLabelReq; context: { field: 'type_id'}"></ng-container>
+          </div>
           <div class="form-data">
             <mat-form-field appearance="outline" class="ui-select">
-              <mat-select formControlName="type_id" >
+              <mat-select formControlName="type_id">
                 <mat-option *ngFor="let contractorType of contractorTypes;" [value]="contractorType.id" (click)="onContractorTypeChange(contractorType)">{{ contractorType.name }}</mat-option>
               </mat-select>
-              <mat-error *ngIf="contractorForm.controls['type_id'].hasError('required')">
-               Это поле обязательно
-              </mat-error>
+              <ng-container *ngTemplateOutlet="inputError; context: { field: 'type_id'}"></ng-container>
             </mat-form-field>
           </div>
         </div>
@@ -43,19 +52,23 @@
         </div> -->
 
         <div class="form-item">
-          <div class="form-label">агент: <span class="req">•</span></div>
-          <div class="form-data">
-            <input matInput type="text" formControlName="carrier_id" [matAutocomplete]="carrier_id">
-            <mat-autocomplete #carrier_id="matAutocomplete" [displayWith]="displayFn_CarrierId.bind(this)">
-              <mat-option *ngFor="let option of filteredTransportCarrier" [value]="option.id">
-                {{option.full_name}}
-              </mat-option>
-            </mat-autocomplete>
-            <mat-error *ngIf="contractorForm.controls['carrier_id'].hasError('required')">
-              Это поле обязательно
-            </mat-error>
+           <div class="form-label">
+            язык общения:
+            <ng-container *ngTemplateOutlet="inputLabelReq; context: { field: 'language_id'}"></ng-container>
           </div>
-        </div>
+           <div class="form-data">
+            <mat-form-field appearance="outline" class="ui-select">
+              <!--<mat-label class="form-label">язык общения</mat-label>-->
+              <mat-select formControlName="language_id" panelClass="panel-class-name">
+                <mat-option value="en">Английский</mat-option>
+                <mat-option value="ru">Русский</mat-option>
+              </mat-select>
+              <ng-container *ngTemplateOutlet="inputError; context: { field: 'language_id'}"></ng-container>
+            </mat-form-field>
+           </div>
+         </div>
+
+
 
         <!-- <div class="form-item">
           <div class="form-label">агент: </div>
@@ -81,17 +94,32 @@
       <div class="form-item-layout">
 
           <div class="form-item">
-            <div class="form-label">Наименование подрядчика: <span class="req">•</span></div>
-            <div class="form-data"><input type="text" name="name" formControlName="name" placeholder="—" appFocusInitial></div>
+            <div class="form-label">
+              Наименование подрядчика:
+              <ng-container *ngTemplateOutlet="inputLabelReq; context: { field: 'name'}"></ng-container>
+            </div>
+            <div class="form-data">
+              <input type="text" name="name" formControlName="name" placeholder="—">
+              <ng-container *ngTemplateOutlet="inputError; context: { field: 'name'}"></ng-container>
+            </div>
           </div>
 
           <div class="form-item">
-            <div class="form-label">Идентификатор (ИНН, Rec № и пр.):</div>
-            <div class="form-data"><input type="text" name="ind" formControlName="ind" placeholder="—"></div>
+            <div class="form-label">
+              Идентификатор (ИНН, Rec № и пр.):
+              <ng-container *ngTemplateOutlet="inputLabelReq; context: { field: 'ind'}"></ng-container>
+            </div>
+            <div class="form-data">
+              <input type="text" name="ind" formControlName="ind" placeholder="—">
+              <ng-container *ngTemplateOutlet="inputError; context: { field: 'ind'}"></ng-container>
+            </div>
           </div>
 
           <div class="form-item">
-            <div class="form-label">Страна нахождения: <span class="req">•</span></div>
+            <div class="form-label">
+              Страна нахождения:
+              <ng-container *ngTemplateOutlet="inputLabelReq; context: { field: 'country_id'}"></ng-container>
+            </div>
             <div class="form-data">
               <input matInput type="text" formControlName="country_id" [matAutocomplete]="country_id" >
               <mat-autocomplete #country_id="matAutocomplete" [displayWith]="displayFn_CountryId.bind(this)">
@@ -100,9 +128,7 @@
                 </mat-option>
                 <mat-option *ngIf="filteredCountries.length==0" disabled >Стран нет</mat-option>
               </mat-autocomplete>
-              <mat-error *ngIf="contractorForm.controls['country_id'].hasError('required')">
-                Это поле обязательно
-              </mat-error>
+              <ng-container *ngTemplateOutlet="inputError; context: { field: 'country_id'}"></ng-container>
             </div>
           </div>
 
@@ -121,7 +147,10 @@
          </div> -->
 
         <div class="form-item">
-        <div class="form-label">город: <span class="req">•</span></div>
+        <div class="form-label">
+          город:
+          <ng-container *ngTemplateOutlet="inputLabelReq; context: { field: 'city_id'}"></ng-container>
+        </div>
           <div class="form-data">
             <input matInput type="text" formControlName="city_id" [matAutocomplete]="city_id" >
             <mat-autocomplete #city_id="matAutocomplete" [displayWith]="displayFn_CityId.bind(this)">
@@ -130,9 +159,7 @@
               </mat-option>
               <mat-option *ngIf="filteredCitys.length==0" disabled >Городов нет</mat-option>
             </mat-autocomplete>
-            <mat-error *ngIf="contractorForm.controls['city_id'].hasError('required')">
-              Это поле обязательно
-            </mat-error>
+            <ng-container *ngTemplateOutlet="inputError; context: { field: 'city_id'}"></ng-container>
           </div>
         </div>
 
@@ -154,36 +181,95 @@
 
       <div class="form-item-layout">
         <div class="form-item w50">
-          <div class="form-label">адрес:</div>
-          <div class="form-data"><input type="text" name="address" formControlName="address" placeholder="—"></div>
+          <div class="form-label">
+            адрес:
+            <ng-container *ngTemplateOutlet="inputLabelReq; context: { field: 'address'}"></ng-container>
+          </div>
+          <div class="form-data">
+            <input type="text" name="address" formControlName="address" placeholder="—">
+            <ng-container *ngTemplateOutlet="inputError; context: { field: 'address'}"></ng-container>
+          </div>
         </div>
+
         <div class="form-item">
-          <div class="form-label">общий телефон:</div>
-          <div class="form-data"><input type="text" name="phone" formControlName="phone" placeholder="—" appPhoneMask></div>
+          <div class="form-label">
+            общий телефон:
+            <ng-container *ngTemplateOutlet="inputLabelReq; context: { field: 'phone'}"></ng-container>
+          </div>
+          <div class="form-data">
+            <input type="text" name="phone" formControlName="phone" placeholder="—" appPhoneMask>
+            <ng-container *ngTemplateOutlet="inputError; context: { field: 'phone'}"></ng-container>
+          </div>
         </div>
+
         <div class="form-item">
-          <div class="form-label">сайт компании:</div>
-          <div class="form-data"><input type="text" name="web" formControlName="web" placeholder="—"></div>
+          <div class="form-label">
+            сайт компании:
+            <ng-container *ngTemplateOutlet="inputLabelReq; context: { field: 'web'}"></ng-container>
+          </div>
+          <div class="form-data">
+            <input type="text" name="web" formControlName="web" placeholder="—">
+            <ng-container *ngTemplateOutlet="inputError; context: { field: 'web'}"></ng-container>
+          </div>
 
         </div>
       </div>
 
       <div class="form-item-layout">
+
         <div class="form-item">
-           <div class="form-label">язык общения: <span class="req">•</span></div>
-           <div class="form-data">
-            <mat-form-field appearance="outline" class="ui-select">
-              <!--<mat-label class="form-label">язык общения</mat-label>-->
-              <mat-select formControlName="language_id" panelClass="panel-class-name">
-                <mat-option value="en">Английский</mat-option>
-                <mat-option value="ru">Русский</mat-option>
-              </mat-select>
-              <mat-error *ngIf="contractorForm.controls['language_id'].hasError('required')">
-                Это поле обязательно
-              </mat-error>
-            </mat-form-field>
-           </div>
-         </div>
+          <div class="form-label">
+            Тип подрядчика:
+            <ng-container *ngTemplateOutlet="inputLabelReq; context: { field: 'counterparty_id'}"></ng-container>
+          </div>
+          <div class="form-data">
+            <input matInput type="text" formControlName="counterparty_id" [matAutocomplete]="counterparty_id" >
+            <mat-autocomplete #counterparty_id="matAutocomplete" [displayWith]="displayFn_CounterpartyId.bind(this)">
+              <mat-option *ngFor="let option of filteredCounterpartys" [value]="option.id">
+                {{option.name}}
+              </mat-option>
+              <mat-option *ngIf="filteredCounterpartys.length==0" disabled >Типов нет</mat-option>
+            </mat-autocomplete>
+            <ng-container *ngTemplateOutlet="inputError; context: { field: 'counterparty_id'}"></ng-container>
+          </div>
+        </div>
+
+        <!-- <div class="form-item">
+          <div class="form-label">агент: <span class="req">•</span></div>
+          <div class="form-data">
+            <input matInput type="text" formControlName="carrier_id" [matAutocomplete]="carrier_id">
+            <mat-autocomplete #carrier_id="matAutocomplete" [displayWith]="displayFn_CarrierId.bind(this)">
+              <mat-option *ngFor="let option of filteredTransportCarrier" [value]="option.id">
+                {{ option.full_name }}
+              </mat-option>
+            </mat-autocomplete>
+          </div>
+        </div> -->
+
+        <div class="form-item">
+          <div class="form-label">
+            агент:
+            <ng-container *ngTemplateOutlet="inputLabelReq; context: { field: 'carrier_id'}"></ng-container>
+          </div>
+          <div class="form-data">
+            <ng-select class="custom"
+              [closeOnSelect]="false"
+              [multiple]="true"
+              [items]="transportCarrier"
+              bindLabel="full_name"
+              bindValue="id"
+              [placeholder]="contractorForm.value.carrier_id?.length>0? 'Выбранно эл.: '+contractorForm.value.carrier_id.length:''"
+              formControlName="carrier_id" >
+              <!-- <ng-template ng-label-tmp let-item="item">{{ item.iata?item.iata:item.name }}
+              </ng-template> -->
+              <ng-template ng-multi-label-tmp let-items="items" let-clear="clear">
+
+              </ng-template>
+            </ng-select>
+            <ng-container *ngTemplateOutlet="inputError; context: { field: 'carrier_id'}"></ng-container>
+          </div>
+        </div>
+
          <!-- <div class="form-item">
            <div class="form-label">вид подрядчика: <span class="req">•</span></div>
            <div class="form-data">
@@ -199,21 +285,7 @@
          </div> -->
 
 
-        <div class="form-item">
-          <div class="form-label">Тип контрагента: <span class="req">•</span></div>
-          <div class="form-data">
-            <input matInput type="text" formControlName="counterparty_id" [matAutocomplete]="counterparty_id" >
-            <mat-autocomplete #counterparty_id="matAutocomplete" [displayWith]="displayFn_CounterpartyId.bind(this)">
-              <mat-option *ngFor="let option of filteredCounterpartys" [value]="option.id">
-                {{option.name}}
-              </mat-option>
-              <mat-option *ngIf="filteredCounterpartys.length==0" disabled >Типов нет</mat-option>
-            </mat-autocomplete>
-            <mat-error *ngIf="contractorForm.controls['counterparty_id'].hasError('required')">
-              Это поле обязательно
-            </mat-error>
-          </div>
-        </div>
+
 
         <!-- <div class="form-item">
           <div class="form-label">Тип контрагента: <span class="req">•</span></div>
@@ -231,7 +303,10 @@
         </div> -->
 
          <div class="form-item">
-           <div class="form-label">членство в ассоциациях:</div>
+           <div class="form-label">
+            членство в ассоциациях:
+            <ng-container *ngTemplateOutlet="inputLabelReq; context: { field: 'association_id'}"></ng-container>
+          </div>
            <div class="form-data">
             <mat-form-field appearance="outline" class="ui-select">
               <!--<mat-label class="form-label">членство в ассоциациях</mat-label>-->
@@ -241,12 +316,16 @@
                 </mat-select-trigger>
                 <mat-option *ngFor="let assoc of associations" [value]="assoc.id">{{assoc.name}}</mat-option>
               </mat-select>
+              <ng-container *ngTemplateOutlet="inputError; context: { field: 'association_id'}"></ng-container>
             </mat-form-field>
            </div>
          </div>
 
         <div class="form-item">
-          <div class="form-label">система налогообложения: <span class="req">•</span></div>
+          <div class="form-label">
+            система налогообложения:
+            <ng-container *ngTemplateOutlet="inputLabelReq; context: { field: 'tax_id'}"></ng-container>
+          </div>
           <div class="form-data">
             <input matInput type="text" formControlName="tax_id" [matAutocomplete]="tax_id" >
             <mat-autocomplete #tax_id="matAutocomplete" [displayWith]="displayFn_TaxId.bind(this)">
@@ -255,9 +334,7 @@
               </mat-option>
               <mat-option *ngIf="filteredTaxs.length==0" disabled >Типов нет</mat-option>
             </mat-autocomplete>
-            <mat-error *ngIf="contractorForm.controls['tax_id'].hasError('required')">
-              Это поле обязательно
-            </mat-error>
+            <ng-container *ngTemplateOutlet="inputError; context: { field: 'tax_id'}"></ng-container>
           </div>
         </div>
       </div>
@@ -279,32 +356,34 @@
 
     </div>
 
-    <div class="form-row sep">
-      Формат отправки запроса: <span class="req">•</span>
+    <div class="form-row sep" *ngIf="contractorForm.value.allow_trade">
+      Формат отправки запроса:
+      <ng-container *ngTemplateOutlet="inputLabelReq; context: { field: 'request_format_id'}"></ng-container>
       <label *ngFor="let format of requestFormats">
         <input type="radio" formControlName="request_format_id" [value]="format.id">
         <i></i>
         <span>{{ format.name }}</span>
       </label>
-      <mat-error *ngIf="contractorForm.controls['request_format_id'].hasError('required') && (contractorForm.dirty || contractorForm.touched)">
-        Это поле обязательно
-      </mat-error>
+      <ng-container *ngTemplateOutlet="inputError; context: { field: 'request_format_id'}"></ng-container>
     </div>
 
     <div class="form-row" >
       <div class="form-item" style="width: 100px;">
-        <div class="form-label">валюта:</div>
+        <div class="form-label">
+          Валюта предоставления ставок
+          <ng-container *ngTemplateOutlet="inputLabelReq; context: { field: 'currency'}"></ng-container>
+        </div>
         <div class="form-data">
         <mat-form-field appearance="outline" class="ui-select">
           <mat-select formControlName="currency">
             <mat-option *ngFor="let currency of currencyList" [value]="currency.id">{{currency.code}}</mat-option>
           </mat-select>
+          <ng-container *ngTemplateOutlet="inputError; context: { field: 'currency'}"></ng-container>
         </mat-form-field>
         </div>
       </div>
     </div>
   </div>
-
 
   <div class="form-block-title">Рейтинг</div>
   <div class="form-block">
@@ -374,3 +453,13 @@
 
 </form>
 
+
+<ng-template #inputError let-field="field">
+  <mat-error *ngIf="contractorForm.controls[field].hasError('required') && contractorForm.controls[field].touched">
+    Это поле обязательно
+  </mat-error>
+</ng-template>
+
+<ng-template #inputLabelReq let-field="field">
+  <span *ngIf="contractorForm.controls[field].hasError('required')" class="req">•</span>
+</ng-template>

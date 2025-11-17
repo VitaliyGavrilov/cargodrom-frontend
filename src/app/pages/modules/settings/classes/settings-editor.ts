@@ -1,4 +1,4 @@
-import { byField } from './../../../../constants/sort-predicate';
+import { byField } from 'src/app/shared/constants/sort-predicate';
 import { Directive } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { CompanyService } from './../../../../api/services/company.service';
@@ -6,7 +6,7 @@ import { MatSnackBar } from "@angular/material/snack-bar";
 import { Company, Department, Employee, Position } from "src/app/api/custom_models";
 import { Location } from '@angular/common';
 import { SystemService } from 'src/app/api/services';
-import { Editor } from 'src/app/classes/editor';
+import { Editor } from 'src/app//shared/classes/editor';
 
 @Directive()
 export abstract class SettingsEditor<T> extends Editor<T> {

@@ -155,7 +155,7 @@ export class ContractorService extends BaseService {
 /**
  * Агент транспортной компании (ID берем из запроса - transport_carrier)
  */
-'carrier_id'?: number;
+'carrier_id'?: Array<string>;
 
 /**
  * Вид подрядчика
@@ -390,17 +390,17 @@ export class ContractorService extends BaseService {
 /**
  * Страна отправления
  */
-'direction_departure': number;
+'direction_departure'?: number;
 
 /**
  * Страна прибытия
  */
-'direction_arrival': number;
+'direction_arrival'?: number;
 
 /**
  * Транспорт
  */
-'direction_items': Array<string>;
+'direction_items'?: Array<string>;
 }>;
 
 /**
@@ -559,7 +559,7 @@ export class ContractorService extends BaseService {
         /**
          * Агент транспортной компании (ID берем из запроса - transport_carrier)
          */
-        'carrier_id'?: number;
+        'carrier_id'?: Array<string>;
         
         /**
          * Вид подрядчика
@@ -794,17 +794,17 @@ export class ContractorService extends BaseService {
         /**
          * Страна отправления
          */
-        'direction_departure': number;
+        'direction_departure'?: number;
         
         /**
          * Страна прибытия
          */
-        'direction_arrival': number;
+        'direction_arrival'?: number;
         
         /**
          * Транспорт
          */
-        'direction_items': Array<string>;
+        'direction_items'?: Array<string>;
         }>;
         
         /**
@@ -1004,7 +1004,7 @@ export class ContractorService extends BaseService {
 /**
  * Агент транспортной компании (ID берем из запроса - transport_carrier)
  */
-'carrier_id'?: number;
+'carrier_id'?: Array<string>;
 
 /**
  * Вид подрядчика
@@ -1239,17 +1239,17 @@ export class ContractorService extends BaseService {
 /**
  * Страна отправления
  */
-'direction_departure': number;
+'direction_departure'?: number;
 
 /**
  * Страна прибытия
  */
-'direction_arrival': number;
+'direction_arrival'?: number;
 
 /**
  * Транспорт
  */
-'direction_items': Array<string>;
+'direction_items'?: Array<string>;
 }>;
 
 /**
@@ -1395,7 +1395,7 @@ export class ContractorService extends BaseService {
 /**
  * Агент транспортной компании (ID берем из запроса - transport_carrier)
  */
-'carrier_id'?: number;
+'carrier_id'?: Array<string>;
 
 /**
  * Вид подрядчика
@@ -1630,17 +1630,17 @@ export class ContractorService extends BaseService {
 /**
  * Страна отправления
  */
-'direction_departure': number;
+'direction_departure'?: number;
 
 /**
  * Страна прибытия
  */
-'direction_arrival': number;
+'direction_arrival'?: number;
 
 /**
  * Транспорт
  */
-'direction_items': Array<string>;
+'direction_items'?: Array<string>;
 }>;
 
 /**
@@ -1784,7 +1784,7 @@ export class ContractorService extends BaseService {
 /**
  * Агент транспортной компании (ID берем из запроса - transport_carrier)
  */
-'carrier_id'?: number;
+'carrier_id'?: Array<string>;
 
 /**
  * Вид подрядчика
@@ -2019,17 +2019,17 @@ export class ContractorService extends BaseService {
 /**
  * Страна отправления
  */
-'direction_departure': number;
+'direction_departure'?: number;
 
 /**
  * Страна прибытия
  */
-'direction_arrival': number;
+'direction_arrival'?: number;
 
 /**
  * Транспорт
  */
-'direction_items': Array<string>;
+'direction_items'?: Array<string>;
 }>;
 
 /**
@@ -3146,7 +3146,7 @@ export class ContractorService extends BaseService {
 /**
  * Агент транспортной компании (ID берем из запроса - transport_carrier)
  */
-'carrier_id'?: number;
+'carrier_id'?: Array<string>;
 
 /**
  * Вид подрядчика
@@ -3381,17 +3381,17 @@ export class ContractorService extends BaseService {
 /**
  * Страна отправления
  */
-'direction_departure': number;
+'direction_departure'?: number;
 
 /**
  * Страна прибытия
  */
-'direction_arrival': number;
+'direction_arrival'?: number;
 
 /**
  * Транспорт
  */
-'direction_items': Array<string>;
+'direction_items'?: Array<string>;
 }>;
 
 /**
@@ -3535,7 +3535,7 @@ export class ContractorService extends BaseService {
         /**
          * Агент транспортной компании (ID берем из запроса - transport_carrier)
          */
-        'carrier_id'?: number;
+        'carrier_id'?: Array<string>;
         
         /**
          * Вид подрядчика
@@ -3770,17 +3770,17 @@ export class ContractorService extends BaseService {
         /**
          * Страна отправления
          */
-        'direction_departure': number;
+        'direction_departure'?: number;
         
         /**
          * Страна прибытия
          */
-        'direction_arrival': number;
+        'direction_arrival'?: number;
         
         /**
          * Транспорт
          */
-        'direction_items': Array<string>;
+        'direction_items'?: Array<string>;
         }>;
         
         /**
@@ -3937,7 +3937,7 @@ export class ContractorService extends BaseService {
 /**
  * Агент транспортной компании (ID берем из запроса - transport_carrier)
  */
-'carrier_id'?: number;
+'carrier_id'?: Array<string>;
 
 /**
  * Вид подрядчика
@@ -4172,17 +4172,17 @@ export class ContractorService extends BaseService {
 /**
  * Страна отправления
  */
-'direction_departure': number;
+'direction_departure'?: number;
 
 /**
  * Страна прибытия
  */
-'direction_arrival': number;
+'direction_arrival'?: number;
 
 /**
  * Транспорт
  */
-'direction_items': Array<string>;
+'direction_items'?: Array<string>;
 }>;
 
 /**
@@ -4317,7 +4317,7 @@ export class ContractorService extends BaseService {
 /**
  * Агент транспортной компании (ID берем из запроса - transport_carrier)
  */
-'carrier_id'?: number;
+'carrier_id'?: Array<string>;
 
 /**
  * Вид подрядчика
@@ -4552,17 +4552,17 @@ export class ContractorService extends BaseService {
 /**
  * Страна отправления
  */
-'direction_departure': number;
+'direction_departure'?: number;
 
 /**
  * Страна прибытия
  */
-'direction_arrival': number;
+'direction_arrival'?: number;
 
 /**
  * Транспорт
  */
-'direction_items': Array<string>;
+'direction_items'?: Array<string>;
 }>;
 
 /**
@@ -4695,7 +4695,7 @@ export class ContractorService extends BaseService {
 /**
  * Агент транспортной компании (ID берем из запроса - transport_carrier)
  */
-'carrier_id'?: number;
+'carrier_id'?: Array<string>;
 
 /**
  * Вид подрядчика
@@ -4930,17 +4930,17 @@ export class ContractorService extends BaseService {
 /**
  * Страна отправления
  */
-'direction_departure': number;
+'direction_departure'?: number;
 
 /**
  * Страна прибытия
  */
-'direction_arrival': number;
+'direction_arrival'?: number;
 
 /**
  * Транспорт
  */
-'direction_items': Array<string>;
+'direction_items'?: Array<string>;
 }>;
 
 /**
@@ -5007,6 +5007,160 @@ export class ContractorService extends BaseService {
     );
   }
 
+  /** Path part for operation `contractorParam()` */
+  static readonly ContractorParamPath = '/contractor_param';
+
+  /**
+   * Параметры формы.
+   *
+   *
+   *
+   * This method provides access to the full `HttpResponse`, allowing access to response headers.
+   * To access only the response body, use `contractorParam()` instead.
+   *
+   * This method sends `application/json` and handles request body of type `application/json`.
+   */
+  contractorParam$Response(
+    params?: {
+      body?: {
+
+/**
+ * Поля которые влияют на обязательные поля
+ */
+'dependent_fields'?: Array<{
+
+/**
+ * Поле формы
+ */
+'field'?: string;
+
+/**
+ * Значение
+ */
+'value'?: string;
+
+/**
+ * Родительское поле
+ */
+'parent'?: string;
+}>;
+}
+    },
+    context?: HttpContext
+  ): Observable<StrictHttpResponse<{
+
+/**
+ * Обязательные поля
+ */
+'required'?: Array<string>;
+
+/**
+ * Поля которые влияют на обязательные поля
+ */
+'dependent_fields'?: Array<string>;
+}>> {
+    const rb = new RequestBuilder(this.rootUrl, ContractorService.ContractorParamPath, 'post');
+    if (params) {
+      rb.body(params.body, 'application/json');
+    }
+
+    return this.http.request(
+      rb.build({ responseType: 'json', accept: 'application/json', context })
+    ).pipe(
+      filter((r: any): r is HttpResponse<any> => r instanceof HttpResponse),
+      map((r: HttpResponse<any>) => {
+        return r as StrictHttpResponse<{
+        
+        /**
+         * Обязательные поля
+         */
+        'required'?: Array<string>;
+        
+        /**
+         * Поля которые влияют на обязательные поля
+         */
+        'dependent_fields'?: Array<string>;
+        }>;
+      })
+    );
+  }
+
+  /**
+   * Параметры формы.
+   *
+   *
+   *
+   * This method provides access only to the response body.
+   * To access the full response (for headers, for example), `contractorParam$Response()` instead.
+   *
+   * This method sends `application/json` and handles request body of type `application/json`.
+   */
+  contractorParam(
+    params?: {
+      body?: {
+
+/**
+ * Поля которые влияют на обязательные поля
+ */
+'dependent_fields'?: Array<{
+
+/**
+ * Поле формы
+ */
+'field'?: string;
+
+/**
+ * Значение
+ */
+'value'?: string;
+
+/**
+ * Родительское поле
+ */
+'parent'?: string;
+}>;
+}
+    },
+    context?: HttpContext
+  ): Observable<{
+
+/**
+ * Обязательные поля
+ */
+'required'?: Array<string>;
+
+/**
+ * Поля которые влияют на обязательные поля
+ */
+'dependent_fields'?: Array<string>;
+}> {
+    return this.contractorParam$Response(params, context).pipe(
+      map((r: StrictHttpResponse<{
+
+/**
+ * Обязательные поля
+ */
+'required'?: Array<string>;
+
+/**
+ * Поля которые влияют на обязательные поля
+ */
+'dependent_fields'?: Array<string>;
+}>): {
+
+/**
+ * Обязательные поля
+ */
+'required'?: Array<string>;
+
+/**
+ * Поля которые влияют на обязательные поля
+ */
+'dependent_fields'?: Array<string>;
+} => r.body)
+    );
+  }
+
   /** Path part for operation `contractorCreate()` */
   static readonly ContractorCreatePath = '/contractor_create';
 
@@ -5027,7 +5181,7 @@ export class ContractorService extends BaseService {
 /**
  * Наименование подрядчика
  */
-'name': string;
+'name'?: string;
 
 /**
  * Идентификатор (ИНН, Rec № и пр.)
@@ -5067,7 +5221,7 @@ export class ContractorService extends BaseService {
 /**
  * Агент транспортной компании (ID берем из запроса - transport_carrier)
  */
-'carrier_id'?: number;
+'carrier_id'?: Array<string>;
 
 /**
  * Вид подрядчика (ID берем из запроса - contractor_type)
@@ -5182,17 +5336,17 @@ export class ContractorService extends BaseService {
 /**
  * Страна отправления
  */
-'direction_departure': number;
+'direction_departure'?: number;
 
 /**
  * Страна прибытия
  */
-'direction_arrival': number;
+'direction_arrival'?: number;
 
 /**
  * Транспорт
  */
-'direction_items': Array<string>;
+'direction_items'?: Array<string>;
 }>;
 }>;
 }
@@ -5253,7 +5407,7 @@ export class ContractorService extends BaseService {
 /**
  * Наименование подрядчика
  */
-'name': string;
+'name'?: string;
 
 /**
  * Идентификатор (ИНН, Rec № и пр.)
@@ -5293,7 +5447,7 @@ export class ContractorService extends BaseService {
 /**
  * Агент транспортной компании (ID берем из запроса - transport_carrier)
  */
-'carrier_id'?: number;
+'carrier_id'?: Array<string>;
 
 /**
  * Вид подрядчика (ID берем из запроса - contractor_type)
@@ -5408,17 +5562,17 @@ export class ContractorService extends BaseService {
 /**
  * Страна отправления
  */
-'direction_departure': number;
+'direction_departure'?: number;
 
 /**
  * Страна прибытия
  */
-'direction_arrival': number;
+'direction_arrival'?: number;
 
 /**
  * Транспорт
  */
-'direction_items': Array<string>;
+'direction_items'?: Array<string>;
 }>;
 }>;
 }
@@ -5528,7 +5682,7 @@ export class ContractorService extends BaseService {
 /**
  * Агент транспортной компании (ID берем из запроса - transport_carrier)
  */
-'carrier_id'?: number;
+'carrier_id'?: Array<string>;
 
 /**
  * Вид подрядчика (ID берем из запроса - contractor_type)
@@ -5648,17 +5802,17 @@ export class ContractorService extends BaseService {
 /**
  * Страна отправления
  */
-'direction_departure': number;
+'direction_departure'?: number;
 
 /**
  * Страна прибытия
  */
-'direction_arrival': number;
+'direction_arrival'?: number;
 
 /**
  * Транспорт
  */
-'direction_items': Array<string>;
+'direction_items'?: Array<string>;
 }>;
 }>;
 }
@@ -5754,7 +5908,7 @@ export class ContractorService extends BaseService {
 /**
  * Агент транспортной компании (ID берем из запроса - transport_carrier)
  */
-'carrier_id'?: number;
+'carrier_id'?: Array<string>;
 
 /**
  * Вид подрядчика (ID берем из запроса - contractor_type)
@@ -5874,17 +6028,17 @@ export class ContractorService extends BaseService {
 /**
  * Страна отправления
  */
-'direction_departure': number;
+'direction_departure'?: number;
 
 /**
  * Страна прибытия
  */
-'direction_arrival': number;
+'direction_arrival'?: number;
 
 /**
  * Транспорт
  */
-'direction_items': Array<string>;
+'direction_items'?: Array<string>;
 }>;
 }>;
 }
@@ -6144,17 +6298,17 @@ export class ContractorService extends BaseService {
 /**
  * Страна отправления
  */
-'direction_departure': number;
+'direction_departure'?: number;
 
 /**
  * Страна прибытия
  */
-'direction_arrival': number;
+'direction_arrival'?: number;
 
 /**
  * Транспорт
  */
-'direction_items': Array<string>;
+'direction_items'?: Array<string>;
 }>;
 
 /**
@@ -6265,17 +6419,17 @@ export class ContractorService extends BaseService {
         /**
          * Страна отправления
          */
-        'direction_departure': number;
+        'direction_departure'?: number;
         
         /**
          * Страна прибытия
          */
-        'direction_arrival': number;
+        'direction_arrival'?: number;
         
         /**
          * Транспорт
          */
-        'direction_items': Array<string>;
+        'direction_items'?: Array<string>;
         }>;
         
         /**
@@ -6422,17 +6576,17 @@ export class ContractorService extends BaseService {
 /**
  * Страна отправления
  */
-'direction_departure': number;
+'direction_departure'?: number;
 
 /**
  * Страна прибытия
  */
-'direction_arrival': number;
+'direction_arrival'?: number;
 
 /**
  * Транспорт
  */
-'direction_items': Array<string>;
+'direction_items'?: Array<string>;
 }>;
 
 /**
@@ -6531,17 +6685,17 @@ export class ContractorService extends BaseService {
 /**
  * Страна отправления
  */
-'direction_departure': number;
+'direction_departure'?: number;
 
 /**
  * Страна прибытия
  */
-'direction_arrival': number;
+'direction_arrival'?: number;
 
 /**
  * Транспорт
  */
-'direction_items': Array<string>;
+'direction_items'?: Array<string>;
 }>;
 
 /**
@@ -6638,17 +6792,17 @@ export class ContractorService extends BaseService {
 /**
  * Страна отправления
  */
-'direction_departure': number;
+'direction_departure'?: number;
 
 /**
  * Страна прибытия
  */
-'direction_arrival': number;
+'direction_arrival'?: number;
 
 /**
  * Транспорт
  */
-'direction_items': Array<string>;
+'direction_items'?: Array<string>;
 }>;
 
 /**
@@ -6771,17 +6925,17 @@ export class ContractorService extends BaseService {
 /**
  * Страна отправления
  */
-'direction_departure': number;
+'direction_departure'?: number;
 
 /**
  * Страна прибытия
  */
-'direction_arrival': number;
+'direction_arrival'?: number;
 
 /**
  * Транспорт
  */
-'direction_items': Array<string>;
+'direction_items'?: Array<string>;
 }>;
 
 /**
@@ -6889,17 +7043,17 @@ export class ContractorService extends BaseService {
         /**
          * Страна отправления
          */
-        'direction_departure': number;
+        'direction_departure'?: number;
         
         /**
          * Страна прибытия
          */
-        'direction_arrival': number;
+        'direction_arrival'?: number;
         
         /**
          * Транспорт
          */
-        'direction_items': Array<string>;
+        'direction_items'?: Array<string>;
         }>;
         
         /**
@@ -7020,17 +7174,17 @@ export class ContractorService extends BaseService {
 /**
  * Страна отправления
  */
-'direction_departure': number;
+'direction_departure'?: number;
 
 /**
  * Страна прибытия
  */
-'direction_arrival': number;
+'direction_arrival'?: number;
 
 /**
  * Транспорт
  */
-'direction_items': Array<string>;
+'direction_items'?: Array<string>;
 }>;
 
 /**
@@ -7129,17 +7283,17 @@ export class ContractorService extends BaseService {
 /**
  * Страна отправления
  */
-'direction_departure': number;
+'direction_departure'?: number;
 
 /**
  * Страна прибытия
  */
-'direction_arrival': number;
+'direction_arrival'?: number;
 
 /**
  * Транспорт
  */
-'direction_items': Array<string>;
+'direction_items'?: Array<string>;
 }>;
 
 /**
@@ -7236,17 +7390,17 @@ export class ContractorService extends BaseService {
 /**
  * Страна отправления
  */
-'direction_departure': number;
+'direction_departure'?: number;
 
 /**
  * Страна прибытия
  */
-'direction_arrival': number;
+'direction_arrival'?: number;
 
 /**
  * Транспорт
  */
-'direction_items': Array<string>;
+'direction_items'?: Array<string>;
 }>;
 
 /**
@@ -7292,12 +7446,12 @@ export class ContractorService extends BaseService {
 /**
  * Фамилия
  */
-'name_f': string;
+'name_f'?: string;
 
 /**
  * Имя
  */
-'name_i': string;
+'name_i'?: string;
 
 /**
  * Отчество
@@ -7317,7 +7471,7 @@ export class ContractorService extends BaseService {
 /**
  * Офисный телефон
  */
-'phone': string;
+'phone'?: string;
 
 /**
  * Мобильный телефон
@@ -7327,7 +7481,7 @@ export class ContractorService extends BaseService {
 /**
  * E-mail
  */
-'email': string;
+'email'?: string;
 
 /**
  * Skype
@@ -7357,17 +7511,17 @@ export class ContractorService extends BaseService {
 /**
  * Страна отправления
  */
-'direction_departure': number;
+'direction_departure'?: number;
 
 /**
  * Страна прибытия
  */
-'direction_arrival': number;
+'direction_arrival'?: number;
 
 /**
  * Транспорт
  */
-'direction_items': Array<string>;
+'direction_items'?: Array<string>;
 }>;
 }
     },
@@ -7437,12 +7591,12 @@ export class ContractorService extends BaseService {
 /**
  * Фамилия
  */
-'name_f': string;
+'name_f'?: string;
 
 /**
  * Имя
  */
-'name_i': string;
+'name_i'?: string;
 
 /**
  * Отчество
@@ -7462,7 +7616,7 @@ export class ContractorService extends BaseService {
 /**
  * Офисный телефон
  */
-'phone': string;
+'phone'?: string;
 
 /**
  * Мобильный телефон
@@ -7472,7 +7626,7 @@ export class ContractorService extends BaseService {
 /**
  * E-mail
  */
-'email': string;
+'email'?: string;
 
 /**
  * Skype
@@ -7502,17 +7656,17 @@ export class ContractorService extends BaseService {
 /**
  * Страна отправления
  */
-'direction_departure': number;
+'direction_departure'?: number;
 
 /**
  * Страна прибытия
  */
-'direction_arrival': number;
+'direction_arrival'?: number;
 
 /**
  * Транспорт
  */
-'direction_items': Array<string>;
+'direction_items'?: Array<string>;
 }>;
 }
     },
@@ -7656,17 +7810,17 @@ export class ContractorService extends BaseService {
 /**
  * Страна отправления
  */
-'direction_departure': number;
+'direction_departure'?: number;
 
 /**
  * Страна прибытия
  */
-'direction_arrival': number;
+'direction_arrival'?: number;
 
 /**
  * Транспорт
  */
-'direction_items': Array<string>;
+'direction_items'?: Array<string>;
 }>;
 }
     },
@@ -7796,17 +7950,17 @@ export class ContractorService extends BaseService {
 /**
  * Страна отправления
  */
-'direction_departure': number;
+'direction_departure'?: number;
 
 /**
  * Страна прибытия
  */
-'direction_arrival': number;
+'direction_arrival'?: number;
 
 /**
  * Транспорт
  */
-'direction_items': Array<string>;
+'direction_items'?: Array<string>;
 }>;
 }
     },

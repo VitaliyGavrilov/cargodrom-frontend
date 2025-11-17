@@ -6,7 +6,7 @@ import { CompanyService } from './../../../../../api/services/company.service';
 import { Component, ViewEncapsulation } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { Observable } from 'rxjs';
-import { Table } from '../../../../../classes';
+import { Table } from 'src/app/shared/classes';
 import { FilterService } from 'src/app/filter/services/filter.service';
 import { UserService } from 'src/app/api/services';
 

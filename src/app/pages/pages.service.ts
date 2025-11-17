@@ -12,13 +12,13 @@ import { environment } from 'src/environments/environment';
 })
 export class BrandingService {
   private readonly baseLink = environment.production?'https://cargodrom.com/':'https://dev.cargodrom.com/';
-  
+
   // Subject для хранения ссылки на логотип
   private logoLinkSubject = new BehaviorSubject<string>('');
-  
+
   // Subject для хранения CSS переменных цветов
   private colorsSubject = new BehaviorSubject<string>('');
-  
+
   // Public observables для подписки на изменения
   public logoLink$ = this.logoLinkSubject.asObservable();
   public colors$ = this.colorsSubject.asObservable();
@@ -79,7 +79,7 @@ export class BrandingService {
         if (data.branding_logo && data.branding_logo !== '') {
           this.logoLinkSubject.next(data.branding_logo);
         }
-        
+
         // Обработка цветов
         if (data.branding_colors) {
           // const cssVariables = this.convertColorsToCssVariables(data.branding_colors);
@@ -88,7 +88,7 @@ export class BrandingService {
             :this.convertColorsToCssVariables(data.branding_colors);
           this.colorsSubject.next(cssVariables);
         }
-        
+
         console.log('Branding service initialized:', {
           logoLink: this.logoLinkSubject.value,
           colors: this.colorsSubject.value
@@ -107,15 +107,15 @@ export class BrandingService {
    */
   private convertColorsToCssVariables(colors: any): string {
     const cssVariables: string[] = [];
-    
+
     Object.entries(colors).forEach(([key, value]) => {
       if (value && typeof value === 'string') {
         // Преобразуем ключ в kebab-case для CSS переменных
-        const cssVarName = `--${key.replace(/_/g, '_')}`;
+        const cssVarName = `--user-brend_${key.replace(/_/g, '_')}`;
         cssVariables.push(`${cssVarName}: ${value};`);
       }
     });
-    
+
     return cssVariables.join(' ');
   }
 

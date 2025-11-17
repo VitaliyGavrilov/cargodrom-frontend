@@ -1,4 +1,4 @@
-import { Country } from "../api/custom_models";
+import { Country } from "src/app/api/custom_models";
 
 export const unknownCountry: Country = {
   id: 12345678,

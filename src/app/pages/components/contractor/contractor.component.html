@@ -13,7 +13,7 @@
     <div class="back" (click)="goBack()"></div>
     <div class=" rate_info">
       <div class="title"> Торги запроса</div>
-      <div class="subtitle">Всего подрядчиков: ??</div>
+      <div class="subtitle">Всего подрядчиков: {{this.fullTotal}}</div> <!-- TODO: исправить ВСЕГО ПОДРЯДЧИКОВ | ИСПРАВИЛ!!!-->
     </div>
     <app-request-info-block  [request]="currentRequest"></app-request-info-block>
   </div>

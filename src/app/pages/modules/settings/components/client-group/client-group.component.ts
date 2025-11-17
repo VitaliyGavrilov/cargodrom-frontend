@@ -1,5 +1,5 @@
 import { ActivatedRoute, Router } from '@angular/router';
-import { Table } from '../../../../../classes';
+import { Table } from 'src/app/shared/classes';
 import { ClientGroup } from './../../../../../api/custom_models/client-group';
 import { Component } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';

@@ -7,11 +7,11 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { Observable, debounceTime, distinctUntilChanged, map, tap } from 'rxjs';
 import { City, Client, ClientGroup, Country, Employee, FileDocument } from 'src/app/api/custom_models';
 import { CompanyService, CustomerService, SystemService } from 'src/app/api/services';
-import { Editor } from 'src/app/classes/editor';
+import { Editor } from 'src/app/shared/classes/editor';
 import { Location } from '@angular/common';
 import { CityService } from '../../services/city.service';
 import { CountryService } from '../../services/country.service';
-import { byField } from 'src/app/constants';
+import { byField } from 'src/app/shared/constants';
 import { FileListComponent } from '../file-list/file-list.component';
 
 @Component({

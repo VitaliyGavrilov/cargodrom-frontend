@@ -3,7 +3,7 @@ import { MatDialog } from '@angular/material/dialog';
 import { Employee } from './../../../../../api/custom_models/employee';
 import { CompanyService } from 'src/app/api/services/company.service';
 import { Component, Input } from '@angular/core';
-import { Table } from '../../../../../classes';
+import { Table } from 'src/app/shared/classes';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Observable } from 'rxjs';
 import { SortColumn } from 'src/app/api/custom_models/sort-column';

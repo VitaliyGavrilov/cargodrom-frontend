@@ -9,7 +9,7 @@ import { SettingsService, SystemService } from 'src/app/api/services';
 import { MySettingsService } from 'src/app/pages/services/mySetting.service';
 import { FilterListComponent } from '../filter-list/filter-list.component';
 import { CurrencyService } from 'src/app/pages/services/сurrency/currency.service';
-import { BaseComponent } from 'src/app/classes/base-component';
+import { BaseComponent } from 'src/app/shared/classes/base-component';
 import { FormHistoryService } from './branding.service';
 import { DomSanitizer, SafeResourceUrl } from '@angular/platform-browser';
 

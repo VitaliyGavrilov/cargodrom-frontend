@@ -3,7 +3,7 @@ import { Company } from './../../../../../api/custom_models/company';
 import { Component } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { MatSnackBar } from '@angular/material/snack-bar';
-import { Table } from '../../../../../classes';
+import { Table } from 'src/app/shared/classes';
 import { ActivatedRoute, Router } from '@angular/router';
 import { SortColumn } from 'src/app/api/custom_models/sort-column';
 import { Observable } from 'rxjs';

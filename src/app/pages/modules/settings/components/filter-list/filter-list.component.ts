@@ -170,7 +170,6 @@
 // }
 import { Contractor, SearchFilterSchema } from '../../../../../api/custom_models';
 import { Component, OnDestroy, OnInit, ViewChild, ViewEncapsulation } from '@angular/core';
-import { LoadParams, Table } from '../../../../../classes';
 import { MatDialog } from '@angular/material/dialog';
 import { MatSnackBar, MatSnackBarConfig } from '@angular/material/snack-bar';
 import { ActivatedRoute, NavigationEnd, Router } from '@angular/router';
@@ -184,7 +183,7 @@ import { FormArray, FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { LoaderService } from '../../../../services/loader.service';
 import { formatDate } from '@angular/common';
 import { DateAdapter, MAT_DATE_FORMATS, MAT_DATE_LOCALE } from '@angular/material/core';
-import { CustomDateAdapter } from 'src/app/adapters/custom-date.adapter';
+import { CustomDateAdapter } from 'src/app/shared/adapters/custom-date.adapter';
 import { MomentDateAdapter } from '@angular/material-moment-adapter';
 import { MatMenuTrigger } from '@angular/material/menu';
 import { MatDatepickerInputEvent } from '@angular/material/datepicker';

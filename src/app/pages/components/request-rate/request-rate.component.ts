@@ -1,13 +1,14 @@
 import { Component, OnDestroy, OnInit, ViewEncapsulation } from '@angular/core';
-import { FormArray, FormBuilder, FormGroup } from '@angular/forms';
+import { FormArray, FormBuilder, FormGroup, ReactiveFormsModule } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Subject, takeUntil, tap } from 'rxjs';
 import { CargoService, CustomerService, DirectionService, FileService, RequestService, SystemService, TransportService } from 'src/app/api/services';
-import { Location } from '@angular/common';
+import { CommonModule, Location } from '@angular/common';
 import { CityService } from '../../services/city.service';
 import { CountryService } from '../../services/country.service';
 import { MatSnackBar, MatSnackBarConfig } from '@angular/material/snack-bar';
 import { environment } from '../../../../environments/environment';
+import { RateEditorComponent } from '../rate-editor/rate-editor.component';
 
 @Component({
   selector: 'app-request-rate',
@@ -73,7 +74,10 @@ export class RequestRateComponent implements OnInit, OnDestroy {
   }
   addRate() {
     if(this.rates.length<8){
-      this.rates.push(this.fb.control({}));
+      this.rates.push(this.fb.control({
+        currency: this.requestForm.value.rates[this.currentRateNumber]?.currency,
+        valid_time: this.requestForm.value.rates[this.currentRateNumber]?.valid_time,
+      }));
       this.currentRateNumber=this.rates.length-1;
       this.requestForm.markAsTouched();
     }
@@ -144,7 +148,7 @@ export class RequestRateComponent implements OnInit, OnDestroy {
         tap((rates)=> {
           console.log('getRequestRates', rates);
           if (!rates) throw ({ error: { error_message: `Запрос не существует` } });
-          // this.rates.push(this.fb.control({}));
+          if(!rates.rates)this.rates.push(this.fb.control({}));
           rates.rates?.forEach((e:any) => {
             this.addRate();
             this.requestForm.patchValue(rates);
@@ -158,7 +162,7 @@ export class RequestRateComponent implements OnInit, OnDestroy {
           this.request=rates;
         },
         error: (err) => {
-          this.snackBar.open(`${err.error.error_message}: ` + err.error.error_message_description, undefined, this.snackBarWithShortDuration);
+          this.snackBar.open(`${err.error?.error_message}: ` + err.error?.error_message_description, undefined, this.snackBarWithShortDuration);
         }
       });
   }

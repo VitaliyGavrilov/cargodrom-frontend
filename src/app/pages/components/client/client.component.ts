@@ -1,7 +1,7 @@
 import { CustomerService } from './../../../api/services/customer.service';
 import { Client, ClientFilter, SearchFilterSchema } from './../../../api/custom_models';
 import { Component, HostListener, ViewEncapsulation } from '@angular/core';
-import { LoadParams, Table } from '../../../classes';
+import { LoadParams, Table } from 'src/app/shared/classes';
 import { MatDialog } from '@angular/material/dialog';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { ActivatedRoute, Router } from '@angular/router';

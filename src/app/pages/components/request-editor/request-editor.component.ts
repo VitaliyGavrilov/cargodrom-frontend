@@ -2,15 +2,14 @@ import { emailValidator, innValidator } from './../../../validators/pattern-vali
 import { Component, ElementRef, OnDestroy, OnInit, ViewChild, ViewEncapsulation } from '@angular/core';
 import { FormArray, FormBuilder, FormGroup, MinLengthValidator, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
-import { Observable, Subject, find, map, pipe, takeUntil, tap, retry, debounce, debounceTime, distinctUntilChanged, startWith, fromEvent, merge, forkJoin, lastValueFrom, catchError, throwError } from 'rxjs';
+import { Observable, Subject, find, map, pipe, takeUntil, tap, retry, debounce, debounceTime, distinctUntilChanged, startWith, merge, forkJoin , catchError, throwError, count } from 'rxjs';
 import { ContractorService } from './../../../api/services/contractor.service';
 import { City, Client, ClientGroup, Contractor, ContractorRequestFormat, Country, Currency, Customer, DirectionCity, Employee, FileDocument, TaxSystem, RequestFile } from 'src/app/api/custom_models';
 import { CargoService, CompanyService, CustomerService, DirectionService, RequestService, SystemService, TransportService } from 'src/app/api/services';
-import { Editor } from 'src/app/classes/editor';
+import { Editor } from 'src/app/shared/classes/editor';
 import { Location, formatDate, getLocaleMonthNames } from '@angular/common';
 import { CityService } from '../../services/city.service';
 import { CountryService } from '../../services/country.service';
-import { byField } from 'src/app/constants';
 import { FileListComponent } from '../file-list/file-list.component';
 import { TransportKind, TransportSubKind, TransportType } from 'src/app/api/custom_models/transport';
 import { Incoterms, Request, RequestFormat, RequestServices } from 'src/app/api/custom_models/request';
@@ -892,6 +891,7 @@ export class RequestEditorComponent implements OnInit, OnDestroy {
   removePlace(i: number): void {
     this.places.removeAt(i);
     this.requestForm.markAsTouched();
+    this.onPlaceEditorChange();
   }
   addPlace() {
     this.places.push(this.fb.control({
@@ -902,12 +902,29 @@ export class RequestEditorComponent implements OnInit, OnDestroy {
   get places() {
     return <FormArray>this.requestForm.get('cargo_places');
   }
+  //
+  //
+  placeCargoPackageChange(i:number){
+    console.log(123);
+    this.places.controls.forEach((item:any,index:number)=>{
+      if(i<index && !item.value.cargo_package_id){
+        console.log(item,index,this.requestForm.value.cargo_places[i].cargo_package_id);
+        item.patchValue({
+          cargo_package_id:this.requestForm.value.cargo_places[i].cargo_package_id
+        })
+      }
+    })
+  }
+
+
+
   //РАСЧЕТЫ
   //итоговый подсчет при раздельных местах
   onPlaceEditorChange(){
     let volume = 0;
     let weight = 0;
-    let count = this.requestForm.value.cargo_places.length;
+    // let count = this.requestForm.value.cargo_places.length;
+    let count = 0;
     let paidWeight = 0;
     let density = 0;
     //итого вес и обьем
@@ -931,6 +948,11 @@ export class RequestEditorComponent implements OnInit, OnDestroy {
     } else {
       paidWeight=b2;
     }
+    this.requestForm.value.cargo_places.forEach((i:any)=>{
+      count= i.count+count
+    })
+
+
     //патчим форму
     this.requestForm.patchValue({
       cargo_places_volume: volume.toFixed(2),
@@ -1038,10 +1060,10 @@ export class RequestEditorComponent implements OnInit, OnDestroy {
     // console.log(this.services);
     let ser=[];
     let opt=[];
-    ser = incotem.services_id.filter((number:any) => 
+    ser = incotem.services_id.filter((number:any) =>
       this.services.some(obj => obj.id === number)
     );
-    opt = incotem.services_id.filter((number:any) => 
+    opt = incotem.services_id.filter((number:any) =>
       this.servicesAdditionals.some(obj => obj.id === number)
     );
     this.requestForm.patchValue({
@@ -1389,7 +1411,7 @@ export class RequestEditorComponent implements OnInit, OnDestroy {
         }
         this.snackBar.open(`Запрос изменён`, undefined, this.snackBarWithShortDuration)
       },
-      error: (err) => this.snackBar.open(`Ошибка редактирования запроса: ` + err.error.error_message, undefined, this.snackBarWithShortDuration)
+      error: (err) => this.snackBar.open(err.error.error_message + `: ` + err.error.error_message_description, undefined, this.snackBarWithShortDuration)
     });
   }
   //Получаем данные запроса для редактирования
@@ -1482,7 +1504,7 @@ export class RequestEditorComponent implements OnInit, OnDestroy {
         }
         this.snackBar.open(`Запрос создан`, undefined, this.snackBarWithShortDuration);
       },
-      error: (err) => this.snackBar.open(`Ошибка создания запроса: ` + err.error.error_message, undefined, this.snackBarWithShortDuration)
+      error: (err) => this.snackBar.open(err.error.error_message + `: ` + err.error.error_message_description, undefined, this.snackBarWithShortDuration)
     });
   }
 }

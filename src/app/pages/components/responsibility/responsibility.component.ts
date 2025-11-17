@@ -3,7 +3,7 @@ import { ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
 import {  MatCheckboxChange } from '@angular/material/checkbox';
 import { Country, AreaOfResponsibility } from 'src/app/api/custom_models';
 import { TransportSubKind, TransportSubKinds } from 'src/app/api/custom_models/transport';
-import { transportSubKindTable, unknownCountry } from '../../../constants';
+import { transportSubKindTable, unknownCountry } from 'src/app/shared/constants';
 import { TransportService } from 'src/app/api/services/transport.service';
 import { Subject, takeUntil, tap } from 'rxjs';
 import { MatSnackBar, MatSnackBarConfig } from '@angular/material/snack-bar';

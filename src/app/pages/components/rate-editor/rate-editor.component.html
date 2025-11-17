@@ -46,17 +46,6 @@
         </div>
       </div>
 
-      <div class="form-item">
-        <div class="form-label">Airline:</div>
-        <div class="form-data">
-          <input type="text" 
-            formControlName="carrier_desc" 
-            [readonly]="returnAirlineName(rateForm.value.carrier_name)!=''" 
-            [value]="returnAirlineName(rateForm.value.carrier_name)"
-          >
-        </div>
-      </div>
-
       <div class="form-item" style="width: 105px;">
         <div class="form-label">Airline (iata):</div>
         <div class="form-data">
@@ -72,21 +61,16 @@
         </div>
       </div>
 
-      <!-- <div class="form-item i10">
-        <div class="form-label">Airline (iata):</div>
+      <div class="form-item">
+        <div class="form-label">Airline:</div>
         <div class="form-data">
-          <mat-form-field appearance="outline" class="ui-select">
-           <mat-select formControlName="carrier_name" >
-            <mat-option
-              *ngFor="let transportCarrierItem of transportCarrier;"
-              [value]="transportCarrierItem.id"
-              >
-              {{ transportCarrierItem.iata }}
-            </mat-option>
-           </mat-select>
-         </mat-form-field>
+          <input type="text"
+            formControlName="carrier_desc"
+            [readonly]="returnAirlineName(rateForm.value.carrier_name)!=''"
+            [value]="returnAirlineName(rateForm.value.carrier_name)"
+          >
         </div>
-      </div> -->
+      </div>
 
       <div class="form-item">
         <div class="form-label">Route:</div>
@@ -98,27 +82,10 @@
             [matAutocomplete]="route"
           >
           <mat-autocomplete autoActiveFirstOption #route="matAutocomplete">
-            <!-- <mat-option *ngIf="filterRote().length==0" style="text-transform: uppercase" [value]="rateForm.value.route_id">{{rateForm.value?.route_id}}</mat-option> -->
             <mat-option (onSelectionChange)="onRouteChange(route)" *ngFor="let route of filterRote()" [value]="route.name">{{route.name}}</mat-option>
           </mat-autocomplete>
         </div>
       </div>
-
-      <!-- <div class="form-item">
-        <div class="form-label">Route:</div>
-        <div class="form-data">
-          <mat-form-field appearance="outline" class="ui-select">
-            <mat-select formControlName="route_id">
-             <mat-option
-               *ngFor="let transportRoute of transportRoute;"
-               [value]="transportRoute.id"
-               >
-               {{ transportRoute.name }}
-             </mat-option>
-            </mat-select>
-          </mat-form-field>
-        </div>
-      </div> -->
 
       <div class="form-item">
         <div class="form-label">The departure schedule:</div>
@@ -149,6 +116,7 @@
                 #calendar
                 (selectedChange)="selectDate($event,calendar)"
                 [dateClass]="isSelectedDate"
+                style="width: 206px;"
                 >
               </mat-calendar>
             </div>
@@ -159,7 +127,7 @@
     </div>
 
     <div class="form-item-layout" >
-      
+
       <div class="form-item w110" formGroupName="transit_time">
         <div class="form-label">Transit time from:</div>
         <div class="form-data">
@@ -175,7 +143,7 @@
       </div>
 
       <div class="form-item w110">
-      <div class="form-label">Currency:</div>
+      <div class="form-label">Сurrency Rate:</div>
         <div class="form-data">
           <mat-form-field appearance="outline" class="ui-select">
             <mat-select formControlName="currency">
@@ -192,7 +160,6 @@
 
     </div>
 
-    <!-- DETAIL MAKET -->
     <div class="charges" *ngIf="rateForm.value.rate_type==='detail'">
 
       <div style="width: 70%; padding-right: 40px; border-right: 1px dashed #E0E5EB; margin-right: 40px;">
@@ -202,16 +169,6 @@
             <ng-template *ngFor="let chargeModel of chargeModel;let i = index;" [ngSwitchCase]="chargeModel.field_name">
 
               <div *ngIf="chargeValue.value.select" class="included-fees" >
-
-                <!-- <mat-checkbox *ngIf="!chargeModel.requare">
-                  <span class="charges-title">{{chargeModel.name}}</span>
-
-                </mat-checkbox>
-
-                <mat-checkbox *ngIf="chargeModel.requare">
-                  <span class="charges-title">{{chargeModel.name}}</span>
-
-                </mat-checkbox> -->
 
                 <label *ngIf="!chargeModel.requare" style="display: flex;">
                   <input  type="checkbox"  [checked]="chargeModel.requare===true" formControlName="select">
@@ -265,7 +222,8 @@
                 </div>
 
                 <!-- 2) standart inputs -->
-                <div *ngIf="!chargeModel.field_min && !chargeModel.field_comment && chargeModel.unit" class="input-box">
+                <div *ngIf="!chargeModel.field_min && !chargeModel.field_comment && chargeModel.unit" class="input-box">123
+
 
                   <div class="form-item charges-values" *ngIf="chargeModel.field_fix">
                     <div class="form-data">

@@ -29,12 +29,12 @@ const routes: Routes = [
     path: '',
     component: PagesComponent,
     children: [
-      {
-        path: 'test',
-        component: TestPage,
-        pathMatch: 'full',
-        canActivate: [AuthGuard],
-      },
+      // {
+      //   path: 'test',
+      //   component: TestPage,
+      //   pathMatch: 'full',
+      //   canActivate: [AuthGuard],
+      // },
       {
         path: '',
         redirectTo: 'dashboard',
@@ -92,13 +92,14 @@ const routes: Routes = [
         title: 'Проверка перевода запроса',
         canActivate: [AuthGuard],
       },
-      {
-        path: 'request/rate/:uid',
-        component: RequestRateComponent,
-        pathMatch: 'full',
-        title: 'Rate',
-        // canActivate: [AuthGuard],
-      },
+      // {
+      //   path: 'rate_request/:uid',
+      //   component: RequestRateComponent,
+      //   pathMatch: 'full',
+      //   title: 'Rate',
+      //   // canActivate: [AuthGuard],
+      // },
+      // { path: 'rate', redirectTo: 'rate_request/5191ebbc0ba015a608f285b78b524449' },
       {
         path: 'request/details/final/:id',
         component: RequestDetails,
@@ -241,7 +242,7 @@ const routes: Routes = [
         pathMatch: 'full',
         title: 'Сообщения',
         canActivate: [AuthGuard],
-        
+
       },
       // {
       //   path: 'message',

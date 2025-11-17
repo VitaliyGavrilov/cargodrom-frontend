@@ -1,12 +1,12 @@
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { ActivatedRoute, ParamMap, Router } from '@angular/router';
-import { SortColumn } from '../api/custom_models/sort-column';
+import { SortColumn } from 'src/app//api/custom_models/sort-column';
 import { Directive, OnInit, OnDestroy, ViewChild, TemplateRef, ElementRef } from '@angular/core';
 import { NEVER, Observable, of, Subject, takeUntil, tap } from 'rxjs';
 import { MatSnackBarConfig } from '@angular/material/snack-bar';
 import { MatDialog } from '@angular/material/dialog';
-import { FilterService } from '../filter/services/filter.service';
-import { SearchFilterSchema } from '../api/custom_models';
+import { FilterService } from 'src/app/filter/services/filter.service';
+import { SearchFilterSchema } from 'src/app/api/custom_models';
 import { MatCheckboxChange } from '@angular/material/checkbox';
 
 export interface LoadParams<T, F> {

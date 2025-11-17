@@ -1,0 +1,402 @@
+<form [formGroup]="rateForm">
+  <!-- Добавьте в начало шаблона для отладки -->
+<div style="background: #f0f0f0; padding: 10px; margin: 10px 0; border: 2px solid red;">
+  <h3>DEBUG: Все charges в форме</h3>
+  <div *ngFor="let charge of charges.controls; let i = index">
+    <div [style.color]="charge.value.field === 'pickup' ? 'red' : 'black'"
+         [style.font-weight]="charge.value.field === 'pickup' ? 'bold' : 'normal'">
+      {{i}}: {{charge.value.field}} - select: {{charge.value.select}},
+      cost: {{charge.value.cost}}, price: {{charge.value.price}}
+    </div>
+  </div>
+</div>
+
+  <div class="form-row bg">
+    <div class="rate-block-title">
+      <div class="form-row-title color-blue">Rates</div>
+
+      <label class="radio">
+        <input type="radio" value="detail" formControlName="rate_type" (change)="onRateTypeChange()">
+        <i></i>
+        <span>With Details</span>
+      </label>
+
+      <label class="radio">
+        <input type="radio" value="nodetail" formControlName="rate_type" (change)="onRateTypeChange()">
+        <i></i>
+        <span>With single Amount</span>
+      </label>
+    </div>
+
+    <div class="rate_labels">
+      <div *ngFor="let rate of rates; let i=index"
+        [ngClass]="{'active-rate':i===currentRateNumber}"
+        (click)="onChangeRate(i)"
+        class="rate_label"
+      >
+        Rate #{{i+1}} ({{rate?.carrier_name}})
+      </div>
+      <button class="btn-add-rate rate_labels-btns" (click)="onAddRate()">
+        <span class="icon-btn-plus"></span>Add Rate
+      </button>
+      <button class="btn-dup-rate rate_labels-btns" (click)="onDuplicateRate()">
+        <span class="icon-btn-plus"></span>Duplicate Rate
+      </button>
+      <button class="btn-del-rate rate_labels-btns" (click)="onDeleteRate()">
+        <span class="icon-btn-del"></span>Delete Rate
+      </button>
+    </div>
+  </div>
+
+  <div class="form-row rate">
+    <div class="form-item-layout">
+      <div class="form-item i10">
+        <div class="form-label">Chargeable weight:</div>
+        <div class="form-data">
+          <span class="kg">
+            <input type="text" readonly [value]="weight">kg
+          </span>
+        </div>
+      </div>
+
+      <div class="form-item" style="width: 105px;">
+        <div class="form-label">Airline (iata):</div>
+        <div class="form-data">
+          <input
+            type="text"
+            style="text-transform: uppercase"
+            formControlName="carrier_name"
+            [matAutocomplete]="carrier_name"
+          >
+          <mat-autocomplete autoActiveFirstOption #carrier_name="matAutocomplete">
+            <mat-option *ngFor="let route of filterIata()" [value]="route.iata">{{route.iata}}</mat-option>
+          </mat-autocomplete>
+        </div>
+      </div>
+
+      <div class="form-item">
+        <div class="form-label">Airline:</div>
+        <div class="form-data">
+          <input type="text"
+            formControlName="carrier_desc"
+            [readonly]="getAirlineName(rateForm.value.carrier_name)!=''"
+            [value]="getAirlineName(rateForm.value.carrier_name)"
+          >
+        </div>
+      </div>
+
+      <div class="form-item">
+        <div class="form-label">Route:</div>
+        <div class="form-data">
+          <input
+            type="text"
+            style="text-transform: uppercase"
+            formControlName="route_name"
+            [matAutocomplete]="route"
+          >
+          <mat-autocomplete autoActiveFirstOption #route="matAutocomplete">
+            <mat-option (onSelectionChange)="onRouteChange(route)" *ngFor="let route of filterRoutes()" [value]="route.name">{{route.name}}</mat-option>
+          </mat-autocomplete>
+        </div>
+      </div>
+
+      <div class="form-item">
+        <div class="form-label">The departure schedule:</div>
+        <div class="form-data departure-schedule">
+          <mat-form-field appearance="outline" class="ui-select">
+            <mat-select formControlName="departure_schedule" multiple>
+              <mat-option
+                *ngFor="let day of daysOfTheWeek;"
+                [value]="day.id"
+                >
+                {{ day.day }}
+              </mat-option>
+            </mat-select>
+          </mat-form-field>
+        </div>
+      </div>
+
+      <div class="form-item">
+        <div class="form-label">The nearest flight etd:</div>
+        <div class="form-data">
+          <button class="calendar" [matMenuTriggerFor]="menu">
+            <div class="calendar-value">{{getSelectedDateText()}}</div>
+            <div class="calendar-icon"></div>
+          </button>
+          <mat-menu #menu="matMenu">
+            <div (click)="$event.stopPropagation()">
+              <mat-calendar
+                #calendar
+                (selectedChange)="onDateSelect($event,calendar)"
+                [dateClass]="dateClass"
+                style="width: 206px;"
+                >
+              </mat-calendar>
+            </div>
+          </mat-menu>
+        </div>
+      </div>
+    </div>
+
+    <div class="form-item-layout">
+      <div class="form-item w110" formGroupName="transit_time">
+        <div class="form-label">Transit time from:</div>
+        <div class="form-data">
+          <input type="number" formControlName="transit_time_from">
+        </div>
+      </div>
+
+      <div class="form-item w110" formGroupName="transit_time">
+        <div class="form-label">Transit time to:</div>
+        <div class="form-data">
+          <input type="number" formControlName="transit_time_to">
+        </div>
+      </div>
+
+      <div class="form-item w110">
+        <div class="form-label">Сurrency Rate:</div>
+        <div class="form-data">
+          <mat-form-field appearance="outline" class="ui-select">
+            <mat-select formControlName="currency">
+              <mat-option
+                *ngFor="let currencyItem of currency;"
+                [value]="currencyItem.id"
+                >
+                {{ currencyItem.code }}
+              </mat-option>
+            </mat-select>
+          </mat-form-field>
+        </div>
+      </div>
+
+      <div class="form-item" style="width: 150px; flex-grow: 0;">
+        <div class="form-label">The Rate available until:</div>
+        <div class="form-data">
+          <input class="data-piker" formControlName="valid_time" [matDatepicker]="picker" (click)="picker.open()" (dateChange)="onValidChange()" >
+          <mat-datepicker #picker></mat-datepicker>
+        </div>
+      </div>
+    </div>
+
+    <!-- DETAIL LAYOUT -->
+    <div class="charges" *ngIf="rateForm.value.rate_type==='detail'">
+      <div style="width: 70%; padding-right: 30px; border-right: 1px dashed #E0E5EB; margin-right: 30px;">
+        <div class="form-block-sub-title">The rate includes following charges</div>
+        <div formArrayName="values" *ngFor="let chargeValue of charges.controls; let i = index;">
+          <div [formGroupName]="i" *ngIf="chargeValue.value.select">
+            <div class="included-fees">
+              <label style="display: flex;">
+                <input type="checkbox" [checked]="chargeValue.value.select" formControlName="select">
+                <i></i>
+                <span class="charges-title">{{getChargeTitle(chargeValue.value.field)}}</span>
+              </label>
+
+              <!-- 1) inputs with min -->
+              <div *ngIf="hasMin(chargeValue.value.field) && !hasComment(chargeValue.value.field)" class="input-box">
+                <div class="form-item charges-values br">
+                  <div class="form-data">
+                    <span class="unit">Min {{rateChar}}:</span>
+                    <input type="number" class="values-input" formControlName="min" (input)="calculateCharge(chargeValue)">
+                  </div>
+                </div>
+
+                <div class="form-item charges-values">
+                  <div class="form-data">
+                    <input type="number" class="values-input" (input)="calculateCharge(chargeValue)" formControlName="price">
+                    <span class="unit">{{rateChar}}/{{getChargeUnit(chargeValue.value.field)}}</span>
+                  </div>
+                </div>
+
+                <div class="cross"></div>
+
+                <div class="form-item charges-values" *ngIf="getChargeUnit(chargeValue.value.field)!=='kg'">
+                  <div class="form-data">
+                    <input type="number" class="values-input" (input)="calculateCharge(chargeValue)" formControlName="value">
+                    <span class="unit">{{getChargeUnit(chargeValue.value.field)}}</span>
+                  </div>
+                </div>
+
+                <div class="form-item charges-values" *ngIf="getChargeUnit(chargeValue.value.field)==='kg'">
+                  <div class="form-data">
+                    <input type="number" class="values-input" readonly formControlName="value">
+                    <span class="unit">{{getChargeUnit(chargeValue.value.field)}}</span>
+                  </div>
+                </div>
+
+                <div class="equal">═</div>
+
+                <div class="form-item charges-values">
+                  <div class="form-data">
+                    <input type="number" class="values-input" readonly formControlName="cost">
+                    <span class="unit">{{rateChar}}</span>
+                  </div>
+                </div>
+              </div>
+
+              <!-- 2) standard inputs -->
+              <div *ngIf="!hasMin(chargeValue.value.field) && !hasComment(chargeValue.value.field) && getChargeUnit(chargeValue.value.field)" class="input-box">
+                <div class="form-item charges-values" *ngIf="hasFix(chargeValue.value.field)">
+                  <div class="form-data">
+                    <span class="unit">Fix {{rateChar}}:</span>
+                    <input type="number" class="values-input" formControlName="fix" (input)="calculateCharge(chargeValue)">
+                  </div>
+                </div>
+
+                <span *ngIf="hasFix(chargeValue.value.field)" style="text-align: center; margin: 0 5px; width: 11px; box-sizing: border-box;">+</span>
+
+                <div class="form-item charges-values">
+                  <div class="form-data">
+                    <input type="number" class="values-input" (input)="calculateCharge(chargeValue)" formControlName="price">
+                    <span class="unit">{{rateChar}}/{{getChargeUnit(chargeValue.value.field)}}</span>
+                  </div>
+                </div>
+
+                <div class="cross"></div>
+
+                <div class="form-item charges-values" *ngIf="getChargeUnit(chargeValue.value.field)!=='kg'">
+                  <div class="form-data">
+                    <input type="number" class="values-input" (input)="calculateCharge(chargeValue)" formControlName="value">
+                    <span class="unit">{{getChargeUnit(chargeValue.value.field)}}</span>
+                  </div>
+                </div>
+
+                <div class="form-item charges-values" *ngIf="getChargeUnit(chargeValue.value.field)==='kg'">
+                  <div class="form-data">
+                    <input type="number" class="values-input" readonly formControlName="value">
+                    <span class="unit">{{getChargeUnit(chargeValue.value.field)}}</span>
+                  </div>
+                </div>
+
+                <div class="equal">═</div>
+
+                <div class="form-item charges-values">
+                  <div class="form-data">
+                    <input type="number" class="values-input" readonly formControlName="cost">
+                    <span class="unit">{{rateChar}}</span>
+                  </div>
+                </div>
+              </div>
+
+              <!-- 3) cost + comment -->
+              <div *ngIf="!hasMin(chargeValue.value.field) && hasComment(chargeValue.value.field) && !getChargeUnit(chargeValue.value.field)" class="input-box" style="width: 70%;">
+                <div class="form-item" style="margin-right: 10px;">
+                  <div class="form-data">
+                    <input type="text" formControlName="comment">
+                  </div>
+                </div>
+
+                <div class="form-item charges-values">
+                  <div class="form-data">
+                    <input type="number" class="values-input" (input)="calculateCostDirectly(chargeValue)" formControlName="cost">
+                    <span class="unit">{{rateChar}}</span>
+                  </div>
+                </div>
+              </div>
+
+              <!-- 4) only cost -->
+              <div *ngIf="!hasMin(chargeValue.value.field) && !hasComment(chargeValue.value.field) && !getChargeUnit(chargeValue.value.field)" class="input-box">
+                <div class="form-item charges-values">
+                  <div class="form-data">
+                    <input type="number" class="values-input" (input)="calculateCostDirectly(chargeValue)" formControlName="cost">
+                    <span class="unit">{{rateChar}}</span>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div style="width: 30%;">
+        <div class="form-block-sub-title">Additional charges</div>
+        <div formArrayName="values" class="additional" *ngFor="let chargeValue of charges.controls; let i = index;">
+          <div [formGroupName]="i" *ngIf="!chargeValue.value.select">
+            <div class="list-charges">
+              <label style="display: flex;">
+                <input type="checkbox" formControlName="select">
+                <i></i>
+                <span class="charges-title">{{getChargeTitle(chargeValue.value.field)}}</span>
+              </label>
+
+              <div class="form-item charges-values">
+                <div class="form-data">
+                  <input type="number" class="values-input" formControlName="cost">
+                  <span class="unit">{{rateChar}}</span>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- NO DETAIL LAYOUT -->
+    <div class="charges" *ngIf="rateForm.value.rate_type==='nodetail'">
+      <div style="width: 50%; border-right: 1px dashed #E0E5EB;">
+        <div class="form-block-sub-title">The rate includes following charges</div>
+        <div formArrayName="values" *ngFor="let chargeValue of charges.controls; let i = index;">
+          <div [formGroupName]="i" *ngIf="chargeValue.value.select">
+            <div class="included-fees">
+              <label>
+                <input type="checkbox" [checked]="chargeValue.value.select" formControlName="select">
+                <i></i>
+                <span class="charges-title">{{getChargeTitle(chargeValue.value.field)}}</span>
+              </label>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div style="width: 50%; padding-left: 40px;">
+        <div class="form-block-sub-title additional">Additional charges</div>
+        <div formArrayName="values" *ngFor="let chargeValue of charges.controls; let i = index;">
+          <div [formGroupName]="i" *ngIf="!chargeValue.value.select">
+            <div class="list-charges">
+              <label style="display: flex;">
+                <input type="checkbox" formControlName="select">
+                <i></i>
+                <span class="charges-title">{{getChargeTitle(chargeValue.value.field)}}</span>
+              </label>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="total">
+      <div class="total-detail" *ngIf="rateForm.value.rate_type==='detail'">
+        <div>Total:</div>
+        <div class="color-red">{{rateForm.value.total_cost}}</div>
+        <div class="color-red">{{rateChar}}</div>
+      </div>
+
+      <div class="total-nodetail" *ngIf="rateForm.value.rate_type==='nodetail'">
+        <div>Total, {{rateCode}}:</div>
+        <input type="number" class="total-cost" formControlName="total_cost">
+      </div>
+
+      <label>
+        <input type="checkbox" formControlName="profit_include">
+        <i></i>
+        <span class="charges-title">Profit is included</span>
+      </label>
+    </div>
+
+    <div class="form-item-layout" style="margin-top: 40px; width: 100%;">
+      <div class="form-item charges-values" style="width: 100%;">
+        <div class="form-data" style="width: 100%;">
+          <input type="text" class="values-input" formControlName="comment" placeholder="Your Comment..." style="max-width: 100%;">
+        </div>
+      </div>
+    </div>
+  </div>
+</form>
+
+<ng-template #deleteRateDialogRef let-data>
+  <h1 mat-dialog-title>Delete rate?</h1>
+  <div mat-dialog-content>After deletion, restoration will not be possible</div>
+  <div mat-dialog-actions align="end">
+    <button mat-button [mat-dialog-close]="true" cdkFocusInitial>Delete</button>
+    <button mat-button mat-dialog-close>Cancel</button>
+  </div>
+</ng-template>

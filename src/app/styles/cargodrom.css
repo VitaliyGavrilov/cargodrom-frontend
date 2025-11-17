@@ -63,7 +63,7 @@ app-pages{ .content {min-height: 100%; height: auto; }}
 
 .header { box-shadow: 0 1px 6px rgba(0,0,0,0.08); z-index: 1; position: relative; }
 
-.main-menu { display: flex; background: var(--header_menu); color: var(--header_menu_text); height: 56px; box-shadow: 0 4px 5px rgba(0,0,0,0.1); }
+.main-menu { display: flex; background: var(--header_menu, #4B66AD); color: var(--header_menu_text, #FFFFFF); height: 56px; box-shadow: 0 4px 5px rgba(0,0,0,0.1); }
 .main-menu > * { min-width: 56px; display: flex;  }
 .main-menu > * > span { margin: auto; }
 
@@ -72,13 +72,13 @@ app-pages{ .content {min-height: 100%; height: auto; }}
   background-size: var(--bg_size, auto);
 }
 /* .main-menu .logo { background: url('../../assets/logo-mini-white.svg') no-repeat 50% 50%; } */
-.main-menu .item { font-size: 15px; padding: 0 24px; display: flex; align-items: center; cursor: pointer; box-shadow: inset 1px 0 0 color-mix(in srgb, var(--header_menu_text) 17%, transparent); text-decoration: none; color: var(--header_menu_text); flex-shrink: 0; }
+.main-menu .item { font-size: 15px; padding: 0 24px; display: flex; align-items: center; cursor: pointer; box-shadow: inset 1px 0 0 color-mix(in srgb, var(--header_menu_text, #FFFFFF) 17%, transparent); text-decoration: none; color: var(--header_menu_text); flex-shrink: 0; }
 @media (max-width: 1750px) {
   .main-menu .item {padding: 0 12px; font-size: 12px;}
 }
 .main-menu .item svg { margin-right: 10px; margin-top: -2px; opacity: 0.6;}
 /* .main-menu .item svg path { fill: #B4C3EB; } */
-.main-menu .item svg path { fill: var(--header_menu_text); opacity: 0.9; }
+.main-menu .item svg path { fill: var(--header_menu_text, #FFFFFF); opacity: 0.9; }
 /* .main-menu .item:hover { background: #5D76B9; } */ .main-menu .item:hover { opacity: 0.6; } 
 /* .main-menu .item.sel { background: #fff; color: var(--header_menu, #4B66AD);  }*/
 .main-menu .item.sel { background: var(--accent_text, #fff); color: var(--header_menu, #4B66AD);}
@@ -101,13 +101,13 @@ app-pages{ .content {min-height: 100%; height: auto; }}
 .main-menu .currency > span :first-child { font-size: 10px; color: var(--header_menu_text);opacity: 0.6; margin-bottom: 4px; }
 /* .main-menu .currency > span :last-child {} */
 
-.main-menu .fn { box-shadow: inset 1px 0 0 color-mix(in srgb, var(--header_menu_text) 17%, transparent); cursor: pointer; display: flex; align-items: center; }
+.main-menu .fn { box-shadow: inset 1px 0 0 color-mix(in srgb, var(--header_menu_text, #FFFFFF) 17%, transparent); cursor: pointer; display: flex; align-items: center; }
 /* .main-menu .fn:hover { background: #5D76B9; } */ .main-menu .fn:hover { opacity: 0.6; } 
 .main-menu .fn.sel { background: #fff; color: var(--header_menu, #4B66AD);  }
 /* .main-menu .fn.sel:hover { background: #F1F5FF; } */
 .main-menu .fn.sel svg path { fill: var(--header_menu); }
 .main-menu .fn svg { margin: 4px auto 0; }
-.main-menu .fn svg path { fill: var(--header_menu_text) }
+.main-menu .fn svg path { fill: var(--header_menu_text, #FFFFFF) }
 .main-menu .fn.msg { position: relative; }
 .main-menu .fn.msg span span { position: absolute; left: 32px; top: 32px; display: inline-block; background: #fff; color: var(--header_menu, #4B66AD); border-radius: 50%; font-size: 10px; font-weight: bold; min-width: 14px; padding: 1px 0; text-align: center; }
 .main-menu .fn.msg span span:empty { display: none; }
@@ -121,7 +121,7 @@ app-pages{ .content {min-height: 100%; height: auto; }}
 .subheader .title { font-size: 26px; line-height: 30px; color: var(--header_menu); padding-right: 24px;  font-weight: bold; text-decoration: none; }
 .subheader a.title { position: relative; padding-left: 30px; cursor: pointer; }
 .subheader a.title:before { content: ""; position: absolute; left: 0; top: 0; bottom: 0; background: url('../../assets/pic-backto.svg') no-repeat 50% 50%; width: 13px; }
-.subheader .title div { font-size: 13px; line-height: 13px; color: #606A74; font-weight: normal; margin-top: 8px; }
+.subheader .title div { font-size: 13px; line-height: 13px; color: var(--text2,#606A74); font-weight: normal; margin-top: 8px; .req{color: var(--accent, #db563b);} }
 .subheader .item { margin-left: 24px; font-size: 13px; line-height: 12px; color: #606A74; }
 .subheader .item .val {  font-size: 15px; line-height: 17px; color: #2C3640; font-weight: bold; display: block; margin-top: 5px; }
 

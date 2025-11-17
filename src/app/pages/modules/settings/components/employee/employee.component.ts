@@ -4,7 +4,7 @@ import { MatSnackBar } from '@angular/material/snack-bar';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Observable } from 'rxjs';
 import { SortColumn } from '../../../../../api/custom_models/sort-column';
-import { Table } from '../../../../../classes';
+import { Table } from 'src/app/shared/classes';
 import { Employee } from './../../../../../api/custom_models';
 import { CompanyService } from './../../../../../api/services/company.service';
 import { FilterService } from 'src/app/filter/services/filter.service';

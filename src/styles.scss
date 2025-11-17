@@ -29,13 +29,19 @@ $cargodrom-frontend-theme: mat.define-light-theme((
 @import url('./app/styles/form.css');
 @import url('./app/styles/const.css');
 @import url('./app/styles/icon.css');
+// libs
+// @import "~@ng-select/ng-select/themes/material.theme.css";
+@import "~@ng-select/ng-select/themes/default.theme.css";
 
 
 
 html, body { height: 100%; }
 body {
   margin: 0;
+
 }
+
+
 
 
 
@@ -52,6 +58,8 @@ input[type="number"] {
 /* Стили только для Firefox */
 @-moz-document url-prefix() {
 }
+
+
 
 
 

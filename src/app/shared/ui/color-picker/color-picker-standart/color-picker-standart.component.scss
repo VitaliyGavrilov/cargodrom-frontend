@@ -2,7 +2,7 @@
   position: relative;
   width: 100%;
   max-width: 200px;
-  
+
   &::before {
     display: block;
     width: 40px;
@@ -15,8 +15,8 @@
     left: 13px;
     z-index: 1;
   }
-  
-  input {
+
+  input.color-input {
     padding-left: 60px;
     width: 100%;
     border: 1px solid #dcdfe6;
@@ -28,23 +28,23 @@
     min-height: 40px;
     font-size: 14px;
     color: #606266;
-    
+
     &:hover {
       border-color: #c0c4cc;
     }
-    
+
     &:focus {
       border-color: var(--header_menu);
       box-shadow: 0 0 5px rgba(0, 0, 0, 0.15);
       outline: none;
     }
-    
+
     &:disabled {
       background-color: #f5f7fa;
       cursor: not-allowed;
       opacity: 0.6;
     }
-    
+
     &::placeholder {
       color: #c0c4cc;
     }
@@ -65,7 +65,7 @@
   cursor: pointer;
   transition: transform 0.2s ease;
   box-shadow: 0 0 2px rgba(0, 0, 0, 0.35);
-  
+
   &:hover {
     transform: scale(1.1);
     border-color: #409eff;
@@ -92,7 +92,7 @@
   &:active:not(:disabled) {
     background: #2a6cb3;
   }
-  
+
   &:disabled {
     opacity: 0.6;
     cursor: not-allowed;
@@ -110,20 +110,20 @@
     width: 100% !important;
     box-shadow: none !important;
     border-radius: 0 !important;
-    
+
     .chrome-body {
       padding: 14px 6px 12px;
     }
   }
-  
+
   .flexbox-fix:last-child {
     border-bottom: none !important;
   }
-  
+
   .chrome-color {
     display: none;
   }
-  
+
   .chrome-fields .chrome-field:nth-child(4) {
     display: none;
   }

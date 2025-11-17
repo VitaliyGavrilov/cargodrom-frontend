@@ -68,7 +68,7 @@ import { SharedModule } from '../shared/shared.module';
 
 
 @NgModule({
-  
+
   declarations: [
     DashboardComponent,
     PagesComponent,
@@ -98,9 +98,10 @@ import { SharedModule } from '../shared/shared.module';
     RequestServicesComponent,
     RequestEditorTranslateComponent,
     RequestRateComponent,
+    RateEditorComponent,
     RequestDetails,
 
-    RateEditorComponent,
+
 
 
     RequestInfoBlock,
@@ -123,13 +124,13 @@ import { SharedModule } from '../shared/shared.module';
     MessagePage,
     MessageEditorComponent,
     TableList,
-    
+
 
     // SimpleTableComponent,
     BaseTableComponent,
     CustomersTableComponent,
     IconComponent,
-    
+
 
   ],
   imports: [
@@ -145,6 +146,9 @@ import { SharedModule } from '../shared/shared.module';
   providers: [
     NavigationHistoryService,// Сервис будет доступен в рамках PagesModule
   ],
-  exports: [HeaderComponent, RequestComponent, IconComponent]
+  exports: [
+    RateEditorComponent,
+    RequestDetails,
+  ]
 })
 export class PagesModule { }

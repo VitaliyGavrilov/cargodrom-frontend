@@ -1,6 +1,6 @@
 import { SearchFilterSchema } from './../../../api/custom_models';
 import { Component, ViewChild, ViewEncapsulation } from '@angular/core';
-import { LoadParams, Table } from '../../../classes';
+import { LoadParams, Table } from 'src/app/shared/classes';
 import { MatDialog } from '@angular/material/dialog';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { ActivatedRoute, NavigationEnd, Router, RouterLink } from '@angular/router';

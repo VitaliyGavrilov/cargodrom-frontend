@@ -8,7 +8,7 @@ import { AppComponent } from './app.component';
 import { ErrorInterceptor } from './error.interceptor';
 import { TokenInterceptor } from './token.interceptor';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { registerLocaleData } from '@angular/common';
+import { CommonModule, registerLocaleData } from '@angular/common';
 import localeRu from '@angular/common/locales/ru';
 import { PageTitleService } from './page-title.service';
 import { TitleStrategy } from '@angular/router';
@@ -19,6 +19,9 @@ import { NgScrollbarModule } from 'ngx-scrollbar';
 import { LoaderComponent } from './loader/loader.component';
 import { LoadingInterceptor } from './interceptors/loader.interceptor';
 import { SharedModule } from './shared/shared.module';
+import { RequestRateComponent } from './pages/components/request-rate/request-rate.component';
+import { RateEditorComponent } from './pages/components/rate-editor/rate-editor.component';
+import { PagesModule } from './pages/pages.module';
 
 
 
@@ -27,9 +30,12 @@ import { SharedModule } from './shared/shared.module';
   declarations: [
     AppComponent,
     LoaderComponent,
-    
+
+
   ],
   imports: [
+    PagesModule,
+    CommonModule,
     BrowserModule,
     AppRoutingModule,
     AuthModule,
@@ -38,9 +44,10 @@ import { SharedModule } from './shared/shared.module';
     MatDatepickerModule,
     NgScrollbarModule,
     SharedModule,
+    AppRoutingModule,
   ],
   providers: [
-    
+
     { provide: HTTP_INTERCEPTORS, useClass: LoadingInterceptor, multi: true }
   ,
     {

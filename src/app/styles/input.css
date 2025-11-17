@@ -1,23 +1,23 @@
-.form-block input[type="text"], input[type="number"],.form-block select, .form-block textarea, .filter .main input[type="text"] { 
-  font-family: 'regular', 'arial', 'sans-serif'; 
+.form-block input[type="text"]:not(.ng-value-container input), input[type="number"],.form-block select, .form-block textarea, .filter .main input[type="text"] , input.data-piker{
+  font-family: 'regular', 'arial', 'sans-serif';
   background: var(--background, #F7F9FC);
-  border: 1px solid var(--line, #E0E5EB ); 
+  border: 1px solid var(--line, #E0E5EB );
   color: var(--text, #2C3640 );
-  font-size: 15px; line-height: 15px; 
-  border-radius: 6px; 
-  height: 40px; width: 100%; 
+  font-size: 15px; line-height: 15px;
+  border-radius: 6px;
+  height: 40px; width: 100%;
   box-sizing: border-box;
   padding: 11.5px 13px; margin: 0;
 }
-.form-block .form-row.bg input[type="text"], input[type="number"],.form-block select, .form-block textarea, .filter .main input[type="text"] { 
+.form-block .form-row.bg input[type="text"], input[type="number"],.form-block select, .form-block textarea, .filter .main input[type="text"] {
   background: var(--background2, white);
 }
 .form-block textarea {
   min-height: fit-content;
 }
 
-.form-block input[type="text"][readonly],input[type="number"][readonly], .form-block select[readonly], .form-block textarea[readonly] {
-  background: transparent; border: 1px dashed #C3CCD6; color: #2C3640; 
+.form-block input[type="text"][readonly],input[type="number"][readonly], .form-block select[readonly], .form-block textarea[readonly], .form-block input[type="text"][readonly]:not(.ng-value-container input) {
+  background: transparent; border: 1px dashed #C3CCD6; color: #2C3640;
 }
 .form-block input[type="text"]::placeholder,input[type="number"]::placeholder { color: #606A74; }
 .form-block .form-row.bg input[type="text"] { background: #fff; }
@@ -26,3 +26,114 @@
 
 
 
+.autocomplete-container {
+  position: relative;
+  display: block;
+}
+
+.autocomplete-dropdown {
+  background: white;
+  border: 1px solid #ccc;
+  border-top: none;
+  max-height: 200px;
+  overflow-y: auto;
+  box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+  border-radius: 0 0 4px 4px;
+}
+
+.autocomplete-item {
+  padding: 8px 12px;
+  cursor: pointer;
+  border-bottom: 1px solid #f0f0f0;
+  transition: background-color 0.2s;
+}
+
+.autocomplete-item:hover,
+.autocomplete-item.active {
+  background-color: #f5f5f5;
+}
+
+.autocomplete-item:last-child {
+  border-bottom: none;
+}
+
+/* Material Design стили */
+.autocomplete-dropdown.material {
+  border: none;
+  box-shadow: 0 2px 4px rgba(0,0,0,0.2);
+  border-radius: 0 0 4px 4px;
+}
+
+.autocomplete-dropdown.material .autocomplete-item {
+  padding: 12px 16px;
+  border-bottom: 1px solid #e0e0e0;
+}
+
+.autocomplete-dropdown.material .autocomplete-item:hover,
+.autocomplete-dropdown.material .autocomplete-item.active {
+  background-color: #e3f2fd;
+}
+
+form ng-select.ng-select.custom{
+  &:not(.ng-select-filtered) .ng-placeholder {display: flex;}
+  ng-dropdown-panel.ng-dropdown-panel .ng-dropdown-panel-items .ng-option{
+    font-size: 13px;
+    background-color: var(--background2);
+    &.ng-option-selected{
+      background-color: var(--background2);
+      color: var(--accent);
+      .ng-option-label{font-weight: normal;}
+    }
+  }
+
+  div.ng-select-container{
+    border: 1px solid var(--line);
+    background: #F7F9FC;
+    height: 40px;
+    padding: 11.5px 13px;
+    .ng-value-container{
+      color: var(--text, #2C3640);
+      font-family: 'regular', 'arial', 'sans-serif';
+      font-size: 15px;
+      line-height: 15px;
+      margin: 0; padding: 0;
+      height: 15px;
+      .ng-input{
+        margin: 0; padding: 0;
+        height: 15px;
+        top: 12.5px;
+        input{ height: 15px; top: 12.5px; padding: 0; display: flex; font-size: 15px; line-height: 15px;}
+      }
+      .ng-value{
+        display: flex;
+        margin-bottom: 0;
+        margin-right: 2px;
+        background-color: inherit;
+        height: 15px;
+        &::after{
+          display: block; content: ',';
+        }
+      }
+      .ng-placeholder{
+        height: 15px;
+        top: 12.5px;
+        padding: 0;
+      }
+
+    }
+    .ng-clear-wrapper{
+      margin: 0; padding: 0;
+
+    }
+    .ng-arrow-wrapper{
+      margin: 0; padding: 0; width: 10px;
+      .ng-arrow{border-color: var(--accent) transparent transparent;}
+
+
+    }
+  }
+
+  &.ng-select-opened div.ng-select-container .ng-arrow-wrapper{
+    .ng-arrow{border-color: transparent transparent var(--accent);}
+  }
+}
