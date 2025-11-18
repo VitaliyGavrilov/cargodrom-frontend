@@ -1,15 +1,4 @@
 <form [formGroup]="rateForm">
-  <!-- Добавьте в начало шаблона для отладки -->
-<div style="background: #f0f0f0; padding: 10px; margin: 10px 0; border: 2px solid red;">
-  <h3>DEBUG: Все charges в форме</h3>
-  <div *ngFor="let charge of charges.controls; let i = index">
-    <div [style.color]="charge.value.field === 'pickup' ? 'red' : 'black'"
-         [style.font-weight]="charge.value.field === 'pickup' ? 'bold' : 'normal'">
-      {{i}}: {{charge.value.field}} - select: {{charge.value.select}},
-      cost: {{charge.value.cost}}, price: {{charge.value.price}}
-    </div>
-  </div>
-</div>
 
   <div class="form-row bg">
     <div class="rate-block-title">

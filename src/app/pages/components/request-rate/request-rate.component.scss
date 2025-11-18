@@ -509,7 +509,10 @@ input[type='number'] {
   width: 75px;
 }
 .included-fees label{
+  display: flex;
   width: 165px;
+  align-items: center;
+  flex-grow: 1;
 }
 
 // .charges-values .values-input:first-child{

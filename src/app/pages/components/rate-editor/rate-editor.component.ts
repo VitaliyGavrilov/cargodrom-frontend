@@ -97,12 +97,6 @@ export class RateEditorComponent implements OnInit, OnDestroy, OnChanges, Contro
   }
 
   ngOnInit(): void {
-      console.log('=== DEBUG chargeModel ===');
-  console.log('Full chargeModel:', this.chargeModel);
-  console.log('All field_names:', this.chargeModel?.map((item: any) => item.field_name));
-  console.log('Is pickup in chargeModel?',
-    this.chargeModel?.find((item: any) => item.field_name === 'pickup'));
-
     this.initializeForm();
     this.loadTransportData();
     this.setupFormSubscriptions();
@@ -298,9 +292,6 @@ filterRoutes(): any[] {
   const existingValues = this.rateForm.value.values || [];
 
   this.chargeModel.forEach(charge => {
-    console.log(
-      'this.chargeModel.forEach(charge => {',charge
-    );
 
     // Ищем существующее значение для этого поля
     const existingValue = existingValues.find((v: any) => v.field === charge.field_name);
