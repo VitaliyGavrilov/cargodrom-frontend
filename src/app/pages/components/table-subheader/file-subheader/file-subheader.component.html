@@ -7,7 +7,7 @@
   <div class="btns-file">
 
     <!-- <button [routerLink]="['add']" class="file-btn add-link"> -->
-    <button *ngIf="!addPopap" [routerLink]="orderPage?['/pages/order/add']:['add']" class="file-btn add-link">
+    <button *ngIf="!addPopap" [routerLink]="orderPage?['/order/add']:['add']" class="file-btn add-link">
       <div class="new-icon add-link" style="--icon-color:var(--accent, #DB563B);"></div>
       <span>Новый {{titles.subtitle}}</span>
     </button>
@@ -32,7 +32,7 @@
       <span>Экспорт данных</span>
     </button>
 
-    <button *ngIf="orderPage" (click)="openPopapAnalytics()" type="button" class="file-btn analytics">
+    <button *ngIf="orderPage" (click)="openPopapAnalytics()" type="button" class="file-btn analytics"><!-- TODO: ошибка свг  -->
       <div></div>
       <span>Аналитика</span>
     </button>

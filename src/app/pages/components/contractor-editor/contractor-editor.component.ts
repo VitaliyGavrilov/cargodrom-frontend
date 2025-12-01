@@ -13,7 +13,7 @@ import {  MatSnackBar, MatSnackBarConfig } from '@angular/material/snack-bar';
 import { CityService } from '../../services/city.service';
 import { Location } from '@angular/common';
 import { TaxSystem } from 'src/app/api/custom_models';
-import { SystemService, TransportService } from 'src/app/api/services';
+import { DirectionService, SystemService, TransportService } from 'src/app/api/services';
 import { Counterparty } from 'src/app/api/custom_models/counterparty';
 
 
@@ -35,7 +35,8 @@ export class ContractorEditorComponent implements OnInit {
   contractorTypes: ContractorType[] = []; filteredContractorTypes: ContractorType[] = [];
   transportCarrier:any[]=[]; filteredTransportCarrier:any[]=[];
   countries: Country[] = []; filteredCountries: Country[] = [];
-  cities: City[] = []; filteredCitys: City[] = [];
+  cities: any[] = []; filteredCitys: any[] = [];
+
   counterpartys:Counterparty[]=[]; filteredCounterpartys:Counterparty[]=[];
   currencyList:any;
 
@@ -66,7 +67,8 @@ export class ContractorEditorComponent implements OnInit {
     private router: Router,
     private location: Location,
     private systemService: SystemService,
-    private transportService: TransportService
+    private transportService: TransportService,
+    private directionService: DirectionService,
   ) {
     this.contractorForm = this.fb.group({
       id: [''],
@@ -103,21 +105,25 @@ export class ContractorEditorComponent implements OnInit {
     //   this.getTransportCarrier(e)
     // });
   }
+  test(i:any,c:any){
+    console.log(i,c);
+
+  }
 
   onSearchChange(event: any) {
-  const searchText = event.target.value.toLowerCase();
-  this.filteredTransportCarrier = this.transportCarrier.filter(carrier =>
-    carrier.full_name.toLowerCase().includes(searchText)
-  );
-}
-displayName(item: any): string {
-  return item ? item.full_name : '';
-}
+    const searchText = event.target.value.toLowerCase();
+    this.filteredTransportCarrier = this.transportCarrier.filter(carrier =>
+      carrier.full_name.toLowerCase().includes(searchText)
+    );
+  }
+  displayName(item: any): string {
+    return item ? item.full_name : '';
+  }
 
   ngOnInit(): void {
     this.initialization_chooseModeForm();
     this.initialization_getDatas();
-    this.initialization_subscribeForm();
+    // this.initialization_subscribeForm();
     this.getFormParam();
 
 
@@ -125,7 +131,7 @@ displayName(item: any): string {
 
   initialization_chooseModeForm(){
     const segments = this.route.snapshot.url.map(s => s.path);
-    this.isEditMode = segments[1] !== 'add';
+    this.isEditMode = segments[0] !== 'add';
     this.title = this.isEditMode ? 'Информация о подрядчике' : 'Добавление подрядчика';
   }
   async initialization_getDatas() {
@@ -134,6 +140,7 @@ displayName(item: any): string {
         this.getContractorTypes(),
         this.getTransportCarrier(),
         this.getCountries(),
+        this.getCities(),
         this.getCounterparty(),
         this.getTaxSystems(),
         this.getAssociations(),
@@ -149,148 +156,7 @@ displayName(item: any): string {
     }
 
   }
-  initialization_subscribeForm(){
-    // this.subscribeControl_ContractorType();
-    this.subscribeControl_CarrierId();
-    this.subscribeControl_CountryId();
-    this.subscribeControl_CityId();
-    this.subscribeControl_CounterpartyId();
-    this.subscribeControl_TaxId();
-  }
 
-  subscribeControl_ContractorType(){
-    this.contractorForm.get('type_id')?.valueChanges
-    .pipe(
-      debounceTime(1000),
-      distinctUntilChanged(),
-      takeUntil(this._destroy$),
-    )
-    .subscribe((value: any) => {
-      if(typeof value==='string'){
-        this.filteredContractorTypes = this.contractorTypes.filter((item: any) => {
-          return item.name && item.name.toLowerCase().includes(value.toLowerCase());
-        });
-        if(this.filteredContractorTypes.length==1){
-          if(this.filteredContractorTypes[0].name?.toLowerCase()===value.toLowerCase()){
-            this.contractorForm.patchValue({
-              type_id:this.filteredContractorTypes[0].id,
-            });
-          };
-        };
-      }
-    });
-  }
-  subscribeControl_CarrierId(){
-    this.contractorForm.get('carrier_id')?.valueChanges
-    .pipe(
-      debounceTime(1000),
-      distinctUntilChanged(),
-      takeUntil(this._destroy$),
-    )
-    .subscribe((value: any) => {
-      if(typeof value==='string'){
-        this.filteredTransportCarrier = this.transportCarrier.filter((item: any) => {
-          return item.full_name && item.full_name.toLowerCase().includes(value.toLowerCase());
-        });
-        if(this.filteredTransportCarrier.length==1){
-          if(this.filteredTransportCarrier[0].full_name?.toLowerCase()===value.toLowerCase()){
-            this.contractorForm.patchValue({
-              carrier_id: this.filteredTransportCarrier[0].id,
-            });
-          };
-        };
-      }
-    });
-  }
-  subscribeControl_CountryId(){
-    this.contractorForm.get('country_id')?.valueChanges
-    .pipe(
-      debounceTime(1000),
-      distinctUntilChanged(),
-      takeUntil(this._destroy$),
-    )
-    .subscribe((value: any) => {
-      if(typeof value==='string'){
-        this.filteredCountries = this.countries.filter((item: any) => {
-          return item.name && item.name.toLowerCase().includes(value.toLowerCase());
-        });
-        if(this.filteredCountries.length==1){
-          if(this.filteredCountries[0].name?.toLowerCase()===value.toLowerCase()){
-            this.contractorForm.patchValue({
-              country_id: this.filteredCountries[0].id,
-            });
-            this.onCountryChange(this.filteredCountries[0].id);
-          };
-        };
-      }
-    });
-  }
-  subscribeControl_CityId(){
-    this.contractorForm.get('city_id')?.valueChanges
-    .pipe(
-      debounceTime(1000),
-      distinctUntilChanged(),
-      takeUntil(this._destroy$),
-    )
-    .subscribe((value: any) => {
-      if(typeof value==='string'){
-        this.filteredCitys = this.cities.filter((item: any) => {
-          return item.name && item.name.toLowerCase().includes(value.toLowerCase());
-        });
-        if(this.filteredCitys.length==1){
-          if(this.filteredCitys[0].name?.toLowerCase()===value.toLowerCase()){
-            this.contractorForm.patchValue({
-              city_id: this.filteredCitys[0].id,
-            });
-          };
-        };
-      }
-    });
-  }
-  subscribeControl_CounterpartyId(){
-    this.contractorForm.get('counterparty_id')?.valueChanges
-    .pipe(
-      debounceTime(1000),
-      distinctUntilChanged(),
-      takeUntil(this._destroy$),
-    )
-    .subscribe((value: any) => {
-      if(typeof value==='string'){
-        this.filteredCounterpartys = this.counterpartys.filter((item: any) => {
-          return item.name && item.name.toLowerCase().includes(value.toLowerCase());
-        });
-        if(this.filteredCounterpartys.length==1){
-          if(this.filteredCounterpartys[0].name?.toLowerCase()===value.toLowerCase()){
-            this.contractorForm.patchValue({
-              counterparty_id: this.filteredCounterpartys[0].id,
-            });
-          };
-        };
-      }
-    });
-  }
-  subscribeControl_TaxId(){
-    this.contractorForm.get('tax_id')?.valueChanges
-    .pipe(
-      debounceTime(1000),
-      distinctUntilChanged(),
-      takeUntil(this._destroy$),
-    )
-    .subscribe((value: any) => {
-      if(typeof value==='string'){
-        this.filteredTaxs = this.taxSystems.filter((item: any) => {
-          return item.name && item.name.toLowerCase().includes(value.toLowerCase());
-        });
-        if(this.filteredTaxs.length==1){
-          if(this.filteredTaxs[0].name?.toLowerCase()===value.toLowerCase()){
-            this.contractorForm.patchValue({
-              tax_id: this.filteredTaxs[0].id,
-            });
-          };
-        };
-      }
-    });
-  }
 
   displayFn_TaxId(id: any): string {
     if (!this.taxSystems) {
@@ -400,7 +266,9 @@ displayName(item: any): string {
   }
 
   onContractorTypeChange(e:any){
-    if(e.contact_required){
+    console.log(e);
+
+    if(e?.contact_required){
       this.contractorForm.get('type_id')!.setValidators([Validators.required]);
     } else {
       this.contractorForm.get('type_id')!.setValidators([]);
@@ -408,9 +276,28 @@ displayName(item: any): string {
     }
   }
 
-  onCountryChange(countryId: number): void {
-    this.contractorForm.controls['city_id'].reset(undefined);
-    this.getCities(countryId);
+  onCountryChange(country:any) {
+    if(country)console.log('onCountryChange',country);
+    this.contractorForm.controls['city_id'].reset();
+    this.updateFilteredCityList();
+  }
+  onCityChange(city:any) {
+    if(city?.country_id!=this.contractorForm.value.country_id){
+      this.patchCountryControl(city?.country_id)
+    }
+  }
+
+  updateFilteredCityList(){
+    const countryId = this.contractorForm.value.country_id;
+    this.filteredCitys = countryId
+    ? this.cities.filter(item => item.country_id == countryId)
+    : this.cities
+  }
+
+  patchCountryControl(country_id:any){
+    this.contractorForm.patchValue({
+      country_id: country_id
+    });
   }
 
   canSave(): boolean {
@@ -525,6 +412,16 @@ displayName(item: any): string {
         takeUntil(this._destroy$)
       );
   }
+  private getCities() {
+    return this.directionService.directionCity()
+      .pipe(
+        tap((cities) =>{
+          this.cities = cities;
+          this.filteredCitys = cities;
+        }),
+        takeUntil(this._destroy$)
+      );
+  }
   private getRequestFormats() {
     return this.contractorService.contractorRequestFormat()
       .pipe(
@@ -535,13 +432,13 @@ displayName(item: any): string {
       );
   }
 
-  private getCities(countryId: number) {
-    this.cityService.getCities(countryId)
-      .subscribe(cities => {
-        this.filteredCitys = cities;
-        this.cities = cities;
-      } );
-  }
+  // private getCities(countryId: number) {
+  //   this.cityService.getCities(countryId)
+  //     .subscribe(cities => {
+  //       this.filteredCitys = cities;
+  //       this.cities = cities;
+  //     } );
+  // }
 
   private getContractor() {
     const id = Number(this.route.snapshot.paramMap.get('id'));
@@ -566,9 +463,11 @@ displayName(item: any): string {
         this.contractorForm.patchValue(this.contractor);
 
         // Если указан country_id, загружаем города
-        if (typeof contractor.country_id === 'number') {
-          this.getCities(contractor.country_id);
-        }
+        // if (typeof contractor.country_id === 'number') {
+        //   this.getCities(contractor.country_id);
+        // }
+        if(contractor.country_id)this.updateFilteredCityList();
+
 
         // Устанавливаем имя для заголовка
         this.nameForHeader = contractor.name;
@@ -672,4 +571,145 @@ displayName(item: any): string {
 
 }
 
+// initialization_subscribeForm(){
+  //   // this.subscribeControl_ContractorType();
+  //   this.subscribeControl_CarrierId();
+  //   this.subscribeControl_CountryId();
+  //   this.subscribeControl_CityId();
+  //   this.subscribeControl_CounterpartyId();
+  //   this.subscribeControl_TaxId();
+  // }
 
+  // subscribeControl_ContractorType(){
+  //   this.contractorForm.get('type_id')?.valueChanges
+  //   .pipe(
+  //     debounceTime(1000),
+  //     distinctUntilChanged(),
+  //     takeUntil(this._destroy$),
+  //   )
+  //   .subscribe((value: any) => {
+  //     if(typeof value==='string'){
+  //       this.filteredContractorTypes = this.contractorTypes.filter((item: any) => {
+  //         return item.name && item.name.toLowerCase().includes(value.toLowerCase());
+  //       });
+  //       if(this.filteredContractorTypes.length==1){
+  //         if(this.filteredContractorTypes[0].name?.toLowerCase()===value.toLowerCase()){
+  //           this.contractorForm.patchValue({
+  //             type_id:this.filteredContractorTypes[0].id,
+  //           });
+  //         };
+  //       };
+  //     }
+  //   });
+  // }
+  // subscribeControl_CarrierId(){
+  //   this.contractorForm.get('carrier_id')?.valueChanges
+  //   .pipe(
+  //     debounceTime(1000),
+  //     distinctUntilChanged(),
+  //     takeUntil(this._destroy$),
+  //   )
+  //   .subscribe((value: any) => {
+  //     if(typeof value==='string'){
+  //       this.filteredTransportCarrier = this.transportCarrier.filter((item: any) => {
+  //         return item.full_name && item.full_name.toLowerCase().includes(value.toLowerCase());
+  //       });
+  //       if(this.filteredTransportCarrier.length==1){
+  //         if(this.filteredTransportCarrier[0].full_name?.toLowerCase()===value.toLowerCase()){
+  //           this.contractorForm.patchValue({
+  //             carrier_id: this.filteredTransportCarrier[0].id,
+  //           });
+  //         };
+  //       };
+  //     }
+  //   });
+  // }
+  // subscribeControl_CountryId(){
+  //   this.contractorForm.get('country_id')?.valueChanges
+  //   .pipe(
+  //     debounceTime(1000),
+  //     distinctUntilChanged(),
+  //     takeUntil(this._destroy$),
+  //   )
+  //   .subscribe((value: any) => {
+  //     if(typeof value==='string'){
+  //       this.filteredCountries = this.countries.filter((item: any) => {
+  //         return item.name && item.name.toLowerCase().includes(value.toLowerCase());
+  //       });
+  //       if(this.filteredCountries.length==1){
+  //         if(this.filteredCountries[0].name?.toLowerCase()===value.toLowerCase()){
+  //           this.contractorForm.patchValue({
+  //             country_id: this.filteredCountries[0].id,
+  //           });
+  //           this.onCountryChange(this.filteredCountries[0].id);
+  //         };
+  //       };
+  //     }
+  //   });
+  // }
+  // subscribeControl_CityId(){
+  //   this.contractorForm.get('city_id')?.valueChanges
+  //   .pipe(
+  //     debounceTime(1000),
+  //     distinctUntilChanged(),
+  //     takeUntil(this._destroy$),
+  //   )
+  //   .subscribe((value: any) => {
+  //     if(typeof value==='string'){
+  //       this.filteredCitys = this.cities.filter((item: any) => {
+  //         return item.name && item.name.toLowerCase().includes(value.toLowerCase());
+  //       });
+  //       if(this.filteredCitys.length==1){
+  //         if(this.filteredCitys[0].name?.toLowerCase()===value.toLowerCase()){
+  //           this.contractorForm.patchValue({
+  //             city_id: this.filteredCitys[0].id,
+  //           });
+  //         };
+  //       };
+  //     }
+  //   });
+  // }
+  // subscribeControl_CounterpartyId(){
+  //   this.contractorForm.get('counterparty_id')?.valueChanges
+  //   .pipe(
+  //     debounceTime(1000),
+  //     distinctUntilChanged(),
+  //     takeUntil(this._destroy$),
+  //   )
+  //   .subscribe((value: any) => {
+  //     if(typeof value==='string'){
+  //       this.filteredCounterpartys = this.counterpartys.filter((item: any) => {
+  //         return item.name && item.name.toLowerCase().includes(value.toLowerCase());
+  //       });
+  //       if(this.filteredCounterpartys.length==1){
+  //         if(this.filteredCounterpartys[0].name?.toLowerCase()===value.toLowerCase()){
+  //           this.contractorForm.patchValue({
+  //             counterparty_id: this.filteredCounterpartys[0].id,
+  //           });
+  //         };
+  //       };
+  //     }
+  //   });
+  // }
+  // subscribeControl_TaxId(){
+  //   this.contractorForm.get('tax_id')?.valueChanges
+  //   .pipe(
+  //     debounceTime(1000),
+  //     distinctUntilChanged(),
+  //     takeUntil(this._destroy$),
+  //   )
+  //   .subscribe((value: any) => {
+  //     if(typeof value==='string'){
+  //       this.filteredTaxs = this.taxSystems.filter((item: any) => {
+  //         return item.name && item.name.toLowerCase().includes(value.toLowerCase());
+  //       });
+  //       if(this.filteredTaxs.length==1){
+  //         if(this.filteredTaxs[0].name?.toLowerCase()===value.toLowerCase()){
+  //           this.contractorForm.patchValue({
+  //             tax_id: this.filteredTaxs[0].id,
+  //           });
+  //         };
+  //       };
+  //     }
+  //   });
+  // }

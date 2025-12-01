@@ -195,9 +195,11 @@ export class RequestEditorComponent implements OnInit, OnDestroy {
 
   initialization_isFormMode(){
     const segments = this.route.snapshot.url.map(s => s.path);
-    this.isEditMode = segments[1] !== 'add';
+    this.isEditMode = segments[0] !== 'add';
     this.id = Number(this.route.snapshot.paramMap.get('id'));
     this.title = this.isEditMode ? `Редактирование запроса № ${this.id}` : 'Добавление запроса';
+    console.log('segments',segments);
+
 
   }
 
@@ -610,7 +612,7 @@ export class RequestEditorComponent implements OnInit, OnDestroy {
   }
   calc():void{
     const id = Number(this.route.snapshot.paramMap.get('id'));
-    this.router.navigate(['pages/request/edit/translate', id]);
+    this.router.navigate(['request/edit/translate', id]);
   }
 
   //РЕДАКТИРОВАНИЕ ДАННЫХ ПЕРЕД ОТПРАВКОЙ
@@ -1500,7 +1502,7 @@ export class RequestEditorComponent implements OnInit, OnDestroy {
         if(this.isNavigateAfterSave){
           this.goBack();
         } else {
-          this.router.navigate(['pages/request/edit', test.id]);
+          this.router.navigate(['request/edit', test.id]);
         }
         this.snackBar.open(`Запрос создан`, undefined, this.snackBarWithShortDuration);
       },

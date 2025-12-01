@@ -138,8 +138,8 @@ export abstract class TableList<T extends { id: number }, A = never, F = never> 
   private transformClientValue(value: any, obj:any) {
     if (typeof value === 'string') {
       return value.replace(
-        /\[urlclient\](.*?)\[\/urlclient\]/ig, 
-        `<a class="link" target="_blank" href="/#/pages/customer/edit/${obj.customer_id}">$1</a>`
+        /\[urlclient\](.*?)\[\/urlclient\]/ig,
+        `<a class="link" target="_blank" href="/#/customer/edit/${obj.customer_id}">$1</a>`
       );
     }
     return value;
@@ -165,7 +165,7 @@ export abstract class TableList<T extends { id: number }, A = never, F = never> 
     // } else {
     //   params= { start: this.start, count: this.count, sort: JSON.stringify(sortCol) as unknown as SortColumn<T>[], ...this.filter  };
     // }
-    
+
     // let params = this.isRateDetailsMode
     //   ? { request_id:this.requestId, method: this.detailsMethod, start: this.start, count: this.count, ...this.filter }
     //   : { start: this.start, count: this.count, sort: JSON.stringify(sortCol) as unknown as SortColumn<T>[], ...this.filter  };
@@ -599,7 +599,7 @@ export abstract class TableList<T extends { id: number }, A = never, F = never> 
         next:(answer)=>{
           if(answer.need_translate){
             this.dialog.open(this.translateRef!).afterClosed().subscribe(res => {
-              if(res) this.router.navigate(['/pages/request/edit/translate', this.requestId]);
+              if(res) this.router.navigate(['/request/edit/translate', this.requestId]);
             })
           } else {
             this.saveTrueContractorSelectRequest();
@@ -708,13 +708,13 @@ export abstract class TableList<T extends { id: number }, A = never, F = never> 
   }
 
 
-  startResize(event: MouseEvent, column: any,colBlock:any) {    
+  startResize(event: MouseEvent, column: any,colBlock:any) {
     this.isResizing = true;
     this.resizingColumn = column;
     this.resizingColumnBlock = colBlock;
     this.startX = event.pageX;
     this.startWidth = column.width ? parseInt(column.width, 10) : 100; // Начальная ширина
-    this.startWidthBlock = colBlock.width ? parseInt(column.width, 10) : 100; 
+    this.startWidthBlock = colBlock.width ? parseInt(column.width, 10) : 100;
     event.preventDefault();
   }
 
@@ -737,7 +737,7 @@ export abstract class TableList<T extends { id: number }, A = never, F = never> 
   }
 
   updateColumnSize(){
-    const td = this.isRateDetailsMode   
+    const td = this.isRateDetailsMode
     ?document.querySelectorAll('div.table-list.rate table tbody tr:first-child td.mat-mdc-cell')
     :document.querySelectorAll('table tbody tr:first-child td.mat-mdc-cell');
     if(!td){
@@ -765,11 +765,11 @@ export abstract class TableList<T extends { id: number }, A = never, F = never> 
   //     (th:any, columnIndex:number) => {
   //       if(this.columnsData[columnIndex]){
   //         // console.log(th.querySelectorAll('div.column'));
-          
+
   //         th.querySelectorAll('div.column').forEach((col:any, miniColumnIndex:number) => {
   //           console.log(col, miniColumnIndex);
   //       });
-          
+
   //         if(!this.isRateDetailsMode){
   //           if(columnIndex===0){
   //           this.columnsData[columnIndex].width=`${th.offsetWidth-1}px`;

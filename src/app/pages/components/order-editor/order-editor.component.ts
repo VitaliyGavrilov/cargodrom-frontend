@@ -62,11 +62,11 @@ export class OrderEditorComponent implements OnInit, OnDestroy{
   cityList: SelectOptions[] = []; filteredDepartureCityList: SelectOptions[] = []; filteredArrivalCityList: SelectOptions[] = [];
   filteredDeparturePointList: SelectOptions[] = []; filteredArrivalPointList: SelectOptions[] = [];
   statusList:any[] = [];
-  
+
   private _destroy$ = new Subject();
-  
+
   @ViewChild(MatMenuTrigger) menuTrigger!: MatMenuTrigger;
-  
+
   constructor(
     private fb: FormBuilder,
     private loaderService: LoaderService,
@@ -144,7 +144,7 @@ export class OrderEditorComponent implements OnInit, OnDestroy{
   }
   initialization_isFormMode(){
     const segments = this.route.snapshot.url.map(s => s.path);
-    this.isEditMode = segments[1] !== 'add';
+    this.isEditMode = segments[0] !== 'add';
     const orderId = Number(this.route.snapshot.paramMap.get('id'));
     this.title = this.isEditMode ? `Редактирование заказа № ${orderId}` : 'Добавление заказа';
     if(this.isEditMode){
@@ -174,7 +174,7 @@ export class OrderEditorComponent implements OnInit, OnDestroy{
     return this.events.controls.sort((a, b) => {
       const dateA = new Date(a.value.date);
       const dateB = new Date(b.value.date);
-      return dateB.getTime() - dateA.getTime(); 
+      return dateB.getTime() - dateA.getTime();
     });
   }
   // INITIALIZATION DATA
@@ -207,11 +207,11 @@ export class OrderEditorComponent implements OnInit, OnDestroy{
         .subscribe((value: any) => {
           if(typeof value=='string' && value!=''){
             (this as any)[filterArr] = (this as any)[array].filter((item: any) => {
-              return item.name 
+              return item.name
               ? item.name.toLowerCase().includes(value.toLowerCase())
               : item.id.toString().toLowerCase().includes(value.toString().toLowerCase())
             });
-          }  
+          }
           if (value==''){(this as any)[filterArr] = []}
         });
     });
@@ -220,7 +220,7 @@ export class OrderEditorComponent implements OnInit, OnDestroy{
   private patchControls(datas:{ value: any, control: string }[]){
     datas.forEach(({ value, control }) => {
       this.orderForm.patchValue({ [control]: value })
-    }); 
+    });
   }
   private resetControls(controls:string[]){
     controls.forEach(control => {
@@ -370,7 +370,7 @@ export class OrderEditorComponent implements OnInit, OnDestroy{
     currentDate.setHours(0, 0, 0, 0);
     const inputDate = new Date(dateString);
     if (isNaN(inputDate.getTime())) {
-      return false; 
+      return false;
     }
     inputDate.setHours(0, 0, 0, 0);
     return inputDate.getTime() >= currentDate.getTime();

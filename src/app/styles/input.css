@@ -74,15 +74,19 @@
   background-color: #e3f2fd;
 }
 
-form ng-select.ng-select.custom{
+form ng-select.ng-select.custom, .filter ng-select.ng-select.custom{
   &:not(.ng-select-filtered) .ng-placeholder {display: flex;}
   ng-dropdown-panel.ng-dropdown-panel .ng-dropdown-panel-items .ng-option{
     font-size: 13px;
     background-color: var(--background2);
+    text-align: left;
     &.ng-option-selected{
       background-color: var(--background2);
       color: var(--accent);
       .ng-option-label{font-weight: normal;}
+    }
+    &.ng-option-marked{
+      background-color: #F7F9FC;
     }
   }
 
@@ -99,7 +103,8 @@ form ng-select.ng-select.custom{
       margin: 0; padding: 0;
       height: 15px;
       .ng-input{
-        margin: 0; padding: 0;
+        margin: 0;
+        /* padding: 0; */
         height: 15px;
         top: 12.5px;
         input{ height: 15px; top: 12.5px; padding: 0; display: flex; font-size: 15px; line-height: 15px;}
@@ -111,7 +116,8 @@ form ng-select.ng-select.custom{
         background-color: inherit;
         height: 15px;
         &::after{
-          display: block; content: ',';
+          display: block;
+          /* content: ','; */
         }
       }
       .ng-placeholder{

@@ -107,6 +107,6 @@ export class ContractorComponent extends Table<Contractor, 'trade_rating', Contr
   }
 
   goBack(): void {
-    this.navigationHistoryService.back(`/pages/request/details/final/${this.requestId}`);
+    this.navigationHistoryService.back(`request/details/final/${this.requestId}`);
   }
 }

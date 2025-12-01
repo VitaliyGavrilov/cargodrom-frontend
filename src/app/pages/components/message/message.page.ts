@@ -66,11 +66,11 @@ export class MessagePage extends Table<Request, 'id', RequestFilter> {
     // const segments = currentUrl.split('/').filter((segment) => segment !== '');
     // console.log('segments',segments);
     // if(segments[2]=='add'){
-    //   this.openMessage(); 
+    //   this.openMessage();
     // } else if(segments[2]=='edit') {
     //   this.openEditor(segments[3])
     // }
-    // this.subscribeRouterEvent();    
+    // this.subscribeRouterEvent();
   }
 
   // openEditor(mes_id: number | string): void {
@@ -107,7 +107,7 @@ export class MessagePage extends Table<Request, 'id', RequestFilter> {
   //   )
   //   .subscribe(() => {
   //     let isChildRouteActive = this.router.url.includes('/message/edit/') || this.router.url.includes('/message/add');
-  //     if(isChildRouteActive) this.openMessage();               
+  //     if(isChildRouteActive) this.openMessage();
   //   });
   // }
 
@@ -149,7 +149,7 @@ export class MessagePage extends Table<Request, 'id', RequestFilter> {
   //     const value = obj[path] !== undefined ? obj[path] : null;
   //     return this.transformClientValue(value,obj);
   //   };
-    
+
   //   const keys = path?.split('/');
   //   for (const key of keys) {
   //     if (obj && obj.hasOwnProperty(key)) {
@@ -158,7 +158,7 @@ export class MessagePage extends Table<Request, 'id', RequestFilter> {
   //       return null;
   //     }
   //   }
-    
+
   //   const result = obj !== undefined ? obj : null;
   //   return this.transformClientValue(result,obj);
   // }
@@ -166,7 +166,7 @@ export class MessagePage extends Table<Request, 'id', RequestFilter> {
   // private transformClientValue(value: any, obj:any): SafeHtml {
   //   if (typeof value === 'string') {
   //     return value.replace(
-  //       /\[urlclient\](.*?)\[\/urlclient\]/ig, 
+  //       /\[urlclient\](.*?)\[\/urlclient\]/ig,
   //       `<a class="link" target="_blank" href="/#/pages/customer/edit/${obj.customer_id}">$1</a>`
   //     );
   //   }
@@ -199,7 +199,7 @@ export class MessagePage extends Table<Request, 'id', RequestFilter> {
       } else {
         link=tab;
       }
-      this.router.navigate(['pages/request/details',link, requestId])
+      this.router.navigate(['request/details',link, requestId])
     } else {
       this.snackBar.open(
         `Ошибка, рейты недоступны`,
@@ -210,7 +210,7 @@ export class MessagePage extends Table<Request, 'id', RequestFilter> {
 
   }
   navigateOnClient(clientId:any){
-    this.router.navigate(['pages/customer/edit', clientId])
+    this.router.navigate(['customer/edit', clientId])
   }
 
   updateRequest(request:any){

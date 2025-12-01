@@ -71,6 +71,6 @@ export class RequestTableComponent extends TablePage<Request, 'id', RequestFilte
   }
 
   navigateOnDetails(requestId:any){
-    this.router.navigate(['pages/request/details/customs', requestId])
+    this.router.navigate(['request/details/customs', requestId])
   }
 }

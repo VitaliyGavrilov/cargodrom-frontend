@@ -49,7 +49,7 @@ export class OfferEditorComponent implements OnInit, OnDestroy {
     private snackBar: MatSnackBar,
     private matDialog: MatDialog,
     private orderService: OrderService,
-  ) { 
+  ) {
     this.kpForm = this.fb.group({
       uid: ['', Validators.required],
       param: this.fb.group({
@@ -67,13 +67,13 @@ export class OfferEditorComponent implements OnInit, OnDestroy {
     const segments = this.route.snapshot.url.map(s => s.path);
     this.offerId = segments[1] as unknown as number ;
 
-    
+
     this.getOffer();
     this.getCurrency();
 
     this.subscribeForm();
 
-    
+
 
   }
   ngOnDestroy(): void {
@@ -373,15 +373,15 @@ export class OfferEditorComponent implements OnInit, OnDestroy {
         this.calckStatus=false;
         this.fillFormWithData(offer);  // Метод для заполнения формы данными
         this.getRequest();
-        
+
       }),
       takeUntil(this._destroy$)
     ).subscribe({
       next: (offer) => {
-        
+
         console.log('Data loaded successfully');
-        
-        
+
+
       },
       error: (err) => {
         this.snackBar.open(`Ошибка получения кп: ` + err?.error?.error_message, undefined, this.snackBarWithShortDuration);
@@ -413,13 +413,13 @@ export class OfferEditorComponent implements OnInit, OnDestroy {
       tap((currencyList) => {
         this.request=currencyList;
         console.log(this.request);
-        
+
       }),
       takeUntil(this._destroy$)
     ).subscribe({
       next: (req) => {
-        
-        
+
+
       },
       error: (err) => {
         console.log('err');

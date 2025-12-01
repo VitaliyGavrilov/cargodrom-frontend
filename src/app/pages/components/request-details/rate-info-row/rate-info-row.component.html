@@ -28,7 +28,7 @@
               <!-- <div>{{detailsMethod==='transporter'?rate.contractor.name:rate?.carrier?.name}}</div> -->
               <div>{{rate.contractor?.name}}</div>
               <!-- <div class="detailed">Подробнее  ></div> -->
-              <a [href]="'#/pages/contractor/edit/' + (rate.contractor?.id?rate.contractor.id:rate.contractor_id)"  target="_blank" class="detailed">Подробнее  ></a>
+              <a [href]="'#/contractor/edit/' + (rate.contractor?.id?rate.contractor.id:rate.contractor_id)"  target="_blank" class="detailed">Подробнее  ></a>
             </div>
             <div class="link_block">
               <div class="pic msg"></div>
@@ -92,7 +92,7 @@
             <div class="agent_block">
               <div class="label">Подрядчик:</div>
               <div>{{item.contractor?.name}}</div>
-              <a [href]="'#/pages/contractor/edit/' + (item.contractor?.id?item.contractor.id:item.contractor_id)"  target="_blank" class="detailed">Подробнее  ></a>
+              <a [href]="'#/contractor/edit/' + (item.contractor?.id?item.contractor.id:item.contractor_id)"  target="_blank" class="detailed">Подробнее  ></a>
             </div>
             <div class="link_block">
               <div class="pic msg"></div>

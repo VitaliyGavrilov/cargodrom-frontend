@@ -1,4 +1,4 @@
-<app-editor-header [title]="title" (save)="save()" (remove)="remove()" [isEditMode]="isEditMode" [name]="nameForHeader" [isSend]="true" (send)="registerUser()" [backLink]="'/pages/settings/employee'"></app-editor-header>
+<app-editor-header [title]="title" (save)="save()" (remove)="remove()" [isEditMode]="isEditMode" [name]="nameForHeader" [isSend]="true" (send)="registerUser()" [backLink]="'/settings/employee'"></app-editor-header>
 
 <div class="edit-form">
   <form class="form" [formGroup]="form" (ngSubmit)="save()">

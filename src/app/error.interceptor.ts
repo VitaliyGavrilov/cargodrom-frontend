@@ -28,7 +28,7 @@ export class ErrorInterceptor implements HttpInterceptor {
       else if (e.status === 403) {
         const currentState = { returnUrl: this.router.url };
         this.auth.logout().subscribe(
-          () => this.router.navigate(['/pages'], { queryParams: currentState })
+          () => this.router.navigate(['/dashboard'], { queryParams: currentState })
         );
       }
       else {

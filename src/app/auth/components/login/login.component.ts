@@ -35,7 +35,7 @@ export class LoginComponent implements OnInit {
 
   ngOnInit(): void {
   }
-  
+
   togglePasswordVisibility() {
     this.passwordVisible = !this.passwordVisible;
   }
@@ -68,7 +68,7 @@ export class LoginComponent implements OnInit {
     if (returnUrl) {
       this.router.navigateByUrl(returnUrl);
     } else {
-      this.router.navigate(['/pages']);
+      this.router.navigate(['/dashboard']);
     }
   }
 

@@ -40,8 +40,8 @@ export class BrandingComponent extends BaseComponent implements OnInit {
 
   colorHistoryObj:any;
 
-  tableLink:any=this.getSafeUrl('/#/pages/request');
-  formLink:any=this.getSafeUrl('/#/pages/request/add')
+  tableLink:any=this.getSafeUrl('/#/request');
+  formLink:any=this.getSafeUrl('/#/request/add')
 
   private colorHistory: any[] = []; // История значений
   private currentHistoryIndex = -1; // Текущая позиция в истории
@@ -102,10 +102,10 @@ export class BrandingComponent extends BaseComponent implements OnInit {
     const file: File = event.target.files[0];
     if (file) {
       this.selectedFile = file;
-      
+
       // Обновляем текстовое поле с именем файла
       this.fileNameInput.nativeElement.value = file.name;
-      
+
       // Конвертируем в base64
       this.convertToBase64(file);
     }
@@ -113,7 +113,7 @@ export class BrandingComponent extends BaseComponent implements OnInit {
 
   convertToBase64(file: File): void {
     const reader = new FileReader();
-    
+
     reader.onload = (e: any) => {
       // e.target.result.name=this.fileNameInput.nativeElement.value;
       this.base64String = e.target.result;
@@ -123,13 +123,13 @@ export class BrandingComponent extends BaseComponent implements OnInit {
         branding_logo: this.getPureBase64(),
         branding_logo_name: this.fileNameInput.nativeElement.value
       })
-      
+
     };
-    
+
     reader.onerror = (error) => {
       console.error('Ошибка чтения файла:', error);
     };
-    
+
     reader.readAsDataURL(file);
   }
 
@@ -212,7 +212,7 @@ export class BrandingComponent extends BaseComponent implements OnInit {
       if (!result[key]) {
         result[key] = [];
       }
-      
+
       // Добавляем значение только если его еще нет в массиве
       if (!result[key].includes(item[key])) {
         result[key].push(item[key]);
@@ -243,7 +243,7 @@ export class BrandingComponent extends BaseComponent implements OnInit {
     console.log('colorHistory',this.colorHistory);
     this.colorHistoryObj=this.transformArrayToObject(this.colorHistory)
     console.log('colorHistoryObj',this.colorHistoryObj);
-    
+
   }
 
   // Кнопка "Назад"
@@ -251,13 +251,13 @@ export class BrandingComponent extends BaseComponent implements OnInit {
     if (this.canUndo) {
       this.currentHistoryIndex--;
       const previousColors = this.colorHistory[this.currentHistoryIndex];
-      
+
       // Временно отписываемся от изменений чтобы не добавить в историю
       const colorsControl = this.form.get('branding_colors');
       if (colorsControl) {
         colorsControl.patchValue(previousColors, { emitEvent: false });
       }
-      
+
       this.updateUndoRedoState();
     }
   }
@@ -275,7 +275,7 @@ export class BrandingComponent extends BaseComponent implements OnInit {
     }
   }
 
-  
+
   returnOriginalColors(){
     console.log(this.form.value.branding_colors, this.originalColors);
     this.form.get('branding_colors')?.patchValue(this.originalColors);
@@ -325,8 +325,8 @@ export class BrandingComponent extends BaseComponent implements OnInit {
           this.snackBar.open(`Ошибка получения массивов для селекторов формы: ${err}`, undefined, this.snackBarWithShortDuration);
         },
       });
-  } 
-  
+  }
+
   onSubmit() {
     this.postSettings();
   }
@@ -337,7 +337,7 @@ export class BrandingComponent extends BaseComponent implements OnInit {
   }
 
   returnFullLinkIframe(link:string): string {
-    const baseUrl = window.location.href.split('/#')[0];    
+    const baseUrl = window.location.href.split('/#')[0];
     return baseUrl+link;
   }
 
@@ -353,7 +353,7 @@ export class BrandingComponent extends BaseComponent implements OnInit {
       {name:'Клиенты',field:'customer'},
       {name:'Справочник',field:'guide'},
     ],
-    currency:[ 
+    currency:[
       {name:'USD ($)',value:'69.3475'},
       {name:'EUR (€)',value:'80.3220'},
       {name:'CNY (Ұ)',value:'10.1193'},

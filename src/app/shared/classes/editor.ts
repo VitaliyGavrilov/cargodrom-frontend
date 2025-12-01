@@ -296,7 +296,7 @@ export abstract class Editor<T> implements OnInit {
 
   private detectEditMode(): void {
     const segments = this.route.snapshot.url.map(s => s.path);
-    this.isEditMode = segments[1] !== 'add';
+    this.isEditMode = segments[0] !== 'add';
   }
 
   private getIdParam(): number {

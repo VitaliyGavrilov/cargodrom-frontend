@@ -262,7 +262,7 @@ export class RequestDetails extends Table<any, 'trade_rating', ContractorFilter>
   // }
   // RATE METODS CHANGE
   onTableMethodChange(method:any){
-    this.router.navigate(['pages/request/details', method, this.requestId])
+    this.router.navigate(['request/details', method, this.requestId])
   }
   // HANDLING CHECKBOX ACTIONS
   onAddKpBtnClick(){
@@ -348,27 +348,27 @@ export class RequestDetails extends Table<any, 'trade_rating', ContractorFilter>
   }
   // Link to contractor editor page
   navToContractorEditor(contractor_id:number){
-    this.router.navigate(['pages/contractor/edit', contractor_id])
+    this.router.navigate(['contractor/edit', contractor_id])
   }
   // Link to offer editor page
   navToOfferEditor(offer_id:number){
-    this.router.navigate(['pages/offer', offer_id])
+    this.router.navigate(['request/offer', offer_id])
   }
   // Link to request editor page
   navToRequestEditor(){
-    this.router.navigate(['pages/request/edit', this.requestId])
+    this.router.navigate(['request/edit', this.requestId])
   }
   // Link to requests table page
   navToRequestsTable(){
-    this.router.navigate(['pages/request'])
+    this.router.navigate(['request'])
   }
   // Link to rate table
   navToRateTable(){
-    this.router.navigate(['pages/request'])
+    this.router.navigate(['request'])
   }
   navToBidTable(){
     // this.router.navigate(['pages/request/bidding', this.requestId])
-    this.router.navigate(['/pages/request/edit/translate', this.requestId]);
+    this.router.navigate(['/request/edit/translate', this.requestId]);
   }
   // OPEN EDITOR popap
   openRateEditor(mode:string, data?: any) {
@@ -754,6 +754,6 @@ export class RequestDetails extends Table<any, 'trade_rating', ContractorFilter>
   }
 
   goBack(): void {
-    this.navigationHistoryService.back(`/pages/request`);
+    this.navigationHistoryService.back(`/request`);
   }
 }

@@ -1,4 +1,4 @@
-<app-editor-header [title]="title" (save)="save()" (remove)="remove()" [isEditMode]="isEditMode"  [name]="nameForHeader" [backLink]="'pages/contractor'"></app-editor-header>
+<app-editor-header [title]="title" (save)="save()" (remove)="remove()" [isEditMode]="isEditMode"  [name]="nameForHeader" [backLink]="'contractor'"></app-editor-header>
 
 <form class="edit-form" [formGroup]="contractorForm">
   <div class="form-block">
@@ -21,18 +21,15 @@
 
 
 
+
         <div class="form-item">
           <div class="form-label">
             Вид подрядчика:
             <ng-container *ngTemplateOutlet="inputLabelReq; context: { field: 'type_id'}"></ng-container>
           </div>
           <div class="form-data">
-            <mat-form-field appearance="outline" class="ui-select">
-              <mat-select formControlName="type_id">
-                <mat-option *ngFor="let contractorType of contractorTypes;" [value]="contractorType.id" (click)="onContractorTypeChange(contractorType)">{{ contractorType.name }}</mat-option>
-              </mat-select>
-              <ng-container *ngTemplateOutlet="inputError; context: { field: 'type_id'}"></ng-container>
-            </mat-form-field>
+            <ng-select formControlName="type_id" class="custom" bindLabel="name" bindValue="id" [items]="contractorTypes" (change)="onContractorTypeChange($event)"></ng-select>
+            <ng-container *ngTemplateOutlet="inputError; context: { field: 'type_id'}"></ng-container>
           </div>
         </div>
 
@@ -57,14 +54,15 @@
             <ng-container *ngTemplateOutlet="inputLabelReq; context: { field: 'language_id'}"></ng-container>
           </div>
            <div class="form-data">
-            <mat-form-field appearance="outline" class="ui-select">
-              <!--<mat-label class="form-label">язык общения</mat-label>-->
+            <ng-select formControlName="language_id" class="custom" bindLabel="name" bindValue="id" [items]="[{name:'Английский',id:'en'},{name:'Русский',id:'ru'}]"></ng-select>
+            <ng-container *ngTemplateOutlet="inputError; context: { field: 'language_id'}"></ng-container>
+            <!-- <mat-form-field appearance="outline" class="ui-select">
               <mat-select formControlName="language_id" panelClass="panel-class-name">
                 <mat-option value="en">Английский</mat-option>
                 <mat-option value="ru">Русский</mat-option>
               </mat-select>
               <ng-container *ngTemplateOutlet="inputError; context: { field: 'language_id'}"></ng-container>
-            </mat-form-field>
+            </mat-form-field> -->
            </div>
          </div>
 
@@ -121,13 +119,14 @@
               <ng-container *ngTemplateOutlet="inputLabelReq; context: { field: 'country_id'}"></ng-container>
             </div>
             <div class="form-data">
-              <input matInput type="text" formControlName="country_id" [matAutocomplete]="country_id" >
+              <ng-select formControlName="country_id" class="custom" bindLabel="name" bindValue="id" [items]="countries" (change)="onCountryChange($event)"></ng-select>
+              <!-- <input matInput type="text" formControlName="country_id" [matAutocomplete]="country_id" >
               <mat-autocomplete #country_id="matAutocomplete" [displayWith]="displayFn_CountryId.bind(this)">
                 <mat-option *ngFor="let option of filteredCountries" [value]="option.id" (click)="onCountryChange(option.id)">
                   {{option.name}}
                 </mat-option>
                 <mat-option *ngIf="filteredCountries.length==0" disabled >Стран нет</mat-option>
-              </mat-autocomplete>
+              </mat-autocomplete> -->
               <ng-container *ngTemplateOutlet="inputError; context: { field: 'country_id'}"></ng-container>
             </div>
           </div>
@@ -152,13 +151,14 @@
           <ng-container *ngTemplateOutlet="inputLabelReq; context: { field: 'city_id'}"></ng-container>
         </div>
           <div class="form-data">
-            <input matInput type="text" formControlName="city_id" [matAutocomplete]="city_id" >
+            <ng-select formControlName="city_id" class="custom" bindLabel="name" bindValue="id" [items]="filteredCitys" (change)="onCityChange($event)"></ng-select>
+            <!-- <input matInput type="text" formControlName="city_id" [matAutocomplete]="city_id" >
             <mat-autocomplete #city_id="matAutocomplete" [displayWith]="displayFn_CityId.bind(this)">
               <mat-option *ngFor="let option of filteredCitys" [value]="option.id">
                 {{option.name}}
               </mat-option>
               <mat-option *ngIf="filteredCitys.length==0" disabled >Городов нет</mat-option>
-            </mat-autocomplete>
+            </mat-autocomplete> -->
             <ng-container *ngTemplateOutlet="inputError; context: { field: 'city_id'}"></ng-container>
           </div>
         </div>
@@ -223,13 +223,14 @@
             <ng-container *ngTemplateOutlet="inputLabelReq; context: { field: 'counterparty_id'}"></ng-container>
           </div>
           <div class="form-data">
-            <input matInput type="text" formControlName="counterparty_id" [matAutocomplete]="counterparty_id" >
+            <ng-select formControlName="counterparty_id" class="custom" bindLabel="name" bindValue="id" [items]="counterpartys"></ng-select>
+            <!-- <input matInput type="text" formControlName="counterparty_id" [matAutocomplete]="counterparty_id" >
             <mat-autocomplete #counterparty_id="matAutocomplete" [displayWith]="displayFn_CounterpartyId.bind(this)">
               <mat-option *ngFor="let option of filteredCounterpartys" [value]="option.id">
                 {{option.name}}
               </mat-option>
               <mat-option *ngIf="filteredCounterpartys.length==0" disabled >Типов нет</mat-option>
-            </mat-autocomplete>
+            </mat-autocomplete> -->
             <ng-container *ngTemplateOutlet="inputError; context: { field: 'counterparty_id'}"></ng-container>
           </div>
         </div>
@@ -252,19 +253,15 @@
             <ng-container *ngTemplateOutlet="inputLabelReq; context: { field: 'carrier_id'}"></ng-container>
           </div>
           <div class="form-data">
-            <ng-select class="custom"
+            <ng-select formControlName="carrier_id" class="custom" bindLabel="full_name" bindValue="id"
               [closeOnSelect]="false"
               [multiple]="true"
               [items]="transportCarrier"
-              bindLabel="full_name"
-              bindValue="id"
-              [placeholder]="contractorForm.value.carrier_id?.length>0? 'Выбранно эл.: '+contractorForm.value.carrier_id.length:''"
-              formControlName="carrier_id" >
-              <!-- <ng-template ng-label-tmp let-item="item">{{ item.iata?item.iata:item.name }}
-              </ng-template> -->
-              <ng-template ng-multi-label-tmp let-items="items" let-clear="clear">
-
-              </ng-template>
+              [placeholder]="contractorForm.value.carrier_id?.length>0
+                ? 'Выбранно эл.: ' + contractorForm.value.carrier_id.length
+                : '' "
+            >
+              <ng-template ng-multi-label-tmp let-items="items" let-clear="clear"></ng-template>
             </ng-select>
             <ng-container *ngTemplateOutlet="inputError; context: { field: 'carrier_id'}"></ng-container>
           </div>
@@ -308,16 +305,24 @@
             <ng-container *ngTemplateOutlet="inputLabelReq; context: { field: 'association_id'}"></ng-container>
           </div>
            <div class="form-data">
-            <mat-form-field appearance="outline" class="ui-select">
-              <!--<mat-label class="form-label">членство в ассоциациях</mat-label>-->
+            <ng-select formControlName="association_id" class="custom" bindLabel="name" bindValue="id" [items]="associations" [multiple]="true"
+              [placeholder]="contractorForm.value.carrier_id?.length>0
+                ? 'Выбранно эл.: ' + contractorForm.value.association_id.length
+                : '' "
+                [closeOnSelect]="false"
+              >
+              <ng-template ng-multi-label-tmp let-items="items" let-clear="clear"></ng-template>
+            </ng-select>
+            <ng-container *ngTemplateOutlet="inputError; context: { field: 'association_id'}"></ng-container>
+            <!-- <mat-form-field appearance="outline" class="ui-select">
               <mat-select formControlName="association_id" multiple>
                 <mat-select-trigger>
                   {{ assocAsText }}
                 </mat-select-trigger>
                 <mat-option *ngFor="let assoc of associations" [value]="assoc.id">{{assoc.name}}</mat-option>
               </mat-select>
-              <ng-container *ngTemplateOutlet="inputError; context: { field: 'association_id'}"></ng-container>
-            </mat-form-field>
+
+            </mat-form-field> -->
            </div>
          </div>
 
@@ -327,13 +332,14 @@
             <ng-container *ngTemplateOutlet="inputLabelReq; context: { field: 'tax_id'}"></ng-container>
           </div>
           <div class="form-data">
-            <input matInput type="text" formControlName="tax_id" [matAutocomplete]="tax_id" >
+            <ng-select formControlName="tax_id" class="custom" bindLabel="name" bindValue="id" [items]="taxSystems"></ng-select>
+            <!-- <input matInput type="text" formControlName="tax_id" [matAutocomplete]="tax_id" >
             <mat-autocomplete #tax_id="matAutocomplete" [displayWith]="displayFn_TaxId.bind(this)">
               <mat-option *ngFor="let option of filteredTaxs" [value]="option.id">
                 {{option.name}}
               </mat-option>
               <mat-option *ngIf="filteredTaxs.length==0" disabled >Типов нет</mat-option>
-            </mat-autocomplete>
+            </mat-autocomplete> -->
             <ng-container *ngTemplateOutlet="inputError; context: { field: 'tax_id'}"></ng-container>
           </div>
         </div>
@@ -374,12 +380,13 @@
           <ng-container *ngTemplateOutlet="inputLabelReq; context: { field: 'currency'}"></ng-container>
         </div>
         <div class="form-data">
-        <mat-form-field appearance="outline" class="ui-select">
+        <ng-select formControlName="currency" class="custom" bindLabel="code" bindValue="id" [items]="currencyList"></ng-select>
+        <ng-container *ngTemplateOutlet="inputError; context: { field: 'currency'}"></ng-container>
+        <!-- <mat-form-field appearance="outline" class="ui-select">
           <mat-select formControlName="currency">
             <mat-option *ngFor="let currency of currencyList" [value]="currency.id">{{currency.code}}</mat-option>
           </mat-select>
-          <ng-container *ngTemplateOutlet="inputError; context: { field: 'currency'}"></ng-container>
-        </mat-form-field>
+        </mat-form-field> -->
         </div>
       </div>
     </div>

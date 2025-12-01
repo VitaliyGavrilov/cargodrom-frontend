@@ -18,7 +18,7 @@ export class UserGuard  {
     state: RouterStateSnapshot): Observable<boolean | UrlTree> | Promise<boolean | UrlTree> | boolean | UrlTree {
     const isAuthenticated = this.auth.isAuthenticated();
     if (isAuthenticated) {
-      this.router.navigate(['/pages']);
+      this.router.navigate(['/dashboard']);
       return false;
     }
     return !isAuthenticated;

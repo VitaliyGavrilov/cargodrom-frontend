@@ -100,7 +100,7 @@ export class RequestComponent extends Table<Request, 'id', RequestFilter> {
   //     const value = obj[path] !== undefined ? obj[path] : null;
   //     return this.transformClientValue(value,obj);
   //   };
-    
+
   //   const keys = path?.split('/');
   //   for (const key of keys) {
   //     if (obj && obj.hasOwnProperty(key)) {
@@ -109,7 +109,7 @@ export class RequestComponent extends Table<Request, 'id', RequestFilter> {
   //       return null;
   //     }
   //   }
-    
+
   //   const result = obj !== undefined ? obj : null;
   //   return this.transformClientValue(result,obj);
   // }
@@ -117,7 +117,7 @@ export class RequestComponent extends Table<Request, 'id', RequestFilter> {
   // private transformClientValue(value: any, obj:any): SafeHtml {
   //   if (typeof value === 'string') {
   //     return value.replace(
-  //       /\[urlclient\](.*?)\[\/urlclient\]/ig, 
+  //       /\[urlclient\](.*?)\[\/urlclient\]/ig,
   //       `<a class="link" target="_blank" href="/#/pages/customer/edit/${obj.customer_id}">$1</a>`
   //     );
   //   }
@@ -150,7 +150,7 @@ export class RequestComponent extends Table<Request, 'id', RequestFilter> {
       } else {
         link=tab;
       }
-      this.router.navigate(['pages/request/details',link, requestId])
+      this.router.navigate(['request/details',link, requestId])
     } else {
       this.snackBar.open(
         `Ошибка, рейты недоступны`,
@@ -162,7 +162,7 @@ export class RequestComponent extends Table<Request, 'id', RequestFilter> {
   }
   navigateOnClient(clientId:any){
     // this.router.navigate(['pages/customer/edit', clientId]);
-    this.router.navigateByUrl(`/pages/customer/edit/${clientId}`)
+    this.router.navigateByUrl(`/customer/edit/${clientId}`)
   }
 
 
@@ -175,10 +175,10 @@ export class RequestComponent extends Table<Request, 'id', RequestFilter> {
         id: request.id
     };
     this.requestService.requestUpdate({ body }).subscribe({
-      next: () => { 
+      next: () => {
         this.snackBar.open(`Статус CRM успешно изменён`, undefined, this.snackBarWithShortDuration);
       },
-      error: (err) => {    
+      error: (err) => {
         request.status_crm_id = originalStatus;
         this.snackBar.open(`Ошибка редактирования CRM статуса запроса: ` + err.error.error_message, undefined, this.snackBarWithShortDuration);
       }
@@ -187,7 +187,7 @@ export class RequestComponent extends Table<Request, 'id', RequestFilter> {
 
   // updateRequest(request:any,status_id:string){
   //   const originalStatus = request.status_crm_id;
-    
+
   //   const body ={
   //     status_crm_id: request.status_crm_id,
   //     id: request.id

@@ -34,7 +34,7 @@ import { PagesModule } from './pages/pages.module';
 
   ],
   imports: [
-    PagesModule,
+    // PagesModule,
     CommonModule,
     BrowserModule,
     AppRoutingModule,

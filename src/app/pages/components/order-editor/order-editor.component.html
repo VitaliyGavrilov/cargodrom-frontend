@@ -3,12 +3,12 @@
   (save)="onClickSubmitForm()"
   [isEditMode]="isEditMode"
   (remove)="onClickDeletOrder()"
-  [backLink]="'/pages/order/transportation'"
+  [backLink]="'/order/transportation'"
 >
 </app-editor-header>
 
 <form [formGroup]="orderForm" class="edit-form" (submit)="onClickSubmitForm()">
-  
+
   <div class="form-block">
     <div class="form-row">
       <div class="form-item-layout">
@@ -76,9 +76,9 @@
           <div class="form-label">Вид перевозки :</div>
           <div class="form-data">
             <mat-select formControlName="transport_kind_id">
-              <mat-option 
-                (click)="onTransportKindChange()" 
-                *ngFor="let opt of transportList;" 
+              <mat-option
+                (click)="onTransportKindChange()"
+                *ngFor="let opt of transportList;"
                 [value]="opt.id">{{ opt.name }}
               </mat-option>
             </mat-select>
@@ -87,22 +87,22 @@
         <div class="form-item">
           <div class="form-label">Номер документа :</div>
           <div class="form-data">
-            <input type="text" formControlName="doc_tc_number"> 
+            <input type="text" formControlName="doc_tc_number">
           </div>
         </div>
         <div class="form-item">
           <div class="form-label">Трек номер груза :</div>
           <div class="form-data">
-            <input type="text" formControlName="track_tc"> 
+            <input type="text" formControlName="track_tc">
           </div>
         </div>
         <div class="form-item">
           <div class="form-label">Трек номер SVH :</div>
           <div class="form-data">
-            <input type="text" formControlName="track_svh"> 
+            <input type="text" formControlName="track_svh">
           </div>
         </div>
-        
+
       </div>
     </div>
   </div>
@@ -134,9 +134,9 @@
             >
             <mat-autocomplete #departure_city_id="matAutocomplete" [displayWith]="displayFn_City.bind(this)">
               <ng-container *ngFor="let opt of filteredDepartureCityList">
-                <mat-option 
-                  *ngIf="orderForm.value.departure_country_id?orderForm.value.departure_country_id == opt.country_id:true" 
-                  (click)="onDepartureCityChange(opt)"  
+                <mat-option
+                  *ngIf="orderForm.value.departure_country_id?orderForm.value.departure_country_id == opt.country_id:true"
+                  (click)="onDepartureCityChange(opt)"
                   [value]="opt.id">{{opt.name}}
                 </mat-option>
               </ng-container>
@@ -155,7 +155,7 @@
               </mat-select>
             </div>
           </ng-container>
-          
+
         </div>
       </div>
     </div>
@@ -184,9 +184,9 @@
               >
               <mat-autocomplete #arrival_city_id="matAutocomplete" [displayWith]="displayFn_City.bind(this)">
                 <ng-container *ngFor="let opt of filteredArrivalCityList">
-                  <mat-option 
-                    *ngIf="orderForm.value.arrival_country_id?orderForm.value.arrival_country_id == opt.country_id:true" 
-                    (click)="onArrivalCityChange(opt)"  
+                  <mat-option
+                    *ngIf="orderForm.value.arrival_country_id?orderForm.value.arrival_country_id == opt.country_id:true"
+                    (click)="onArrivalCityChange(opt)"
                     [value]="opt.id">{{opt.name}}
                   </mat-option>
                 </ng-container>
@@ -245,14 +245,14 @@
                     <input type="text" readonly [value]="returnDateDifference(status.value.scheduled_date, status.value.done_date)">
                   </div>
                   <div class="column" style="width: 40px;">
-                    
+
                       <mat-checkbox class="testclass"
                         [checked]="status.value.scheduled_date!='' && status.value.done_date!=''"
                         (change)="onClickStatusCheckbox(status)"
                         [disabled]="status.value.scheduled_date==''"
                       >
                       </mat-checkbox>
-                    
+
                   </div>
                 </div>
               </td></tr>

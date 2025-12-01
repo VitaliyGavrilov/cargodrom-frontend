@@ -159,15 +159,15 @@
         <ng-template [ngSwitchCase]="'checked'">
           <th mat-header-cell *matHeaderCellDef [style.width]="'64px'">
             <div class="td-block">
-              
+
                 <mat-checkbox class="testclass"
                   [checked]="isKpCheckboxHeaderTableChecked()"
                   (change)="onKpCheckboxHeaderTableChange($event)"
                   [indeterminate]="isKpCheckboxHeaderTableIndeterminate()"
-                  
+
                 >
                 </mat-checkbox>
-              
+
 
             </div>
           </th>
@@ -230,7 +230,7 @@
 
 
 <div style="display: flex; align-items: center;">
-  <div class="subtitle">Ставки: {{currentRequest.count_rate_send}}/{{currentRequest.count_rate_answer}}</div>
+  <div class="subtitle">Ставки: {{currentRequest.count_rate_text}}</div>
   <div class="rate-links">
     <div *ngIf="currentRequest?.tabs?.includes('final')" (click)="onTableMethodChange('final')" [ngClass]="detailsMethod==='final'? 'table-active':'' ">Итоговые</div>
     <div *ngIf="currentRequest?.tabs?.includes('custom')" (click)="onTableMethodChange('customs')" [ngClass]="detailsMethod==='customs'? 'table-active':'' ">До границы</div>
@@ -354,7 +354,7 @@
       <ng-template [ngSwitchCase]="'select'">
         <th mat-header-cell *matHeaderCellDef [style.minWidth]="col.width" [class]="col.class">
           <div class="td-block" >
-            
+
               <label class="checkbox-label">
                 <mat-checkbox class="testclass"
                   [indeterminate]="isCheckboxHeaderTableIndeterminate()"
@@ -364,7 +364,7 @@
                 >
                 </mat-checkbox>
               </label>
-            
+
           </div>
           <div class="resize-handle_end"
             (mousedown)="startResize($event, columnsData[colIndex-1].items[columnsData[colIndex-1].items.length-1],columnsData[colIndex-1])"

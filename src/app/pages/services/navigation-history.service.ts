@@ -37,7 +37,7 @@ export class NavigationHistoryService {
 
     // Получаем путь без query параметров для сравнения
     const pathWithoutParams = this.removeQueryParams(fullUrl);
-    
+
     // Проверяем, не является ли этот путь дублем последней записи (без учета query параметров)
     if (this.isSamePath(pathWithoutParams)) {
       // Обновляем последнюю запись с новыми query параметрами
@@ -59,7 +59,8 @@ export class NavigationHistoryService {
   }
 
   private isPagesModuleUrl(url: string): boolean {
-    return url.startsWith('/pages') || url === '/pages';
+    return true; // Записывать все URL
+    // return url.startsWith('/pages') || url === '/pages';
   }
 
   private removeQueryParams(url: string): string {
@@ -68,7 +69,7 @@ export class NavigationHistoryService {
 
   private isSamePath(currentPath: string): boolean {
     if (this.history.length === 0) return false;
-    
+
     const lastEntry = this.history[this.history.length - 1];
     const lastEntryPath = this.removeQueryParams(lastEntry.url);
     return lastEntryPath === currentPath;
@@ -93,7 +94,7 @@ export class NavigationHistoryService {
     if (this.history.length > 1) {
       // Удаляем текущую страницу из истории
       this.history.pop();
-      
+
       // Получаем предыдущую страницу
       const previousEntry = this.history[this.history.length - 1];
       this.router.navigateByUrl(previousEntry.url);

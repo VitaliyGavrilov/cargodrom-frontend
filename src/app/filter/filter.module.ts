@@ -11,6 +11,8 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { TableFilterComponent } from './table-filter/table-filter.component';
 import { RadioFilterComponent } from './components/radio-filter/radio-filter.component';
 import { SearchSelectFilterComponent } from './components/search-select-filter/search-select-filter.component';
+import { SharedModule } from '../shared/shared.module';
+import { NgSelectModule } from '@ng-select/ng-select';
 
 
 
@@ -31,6 +33,7 @@ import { SearchSelectFilterComponent } from './components/search-select-filter/s
     FormsModule,
     ReactiveFormsModule,
     MaterialModule,
+    NgSelectModule,
   ],
   exports: [
     UniversalFilterComponent,

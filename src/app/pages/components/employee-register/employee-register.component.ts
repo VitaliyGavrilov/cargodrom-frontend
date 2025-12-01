@@ -49,7 +49,9 @@ export class EmployeeRegisterComponent implements OnInit {
     this.registerForm.patchValue({
       uid: this.uid,
     });
-    this.isEditMode = segments[0]==='employee_register' ? false : true;
+    this.isEditMode = segments[0]=='employee_register' ? false : true;
+    console.log(segments);
+
     if(this.isEditMode){
       this.getUserData();
     }
@@ -101,6 +103,8 @@ export class EmployeeRegisterComponent implements OnInit {
   }
 
   getUserData(){
+    console.log('getUserData');
+
     this.userSevrice.userInviteData({body:{uid:this.uid}})
       .pipe(
         tap((data)=> this.hasOldPassword=data.has_old_password),

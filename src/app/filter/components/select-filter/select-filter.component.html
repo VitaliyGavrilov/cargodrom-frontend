@@ -10,7 +10,7 @@
   </div>
 </div>
 
-<div class="select-filter-main " >
+<div class="select-filter-main">
   <div class="title ">{{ filterControl.name }}:</div>
   <div class="data select w130" [ngClass]="{'value-selected': filter.value[filterControl.field] !== '' }">
     <mat-select [(ngModel)]="filter.value[filterControl.field]">
@@ -19,5 +19,6 @@
     </mat-select>
   </div>
 </div>
+
 
 
