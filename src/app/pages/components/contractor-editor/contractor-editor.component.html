@@ -259,9 +259,11 @@
               [items]="transportCarrier"
               [placeholder]="contractorForm.value.carrier_id?.length>0
                 ? 'Выбранно эл.: ' + contractorForm.value.carrier_id.length
-                : '' "
+                : '—' "
             >
-              <ng-template ng-multi-label-tmp let-items="items" let-clear="clear"></ng-template>
+              <ng-template ng-multi-label-tmp let-items="items" let-clear="clear">
+
+              </ng-template>
             </ng-select>
             <ng-container *ngTemplateOutlet="inputError; context: { field: 'carrier_id'}"></ng-container>
           </div>
@@ -306,9 +308,9 @@
           </div>
            <div class="form-data">
             <ng-select formControlName="association_id" class="custom" bindLabel="name" bindValue="id" [items]="associations" [multiple]="true"
-              [placeholder]="contractorForm.value.carrier_id?.length>0
+              [placeholder]="contractorForm.value.association_id?.length>0
                 ? 'Выбранно эл.: ' + contractorForm.value.association_id.length
-                : '' "
+                : '—' "
                 [closeOnSelect]="false"
               >
               <ng-template ng-multi-label-tmp let-items="items" let-clear="clear"></ng-template>
@@ -468,5 +470,5 @@
 </ng-template>
 
 <ng-template #inputLabelReq let-field="field">
-  <span *ngIf="contractorForm.controls[field].hasError('required')" class="req">•</span>
+  <span *ngIf="isRequiredField(field)" class="req">•</span>
 </ng-template>

@@ -221,3 +221,7 @@ mat-checkbox.mat-mdc-checkbox.reverse{
   /* --mat-optgroup-label-text-font: */
 }
 
+.mat-mdc-select-placeholder {
+  font-size: 13px;
+  line-height: 13px;
+}

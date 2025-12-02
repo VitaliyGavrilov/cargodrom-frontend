@@ -119,7 +119,7 @@ export class RequestEditorComponent implements OnInit, OnDestroy {
       transport_type_id: ['', [Validators.required]],// +
       //ОПИСАНИЕ ГРУЗА
       cargo_description: ['', [Validators.required,Validators.minLength(2)]],// +
-      cargo_package_id: [, []],// +
+      cargo_package_id: [1, []],// +
       cargo_package_name:['',[]],
       cargo_type_id: [, []],// +
       cargo_type_name: ['',[]],
@@ -201,16 +201,17 @@ export class RequestEditorComponent implements OnInit, OnDestroy {
     console.log('segments',segments);
 
 
+
   }
 
   initialization_getDatas() {
     const queue1 = [
-      this.getCustomers(),
+      this.getCustomers(),this.getСargoPackages(),
       this.getСargoTypes(),
       this.getCities(),
       this.getTransportFormats(),
       this.getCountries(),
-      this.getСargoPackages(),
+
       this.getRequestFormats(),
       this.getTransportationFormats(),
       this.getDirectionFlight(),
@@ -907,9 +908,8 @@ export class RequestEditorComponent implements OnInit, OnDestroy {
   //
   //
   placeCargoPackageChange(i:number){
-    console.log(123);
     this.places.controls.forEach((item:any,index:number)=>{
-      if(i<index && !item.value.cargo_package_id){
+      if(i<index && !item.value.width && !item.value.weight && !item.value.height && !item.value.length && !item.value.count){
         console.log(item,index,this.requestForm.value.cargo_places[i].cargo_package_id);
         item.patchValue({
           cargo_package_id:this.requestForm.value.cargo_places[i].cargo_package_id
@@ -1105,7 +1105,7 @@ export class RequestEditorComponent implements OnInit, OnDestroy {
   }
   //изменение поля вида запроса
   onRequestFormatsChange(id:number){
-    this.requestForm.controls['cargo_package_id'].reset();
+    // this.requestForm.controls['cargo_package_id'].reset();
     this.requestForm.controls['cargo_type_id'].reset();
     this.requestForm.controls['cargo_places_count'].reset();
     this.requestForm.controls['cargo_places_weight'].reset();
@@ -1255,6 +1255,9 @@ export class RequestEditorComponent implements OnInit, OnDestroy {
         tap((cargoPackages)=> {
           this.cargoPackages = cargoPackages as CargoPackage[];
           this.filteredCargoPackage = cargoPackages as CargoPackage[];
+          if(!this.isEditMode) this.requestForm.patchValue({
+            cargo_package_id:1
+          })
         }),
         takeUntil(this._destroy$)
       );

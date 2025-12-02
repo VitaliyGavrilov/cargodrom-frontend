@@ -64,7 +64,7 @@ export class PlaceEditorComponent implements OnInit, OnDestroy, OnChanges, Contr
     private cargoService:CargoService,
   ) {
     this.placeForm = this.fb.group({
-      cargo_package_id: [, []],
+      cargo_package_id: [1, []],
       stacking: [true,[]],
       length: [, []],
       width: [, []],
