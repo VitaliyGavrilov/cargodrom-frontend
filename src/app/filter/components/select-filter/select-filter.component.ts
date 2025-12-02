@@ -16,5 +16,18 @@ export class SelectFilterComponent implements OnInit {
   ) { }
 
   ngOnInit(): void {
+    console.log('filter',this.filter);
+
+  }
+
+  returnPlacholder():string{
+    if(this.multi){
+      return this.filter.value[this.filterControl.field]?.length>0
+        ? 'Выбранно эл.: ' + this.filter.value[this.filterControl.field]?.length
+        : '—'
+    } else {
+      return '—'
+    }
+
   }
 }

@@ -83,14 +83,14 @@ export class ContractorEditorComponent implements OnInit {
       association_id: [[]],
       tax_id: [undefined],
       // type_id: [undefined, [Validators.required]],
-      type_id: [''],
+      type_id: [],
       language_id: [undefined],
-      country_id: [''],
-      city_id: [''],
+      country_id: [],
+      city_id: [],
       request_format_id: [''],
       // exclude_from_trade: [false]
       allow_trade:[false],
-      counterparty_id: [''],
+      counterparty_id: [],
       // carrier_name:[,[]],
       carrier_id:[[],[]],
       currency:[,[]]
@@ -108,6 +108,11 @@ export class ContractorEditorComponent implements OnInit {
   test(i:any,c:any){
     console.log(i,c);
 
+  }
+
+  isRequiredField(field: string): boolean {
+    const control = this.contractorForm.get(field);
+    return control?.hasValidator(Validators.required) ?? false;
   }
 
   onSearchChange(event: any) {

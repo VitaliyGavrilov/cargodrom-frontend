@@ -1,24 +1,36 @@
 <div class="select-filter-additional">
   <div class="title">{{ filterControl.name }}:</div>
   <div class="data select">
-    <mat-form-field appearance="outline" class="ui-select w100">
+    <!-- <mat-form-field appearance="outline" class="ui-select w100">
       <div class="new-icon cancel s10px" style="--icon-color: var(--accent, #DB563B)" (click)="multi?filter.value[filterControl.field]=[] : filter.value[filterControl.field]='';$event.stopPropagation()" *ngIf="filter.value[filterControl.field]!=''"></div>
       <mat-select [(ngModel)]="filter.value[filterControl.field]" [multiple]="multi" placeholder="-- Пусто --">
         <mat-option *ngFor="let item of filterControl.array;" [value]="item.id">{{ item.name }}</mat-option>
       </mat-select>
-    </mat-form-field>
+    </mat-form-field> -->
+    <ng-select [(ngModel)]="filter.value[filterControl.field]" class="custom" bindLabel="name" bindValue="id"
+      [closeOnSelect]="!multi"
+      [multiple]="multi"
+      [items]="filterControl.array"
+      [placeholder]="returnPlacholder()"
+
+    >
+      <ng-template *ngIf="multi" ng-multi-label-tmp></ng-template>
+    </ng-select>
   </div>
 </div>
 
 <div class="select-filter-main">
   <div class="title ">{{ filterControl.name }}:</div>
   <div class="data select w130" [ngClass]="{'value-selected': filter.value[filterControl.field] !== '' }">
-    <mat-select [(ngModel)]="filter.value[filterControl.field]">
-      <mat-option value="">Не выбрано</mat-option>
+    <mat-select [(ngModel)]="filter.value[filterControl.field]" [placeholder]="'Не выбрано'">
+      <mat-option (click)="filter.value[filterControl.field]=null">Не выбрано</mat-option>
       <mat-option *ngFor="let item of filterControl.array;" [value]="item.id">{{ item.name }}</mat-option>
     </mat-select>
   </div>
 </div>
 
+<!-- [placeholder]="filter.value[filterControl.field]?.length>0
+        ? 'Выбранно эл.: ' + filter.value[filterControl.field]?.length
+        : '—'" -->
 
 

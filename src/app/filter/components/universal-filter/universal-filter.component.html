@@ -1,7 +1,7 @@
 <ng-container [ngSwitch]="filterControl.form">
 
   <app-radio-filter *ngSwitchCase="'radio'" [filterControl]="$any(filterControl)" class="filter-item"></app-radio-filter>
-  <app-search-select-filter *ngSwitchCase="'search_select'" [filterControl]="$any(filterControl)" class="filter-item"></app-search-select-filter>
+  <!-- <app-search-select-filter *ngSwitchCase="'search_select'" [filterControl]="$any(filterControl)" class="filter-item"></app-search-select-filter> -->
   <app-period-filter *ngSwitchCase="'period_days'" [filterControl]="$any(filterControl)" class="filter-item"></app-period-filter>
 
   <app-checkbox-filter *ngSwitchCase="'checkbox'" [filterControl]="$any(filterControl)" class="filter-item"></app-checkbox-filter>
@@ -10,5 +10,6 @@
   <app-text-filter *ngSwitchCase="'text'" [filterControl]="$any(filterControl)" class="filter-item"></app-text-filter>
   <app-select-filter *ngSwitchCase="'select'" [filterControl]="$any(filterControl)" class="filter-item"></app-select-filter>
   <app-select-filter *ngSwitchCase="'multi_select'" [multi]="true" [filterControl]="$any(filterControl)" class="filter-item"></app-select-filter>
+  <app-select-filter *ngSwitchCase="'search_select'" [filterControl]="$any(filterControl)" class="filter-item"></app-select-filter>
 
 </ng-container>
