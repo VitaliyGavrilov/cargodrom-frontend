@@ -5,95 +5,41 @@
 .mat-mdc-table thead, .mat-mdc-table tbody, .mat-mdc-table tfoot, mat-header-row, mat-row, mat-footer-row, [mat-header-row], [mat-row], [mat-footer-row], .mat-table-sticky {
   max-height: 100px;
 }
+
 .expanded-request-info {
-  position: absolute;
-  top: 142px;
-  z-index: 1000;
-
-  /* Начальное состояние - скрыто */
-  opacity: 0;
-  height: 0;
-  overflow: hidden;
-  padding: 0;
-
-  /* Плавные переходы */
-  transition:
-    opacity 0.6s ease,
-    // height 0.3s ease,
-    // padding 0.3s ease;
-}
-
-.expanded-request-info.visible {
-  /* Конечное состояние - показано */
   width: 100%;
   box-sizing: border-box;
-  opacity: 1;
-  height: auto;
+  opacity: 0;
+  max-height: 0;
   padding: 0px 12px 0px 24px;
   background: #fff;
   display: flex;
   flex-direction: column;
   border-bottom: 1px #C3CCD6 solid;
+  overflow: hidden;
   transition:
-    opacity 0.6s ease,
-    // height 0.3s ease,
-    // padding 0.3s ease;
-}
+    opacity 0.3s ease,
+    max-height 0.5s ease,
+    padding 0.3s ease,
+    border-width 0.3s ease;
 
+  &.visible {
+    opacity: 1;
+    max-height: 1000px; /* Подберите значение под ваш контент */
+    border-bottom-width: 1px;
+  }
+}
 // .expanded-request-info {
-//   display: none;
-//   position: absolute;
-//   top: 142px;
-//   height: 0;
-//   z-index: 1000;
-// }
-// .expanded-request-info.visible {
+//   width: 100%;
+//   box-sizing: border-box;
+//   opacity: 1;
 //   height: auto;
 //   padding: 0px 12px 0px 24px;
 //   background: #fff;
-//   display: flex; flex-direction: column;
+//   display: none;
+//   flex-direction: column;
 //   border-bottom: 1px #C3CCD6 solid;
-// }
-
-// .expanded-request-info.visible {
-//     top: 140px;
-//     position: absolute;
-//     z-index: 1000;
-//     background: #fff;
-//     width: calc(100% - 40px); /* учитываем padding */
-//     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* тень для визуального отделения */
-//     min-height: 100px;
-//     margin: 0;
-//     padding: 20px;
-//     border-top: 1px solid rgba(0, 0, 0, 0.12);
-//     visibility: visible;
-//     opacity: 1;
-//     max-height: 3000px;
-//     transition: opacity 0.3s ease, max-height 0.3s ease, visibility 0s 0s;
-// }
-
-// .expanded-request-info {
-//     position: relative; /* контейнер для абсолютного позиционирования */
-//     padding: 0px 12px 0px 24px;
-//     background: #fff;
-//     display: flex;
-//     flex-direction: column;
-//     border-bottom: 1px #C3CCD6 solid;
-// }
-
-// .expanded-request-info {
-//     position: absolute;
-//     left: 0;
-//     right: 0;
-//     min-height: 0;
-//     margin: 0;
-//     padding: 0 20px;
-//     border: none;
-//     visibility: hidden;
-//     opacity: 0;
-//     max-height: 0;
-//     overflow: hidden;
-//     transition: opacity 0.3s ease, max-height 0.3s ease, visibility 0s 0.3s, padding 0.3s ease;
+//   &.visible{display: flex;}
 // }
 
 .example-element-detail{

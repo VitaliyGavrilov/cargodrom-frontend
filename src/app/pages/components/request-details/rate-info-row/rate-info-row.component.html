@@ -5,7 +5,7 @@
     <div class="first_col" [ngSwitch]="detailsMethod">
       <!-- <ng-content select="[test1]"></ng-content> -->
       <div class="cost_block" *ngIf="!costClass">
-        <div class="cost">{{rate?.total_cost_text}}</div>
+        <div class="cost">{{rate.total_cost_text}}</div>
         <div *ngIf="detailsMethod=='other'" style="color: #2C3640;">
           <div style="font-weight: 700; font-size: 22px; line-height: 26px;">Другие</div>
           <div style="margin-top: 10px; font-weight: 400; font-size: 13px; line-height: 12px;">Выбранно {{rate?.values?.length}} услуги</div>
@@ -68,12 +68,12 @@
             <!-- <button class="btn-map-blue"></button> -->
             <a class="btn-map-blue"
               title="Open dispatch address in Google maps"
-              href="https://www.google.com/maps/search/?api=1&amp;query={{rate.point.name}},"
+              href="https://www.google.com/maps/search/?api=1&amp;query={{rate?.point?.name}},"
               target="_blank">
             </a>
             <button class="btn-globe-blue"></button>
           </div>
-          <div class="details" *ngIf="rate.point.svh_address">{{rate.point.svh_address}}</div>
+          <div class="details" *ngIf="rate.point?.svh_address">{{rate.point.svh_address}}</div>
 
           <!-- <iframe
             width="100%"
