@@ -57,13 +57,13 @@
 
         <div class="dir-block">
           <!-- <mat-form-field appearance="outline" class="ui-select mw50 "> -->
-            <ng-select style="width: 100%; margin-right: 10px;" [(ngModel)]="direction.direction_departure" class="custom" bindLabel="name" bindValue="id" [items]="countries"></ng-select>
+            <ng-select style="width: 100%; margin-right: 10px;" required (change)="valueChanged()" [(ngModel)]="direction.direction_departure" class="custom" bindLabel="name" bindValue="id" [items]="countries"></ng-select>
             <!-- <mat-select [(ngModel)]="direction.direction_departure" class="border-none">
               <mat-option [value]="0">-- Не выбрано --</mat-option>
               <mat-option *ngFor="let country of countries;" [value]="country.id">{{ country.name }}</mat-option>
             </mat-select> -->
           <!-- </mat-form-field> -->
-           <ng-select style="width: 100%; margin-right: 10px;" [(ngModel)]="direction.direction_arrival" class="custom" bindLabel="name" bindValue="id" [items]="countries"></ng-select>
+           <ng-select style="width: 100%; margin-right: 10px;" required (change)="valueChanged()" [(ngModel)]="direction.direction_arrival" class="custom" bindLabel="name" bindValue="id" [items]="countries"></ng-select>
 
           <!-- <mat-form-field appearance="outline" class="ui-select mw50">
             <mat-select [(ngModel)]="direction.direction_arrival">

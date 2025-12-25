@@ -98,7 +98,7 @@ export class RateAddCustoms implements OnInit, OnDestroy {
     const i = this.currencyList.find((r:any) => r.id === this.rateForm.value.currency);
     return i?.char?i.char:'?';
   }
-  
+
   setContractorName(contractor_id:number) {
     const contractor = this.contractorList.find((r:any) => r.id === contractor_id);
     this.rateForm.patchValue({
@@ -177,17 +177,19 @@ export class RateAddCustoms implements OnInit, OnDestroy {
   }
 
   filterRote(){
-    const filterRoute=this.transportRoute.filter((option:any) => option.name.toLowerCase().replaceAll(' ', '').includes(this.rateForm.value.route_name.toLowerCase().replaceAll(' ', '')));
+    const filterRoute=this.transportRoute.filter((option:any) => option.name.toString().toLowerCase().replaceAll(' ', '').includes(this.rateForm.value.route_name?.toString().toLowerCase().replaceAll(' ', '')));
     return filterRoute.length==0
     ? []
     : filterRoute
   }
   filterContractor(){
-    const filterContractor=this.contractorList.filter((option:any) => option.name.toLowerCase().replaceAll(' ', '').includes(this.rateForm.value.contractor_name.toLowerCase().replaceAll(' ', '')));
-    return filterContractor;
+    const filterContractor=this.contractorList.filter((option:any) => option.name.toString().toLowerCase().replaceAll(' ', '').includes(this.rateForm.value.contractor_name?.toString().toLowerCase().replaceAll(' ', '')));
+    return filterContractor.length==0
+    ? []
+    : filterContractor
   }
   filterIata(){
-    const filterIata=this.transportCarrier?.filter((option:any) => option.iata.toLowerCase().replaceAll(' ', '').includes(this.rateForm.value.carrier_name?.toLowerCase().replaceAll(' ', '')));
+    const filterIata=this.transportCarrier?.filter((option:any) => option.iata.toString().toLowerCase().replaceAll(' ', '').includes(this.rateForm.value.carrier_name?.toString().toLowerCase().replaceAll(' ', '')));
     return filterIata.length==0
     ? []
     : filterIata

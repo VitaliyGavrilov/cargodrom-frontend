@@ -1,6 +1,6 @@
 .new-icon{
-  &::before{ 
-    width: var(--icon-w, var(--icon-s, 100%)); 
+  &::before{
+    width: var(--icon-w, var(--icon-s, 100%));
     height: var(--icon-h, var(--icon-s, 100%));
     background: var(--icon-color-gradient,var(--icon-color)) !important;
 
@@ -35,3 +35,8 @@
     --icon-color-gradient: linear-gradient(0deg, var(--icon-color), var(--accent));
   }
 }
+
+.transport-type1{ }
+.transport-type2{ }
+.transport-type3{ }
+.transport-type4{ }

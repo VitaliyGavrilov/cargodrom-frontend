@@ -22301,6 +22301,12 @@ export class RequestService extends BaseService {
       count?: number;
 
     /**
+     * Фильтр
+     */
+      filter?: {
+};
+
+    /**
      * Сортировка
      */
       sort?: Array<{
@@ -22459,6 +22465,7 @@ export class RequestService extends BaseService {
       rb.query('request_id', params.request_id, {});
       rb.query('start', params.start, {});
       rb.query('count', params.count, {});
+      rb.query('filter', params.filter, {});
       rb.query('sort', params.sort, {"style":"form","explode":false});
     }
 
@@ -22635,6 +22642,12 @@ export class RequestService extends BaseService {
      * Лимит позиций на страницу
      */
       count?: number;
+
+    /**
+     * Фильтр
+     */
+      filter?: {
+};
 
     /**
      * Сортировка

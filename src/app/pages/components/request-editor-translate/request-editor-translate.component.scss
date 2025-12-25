@@ -81,11 +81,38 @@ button{
 //   padding: 11px 6px 9px;
 // }
 
-.form-block textarea {
-  padding: 11px 6px 9px;
-  text-wrap: nowrap;
-}
+
 textarea::-webkit-scrollbar {
   width: 0px;
   height: 0px;
+}
+
+.textarea-box{
+  border: 1px solid var(--line, #E0E5EB);
+  border-radius: 6px;
+  padding: 11.5px 13px;
+
+  textarea{
+    border: none;
+    width: 100%;
+    font-family: 'regular', 'arial', 'sans-serif';
+    background: inherit;
+    font-size: 15px;
+    line-height: 20px;
+    padding: 0; margin: 0;
+
+  }
+}
+
+form{
+  display: flex;
+  flex-direction: column;
+  .form-block{
+    display: flex;
+    flex-direction: column;
+    flex: 1;
+    .form-row:last-child{
+      flex: 1;
+    }
+  }
 }

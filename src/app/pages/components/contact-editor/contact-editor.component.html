@@ -3,8 +3,12 @@
   <input type="hidden" formControlName="contractor_id">
   <div class="form-item-layout">
     <div class="form-item">
-      <div class="form-label">ФИО: <span class="req">•</span></div>
-      <div class="form-data"><input type="text" name="name" formControlName="name" placeholder="—" required></div>
+      <div class="form-label">ФИО:
+        <ng-container *ngTemplateOutlet="inputLabelReq; context: { field: 'name'}"></ng-container>
+      </div>
+      <div class="form-data">
+        <input type="text" name="name" formControlName="name" placeholder="—" required>
+      </div>
     </div>
     <!--<div class="form-item">
       <div class="form-label">фамилия: <span class="req">•</span></div>
@@ -19,43 +23,71 @@
       <div class="form-data"><input type="text"  name="name_o" formControlName="name_o" placeholder="—" required></div>
     </div> -->
     <div class="form-item">
-      <div class="form-label">должность: <span class="req">•</span></div>
-      <div class="form-data"><input type="text" name="position" formControlName="position" placeholder="—" required></div>
+      <div class="form-label">должность:
+        <ng-container *ngTemplateOutlet="inputLabelReq; context: { field: 'position'}"></ng-container>
+      </div>
+      <div class="form-data">
+        <input type="text" name="position" formControlName="position" placeholder="—" required>
+      </div>
     </div>
   </div>
   <div class="form-item-layout">
     <div class="form-item">
-      <div class="form-label">местонахождение офиса:</div>
-      <div class="form-data"><input type="text" name="place" formControlName="place" placeholder="—"></div>
+      <div class="form-label">местонахождение офиса:
+        <ng-container *ngTemplateOutlet="inputLabelReq; context: { field: 'place'}"></ng-container>
+      </div>
+      <div class="form-data">
+        <input type="text" name="place" formControlName="place" placeholder="—">
+      </div>
     </div>
+
     <div class="form-item">
-      <div class="form-label">офисный телефон: <span class="req">•</span></div>
-      <div class="form-data"><input type="text" name="phone" formControlName="phone" placeholder="—" required appPhoneMask></div>
+      <div class="form-label">офисный телефон:
+        <ng-container *ngTemplateOutlet="inputLabelReq; context: { field: 'phone'}"></ng-container>
+      </div>
+      <div class="form-data"><input type="text" name="phone" formControlName="phone" placeholder="—"  appPhoneMask></div>
     </div>
+
     <div class="form-item">
-      <div class="form-label">мобильный телефон:</div>
+      <div class="form-label">мобильный телефон:
+        <ng-container *ngTemplateOutlet="inputLabelReq; context: { field: 'mobile_phone'}"></ng-container>
+      </div>
       <div class="form-data"><input type="text" name="mobile_phone" formControlName="mobile_phone" placeholder="—" appPhoneMask></div>
     </div>
+
     <div class="form-item">
-      <div class="form-label">e-mail: <span class="req">•</span></div>
+      <div class="form-label">e-mail:
+        <ng-container *ngTemplateOutlet="inputLabelReq; context: { field: 'email'}"></ng-container>
+      </div>
       <div class="form-data"><input type="text" name="email" formControlName="email" placeholder="—" required></div>
     </div>
   </div>
   <div class="form-item-layout">
     <div class="form-item">
-      <div class="form-label">skype:</div>
+      <div class="form-label">skype:
+        <ng-container *ngTemplateOutlet="inputLabelReq; context: { field: 'skype'}"></ng-container>
+      </div>
       <div class="form-data"><input type="text" name="skype" formControlName="skype" placeholder="—"></div>
     </div>
+
     <div class="form-item">
-      <div class="form-label">telegram:</div>
+      <div class="form-label">telegram:
+        <ng-container *ngTemplateOutlet="inputLabelReq; context: { field: 'telegram'}"></ng-container>
+      </div>
       <div class="form-data"><input type="text" name="telegram" formControlName="telegram" placeholder="—"></div>
     </div>
+
     <div class="form-item">
-      <div class="form-label">whatsapp:</div>
+      <div class="form-label">whatsapp:
+        <ng-container *ngTemplateOutlet="inputLabelReq; context: { field: 'whatsapp'}"></ng-container>
+      </div>
       <div class="form-data"><input type="text" name="whatsapp" formControlName="whatsapp" placeholder="—"></div>
     </div>
+
     <div class="form-item">
-      <div class="form-label">WeChat:</div>
+      <div class="form-label">WeChat:
+        <ng-container *ngTemplateOutlet="inputLabelReq; context: { field: 'wechat'}"></ng-container>
+      </div>
       <div class="form-data"><input type="text" name="wechat" formControlName="wechat" placeholder="—"></div>
     </div>
   </div>
@@ -72,7 +104,17 @@
       <!-- <app-responsibility-matrix formControlName="export" [homeCountry]="homeCountry" [countries]="countries" type="export"></app-responsibility-matrix> -->
       <!-- <app-responsibility-matrix formControlName="import" [homeCountry]="homeCountry" [countries]="countries" type="import"></app-responsibility-matrix>
       <app-responsibility-row formControlName="local" [homeCountry]="homeCountry"></app-responsibility-row> -->
-      <app-responsibility formControlName="direction" [countries]="countries"></app-responsibility>
+      <app-responsibility formControlName="direction" [countries]="countries" [requiredDirection]="requiredDirection"></app-responsibility>
     </div>
   </div>
 </form>
+
+<ng-template #inputError let-field="field">
+  <mat-error *ngIf="contactForm.controls[field].hasError('required') && contactForm.controls[field].touched">
+    Это поле обязательно
+  </mat-error>
+</ng-template>
+
+<ng-template #inputLabelReq let-field="field">
+  <span *ngIf="isRequiredField(field)" class="req">•</span>
+</ng-template>

@@ -1,4 +1,4 @@
-.form-block input[type="text"]:not(.ng-value-container input), input[type="number"],.form-block select, .form-block textarea, .filter .main input[type="text"] , input.data-piker{
+.form-block input[type="text"]:not(.ng-value-container input), input[type="number"],.form-block select, .filter .main input[type="text"] , input.data-piker{
   font-family: 'regular', 'arial', 'sans-serif';
   background: var(--background, #F7F9FC);
   border: 1px solid var(--line, #E0E5EB );
@@ -117,10 +117,18 @@ form ng-select.ng-select.custom, .filter ng-select.ng-select.custom{
         margin-right: 2px;
         background-color: inherit;
         height: 15px;
+        white-space: normal;
         &::after{
           display: block;
           /* content: ','; */
         }
+        .ng-value-label{
+          /* text-overflow: ellipsis;
+          overflow: hidden;
+          white-space: nowrap;
+          margin-right: 5px; */
+        }
+
       }
       .ng-placeholder{
         height: 15px;
@@ -145,3 +153,14 @@ form ng-select.ng-select.custom, .filter ng-select.ng-select.custom{
     .ng-arrow{border-color: transparent transparent var(--accent);}
   }
 }
+
+/* .ng-valid, .ng-valid .ng-select-container{
+  border-color: green !important;
+} */
+.ng-invalid.ng-touched, ng-select.ng-invalid.ng-touched .ng-select-container{
+  border-color: var(--event_negative) !important;
+}
+app-responsibility.ng-invalid tbody{
+  border: 1.5px solid red;
+}
+

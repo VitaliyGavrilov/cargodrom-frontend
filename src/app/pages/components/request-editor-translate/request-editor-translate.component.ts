@@ -79,7 +79,7 @@ export class RequestEditorTranslateComponent implements OnInit, OnDestroy {
       cargo_places_weight: [, []],
       cargo_places_density: [, []],
       cargo_places_paid_weight: [, []],
-      cargo_dimensions: [, []],
+      cargo_dimensions: ['', []],
       comment: [, []],
     });
   }
@@ -135,5 +135,11 @@ export class RequestEditorTranslateComponent implements OnInit, OnDestroy {
   remove():void {
     // window.location.reload();
     this.navigationHistoryService.back(`/request/details/final/${this.requestId}`)
+  }
+
+  returnHeight(text:string){
+    const lineText = (text?.match(/\n/g) || []).length;
+    const height = lineText>1? lineText * 20 : 20
+    return height+'px';
   }
 }

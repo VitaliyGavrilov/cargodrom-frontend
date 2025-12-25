@@ -164,11 +164,18 @@
           <div class="form-item-layout">
             <div class="form-item">
               <div class="form-label">Условия перевозки: </div>
-              <div class="form-data">
-                <textarea style="resize: none;" formControlName="cargo_condition_carriage"
+              <div class="form-data textarea-box">
+                <!-- <textarea style="resize: none;" formControlName="cargo_condition_carriage"
                   type="text"
                   readonly
-                ></textarea>
+                ></textarea> -->
+                <textarea
+                  matInput
+                  formControlName="cargo_condition_carriage"
+                  cdkTextareaAutosize
+                  #autosize="cdkTextareaAutosize"
+                  >
+                </textarea>
               </div>
             </div>
           </div>
@@ -229,10 +236,15 @@
           <div class="form-item-layout">
             <div class="form-item">
               <div class="form-label">Габариты: </div>
-              <div class="form-data">
-                <textarea formControlName="cargo_dimensions"
-                  readonly
-                ></textarea>
+              <div class="form-data textarea-box">
+                <!-- <textarea formControlName="cargo_dimensions" [style.height]="returnHeight(requestFormTranslateRu.value?.cargo_dimensions)" readonly></textarea> -->
+                <textarea
+                  matInput
+                  formControlName="cargo_dimensions"
+                  cdkTextareaAutosize
+                  #autosize="cdkTextareaAutosize"
+                  >
+                </textarea>
               </div>
             </div>
           </div>
@@ -243,12 +255,13 @@
           <div class="form-item-layout">
             <div class="form-item">
               <div class="form-label">Примечание: </div>
-              <div class="form-data">
-                <input formControlName="comment"
-                  readonly
-                  type="text"
-                >
-              </div>
+              <div class="form-data textarea-box"><textarea
+                  matInput
+                  formControlName="comment"
+                  cdkTextareaAutosize
+                  #autosize="cdkTextareaAutosize"
+                  >
+                </textarea></div>
             </div>
           </div>
 
@@ -423,11 +436,18 @@
           <div class="form-item-layout">
             <div class="form-item">
               <div class="form-label">Condition of carriage: </div>
-              <div class="form-data">
-                <textarea style="resize: none;" formControlName="cargo_condition_carriage"
+              <div class="form-data textarea-box">
+                <textarea
+                  matInput
+                  formControlName="cargo_condition_carriage"
+                  cdkTextareaAutosize
+                  #autosize="cdkTextareaAutosize"
+                  >
+                </textarea>
+                <!-- <textarea style="resize: none;" formControlName="cargo_condition_carriage"
                   type="text"
 
-                ></textarea>
+                ></textarea> -->
               </div>
             </div>
           </div>
@@ -488,10 +508,17 @@
           <div class="form-item-layout">
             <div class="form-item">
               <div class="form-label">Dimensions: </div>
-              <div class="form-data">
-                <textarea formControlName="cargo_dimensions"
+              <div class="form-data textarea-box">
+                <textarea
+                  matInput
+                  formControlName="cargo_dimensions"
+                  cdkTextareaAutosize
+                  #autosize="cdkTextareaAutosize"
+                  >
+                </textarea>
+                <!-- <textarea formControlName="cargo_dimensions" [style.height]="returnHeight(requestFormTranslateNoRu.value?.cargo_dimensions)"
                    style="resize: none;"
-                ></textarea>
+                ></textarea> -->
               </div>
             </div>
           </div>
@@ -502,10 +529,18 @@
           <div class="form-item-layout">
             <div class="form-item">
               <div class="form-label">Notation: <span *ngIf="test('comment')">машинный перевод, обратите внимание</span></div>
-              <div class="form-data">
-                <input formControlName="comment"
+              <div class="form-data textarea-box">
+                <!-- <textarea formControlName="comment" style="resize: none;" [style.minHeight]="returnHeight(requestFormTranslateNoRu.value?.comment)"></textarea> -->
+                <!-- <input formControlName="comment"
                   type="text"
-                >
+                > -->
+                <textarea
+                  matInput
+                  formControlName="comment"
+                  cdkTextareaAutosize
+                  #autosize="cdkTextareaAutosize"
+                  >
+                </textarea>
               </div>
             </div>
           </div>

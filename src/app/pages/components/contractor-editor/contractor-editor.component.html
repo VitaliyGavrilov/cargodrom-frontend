@@ -1,6 +1,6 @@
 <app-editor-header [title]="title" (save)="save()" (remove)="remove()" [isEditMode]="isEditMode"  [name]="nameForHeader" [backLink]="'contractor'"></app-editor-header>
 
-<form class="edit-form" [formGroup]="contractorForm">
+<form class="edit-form" [formGroup]="contractorForm" (submit)="save()" focusFirstInvalid>
   <div class="form-block">
     <div class="form-row">
       <div class="form-item-layout">
@@ -18,9 +18,6 @@
           <div class="form-data">
           </div>
         </div>
-
-
-
 
         <div class="form-item">
           <div class="form-label">
@@ -223,7 +220,7 @@
             <ng-container *ngTemplateOutlet="inputLabelReq; context: { field: 'counterparty_id'}"></ng-container>
           </div>
           <div class="form-data">
-            <ng-select formControlName="counterparty_id" class="custom" bindLabel="name" bindValue="id" [items]="counterpartys"></ng-select>
+            <ng-select formControlName="counterparty_id" class="custom" bindLabel="name" bindValue="id" [items]="counterpartys" (change)="onCounterpartyChange($event)"></ng-select>
             <!-- <input matInput type="text" formControlName="counterparty_id" [matAutocomplete]="counterparty_id" >
             <mat-autocomplete #counterparty_id="matAutocomplete" [displayWith]="displayFn_CounterpartyId.bind(this)">
               <mat-option *ngFor="let option of filteredCounterpartys" [value]="option.id">
@@ -247,7 +244,7 @@
           </div>
         </div> -->
 
-        <div class="form-item">
+        <div class="form-item" *ngIf="contractorForm.value.counterparty_id!=12">
           <div class="form-label">
             агент:
             <ng-container *ngTemplateOutlet="inputLabelReq; context: { field: 'carrier_id'}"></ng-container>
@@ -266,6 +263,18 @@
               </ng-template>
             </ng-select>
             <ng-container *ngTemplateOutlet="inputError; context: { field: 'carrier_id'}"></ng-container>
+          </div>
+        </div>
+
+        <div class="form-item" *ngIf="contractorForm.value.counterparty_id==12">
+          <div class="form-label">
+            код свх:
+            <ng-container *ngTemplateOutlet="inputLabelReq; context: { field: 'svh_id'}"></ng-container>
+          </div>
+          <div class="form-data">
+            <ng-select formControlName="svh_id" class="custom" bindLabel="name" bindValue="id" [items]="filteredDirectionPoint" (change)="onSvhChange($event)"></ng-select>
+            <!-- <ng-select formControlName="svh_id" class="custom" bindLabel="name" bindValue="id" [items]="directionPoint"></ng-select> -->
+            <ng-container *ngTemplateOutlet="inputError; context: { field: 'svh_id'}"></ng-container>
           </div>
         </div>
 
@@ -439,7 +448,7 @@
   <div formArrayName="contacts">
   <div class="user-item" *ngFor="let contact of contacts.controls; let i=index">
     <div class="form-block-title">Контактное лицо №{{i + 1}}<span class="btn v del" (click)="removeContact(i)">Удалить</span></div>
-    <app-contact-editor [homeCountryId]="contractorForm.controls['country_id'].value" [countries]="countries" [formControlName]="i"></app-contact-editor>
+    <app-contact-editor [homeCountryId]="contractorForm.controls['country_id'].value" [countries]="countries" [formControlName]="i" [requiredFields]="requiredContactFields" [requiredDirection]="requiredDirection"></app-contact-editor>
   </div>
 
   <div class="user-item">
@@ -454,7 +463,7 @@
     <div class="title">
     </div>
     <div class="fn">
-      <button class="btn v save" (click)="save()"><span>сохранить</span></button>
+      <button class="btn v save" type="submit" ><span>сохранить</span></button>
       <button class="btn v del" *ngIf="isEditMode" (click)="remove()"><span>Удалить</span></button>
       <button class="btn v cancel" (click)="goBack()"><span>отмена</span></button>
     </div>

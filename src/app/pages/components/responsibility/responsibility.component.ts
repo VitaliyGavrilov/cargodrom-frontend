@@ -26,6 +26,7 @@ export class ResponsibilityComponent implements ControlValueAccessor, OnInit {
   @Input() countries: Country[] = [];
   @Input() homeCountry: Country = unknownCountry;
   @Input() type: 'import' | 'export' = 'export';
+  @Input() requiredDirection: boolean=false;
   onChange = (value: any) => { };
   onTouched = () => { };
   private _destroy$ = new Subject();
@@ -51,6 +52,8 @@ export class ResponsibilityComponent implements ControlValueAccessor, OnInit {
   }
 
   ngOnChanges(changes: SimpleChanges): void {
+
+
   }
 
   ngOnDestroy(): void {
@@ -197,6 +200,8 @@ export class ResponsibilityComponent implements ControlValueAccessor, OnInit {
     const value = [ ...this.directions ];
     this.onChange(value);
     this.onTouched();
+    console.log(123123123);
+
   }
 
   // Приватные методы

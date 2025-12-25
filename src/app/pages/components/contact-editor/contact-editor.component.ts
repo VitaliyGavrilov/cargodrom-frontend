@@ -5,6 +5,7 @@ import { Component, Input, OnChanges, OnDestroy, OnInit, SimpleChanges } from '@
 import { Subject } from 'rxjs';
 import { takeUntil } from 'rxjs/operators';
 import { unknownCountry } from 'src/app/shared/constants';
+import { responsibilityValidator } from './responsibility.validator';
 
 @Component({
   selector: 'app-contact-editor',
@@ -27,6 +28,8 @@ export class ContactEditorComponent implements OnInit, OnDestroy, OnChanges, Con
 
   @Input() countries: Country[] = [];
   @Input() homeCountryId?: number;
+  @Input() requiredFields: string[]=[];
+  @Input() requiredDirection: boolean=false;
   readonly unknownCountry = unknownCountry;
   homeCountry: Country = unknownCountry;
   contactForm: FormGroup;
@@ -44,14 +47,14 @@ export class ContactEditorComponent implements OnInit, OnDestroy, OnChanges, Con
     this.contactForm = this.fb.group({
       id: [],
       contractor_id: [],
-      name: ['', [Validators.required]],
+      name: [''],
       // name_f: ['', [Validators.required]],
       // name_i: ['', [Validators.required]],
       // name_o: ['', [Validators.required]],
-      position: ['', [Validators.required]],
-      phone: ['', [Validators.required]],
+      position: [''],
+      phone: [''],
       mobile_phone: ['', []],
-      email: ['', [Validators.required]],
+      email: [''],
       skype: ['', []],
       whatsapp: ['', []],
       telegram: ['', []],
@@ -66,7 +69,7 @@ export class ContactEditorComponent implements OnInit, OnDestroy, OnChanges, Con
 
       // }),
 
-      direction:[[],[]]
+      direction:[[]]
 
     });
   }
@@ -96,6 +99,7 @@ export class ContactEditorComponent implements OnInit, OnDestroy, OnChanges, Con
           this.touched = true;
         }
       });
+    this.applyRequiredValidators();
   }
 
   ngOnDestroy(): void {
@@ -109,11 +113,52 @@ export class ContactEditorComponent implements OnInit, OnDestroy, OnChanges, Con
         this.homeCountry = this.countries.find(country => country.id === this.homeCountryId) || unknownCountry;
       }
     }
+    // Следим за изменениями requiredFields
+    if (changes['requiredFields'] && !changes['requiredFields'].firstChange) {
+      this.clearAllRequiredValidators();
+      this.applyRequiredValidators();
+    }
   }
 
   validate(control: AbstractControl): ValidationErrors | null {
     return control.value && this.contactForm.valid ? null : { contact: true };
   }
 
+  private clearAllRequiredValidators() {
+    // Убираем валидатор required со всех полей
+    Object.keys(this.contactForm.controls).forEach(key => {
+      const control = this.contactForm.get(key);
+      if (control?.hasValidator(Validators.required)) {
+        control.clearValidators();
+        control.updateValueAndValidity();
+      }
+    });
+  }
 
+  private applyRequiredValidators() {
+    // Применяем required только к указанным полям
+    console.log('this.requiredFields',this.requiredFields);
+
+    this.requiredFields?.forEach(fieldName => {
+      const control = this.contactForm.get(fieldName);
+      if (control) {
+        control.setValidators(Validators.required);
+        control.updateValueAndValidity();
+      } else {
+        console.warn(`Поле ${fieldName} не найдено в форме`);
+      }
+    });
+    const directionControl = this.contactForm.get('direction');
+    if(directionControl && this.requiredDirection){
+      directionControl.setValidators([responsibilityValidator()]);
+      directionControl.updateValueAndValidity();
+      console.log(this.contactForm.get('direction'));
+
+    }
+  }
+
+  isRequiredField(field: string): boolean {
+    const control = this.contactForm.get(field);
+    return control?.hasValidator(Validators.required) ?? false;
+  }
 }
