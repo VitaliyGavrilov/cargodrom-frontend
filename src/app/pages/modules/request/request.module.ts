@@ -28,18 +28,37 @@ const routes: Routes = [
   {
     path: 'add',
     component: RequestEditorComponent,
-    title: 'Добавление запроса'
+    title: 'Добавление запроса',
+    data: { isEditMode: false, }//TODO: для любых форм создания и редактирования можно попробовать передовать данные через data
   },
   {
     path: 'edit/:id',
     component: RequestEditorComponent,
-    title: 'Редактирование запроса'
+    title: 'Редактирование запроса',
+    data: { isEditMode: true, }
   },
+  //TODO: перевод теперь только у катомс и транспортер рейтов и если они в другую страну, у разных рейтов свой перевод
   {
     path: 'edit/translate/:id',
     component: RequestEditorTranslateComponent,
     title: 'Проверка перевода запроса',
   },
+  // {
+  //   path: 'translate',
+  //   children:[
+  //     {
+  //       path: 'custom-rate/:id',
+  //       component: RequestEditorTranslateComponent,
+  //       title: 'Проверка перевода запроса',
+  //     },
+  //     {
+  //       path: 'transporter-rate/:id',
+  //       component: RequestEditorTranslateComponent,
+  //       title: 'Проверка перевода ставки',
+  //     }
+  //   ]
+  // },
+  //TODO: переделать детализацию, сделать таблицы через <router-outlet></router-outlet> что бы таблица кп не обновлялась
   {
     path: 'details/final/:id',
     component: RequestDetails,

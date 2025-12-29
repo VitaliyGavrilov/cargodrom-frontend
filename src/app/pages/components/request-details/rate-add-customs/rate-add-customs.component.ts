@@ -157,7 +157,9 @@ export class RateAddCustoms implements OnInit, OnDestroy {
     //   console.log('this edit mode', this.rate);
     //   this.rateForm.patchValue(this.rate);
     // }
-    this.rateForm.patchValue({request_id: this.requestId});
+    this.rateForm.patchValue({
+      request_id: this.requestId,
+    });
 
     // this.rateForm.controls['route_name'].valueChanges
     //   .pipe(
@@ -375,7 +377,7 @@ export class RateAddCustoms implements OnInit, OnDestroy {
           this.snackBar.open(!this.rate?'Ставка успешно создана':'Ставка успешно изменена', undefined, this.snackBarWithShortDuration);
         },
         error: (err) => {
-          this.snackBar.open(!this.rate?'Ошибка создания ставки:':'Ошибка изменения ставки:' + err.error.error_message, undefined, this.snackBarWithShortDuration);
+          this.snackBar.open( err.error.error_message + ': ' + err.error.error_message_description, undefined, this.snackBarWithLongDuration);
         }
       });
   }
@@ -409,6 +411,10 @@ export class RateAddCustoms implements OnInit, OnDestroy {
           if(this.rate){
             console.log('this edit mode', this.rate);
             this.rateForm.patchValue(this.rate);
+            this.rateForm.patchValue({
+              carrier_name: this.rate.carrier.iata,
+              carrier_desc: this.rate.carrier.name,
+            });
 
           }
         },

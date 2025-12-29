@@ -7,6 +7,12 @@
 }
 
 .expanded-request-info {
+  position: sticky;
+    top: 141.5px;
+    left: 0;
+    right: 0;
+    z-index: 1000;
+
   width: 100%;
   box-sizing: border-box;
   opacity: 0;
@@ -507,3 +513,4 @@ tr.example-detail-row {
 mat-checkbox{
   margin: 0 auto;
 }
+

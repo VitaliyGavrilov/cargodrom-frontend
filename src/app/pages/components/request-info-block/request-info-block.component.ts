@@ -8,6 +8,7 @@ import { Component, EventEmitter, Input, OnInit, Output, ViewEncapsulation } fro
 })
 export class RequestInfoBlock {
   @Input() request?: any;
+  @Input() isExpandedRequestInfo: boolean=false;
   constructor(
   ) { }
 }

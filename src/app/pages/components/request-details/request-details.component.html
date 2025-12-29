@@ -2,10 +2,10 @@
 <div class="subheader component" >
   <div class="main_page_info">
     <div class="back" (click)="goBack()"></div>
-    <app-request-info-block  [request]="currentRequest"></app-request-info-block>
+    <app-request-info-block  [request]="currentRequest" [isExpandedRequestInfo]="isExpandedRequestInfo"></app-request-info-block>
   </div>
   <div class="request-actions">
-    <button class="tor" (click)="navToBidTable()">Торги</button>
+    <!-- <button class="tor" (click)="navToBidTable()">Торги</button> -->
     <button class="det" (click)="onDetailsRequestBtnClick()" [style.border]="isExpandedRequestInfo?'1px solid #DB563B':'1px solid white'">Детали</button>
     <button class="edi" (click)="onEditRequestBtnClick()">Правка</button>
     <button class="dub" (click)="onDubRequestBtnClick()">Дубль</button>
@@ -260,12 +260,13 @@
         <span style="text-wrap: nowrap" >+ СТАВКА</span>
       </button>
 
-      <button *ngIf="(detailsMethod=='customs' || detailsMethod=='transporter') && currentRequest.tabs?.length==1 "
+      <button *ngIf="(detailsMethod=='customs' || detailsMethod=='transporter')"
         class="bid"
         (click)="onBidSelectRateBtnClick()"
       >
         ТОРГИ
-      </button>
+      </button><!-- TODO: у деливили и кастом буду разные переводы и разные торги (нужна новая форма перевода для деливери и при получении списка контравгентов для торгов есть поле tab равное custom или delivery) -->
+
       <button *ngIf="arrDetailsCheckedCheck.length!==0 && ((detailsMethod!=='final' && currentRequest.tabs?.length==1) || (currentRequest.tabs?.length>1 && (detailsMethod=='customs'||detailsMethod=='final' ) ) )" class="add kp" (click)="onAddKpBtnClick()">
         <span style="text-wrap: nowrap" >+ КП</span>
       </button>
@@ -604,8 +605,8 @@
 
 <ng-template #rateActions let-mode="mode" let-data="data">
   <div class="action-bar" >
-    <button class="edit" (click)="onEditRateBtnClick(mode,data)"></button>
-    <button class="dub" (click)="onDubSingleRateBtnClick(data)"></button>
-    <button class="del" (click)="onDelSingleRateBtnClick()"></button>
+    <button class="edit" title="Редактирование ставки" (click)="onEditRateBtnClick(mode,data)"></button>
+    <button class="dub"  title="Дублирование ставки"   (click)="onDubSingleRateBtnClick(data)"></button>
+    <button class="del"  title="Удаление ставки"       (click)="onDelSingleRateBtnClick()"></button>
   </div>
 </ng-template>
