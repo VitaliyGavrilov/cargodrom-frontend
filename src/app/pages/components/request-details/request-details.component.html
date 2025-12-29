@@ -28,7 +28,7 @@
 <div class="expanded-request-info" [ngClass]="isExpandedRequestInfo?'visible':''">
   <div class="columns">
     <div class="col" style="width: 50%;">
-      <div class="title">Направления</div>
+      <div class="title">Направление</div>
       <div class="item w1">
         <div class="field">Отправление</div>
         <div class="info">{{currentRequest?.departure_text}}</div>
@@ -87,12 +87,16 @@
       </div>
     </div>
     <div class="col">
-      <div class="w1 title">Размеры</div>
-      <textarea
+      <div class="w1 title">Габариты грузовых мест</div>
+      <textarea class="info"
+        matInput
+        cdkTextareaAutosize
+        #autosize="cdkTextareaAutosize"
+        >{{currentRequest?.translate?.ru?.cargo_dimensions}}</textarea>
+      <!-- <textarea
         class="info"
-        style="resize: none; border: none;font-weight: bold; color: #2C3640; font-size: 16px; width: 100%; min-height: 100px; text-indent: 0px;"
         readonly
-      >{{currentRequest?.translate?.ru?.cargo_dimensions}}</textarea>
+      >{{currentRequest?.translate?.ru?.cargo_dimensions}}</textarea> -->
     </div>
   </div>
   <div class="row" *ngIf="currentRequest.comment">
