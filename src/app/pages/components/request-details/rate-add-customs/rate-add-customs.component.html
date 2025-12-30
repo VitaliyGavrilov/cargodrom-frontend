@@ -35,9 +35,9 @@
       <div class="form-item">
         <div class="form-label">Airline:</div>
         <div class="form-data">
-          <input type="text" 
-            formControlName="carrier_desc" 
-            [readonly]="returnAirlineName(rateForm.value.carrier_name)!=''" 
+          <input type="text"
+            formControlName="carrier_desc"
+            [readonly]="returnAirlineName(rateForm.value.carrier_name)!=''"
             [value]="returnAirlineName(rateForm.value.carrier_name)"
           >
         </div>
@@ -182,7 +182,7 @@
               >
                 <ng-container *ngIf="rateForm.value.rate_type==='detail'">
                   <label >
-                    <input class="testclass"  *ngIf="chargeModel.checked"  type="checkbox" [checked]="true" disabled >
+                    <input class="testclass" *ngIf="chargeModel.checked"  type="checkbox" [checked]="true" disabled >
                     <input class="testclass" *ngIf="!chargeModel.checked" type="checkbox" formControlName="select" (change)="calckRateCost()">
                     <i [ngStyle]="chargeModel.checked ? {'z-index':'-1'}:{}"></i>
                     {{chargeModel.title}}
@@ -213,8 +213,11 @@
 
                 <ng-container *ngIf="rateForm.value.rate_type==='nodetail'">
                   <label style="height: 37px; align-content: center;">
-                    <input  type="checkbox" formControlName="select" (change)="calckRateCost()">
-                    <i></i>
+                    <!-- <input  type="checkbox" formControlName="select" [disabled]="chargeModel.checked"> -->
+                    <input class="testclass" *ngIf="chargeModel.checked"  type="checkbox" [checked]="true" disabled >
+                    <input class="testclass" *ngIf="!chargeModel.checked" type="checkbox" formControlName="select" (change)="calckRateCost()">
+                    <!-- <i></i> -->
+                     <i [ngStyle]="chargeModel.checked ? {'z-index':'-1'}:{}"></i>
                     {{chargeModel.title}}
                   </label>
                 </ng-container>

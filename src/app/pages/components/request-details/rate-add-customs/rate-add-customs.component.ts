@@ -215,11 +215,14 @@ export class RateAddCustoms implements OnInit, OnDestroy {
     this.calckRateCost();
   }
   calckRateCost(){
-    let cost:number=0;
-    this.rateForm.value.values.forEach((v:any)=>{
-      if(v.select)cost=cost + v.cost
-    });
-    this.rateForm.patchValue({ total_cost:cost });
+    if(this.rateForm.value.rate_type=='detail'){
+      let cost:number=0;
+      this.rateForm.value.values.forEach((v:any)=>{
+        if(v.select)cost=cost + v.cost
+      });
+      this.rateForm.patchValue({ total_cost:cost });
+    }
+
   }
   calckCommentChargePrice(control:any){
     control.patchValue({price: control.value.cost/1});

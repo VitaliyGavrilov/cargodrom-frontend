@@ -69,7 +69,7 @@ const routes: Routes = [
   },
   // { path: '', redirectTo: 'dashboard', pathMatch: 'full', },
   { path: 'rate', redirectTo: 'request-rates/5191ebbc0ba015a608f285b78b524449' },
-  { path: 'rate_request:uid', redirectTo: 'request-rates/:uid' },
+  { path: 'rate_request/:uid', redirectTo: 'request-rates/:uid' },
   { path: '**', redirectTo: 'dashboard' },
 ];
 

@@ -560,6 +560,8 @@
 <ng-template #ratePointDialogRef let-data>
   <app-rate-add-point
     [rate]="data"
+    [request]="currentRequest"
+
     [weight]="currentRequest.cargo_places_paid_weight"
     [requestId]="currentRequest.id"
     [transportKindId]="currentRequest.transport_kind_id"

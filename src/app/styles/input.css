@@ -1,4 +1,4 @@
-.form-block input[type="text"]:not(.ng-value-container input), input[type="number"],.form-block select, .filter .main input[type="text"] , input.data-piker{
+.form-block input[type="text"]:not(.ng-value-container input), input[type="number"],.form-block select, .filter .main input[type="text"] ,.form-block textarea, input.data-piker{
   font-family: 'regular', 'arial', 'sans-serif';
   background: var(--background, #F7F9FC);
   border: 1px solid var(--line, #E0E5EB );

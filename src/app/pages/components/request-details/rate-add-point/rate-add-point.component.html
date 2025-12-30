@@ -1,64 +1,70 @@
 <form class="edit-form" [formGroup]="rateForm">
   <div class="form-block">
     <div class="form-row">
-      <div class="form-item-layout">
 
+      <div class="form-item-layout">
         <div class="form-item">
+          <div class="form-label">Аэропорт прибытия:</div>
+          <div class="form-data">
+            <ng-select formControlName="point_id" class="custom" bindLabel="name" bindValue="id" [items]="pointList"></ng-select>
+          </div>
+        </div>
+        <div class="form-item">
+          <div class="form-label">Подрядчик:</div>
+          <div class="form-data">
+            <ng-select formControlName="contractor_id" class="custom" bindLabel="name" bindValue="id" [items]="contractorList"></ng-select>
+          </div>
+        </div>
+        <div class="form-item">
+          <div class="form-label">Вид прайса:</div>
+          <div class="form-data">
+            <ng-select formControlName="point_action_id" class="custom" bindLabel="name" bindValue="id" [items]="pointActionList"></ng-select>
+          </div>
+        </div>
+        <div class="form-item">
+          <div class="form-label">Валюта ставки:</div>
+          <div class="form-data">
+            <ng-select formControlName="currency" class="custom" bindLabel="code" bindValue="id" [items]="currencyList"></ng-select>
+          </div>
+        </div>
+      </div>
+
+      <div class="form-item-layout">
+        <div class="form-item">
+          <div class="form-label">Тип груза:</div>
+          <div class="form-data">
+            <!-- TODO: надо брать из запроса а не из рейта  -->
+            <input type="text" [value]="request?.cargo_type_text" readonly>
+          </div>
+        </div>
+        <div class="form-item">
+          <div class="form-label">Вес, кг:</div>
+          <div class="form-data">
+            <input type="text" [value]="request?.cargo_places_weight"  readonly>
+          </div>
+        </div>
+        <div class="form-item">
+          <div class="form-label">Оплачиваемый вес, кг:</div>
+          <div class="form-data">
+            <input type="text" [value]="request?.cargo_places_paid_weight" readonly>
+          </div>
+        </div>
+        <div class="form-item">
+          <div class="form-label">Кол-во мест:</div>
+          <div class="form-data">
+            <input type="text" [value]="request?.cargo_places_count"  readonly>
+          </div>
+        </div>
+      </div>
+    </div>
+
+
+        <!-- <div class="form-item">
           <div class="form-label">Оплачиваемый вес:</div>
           <div class="form-data">
             <input type="text" [value]="weight" readonly>
           </div>
         </div>
-
-        <!-- <div class="form-item">
-          <div class="form-label">Подрядчик:</div>
-          <div class="form-data">
-            <mat-form-field appearance="outline" class="ui-select">
-              <mat-select formControlName="contractor_id">
-               <mat-option
-                 *ngFor="let transportRoute of contractorList;"
-                 [value]="transportRoute.id"
-                 >
-                 {{ transportRoute.name }}
-               </mat-option>
-              </mat-select>
-            </mat-form-field>
-          </div>
-        </div> -->
-
-        <!-- <div class="form-item">
-          <div class="form-label">Наименнование Аэропорта:</div>
-          <div class="form-data">
-            <mat-form-field appearance="outline" class="ui-select">
-              <mat-select formControlName="point_id">
-               <mat-option
-                 *ngFor="let poinst of pointList;"
-                 [value]="poinst.id"
-                 >
-                 {{ poinst.name }}
-               </mat-option>
-              </mat-select>
-            </mat-form-field>
-          </div>
-        </div> -->
-
-        <!-- <div class="form-item">
-          <div class="form-label">Вид прайса:</div>
-          <div class="form-data">
-            <mat-form-field appearance="outline" class="ui-select">
-              <mat-select formControlName="point_action_id">
-               <mat-option
-                 *ngFor="let poinst of pointActionList;"
-                 [value]="poinst.id"
-                 >
-                 {{ poinst.name }}
-               </mat-option>
-              </mat-select>
-            </mat-form-field>
-          </div>
-        </div> -->
-
-        <!-- <ng-container *ngTemplateOutlet="formItemSelector; context: { label: 'Подрядчик:', control: 'contractor_id', data: contractorList }"></ng-container> -->
 
         <div class="form-item">
           <div class="form-label">Подрядчик:</div>
@@ -69,16 +75,16 @@
               [matAutocomplete]="contractor"
             >
             <mat-autocomplete autoActiveFirstOption #contractor="matAutocomplete" >
-              <!-- <mat-option *ngIf="filterRote().length==0" style="text-transform: uppercase" [value]="rateForm.value.route_id">{{rateForm.value?.route_id}}</mat-option> -->
+
               <mat-option (onSelectionChange)="onContratorChange(contractor)" *ngFor="let contractor of filterContractor()" [value]="contractor.name">{{contractor.name}}</mat-option>
             </mat-autocomplete>
           </div>
-        </div>
-        
+        </div> -->
+<!--
         <ng-container *ngTemplateOutlet="formItemSelector; context: { label: 'Наименнование Аэропорта:', control: 'point_id', data: pointList }"></ng-container>
-        <ng-container *ngTemplateOutlet="formItemSelector; context: { label: 'Вид прайса:', control: 'point_action_id', data: pointActionList }"></ng-container>
+        <ng-container *ngTemplateOutlet="formItemSelector; context: { label: 'Вид прайса:', control: 'point_action_id', data: pointActionList }"></ng-container> -->
 
-        <div class="form-item" style="width: 100px;">
+        <!-- <div class="form-item" style="width: 100px;">
           <div class="form-label">Currecy:</div>
           <div class="form-data">
             <mat-form-field appearance="outline" class="ui-select">
@@ -87,11 +93,11 @@
               </mat-select>
             </mat-form-field>
           </div>
-        </div>
+        </div> -->
 
-      </div>
+      <!-- </div> -->
 
-    </div>
+
 
     <div class="charges-block" style="display: flex;">
 

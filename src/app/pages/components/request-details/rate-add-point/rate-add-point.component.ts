@@ -13,12 +13,15 @@ import { ContractorService, DirectionService, RequestService, SystemService, Tra
   // encapsulation: ViewEncapsulation.None,
 })
 export class RateAddPoint implements OnInit, OnDestroy {
-
+  //TODO: заменить 4 инпута на один
   @Input() weight?:number;
   @Input() requestId!:number;
   @Input() transportKindId?:number;
   @Input() cityId?:number;
+
   @Input() rate?:any;
+  @Input() request:any;
+
   @Output() closeDialog = new EventEmitter<void>();
 
   currencyList:any=[];
@@ -50,7 +53,7 @@ export class RateAddPoint implements OnInit, OnDestroy {
       cost:[,[]],
       request_id: [,[]],
       contractor_id: [,[]],
-      contractor_name:['',[]],
+      // contractor_name:['',[]],
       point_id: [,[]],
       point_action_id: [,[]],
       comment: [,[]],
@@ -163,7 +166,7 @@ export class RateAddPoint implements OnInit, OnDestroy {
   }
 
   private getArrivalPoinst():void{
-    this.directionService.directionPoint({ city_id:this.cityId, transport_kind_id:this.transportKindId! })
+    this.directionService.directionPoint({ transport_kind_id:this.transportKindId! })
       .pipe(
         tap(contractor => {
           console.log('getArrivalPoinst',contractor);
@@ -189,7 +192,7 @@ export class RateAddPoint implements OnInit, OnDestroy {
     this.transportService.transportPointAction({direction:'arrival'})
       .pipe(
         tap(contractor => {
-          console.log('getArrivalPoinst',contractor);
+          console.log('getPointAction',contractor);
 
           if (!contractor) {
             throw ({ error: { error_message: `Маршрутов не существует`} });
@@ -275,7 +278,7 @@ export class RateAddPoint implements OnInit, OnDestroy {
       next: (currencyList) => {
         this.currencyList=currencyList.current;
         console.log(currencyList);
-        
+
       },
       error: (err) => {
         this.snackBar.open(`Ошибка получения валют: ` + err.error.error_message, undefined, this.snackBarWithShortDuration);

@@ -368,7 +368,7 @@ export class RequestDetails extends Table<any, 'trade_rating', ContractorFilter>
   }
   navToBidTable(){
     // this.router.navigate(['pages/request/bidding', this.requestId])
-    this.router.navigate(['/request/edit/translate', this.requestId]);
+    this.router.navigate(['/request/edit/translate', this.requestId]); //TODO: две разные ссылки на разные формы для кастом и деливери
   }
   // OPEN EDITOR popap
   openRateEditor(mode:string, data?: any) {
