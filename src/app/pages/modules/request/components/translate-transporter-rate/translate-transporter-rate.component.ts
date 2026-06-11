@@ -174,7 +174,7 @@ export class TranslateTransporterRateComponent extends BaseComponent implements 
   }
   remove():void {
     // window.location.reload();
-    this.navigationHistoryService.back(`/request/details/final/${this.requestId}`)
+    this.navigationHistoryService.back(`/request/details/final/${this.requestId}`);
   }
 }
 //форма запроса ставки

@@ -136,4 +136,5 @@ export class NavigationHistoryService {
   getHistoryLength(): number {
     return this.history.length;
   }
+  //TODO: обьединить сервис истории навигации с сервисом навигации или настроить их взаимодействие 
 }
